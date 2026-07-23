@@ -40,6 +40,20 @@ disciplines, and zones. No optimization yet — just make the current system leg
   the *invisible* capacity leaks (drive time, doc burden, rework, orientation drag).
 - Identify the top 3 capacity leak points per branch and the likely **binding discipline**.
 
+**Discovery targets carried over from Compassus's July-2026 discovery** (see [`knowledge/`](./knowledge/)).
+These are already-known unknowns — resolve them in Phase A rather than rediscovering them:
+
+- **Define the point system first** (open question #1) — value by visit type & discipline, daily/weekly
+  targets, how travel is treated. It is the shared currency of capacity *and* scheduling; almost nothing
+  downstream can be specified until it's pinned.
+- **Reconstruct the scheduling grid field-by-field** — it becomes the initial data model — and **define an
+  "open slot"** (visit? time block? point allocation? admission?; discipline-/territory-specific?).
+- **Instrument the upstream chain, not just the schedule:** DCS 4-task workflow, auth-hold latency, the
+  50–60/day auth-notification noise, and the intake→scheduling handoff (CP-8).
+- **Separate SOC capacity from routine capacity** (CP-3) and find the branch's binding SOC constraint.
+- **Map the system landscape's real-time gaps:** HCHB manual sync, Commure rollout state, Workday↔HCHB PTO
+  integration (currently OFF), NestMed/Pulse/Circadia status per branch.
+
 **Exit criteria (Gate A→B)**
 - Signed baseline pack with documented data provenance and agreed metric definitions.
 - A shortlist of 2–3 lighthouse-branch candidates, ranked by opportunity size × readiness.
@@ -102,8 +116,15 @@ clinicians**. This is a reversible experiment, not a launch.
 - Clinician-experience signal neutral-to-positive.
 - A documented, **repeatable** playbook — the mechanism, not a heroic manager.
 
+**Pilot-site selection (from Compassus discovery):** favor a **new-integration or brand-new branch
+go-live**, ideally a **pay-per-visit office** (Providence, Ohio Health, BSMH were named) where existing
+habits won't fight the tool and an earnings story lands. Avoid leading with tenured-clinician offices.
+Frame the tool to clinicians as a **personal assistant, not a control mechanism** — the Alabama Smart
+Scheduling pilot failed because leadership let clinicians reject optimization, so it was never truly piloted.
+
 **Watch for:** the pilot that succeeds because of one exceptional person; local metric wins
-masking a system metric loss; scheduler burnout hiding under a green scorecard.
+masking a system metric loss; scheduler burnout hiding under a green scorecard; **"pulling the smart logic
+out"** by constraining the tool to mirror the manual process (the Alabama failure mode).
 
 ---
 

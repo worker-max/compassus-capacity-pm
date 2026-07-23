@@ -18,6 +18,7 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
 |---|---|
 | [`agents/compassus-capacity-pm/AGENT.md`](./agents/compassus-capacity-pm/AGENT.md) | The full agent definition — **Qualities & Identity**, **Functionality**, and **Perspective**. |
 | [`agents/compassus-capacity-pm/initiative-playbook.md`](./agents/compassus-capacity-pm/initiative-playbook.md) | The phase-by-phase program the agent runs: Discover → Design → Pilot → Scale → Sustain. |
+| [`agents/compassus-capacity-pm/knowledge/`](./agents/compassus-capacity-pm/knowledge/) | **The empirical ground truth** — Compassus's own July-2026 discovery work (discovery session + capacity/scheduling analysis). The agent reasons from this first. |
 | [`.claude/agents/compassus-capacity-pm.md`](./.claude/agents/compassus-capacity-pm.md) | A runnable Claude Code subagent — a tight standing prompt you can invoke directly for PM guidance. |
 
 ### How to use it
