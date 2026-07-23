@@ -1,0 +1,48 @@
+Ref,Section,Data Element,What It Is / Grain,Candidate Source (hypothesis — confirm/replace),Confirmed Source System,Report / Table / Screen,Owner (who pulls it),Refresh Cadence,Exists Today? (Y/N/Partial),Priority,Notes
+W1,Worker record (raw),Worker last name,Per clinician,HCHB / Workday,,,,,,P1,"Join key; grid shows ""Last, First"""
+W2,Worker record (raw),Worker first name,Per clinician,HCHB / Workday,,,,,,P1,
+W3,Worker record (raw),Discipline,Per clinician (LPN/PTA/PT/RN/OT/COTA),HCHB / Workday,,,,,,P1,Align enum to HCHB values
+W4,Worker record (raw),FTE status,Per clinician (FT/PT/Contractor),Workday,,,,,,P1,Drives expected-points logic
+W5,Worker record (raw),Payment method,Per clinician (PPV/Fee Based/Contract/Salary/Salary Plus),Workday,,,,,,P1,Contract => no target
+W6,Worker record (raw),Weekly expected points (target),Per clinician per week,Policy/config (see G5),,,,,,P0,Where does 30 / 24 / 0 come from?
+W7,Worker record (raw),Points earned by day (Sun–Sat),Per clinician per day,HCHB payroll/productivity report (see G1),,,,,,P1,THE richest feed; earning rules in G1
+W8,Worker record (raw),Comments,Per clinician per week,HCHB scheduler notes / manual,,,,,,P2,Explains variance (PTO / PRN / baylor / part b)
+W9,Worker record (raw),"""Week Of"" period",Snapshot boundary,Pay-period calendar (see G7),,,,,,P1,
+R1,Reference / config,Disciplines list,Controlled list,Config (align to HCHB),,,,,,P2,
+R2,Reference / config,Pay methods list,Controlled list,Config (align to Workday/comp),,,,,,P2,
+R3,Reference / config,FTE statuses list,Controlled list,Config,,,,,,P3,
+R4,Reference / config,Productivity status thresholds,25% / 90% / 110% breakpoints,Policy — ratify (handoff §3.3),,,,,,P0,Ratify with ops leadership
+R5,Reference / config,Week / pay-period list,Available snapshot periods,Payroll calendar,,,,,,P2,
+R6,Reference / config,Region -> Area hierarchy,Org geography,Org hierarchy HCHB/Workday (see G2),,,,,,P2,Trends tab filters on this
+R7,Reference / config,Trend pay periods,Feb–Aug rolling,Payroll calendar,,,,,,P3,
+R8,Reference / config,Top 10 branches cohort,Benchmark set,Branch ranking — derived + policy (see G3),,,,,,P2,
+V1,VCP comp reference,NVA code table,5001 / 5003 Visit Capacity Adjustment,HCHB payroll + comp policy,,,,,,P3,Reference/config today
+V2,VCP comp reference,Tier threshold table,Tiers 1 / 2 / 3-SOC + additional comp,Comp policy,,,,,,P3,
+V3,VCP comp reference,Business rules,5 rules (who enters / approves NVA),Comp + ops policy,,,,,,P3,
+G1,Gap (must source),Point-earning rules,Visit type × discipline × weight -> daily points,HCHB visit records + points/weight config,,,,,,P0,The undefined ""point system""; define FIRST
+G2,Gap (must source),Worker -> Branch -> Area -> Region mapping,Per-clinician org placement,HCHB / Workday org hierarchy,,,,,,P2,Worker record has no region field today
+G3,Gap (must source),Top 10 branch designation,Branch flag / ranking,Derived from productivity + policy,,,,,,P2,
+G4,Gap (must source),Weekly history (>= 13 weeks),Per-clinician weekly snapshots,Warehoused HCHB extracts,,,,,,P1,Drawer trend + Tab 2 are faked today
+G5,Gap (must source),Weekly expected-points derivation,Target rule by FTE × discipline,Productivity-target policy,,,,,,P0,Policy before feed
+G6,Gap (must source),NVA / tier actuals,Per clinician per pay period,HCHB payroll reports,,,,,,P3,Tab 3 is reference-only now
+G7,Gap (must source),Pay-period / Week-Of calendar,Snapshot + Monday-close boundaries,Payroll calendar,,,,,,P1,
+G8,Gap (must source),Handoff spec (§3.3 / §8.1),Authoritative schema + thresholds,External doc — obtain,,,,,,P1,Not in any repo; get a copy for knowledge/
+D1,Derived (computed — no source),Daily average expected,expected / 5,DERIVED,,,,,N/A,—,Ratify the 5-day basis
+D2,Derived (computed — no source),Total points earned,sum(days),DERIVED,,,,,N/A,—,
+D3,Derived (computed — no source),Variance,earned − expected,DERIVED,,,,,N/A,—,null if contract
+D4,Derived (computed — no source),Productivity %,earned / expected × 100,DERIVED,,,,,N/A,—,
+D5,Derived (computed — no source),Contract flag,payMethod=Contract or expected=0,DERIVED,,,,,N/A,—,
+D6,Derived (computed — no source),Status tier,thresholds (uses R4),DERIVED,,,,,N/A,—,Critical/In Progress/On Target/Exceeded/Not Set
+K1,Derived (computed — no source),KPI — Clinicians count,count,DERIVED,,,,,N/A,—,
+K2,Derived (computed — no source),KPI — Avg productivity,mean pct,DERIVED,,,,,N/A,—,
+K3,Derived (computed — no source),KPI — At/Above 90% count,count,DERIVED,,,,,N/A,—,
+K4,Derived (computed — no source),KPI — Critical <25% count,count,DERIVED,,,,,N/A,—,
+K5,Derived (computed — no source),KPI — Open Capacity,Σexpected − Σearned,DERIVED,,,,,N/A,—,Unearned points -> ~/6 visit headroom
+T1,Derived (computed — no source),Trend group % (Low/Med/High),aggregation over history,DERIVED,,,,,N/A,—,Needs G4 history
+T2,Derived (computed — no source),Trend Top 10 series,aggregation,DERIVED,,,,,N/A,—,Needs G3 cohort
+T3,Derived (computed — no source),Trend insights narrative,computed,DERIVED,,,,,N/A,—,
+S1,Derived (computed — no source),Scorecard — Clinician Experience,avg productivity; % above target,DERIVED,,,,,N/A,—,
+S2,Derived (computed — no source),Scorecard — Scheduler/Leader,data completeness %,DERIVED,,,,,N/A,—,
+S3,Derived (computed — no source),Scorecard — Sales & Referral,open capacity -> visit headroom,DERIVED,,,,,N/A,—,
+S4,Derived (computed — no source),Scorecard — Workforce Management,% on FBP / salary plans,DERIVED,,,,,N/A,—,
+S5,Derived (computed — no source),Scorecard — Culture Shift,week-over-week trend,DERIVED,,,,,N/A,—,
