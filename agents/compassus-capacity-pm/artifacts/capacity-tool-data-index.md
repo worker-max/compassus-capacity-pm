@@ -1,4 +1,4 @@
-# Capacity Tool — Data Inventory (Phase A)
+# Capacity Tool — Data Index (Phase A)
 
 > **Purpose.** Enumerate *every bit of data* a home health capacity tool would need to exist, so the team can
 > go find the content and war-list its source. This is the demand/supply data dictionary behind the
@@ -18,7 +18,7 @@
 The tool is fundamentally a **matching engine**: it holds **supply** (clinician capacity), **demand**
 (patients + referrals), the **currency** that both are denominated in (the point system), the **constraints**
 (geography, licensure, compliance, preferences), and the **derived outputs** (open slots, gaps, forecast).
-The inventory is organized along exactly those lines. Domains A–D are the master/dynamic feeds; E–H are the
+The data index is organized along exactly those lines. Domains A–D are the master/dynamic feeds; E–H are the
 constraint/reference layers; I is the net-new static data to be gathered; J is what the tool *computes* rather
 than ingests.
 
@@ -234,4 +234,4 @@ net-new — that's where the real work is.
 The mockup is narrower than this broad vision — a workforce-productivity measurement tool. The precise,
 source-read data model for what the mockup actually uses is in
 [`capacity-tool-mockup-data-spec.md`](./capacity-tool-mockup-data-spec.md); this document remains the
-full-capacity-vision inventory the tool can grow into.*
+full-capacity-vision data index the tool can grow into.*

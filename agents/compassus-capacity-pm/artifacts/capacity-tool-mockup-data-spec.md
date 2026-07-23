@@ -2,8 +2,8 @@
 
 > **What this is.** The exact data model of the operator's mockup, read directly from its source at
 > `worker-max/invisiblegears`, branch `capacity-tool`, file `public/capacity-tool/index.html` (a self-contained
-> HTML/JS artifact). This supersedes the inferred [`capacity-tool-data-inventory.md`](./capacity-tool-data-inventory.md)
-> for *this* tool: that inventory was the broad capacity-forecasting vision; **the mockup is a narrower, sharper
+> HTML/JS artifact). This supersedes the inferred [`capacity-tool-data-index.md`](./capacity-tool-data-index.md)
+> for *this* tool: that data index was the broad capacity-forecasting vision; **the mockup is a narrower, sharper
 > thing** — see the reconciliation at the end.
 >
 > **What the tool is.** A **Clinician Capacity Management Tool** the wrapper describes as a *"re-creation of
@@ -155,9 +155,9 @@ The mockup runs on sample data and seeded trends. To make it real, these must be
 | **G7** | **Pay-period / "Week Of" calendar** | Defines the snapshot boundaries and Monday payroll close | Payroll calendar (config) |
 | **G8** | **The handoff spec (§3.3, §8.1)** | The authoritative schema + threshold source the mockup cites | External doc — obtain and file in `knowledge/` |
 
-## Reconciliation vs. the broad data inventory
+## Reconciliation vs. the broad data index
 
-The earlier [`capacity-tool-data-inventory.md`](./capacity-tool-data-inventory.md) inventoried the *full
+The earlier [`capacity-tool-data-index.md`](./capacity-tool-data-index.md) indexed the *full
 capacity-forecasting/matching vision* (supply + demand + referrals + geography + auth + forecast). **The mockup
 is deliberately narrower — a workforce-productivity measurement tool.** Mapping:
 
