@@ -230,6 +230,8 @@ net-new — that's where the real work is.
 
 ---
 
-*Reconcile this inventory against the `invisiblegears.com/d/capacity-tool` mockup screen-by-screen once a
-screenshot is available: confirm every visible panel/metric maps to a row here, add anything missing, and mark
-any row the mockup does not actually use.*
+*Reconciled against the actual mockup source (read from `worker-max/invisiblegears`, branch `capacity-tool`).
+The mockup is narrower than this broad vision — a workforce-productivity measurement tool. The precise,
+source-read data model for what the mockup actually uses is in
+[`capacity-tool-mockup-data-spec.md`](./capacity-tool-mockup-data-spec.md); this document remains the
+full-capacity-vision inventory the tool can grow into.*
