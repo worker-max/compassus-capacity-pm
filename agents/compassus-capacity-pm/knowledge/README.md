@@ -9,6 +9,7 @@ The empirical ground truth for the Home Health Expert PM agent. Sourced from Com
 |---|---|
 | [`discovery-session.md`](./discovery-session.md) | The full-day cross-functional discovery session — what schedulers actually do, the end-to-end workflow chain, the tooling landscape, why Smart Scheduling failed, and the session's Next Steps. **The primary ground truth.** |
 | [`capacity-scheduling-summary.md`](./capacity-scheduling-summary.md) | The consolidated capacity-vs-scheduling analysis — the two-function framing, the 10 connection points (CP-1…CP-10), four stakeholder perspectives, the failure catalog, and the 9 open questions that gate requirements. |
+| [`vendor/hchb-smart-scheduling-product-overview.md`](./vendor/hchb-smart-scheduling-product-overview.md) | **Vendor reference** — faithful distillation of HCHB's *Smart Scheduling Product Overview & User Guide* (v8, 11/2024): the engine timing, cost/continuity/routing models, constraints, exclusions, Visit Dispatching, Shift Manager, and reports. This is *the same tool piloted (and mis-piloted) in Alabama.* Not Compassus discovery — it's the *what* the tool does. Assessed in [`../artifacts/hchb-smart-scheduling-feature-assessment.md`](../artifacts/hchb-smart-scheduling-feature-assessment.md). |
 
 ## Provenance
 
