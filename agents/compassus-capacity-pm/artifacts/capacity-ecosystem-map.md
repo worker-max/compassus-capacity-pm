@@ -7,7 +7,15 @@
 > ecosystem implied by the Compassus discovery ([`../knowledge/`](../knowledge/)). This lists only genuine
 > white space — things the current index does **not** contain — not a re-statement of what it already does well.
 
-## What the tool already covers (so we don't re-l-litigate it)
+> **Re-reviewed against the built-out tool** (`invisiblegears` `main` @ `6dba163`, 9 tabs + capacity cockpit).
+> The build now closes the demand-arrival + matching layer (referrals, discharges, proximity, per-diem
+> engagement, assessing→assistant offload, a 7-type directive engine). The structural gaps below still stand,
+> and 1A is now *more* pressing because the directive engine acts on referrals as if they're schedulable. One
+> new **correctness** finding: the matcher ranks/​favors per-diems by capacity + proximity but **does not enforce
+> their restrictions** ("No SOC", "No wound care", "No high-acuity"), so it can mis-route. Full read in the
+> [as-built review](./capacity-tool-mockup-data-spec.md#as-built-review-invisiblegears-main--6dba163-re-read-from-source).
+
+## What the tool already covers (so we don't re-litigate it)
 
 Supply (clinician capacity net of PTO / per-diem / max-daily-points), the **point system** (visit-weight table —
 the previously-open #1 gap, now closed), demand *arrivals* (referrals + pending discharges), geography &

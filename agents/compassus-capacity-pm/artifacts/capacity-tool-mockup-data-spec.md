@@ -1,5 +1,12 @@
 # Capacity Tool — Mockup Data Spec (read from source)
 
+> ### ⟳ As-built update (re-reviewed against `invisiblegears` `main` @ `6dba163`)
+> The tool has been built out well beyond the version first reviewed below. It is now **9 tabs** with a real
+> capacity-matching brain, and the **point system is resolved** (the visit-weight table). The authoritative
+> field-level model is now the operator's **`ClinicianCapacityTool_DataIndex.xlsx`**. The original 4-tab
+> description that follows is kept as history; **the current review is the "As-built review" section at the
+> bottom of this file.**
+
 > **What this is.** The exact data model of the operator's mockup, read directly from its source at
 > `worker-max/invisiblegears`, branch `capacity-tool`, file `public/capacity-tool/index.html` (a self-contained
 > HTML/JS artifact). This supersedes the inferred [`capacity-tool-data-index.md`](./capacity-tool-data-index.md)
@@ -181,3 +188,42 @@ Take Entities 1–6 and the Gaps and fill:
 Start with **G1 (point rules) and G5 (targets)** — nothing the tool shows is trustworthy until those are
 defined, and both are policy decisions before they are data feeds. Then **W7 pointsByDay → the actual HCHB
 report** the business rules already name ("HCHB payroll reports"), which is the single richest source.
+
+---
+
+# As-built review (`invisiblegears` `main` @ `6dba163`, re-read from source)
+
+The tool has grown from a 4-tab productivity tracker into a **capacity-guidance cockpit**. What's now built:
+
+## The nine tabs
+1. **Worker Productivity** — the roster grid (now with a segmented completed/in-progress/scheduled/missed bar and a per-day expected marker).
+2. **Roster** — editable clinician master: preferred days, territory zips (add/remove), PTO, restrictions — scheduler-maintained.
+3. **Per Diem** — the per-diem pool: available vs. scheduled visits, remaining capacity, and a **disengagement flag** (≥7 days since last confirmed visit).
+4. **Worker Trends** — per-clinician archetype cards: 13-wk spark, front-load score vs. the 42% gold standard, missed-visit %, risk tier, and a narrative assessment.
+5. **Productivity Trends** — division vs. Top-10 by region/area (as before).
+6. **Capacity Guidance — Live Cockpit** — the new brain (see below).
+7. **Capacity Map** — Charleston tri-county zip tiles colored by RN/PT remaining capacity; marks zips at capacity.
+8. **Visit Capacity Program** — the NVA/tier/comp reference (as before).
+9. **Implications** — the stakeholder scorecards.
+
+## The capacity brain (Tab 6 + `capacityDirectives()`)
+Real supply→demand matching on live-shaped data:
+- **Supply math:** `remainingByDay = maxDaily − assigned points` (FT 8 / PT 6 / PD 4), netted for PTO; `weekOpen` = sum of positive remainders Wed→Sat; assessing capacity computed per discipline.
+- **Demand:** `REFERRALS` (discipline, zip, SOC/Eval, assigned/unassigned) and `DISCHARGES` (discipline, zip, D/C date) — capacity *arriving* and *reopening*.
+- **Geography:** real zip lat/lon + **haversine**; `nearestScheduled` finds a clinician already working near a referral.
+- **Assessing→assistant offload:** RN→LPN, PT→PTA, OT→COTA — frees assessing capacity for SOCs.
+- **Seven directive types**, ranked: referral→best-fit clinician (capacity + proximity, per-diem favored); offload routine to assistant; discharge→backfill nearest referral; re-engage disengaging per-diem; reassign behind-pace backlog before it goes missed; extend a per-diem RN into a maxed SOC zip; park overflow with a front-loader who has headroom.
+
+This is the "AI optimization engine" track the discovery called for — a real prototype, not a chart.
+
+## Findings from reading the logic (what to fix as it goes real)
+
+1. **Restrictions are displayed but not enforced in matching.** Per-diem restrictions ("No SOC visits", "No wound care", "No high-acuity", "Recerts only", "Weekends only") are free-text labels. `capacityDirectives()` ranks per-diems by capacity + proximity and *favors* them (`dist − 3`) but never checks the restriction — so it can recommend an **SOC to "No SOC visits" Arjun Patel**, or wound care to "No wound care" Lily Nguyen. **The matcher needs to hard-filter on restrictions/competencies.** (Highest-priority correctness gap.)
+2. **Capacity = visit-point headroom only — travel and NVA aren't debited.** `remainingByDay` counts assigned visit points against a daily ceiling but never subtracts drive time, documentation, or admin. A clinician shown "+2.0 open" may be full once the day's route is counted. Miles exist per visit but don't reduce capacity. → "open capacity" runs optimistic.
+3. **Proximity is straight-line haversine, not drive-time.** The data index has `routeMiles` from routing; the matcher uses centroid haversine. Fine for a demo; rural loops (e.g., 29471 "rural loop") will mislead until drive-time replaces it.
+4. **SOC eligibility ≈ discipline.** `renderCapSoc` and the matcher treat any RN/PT as SOC-capable; a per-diem RN flagged "No SOC visits" still counts toward RN SOC coverage. SOC-eligibility should be its own flag (the discovery distinguishes it).
+5. **No readiness/auth gate before matching.** Referrals are binary `unassigned | assigned` — the matcher acts as if every referral is schedulable. In reality it may be stuck in DCS/auth/POC/F2F. This is ecosystem gap **1A**, and the directive engine makes it *more* important: it will confidently route a referral that can't actually start.
+6. **Everything is demo-seeded** (`SAMPLE`, `REFERRALS`, `DISCHARGES`, `PD_META`, simulated `visitStatus`). Expected — but the brain's value hinges on the live referral-readiness and per-diem-availability feeds, which are the manual/HCHB rows in the data index.
+
+## Where this leaves the ecosystem gaps
+The build-out **closes the demand-arrival + matching layer** (referrals, discharges, proximity, per-diem engagement) that the ecosystem map listed as thin. The **structural gaps still stand**: 1A readiness gauntlet (now *more* pressing), 1B economics/LUPA, 1C quality/compliance, 2D forward forecast, 2E patient acuity (only a per-diem free-text restriction today), 2F aide (HHA)/MSW, 2G back-office capacity, 2H retention signal, 3I the clinician accept/decline loop, 3K data-trust. See [`capacity-ecosystem-map.md`](./capacity-ecosystem-map.md).
