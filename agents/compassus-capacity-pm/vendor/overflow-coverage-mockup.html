@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overflow &amp; Coverage — Screen Mockup</title>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#16212e; --panel2:#1c2b3a; --line:#28394b;
+    --ink:#eaf1f8; --muted:#93a6ba; --brand:#3aa0ff; --brand-ink:#04121f;
+    --good:#37c98b; --good-bg:#123227; --warn:#ffb020; --warn-bg:#33270a;
+    --pay:#7ee0b8; --chip:#243444; --danger:#ff6b6b;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#eef2f7; --panel:#ffffff; --panel2:#f4f7fb; --line:#dbe3ec;
+      --ink:#12212f; --muted:#5a6b7d; --brand:#0a6fd6; --brand-ink:#ffffff;
+      --good:#0f9d63; --good-bg:#e5f6ee; --warn:#a86a00; --warn-bg:#fbf0d8;
+      --pay:#0f7a54; --chip:#eef3f8; --danger:#c33;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1160px;margin:0 auto;padding:24px 18px 60px}
+  header.top{margin-bottom:6px}
+  h1{font-size:22px;margin:0 0 2px}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 20px}
+  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--brand);
+    border-radius:8px;padding:10px 14px;color:var(--muted);font-size:12.5px;margin:0 0 22px}
+  .cols{display:grid;grid-template-columns:1fr;gap:26px}
+  @media(min-width:900px){.cols{grid-template-columns:400px 1fr}}
+  .colhead{display:flex;align-items:baseline;gap:9px;margin:0 0 12px}
+  .colhead h2{font-size:15px;margin:0;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+  .colhead .for{font-size:12px;color:var(--muted)}
+
+  /* phone */
+  .phone{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.25)}
+  .phbar{background:var(--panel2);border-bottom:1px solid var(--line);padding:14px 16px 12px}
+  .phbar .hi{font-size:16px;font-weight:650}
+  .phbar .cap{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .meter{height:7px;border-radius:5px;background:var(--chip);margin-top:9px;overflow:hidden}
+  .meter i{display:block;height:100%;background:var(--good)}
+  .meter.warn i{background:var(--warn)}
+  .phfilters{display:flex;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .pill{font-size:11.5px;background:var(--chip);color:var(--muted);border:1px solid var(--line);
+    padding:4px 9px;border-radius:20px}
+  .pill.on{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);font-weight:600}
+  .feed{padding:12px}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:13px 14px;margin-bottom:11px}
+  .card .r1{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .pay{color:var(--pay);font-weight:750;font-size:20px;letter-spacing:.01em}
+  .disc{font-weight:650;font-size:14.5px}
+  .svc{color:var(--muted);font-size:12.5px}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+  .tag{font-size:11.5px;background:var(--chip);border:1px solid var(--line);color:var(--ink);
+    padding:3px 8px;border-radius:7px}
+  .tag.dist{color:var(--muted)}
+  .tag.cont{background:var(--warn-bg);border-color:transparent;color:var(--warn)}
+  .acts{display:flex;gap:9px;margin-top:11px}
+  .btn{flex:1;text-align:center;padding:9px 10px;border-radius:9px;font-weight:650;font-size:13.5px;
+    border:1px solid var(--line);cursor:default}
+  .btn.claim{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+  .btn.pass{background:transparent;color:var(--muted)}
+  .claimed{background:var(--good-bg);border:1px solid transparent;border-radius:9px;padding:9px 10px;
+    text-align:center;color:var(--good);font-weight:650;font-size:13px;margin-top:11px}
+  .foothint{color:var(--muted);font-size:11px;text-align:center;padding:2px 12px 14px}
+
+  /* desk */
+  .desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .deskbar{display:flex;gap:16px;padding:13px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .kpi{min-width:120px}
+  .kpi .n{font-size:20px;font-weight:720}
+  .kpi .l{font-size:11.5px;color:var(--muted)}
+  .kpi .n.good{color:var(--good)} .kpi .n.warn{color:var(--warn)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.03em;
+    text-transform:uppercase;padding:11px 14px;border-bottom:1px solid var(--line)}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  .st{font-size:11.5px;font-weight:650;padding:3px 9px;border-radius:20px;display:inline-block}
+  .st.open{background:var(--warn-bg);color:var(--warn)}
+  .st.offered{background:var(--chip);color:var(--muted)}
+  .st.claimed{background:var(--good-bg);color:var(--good)}
+  .st.written{background:var(--good-bg);color:var(--good)}
+  .src{font-size:11px;color:var(--muted)}
+  .who{font-size:12px}
+  .who b{font-weight:650}
+  .fair{font-size:11.5px;color:var(--muted);padding:12px 14px;border-top:1px solid var(--line);
+    background:var(--panel2)}
+  .fair b{color:var(--ink)}
+  .legend{margin-top:26px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+  .legend b{color:var(--ink)}
+  .legend ul{margin:8px 0 0;padding-left:18px} .legend li{margin:3px 0}
+  .rail{font-size:11px;color:var(--muted);margin-top:4px}
+  code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Overflow &amp; Coverage — screen mockup</h1>
+    <p class="sub">The thin layer on top of HCHB Web Scheduling's exception queues. Left: what a flex clinician sees. Right: what the coordinator runs. Illustrative data only — no PHI.</p>
+  </header>
+  <div class="note">Static mockup for stakeholder reaction. Every open visit shown is sourced from HCHB's <b>Status Alerts</b> or <b>Smart Scheduling Exceptions</b> queue; every card leads with <b>pay</b>; eligibility (scope, auth-ready, headroom) is enforced before a visit ever appears. Zones/ZIPs only — never patient address or name.</div>
+
+  <div class="cols">
+    <!-- CLINICIAN -->
+    <section>
+      <div class="colhead"><h2>Open Visits</h2><span class="for">· clinician app (mobile)</span></div>
+      <div class="phone">
+        <div class="phbar">
+          <div class="hi">Hi, PT-4 👋 &nbsp;3 visits match you</div>
+          <div class="cap">This week's capacity · 82% of expected — room for extra</div>
+          <div class="meter"><i style="width:82%"></i></div>
+        </div>
+        <div class="phfilters">
+          <span class="pill on">All</span>
+          <span class="pill">Today</span>
+          <span class="pill">≤ 15 mi</span>
+          <span class="pill">My disciplines</span>
+        </div>
+        <div class="feed">
+
+          <div class="card">
+            <div class="r1">
+              <div><div class="disc">PT · Routine visit</div><div class="svc">G0151 · Mon Jul 27, 1–3 pm window</div></div>
+              <div class="pay">$68</div>
+            </div>
+            <div class="meta">
+              <span class="tag dist">Zone C · ~7 mi</span>
+              <span class="tag">Auth ready</span>
+              <span class="tag">1.0 pts</span>
+            </div>
+            <div class="acts"><span class="btn claim">Claim</span><span class="btn pass">Not for me</span></div>
+          </div>
+
+          <div class="card">
+            <div class="r1">
+              <div><div class="disc">PT · Re-eval (30-day)</div><div class="svc">G0152 · Tue Jul 28, time not set</div></div>
+              <div class="pay">$95</div>
+            </div>
+            <div class="meta">
+              <span class="tag dist">Zone C · ~4 mi</span>
+              <span class="tag">Auth ready</span>
+              <span class="tag cont">Continuity — you saw this patient</span>
+            </div>
+            <div class="acts"><span class="btn claim">Claim</span><span class="btn pass">Not for me</span></div>
+          </div>
+
+          <div class="card">
+            <div class="r1">
+              <div><div class="disc">PT · Routine visit</div><div class="svc">G0151 · Wed Jul 29, 9–11 am window</div></div>
+              <div class="pay">$68</div>
+            </div>
+            <div class="meta">
+              <span class="tag dist">Zone D · ~12 mi</span>
+              <span class="tag">Auth ready</span>
+            </div>
+            <div class="claimed">✓ Claimed — added to your HCHB schedule</div>
+          </div>
+
+        </div>
+        <div class="foothint">Passing costs nothing. A “no” just means we’ll offer it to someone else.</div>
+      </div>
+      <p class="rail">Headroom gate: an FT clinician only sees extra work at/under their Expected points. Per-diems have no “Expected” — they’re gated on willingness + fit.</p>
+    </section>
+
+    <!-- COORDINATOR -->
+    <section>
+      <div class="colhead"><h2>Overflow Desk</h2><span class="for">· coordinator / scheduler</span></div>
+      <div class="desk">
+        <div class="deskbar">
+          <div class="kpi"><div class="n warn">6</div><div class="l">Needing coverage</div></div>
+          <div class="kpi"><div class="n good">4</div><div class="l">Covered by board today</div></div>
+          <div class="kpi"><div class="n good">31<span style="font-size:13px"> min</span></div><div class="l">Median time-to-cover</div></div>
+          <div class="kpi"><div class="n">9</div><div class="l">Flex clinicians engaged</div></div>
+          <div class="kpi"><div class="n good">$0</div><div class="l">Agency used today</div></div>
+        </div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Visit</th><th>From queue</th><th>Zone</th><th>Status</th><th>Who</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>PT · Routine<div class="src">Wed 7/29 · 9–11a</div></td>
+              <td><span class="src">SS Exception · “Worker at Max Hours”</span></td>
+              <td>D</td>
+              <td><span class="st written">Written back</span></td>
+              <td class="who"><b>PT-4</b> · claimed 9:02a</td>
+            </tr>
+            <tr>
+              <td>RN · Routine<div class="src">Mon 7/27 · 2–4p</div></td>
+              <td><span class="src">Status Alert · Declined</span></td>
+              <td>A</td>
+              <td><span class="st claimed">Claimed</span></td>
+              <td class="who"><b>RN-11 (PRN)</b> · confirming</td>
+            </tr>
+            <tr>
+              <td>PT · Re-eval 30d<div class="src">Tue 7/28 · time TBD</div></td>
+              <td><span class="src">Status Alert · Missed by clinician</span></td>
+              <td>C</td>
+              <td><span class="st offered">Offered ×3</span></td>
+              <td class="who">2 viewed · TTL 46 min</td>
+            </tr>
+            <tr>
+              <td>OT · Routine<div class="src">Thu 7/30 · 10–12a</div></td>
+              <td><span class="src">SS Exception · “Worker at Max Hours”</span></td>
+              <td>B</td>
+              <td><span class="st offered">Offered ×5</span></td>
+              <td class="who">1 viewed · TTL 2.1 hr</td>
+            </tr>
+            <tr>
+              <td>RN · Routine<div class="src">Fri 7/31 · 8–10a</div></td>
+              <td><span class="src">Status Alert · Reassigned</span></td>
+              <td>A</td>
+              <td><span class="st open">Open</span></td>
+              <td class="who">no eligible match — <b>escalate</b></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="fair">⚖︎ Fairness ledger: work spread across <b>9</b> clinicians this week · most-loaded flex clinician holds <b>3</b> extra visits · <b>no concentration flag.</b> &nbsp; The unfilled RN Zone-A visit has recurred 3 wks → flagged as a <b>structural coverage gap</b>, not a one-off.</div>
+      </div>
+      <p class="rail">Row 5 shows the honest failure mode: when the board can’t fill it, the desk says so and escalates — a recurring gap is a staffing signal, not a coverage miss to paper over with agency.</p>
+    </section>
+  </div>
+
+  <div class="legend">
+    <b>What this mockup is asserting (for reaction, not committed design):</b>
+    <ul>
+      <li><b>Demand is HCHB's, not ours</b> — every row traces to the Status Alerts or Smart Scheduling Exceptions queue via <code>visitId</code>.</li>
+      <li><b>Pay leads</b> — the earnings story is the reason a clinician opens the app (discovery §4).</li>
+      <li><b>Eligibility is pre-filtered</b> — scope/SOC, auth-ready, and the FT headroom gate are enforced before a card shows; the clinician never sees a visit they can't lawfully take.</li>
+      <li><b>A "no" is free</b> — penalty-free pass with a reason; the opt-in framing that avoids the Alabama failure.</li>
+      <li><b>Fairness + honesty are visible</b> — the desk shows spread and flags a structural gap instead of hiding it behind agency spend.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
