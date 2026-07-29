@@ -9,6 +9,7 @@ The empirical ground truth for the Home Health Expert PM agent. Sourced from Com
 |---|---|
 | [`discovery-session.md`](./discovery-session.md) | The full-day cross-functional discovery session — what schedulers actually do, the end-to-end workflow chain, the tooling landscape, why Smart Scheduling failed, and the session's Next Steps. **The primary ground truth.** |
 | [`capacity-scheduling-summary.md`](./capacity-scheduling-summary.md) | The consolidated capacity-vs-scheduling analysis — the two-function framing, the 10 connection points (CP-1…CP-10), four stakeholder perspectives, the failure catalog, and the 9 open questions that gate requirements. |
+| [`staffing-model.md`](./staffing-model.md) | **The per-discipline, per-branch staffing model** — visit-equivalent point system, census→demand translation, dual visit/caseload ceiling, per-discipline turnover waterfall, maintain-vs-grow, per-diem sizing, demo norms, and decisions. **Directly answers open question #1** (defines the point-system currency) and operationalizes CP-3 (SOC-as-binding-constraint) and CP-5. Working tool lives in `worker-max/Aethergrid` under `docs/staffing-model/`. |
 
 ## Provenance
 
