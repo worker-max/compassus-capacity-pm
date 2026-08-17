@@ -6,12 +6,12 @@
 
 ## The model in one paragraph
 
-**Capacity** is the envelope — how much work a branch can deliver, given people, hours, disciplines
-and territory, netted against what is already booked. **Scheduling** fills that envelope: which
-clinician, which day, which route. **Engagement** defends it: the confirmation, coverage and
-rebooking work that turns a schedule into delivered visits. Scheduling and Engagement are grouped
-inside a shaded **Coordination** zone, because both are activities performed *against* the envelope
-rather than parts of it. Only a completed visit becomes revenue; a discharge hands room back to
+**Capacity Management** is the envelope — how much work a branch can deliver, given people, hours,
+disciplines and territory, netted against what is already booked. The **Scheduling Engine** fills
+that envelope: which clinician, which day, which route. **Patient Engagement** defends it: the
+confirmation, coverage and rebooking work that turns a schedule into delivered visits. The latter
+two are grouped inside a shaded **Coordination** zone, because both are activities performed
+*against* the envelope rather than parts of it. Only a completed visit becomes revenue; a discharge hands room back to
 capacity.
 
 ## Source of truth
@@ -19,7 +19,7 @@ capacity.
 | | |
 |---|---|
 | **Primary workbook** | `8.13 Compassus Capacity & Scheduling Workbook.xlsx` — Google Drive `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv`. Supersedes the 2026-08-11 version (`15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf`). Columns **G (Notes)** and **S (Additional Context)** now carry pain-point, bottleneck and road-bump commentary — read them, they are where the operational truth is |
-| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (76 scored variables → priority) |
+| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (79 scored variables → priority) |
 | Data-model workbook | `Clinician-Capacity-Tool_Data-Index.xlsx` — Drive `1BFxo6k3tSDyoJZxmm7_gFxmnuEm4S_fW` |
 | Drive folder | `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3` |
 | On-site whiteboard session | [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md) — decisions DE-01…DE-10 |
@@ -112,16 +112,19 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 
 ## Open items
 
-- **`S-43` / `S-44` are proposed here, not yet in the workbook.** They need adding to the
-  `Variable Inventory` tab to flow through the `Functional Scorecard`, which is what vendor scoring
-  reads from. Until then the workbook says 76 variables and these documents say 78.
-- **The *Readiness* group is deliberately near-empty.** Authorization holds, plan-of-care locks and
-  face-to-face / coding holds are the same "stuck before it is schedulable" family and would land
-  there. This is ecosystem gap **1A**, the largest structural blind spot in the model. Not added
-  without a decision.
-- **Three further net-new items from the sketch have no variable behind them:** traffic and physical
-  obstructions (bridges — routing is mileage and straight-line proximity today, not drive-time), the
-  shift/visit-finder incentive surface, and the hand-off / accept-decline loop.
+- **Five variables have no ID.** `S-43` / `S-44` are proposed here and not yet in the workbook;
+  *Insurance Authorization*, *Add-On Orders* and *Clinician Safety* are in the 8.13 workbook but
+  unnumbered. All five need IDs and inventory rows to flow through the `Functional Scorecard`, which
+  is what vendor scoring reads from. Until then the workbook counts 79 and these documents say 81.
+- **The *Readiness* group is now populated** — authorization and add-on orders joined consent/POA.
+  Plan-of-care locks and face-to-face / coding holds are the same family and still have no row.
+  This was ecosystem gap **1A**; the 13 Aug session closed most of it.
+- **Traffic and drive-time still have no variable.** Confirmed on 13 Aug as real and local: the
+  Jacksonville bridge (one zip, two non-interchangeable sides) and the California interstate
+  crossing window. Routing today is mileage and straight-line proximity.
+- **The shift-finder and hand-off surfaces still have no variable.** Both confirmed on 13 Aug —
+  HCHB's Shift Finder already exists and is not turned on, and HCHB blocks a nurse handing a visit
+  to her own LPN.
 - **Counts to keep in sync when variables change:** one-pager and board box footers, board page
   headings ("All 22 / 44 / 12 variables"), and the diagram's provenance line.
 
