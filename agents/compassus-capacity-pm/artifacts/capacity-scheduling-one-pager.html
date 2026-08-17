@@ -1,0 +1,366 @@
+<title>Capacity One-Pager</title>
+
+<section class="sheet">
+
+  <header class="hd">
+    <div class="hd-l">
+      <p class="eyebrow">Compassus &middot; Home Health</p>
+      <h1>Capacity &amp; Scheduling</h1>
+    </div>
+    <p class="hd-r">The three arenas that decide whether a referral becomes a delivered visit, and the primary variables inside each.</p>
+  </header>
+
+  <div class="board">
+
+    <article class="box box-cap">
+      <header class="bh">
+        <p class="kick">The envelope</p>
+        <h2>Capacity Management</h2>
+        <p class="def">How much work this branch can deliver.</p>
+      </header>
+      <ol class="vars">
+        <li><span class="n">01</span><span class="v">Staff supply by discipline &amp; role</span></li>
+        <li><span class="n">02</span><span class="v">Assessing capacity &mdash; SOC-capable</span></li>
+        <li><span class="n">03</span><span class="v">Availability &amp; time off</span></li>
+        <li><span class="n">04</span><span class="v">Territory reachability</span></li>
+        <li><span class="n">05</span><span class="v">Per-diem &amp; flex buffer</span></li>
+        <li><span class="n">06</span><span class="v">On-call &amp; weekend rotation</span></li>
+        <li><span class="n">07</span><span class="v">Visit weighting &mdash; the point currency</span></li>
+        <li><span class="n">08</span><span class="v">Targets &amp; ceiling</span></li>
+        <li><span class="n">09</span><span class="v">Committed load &amp; open room</span></li>
+        <li><span class="n">10</span><span class="v">Specialty competency &amp; ramp</span></li>
+      </ol>
+      <p class="ct">22 variables in full</p>
+    </article>
+
+    <div class="zone">
+      <p class="zone-label">Coordination</p>
+      <div class="zone-inner">
+
+        <article class="box box-sch">
+          <header class="bh">
+            <p class="kick">Filling the envelope</p>
+            <h2>Scheduling</h2>
+            <p class="def">Which clinician, which day, which route.</p>
+          </header>
+          <ol class="vars">
+            <li><span class="n">01</span><span class="v">Ordered demand</span></li>
+            <li><span class="n">02</span><span class="v">Compliance windows</span></li>
+            <li><span class="n">03</span><span class="v">Consent &amp; POA readiness</span></li>
+            <li><span class="n">04</span><span class="v">Assignment fit</span></li>
+            <li><span class="n">05</span><span class="v">Clinician restrictions</span></li>
+            <li><span class="n">06</span><span class="v">Patient &amp; caregiver availability</span></li>
+            <li><span class="n">07</span><span class="v">Clinical timing</span></li>
+            <li><span class="n">08</span><span class="v">Missed-visit exceptions</span></li>
+            <li><span class="n">09</span><span class="v">Routing &amp; geography</span></li>
+            <li><span class="n">10</span><span class="v">Patient &amp; clinician preference</span></li>
+            <li><span class="n">11</span><span class="v">Week distribution &amp; continuity</span></li>
+          </ol>
+          <p class="ct">44 variables in full</p>
+        </article>
+
+        <article class="box box-eng">
+          <header class="bh">
+            <p class="kick">Making it happen</p>
+            <h2>Engagement</h2>
+            <p class="def">Turning a schedule into delivered visits.</p>
+          </header>
+          <ol class="vars">
+            <li><span class="n">01</span><span class="v">Availability confirmation before booking</span></li>
+            <li><span class="n">02</span><span class="v">Call-out coverage</span></li>
+            <li><span class="n">03</span><span class="v">Failed-visit follow-up &amp; rebooking</span></li>
+            <li><span class="n">04</span><span class="v">Day-before confirmation</span></li>
+            <li><span class="n">05</span><span class="v">Automated reminders</span></li>
+            <li><span class="n">06</span><span class="v">En-route notification</span></li>
+            <li><span class="n">07</span><span class="v">New-patient welcome call</span></li>
+            <li><span class="n">08</span><span class="v">Reschedule coordination</span></li>
+          </ol>
+          <p class="ct">12 variables in full</p>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="ft">
+    <p>Capacity sets the envelope; scheduling and engagement are both performed against it.</p>
+    <p>Variables and grouping from <em>Compassus Capacity &amp; Scheduling Workbook 2026-08-11</em>.</p>
+  </footer>
+
+</section>
+
+<style>
+:root {
+  --paper:     #F2F3EF;
+  --sheet:     #FBFBF8;
+  --ink:       #171E1A;
+  --ink-2:     #4E5A54;
+  --ink-3:     #7C8781;
+  --rule:      #D8DAD2;
+  --rule-soft: #E7E9E1;
+  --cap:       #2C6A55;
+  --sch:       #3A5C86;
+  --eng:       #8C5A2E;
+  --zone:      #E8E6DB;
+  --zone-line: #C9C6B6;
+  --shadow:    0 1px 2px rgba(23,30,26,.05), 0 12px 34px -22px rgba(23,30,26,.35);
+
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --body: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:     #101412;
+    --sheet:     #1A201C;
+    --ink:       #E7EAE4;
+    --ink-2:     #A2AEA7;
+    --ink-3:     #7A857F;
+    --rule:      #2C342E;
+    --rule-soft: #242B26;
+    --cap:       #6FBE9E;
+    --sch:       #86AEDD;
+    --eng:       #D3A26B;
+    --zone:      #1D2219;
+    --zone-line: #343C2F;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:     #101412;
+  --sheet:     #1A201C;
+  --ink:       #E7EAE4;
+  --ink-2:     #A2AEA7;
+  --ink-3:     #7A857F;
+  --rule:      #2C342E;
+  --rule-soft: #242B26;
+  --cap:       #6FBE9E;
+  --sch:       #86AEDD;
+  --eng:       #D3A26B;
+  --zone:      #1D2219;
+  --zone-line: #343C2F;
+  --shadow:    0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.85);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  padding: clamp(14px, 2.5vw, 40px);
+}
+
+/* Landscape sheet — 297 x 210 proportion (A4 landscape) */
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 1400px;
+  margin-inline: auto;
+  aspect-ratio: 297 / 210;
+  padding: clamp(18px, 2.4vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vw, 20px);
+  container-type: inline-size;
+}
+@media (max-width: 900px) { .sheet { aspect-ratio: auto; } }
+
+/* ---- header ---- */
+.hd {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: clamp(10px, 1.2vw, 16px);
+  border-bottom: 2px solid var(--ink);
+  flex-wrap: wrap;
+}
+.hd-l { display: flex; flex-direction: column; gap: 3px; }
+.eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(8.5px, .78cqi, 11px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.hd h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(24px, 3.3cqi, 44px);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.hd-r {
+  margin: 0;
+  max-width: 46ch;
+  text-align: right;
+  font-size: clamp(10px, 1.02cqi, 14px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* ---- board ---- */
+.board {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.06fr);
+  gap: clamp(10px, 1.2vw, 18px);
+  align-items: stretch;
+}
+@media (max-width: 900px) { .board { grid-template-columns: minmax(0, 1fr); } }
+
+.zone {
+  background: var(--zone);
+  border: 1.5px dashed var(--zone-line);
+  border-radius: 10px;
+  padding: clamp(9px, 1.05vw, 15px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, .55vw, 8px);
+  min-height: 0;
+}
+.zone-label {
+  margin: 0 0 0 2px;
+  font-family: var(--mono);
+  font-size: clamp(8px, .76cqi, 10.5px);
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.zone-inner {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(9px, 1.05vw, 15px);
+}
+@media (max-width: 900px) { .zone-inner { grid-template-columns: minmax(0, 1fr); } }
+
+.box {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ac, var(--ink-3));
+  border-radius: 8px;
+  padding: clamp(10px, 1.15vw, 17px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, .7vw, 10px);
+  min-height: 0;
+}
+.box-cap { --ac: var(--cap); }
+.box-sch { --ac: var(--sch); }
+.box-eng { --ac: var(--eng); }
+
+.bh { display: flex; flex-direction: column; gap: 2px; }
+.kick {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(7.5px, .72cqi, 10px);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+.bh h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(15px, 1.75cqi, 24px);
+  letter-spacing: -.012em;
+  line-height: 1.08;
+}
+.def {
+  margin: 1px 0 0;
+  font-size: clamp(9px, .88cqi, 12px);
+  line-height: 1.35;
+  color: var(--ink-3);
+  text-wrap: pretty;
+}
+
+.vars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule-soft);
+}
+.vars li {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: clamp(3.5px, .42vw, 6px) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: clamp(9.5px, .96cqi, 13px);
+  line-height: 1.3;
+}
+.n {
+  font-family: var(--mono);
+  font-size: clamp(7.5px, .72cqi, 9.5px);
+  font-weight: 700;
+  color: var(--ac);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+  min-width: 1.5em;
+}
+.v { flex: 1 1 auto; text-wrap: pretty; }
+.ct {
+  margin: auto 0 0;
+  padding-top: clamp(5px, .6vw, 9px);
+  font-family: var(--mono);
+  font-size: clamp(7.5px, .72cqi, 10px);
+  letter-spacing: .07em;
+  color: var(--ink-3);
+}
+
+/* ---- footer ---- */
+.ft {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  padding-top: clamp(8px, .9vw, 13px);
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+.ft p {
+  margin: 0;
+  font-size: clamp(8.5px, .82cqi, 11.5px);
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+.ft p:last-child { text-align: right; }
+
+em { font-style: italic; }
+:focus-visible { outline: 2px solid var(--cap); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+@media print {
+  @page { size: A4 landscape; margin: 9mm; }
+  body { background: #fff; padding: 0; }
+  .sheet {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    padding: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .box, .zone { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
