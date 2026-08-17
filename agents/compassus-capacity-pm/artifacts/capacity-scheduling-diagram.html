@@ -8,7 +8,7 @@
     Built from the intake-tool sketch and prioritised against
     <em>Compassus Capacity &amp; Scheduling Workbook 2026-08-11.xlsx</em>
     &mdash; tabs <span class="mono">The Concepts That Matter</span> and <span class="mono">Variable Inventory</span>
-    (76 scored variables: SH&nbsp;9 &middot; C&nbsp;13 &middot; S&nbsp;42 &middot; CO&nbsp;12) plus 2 proposed here.
+    (79 scored variables: SH&nbsp;9 &middot; C&nbsp;13 &middot; S&nbsp;45 &middot; CO&nbsp;12) plus 2 proposed here. Updated to the <em>8.13</em> workbook; module names per DE-02.
   </p>
 </header>
 
@@ -189,8 +189,8 @@
     <article class="arena arena-sch">
       <header class="arena-head">
         <p class="arena-kicker">Filling the envelope</p>
-        <h2 class="arena-name">Scheduling</h2>
-        <p class="arena-note">Assigning each ordered visit to a clinician, on a day, in a workable route. <span class="mono">S-01&ndash;S-44</span></p>
+        <h2 class="arena-name">Scheduling Engine</h2>
+        <p class="arena-note">Assigning each ordered visit to a clinician, on a day, in a workable route. <span class="mono">S-01&ndash;S-44 + 3 unnumbered</span></p>
       </header>
 
       <ol class="factors">
@@ -198,6 +198,11 @@
           <div class="f-top"><span class="f-rank">01</span><h3 class="f-name">Ordered demand</h3><span class="chip chip-gate">GATE</span></div>
           <p class="f-why">Plan-of-care orders, ordered frequency and visit type. Non-negotiable demand &mdash; it sets what must be scheduled and when, before any preference is considered.</p>
           <p class="f-ids"><span class="mono">S-01 S-02</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">01&#189;</span><h3 class="f-name">Authorization &amp; add-on orders</h3><span class="chip chip-new">NEW</span><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Two hard stops that sit <em>upstream</em> of the scheduler's queue, added to the inventory after the 13 Aug on-site. A referral must clear eligibility and have auth keyed before it is schedulable at all; plan-of-care QA must clear before the first week can be assigned. Most of the pain is self-inflicted &mdash; plans of care are written without regard to payer limits, and the payer rules already exist in a coordination note at verification. Surfacing them at plan-of-care creation is the highest-value, lowest-complexity win the session identified.</p>
+          <p class="f-ids"><span class="mono">Insurance Authorization &middot; Add-On Orders</span> &mdash; both Hard / MVP&nbsp;Yes / Assist, awaiting IDs</p>
         </li>
         <li class="f">
           <div class="f-top"><span class="f-rank">02</span><h3 class="f-name">Compliance windows</h3><span class="chip chip-gate">GATE</span></div>
@@ -266,7 +271,7 @@
     <article class="arena arena-eng">
       <header class="arena-head">
         <p class="arena-kicker">Making it actually happen</p>
-        <h2 class="arena-name">Engagement</h2>
+        <h2 class="arena-name">Patient Engagement</h2>
         <p class="arena-note">The communication and confirmation work that turns a schedule into delivered visits. <span class="mono">CO-01&ndash;CO-12</span></p>
       </header>
 
@@ -360,18 +365,18 @@
         <tr><td>Preferences (patient / clinician)</td><td class="a-sch">Scheduling</td><td class="mono">S-04&ndash;S-13 S-23&ndash;S-27</td><td>The largest tacit block in the model.</td></tr>
         <tr><td>Continuity</td><td class="a-sch">Scheduling</td><td class="mono">S-22</td><td>A deliberate trade-off, not a default.</td></tr>
         <tr><td>Rescheduling</td><td class="a-sch">Scheduling</td><td class="mono">S-38 &rarr; CO-07 CO-08</td><td>Appears in both sketch boxes; correctly so.</td></tr>
-        <tr class="new"><td>Traffic</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Routing today is mileage and straight-line proximity. No time-of-day travel model exists.</td></tr>
-        <tr class="new"><td>Obstructions (bridges, etc.)</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Charleston-specific and material. Same gap as traffic: drive-time, not distance.</td></tr>
+        <tr class="new"><td>Traffic</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Routing today is mileage and straight-line proximity. No time-of-day travel model exists. <strong>Confirmed 13 Aug.</strong></td></tr>
+        <tr class="new"><td>Obstructions (bridges, etc.)</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> <strong>Confirmed 13 Aug</strong> as local knowledge the system must encode &mdash; the Jacksonville bridge (one zip, two non-interchangeable sides) and the California interstate crossing window.</td></tr>
         <tr class="new"><td>POA &mdash; power of attorney</td><td class="a-sch">Scheduling</td><td class="mono">S-43 S-44</td><td><span class="chip chip-new">NEW</span> <strong>Resolved.</strong> Consent must be signed ahead of the first visit, or the POA must attend to sign it. Neither state is captured anywhere, so the block surfaces only when the clinician is already at the door. Written in as two proposed variables.</td></tr>
         <tr><td>Welcome / readiness</td><td class="a-eng">Engagement</td><td class="mono">CO-04</td><td>&mdash;</td></tr>
         <tr><td>Text reminders</td><td class="a-eng">Engagement</td><td class="mono">CO-02 CO-05</td><td>&mdash;</td></tr>
         <tr><td>Scheduling (in engagement)</td><td class="a-eng">Engagement</td><td class="mono">CO-06</td><td>Confirming the window before booking.</td></tr>
         <tr><td>&ldquo;Where&rsquo;s my nurse?&rdquo;</td><td class="a-eng">Engagement</td><td class="mono">CO-03</td><td>&mdash;</td></tr>
-        <tr><td>Shift / visit finder &mdash; incentives</td><td class="a-eng">Engagement</td><td class="mono">S-13 C-09</td><td><span class="chip chip-new">NEW</span> The willingness variables exist; the offer-and-accept surface does not.</td></tr>
-        <tr><td>Hand-off visit capability (tool assign or direct assign)</td><td class="a-eng">Engagement</td><td class="mono">CO-09</td><td><span class="chip chip-new">NEW</span> Needs the accept / decline loop &mdash; the buy-in mechanism the Alabama pilot lacked.</td></tr>
-        <tr class="new"><td>PoC updates against insurance guardrails</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> The readiness gauntlet: auth, POC lock, face-to-face. Absent from the model, and it gates whether a referral is schedulable at all.</td></tr>
+        <tr><td>Shift / visit finder &mdash; incentives</td><td class="a-eng">Engagement</td><td class="mono">S-13 C-09</td><td><span class="chip chip-new">NEW</span> The willingness variables exist; the offer-and-accept surface does not. <strong>Confirmed 13 Aug:</strong> HCHB's Shift Finder already provides this pattern and is not turned on. NVA coding is an existing incentive mechanism.</td></tr>
+        <tr><td>Hand-off visit capability (tool assign or direct assign)</td><td class="a-eng">Engagement</td><td class="mono">CO-09</td><td><span class="chip chip-new">NEW</span> Needs the accept / decline loop &mdash; the buy-in mechanism the Alabama pilot lacked. <strong>Confirmed 13 Aug:</strong> HCHB blocks a nurse handing a visit to her own LPN, and blocks an RN seeing her supervisee's schedule. Both are HCHB design choices, not Medicare rules.</td></tr>
+        <tr class="new"><td>PoC updates against insurance guardrails</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> <strong>Resolved 13 Aug.</strong> Now carried as the Insurance Authorization variable. Payer rules at plan-of-care creation was named the highest-value, lowest-complexity win in the session.</td></tr>
         <tr><td>Rightsize discipline allocation (PTA default for routine)</td><td class="a-cap">Capacity</td><td class="mono">SH-03 C-08</td><td>The assessing&rarr;assistant offload. Frees the scarcest capacity there is.</td></tr>
-        <tr><td>Recommend care team from referral</td><td class="a-sch">Scheduling</td><td class="mono">S-15 S-16 S-33</td><td><span class="chip chip-new">NEW</span> The matching inputs exist; the recommendation surface does not.</td></tr>
+        <tr><td>Recommend care team from referral</td><td class="a-sch">Scheduling</td><td class="mono">S-15 S-16 S-33</td><td><span class="chip chip-new">NEW</span> <strong>Adopted 13 Aug as DE-05:</strong> the care team is assigned at referral, not per visit. System recommends the full team, a human approves or edits.</td></tr>
       </tbody>
     </table>
   </div>
@@ -379,7 +384,7 @@
 
 <section class="band">
   <h2 class="sec">Full variable inventory</h2>
-  <p class="lede">All 76 scored variables plus the 2 proposed here, grouped under the three arenas above &mdash; the raw material for the per-category breakdowns. <strong>Posture</strong> is how far software should go: <em>Control</em> it can decide and act, <em>Assist</em> it proposes and a person confirms, <em>Read</em> it surfaces and a person decides.</p>
+  <p class="lede">All 79 scored variables plus the 2 proposed here, grouped under the three arenas above &mdash; the raw material for the per-category breakdowns. <strong>Posture</strong> is how far software should go: <em>Control</em> it can decide and act, <em>Assist</em> it proposes and a person confirms, <em>Read</em> it surfaces and a person decides.</p>
 
   <h3 class="sub sub-cap">Capacity Management &mdash; 22 variables</h3>
   <div class="tbl-wrap">
@@ -412,7 +417,7 @@
     </table>
   </div>
 
-  <h3 class="sub sub-sch">Scheduling &mdash; 42 variables + 2 proposed</h3>
+  <h3 class="sub sub-sch">Scheduling Engine &mdash; 45 variables + 2 proposed</h3>
   <div class="tbl-wrap">
     <table class="inv">
       <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>
@@ -423,7 +428,7 @@
         <tr><td class="mono">S-04</td><td>Preferred working days</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual + HCHB</td></tr>
         <tr><td class="mono">S-05</td><td>Preferred start time</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-06</td><td>Start-time flexibility</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
-        <tr><td class="mono">S-07</td><td>Lunch pattern</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-07</td><td>Lunch / documentation pattern</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-08</td><td>Mid-day documentation block</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-09</td><td>Split-shift / mid-day personal break</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-10</td><td>Preferred end time / hard stop</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
@@ -439,9 +444,9 @@
         <tr><td class="mono">S-20</td><td>Appointment window (time of day)</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual</td></tr>
         <tr><td class="mono">S-21</td><td>Clinician restrictions</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-22</td><td>Continuity of care</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>HCHB</td></tr>
-        <tr><td class="mono">S-23</td><td>Gender preference</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-23</td><td>Gender preference</td><td>Hard/Soft</td><td>No</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-24</td><td>Language / cultural match</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
-        <tr><td class="mono">S-25</td><td>Time-of-day refusal</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-25</td><td>Time-of-day refusal</td><td>Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-26</td><td>Preferred visit window</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
         <tr><td class="mono">S-27</td><td>Day-of-week constraint</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual + HCHB</td></tr>
         <tr><td class="mono">S-28</td><td>Caregiver-present requirement</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
@@ -461,11 +466,14 @@
         <tr><td class="mono">S-42</td><td>Day-by-day balancing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
         <tr class="new"><td class="mono">S-43</td><td>Consent / POA signature status <span class="chip chip-new">NEW</span></td><td>Config</td><td class="y">Yes</td><td>Control</td><td class="t">Not captured</td><td>&mdash; to build</td></tr>
         <tr class="new"><td class="mono">S-44</td><td>POA availability to sign at the visit <span class="chip chip-new">NEW</span></td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Not captured</td><td>&mdash; to build</td></tr>
+        <tr class="new"><td class="mono">&mdash;</td><td>Insurance authorization <span class="chip chip-new">13 AUG</span></td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + auth team note</td></tr>
+        <tr class="new"><td class="mono">&mdash;</td><td>Add-on orders <span class="chip chip-new">13 AUG</span></td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB / DCS workflow</td></tr>
+        <tr class="new"><td class="mono">&mdash;</td><td>Clinician safety &mdash; market-specific alerts <span class="chip chip-new">13 AUG</span></td><td>Hard</td><td>Maybe</td><td>Assist</td><td class="t">Not captured</td><td>&mdash; to build</td></tr>
       </tbody>
     </table>
   </div>
 
-  <h3 class="sub sub-eng">Engagement &mdash; 12 variables</h3>
+  <h3 class="sub sub-eng">Patient Engagement &mdash; 12 variables</h3>
   <div class="tbl-wrap">
     <table class="inv">
       <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>

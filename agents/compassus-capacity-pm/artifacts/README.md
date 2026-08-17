@@ -18,10 +18,11 @@ capacity.
 
 | | |
 |---|---|
-| **Primary workbook** | `Compassus Capacity & Scheduling Workbook 2026-08-11.xlsx` — Google Drive `15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf` |
+| **Primary workbook** | `8.13 Compassus Capacity & Scheduling Workbook.xlsx` — Google Drive `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv`. Supersedes the 2026-08-11 version (`15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf`). Columns **G (Notes)** and **S (Additional Context)** now carry pain-point, bottleneck and road-bump commentary — read them, they are where the operational truth is |
 | Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (76 scored variables → priority) |
 | Data-model workbook | `Clinician-Capacity-Tool_Data-Index.xlsx` — Drive `1BFxo6k3tSDyoJZxmm7_gFxmnuEm4S_fW` |
 | Drive folder | `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3` |
+| On-site whiteboard session | [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md) — decisions DE-01…DE-10 |
 | Discovery ground truth | [`../knowledge/`](../knowledge/) |
 
 **The workbook is authoritative. These documents are downstream of it** — if a variable changes
@@ -74,9 +75,11 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 
 ## Decisions taken (do not silently reverse)
 
-1. **Engagement vs. Coordination naming.** The workbook uses *Coordination* for the `CO-` layer.
-   In these documents that layer is drawn as **Engagement**, and *Coordination* names the shaded
-   zone holding both Scheduling and Engagement. Variable codes are unchanged.
+1. **Module names follow DE-02 (13 Aug 2026): Capacity Management, Scheduling Engine, Patient
+   Engagement.** The workbook still uses *Coordination* for the `CO-` layer; in these documents that
+   layer is drawn as **Patient Engagement**, and *Coordination* names the shaded zone holding both
+   Scheduling Engine and Patient Engagement. Variable codes are unchanged. Note the on-site framed
+   these as three peer modules; the zone is an editorial grouping on top of that, not a contradiction.
 2. **"Time preference" moved.** The original sketch starred it under Capacity. The workbook models
    it as scheduling constraints (`S-05`, `S-10`, `S-20`), so it sits in Scheduling.
 3. **POA means power of attorney.** Consent must be signed before the first visit, or the POA must
@@ -93,6 +96,19 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 4. **No annotations on the board or one-pager.** GATE/NEW badges, tacit highlighting and posture
    columns were deliberately stripped. Those documents are straight lists; the detail lives in the
    diagram and the workbook.
+
+## Changes from the 13 August on-site
+
+- **Three variables added**, all Hard constraint, Assist posture, and **none has an ID yet**:
+  *Insurance Authorization* (MVP Yes), *Add-On Orders* (MVP Yes), *Clinician Safety* (MVP Maybe).
+  The first two are gating and sit upstream of the scheduler's queue.
+- **`S-23` Gender preference** dropped from MVP `Yes` to **`No`**.
+- **`S-25` Time-of-day refusal** softened from `Hard` to **`Soft`** — the note explains why:
+  "in my years of experience, this preference is malleable based on relationship."
+- **`S-07`** renamed *Lunch / documentation pattern*.
+- `The Concepts That Matter` tab is **unchanged**, so the capacity primary list is unchanged.
+- **Phase 1 is visualization only, no automation** (DE-03). The automation postures in the diagram
+  describe the eventual target, not release 1. Do not let a vendor read them as release-1 scope.
 
 ## Open items
 
