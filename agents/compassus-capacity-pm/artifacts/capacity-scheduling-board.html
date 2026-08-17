@@ -1,0 +1,572 @@
+<title>The Capacity Board</title>
+
+<main>
+
+<!-- ===================== PAGE 1 ===================== -->
+<section class="page page-board">
+  <header class="ph">
+    <p class="eyebrow">Compassus &middot; Home Health</p>
+    <h1>Capacity &amp; Scheduling</h1>
+    <p class="sub">The three arenas and their primary variables.</p>
+  </header>
+
+  <div class="board">
+
+    <article class="box box-cap">
+      <header class="bh">
+        <p class="kick">The envelope</p>
+        <h2>Capacity Management</h2>
+      </header>
+      <ol class="vars">
+        <li><span class="n">01</span><span class="v">Staff supply by discipline &amp; role</span><span class="g">GATE</span></li>
+        <li><span class="n">02</span><span class="v">Assessing capacity &mdash; SOC-capable</span><span class="g">GATE</span></li>
+        <li><span class="n">03</span><span class="v">Availability &amp; time off</span><span class="g">GATE</span></li>
+        <li><span class="n">04</span><span class="v">Territory reachability</span><span class="g">GATE</span></li>
+        <li><span class="n">05</span><span class="v">Per-diem &amp; flex buffer</span><span class="g">GATE</span></li>
+        <li><span class="n">06</span><span class="v">On-call &amp; weekend rotation</span><span class="g">GATE</span></li>
+        <li><span class="n">07</span><span class="v">Visit weighting &mdash; the point currency</span></li>
+        <li><span class="n">08</span><span class="v">Targets &amp; ceiling</span></li>
+        <li><span class="n">09</span><span class="v">Committed load &amp; open room</span></li>
+        <li><span class="n">10</span><span class="v">Specialty competency &amp; ramp</span></li>
+      </ol>
+      <p class="bf">22 variables in full &mdash; page 2</p>
+    </article>
+
+    <div class="zone">
+      <p class="zone-label">Coordination</p>
+
+      <article class="box box-sch">
+        <header class="bh">
+          <p class="kick">Filling the envelope</p>
+          <h2>Scheduling</h2>
+        </header>
+        <ol class="vars">
+          <li><span class="n">01</span><span class="v">Ordered demand</span><span class="g">GATE</span></li>
+          <li><span class="n">02</span><span class="v">Compliance windows</span><span class="g">GATE</span></li>
+          <li><span class="n">03</span><span class="v">Assignment fit</span><span class="g">GATE</span></li>
+          <li><span class="n">04</span><span class="v">Clinician restrictions</span><span class="g">GATE</span></li>
+          <li><span class="n">05</span><span class="v">Patient &amp; caregiver availability</span><span class="g">GATE</span></li>
+          <li><span class="n">06</span><span class="v">Clinical timing</span><span class="g">GATE</span></li>
+          <li><span class="n">07</span><span class="v">Missed-visit exceptions</span><span class="g">GATE</span></li>
+          <li><span class="n">08</span><span class="v">Routing &amp; geography</span></li>
+          <li><span class="n">09</span><span class="v">Patient &amp; clinician preference</span></li>
+          <li><span class="n">10</span><span class="v">Week distribution &amp; continuity</span></li>
+        </ol>
+        <p class="bf">42 variables in full &mdash; page 3</p>
+      </article>
+
+      <article class="box box-eng">
+        <header class="bh">
+          <p class="kick">Making it happen</p>
+          <h2>Engagement</h2>
+        </header>
+        <ol class="vars">
+          <li><span class="n">01</span><span class="v">Availability confirmation before booking</span><span class="g">GATE</span></li>
+          <li><span class="n">02</span><span class="v">Call-out coverage</span><span class="g">GATE</span></li>
+          <li><span class="n">03</span><span class="v">Failed-visit follow-up &amp; rebooking</span><span class="g">GATE</span></li>
+          <li><span class="n">04</span><span class="v">Day-before confirmation</span></li>
+          <li><span class="n">05</span><span class="v">Automated reminders</span></li>
+          <li><span class="n">06</span><span class="v">En-route notification</span></li>
+          <li><span class="n">07</span><span class="v">New-patient welcome call</span></li>
+          <li><span class="n">08</span><span class="v">Reschedule coordination</span></li>
+        </ol>
+        <p class="bf">12 variables in full &mdash; page 4</p>
+      </article>
+    </div>
+  </div>
+
+  <footer class="pf">
+    <p><span class="g">GATE</span> Hard or structural <em>and</em> a day-one must-have &mdash; a knockout. Priority from <em>Compassus Capacity &amp; Scheduling Workbook 2026-08-11</em>.</p>
+    <p class="pn">1 / 4</p>
+  </footer>
+</section>
+
+<!-- ===================== PAGE 2 ===================== -->
+<section class="page">
+  <header class="ph ph-detail ph-cap">
+    <p class="eyebrow">Capacity Management &middot; the envelope</p>
+    <h1>All 22 variables</h1>
+    <p class="sub">How much work this branch can deliver &mdash; people, hours, disciplines and territory, netted against what is already booked.</p>
+  </header>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>ID</th><th>Variable</th><th>Constraint</th><th>MVP</th><th>Posture</th><th>Today</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="6">Roster</td></tr>
+        <tr><td class="id">SH-01</td><td>Clinician headcount</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">SH-02</td><td>Discipline</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">SH-03</td><td>Role &mdash; assessing vs. assistant</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">SH-04</td><td>FTE / employment type</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">C-01</td><td>Headcount by discipline &amp; employment type</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Availability</td></tr>
+        <tr><td class="id">SH-05</td><td>Approved time off / availability</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Geography</td></tr>
+        <tr><td class="id">SH-06</td><td>Territory / service area</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">C-02</td><td>Branch coverage territory &mdash; county</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">C-03</td><td>Clinician territory assignment &mdash; zip</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">C-04</td><td>Census-tract granularity &mdash; under evaluation</td><td>Config</td><td class="y">Yes</td><td>Assist</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Currency &amp; targets</td></tr>
+        <tr><td class="id">SH-07</td><td>Productivity points per visit type</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">SH-08</td><td>Productivity target &amp; ceiling</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Load</td></tr>
+        <tr><td class="id">C-05</td><td>Committed load / points scheduled</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">C-12</td><td>On-call / weekend rotation load</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Open room</td></tr>
+        <tr><td class="id">C-06</td><td>Remaining capacity by day</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">C-07</td><td>Week open capacity</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">C-08</td><td>Assessing capacity by discipline</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Buffer</td></tr>
+        <tr><td class="id">C-09</td><td>Per-diem / flex capacity</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+
+        <tr class="grp"><td colspan="6">Skill &amp; ramp</td></tr>
+        <tr><td class="id">C-10</td><td>Specialty competency supply</td><td>Structural</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">C-11</td><td>Orientation / ramp status</td><td>Structural</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Demand events &amp; context</td></tr>
+        <tr><td class="id">SH-09</td><td>Referral inflow / discharge outflow</td><td>Event</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr class="out"><td class="id">C-13</td><td>Referral volume &mdash; out of scope</td><td>Context</td><td>No</td><td>Read</td><td>In-system</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="pf"><p><span class="t">Highlighted</span> = manual or tacit today, in no system of record.</p><p class="pn">2 / 4</p></footer>
+</section>
+
+<!-- ===================== PAGE 3 ===================== -->
+<section class="page">
+  <header class="ph ph-detail ph-sch">
+    <p class="eyebrow">Scheduling &middot; filling the envelope</p>
+    <h1>All 42 variables</h1>
+    <p class="sub">Assigning each ordered visit to a clinician, on a day, in a workable route.</p>
+  </header>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>ID</th><th>Variable</th><th>Constraint</th><th>MVP</th><th>Posture</th><th>Today</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="6">Patient demand</td></tr>
+        <tr><td class="id">S-01</td><td>Plan-of-care orders / ordered frequency</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-02</td><td>Visit type</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Compliance</td></tr>
+        <tr><td class="id">S-03</td><td>Ordered-frequency compliance window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-35</td><td>SOC timing window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-36</td><td>Recert / face-to-face window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Matching</td></tr>
+        <tr><td class="id">S-15</td><td>Discipline / role match</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-16</td><td>Specialty competency match</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">S-33</td><td>Acuity to discipline / skill</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Constraint</td></tr>
+        <tr><td class="id">S-21</td><td>Clinician restrictions</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Routing</td></tr>
+        <tr><td class="id">S-14</td><td>Home base &mdash; start / end location</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td class="t">Manual</td></tr>
+        <tr><td class="id">S-17</td><td>Proximity to existing route</td><td>Soft</td><td>Maybe</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-18</td><td>Optimised-route mileage</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-19</td><td>Intra-day sequencing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+        <tr><td class="id">S-20</td><td>Appointment window &mdash; time of day</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+
+        <tr class="grp"><td colspan="6">Clinician pattern</td></tr>
+        <tr><td class="id">S-04</td><td>Preferred working days</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-05</td><td>Preferred start time</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-06</td><td>Start-time flexibility</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-07</td><td>Lunch pattern</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-08</td><td>Mid-day documentation block</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-09</td><td>Split-shift / mid-day personal break</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-10</td><td>Preferred end time / hard stop</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-11</td><td>Max consecutive visits / daily volume</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-12</td><td>Elasticity / willingness to flex</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-13</td><td>Overtime / extra-visit willingness</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Patient availability &amp; preference</td></tr>
+        <tr><td class="id">S-23</td><td>Gender preference</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-24</td><td>Language / cultural match</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-25</td><td>Time-of-day refusal</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-26</td><td>Preferred visit window</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-27</td><td>Day-of-week constraint</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Caregiver</td></tr>
+        <tr><td class="id">S-28</td><td>Caregiver-present requirement</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-29</td><td>Cognitive / dementia constraint</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-30</td><td>Caregiver schedule / fluctuating availability</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Clinical timing</td></tr>
+        <tr><td class="id">S-31</td><td>Diagnosis-driven timing</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">S-32</td><td>Competing medical appointments</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">S-34</td><td>Infection-control sequencing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td></tr>
+
+        <tr class="grp"><td colspan="6">Continuity &amp; dependency</td></tr>
+        <tr><td class="id">S-22</td><td>Continuity of care</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+        <tr><td class="id">S-37</td><td>Supervisory visit dependency</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Exception</td></tr>
+        <tr><td class="id">S-38</td><td>Missed / unworked visit rescheduling</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td>In-system</td></tr>
+        <tr><td class="id">S-39</td><td>Missed-visit documentation</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Distribution</td></tr>
+        <tr><td class="id">S-40</td><td>Front-loading</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+        <tr><td class="id">S-41</td><td>Pace vs. schedule</td><td>Derived</td><td>Maybe</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">S-42</td><td>Day-by-day balancing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="pf"><p><span class="t">Highlighted</span> = manual or tacit today. Scheduling carries 24 such rows &mdash; the largest undocumented block in the model.</p><p class="pn">3 / 4</p></footer>
+</section>
+
+<!-- ===================== PAGE 4 ===================== -->
+<section class="page">
+  <header class="ph ph-detail ph-eng">
+    <p class="eyebrow">Engagement &middot; making it happen</p>
+    <h1>All 12 variables</h1>
+    <p class="sub">The communication and confirmation work that turns a schedule into delivered visits.</p>
+  </header>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>ID</th><th>Variable</th><th>Constraint</th><th>MVP</th><th>Posture</th><th>Today</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="6">Confirmation &amp; reminders</td></tr>
+        <tr><td class="id">CO-01</td><td>Day-before / same-day visit confirmation</td><td>Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">CO-02</td><td>Automated appointment reminders</td><td>Soft</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">CO-03</td><td>En-route / on-my-way notification</td><td>Soft</td><td>Maybe</td><td>Control</td><td>In-system</td></tr>
+        <tr><td class="id">CO-04</td><td>New-patient welcome call</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+        <tr><td class="id">CO-05</td><td>Communication channel &amp; preference management</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td></tr>
+
+        <tr class="grp"><td colspan="6">Coverage &amp; reschedule</td></tr>
+        <tr><td class="id">CO-06</td><td>Availability confirmation before booking</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">CO-07</td><td>Reschedule coordination</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+        <tr><td class="id">CO-08</td><td>Failed-visit / no-show follow-up &amp; rebooking</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">CO-09</td><td>Call-out coverage coordination</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td></tr>
+
+        <tr class="grp"><td colspan="6">Care coordination</td></tr>
+        <tr><td class="id">CO-10</td><td>Multi-discipline visit coordination</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td></tr>
+        <tr><td class="id">CO-11</td><td>Care-team / office coordination updates</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Coordination cost</td></tr>
+        <tr><td class="id">CO-12</td><td>Coordination time load</td><td>Derived</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="pf"><p>Posture: <em>Control</em> software decides and acts &middot; <em>Assist</em> it proposes, a person confirms &middot; <em>Read</em> it surfaces, a person decides.</p><p class="pn">4 / 4</p></footer>
+</section>
+
+</main>
+
+<style>
+:root {
+  --paper:     #F2F3EF;
+  --sheet:     #FBFBF8;
+  --ink:       #171E1A;
+  --ink-2:     #4E5A54;
+  --ink-3:     #7C8781;
+  --rule:      #D8DAD2;
+  --rule-soft: #E7E9E1;
+  --cap:       #2C6A55;
+  --sch:       #3A5C86;
+  --eng:       #8C5A2E;
+  --gate:      #A63419;
+  --zone:      #E8E6DB;
+  --zone-line: #C9C6B6;
+  --tacit:     #F3E7D6;
+  --shadow:    0 1px 2px rgba(23,30,26,.05), 0 10px 30px -20px rgba(23,30,26,.3);
+
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --body: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:     #101412;
+    --sheet:     #1A201C;
+    --ink:       #E7EAE4;
+    --ink-2:     #A2AEA7;
+    --ink-3:     #7A857F;
+    --rule:      #2C342E;
+    --rule-soft: #242B26;
+    --cap:       #6FBE9E;
+    --sch:       #86AEDD;
+    --eng:       #D3A26B;
+    --gate:      #EC7A5F;
+    --zone:      #1D2219;
+    --zone-line: #343C2F;
+    --tacit:     #33291B;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:     #101412;
+  --sheet:     #1A201C;
+  --ink:       #E7EAE4;
+  --ink-2:     #A2AEA7;
+  --ink-3:     #7A857F;
+  --rule:      #2C342E;
+  --rule-soft: #242B26;
+  --cap:       #6FBE9E;
+  --sch:       #86AEDD;
+  --eng:       #D3A26B;
+  --gate:      #EC7A5F;
+  --zone:      #1D2219;
+  --zone-line: #343C2F;
+  --tacit:     #33291B;
+  --shadow:    0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.8);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vw, 48px);
+  padding: clamp(20px, 4vw, 52px) clamp(16px, 4vw, 48px);
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.page {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: clamp(22px, 3.4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.6vw, 32px);
+}
+
+/* ---- page header ---- */
+.ph { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.ph h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(30px, 4.6vw, 50px);
+  line-height: 1.03;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+.sub {
+  margin: 0;
+  max-width: 68ch;
+  font-size: clamp(15px, 1.5vw, 17px);
+  color: var(--ink-2);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.ph-detail { padding-bottom: 18px; border-bottom: 2px solid var(--pc, var(--rule)); }
+.ph-cap { --pc: var(--cap); }
+.ph-sch { --pc: var(--sch); }
+.ph-eng { --pc: var(--eng); }
+.ph-detail .eyebrow { color: var(--pc); }
+
+/* ---- the board ---- */
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
+  gap: clamp(14px, 1.8vw, 22px);
+  align-items: start;
+}
+@media (max-width: 880px) { .board { grid-template-columns: minmax(0, 1fr); } }
+
+.box {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--ac, var(--ink-3));
+  border-radius: 10px;
+  padding: clamp(16px, 2vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+.box-cap { --ac: var(--cap); }
+.box-sch { --ac: var(--sch); }
+.box-eng { --ac: var(--eng); }
+
+.bh { display: flex; flex-direction: column; gap: 3px; }
+.kick {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+.bh h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(21px, 2.3vw, 27px);
+  letter-spacing: -.012em;
+  line-height: 1.1;
+}
+
+.vars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.vars li {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 14.5px;
+  line-height: 1.35;
+}
+.vars li:last-child { border-bottom: 0; padding-bottom: 0; }
+.n {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ac);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+  min-width: 1.6em;
+}
+.v { flex: 1 1 auto; text-wrap: pretty; }
+.g, span.g {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--gate);
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 2px 5px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.bf {
+  margin: 4px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  color: var(--ink-3);
+}
+
+/* ---- the shaded coordination zone ---- */
+.zone {
+  background: var(--zone);
+  border: 1.5px dashed var(--zone-line);
+  border-radius: 12px;
+  padding: clamp(13px, 1.6vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(13px, 1.6vw, 18px);
+}
+.zone-label {
+  margin: 0 0 -2px 2px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ---- tables ---- */
+.tw { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; min-width: 660px; font-size: 13.5px; }
+thead th {
+  text-align: left;
+  background: var(--sheet);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 11px 13px;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink-2);
+  vertical-align: top;
+  line-height: 1.4;
+}
+tbody td:nth-child(2) { color: var(--ink); width: 42%; }
+tbody tr:last-child td { border-bottom: 0; }
+td.id { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; color: var(--ink-3); }
+td.y { color: var(--ink); font-weight: 600; }
+td.t, span.t { background: var(--tacit); color: var(--ink); border-radius: 3px; }
+span.t { padding: 1px 5px; }
+tr.out td { opacity: .55; }
+tr.grp td {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: var(--rule-soft);
+  padding: 7px 13px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---- page footer ---- */
+.pf {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.pf p { margin: 0; font-size: 12px; line-height: 1.55; color: var(--ink-3); max-width: 76ch; }
+.pf .g { vertical-align: 1px; margin-right: 4px; }
+.pn { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--ink-3); flex: none; }
+
+em { font-style: italic; }
+:focus-visible { outline: 2px solid var(--cap); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+@media print {
+  @page { margin: 12mm; }
+  body { background: #fff; }
+  main { padding: 0; gap: 0; max-width: none; }
+  .page {
+    break-after: page;
+    page-break-after: always;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0 0 8mm;
+  }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+  .tw { overflow: visible; }
+  table { min-width: 0; }
+  tr, .box { break-inside: avoid; page-break-inside: avoid; }
+}
+</style>
