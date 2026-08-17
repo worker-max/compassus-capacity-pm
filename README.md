@@ -19,6 +19,7 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
 | [`agents/compassus-capacity-pm/AGENT.md`](./agents/compassus-capacity-pm/AGENT.md) | The full agent definition — **Qualities & Identity**, **Functionality**, and **Perspective**. |
 | [`agents/compassus-capacity-pm/initiative-playbook.md`](./agents/compassus-capacity-pm/initiative-playbook.md) | The phase-by-phase program the agent runs: Discover → Design → Pilot → Scale → Sustain. |
 | [`agents/compassus-capacity-pm/knowledge/`](./agents/compassus-capacity-pm/knowledge/) | **The empirical ground truth** — Compassus's own July-2026 discovery work (discovery session + capacity/scheduling analysis). The agent reasons from this first. |
+| [`agents/compassus-capacity-pm/artifacts/`](./agents/compassus-capacity-pm/artifacts/) | **The working artifacts** — the capacity / scheduling / engagement model, the variable inventory, the data index, and the source war-list. Start at its [README](./agents/compassus-capacity-pm/artifacts/README.md). |
 | [`.claude/agents/compassus-capacity-pm.md`](./.claude/agents/compassus-capacity-pm.md) | A runnable Claude Code subagent — a tight standing prompt you can invoke directly for PM guidance. |
 
 ### How to use it
@@ -31,6 +32,18 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
   phase-gate exit criteria, the KPI set, and the cadence rhythm to run the initiative for real.
 - **As a definition to evolve:** `AGENT.md` is the canonical statement of the agent's identity,
   capabilities, and worldview. Refine it as the initiative teaches you what it needs to be.
+
+### The current working model
+
+Capacity, scheduling and engagement as three arenas — **capacity** is the envelope a branch can
+deliver against, and **scheduling** and **engagement** are the two coordination activities performed
+against it. Priorities come from the primary workbook (`Compassus Capacity & Scheduling Workbook
+2026-08-11.xlsx`), not from judgment.
+
+Three views at increasing depth, all in [`artifacts/`](./agents/compassus-capacity-pm/artifacts/):
+the **one-pager** (a single landscape page, primary variables only — also rendered to PDF), the
+**board** (the three boxes plus every variable per box), and the **diagram** (flow, sketch mapping,
+and per-variable constraint / MVP / automation-posture detail).
 
 ### The three dimensions (how the agent was built out)
 
