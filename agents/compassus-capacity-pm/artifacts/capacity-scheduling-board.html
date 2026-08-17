@@ -43,16 +43,17 @@
         <ol class="vars">
           <li><span class="n">01</span><span class="v">Ordered demand</span><span class="g">GATE</span></li>
           <li><span class="n">02</span><span class="v">Compliance windows</span><span class="g">GATE</span></li>
-          <li><span class="n">03</span><span class="v">Assignment fit</span><span class="g">GATE</span></li>
-          <li><span class="n">04</span><span class="v">Clinician restrictions</span><span class="g">GATE</span></li>
-          <li><span class="n">05</span><span class="v">Patient &amp; caregiver availability</span><span class="g">GATE</span></li>
-          <li><span class="n">06</span><span class="v">Clinical timing</span><span class="g">GATE</span></li>
-          <li><span class="n">07</span><span class="v">Missed-visit exceptions</span><span class="g">GATE</span></li>
-          <li><span class="n">08</span><span class="v">Routing &amp; geography</span></li>
-          <li><span class="n">09</span><span class="v">Patient &amp; clinician preference</span></li>
-          <li><span class="n">10</span><span class="v">Week distribution &amp; continuity</span></li>
+          <li><span class="n">03</span><span class="v">Consent &amp; POA readiness</span><span class="nw">NEW</span><span class="g">GATE</span></li>
+          <li><span class="n">04</span><span class="v">Assignment fit</span><span class="g">GATE</span></li>
+          <li><span class="n">05</span><span class="v">Clinician restrictions</span><span class="g">GATE</span></li>
+          <li><span class="n">06</span><span class="v">Patient &amp; caregiver availability</span><span class="g">GATE</span></li>
+          <li><span class="n">07</span><span class="v">Clinical timing</span><span class="g">GATE</span></li>
+          <li><span class="n">08</span><span class="v">Missed-visit exceptions</span><span class="g">GATE</span></li>
+          <li><span class="n">09</span><span class="v">Routing &amp; geography</span></li>
+          <li><span class="n">10</span><span class="v">Patient &amp; clinician preference</span></li>
+          <li><span class="n">11</span><span class="v">Week distribution &amp; continuity</span></li>
         </ol>
-        <p class="bf">42 variables in full &mdash; page 3</p>
+        <p class="bf">44 variables in full &mdash; page 3</p>
       </article>
 
       <article class="box box-eng">
@@ -142,7 +143,7 @@
 <section class="page">
   <header class="ph ph-detail ph-sch">
     <p class="eyebrow">Scheduling &middot; filling the envelope</p>
-    <h1>All 42 variables</h1>
+    <h1>All 44 variables</h1>
     <p class="sub">Assigning each ordered visit to a clinician, on a day, in a workable route.</p>
   </header>
 
@@ -158,6 +159,10 @@
         <tr><td class="id">S-03</td><td>Ordered-frequency compliance window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
         <tr><td class="id">S-35</td><td>SOC timing window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
         <tr><td class="id">S-36</td><td>Recert / face-to-face window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
+
+        <tr class="grp"><td colspan="6">Readiness <span class="gn">proposed</span></td></tr>
+        <tr class="prop"><td class="id">S-43</td><td>Consent / POA signature status <span class="nw">NEW</span></td><td>Config</td><td class="y">Yes</td><td>Control</td><td class="t">Not captured</td></tr>
+        <tr class="prop"><td class="id">S-44</td><td>POA availability to sign at the visit <span class="nw">NEW</span></td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Not captured</td></tr>
 
         <tr class="grp"><td colspan="6">Matching</td></tr>
         <tr><td class="id">S-15</td><td>Discipline / role match</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td></tr>
@@ -218,7 +223,7 @@
       </tbody>
     </table>
   </div>
-  <footer class="pf"><p><span class="t">Highlighted</span> = manual or tacit today. Scheduling carries 24 such rows &mdash; the largest undocumented block in the model.</p><p class="pn">3 / 4</p></footer>
+  <footer class="pf"><p><span class="t">Highlighted</span> = manual, tacit or not captured today. Scheduling carries 28 such rows &mdash; the largest undocumented block in the model. <span class="nw">NEW</span> = proposed here, not yet in the workbook.</p><p class="pn">3 / 4</p></footer>
 </section>
 
 <!-- ===================== PAGE 4 ===================== -->
@@ -461,6 +466,28 @@ main {
   line-height: 1.15;
   white-space: nowrap;
 }
+.nw {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--sch);
+  border: 1px dashed currentColor;
+  border-radius: 3px;
+  padding: 2px 5px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+td .nw { margin-left: 6px; vertical-align: 1px; display: inline-block; }
+.gn {
+  font-weight: 400;
+  letter-spacing: .1em;
+  color: var(--sch);
+  margin-left: 6px;
+}
+tr.prop td { background: color-mix(in srgb, var(--sch) 6%, transparent); }
+
 .bf {
   margin: 4px 0 0;
   padding-top: 10px;

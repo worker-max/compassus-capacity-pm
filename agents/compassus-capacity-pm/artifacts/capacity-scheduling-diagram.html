@@ -8,7 +8,7 @@
     Built from the intake-tool sketch and prioritised against
     <em>Compassus Capacity &amp; Scheduling Workbook 2026-08-11.xlsx</em>
     &mdash; tabs <span class="mono">The Concepts That Matter</span> and <span class="mono">Variable Inventory</span>
-    (76 scored variables: SH&nbsp;9 &middot; C&nbsp;13 &middot; S&nbsp;42 &middot; CO&nbsp;12).
+    (76 scored variables: SH&nbsp;9 &middot; C&nbsp;13 &middot; S&nbsp;42 &middot; CO&nbsp;12) plus 2 proposed here.
   </p>
 </header>
 
@@ -190,7 +190,7 @@
       <header class="arena-head">
         <p class="arena-kicker">Filling the envelope</p>
         <h2 class="arena-name">Scheduling</h2>
-        <p class="arena-note">Assigning each ordered visit to a clinician, on a day, in a workable route. <span class="mono">S-01&ndash;S-42</span></p>
+        <p class="arena-note">Assigning each ordered visit to a clinician, on a day, in a workable route. <span class="mono">S-01&ndash;S-44</span></p>
       </header>
 
       <ol class="factors">
@@ -208,6 +208,11 @@
           <div class="f-top"><span class="f-rank">03</span><h3 class="f-name">Assignment fit</h3><span class="chip chip-gate">GATE</span></div>
           <p class="f-why">Discipline and role match, specialty competency match, acuity to skill. Good fit uses capacity efficiently; assigning to whoever is free wastes it and strains clinicians. Acuity-to-skill stays a human call.</p>
           <p class="f-ids"><span class="mono">S-15 S-16 S-33</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">03&#189;</span><h3 class="f-name">Consent &amp; POA readiness</h3><span class="chip chip-new">NEW</span><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Consent has to be signed before the first visit, or the power of attorney has to be there to sign it. Two satisfaction paths, one blocker &mdash; and today neither state is recorded, so scheduling discovers the problem at the door. Proposed as <span class="mono">S-43</span> (signature status, a rule-based flag the system can own and block on) and <span class="mono">S-44</span> (the POA's own availability, a fluctuating human calendar like <span class="mono">S-30</span>).</p>
+          <p class="f-ids"><span class="mono">S-43 S-44</span> &mdash; proposed, not yet in the workbook</p>
         </li>
         <li class="f">
           <div class="f-top"><span class="f-rank">04</span><h3 class="f-name">Clinician restrictions</h3><span class="chip chip-gate">GATE</span></div>
@@ -357,7 +362,7 @@
         <tr><td>Rescheduling</td><td class="a-sch">Scheduling</td><td class="mono">S-38 &rarr; CO-07 CO-08</td><td>Appears in both sketch boxes; correctly so.</td></tr>
         <tr class="new"><td>Traffic</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Routing today is mileage and straight-line proximity. No time-of-day travel model exists.</td></tr>
         <tr class="new"><td>Obstructions (bridges, etc.)</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Charleston-specific and material. Same gap as traffic: drive-time, not distance.</td></tr>
-        <tr class="new"><td>POA</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW &middot; AMBIGUOUS</span> Reads either as plan of action or power of attorney. If the latter it belongs with <span class="mono">S-28 S-29</span>; needs one word from you.</td></tr>
+        <tr class="new"><td>POA &mdash; power of attorney</td><td class="a-sch">Scheduling</td><td class="mono">S-43 S-44</td><td><span class="chip chip-new">NEW</span> <strong>Resolved.</strong> Consent must be signed ahead of the first visit, or the POA must attend to sign it. Neither state is captured anywhere, so the block surfaces only when the clinician is already at the door. Written in as two proposed variables.</td></tr>
         <tr><td>Welcome / readiness</td><td class="a-eng">Engagement</td><td class="mono">CO-04</td><td>&mdash;</td></tr>
         <tr><td>Text reminders</td><td class="a-eng">Engagement</td><td class="mono">CO-02 CO-05</td><td>&mdash;</td></tr>
         <tr><td>Scheduling (in engagement)</td><td class="a-eng">Engagement</td><td class="mono">CO-06</td><td>Confirming the window before booking.</td></tr>
@@ -374,7 +379,7 @@
 
 <section class="band">
   <h2 class="sec">Full variable inventory</h2>
-  <p class="lede">All 76 scored variables, grouped under the three arenas above &mdash; the raw material for the per-category breakdowns. <strong>Posture</strong> is how far software should go: <em>Control</em> it can decide and act, <em>Assist</em> it proposes and a person confirms, <em>Read</em> it surfaces and a person decides.</p>
+  <p class="lede">All 76 scored variables plus the 2 proposed here, grouped under the three arenas above &mdash; the raw material for the per-category breakdowns. <strong>Posture</strong> is how far software should go: <em>Control</em> it can decide and act, <em>Assist</em> it proposes and a person confirms, <em>Read</em> it surfaces and a person decides.</p>
 
   <h3 class="sub sub-cap">Capacity Management &mdash; 22 variables</h3>
   <div class="tbl-wrap">
@@ -407,7 +412,7 @@
     </table>
   </div>
 
-  <h3 class="sub sub-sch">Scheduling &mdash; 42 variables</h3>
+  <h3 class="sub sub-sch">Scheduling &mdash; 42 variables + 2 proposed</h3>
   <div class="tbl-wrap">
     <table class="inv">
       <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>
@@ -454,6 +459,8 @@
         <tr><td class="mono">S-40</td><td>Front-loading</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
         <tr><td class="mono">S-41</td><td>Pace vs. schedule</td><td>Derived</td><td>Maybe</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
         <tr><td class="mono">S-42</td><td>Day-by-day balancing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
+        <tr class="new"><td class="mono">S-43</td><td>Consent / POA signature status <span class="chip chip-new">NEW</span></td><td>Config</td><td class="y">Yes</td><td>Control</td><td class="t">Not captured</td><td>&mdash; to build</td></tr>
+        <tr class="new"><td class="mono">S-44</td><td>POA availability to sign at the visit <span class="chip chip-new">NEW</span></td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Not captured</td><td>&mdash; to build</td></tr>
       </tbody>
     </table>
   </div>
