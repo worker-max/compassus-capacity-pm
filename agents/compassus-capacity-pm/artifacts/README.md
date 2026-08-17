@@ -46,6 +46,8 @@ renumbered.
 |---|---|---|
 | `Capacity-Scheduling-One-Pager.pdf` | One A4 landscape page: three categories, primary variables only | The handout. Meetings, email, print |
 | `capacity-scheduling-one-pager.html` | Source for the PDF above | Edit here, then re-render |
+| `Capacity-Scheduling-Variable-Reference.pdf` | Three A4 landscape pages, one per category, carrying every variable | The supporting handout. Pairs with the one-pager as a 4-page set |
+| `capacity-scheduling-full-lists.html` | Source for the reference above | Edit here, then re-render |
 | `capacity-scheduling-board.html` | 4 pages — the three boxes, then every variable per box | The working list |
 | `capacity-scheduling-diagram.html` | Flow figure, sketch-to-model mapping, and per-variable detail (constraint, MVP, posture, current state) | The reference / supporting document |
 | `capacity-tool-data-index.md` | Full capacity-vision data dictionary (domains A–J) | Field-level data planning |
@@ -54,8 +56,11 @@ renumbered.
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
-**Editing rule:** the one-pager, the board and the diagram carry the same variable set at three
-depths. Change one, change all three, or they drift.
+**Editing rule:** the one-pager, the full lists, the board and the diagram carry the same variable
+set at different depths. Change one, change all four, or they drift.
+
+**The handout set** is the one-pager (page 1, summary) plus the variable reference (pages 2–4, one
+per category). Both are A4 landscape and print as a matched 4-page set.
 
 ### Re-rendering the PDF
 

@@ -1,0 +1,510 @@
+<title>Variable Reference</title>
+
+<main>
+
+<!-- ============ CAPACITY ============ -->
+<section class="sheet s-cap airy">
+  <header class="hd">
+    <div class="hd-l">
+      <p class="eyebrow">Capacity Management &middot; the envelope</p>
+      <h1>All 22 variables</h1>
+    </div>
+    <p class="hd-r">How much work this branch can deliver &mdash; people, hours, disciplines and territory, netted against what is already booked.</p>
+  </header>
+
+  <div class="cols">
+    <section class="gb">
+      <h2>Roster</h2>
+      <ul>
+        <li><span class="id">SH-01</span>Clinician headcount</li>
+        <li><span class="id">SH-02</span>Discipline</li>
+        <li><span class="id">SH-03</span>Role &mdash; assessing vs. assistant</li>
+        <li><span class="id">SH-04</span>FTE / employment type</li>
+        <li><span class="id">C-01</span>Headcount by discipline &amp; employment type</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Availability</h2>
+      <ul><li><span class="id">SH-05</span>Approved time off / availability</li></ul>
+    </section>
+
+    <section class="gb">
+      <h2>Geography</h2>
+      <ul>
+        <li><span class="id">SH-06</span>Territory / service area</li>
+        <li><span class="id">C-02</span>Branch coverage territory &mdash; county</li>
+        <li><span class="id">C-03</span>Clinician territory assignment &mdash; zip</li>
+        <li><span class="id">C-04</span>Census-tract granularity</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Currency &amp; targets</h2>
+      <ul>
+        <li><span class="id">SH-07</span>Productivity points per visit type</li>
+        <li><span class="id">SH-08</span>Productivity target &amp; ceiling</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Load</h2>
+      <ul>
+        <li><span class="id">C-05</span>Committed load / points scheduled</li>
+        <li><span class="id">C-12</span>On-call / weekend rotation load</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Open room</h2>
+      <ul>
+        <li><span class="id">C-06</span>Remaining capacity by day</li>
+        <li><span class="id">C-07</span>Week open capacity</li>
+        <li><span class="id">C-08</span>Assessing capacity by discipline</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Buffer</h2>
+      <ul><li><span class="id">C-09</span>Per-diem / flex capacity</li></ul>
+    </section>
+
+    <section class="gb">
+      <h2>Skill &amp; ramp</h2>
+      <ul>
+        <li><span class="id">C-10</span>Specialty competency supply</li>
+        <li><span class="id">C-11</span>Orientation / ramp status</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Demand events &amp; context</h2>
+      <ul>
+        <li><span class="id">SH-09</span>Referral inflow / discharge outflow</li>
+        <li><span class="id">C-13</span>Referral volume</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="ft">
+    <p>Capacity Management &mdash; 22 variables</p>
+    <p>8.13 Compassus Capacity &amp; Scheduling Workbook</p>
+  </footer>
+</section>
+
+<!-- ============ SCHEDULING ============ -->
+<section class="sheet s-sch dense">
+  <header class="hd">
+    <div class="hd-l">
+      <p class="eyebrow">Scheduling Engine &middot; filling the envelope</p>
+      <h1>All 47 variables</h1>
+    </div>
+    <p class="hd-r">Assigning each ordered visit to a clinician, on a day, in a workable route.</p>
+  </header>
+
+  <div class="cols cols-3">
+    <section class="gb">
+      <h2>Patient demand</h2>
+      <ul>
+        <li><span class="id">S-01</span>Plan-of-care orders / ordered frequency</li>
+        <li><span class="id">S-02</span>Visit type</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Compliance</h2>
+      <ul>
+        <li><span class="id">S-03</span>Ordered-frequency compliance window</li>
+        <li><span class="id">S-35</span>SOC timing window</li>
+        <li><span class="id">S-36</span>Recert / face-to-face window</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Readiness</h2>
+      <ul>
+        <li><span class="id">&mdash;</span>Insurance authorization</li>
+        <li><span class="id">&mdash;</span>Add-on orders</li>
+        <li><span class="id">S-43</span>Consent / POA signature status</li>
+        <li><span class="id">S-44</span>POA availability to sign at the visit</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Matching</h2>
+      <ul>
+        <li><span class="id">S-15</span>Discipline / role match</li>
+        <li><span class="id">S-16</span>Specialty competency match</li>
+        <li><span class="id">S-33</span>Acuity to discipline / skill</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Constraint</h2>
+      <ul><li><span class="id">S-21</span>Clinician restrictions</li></ul>
+    </section>
+
+    <section class="gb">
+      <h2>Routing</h2>
+      <ul>
+        <li><span class="id">S-14</span>Home base &mdash; start / end location</li>
+        <li><span class="id">S-17</span>Proximity to existing route</li>
+        <li><span class="id">S-18</span>Optimised-route mileage</li>
+        <li><span class="id">S-19</span>Intra-day sequencing</li>
+        <li><span class="id">S-20</span>Appointment window &mdash; time of day</li>
+        <li><span class="id">&mdash;</span>Clinician safety &mdash; market alerts</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Clinician pattern</h2>
+      <ul>
+        <li><span class="id">S-04</span>Preferred working days</li>
+        <li><span class="id">S-05</span>Preferred start time</li>
+        <li><span class="id">S-06</span>Start-time flexibility</li>
+        <li><span class="id">S-07</span>Lunch / documentation pattern</li>
+        <li><span class="id">S-08</span>Mid-day documentation block</li>
+        <li><span class="id">S-09</span>Split-shift / mid-day break</li>
+        <li><span class="id">S-10</span>Preferred end time / hard stop</li>
+        <li><span class="id">S-11</span>Max consecutive visits / daily volume</li>
+        <li><span class="id">S-12</span>Elasticity / willingness to flex</li>
+        <li><span class="id">S-13</span>Overtime / extra-visit willingness</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Patient availability &amp; preference</h2>
+      <ul>
+        <li><span class="id">S-23</span>Gender preference</li>
+        <li><span class="id">S-24</span>Language / cultural match</li>
+        <li><span class="id">S-25</span>Time-of-day refusal</li>
+        <li><span class="id">S-26</span>Preferred visit window</li>
+        <li><span class="id">S-27</span>Day-of-week constraint</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Caregiver</h2>
+      <ul>
+        <li><span class="id">S-28</span>Caregiver-present requirement</li>
+        <li><span class="id">S-29</span>Cognitive / dementia constraint</li>
+        <li><span class="id">S-30</span>Caregiver schedule / availability</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Clinical timing</h2>
+      <ul>
+        <li><span class="id">S-31</span>Diagnosis-driven timing</li>
+        <li><span class="id">S-32</span>Competing medical appointments</li>
+        <li><span class="id">S-34</span>Infection-control sequencing</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Continuity &amp; dependency</h2>
+      <ul>
+        <li><span class="id">S-22</span>Continuity of care</li>
+        <li><span class="id">S-37</span>Supervisory visit dependency</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Exception</h2>
+      <ul>
+        <li><span class="id">S-38</span>Missed / unworked visit rescheduling</li>
+        <li><span class="id">S-39</span>Missed-visit documentation</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Distribution</h2>
+      <ul>
+        <li><span class="id">S-40</span>Front-loading</li>
+        <li><span class="id">S-41</span>Pace vs. schedule</li>
+        <li><span class="id">S-42</span>Day-by-day balancing</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="ft">
+    <p>Scheduling Engine &mdash; 47 variables</p>
+    <p>8.13 Compassus Capacity &amp; Scheduling Workbook</p>
+  </footer>
+</section>
+
+<!-- ============ ENGAGEMENT ============ -->
+<section class="sheet s-eng airier">
+  <header class="hd">
+    <div class="hd-l">
+      <p class="eyebrow">Patient Engagement &middot; making it happen</p>
+      <h1>All 12 variables</h1>
+    </div>
+    <p class="hd-r">The communication and confirmation work that turns a schedule into delivered visits.</p>
+  </header>
+
+  <div class="cols">
+    <section class="gb">
+      <h2>Confirmation &amp; reminders</h2>
+      <ul>
+        <li><span class="id">CO-01</span>Day-before / same-day visit confirmation</li>
+        <li><span class="id">CO-02</span>Automated appointment reminders</li>
+        <li><span class="id">CO-03</span>En-route / on-my-way notification</li>
+        <li><span class="id">CO-04</span>New-patient welcome call</li>
+        <li><span class="id">CO-05</span>Communication channel &amp; preference management</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Coverage &amp; reschedule</h2>
+      <ul>
+        <li><span class="id">CO-06</span>Availability confirmation before booking</li>
+        <li><span class="id">CO-07</span>Reschedule coordination</li>
+        <li><span class="id">CO-08</span>Failed-visit / no-show follow-up &amp; rebooking</li>
+        <li><span class="id">CO-09</span>Call-out coverage coordination</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Care coordination</h2>
+      <ul>
+        <li><span class="id">CO-10</span>Multi-discipline visit coordination</li>
+        <li><span class="id">CO-11</span>Care-team / office coordination updates</li>
+      </ul>
+    </section>
+
+    <section class="gb">
+      <h2>Coordination cost</h2>
+      <ul><li><span class="id">CO-12</span>Coordination time load</li></ul>
+    </section>
+  </div>
+
+  <footer class="ft">
+    <p>Patient Engagement &mdash; 12 variables</p>
+    <p>8.13 Compassus Capacity &amp; Scheduling Workbook</p>
+  </footer>
+</section>
+
+</main>
+
+<style>
+:root {
+  --paper:     #F2F3EF;
+  --sheet:     #FBFBF8;
+  --ink:       #171E1A;
+  --ink-2:     #4E5A54;
+  --ink-3:     #7C8781;
+  --rule:      #D8DAD2;
+  --rule-soft: #E7E9E1;
+  --cap:       #2C6A55;
+  --sch:       #3A5C86;
+  --eng:       #8C5A2E;
+  --shadow:    0 1px 2px rgba(23,30,26,.05), 0 12px 34px -22px rgba(23,30,26,.35);
+
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --body: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:     #101412;
+    --sheet:     #1A201C;
+    --ink:       #E7EAE4;
+    --ink-2:     #A2AEA7;
+    --ink-3:     #7A857F;
+    --rule:      #2C342E;
+    --rule-soft: #242B26;
+    --cap:       #6FBE9E;
+    --sch:       #86AEDD;
+    --eng:       #D3A26B;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:     #101412;
+  --sheet:     #1A201C;
+  --ink:       #E7EAE4;
+  --ink-2:     #A2AEA7;
+  --ink-3:     #7A857F;
+  --rule:      #2C342E;
+  --rule-soft: #242B26;
+  --cap:       #6FBE9E;
+  --sch:       #86AEDD;
+  --eng:       #D3A26B;
+  --shadow:    0 1px 2px rgba(0,0,0,.4), 0 12px 34px -22px rgba(0,0,0,.85);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  padding: clamp(14px, 2.5vw, 40px);
+}
+
+main { display: flex; flex-direction: column; gap: clamp(20px, 3vw, 40px); }
+
+/* A4 landscape sheet */
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 1400px;
+  width: 100%;
+  margin-inline: auto;
+  aspect-ratio: 297 / 210;
+  padding: clamp(18px, 2.4vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.3vw, 18px);
+  container-type: inline-size;
+}
+@media (max-width: 900px) { .sheet { aspect-ratio: auto; } }
+
+.s-cap { --ac: var(--cap); }
+.s-sch { --ac: var(--sch); }
+.s-eng { --ac: var(--eng); }
+
+/* ---- header ---- */
+.hd {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: clamp(9px, 1.1vw, 15px);
+  border-bottom: 2px solid var(--ac);
+  flex-wrap: wrap;
+}
+.hd-l { display: flex; flex-direction: column; gap: 3px; }
+.eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(8.5px, .8cqi, 11px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+.hd h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(22px, 3cqi, 40px);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.hd-r {
+  margin: 0;
+  max-width: 48ch;
+  text-align: right;
+  font-size: clamp(9.5px, 1cqi, 13.5px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* ---- columns of groups ---- */
+.cols {
+  flex: 1 1 auto;
+  min-height: 0;
+  columns: 2;
+  column-gap: clamp(22px, 3.2vw, 46px);
+  column-fill: balance;
+}
+.cols-3 { columns: 3; column-gap: clamp(18px, 2.4vw, 34px); }
+@media (max-width: 900px) { .cols, .cols-3 { columns: 1; } }
+
+.gb {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin: 0 0 clamp(10px, 1.3vw, 18px);
+}
+.gb h2 {
+  margin: 0 0 clamp(4px, .55vw, 7px);
+  font-family: var(--mono);
+  font-size: clamp(8px, .8cqi, 10.5px);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ac);
+  padding-bottom: clamp(3px, .4vw, 5px);
+  border-bottom: 1px solid var(--rule);
+}
+.gb ul { list-style: none; margin: 0; padding: 0; }
+.gb li {
+  display: flex;
+  gap: clamp(6px, .8vw, 10px);
+  align-items: baseline;
+  padding: var(--rowpad, clamp(3.5px, .48vw, 7px)) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: var(--rowfs, clamp(9.5px, 1.02cqi, 14px));
+  line-height: 1.32;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.gb li:last-child { border-bottom: 0; }
+.id {
+  font-family: var(--mono);
+  font-size: clamp(7.5px, .78cqi, 10.5px);
+  color: var(--ink-3);
+  flex: none;
+  min-width: 4.2em;
+  letter-spacing: .03em;
+}
+.dense .gb li { padding: clamp(2.6px, .36vw, 5px) 0; }
+.dense .gb { margin-bottom: clamp(8px, 1vw, 13px); }
+
+/* sparse pages breathe so the sheet does not read half-empty */
+.airy   { --rowpad: clamp(6px, .82vw, 12px);  --rowfs: clamp(10px, 1.1cqi, 15px); }
+.airier { --rowpad: clamp(10px, 1.35vw, 21px); --rowfs: clamp(10.5px, 1.18cqi, 16px); }
+.airy .gb   { margin-bottom: clamp(12px, 1.7vw, 24px); }
+.airier .gb { margin-bottom: clamp(16px, 2.3vw, 34px); }
+
+/* ---- footer ---- */
+.ft {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  padding-top: clamp(7px, .85vw, 12px);
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+.ft p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(8px, .78cqi, 10.5px);
+  letter-spacing: .06em;
+  color: var(--ink-3);
+}
+.ft p:first-child { color: var(--ac); }
+.ft p:last-child { text-align: right; }
+
+:focus-visible { outline: 2px solid var(--ac); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+@media print {
+  @page { size: A4 landscape; margin: 9mm; }
+  body { background: #fff; padding: 0; }
+  main { gap: 0; }
+  .sheet {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    padding: 0;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+}
+</style>
