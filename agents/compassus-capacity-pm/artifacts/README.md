@@ -22,6 +22,8 @@ capacity.
 | Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (79 scored variables → priority) |
 | Data-model workbook | `Clinician-Capacity-Tool_Data-Index.xlsx` — Drive `1BFxo6k3tSDyoJZxmm7_gFxmnuEm4S_fW` |
 | Drive folder | `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3` |
+| Original flow map | `8.13 capacity scheduling swimlane detail.pdf` — Drive `1SZDHuYYzkMLP-J7uCKdITY3CGZA3qhCx` (page 2 of a set; page 1 is *Home Health Intake Reset*) |
+| Flow clarifying document | Drive `1NSHlkaWir6rc7mgZ1ONtwG-sIPsNFayV` — four flows with redraw refinements |
 | On-site whiteboard session | [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md) — decisions DE-01…DE-10 |
 | Discovery ground truth | [`../knowledge/`](../knowledge/) |
 
@@ -54,6 +56,7 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
+| `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
 **Editing rule:** the one-pager, the full lists, the board and the diagram carry the same variable
