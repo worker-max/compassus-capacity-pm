@@ -52,6 +52,7 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
+| `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
 **Editing rule:** the one-pager, the board and the diagram carry the same variable set at three
 depths. Change one, change all three, or they drift.
@@ -112,10 +113,8 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 
 ## Open items
 
-- **Five variables have no ID.** `S-43` / `S-44` are proposed here and not yet in the workbook;
-  *Insurance Authorization*, *Add-On Orders* and *Clinician Safety* are in the 8.13 workbook but
-  unnumbered. All five need IDs and inventory rows to flow through the `Functional Scorecard`, which
-  is what vendor scoring reads from. Until then the workbook counts 79 and these documents say 81.
+- **Five variables have no ID**, so they are invisible to the `Functional Scorecard`. Tracked with
+  everything else pending in [`variable-backlog.md`](./variable-backlog.md) — keep appending there.
 - **The *Readiness* group is now populated** — authorization and add-on orders joined consent/POA.
   Plan-of-care locks and face-to-face / coding holds are the same family and still have no row.
   This was ecosystem gap **1A**; the 13 Aug session closed most of it.

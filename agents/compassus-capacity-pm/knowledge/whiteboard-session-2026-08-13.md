@@ -13,10 +13,9 @@
 > actually work" at HCHB-level specificity; the highest-density source in the session. Evan —
 > executive and initiative lead, owns vendor relationships.
 >
-> **Provenance caveat.** The source document is an Executive Summary plus **Part A** plus the raw
-> transcript. It refers throughout to Parts B–J (durable objects, bottlenecks, requirements,
-> executive decisions) and to `source/transcript-lines.txt` for its `[T:###]` citations. **Those
-> parts are not in the file.** Anything below is drawn only from what is actually present.
+> **Note.** This document is the Executive Summary plus Part A plus the raw transcript. It cites
+> Parts B–J and `source/transcript-lines.txt`; those are separate documents still to come. The
+> `[T:###]` citations are retained so they resolve once those land.
 
 ---
 
@@ -190,3 +189,6 @@ See [`../artifacts/README.md`](../artifacts/README.md). In summary: three new ga
 entered the inventory (Insurance Authorization, Add-On Orders, Clinician Safety), the three arenas
 were renamed to the DE-02 module names, and four items previously flagged as net-new gaps were
 independently confirmed here.
+
+New variables arising from this session are tracked in
+[`../artifacts/variable-backlog.md`](../artifacts/variable-backlog.md).
