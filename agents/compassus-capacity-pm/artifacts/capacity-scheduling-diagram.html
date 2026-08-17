@@ -1,0 +1,964 @@
+<title>The Capacity Board</title>
+
+<header class="masthead">
+  <p class="eyebrow">Compassus &middot; Home Health Capacity &amp; Scheduling</p>
+  <h1>The Capacity Board</h1>
+  <p class="standfirst">One envelope, two coordination activities. The factors in each arena, ranked by the priority the working workbook already assigns them.</p>
+  <p class="provenance">
+    Built from the intake-tool sketch and prioritised against
+    <em>Compassus Capacity &amp; Scheduling Workbook 2026-08-11.xlsx</em>
+    &mdash; tabs <span class="mono">The Concepts That Matter</span> and <span class="mono">Variable Inventory</span>
+    (76 scored variables: SH&nbsp;9 &middot; C&nbsp;13 &middot; S&nbsp;42 &middot; CO&nbsp;12).
+  </p>
+</header>
+
+<main>
+
+<section class="band">
+  <h2 class="sec">How the three arenas connect</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 1000 420" role="img" aria-label="Capacity sets the envelope; inside a shaded coordination zone, scheduling fills it and engagement makes it happen; completed visits are the only output, and discharges reopen capacity." xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="9" markerHeight="7" orient="auto-start-reverse">
+          <polygon points="0,0 10,4 0,8" fill="currentColor"/>
+        </marker>
+        <marker id="ard" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+          <polygon points="0,0 10,4 0,8" fill="currentColor" opacity="0.55"/>
+        </marker>
+      </defs>
+
+      <!-- coordination zone -->
+      <rect x="310" y="55" width="390" height="305" rx="10" class="zone-rect"/>
+      <text x="330" y="79" class="zone-label">COORDINATION</text>
+
+      <!-- capacity -->
+      <rect x="30" y="110" width="210" height="170" rx="8" class="bx bx-cap"/>
+      <text x="135" y="180" class="bx-title" text-anchor="middle">CAPACITY</text>
+      <text x="135" y="200" class="bx-sub" text-anchor="middle">the envelope</text>
+      <text x="135" y="218" class="bx-sub" text-anchor="middle">how much we can take</text>
+
+      <!-- scheduling -->
+      <rect x="340" y="90" width="330" height="100" rx="8" class="bx bx-sch"/>
+      <text x="505" y="132" class="bx-title" text-anchor="middle">SCHEDULING</text>
+      <text x="505" y="152" class="bx-sub" text-anchor="middle">filling the envelope</text>
+      <text x="505" y="170" class="bx-sub" text-anchor="middle">who goes where, when</text>
+
+      <!-- engagement -->
+      <rect x="340" y="235" width="330" height="100" rx="8" class="bx bx-eng"/>
+      <text x="505" y="277" class="bx-title" text-anchor="middle">ENGAGEMENT</text>
+      <text x="505" y="297" class="bx-sub" text-anchor="middle">making it actually happen</text>
+      <text x="505" y="315" class="bx-sub" text-anchor="middle">confirm &middot; cover &middot; rebook</text>
+
+      <!-- delivered -->
+      <rect x="770" y="240" width="200" height="90" rx="8" class="bx bx-out"/>
+      <text x="870" y="281" class="bx-title" text-anchor="middle">DELIVERED</text>
+      <text x="870" y="301" class="bx-sub" text-anchor="middle">the only thing</text>
+      <text x="870" y="317" class="bx-sub" text-anchor="middle">that becomes revenue</text>
+
+      <!-- referral in -->
+      <line x1="135" y1="45" x2="135" y2="106" class="ln" marker-end="url(#ar)"/>
+      <text x="135" y="36" class="lb" text-anchor="middle">new referral</text>
+
+      <!-- capacity -> scheduling -->
+      <line x1="243" y1="145" x2="335" y2="145" class="ln" marker-end="url(#ar)"/>
+      <text x="289" y="136" class="lb" text-anchor="middle">caps the book</text>
+
+      <!-- scheduling -> capacity -->
+      <line x1="335" y1="185" x2="243" y2="185" class="ln ln-d" marker-end="url(#ard)"/>
+      <text x="289" y="202" class="lb lb-d" text-anchor="middle">consumes points</text>
+
+      <!-- scheduling -> engagement -->
+      <line x1="455" y1="193" x2="455" y2="231" class="ln" marker-end="url(#ar)"/>
+      <text x="447" y="216" class="lb" text-anchor="end">the plan</text>
+
+      <!-- engagement -> scheduling -->
+      <line x1="555" y1="231" x2="555" y2="193" class="ln ln-d" marker-end="url(#ard)"/>
+      <text x="563" y="216" class="lb lb-d" text-anchor="start">misses to rebook</text>
+
+      <!-- engagement -> delivered -->
+      <line x1="673" y1="285" x2="765" y2="285" class="ln" marker-end="url(#ar)"/>
+      <text x="719" y="276" class="lb" text-anchor="middle">completed</text>
+
+      <!-- feedback -->
+      <path d="M 870 332 L 870 395 L 135 395 L 135 284" fill="none" class="ln ln-d" marker-end="url(#ard)"/>
+      <text x="502" y="387" class="lb lb-d" text-anchor="middle">discharge reopens room</text>
+    </svg>
+    <figcaption>
+      Capacity is a planning function and scheduling is an execution function, but they run on the same data &mdash;
+      the workbook calls that <em>the Seam</em>. Scheduling and engagement are grouped as coordination because both
+      are activities performed <em>against</em> the envelope: one allocates the room, the other defends it. Only a
+      completed visit becomes revenue; a discharge hands room back to capacity.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="band">
+  <div class="legend">
+    <h2 class="sec sec-inline">Priority key</h2>
+    <ul class="legend-list">
+      <li><span class="chip chip-gate">GATE</span> Hard or structural <em>and</em> a day-one must-have. A knockout &mdash; if it cannot be done, nothing downstream is trustworthy.</li>
+      <li><span class="chip chip-mvp">MVP</span> Day-one must-have (workbook weight&nbsp;3).</li>
+      <li><span class="chip chip-later">LATER</span> Shapes the answer but not day one (weight&nbsp;1).</li>
+      <li><span class="chip chip-conf">CONFLICT</span> A vendor's built-in way of working could contradict how Compassus already operates. Probe hardest here.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="board">
+
+  <!-- ============ CAPACITY ============ -->
+  <article class="arena arena-cap">
+    <header class="arena-head">
+      <p class="arena-kicker">The envelope</p>
+      <h2 class="arena-name">Capacity Management</h2>
+      <p class="arena-note">How much work this branch can deliver &mdash; people, hours, disciplines and territory, netted against what is already booked. <span class="mono">SH-01&ndash;09 &middot; C-01&ndash;13</span></p>
+    </header>
+
+    <ol class="factors">
+      <li class="f">
+        <div class="f-top"><span class="f-rank">01</span><h3 class="f-name">Staff supply by discipline &amp; role</h3><span class="chip chip-gate">GATE</span></div>
+        <p class="f-why">Headcount, discipline, assessing vs. assistant, FTE and employment type. The single biggest driver of what a branch can deliver &mdash; everything else works inside it.</p>
+        <p class="f-ids"><span class="mono">SH-01 SH-02 SH-03 SH-04 C-01</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">02</span><h3 class="f-name">Assessing capacity by discipline</h3><span class="chip chip-gate">GATE</span></div>
+        <p class="f-why">Open room limited to clinicians who can perform a SOC or eval. <strong>This is the factor that gates saying yes to a referral</strong> &mdash; and the constraint the discovery names as the binding limit on branch growth.</p>
+        <p class="f-ids"><span class="mono">C-08 SH-03</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">03</span><h3 class="f-name">Availability &amp; time off</h3><span class="chip chip-gate">GATE</span></div>
+        <p class="f-why">Approved PTO and LOA blank the day out of capacity entirely. A hard blackout once entered &mdash; but the Workday&harr;HCHB feed is reported off, so this input runs stale today.</p>
+        <p class="f-ids"><span class="mono">SH-05</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">04</span><h3 class="f-name">Territory reachability</h3><span class="chip chip-gate">GATE</span><span class="chip chip-conf">CONFLICT</span></div>
+        <p class="f-why">Branch coverage by county and clinician assignment by zip. Room in the wrong area is room you cannot use. Census-tract granularity is under evaluation as a finer alternative.</p>
+        <p class="f-ids"><span class="mono">SH-06 C-02 C-03 C-04</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">05</span><h3 class="f-name">Per-diem &amp; flex buffer</h3><span class="chip chip-gate">GATE</span></div>
+        <p class="f-why">Contract and PRN capacity &mdash; the elastic cushion when full-time is exhausted. Stated availability is not real availability: actual engagement depends on the relationship.</p>
+        <p class="f-ids"><span class="mono">C-09</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">06</span><h3 class="f-name">On-call &amp; weekend rotation load</h3><span class="chip chip-gate">GATE</span></div>
+        <p class="f-why">Rotation duty consumes capacity and creates a recovery burden the weekday schedule has to absorb.</p>
+        <p class="f-ids"><span class="mono">C-12</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">07</span><h3 class="f-name">Visit weighting &mdash; the point currency</h3><span class="chip chip-mvp">MVP</span><span class="chip chip-conf">CONFLICT</span></div>
+        <p class="f-why">Routine 1.0, SOC 2.5, recert 1.75 and so on. The shared currency of both arenas: the same headcount delivers very different capacity depending on visit mix.</p>
+        <p class="f-ids"><span class="mono">SH-07</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">08</span><h3 class="f-name">Targets &amp; ceiling</h3><span class="chip chip-mvp">MVP</span><span class="chip chip-conf">CONFLICT</span></div>
+        <p class="f-why">Defines what &ldquo;full&rdquo; means. Plan to the weekly target; the daily ceiling is the hard cap capacity cannot cross.</p>
+        <p class="f-ids"><span class="mono">SH-08</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">09</span><h3 class="f-name">Committed load &amp; open room</h3><span class="chip chip-mvp">MVP</span><span class="chip chip-conf">CONFLICT</span></div>
+        <p class="f-why">Points already scheduled, and the bookable points left by day and across the week. The live read leaders act on &mdash; green means take more, red means full.</p>
+        <p class="f-ids"><span class="mono">C-05 C-06 C-07</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">10</span><h3 class="f-name">Specialty competency supply</h3><span class="chip chip-later">LATER</span></div>
+        <p class="f-why">Wound, IV, vent, lymphedema. Real capacity that only counts if the patient needs that skill &mdash; and it lives tacitly today, not credentialed in the data.</p>
+        <p class="f-ids"><span class="mono">C-10</span></p>
+      </li>
+      <li class="f">
+        <div class="f-top"><span class="f-rank">11</span><h3 class="f-name">Orientation &amp; ramp status</h3><span class="chip chip-later">LATER</span></div>
+        <p class="f-why">A new hire is headcount before they are capacity. Counting them at full productivity overstates the envelope.</p>
+        <p class="f-ids"><span class="mono">C-11</span></p>
+      </li>
+      <li class="f f-out">
+        <div class="f-top"><span class="f-rank">&mdash;</span><h3 class="f-name">Referral volume</h3><span class="chip chip-out">OUT OF SCOPE</span></div>
+        <p class="f-why">Held steady by decision. Surfaced for context only, not modelled.</p>
+        <p class="f-ids"><span class="mono">C-13</span></p>
+      </li>
+    </ol>
+  </article>
+
+  <!-- ============ COORDINATION ZONE ============ -->
+  <div class="zone">
+    <header class="zone-head">
+      <h2 class="zone-title">Coordination</h2>
+      <p class="zone-note">Everything performed <em>against</em> the envelope. Scheduling allocates the room; engagement defends it. The workbook names coordination &ldquo;the execution glue that ties capacity and scheduling&rdquo; &mdash; and the reason for the grouping is blunt: a schedule that is never confirmed, covered or rebooked is not delivered work.</p>
+    </header>
+
+    <!-- SCHEDULING -->
+    <article class="arena arena-sch">
+      <header class="arena-head">
+        <p class="arena-kicker">Filling the envelope</p>
+        <h2 class="arena-name">Scheduling</h2>
+        <p class="arena-note">Assigning each ordered visit to a clinician, on a day, in a workable route. <span class="mono">S-01&ndash;S-42</span></p>
+      </header>
+
+      <ol class="factors">
+        <li class="f">
+          <div class="f-top"><span class="f-rank">01</span><h3 class="f-name">Ordered demand</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Plan-of-care orders, ordered frequency and visit type. Non-negotiable demand &mdash; it sets what must be scheduled and when, before any preference is considered.</p>
+          <p class="f-ids"><span class="mono">S-01 S-02</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">02</span><h3 class="f-name">Compliance windows</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">SOC timing, recert and face-to-face, the ordered-frequency window, and the supervisory-visit cadence. Regulatory clocks &mdash; fully clear, and the safest automation win on the board.</p>
+          <p class="f-ids"><span class="mono">S-35 S-36 S-03 S-37</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">03</span><h3 class="f-name">Assignment fit</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Discipline and role match, specialty competency match, acuity to skill. Good fit uses capacity efficiently; assigning to whoever is free wastes it and strains clinicians. Acuity-to-skill stays a human call.</p>
+          <p class="f-ids"><span class="mono">S-15 S-16 S-33</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">04</span><h3 class="f-name">Clinician restrictions</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">No SOC, no wound care, no high-acuity, territory limits. Documented firm restrictions that must hard-filter the match, not merely display beside it.</p>
+          <p class="f-ids"><span class="mono">S-21</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">05</span><h3 class="f-name">Patient &amp; caregiver availability</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Time-of-day refusals, day-of-week constraints, caregiver-present requirements, cognitive constraints, and a caregiver's own fluctuating schedule. Firm rules &mdash; but reported by people, and stale ones cause failed visits.</p>
+          <p class="f-ids"><span class="mono">S-25 S-27 S-28 S-29 S-30</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">06</span><h3 class="f-name">Clinical timing</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Diagnosis-driven timing and competing medical appointments. Patient-safety judgment: the system flags, a person decides. Infection-control sequencing sits alongside as a softer rule.</p>
+          <p class="f-ids"><span class="mono">S-31 S-32 S-34</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">07</span><h3 class="f-name">Exceptions &mdash; the missed visit</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Detecting the miss is clean; choosing the reschedule pulls in every soft constraint on this list. Missed-visit documentation is the compliance half.</p>
+          <p class="f-ids"><span class="mono">S-38 S-39</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">08</span><h3 class="f-name">Routing &amp; geography</h3><span class="chip chip-mvp">MVP</span><span class="chip chip-conf">CONFLICT</span></div>
+          <p class="f-why">Home base, proximity to an existing route, optimised mileage, intra-day sequencing, and the appointment window. Deterministic and reversible &mdash; the strongest automation ground in this arena.</p>
+          <p class="f-ids"><span class="mono">S-14 S-17 S-18 S-19 S-20</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">09</span><h3 class="f-name">Patient preference</h3><span class="chip chip-mvp">MVP</span></div>
+          <p class="f-why">Gender preference, language and cultural match, preferred visit window. Gender is sensitive &mdash; surface and confirm rather than auto-match.</p>
+          <p class="f-ids"><span class="mono">S-23 S-24 S-26</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">10</span><h3 class="f-name">Clinician working pattern</h3><span class="chip chip-later">LATER</span><span class="chip chip-conf">CONFLICT</span></div>
+          <p class="f-why">Preferred days and start time, hard stop, lunch, documentation block, max daily volume, elasticity, overtime willingness. Almost entirely tacit today &mdash; and the rows where automating too hard damages the trust the schedule runs on.</p>
+          <p class="f-ids"><span class="mono">S-04 S-05 S-06 S-07 S-08 S-09 S-10 S-11 S-12 S-13</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">11</span><h3 class="f-name">Continuity of care</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">Same clinician, same patient. Drives trust and outcomes but competes with efficiency &mdash; a real trade-off leaders should set on purpose rather than let the optimiser decide.</p>
+          <p class="f-ids"><span class="mono">S-22</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">12</span><h3 class="f-name">Distribution across the week</h3><span class="chip chip-later">LATER</span><span class="chip chip-conf">CONFLICT</span></div>
+          <p class="f-why">Front-loading, pace against schedule, day-by-day balancing. A front-loaded week absorbs surprises; a back-loaded one turns any hiccup into missed visits.</p>
+          <p class="f-ids"><span class="mono">S-40 S-41 S-42</span></p>
+        </li>
+      </ol>
+    </article>
+
+    <!-- ENGAGEMENT -->
+    <article class="arena arena-eng">
+      <header class="arena-head">
+        <p class="arena-kicker">Making it actually happen</p>
+        <h2 class="arena-name">Engagement</h2>
+        <p class="arena-note">The communication and confirmation work that turns a schedule into delivered visits. <span class="mono">CO-01&ndash;CO-12</span></p>
+      </header>
+
+      <ol class="factors">
+        <li class="f">
+          <div class="f-top"><span class="f-rank">01</span><h3 class="f-name">Availability confirmation before booking</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">Checking the patient and caregiver window <em>before</em> the visit is committed. Skipping it is how a technically valid schedule produces a failed visit.</p>
+          <p class="f-ids"><span class="mono">CO-06</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">02</span><h3 class="f-name">Call-out coverage coordination</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">One uncovered call-out cascades into a day of missed visits. How fast you backfill decides the damage &mdash; and coverage hinges on relational willingness, so surface options and let a person work it.</p>
+          <p class="f-ids"><span class="mono">CO-09</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">03</span><h3 class="f-name">Failed-visit follow-up &amp; rebooking</h3><span class="chip chip-gate">GATE</span></div>
+          <p class="f-why">The no-show loop. Detection is clean; the rebooking pulls the whole scheduling constraint set back in. This is where LUPA risk is won or lost.</p>
+          <p class="f-ids"><span class="mono">CO-08</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">04</span><h3 class="f-name">Day-before &amp; same-day confirmation</h3><span class="chip chip-mvp">MVP</span></div>
+          <p class="f-why">The cheapest way to protect a delivered visit. The call also surfaces changes &mdash; so prompt it, and let a person make it.</p>
+          <p class="f-ids"><span class="mono">CO-01</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">05</span><h3 class="f-name">Automated appointment reminders</h3><span class="chip chip-mvp">MVP</span><span class="chip chip-conf">CONFLICT</span></div>
+          <p class="f-why">Rule-based dispatch on a known schedule. The cleanest automation win anywhere on this board.</p>
+          <p class="f-ids"><span class="mono">CO-02</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">06</span><h3 class="f-name">En-route notification</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">The sketch's &ldquo;where&rsquo;s my nurse?&rdquo;. Derived from the live route, safe to automate, and the single thing patients judge reliability on.</p>
+          <p class="f-ids"><span class="mono">CO-03</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">07</span><h3 class="f-name">New-patient welcome call</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">Welcome and readiness before the first visit. Automate the trigger; the call itself is human and relational.</p>
+          <p class="f-ids"><span class="mono">CO-04</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">08</span><h3 class="f-name">Reschedule coordination</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">A relational negotiation. The system can propose slots; a person owns the outcome.</p>
+          <p class="f-ids"><span class="mono">CO-07</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">09</span><h3 class="f-name">Channel &amp; preference management</h3><span class="chip chip-later">LATER</span><span class="chip chip-conf">CONFLICT</span></div>
+          <p class="f-why">Which patients take a text, a call, or an email &mdash; and confirming that choice for anything reliability-critical.</p>
+          <p class="f-ids"><span class="mono">CO-05</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">10</span><h3 class="f-name">Multi-discipline visit coordination</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">Sequencing nursing, therapy and aide visits against one patient's tolerance and several clinicians' routes.</p>
+          <p class="f-ids"><span class="mono">CO-10</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">11</span><h3 class="f-name">Care-team &amp; office updates</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">Logging and notification automate cleanly; deciding what to escalate stays human judgment.</p>
+          <p class="f-ids"><span class="mono">CO-11</span></p>
+        </li>
+        <li class="f">
+          <div class="f-top"><span class="f-rank">12</span><h3 class="f-name">Coordination time load</h3><span class="chip chip-later">LATER</span></div>
+          <p class="f-why">What all of the above costs the branch in hours. Measure and surface it &mdash; the discovery names the drowning scheduler as the real bottleneck, and nothing counts it today.</p>
+          <p class="f-ids"><span class="mono">CO-12</span></p>
+        </li>
+      </ol>
+    </article>
+  </div>
+</section>
+
+<section class="band">
+  <h2 class="sec">The sketch, item by item</h2>
+  <p class="lede">Every item from the intake-tool sketch, placed against the model. Nothing was dropped; four items are genuinely new and have no variable behind them yet.</p>
+  <div class="tbl-wrap">
+    <table class="map">
+      <thead>
+        <tr><th scope="col">On the sketch</th><th scope="col">Arena</th><th scope="col">Variables</th><th scope="col">Note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Discipline</td><td class="a-cap">Capacity</td><td class="mono">SH-02 SH-03</td><td>Also sets assessing vs. assistant.</td></tr>
+        <tr><td>Job profile (FT, 0.8)</td><td class="a-cap">Capacity</td><td class="mono">SH-04 C-01</td><td>FTE band drives the daily ceiling.</td></tr>
+        <tr><td>Point requirements (PPV)</td><td class="a-cap">Capacity</td><td class="mono">SH-07 SH-08</td><td>Weighting and target are two separate decisions.</td></tr>
+        <tr><td>Time preference <span class="star">&#9733;</span></td><td class="a-sch">Scheduling</td><td class="mono">S-05 S-10 S-20</td><td><strong>Moved.</strong> Starred on the sketch under capacity; the workbook models it as a scheduling constraint, not an envelope input.</td></tr>
+        <tr><td>PTO / LOA</td><td class="a-cap">Capacity</td><td class="mono">SH-05</td><td>Feed reported off &mdash; likely stale.</td></tr>
+        <tr><td>Contract / PRN</td><td class="a-cap">Capacity</td><td class="mono">C-09 SH-04</td><td>The flex buffer.</td></tr>
+        <tr><td>Territories</td><td class="a-cap">Capacity</td><td class="mono">SH-06 C-02 C-03 C-04</td><td>Census tract under evaluation.</td></tr>
+        <tr><td>Prod requirements + tracking</td><td class="a-cap">Capacity</td><td class="mono">SH-08 C-05 C-06 C-07</td><td>Target is the requirement; committed load and open room are the tracking.</td></tr>
+        <tr><td>Skills / qualifications (wound specialist)</td><td class="a-cap">Capacity</td><td class="mono">C-10 &rarr; S-16</td><td>Supply side in capacity, match side in scheduling.</td></tr>
+        <tr><td>Patient location</td><td class="a-sch">Scheduling</td><td class="mono">S-20 C-03</td><td>&mdash;</td></tr>
+        <tr><td>Clinician home</td><td class="a-sch">Scheduling</td><td class="mono">S-14</td><td>Route start and end anchor.</td></tr>
+        <tr><td>Route optimise</td><td class="a-sch">Scheduling</td><td class="mono">S-18 S-19</td><td>&mdash;</td></tr>
+        <tr><td>Preferences (patient / clinician)</td><td class="a-sch">Scheduling</td><td class="mono">S-04&ndash;S-13 S-23&ndash;S-27</td><td>The largest tacit block in the model.</td></tr>
+        <tr><td>Continuity</td><td class="a-sch">Scheduling</td><td class="mono">S-22</td><td>A deliberate trade-off, not a default.</td></tr>
+        <tr><td>Rescheduling</td><td class="a-sch">Scheduling</td><td class="mono">S-38 &rarr; CO-07 CO-08</td><td>Appears in both sketch boxes; correctly so.</td></tr>
+        <tr class="new"><td>Traffic</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Routing today is mileage and straight-line proximity. No time-of-day travel model exists.</td></tr>
+        <tr class="new"><td>Obstructions (bridges, etc.)</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> Charleston-specific and material. Same gap as traffic: drive-time, not distance.</td></tr>
+        <tr class="new"><td>POA</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW &middot; AMBIGUOUS</span> Reads either as plan of action or power of attorney. If the latter it belongs with <span class="mono">S-28 S-29</span>; needs one word from you.</td></tr>
+        <tr><td>Welcome / readiness</td><td class="a-eng">Engagement</td><td class="mono">CO-04</td><td>&mdash;</td></tr>
+        <tr><td>Text reminders</td><td class="a-eng">Engagement</td><td class="mono">CO-02 CO-05</td><td>&mdash;</td></tr>
+        <tr><td>Scheduling (in engagement)</td><td class="a-eng">Engagement</td><td class="mono">CO-06</td><td>Confirming the window before booking.</td></tr>
+        <tr><td>&ldquo;Where&rsquo;s my nurse?&rdquo;</td><td class="a-eng">Engagement</td><td class="mono">CO-03</td><td>&mdash;</td></tr>
+        <tr><td>Shift / visit finder &mdash; incentives</td><td class="a-eng">Engagement</td><td class="mono">S-13 C-09</td><td><span class="chip chip-new">NEW</span> The willingness variables exist; the offer-and-accept surface does not.</td></tr>
+        <tr><td>Hand-off visit capability (tool assign or direct assign)</td><td class="a-eng">Engagement</td><td class="mono">CO-09</td><td><span class="chip chip-new">NEW</span> Needs the accept / decline loop &mdash; the buy-in mechanism the Alabama pilot lacked.</td></tr>
+        <tr class="new"><td>PoC updates against insurance guardrails</td><td class="a-sch">Scheduling</td><td class="mono">&mdash;</td><td><span class="chip chip-new">NEW</span> The readiness gauntlet: auth, POC lock, face-to-face. Absent from the model, and it gates whether a referral is schedulable at all.</td></tr>
+        <tr><td>Rightsize discipline allocation (PTA default for routine)</td><td class="a-cap">Capacity</td><td class="mono">SH-03 C-08</td><td>The assessing&rarr;assistant offload. Frees the scarcest capacity there is.</td></tr>
+        <tr><td>Recommend care team from referral</td><td class="a-sch">Scheduling</td><td class="mono">S-15 S-16 S-33</td><td><span class="chip chip-new">NEW</span> The matching inputs exist; the recommendation surface does not.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="band">
+  <h2 class="sec">Full variable inventory</h2>
+  <p class="lede">All 76 scored variables, grouped under the three arenas above &mdash; the raw material for the per-category breakdowns. <strong>Posture</strong> is how far software should go: <em>Control</em> it can decide and act, <em>Assist</em> it proposes and a person confirms, <em>Read</em> it surfaces and a person decides.</p>
+
+  <h3 class="sub sub-cap">Capacity Management &mdash; 22 variables</h3>
+  <div class="tbl-wrap">
+    <table class="inv">
+      <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">SH-01</td><td>Clinician headcount</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Workday + HCHB</td></tr>
+        <tr><td class="mono">SH-02</td><td>Discipline</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Workday + HCHB</td></tr>
+        <tr><td class="mono">SH-03</td><td>Role (assessing vs. assistant)</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">SH-04</td><td>FTE / employment type</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Workday</td></tr>
+        <tr><td class="mono">SH-05</td><td>Approved time off / availability</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Workday + HCHB</td></tr>
+        <tr><td class="mono">SH-06</td><td>Territory / service area</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual + Census</td></tr>
+        <tr><td class="mono">SH-07</td><td>Productivity points per visit type</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Config</td></tr>
+        <tr><td class="mono">SH-08</td><td>Productivity target &amp; ceiling</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB + Config</td></tr>
+        <tr><td class="mono">SH-09</td><td>Referral inflow / discharge outflow</td><td>Event</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">C-01</td><td>Headcount by discipline &amp; employment type</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Workday</td></tr>
+        <tr><td class="mono">C-02</td><td>Branch coverage territory (county)</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">C-03</td><td>Clinician territory assignment (zip)</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">C-04</td><td>Census-tract granularity (under evaluation)</td><td>Config</td><td class="y">Yes</td><td>Assist</td><td>In-system</td><td>Census</td></tr>
+        <tr><td class="mono">C-05</td><td>Committed load / points scheduled</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">C-06</td><td>Remaining capacity by day</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">C-07</td><td>Week open capacity</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">C-08</td><td>Assessing capacity by discipline</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">C-09</td><td>Per-diem / flex capacity</td><td>Structural</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>Manual + HCHB</td></tr>
+        <tr><td class="mono">C-10</td><td>Specialty competency supply</td><td>Structural</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Workday + Manual</td></tr>
+        <tr><td class="mono">C-11</td><td>Orientation / ramp status</td><td>Structural</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Workday</td></tr>
+        <tr><td class="mono">C-12</td><td>On-call / weekend rotation load</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">C-13</td><td>Referral volume (out of scope)</td><td>Context</td><td>No</td><td>Read</td><td>In-system</td><td>HCHB</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub sub-sch">Scheduling &mdash; 42 variables</h3>
+  <div class="tbl-wrap">
+    <table class="inv">
+      <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">S-01</td><td>Plan-of-care orders / ordered frequency</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-02</td><td>Visit type</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-03</td><td>Ordered-frequency compliance window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-04</td><td>Preferred working days</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual + HCHB</td></tr>
+        <tr><td class="mono">S-05</td><td>Preferred start time</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-06</td><td>Start-time flexibility</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-07</td><td>Lunch pattern</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-08</td><td>Mid-day documentation block</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-09</td><td>Split-shift / mid-day personal break</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-10</td><td>Preferred end time / hard stop</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-11</td><td>Max consecutive visits / daily volume</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-12</td><td>Elasticity / willingness to flex</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-13</td><td>Overtime / extra-visit willingness</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-14</td><td>Home base (start / end location)</td><td>Structural</td><td class="y">Yes</td><td>Control</td><td class="t">Manual</td><td>Manual + Routing</td></tr>
+        <tr><td class="mono">S-15</td><td>Discipline / role match</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">S-16</td><td>Specialty competency match</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>Workday + Manual</td></tr>
+        <tr><td class="mono">S-17</td><td>Proximity to existing route</td><td>Soft</td><td>Maybe</td><td>Control</td><td>In-system</td><td>Routing</td></tr>
+        <tr><td class="mono">S-18</td><td>Optimised-route mileage</td><td>Derived</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Routing</td></tr>
+        <tr><td class="mono">S-19</td><td>Intra-day sequencing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">S-20</td><td>Appointment window (time of day)</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">S-21</td><td>Clinician restrictions</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-22</td><td>Continuity of care</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-23</td><td>Gender preference</td><td>Hard/Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-24</td><td>Language / cultural match</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-25</td><td>Time-of-day refusal</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-26</td><td>Preferred visit window</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-27</td><td>Day-of-week constraint</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Tacit</td><td>Manual + HCHB</td></tr>
+        <tr><td class="mono">S-28</td><td>Caregiver-present requirement</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-29</td><td>Cognitive / dementia constraint</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual + HCHB</td></tr>
+        <tr><td class="mono">S-30</td><td>Caregiver schedule / fluctuating availability</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">S-31</td><td>Diagnosis-driven timing</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">S-32</td><td>Competing medical appointments</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>Manual + HCHB</td></tr>
+        <tr><td class="mono">S-33</td><td>Acuity to discipline / skill</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">S-34</td><td>Infection-control sequencing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td><td>Manual</td></tr>
+        <tr><td class="mono">S-35</td><td>SOC timing window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-36</td><td>Recert / face-to-face window</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-37</td><td>Supervisory visit dependency</td><td>Hard</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-38</td><td>Missed / unworked visit rescheduling</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td>In-system</td><td>HCHB + Derived</td></tr>
+        <tr><td class="mono">S-39</td><td>Missed-visit documentation</td><td>Config</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">S-40</td><td>Front-loading</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">S-41</td><td>Pace vs. schedule</td><td>Derived</td><td>Maybe</td><td>Control</td><td>In-system</td><td>Derived</td></tr>
+        <tr><td class="mono">S-42</td><td>Day-by-day balancing</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Derived</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub sub-eng">Engagement &mdash; 12 variables</h3>
+  <div class="tbl-wrap">
+    <table class="inv">
+      <thead><tr><th scope="col">ID</th><th scope="col">Variable</th><th scope="col">Constraint</th><th scope="col">MVP</th><th scope="col">Posture</th><th scope="col">Today</th><th scope="col">Source of truth</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">CO-01</td><td>Day-before / same-day visit confirmation</td><td>Soft</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>Manual</td></tr>
+        <tr><td class="mono">CO-02</td><td>Automated appointment reminders</td><td>Soft</td><td class="y">Yes</td><td>Control</td><td>In-system</td><td>Telephony</td></tr>
+        <tr><td class="mono">CO-03</td><td>En-route / on-my-way notification</td><td>Soft</td><td>Maybe</td><td>Control</td><td>In-system</td><td>Routing</td></tr>
+        <tr><td class="mono">CO-04</td><td>New-patient welcome call</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>Telephony + HCHB</td></tr>
+        <tr><td class="mono">CO-05</td><td>Communication channel &amp; preference management</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td><td>Manual + Config</td></tr>
+        <tr><td class="mono">CO-06</td><td>Availability confirmation before booking</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">CO-07</td><td>Reschedule coordination</td><td>Soft</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">CO-08</td><td>Failed-visit / no-show follow-up &amp; rebooking</td><td>Hard</td><td class="y">Yes</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">CO-09</td><td>Call-out coverage coordination</td><td>Hard</td><td class="y">Yes</td><td>Read</td><td class="t">Tacit</td><td>Manual</td></tr>
+        <tr><td class="mono">CO-10</td><td>Multi-discipline visit coordination</td><td>Soft</td><td>Maybe</td><td>Assist</td><td class="t">Manual</td><td>HCHB + Manual</td></tr>
+        <tr><td class="mono">CO-11</td><td>Care-team / office coordination updates</td><td>Soft</td><td>Maybe</td><td>Assist</td><td>In-system</td><td>HCHB</td></tr>
+        <tr><td class="mono">CO-12</td><td>Coordination time load</td><td>Derived</td><td>Maybe</td><td>Read</td><td class="t">Tacit</td><td>Derived + Manual</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="footnote"><span class="t">Highlighted</span> cells mark variables that are manual or tacit today &mdash; not in any system of record. A tacit variable carrying a <span class="chip chip-gate">GATE</span> is where the biggest opportunity sits, and where a vendor demo will quietly assume data that does not exist.</p>
+</section>
+
+<footer class="foot">
+  <p>Naming note: the workbook uses <em>Coordination</em> for the <span class="mono">CO-</span> layer specifically. Here that layer is drawn as <strong>Engagement</strong>, and <em>Coordination</em> names the shaded zone holding both activities. The variable codes are unchanged and remain the join back to the workbook.</p>
+</footer>
+
+</main>
+
+<style>
+:root {
+  --paper:      #F2F3EF;
+  --surface:    #FBFBF8;
+  --surface-2:  #FFFFFF;
+  --ink:        #171E1A;
+  --ink-2:      #4E5A54;
+  --ink-3:      #7C8781;
+  --rule:       #D8DAD2;
+  --rule-soft:  #E6E8E0;
+  --cap:        #2C6A55;
+  --sch:        #3A5C86;
+  --eng:        #8C5A2E;
+  --gate:       #A63419;
+  --zone:       #E7E5DA;
+  --zone-line:  #C9C6B6;
+  --tacit:      #F3E7D6;
+  --shadow:     0 1px 2px rgba(23,30,26,.05), 0 8px 24px -16px rgba(23,30,26,.22);
+
+  --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --body: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #121614;
+    --surface:    #1A201C;
+    --surface-2:  #202722;
+    --ink:        #E7EAE4;
+    --ink-2:      #A2AEA7;
+    --ink-3:      #7A857F;
+    --rule:       #2C342E;
+    --rule-soft:  #232A25;
+    --cap:        #6FBE9E;
+    --sch:        #86AEDD;
+    --eng:        #D3A26B;
+    --gate:       #EC7A5F;
+    --zone:       #1C2119;
+    --zone-line:  #333B2E;
+    --tacit:      #33291B;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #121614;
+  --surface:    #1A201C;
+  --surface-2:  #202722;
+  --ink:        #E7EAE4;
+  --ink-2:      #A2AEA7;
+  --ink-3:      #7A857F;
+  --rule:       #2C342E;
+  --rule-soft:  #232A25;
+  --cap:        #6FBE9E;
+  --sch:        #86AEDD;
+  --eng:        #D3A26B;
+  --gate:       #EC7A5F;
+  --zone:       #1C2119;
+  --zone-line:  #333B2E;
+  --tacit:      #33291B;
+  --shadow:     0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+main { display: block; }
+
+.masthead,
+.band,
+.board,
+.foot {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+/* ---- masthead ---- */
+.masthead {
+  padding-block: clamp(48px, 7vw, 88px) clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: clamp(36px, 5vw, 60px);
+}
+.eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.masthead h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(38px, 6.4vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -.018em;
+  text-wrap: balance;
+}
+.standfirst {
+  margin: 0;
+  max-width: 60ch;
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.provenance {
+  margin: 6px 0 0;
+  max-width: 78ch;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+}
+
+/* ---- sections ---- */
+.band { margin-bottom: clamp(44px, 6vw, 76px); }
+.sec {
+  margin: 0 0 18px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 33px);
+  letter-spacing: -.012em;
+  line-height: 1.15;
+}
+.sec-inline { font-size: 19px; margin: 0 0 4px; }
+.lede {
+  margin: 0 0 24px;
+  max-width: 72ch;
+  color: var(--ink-2);
+  font-size: 15.5px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* ---- figure ---- */
+.fig {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: clamp(18px, 3vw, 34px);
+  box-shadow: var(--shadow);
+}
+.fig svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  color: var(--ink-2);
+}
+.fig figcaption {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 82ch;
+  text-wrap: pretty;
+}
+
+.zone-rect { fill: var(--zone); stroke: var(--zone-line); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.zone-label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .16em;
+  fill: var(--ink-3);
+}
+.bx { fill: var(--surface-2); stroke-width: 1.75; }
+.bx-cap { stroke: var(--cap); }
+.bx-sch { stroke: var(--sch); }
+.bx-eng { stroke: var(--eng); }
+.bx-out { stroke: var(--ink-3); stroke-dasharray: 4 3; }
+.bx-title {
+  font-family: var(--body); font-size: 16px; font-weight: 700;
+  letter-spacing: .05em; fill: var(--ink);
+}
+.bx-sub { font-family: var(--body); font-size: 12px; fill: var(--ink-2); }
+.ln { stroke: currentColor; stroke-width: 1.6; fill: none; }
+.ln-d { stroke-dasharray: 5 4; opacity: .6; }
+.lb { font-family: var(--mono); font-size: 11px; fill: var(--ink-2); letter-spacing: .02em; }
+.lb-d { fill: var(--ink-3); }
+
+/* ---- legend ---- */
+.legend {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: clamp(18px, 2.4vw, 26px);
+}
+.legend-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.legend-list li {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+}
+
+/* ---- chips ---- */
+.chip {
+  display: inline-block;
+  flex: none;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  padding: 2.5px 6px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+  line-height: 1.2;
+  vertical-align: 2px;
+}
+.chip-gate  { color: var(--gate); }
+.chip-mvp   { color: var(--ink-2); }
+.chip-later { color: var(--ink-3); border-style: dashed; }
+.chip-conf  { color: var(--eng); }
+.chip-out   { color: var(--ink-3); border-style: dotted; }
+.chip-new   { color: var(--sch); }
+
+/* ---- the board ---- */
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(18px, 2.4vw, 30px);
+  align-items: start;
+  margin-bottom: clamp(44px, 6vw, 76px);
+}
+@media (max-width: 940px) {
+  .board { grid-template-columns: minmax(0, 1fr); }
+}
+
+.arena {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: clamp(18px, 2.4vw, 28px);
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--accent, var(--ink-3));
+}
+.arena-cap { --accent: var(--cap); }
+.arena-sch { --accent: var(--sch); }
+.arena-eng { --accent: var(--eng); }
+
+.arena-head {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 4px;
+}
+.arena-kicker {
+  margin: 0 0 6px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.arena-name {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(24px, 2.7vw, 32px);
+  letter-spacing: -.012em;
+  line-height: 1.1;
+}
+.arena-note {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.factors {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.f {
+  padding: 15px 0 15px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.f:last-child { border-bottom: 0; padding-bottom: 2px; }
+.f-out { opacity: .58; }
+.f-top {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.f-rank {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  min-width: 1.5em;
+}
+.f-name {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  line-height: 1.25;
+  flex: 1 1 12ch;
+}
+.f-why {
+  margin: 0;
+  padding-left: calc(1.5em + 9px);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+.f-ids {
+  margin: 0;
+  padding-left: calc(1.5em + 9px);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: .04em;
+}
+
+/* ---- the shaded coordination zone ---- */
+.zone {
+  background: var(--zone);
+  border: 1.5px dashed var(--zone-line);
+  border-radius: 14px;
+  padding: clamp(16px, 2.2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.2vw, 24px);
+}
+.zone-head { padding: 4px 4px 0; }
+.zone-title {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.zone-note {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 74ch;
+  text-wrap: pretty;
+}
+
+/* ---- tables ---- */
+.tbl-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13.5px; }
+thead th {
+  position: sticky; top: 0;
+  background: var(--surface);
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+tbody td:nth-child(2) { color: var(--ink); }
+tbody tr:last-child td { border-bottom: 0; }
+.map td:first-child { color: var(--ink); font-weight: 600; width: 22%; }
+.inv td:first-child { white-space: nowrap; }
+.inv td:nth-child(2) { min-width: 22ch; }
+.a-cap { color: var(--cap); font-weight: 600; white-space: nowrap; }
+.a-sch { color: var(--sch); font-weight: 600; white-space: nowrap; }
+.a-eng { color: var(--eng); font-weight: 600; white-space: nowrap; }
+td.y { color: var(--ink); font-weight: 600; }
+td.t, span.t {
+  background: var(--tacit);
+  color: var(--ink);
+  border-radius: 3px;
+}
+span.t { padding: 1px 5px; }
+.star { color: var(--eng); font-size: 11px; vertical-align: 2px; }
+tr.new td { background: color-mix(in srgb, var(--sch) 5%, transparent); }
+
+.mono { font-family: var(--mono); font-size: .88em; letter-spacing: .03em; }
+
+.sub {
+  margin: 34px 0 14px;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding-left: 11px;
+  border-left: 3px solid var(--ink-3);
+}
+.sub-cap { border-left-color: var(--cap); }
+.sub-sch { border-left-color: var(--sch); }
+.sub-eng { border-left-color: var(--eng); }
+
+.footnote {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  max-width: 82ch;
+}
+
+.foot {
+  padding-block: 28px clamp(48px, 6vw, 80px);
+  border-top: 1px solid var(--rule);
+}
+.foot p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  max-width: 82ch;
+}
+
+em { font-style: italic; }
+strong { color: var(--ink); font-weight: 600; }
+
+:focus-visible { outline: 2px solid var(--cap); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
