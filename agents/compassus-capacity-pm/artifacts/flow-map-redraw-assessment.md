@@ -1035,3 +1035,9 @@ Four corrections from PB's review of the redrawn sheet, all applied:
 
 **Note for the other sheets:** rapid reschedule remains correctly placed on Flow 2 (the clinician's
 own week) and in the variable backlog; it was only wrong here, attached to call-out coverage.
+
+### Same correction applied to the primary map (18 Aug)
+
+Phase 3's disposition strip now matches the composite: **Accept stands apart as the confirmed
+path** (*confirmed → accepted*), and the remaining four chips sit behind a `NOT CONFIRMED →` label
+with the note *reassign returns with a plan, decline without one — decline is the least used*.

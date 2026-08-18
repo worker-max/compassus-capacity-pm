@@ -159,16 +159,22 @@ rc = row(rb, [
 ])
 # dispositions strip inside the band
 DSY = rb + BH + 108
-lbl(IX, DSY-10, "THE FIVE DISPOSITIONS  —  chosen the day before, selected in HCHB", cls="pnl")
-dpos = [("Accept", C["clin"]), ("Reschedule", C["clin"]), ("Reassign", C["pcc"]),
-        ("Miss", C["dcs"]), ("Decline", C["pcc"])]
+lbl(IX, DSY-10, "THE DISPOSITIONS  —  chosen the day before, selected in HCHB", cls="pnl")
 dxx = IX
-for t, col in dpos:
+w = 8.9*6 + 60
+chip(dxx, DSY+4, w, 40, ["Accept"], C["clin"])
+dxx += w + 14
+lbl(dxx, DSY+30, "confirmed → accepted", "start", "note")
+dxx += 158
+lbl(dxx, DSY+30, "NOT CONFIRMED →", "start", "trg")
+dxx += 152
+for t, col in [("Reschedule", C["clin"]), ("Reassign", C["pcc"]),
+               ("Miss", C["dcs"]), ("Decline", C["pcc"])]:
     w = 8.9*len(t) + 60
     chip(dxx, DSY+4, w, 40, [t], col)
-    dxx += w + 18
-lbl(dxx + 16, DSY+30, "Accept is the common one.  Reassign and Decline both return the visit to the "
-    "scheduler — with a recommendation, or without.", "start", "note")
+    dxx += w + 14
+lbl(dxx + 8, DSY+30, "reassign returns with a plan, decline without one — decline is the least used",
+    "start", "note")
 
 # ================= PHASE 4 =================
 SY, SH = RY + RH + 36, 230
