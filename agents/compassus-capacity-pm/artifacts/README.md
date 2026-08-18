@@ -56,8 +56,17 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
+| `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
+| `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
+
+**Flow-map palette** (sampled from the original sheet, do not re-guess): PCC/Scheduler `#C6A01F` ·
+HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#795933` · Patient `#4E8A5B`
+· Insurance & Auth `#DF751D` · Branch Leadership `#1A1A1A` with white text.
+
+**Size convention:** large block = happens every time · small block = conditional · pill = watch
+condition, not a step. Introduced so weight on the page matches weight in the process.
 
 **Editing rule:** the one-pager, the full lists, the board and the diagram carry the same variable
 set at different depths. Change one, change all four, or they drift.
