@@ -33,12 +33,18 @@ def tag(x, y, w, h, lines):
     for i, ln in enumerate(lines):
         add(f'<text x="{x+w/2}" y="{cy+i*lh}" class="tg" text-anchor="middle">{esc(ln)}</text>')
 
-def oval(cx, cy, rx, ry, fill, lines):
-    add(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{fill}"/>')
+def oval(cx, cy, rx, ry, fill, lines, outline=None):
+    if outline:
+        add(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="#FFFFFF" '
+            f'stroke="{outline}" stroke-width="1.8"/>')
+        tfill = outline
+    else:
+        add(f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" fill="{fill}"/>')
+        tfill = "#fff"
     lh = 17
     y0 = cy - (len(lines)-1)*lh/2 + 5
     for i, ln in enumerate(lines):
-        add(f'<text x="{cx}" y="{y0+i*lh}" class="bt s" fill="#fff" text-anchor="middle">{esc(ln)}</text>')
+        add(f'<text x="{cx}" y="{y0+i*lh}" class="bt s" style="fill:{tfill}" text-anchor="middle">{esc(ln)}</text>')
 
 def diamond(cx, cy, lines, w=150, h=112):
     add(f'<polygon points="{cx},{cy-h/2} {cx+w/2},{cy} {cx},{cy+h/2} {cx-w/2},{cy}" '
@@ -316,8 +322,8 @@ arrow(cols[4]+colw/2, y5c+BH2+48, cols[4]+colw/2, y5c+BH2+78)
 y5d = y5c + BH2 + 84
 block(cx(4), y5d, BW2, BH2, C["pcc"], ["Rebook within window ·", "recover / front-load"])
 # completed branch — up to the revenue oval
-oval(cols[4]+colw/2+10, CT+250, 180, 42, C["pat"],
-     ["Period revenue realized", "(PDGM 30-day · timely NOA)"])
+oval(cols[4]+colw/2+10, CT+250, 180, 42, None,
+     ["Period revenue realized", "(PDGM 30-day · timely NOA)"], outline=INK)
 path(f"M {d_stat} {sc-56} L {d_stat} {CT+250+6}", dash=True,
      label="completed", lx=d_stat-14, ly=sc-96, anchor="end")
 # KPI tag + feedback
