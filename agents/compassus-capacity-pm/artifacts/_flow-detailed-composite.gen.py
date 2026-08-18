@@ -72,7 +72,7 @@ add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'five-column design with corrections. Columns: clinician scheduling workflow, capacity read, '
     'scheduling and assignment, coordination, delivery and outcomes. A grey clean path runs through '
     'the middle from the admitted referral to the delivered visit. Corrections: scheduler steps are '
-    'yellow because a person works them, the day-before confirm belongs to the clinician, patient '
+    'yellow because a person works them, visit confirmation coordination is run by the clinician the day before, patient '
     'preferences are a coordination note, the five dispositions are chosen the day before, the '
     'missed visit runs a 48-hour compliance chain, and pending-auth visits are invisible to the '
     'capacity read.">')
@@ -118,8 +118,6 @@ SY, SH2 = 830, 170
 add(f'<rect x="{M-14}" y="{SY}" width="{W-2*(M-14)}" height="{SH2}" fill="#DBDBD6" opacity=".55"/>')
 lbl(M+2, SY+24, "Admitted Episodic Referral — Ready to Schedule → Delivered Visit  (the clean path)",
     cls="spine")
-lbl(M+2, SY+SH2/2+30, "from Intake", "start", "note")
-lbl(M+2, SY+SH2/2+48, "Reset", "start", "note")
 sc = SY + SH2/2 + 12                  # spine centreline
 SBW, SBH = 300, 74
 
@@ -138,18 +136,15 @@ block(s_read, sc-SBH/2, SBW, SBH, C["pcc"], ["Read open capacity — day ·", "w
 diamond(d_cap, sc, ["Capacity", "available?"])
 diamond(d_match, sc, ["Clean", "match?"])
 block(s_asn, sc-SBH/2, SBW, SBH, C["pcc"], ["Assign visit — clinician,", "day, sequence — one pass"])
-block(s_dbc, sc-SBH/2, SBW, SBH, C["clin"], ["Day-before confirm", "— by the clinician"])
 diamond(d_conf, sc, ["Confirmed?"])
 block(s_del, sc-SBH/2, SBW, SBH, C["clin"], ["Visit delivered — docu-", "mented, OASIS locked"])
 diamond(d_stat, sc, ["Visit", "status?"])
 
-arrow(M-14+130, sc, s_pcc-6, sc)
 arrow(s_pcc+SBW, sc, s_read-6, sc)
 arrow(s_read+SBW, sc, d_cap-75-6, sc)
 path(f"M {d_cap+75} {sc} L {d_match-75-6} {sc}", label="Yes", lx=(d_cap+d_match)/2, ly=sc-12)
 path(f"M {d_match+75} {sc} L {s_asn-6} {sc}", label="Yes", lx=(d_match+75+s_asn)/2, ly=sc-12)
-arrow(s_asn+SBW, sc, s_dbc-6, sc)
-arrow(s_dbc+SBW, sc, d_conf-75-6, sc)
+arrow(s_asn+SBW, sc, d_conf-75-6, sc)
 path(f"M {d_conf+75} {sc} L {s_del-6} {sc}", label="Yes", lx=(d_conf+75+s_del)/2, ly=sc-12)
 arrow(s_del+SBW, sc, d_stat-75-6, sc)
 
@@ -171,17 +166,18 @@ arrow(cols[0]+colw/2, y+BH2, cols[0]+colw/2, sc-SBH/2-6)
 
 # column 1 — below spine
 y1 = SY + SH2 + 56
-block(cx(0), y1, BW2, BH2, C["hchb"], ["Normalize demand →", "points & timing windows"])
-arrow(cols[0]+colw/2, y1+BH2, cols[0]+colw/2, y1+BH2+40)
-diamond(cols[0]+colw/2, y1+BH2+40+66, ["SOC / ROC", "time-sensitive?"], w=190, h=120)
-path(f"M {cols[0]+colw/2} {y1+BH2+40+126} L {cols[0]+colw/2} {y1+BH2+40+166}",
-     label="Yes", lx=cols[0]+colw/2+14, ly=y1+BH2+40+152, anchor="start")
-block(cx(0), y1+BH2+246, BW2, BH2, C["dcs"], ["Priority flag", "to scheduling"])
-pfy = y1+BH2+246+BH2/2
+diamond(cols[0]+colw/2, y1+94, ["SOC / ROC", "urgent?"], w=190, h=120)
+path(f"M {cols[0]+colw/2} {y1+154} L {cols[0]+colw/2} {y1+190}",
+     label="Yes", lx=cols[0]+colw/2+14, ly=y1+180, anchor="start")
+block(cx(0), y1+196, BW2, BH2, C["dcs"], ["Priority flag", "to scheduling"])
+lbl(cols[0]+colw/2, y1+196+BH2+26, "every SOC / ROC is already time-sensitive —", "middle", "note")
+lbl(cols[0]+colw/2, y1+196+BH2+44, "seen within 48 hours under Medicare. Urgent =", "middle", "note")
+lbl(cols[0]+colw/2, y1+196+BH2+62, "clinical diagnosis or another factor deserving priority", "middle", "note")
+pfy = y1+196+BH2/2
 path(f"M {cx(0)+BW2} {pfy} L 533 {pfy} L 533 1620 L 1073 1620 L 1073 {SY+SH2+110+BH2/2} "
      f"L {cols[2]+(colw-BW2)/2-6} {SY+SH2+110+BH2/2}", dash=True,
      label="priority to scheduling", lx=810, ly=1610)
-path(f"M {s_pcc+SBW/2-60} {sc+SBH/2} L {s_pcc+SBW/2-60} {y1-6}")
+path(f"M {cols[0]+colw/2} {sc+SBH/2} L {cols[0]+colw/2} {y1+28}")
 
 # ==================== COLUMN 2 ====================
 y = CT + 56
@@ -226,17 +222,22 @@ lbl(cols[2]+colw/2, y+56+18, "straight-line today — not drive time", "middle",
 arrow(cols[2]+colw/2, y+56+26, cols[2]+colw/2, y+96)
 y += 102
 block(cx(2), y, BW2, BH2, C["hchb"], ["Discipline / role", "match (gate)"])
-arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+34)
-y += BH2 + 40
-block(cx(2), y, BW2, BH2, C["hchb"], ["Specialty competency", "match"])
-arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+34)
-y += BH2 + 40
-block(cx(2), y, BW2, BH2, C["hchb"], ["Continuity — prefer", "same clinician"])
-arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+34)
-y += BH2 + 40
-block(cx(2), y, BW2, BH2, C["hchb"], ["Patient preferences — a coordination", "note: caregiver · window · day-of-week"],
+arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+32)
+y += BH2 + 38
+block(cx(2), y, BW2, BH2, C["pcc"], ["Territory list — zip code", "reference"])
+arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+32)
+y += BH2 + 38
+block(cx(2), y, BW2, BH2, C["pcc"], ["Specialty competency", "match"])
+arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+32)
+y += BH2 + 38
+block(cx(2), y, BW2, BH2, C["pcc"], ["Continuity — prefer", "same clinician"])
+arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, y+BH2+32)
+y += BH2 + 38
+block(cx(2), y, BW2, BH2, C["pcc"], ["Reads patient preferences — coordination", "note: caregiver · window · day-of-week"],
       small=True, badge="WAS A PATIENT LANE")
 arrow(cols[2]+colw/2, y+BH2, cols[2]+colw/2, sc-SBH/2-6)
+lbl(cols[2]+colw/2, y+BH2+30, "the information is housed in HCHB — a person wrote", "middle", "note")
+lbl(cols[2]+colw/2, y+BH2+48, "it, and the scheduler acts on it before selecting", "middle", "note")
 
 # column 3 — below spine
 y3 = SY + SH2 + 110
@@ -255,14 +256,15 @@ path(f"M {cx(2)} {y3c+BH2+52+27} L {cx(1)+BW2+24} {y3c+BH2+52+27} "
      f"L {cx(1)+BW2+24} 704", dash=True)
 
 # ==================== COLUMN 4 ====================
-y = CT + 260
-block(cx(3), y, BW2, BH2, C["hchb"], ["Reminders sent", "(SMS / voice)"])
+y = CT + 300
+block(cx(3), y, BW2, BH2, C["clin"], ["Visit confirmation coordination", "(SMS / voice) — day before"])
 arrow(cols[3]+colw/2, y+BH2, cols[3]+colw/2, y+BH2+40)
 y += BH2 + 46
 block(cx(3), y, BW2, BH2, C["pat"], ["Patient confirms /", "negotiates"])
 lbl(cols[3]+colw/2, y+BH2+22, "hard constraints get built around —", "middle", "note")
 lbl(cols[3]+colw/2, y+BH2+40, "soft preferences are worth holding", "middle", "note")
-arrow(cols[3]+colw/2, y+BH2+50, cols[3]+colw/2, sc-SBH/2-6)
+path(f"M {cols[3]+colw/2} {y+BH2+50} L {cols[3]+colw/2} {sc-SBH/2-42} "
+     f"L {d_conf} {sc-SBH/2-42} L {d_conf} {sc-56-6}")
 
 # column 4 — below spine: dispositions then recovery
 y4 = SY + SH2 + 46

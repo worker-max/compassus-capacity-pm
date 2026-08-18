@@ -990,3 +990,28 @@ closing line states the reason the gate belongs on this sheet: **a new certifica
 auth question** — traditional Medicare passes straight through, any other payer re-enters the auth
 cycle (Flow 3) before the recert visits can be assigned. Insurance & Auth joined the sheet's legend.
 Canvas grew to 2200 × 1800.
+
+---
+
+## 25. Second correction pass on the composite — 18 Aug
+
+Four corrections from PB's review of the redrawn sheet, all applied:
+
+1. **"from Intake Reset" deleted.** The entry arrow and caption confused more than they oriented.
+   The clean path now simply begins at the PCC block.
+2. **"Normalize demand → points & timing windows" deleted.** HCHB does not normalize demand — the
+   block was an invention. The spine drops straight to the priority question. And the question is
+   reworded: **"SOC / ROC urgent?"**, not "time-sensitive?", because *every* SOC/ROC is
+   time-sensitive — seen within 48 hours under Medicare guidelines. Urgent means a clinical
+   diagnosis or another factor deserving a priority flag. The note under the block says exactly that.
+3. **The matching steps are the scheduler's, not the system's.** Specialty competency, continuity,
+   and reading the patient-preferences coordination note are all yellow now: the information is
+   housed in HCHB, but a person wrote it and the scheduler acts on it before selecting a clinician.
+   Only the discipline/role match stays purple, as a genuine HCHB hard gate. **Territory list — zip
+   code reference** added to the chain as a scheduler task, between the role gate and specialty
+   matching.
+4. **HCHB does not send reminders.** The Coordination column's purple "Reminders sent" is gone.
+   The chain is now the clinician's: **Visit confirmation coordination (SMS / voice) — day before**
+   (blue) → patient confirms / negotiates (green) → into the Confirmed? diamond. The separate
+   "day-before confirm" spine block is removed — the confirmation chain *is* the day-before work,
+   and it feeds the spine's Confirmed? decision directly.
