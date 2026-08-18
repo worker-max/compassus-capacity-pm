@@ -66,6 +66,8 @@ renumbered.
 | `flow-routine-visits.html` | Source. Regenerate with `_flow-routine-visits.gen.py` | Editing flow 2 |
 | `Flow-Authorization.pdf` | Flow 3 — auth at its two interfaces: the gate at start of care and the ceiling inside the plan of care | Explaining why a referral cannot be scheduled, and why a plan of care outruns its budget |
 | `flow-authorization.html` | Source. Regenerate with `_flow-authorization.gen.py` | Editing flow 3 |
+| `Flow-Recert-Discharge.pdf` | Flow 5 — recert & discharge through a worked example: SN discharges at day 52–53 (non-OASIS, outside the window), PT carries the OASIS recert, OT does a non-OASIS eval, next-period orders PT 2w3→1w3 · OT 1w4 | The end-of-episode teaching sheet; the primary map's phase 4 expanded |
+| `flow-recert-discharge.html` | Source. Regenerate with `_flow-recert-discharge.gen.py` | Editing flow 5 |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |

@@ -931,3 +931,52 @@ carries the person's colour.*
 
 This sheet supersedes nothing — it IS the redrawn original (page 2 of the set; page 1 remains the
 Home Health Intake Reset). The four detail flows stand behind it.
+
+---
+
+## 24. Flow 5 drawn — recertification and discharge, through a worked example
+
+`Flow-Recert-Discharge.pdf` — the last of the detail flows. Canvas 2200 × 1720. This is the flow the
+primary map condenses as phase 4, and it is built around a **worked example** rather than an abstract
+sequence, because the per-discipline staggering is exactly what abstract boxes fail to convey.
+
+### The example (18 Aug, source: PB)
+
+SN, PT and OT are all active on the case.
+
+| Discipline | Decision | When | Visit type | Next period |
+|---|---|---|---|---|
+| **SN** | Discharge | **Days 52–53** — 7–8 days before the period ends | **Discipline discharge, non-OASIS** | Off the case |
+| **PT** | Recertify | Inside the 5-day window (days 56–60) | **OASIS recert visit** — PT carries the OASIS | **2w3, then 1w3** — 6 + 3 = 9 visits over 6 weeks |
+| **OT** | Recertify | Inside the 5-day window | **OT recert eval — non-OASIS** | **1w4** — 4 visits over 4 weeks |
+
+SN's timing is the teaching point: **a discipline that is not recertifying owes no visit inside the
+recert window.** It makes its final visit whenever clinically sensible and leaves. Only the
+recertifying disciplines are bound to the window — and their window visits were already plotted at
+the original plan of care, so nothing needs scheduling to make them happen.
+
+### How the sheet is built
+
+- **Band 1 — the decision.** Each active discipline, separately, against its own goals: goals met →
+  discipline discharge (non-OASIS); more care indicated → recertify with a visit inside the window.
+  Side notes carry the discipline-dependence and the mid-episode add-on escape hatch (Flow 1).
+- **Band 2 — the timeline.** A 60-day bar with days 1–50 compressed behind a break mark and days
+  51–60 drawn at width (labelled *window expanded — not to scale*), the 5-day window shaded, a heavy
+  dashed **DAY 60 → DAY 1** boundary, and the new period's bar beyond it. Three lanes: SN's block at
+  days 52–53 ending in an open circle (off the case); PT's OASIS recert visit badged `CARRIES THE
+  OASIS`; OT's non-OASIS eval. PT and OT's lanes cross the boundary into their frequency chips.
+- **Band 3 — the workflow.** PT and OT establish next-period frequency orders (× 2 disciplines) →
+  DCS approves each POC → HCHB generates visits and assignment tasks → scheduler assigns all plotted
+  visits in one pass → the new period's visits land. Banded `THE SAME PATTERN AS FLOW 1, PASS 2` —
+  recert is not a new process, it is a trigger into the existing one, and the scheduling workflow
+  fires **only after** the frequency orders exist.
+- **The agency-discharge panel.** If no discipline recertifies: every discipline still discharges
+  separately (the earlier ones non-OASIS, exactly like SN above); the last discipline active performs
+  the agency discharge with the D/C OASIS — RN, PT or OT, whoever makes the final visit; the owner is
+  unknown until it happens, and the episode's capacity returns to the branch.
+
+**The flow set is complete**: the detailed composite (original design, corrected), the primary map
+(four phases), and detail flows 1 (SOC full), 2 (routine visits), 3 (authorization), 5 (recert &
+discharge), plus the DCS/scheduler practice sheet. Flow 4 (exception & recovery) remains available
+as a future sheet if the missed-visit/call-out/Citrix material ever needs its own page — today it
+lives distributed across the composite and flows 1–2.
