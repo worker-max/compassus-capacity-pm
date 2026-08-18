@@ -720,3 +720,86 @@ actions. Both cannot be right on one composite. The choice is:
 Flow 2's HARD/SOFT panel is the argument for the second reading: the constraint matters at the
 moment the clinician negotiates it, not as a step the patient performs. **Unresolved — decide before
 the composite.**
+
+---
+
+## 20. The eight answers — 18 Aug
+
+Every open question from §19 is now closed. These are source facts, not inference.
+
+### 1. The 485 is not a step, it is a moment
+
+**485 submission happens alongside QA acceptance, plan-of-care locking, and orders being finalised
+and sent to the MD for signature.** Four things, concurrently, not four gates in sequence.
+
+This resolves the disagreement between our own sheets. Flow 2 drew "485 submitted" as a boundary and
+Flow 3 drew DCS approval separately; both were describing parts of the same event. On the primary map
+it is drawn as **one block carrying four lines**, badged *all at once*.
+
+### 2. There is no patient lane — the green lane is retired
+
+Patient preferences live as a **coordination note in the system**, holding generalised preferences.
+They are **variables the clinician navigates when scheduling**, not actions a patient performs.
+
+Flow 2's reading was right. The composite drops green, and patient constraints stay where Flow 2 put
+them — inside the clinician's steps and in the HARD/SOFT panel.
+
+### 3. The SOC welcome call is the scheduler's real decision
+
+**The scheduler performs the SOC welcome / intake call before assigning the SOC and the attached
+discipline evals.** Its purpose is concrete: confirm the patient is actually home, so clinicians are
+not assigned to a patient who is still inpatient, or who is refusing home-health admission until a
+later date.
+
+This is the one judgment call in the scheduler's day, and no version of the map has ever drawn it. It
+now sits on the spine, badged.
+
+### 4. Per diem and float are a capacity instrument
+
+They are clinicians in the workforce pool who are **deliberately not assigned to a territory**, which
+is what makes them useful. They are tools for **targeted capacity management**, used two ways:
+
+- **Take the SOCs** — absorbing the admission spike directly, or
+- **Take coverage visits** — freeing a territory clinician so the branch can accept more referrals.
+
+So float is not an exception path. It is a lever pulled on purpose, and it belongs beside the
+capacity decision rather than in the recovery chain.
+
+### 5. Branch leadership has exactly one home
+
+Confirmed: the joint-leadership block is the only spot. It is tied to **territory alignment** and to
+**referral and capacity acceptance decisions when capacity starts to get tight** — the same moment
+the float lever gets pulled. The two sit together on the map.
+
+### 6. Recert visits are already on the calendar
+
+**Recertification and secondary discipline eval visits happen inside the 5-day recert window at the
+end of the episode, and they are already plotted as part of the original plan-of-care assignment.**
+They can also arrive mid-episode by add-on order, when progress is slower than anticipated and more
+home health is indicated.
+
+**That decision is discipline-dependent** — some services discharge before recertification while
+others continue, based on whether goals were met.
+
+The scheduling workflow fires **after** the recertifying disciplines establish frequency orders for
+the next 60-day certification period. So the recert visit needs no scheduling; the *next period* does.
+
+### 7. Discharge is per-discipline, and the last one out does the OASIS
+
+Each discipline discharges **separately** from the others. The disciplines that finish first perform
+**discipline discharges (non-OASIS)**. The **last discipline active on the case performs the agency
+discharge with the D/C OASIS** — RN, PT, OT, whoever makes the final visit with the patient.
+
+That is why discharge has never fitted on the primary map: it is not an event, it is a staggered
+sequence whose owner is not known until it happens.
+
+### 8. What to build
+
+- **Now:** an updated version of the initial flow map, with every correction applied.
+- **Next:** recertification and discharge as **their own flow**, so the primary map can carry them
+  condensed. Their complexity is exactly what has been muddying the end of the primary map.
+
+**Where discharge is visualised, answered:** condensed to a single strand at the end of the primary
+map — *recert or discharge*, with the loop back into a new certification period drawn — and expanded
+in full on its own sheet. Anything more on the primary map buries the spine under a per-discipline
+sequence that only matters once the episode is ending.
