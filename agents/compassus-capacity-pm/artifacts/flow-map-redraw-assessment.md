@@ -446,3 +446,30 @@ sheets that are already trusted.
 
 **Open for Flow 4:** on a clinician decline, does a distinct workflow generate, or does it land back
 in the same reassignment queue as everything else?
+
+## 15. Flow 2 drawn — routine visit scheduling
+
+`flow-routine-visits.html` / `Flow-Routine-Visits.pdf`. 2200 × 1420 pt.
+
+**Structure.** Phase 1 is the assignment burst at admission — each discipline plots its own
+frequency, each submission generates its own assignment task, `× N disciplines` on both. The **485
+is drawn as a hard boundary**: after it, every order is an add-on and routes through DCS approval and
+auth. Phase 2 is steady state, banded and labelled **NO SCHEDULER WORKFLOW**, carrying the six steps
+of the clinician's weekly logic that the clarifying document records as entirely undocumented today.
+
+**The five dispositions are now drawn** — accept · reschedule · reassign · miss · decline — with
+reassign marked as *the only recurring scheduler trigger*. That closes the second of the three
+bottom-right corrections.
+
+**Variable chips at level 2.** A light chip under each step naming the deciding variables. This is
+what finally joins the flow maps to the variable reference: roughly 30 of the 47 scheduling variables
+sit inside Phase 2.
+
+Also carried: the boundaries strip (OASIS visits do not move · Medicare week Sunday–Saturday · inside
+the 60-day certification period · auth still gates), and the four named breaks.
+
+**Still open:** on a decline, does a distinct workflow generate, or does it land back in the ordinary
+reassignment queue? Drawn as "back to scheduler" for now.
+
+**Deferred by agreement:** an annotated companion sheet with fuller commentary, to be built only once
+the flow itself is right.

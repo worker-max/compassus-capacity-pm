@@ -56,6 +56,8 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
+| `Flow-Routine-Visits.pdf` | Flow 2 — routine visits, two phases, with variable chips | The clinician's own week |
+| `flow-routine-visits.html` | Source. Regenerate with `_flow-routine-visits.gen.py` | Editing flow 2 |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |
@@ -68,6 +70,10 @@ HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#79593
 
 **Size convention:** large block = happens every time · small block = conditional · pill = watch
 condition, not a step. Introduced so weight on the page matches weight in the process.
+
+**Variable chips.** Flow sheets carry a light chip under each step naming the variables that decide
+it (`S-04 · S-11 · C-06`). Chips only — no commentary on the flow sheet itself. A separate annotated
+companion carries the commentary, and is only built once the flow is agreed.
 
 **Flow-map canvas rule.** Canvas units are **points on the output sheet**, so a 16-unit label prints
 at 16pt. Draw at sheet scale (the original is 2070 × 1380 pt) rather than at A4 and shrinking —
