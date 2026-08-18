@@ -58,6 +58,8 @@ renumbered.
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
 | `Primary-Flow-Map.pdf` | **The primary current-state map** — the whole episode in four phases, with the detail flows condensed | The wall sheet. Orientation for anyone new, and the map the detail flows hang off |
 | `flow-primary-map.html` | Source. Regenerate with `_flow-primary-map.gen.py` | Editing the primary map |
+| `Flow-SOC-Full.pdf` | Flow 1 — the full SOC/ROC flow: referral pass, then the per-discipline plan-of-care pattern, with the welcome call and the 485 moment | The detailed admission flow, in the shape the team already knows |
+| `flow-soc-full.html` | Source. Regenerate with `_flow-soc-full.gen.py` | Editing flow 1 |
 | `Flow-Routine-Visits.pdf` | Flow 2 — routine visits, two phases, the day-before negotiation panel (hard vs. soft) and the five day-before dispositions | The clinician's own week |
 | `flow-routine-visits.html` | Source. Regenerate with `_flow-routine-visits.gen.py` | Editing flow 2 |
 | `Flow-Authorization.pdf` | Flow 3 — auth at its two interfaces: the gate at start of care and the ceiling inside the plan of care | Explaining why a referral cannot be scheduled, and why a plan of care outruns its budget |

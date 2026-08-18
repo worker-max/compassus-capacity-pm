@@ -864,3 +864,33 @@ plan-of-care workflow side (a task per discipline at submission and again at app
 assignment side. The band now reads **PLOTTED BY FREQUENCY · ASSIGNED IN ONE PASS**, the scheduler
 block reads "assigns all plotted visits — one pass", and the HCHB block notes that frequency becomes
 many visits under a single assignment task per discipline.
+
+---
+
+## 22. Flow 1 drawn — the full SOC/ROC flow
+
+`Flow-SOC-Full.pdf` — *Start of Care — the Full Flow*. Canvas 2600 × 1620. This is the flow the team
+worked with in the meeting, in the same two-pass shape as the practice map, with every correction
+since then built in.
+
+**Pass 1 (from the referral):** intake receives in Commure → auth verifies and keys pending auth →
+intake final approval → DCS reviews → **the welcome / intake call** (badged, with its purpose) →
+scheduler books SOC/ROC and discipline evals → clinicians perform. Banded *nothing schedules until
+auth and intake clear*.
+
+**Pass 2 (the repeating pattern, per discipline):** clinician submits POC → DCS reviews & approves →
+Approved? → **THE 485 MOMENT** (QA accepted · POC locked · 485 submitted · orders to MD, `ALL AT
+ONCE`) → visits generate in HCHB → Auth on file? → **scheduler assigns all plotted visits — one
+pass** (noted: one working of the task assigns every visit the frequency generates) → visits on the
+clinician's calendar.
+
+Recertification and add-on orders enter pass 2 directly on the bus, as before. Exceptions (QA
+backlog, returned to clinician, pending auth), the episode visit budget panel and the missed-visit
+compliance chain all carry over from the practice map.
+
+**What changed relative to the practice map:** the welcome call exists; the 485 is one moment between
+approval and visit generation; assignment language corrected to one pass per discipline task.
+
+The practice map (`Flow-DCS-Scheduler.pdf`) remains as the simplified DCS/scheduler teaching sheet.
+
+**Next: Flow 5 — recertification and discharge.**
