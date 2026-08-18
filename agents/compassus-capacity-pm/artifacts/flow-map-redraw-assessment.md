@@ -353,3 +353,46 @@ maroon owner — so the pair reads as one idea:
 
 Both feed back to the DCS plan-of-care gate, which is where the band was set in the first place.
 Two diamonds, one symmetry, no new vocabulary.
+
+---
+
+## 13. Correction — SOC and ROC run two passes, not one
+
+The first draft of the simplified map was wrong. It started every trigger at "clinician submits
+plan of care", which is only true *after* the discipline-specific assessment has happened.
+
+**Start of care and resumption of care run a referral pass first.** Initial orders arrive on the
+referral, and before any clinician writes a plan of care:
+
+1. **Office verifies** eligibility
+2. **DCS reviews the referral**
+3. DCS sends workflow to the **scheduler**
+4. Scheduler books the **SOC / ROC visit and the secondary discipline evaluation visits**
+5. Those clinicians perform their visits
+
+Only then does the pattern I originally drew begin.
+
+**Recertification and add-on orders skip pass 1 entirely.** They start at the discipline level:
+
+- **Recertification** — each discipline performs either the **recertification OASIS visit** or a
+  **discipline recertification evaluation visit, which is not OASIS**.
+- **Add-on orders** — **no OASIS attached.** Usually a change in patient status requiring a
+  frequency adjustment: adding visits, *reducing* visits when the patient is progressing better
+  than expected, or redistributing frequency **without changing the episode total**. All of those
+  are processed as an add-on order.
+
+So the five triggers are not peers. They are **two classes converging on one shared pattern**, and
+the map now draws them that way — a referral pass for SOC/ROC, direct entry for recert and add-on,
+all meeting on a single bus into the discipline plan-of-care pattern.
+
+**Why this matters beyond accuracy.** The scheduler appears *twice* for a start of care — once to
+book the SOC and evaluation visits, and again per discipline to assign the ongoing visits. The
+original map showed only the second. That understates scheduler load at admission, which is exactly
+the point in the episode where load is heaviest.
+
+### Canvas note
+
+Adding pass 1 makes the sheet taller. The canvas is now 1600 × 1250, a ratio of **1.28** against
+A4 landscape's 1.414, so it prints landscape with side margins rather than filling the sheet. Three
+options if that matters: accept the margins, move to a wider canvas that matches the original sheet's
+1.5 ratio, or move the missed-visit chain onto Flow 4 where it arguably belongs. Not decided.

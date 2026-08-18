@@ -4,13 +4,13 @@
   <header class="hd">
     <p class="eyebrow">Compassus &middot; Home Health &middot; simplified current state</p>
     <h1>Plan of Care &rarr; Assignment</h1>
-    <p class="sub">The DCS and scheduler handoff, on its own. Five triggers feed one repeating
-    pattern; missed visits run a separate compliance chain. Colours, shapes and labels are the
+    <p class="sub">The DCS and scheduler handoff, on its own. Start of care and resumption of care run a referral
+    pass first; all triggers then converge on the discipline plan-of-care pattern. Colours, shapes and labels are the
     same as the full swimlane, so this expands into it rather than replacing it.</p>
   </header>
 
   <figure>
-<svg viewBox="0 0 1600 1010" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Simplified DCS and scheduler flow: five triggers feed one repeating pattern of clinician submission, DCS approval per discipline, auth gate and scheduler assignment; missed visits run a separate 48-hour compliance chain.">
+<svg viewBox="0 0 1600 1250" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Start of care and resumption of care run a referral pass first: office verifies, DCS reviews the referral, the scheduler books the SOC or ROC visit and the discipline evaluations. All triggers then converge on the discipline plan-of-care pattern: clinician submits, DCS approves per discipline, auth gate, scheduler assigns. Missed visits run a separate 48-hour compliance chain.">
 <defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="9" markerHeight="7" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
 <circle cx="51" cy="46" r="11" fill="#C6A01F"/>
 <text x="69" y="50" class="leg">PCC / Scheduler</text>
@@ -23,108 +23,135 @@
 <circle cx="670.1999999999999" cy="46" r="11" fill="#DF751D"/>
 <text x="688.1999999999999" y="50" class="leg">Insurance &amp; Auth</text>
 <text x="1560" y="34" class="key" text-anchor="end">SIZE = WEIGHT</text>
-<text x="1560" y="52" class="keys" text-anchor="end">large = every time &#183; small = conditional &#183; pill = watch condition</text>
+<text x="1560" y="52" class="keys" text-anchor="end">large = every time · small = conditional · pill = watch condition</text>
 <line x1="40" y1="76" x2="1560" y2="76" stroke="#C9CCC5" stroke-width="1"/>
-<rect x="270" y="140" width="1290" height="170" rx="8" fill="#E9E9E5"/>
-<text x="288" y="164" class="band">ORDER &#8594; APPROVAL &#8594; ASSIGNMENT &#8212; the repeating pattern</text>
-<rect x="286" y="186" width="168" height="66" rx="4" fill="#2E599D"/>
-<text x="370.0" y="215.5" class="bt" text-anchor="middle">Clinician submits</text>
-<text x="370.0" y="230.5" class="bt" text-anchor="middle">plan of care / order</text>
-<rect x="481" y="186" width="168" height="66" rx="4" fill="#792E2E"/>
-<text x="565.0" y="215.5" class="bt" text-anchor="middle">DCS reviews &amp;</text>
-<text x="565.0" y="230.5" class="bt" text-anchor="middle">approves</text>
-<rect x="517.0" y="175" width="126.0" height="17" rx="8.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.4"/>
-<text x="580.0" y="187" class="bdg" text-anchor="middle" fill="#792E2E">x N disciplines</text>
-<polygon points="740,181.0 804.0,219.0 740,257.0 676.0,219.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
-<text x="740" y="222.5" class="dt" text-anchor="middle">Approved?</text>
-<rect x="831" y="186" width="168" height="66" rx="4" fill="#795CA7"/>
-<text x="915.0" y="215.5" class="bt" text-anchor="middle">Visits generate</text>
-<text x="915.0" y="230.5" class="bt" text-anchor="middle">in HCHB</text>
-<polygon points="1090,181.0 1154.0,219.0 1090,257.0 1026.0,219.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
-<text x="1090" y="216.5" class="dt" text-anchor="middle">Auth on</text>
-<text x="1090" y="228.5" class="dt" text-anchor="middle">file?</text>
-<rect x="1181" y="186" width="168" height="66" rx="4" fill="#C6A01F"/>
-<text x="1265.0" y="215.5" class="bt" text-anchor="middle">Scheduler assigns</text>
-<text x="1265.0" y="230.5" class="bt" text-anchor="middle">to care team</text>
-<rect x="1217.0" y="175" width="126.0" height="17" rx="8.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.4"/>
-<text x="1280.0" y="187" class="bdg" text-anchor="middle" fill="#C6A01F">x N disciplines</text>
-<rect x="1376" y="186" width="168" height="66" rx="4" fill="#2E599D"/>
-<text x="1460.0" y="215.5" class="bt" text-anchor="middle">Visits on clinician</text>
-<text x="1460.0" y="230.5" class="bt" text-anchor="middle">calendar</text>
-<line x1="454" y1="219.0" x2="477" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<line x1="649" y1="219.0" x2="672" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<line x1="804" y1="219.0" x2="827" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<line x1="999" y1="219.0" x2="1022" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<line x1="1154" y1="219.0" x2="1177" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<line x1="1349" y1="219.0" x2="1372" y2="219.0" class="ln" marker-end="url(#ar)"/>
-<text x="823" y="210.0" class="lb" text-anchor="end">Yes</text>
-<text x="1173" y="210.0" class="lb" text-anchor="end">Yes</text>
-<rect x="40" y="113.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
-<text x="145.0" y="138.5" class="ct" text-anchor="middle" fill="#1B211E">Start of care</text>
-<path d="M 250 135.0 L 268 135.0 L 268 219.0 L 281 219.0" fill="none" class="ln" marker-end="url(#ar)"/>
-<rect x="40" y="169.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
-<text x="145.0" y="194.5" class="ct" text-anchor="middle" fill="#1B211E">Add-on order (in 60-day cert)</text>
-<path d="M 250 191.0 L 268 191.0 L 268 219.0 L 281 219.0" fill="none" class="ln" marker-end="url(#ar)"/>
-<rect x="40" y="225.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
-<text x="145.0" y="250.5" class="ct" text-anchor="middle" fill="#1B211E">Recertification</text>
-<path d="M 250 247.0 L 268 247.0 L 268 219.0 L 281 219.0" fill="none" class="ln" marker-end="url(#ar)"/>
-<rect x="40" y="281.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
-<text x="145.0" y="306.5" class="ct" text-anchor="middle" fill="#1B211E">Resumption of care</text>
-<path d="M 250 303.0 L 268 303.0 L 268 219.0 L 281 219.0" fill="none" class="ln" marker-end="url(#ar)"/>
-<text x="40" y="97.0" class="trg">TRIGGERS</text>
-<rect x="481" y="354" width="168" height="46" rx="4" fill="#792E2E"/>
-<text x="565.0" y="374.5" class="bt s" text-anchor="middle">QA backlog</text>
-<text x="565.0" y="387.5" class="bt s" text-anchor="middle">visits compress</text>
-<rect x="656" y="354" width="168" height="46" rx="4" fill="#2E599D"/>
-<text x="740.0" y="374.5" class="bt s" text-anchor="middle">Returned to clinician</text>
-<text x="740.0" y="387.5" class="bt s" text-anchor="middle">for correction</text>
-<rect x="1006" y="354" width="168" height="46" rx="4" fill="#DF751D"/>
-<text x="1090.0" y="374.5" class="bt s" text-anchor="middle">Pending auth</text>
-<text x="1090.0" y="387.5" class="bt s" text-anchor="middle">not on calendar, not counted</text>
-<path d="M 525 252 L 525 349" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
-<path d="M 740 257.0 L 740 349" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
-<text x="754" y="338" class="lb" text-anchor="middle">No</text>
-<path d="M 1090 257.0 L 1090 349" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
-<text x="1104" y="338" class="lb" text-anchor="middle">No</text>
-<rect x="481" y="452" width="1082" height="118" rx="8" fill="none" stroke="#C9CCC5" stroke-width="1.4" stroke-dasharray="6 5"/>
-<text x="499" y="478" class="pnl">EPISODE VISIT BUDGET &#8212; set at plan-of-care approval, steered by DCS</text>
-<rect x="499" y="496" width="252" height="34" rx="17.0" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.5"/>
-<text x="625.0" y="516.5" class="ct" text-anchor="middle" fill="#792E2E">LUPA floor · too few visits</text>
-<rect x="775" y="496" width="268" height="34" rx="17.0" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.5"/>
-<text x="909.0" y="516.5" class="ct" text-anchor="middle" fill="#792E2E">Utilisation ceiling · visits beyond need</text>
-<text x="1071" y="518" class="note">Fixed 30-day PDGM payment: below the floor the period pays per visit;</text>
-<text x="1071" y="533" class="note">above the ceiling extra visits earn nothing and consume capacity.</text>
-<path d="M 615 447 L 615 258" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
-<rect x="270" y="640" width="775" height="170" rx="8" fill="#E9E9E5"/>
-<text x="288" y="664" class="band">MISSED VISIT &#8212; the compliance chain</text>
-<rect x="286" y="686" width="168" height="66" rx="4" fill="#2E599D"/>
-<text x="370.0" y="715.5" class="bt" text-anchor="middle">Clinician documents</text>
-<text x="370.0" y="730.5" class="bt" text-anchor="middle">missed visit</text>
-<rect x="481" y="686" width="168" height="66" rx="4" fill="#C6A01F"/>
-<text x="565.0" y="715.5" class="bt" text-anchor="middle">Scheduler workflow</text>
-<text x="565.0" y="730.5" class="bt" text-anchor="middle">notify MD</text>
-<polygon points="740,680.0 809.0,719.0 740,758.0 671.0,719.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
-<text x="740" y="716.5" class="dt" text-anchor="middle">MD notified</text>
-<text x="740" y="728.5" class="dt" text-anchor="middle">within 48h?</text>
-<rect x="831" y="686" width="168" height="66" rx="4" fill="#795CA7"/>
-<text x="915.0" y="715.5" class="bt" text-anchor="middle">Documented</text>
-<text x="915.0" y="730.5" class="bt" text-anchor="middle">in HCHB</text>
-<line x1="454" y1="719.0" x2="477" y2="719.0" class="ln" marker-end="url(#ar)"/>
-<line x1="649" y1="719.0" x2="670" y2="719.0" class="ln" marker-end="url(#ar)"/>
-<line x1="810" y1="719.0" x2="827" y2="719.0" class="ln" marker-end="url(#ar)"/>
-<text x="823" y="710.0" class="lb" text-anchor="end">Yes</text>
-<rect x="40" y="697.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
-<text x="145.0" y="722.5" class="ct" text-anchor="middle" fill="#1B211E">Missed visit</text>
-<path d="M 250 719.0 L 281 719.0" fill="none" class="ln" marker-end="url(#ar)"/>
-<text x="40" y="681.0" class="trg">TRIGGER</text>
-<rect x="656" y="854" width="168" height="46" rx="4" fill="#792E2E"/>
-<text x="740.0" y="874.5" class="bt s" text-anchor="middle">DCS workflow</text>
-<text x="740.0" y="887.5" class="bt s" text-anchor="middle">48h breach</text>
-<path d="M 740 758.0 L 740 849" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
-<text x="754" y="838" class="lb" text-anchor="middle">No</text>
-<line x1="40" y1="952" x2="1560" y2="952" stroke="#C9CCC5" stroke-width="1"/>
-<text x="40" y="976" class="foot">Compassus Home Health &#183; simplified view &#183; a strict subset of the full swimlane</text>
-<text x="1560" y="976" class="foot" text-anchor="end">DCS and Scheduler only</text>
+<rect x="270" y="100" width="900" height="178" rx="8" fill="#E9E9E5"/>
+<text x="288" y="124" class="band" text-anchor="start">PASS 1  ·  START OF CARE / RESUMPTION OF CARE — from the referral</text>
+<rect x="286" y="152" width="190" height="66" rx="4" fill="#DF751D"/>
+<text x="381.0" y="181.5" class="bt" text-anchor="middle">Office verifies</text>
+<text x="381.0" y="196.5" class="bt" text-anchor="middle">eligibility</text>
+<rect x="506" y="152" width="190" height="66" rx="4" fill="#792E2E"/>
+<text x="601.0" y="181.5" class="bt" text-anchor="middle">DCS reviews</text>
+<text x="601.0" y="196.5" class="bt" text-anchor="middle">referral</text>
+<rect x="726" y="152" width="190" height="66" rx="4" fill="#C6A01F"/>
+<text x="821.0" y="174.0" class="bt" text-anchor="middle">Scheduler books</text>
+<text x="821.0" y="189.0" class="bt" text-anchor="middle">SOC / ROC visit</text>
+<text x="821.0" y="204.0" class="bt" text-anchor="middle">+ discipline evals</text>
+<rect x="946" y="152" width="190" height="66" rx="4" fill="#2E599D"/>
+<text x="1041.0" y="174.0" class="bt" text-anchor="middle">Clinicians perform</text>
+<text x="1041.0" y="189.0" class="bt" text-anchor="middle">SOC / ROC</text>
+<text x="1041.0" y="204.0" class="bt" text-anchor="middle">+ eval visits</text>
+<line x1="476" y1="185.0" x2="502" y2="185.0" class="ln" marker-end="url(#ar)"/>
+<line x1="696" y1="185.0" x2="722" y2="185.0" class="ln" marker-end="url(#ar)"/>
+<line x1="916" y1="185.0" x2="942" y2="185.0" class="ln" marker-end="url(#ar)"/>
+<rect x="40" y="158.0" width="210" height="54" rx="22" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
+<text x="145.0" y="182.5" class="ct" text-anchor="middle" fill="#1B211E">Referral arrives</text>
+<text x="145.0" y="195.5" class="ct" text-anchor="middle" fill="#1B211E">with initial orders</text>
+<line x1="250" y1="185.0" x2="282" y2="185.0" class="ln" marker-end="url(#ar)"/>
+<text x="40" y="143.0" class="trg" text-anchor="start">TRIGGER</text>
+<rect x="270" y="392" width="1290" height="178" rx="8" fill="#E9E9E5"/>
+<text x="288" y="416" class="band" text-anchor="start">PASS 2  ·  DISCIPLINE PLAN OF CARE — the repeating pattern</text>
+<rect x="286" y="444" width="168" height="66" rx="4" fill="#2E599D"/>
+<text x="370.0" y="473.5" class="bt" text-anchor="middle">Clinician submits</text>
+<text x="370.0" y="488.5" class="bt" text-anchor="middle">discipline POC / frequency</text>
+<rect x="322.0" y="433" width="126.0" height="17" rx="8.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.4"/>
+<text x="385.0" y="445" class="bdg" text-anchor="middle" fill="#2E599D">x N disciplines</text>
+<rect x="481" y="444" width="168" height="66" rx="4" fill="#792E2E"/>
+<text x="565.0" y="473.5" class="bt" text-anchor="middle">DCS reviews &amp;</text>
+<text x="565.0" y="488.5" class="bt" text-anchor="middle">approves</text>
+<rect x="517.0" y="433" width="126.0" height="17" rx="8.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.4"/>
+<text x="580.0" y="445" class="bdg" text-anchor="middle" fill="#792E2E">x N disciplines</text>
+<polygon points="740,439.0 804.0,477.0 740,515.0 676.0,477.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
+<text x="740" y="480.5" class="dt" text-anchor="middle">Approved?</text>
+<rect x="831" y="444" width="168" height="66" rx="4" fill="#795CA7"/>
+<text x="915.0" y="473.5" class="bt" text-anchor="middle">Visits generate</text>
+<text x="915.0" y="488.5" class="bt" text-anchor="middle">in HCHB</text>
+<polygon points="1090,439.0 1154.0,477.0 1090,515.0 1026.0,477.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
+<text x="1090" y="474.5" class="dt" text-anchor="middle">Auth on</text>
+<text x="1090" y="486.5" class="dt" text-anchor="middle">file?</text>
+<rect x="1181" y="444" width="168" height="66" rx="4" fill="#C6A01F"/>
+<text x="1265.0" y="473.5" class="bt" text-anchor="middle">Scheduler assigns</text>
+<text x="1265.0" y="488.5" class="bt" text-anchor="middle">to care team</text>
+<rect x="1217.0" y="433" width="126.0" height="17" rx="8.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.4"/>
+<text x="1280.0" y="445" class="bdg" text-anchor="middle" fill="#C6A01F">x N disciplines</text>
+<rect x="1376" y="444" width="168" height="66" rx="4" fill="#2E599D"/>
+<text x="1460.0" y="473.5" class="bt" text-anchor="middle">Visits on clinician</text>
+<text x="1460.0" y="488.5" class="bt" text-anchor="middle">calendar</text>
+<line x1="454" y1="477.0" x2="477" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<line x1="649" y1="477.0" x2="672" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<line x1="804" y1="477.0" x2="827" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<line x1="999" y1="477.0" x2="1022" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<line x1="1154" y1="477.0" x2="1177" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<line x1="1349" y1="477.0" x2="1372" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<text x="823" y="468.0" class="lb" text-anchor="end">Yes</text>
+<text x="1173" y="468.0" class="lb" text-anchor="end">Yes</text>
+<path d="M 1041.0 218 L 1041.0 340 L 268 340 L 268 477.0" fill="none" class="ln"/>
+<text x="654.5" y="330" class="lb" text-anchor="middle">after the eval visits, each discipline writes its own plan of care</text>
+<rect x="30" y="393.0" width="226" height="58" rx="22" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
+<text x="143.0" y="419.5" class="ct" text-anchor="middle" fill="#1B211E">Recertification — OASIS recert</text>
+<text x="143.0" y="432.5" class="ct" text-anchor="middle" fill="#1B211E">visit, or non-OASIS recert eval</text>
+<rect x="30" y="503.0" width="226" height="58" rx="22" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
+<text x="143.0" y="529.5" class="ct" text-anchor="middle" fill="#1B211E">Add-on order — status change:</text>
+<text x="143.0" y="542.5" class="ct" text-anchor="middle" fill="#1B211E">add, reduce or shift visits</text>
+<text x="30" y="377.0" class="trg" text-anchor="start">OTHER TRIGGERS</text>
+<path d="M 256 422.0 L 268 422.0 L 268 477.0" fill="none" class="ln"/>
+<path d="M 256 532.0 L 268 532.0 L 268 477.0" fill="none" class="ln"/>
+<line x1="268" y1="477.0" x2="282" y2="477.0" class="ln" marker-end="url(#ar)"/>
+<text x="30" y="577.0" class="note" text-anchor="start">no OASIS · adds, reduces or redistributes visits</text>
+<text x="30" y="591.0" class="note" text-anchor="start">without changing the episode total</text>
+<rect x="481" y="616" width="168" height="46" rx="4" fill="#792E2E"/>
+<text x="565.0" y="636.5" class="bt s" text-anchor="middle">QA backlog</text>
+<text x="565.0" y="649.5" class="bt s" text-anchor="middle">visits compress</text>
+<rect x="656" y="616" width="168" height="46" rx="4" fill="#2E599D"/>
+<text x="740.0" y="636.5" class="bt s" text-anchor="middle">Returned to clinician</text>
+<text x="740.0" y="649.5" class="bt s" text-anchor="middle">for correction</text>
+<rect x="1006" y="616" width="168" height="46" rx="4" fill="#DF751D"/>
+<text x="1090.0" y="636.5" class="bt s" text-anchor="middle">Pending auth</text>
+<text x="1090.0" y="649.5" class="bt s" text-anchor="middle">not on calendar, not counted</text>
+<path d="M 525 510 L 525 611" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
+<path d="M 740 515.0 L 740 611" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
+<text x="754" y="600" class="lb" text-anchor="middle">No</text>
+<path d="M 1090 515.0 L 1090 611" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
+<text x="1104" y="600" class="lb" text-anchor="middle">No</text>
+<rect x="481" y="708" width="1082" height="118" rx="8" fill="none" stroke="#C9CCC5" stroke-width="1.4" stroke-dasharray="6 5"/>
+<text x="499" y="734" class="pnl" text-anchor="start">EPISODE VISIT BUDGET — set at plan-of-care approval, steered by DCS</text>
+<rect x="499" y="752" width="252" height="34" rx="17.0" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.5"/>
+<text x="625.0" y="773.0" class="ct" text-anchor="middle" fill="#792E2E">LUPA floor · too few visits</text>
+<rect x="775" y="752" width="268" height="34" rx="17.0" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.5"/>
+<text x="909.0" y="773.0" class="ct" text-anchor="middle" fill="#792E2E">Utilisation ceiling · visits beyond need</text>
+<text x="1071" y="774" class="note" text-anchor="start">Fixed 30-day PDGM payment: below the floor the period pays per visit;</text>
+<text x="1071" y="789" class="note" text-anchor="start">above the ceiling extra visits earn nothing and consume capacity.</text>
+<path d="M 615 703 L 615 516" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
+<rect x="270" y="872" width="775" height="178" rx="8" fill="#E9E9E5"/>
+<text x="288" y="896" class="band" text-anchor="start">MISSED VISIT — the compliance chain</text>
+<rect x="286" y="924" width="168" height="66" rx="4" fill="#2E599D"/>
+<text x="370.0" y="953.5" class="bt" text-anchor="middle">Clinician documents</text>
+<text x="370.0" y="968.5" class="bt" text-anchor="middle">missed visit</text>
+<rect x="481" y="924" width="168" height="66" rx="4" fill="#C6A01F"/>
+<text x="565.0" y="953.5" class="bt" text-anchor="middle">Scheduler workflow</text>
+<text x="565.0" y="968.5" class="bt" text-anchor="middle">notify MD</text>
+<polygon points="740,918.0 809.0,957.0 740,996.0 671.0,957.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.4"/>
+<text x="740" y="954.5" class="dt" text-anchor="middle">MD notified</text>
+<text x="740" y="966.5" class="dt" text-anchor="middle">within 48h?</text>
+<rect x="831" y="924" width="168" height="66" rx="4" fill="#795CA7"/>
+<text x="915.0" y="953.5" class="bt" text-anchor="middle">Documented</text>
+<text x="915.0" y="968.5" class="bt" text-anchor="middle">in HCHB</text>
+<line x1="454" y1="957.0" x2="477" y2="957.0" class="ln" marker-end="url(#ar)"/>
+<line x1="649" y1="957.0" x2="670" y2="957.0" class="ln" marker-end="url(#ar)"/>
+<line x1="810" y1="957.0" x2="827" y2="957.0" class="ln" marker-end="url(#ar)"/>
+<text x="823" y="948.0" class="lb" text-anchor="end">Yes</text>
+<rect x="40" y="935.0" width="210" height="44" rx="22.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.5"/>
+<text x="145.0" y="961.0" class="ct" text-anchor="middle" fill="#1B211E">Missed visit</text>
+<line x1="250" y1="957.0" x2="282" y2="957.0" class="ln" marker-end="url(#ar)"/>
+<text x="40" y="919.0" class="trg" text-anchor="start">TRIGGER</text>
+<rect x="656" y="1096" width="168" height="46" rx="4" fill="#792E2E"/>
+<text x="740.0" y="1116.5" class="bt s" text-anchor="middle">DCS workflow</text>
+<text x="740.0" y="1129.5" class="bt s" text-anchor="middle">48h breach</text>
+<path d="M 740 996.0 L 740 1091" fill="none" class="ln" stroke-dasharray="5 4" opacity=".65" marker-end="url(#ar)"/>
+<text x="754" y="1080" class="lb" text-anchor="middle">No</text>
+<line x1="40" y1="1192" x2="1560" y2="1192" stroke="#C9CCC5" stroke-width="1"/>
+<text x="40" y="1216" class="foot" text-anchor="start">Compassus Home Health · simplified view · a strict subset of the full swimlane</text>
+<text x="1560" y="1216" class="foot" text-anchor="end">DCS and Scheduler only</text>
 </svg>
     <figcaption><strong>Reading the sizes.</strong> Large blocks happen every time a trigger
     fires. Small blocks are conditional &mdash; they only appear when something is wrong. Pills are
@@ -182,7 +209,7 @@ body{background:#fff;padding:0}
 main{gap:6pt;max-width:none}
 figure{box-shadow:none;border:0;border-radius:0;padding:0;overflow:visible;
 break-inside:avoid;page-break-inside:avoid}
-svg{min-width:0;width:auto;height:452pt;margin:0 auto}
+svg{min-width:0;width:auto;height:430pt;margin:0 auto}
 h1{font-size:17pt;line-height:1.05}
 .eyebrow{font-size:6.5pt}
 .sub{display:none}
