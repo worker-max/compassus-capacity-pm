@@ -209,3 +209,34 @@ maps and the variable documents can share one vocabulary rather than drifting ap
 6. Draw Flow 2 as two phases, making the Phase Two silence obvious.
 7. Rework Flow 4 with call-out recovery, LUPA watch, decline, and Shift Finder.
 8. Compose the four into the layered composite.
+
+---
+
+## 9. Resolved in conversation (17 Aug)
+
+**Legend stays role-based for iteration 1.** Everyone from the meeting is comfortable reading colour
+as role. The DE-07 task-type legend becomes a *second* iteration — a back-up flow built once this
+one is right — so the room is not asked to re-learn the sheet. Consequence: the green **Patient
+rules** block becomes **purple**, because the rule lives in the system as a coordination note.
+
+**Branch leadership splits out of the ED/DCS chip.** Branch leadership gets its own high-contrast
+treatment — black block, white text — to separate a *joint leadership assessment* from an individual
+DCS clinical role. The existing maroon *ED / DCS review — reopen zip · add per-diem · adjust patterns
+· defer* block is branch leadership, not DCS, and moves to black.
+
+**Plan-of-care QA is drawn as DCS.** DCS performs QA in the majority of markets. The
+"DCS-or-separate-QA-team" variation is parked as a reference point for the connected future-state
+map rather than drawn as a fork now.
+
+**DCS scope for iteration 1 is deliberately narrow.** In: the two hard gates (plan-of-care QA, order
+approval) and the missed-visit backstop, which the corrections list requires. Out for now, parked for
+the future-state map: DCS as last-resort clinician, the daily afternoon huddle, the daily Pulse LUPA
+report, and PTO cross-approval. Rationale — too much to carry into the first read.
+
+### Still open
+
+- **Order-approval scope.** Does *every* physician order pass the DCS gate, or only add-on /
+  subsequent orders after the 485? Working assumption: all orders gate, and only frequency-changing
+  ones additionally generate scheduler workflow.
+- **Recert / ROC.** Does the QA gate behave the same as on SOC? The clarifying document treats them
+  as one trigger class and records the differences as unknown.
