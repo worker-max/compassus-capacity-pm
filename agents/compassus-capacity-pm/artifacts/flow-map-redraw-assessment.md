@@ -1015,3 +1015,23 @@ Four corrections from PB's review of the redrawn sheet, all applied:
    (blue) → patient confirms / negotiates (green) → into the Confirmed? diamond. The separate
    "day-before confirm" spine block is removed — the confirmation chain *is* the day-before work,
    and it feeds the spine's Confirmed? decision directly.
+
+---
+
+## 26. Third correction pass on the composite — the confirmation outcome and call-out coverage
+
+1. **Accept moved onto the spine.** A confirmed visit *is* an accepted visit: the Accept pill now
+   sits on the Yes segment between **Confirmed?** and **Visit delivered**, and the disposition strip
+   below carries only the other four. Its heading reads **NOT CONFIRMED — THE OTHER DISPOSITIONS**.
+2. **The No branch points at Resched.**, the most likely outcome — not at Decline, which is the
+   least used disposition and one some clinicians are instructed never to use. Both facts are now on
+   the sheet, and "negotiate" is dropped from the label.
+3. **Call-out coverage is jointly owned** — the block is half maroon (DCS), half yellow (scheduler).
+4. **The coverage chain is the scheduler's:** *Scheduler coordinates coverage — call · text · Teams —
+   with FT or per-diem clinicians* → *Scheduler reassigns to another clinician — or moves the visit
+   to another day*. The `RAPID RESCHEDULE` badge and its note are removed from this chain — rapid
+   reschedule is about clinicians moving their **own** visits, not about coverage — and the care
+   coordination / case conference block is deleted.
+
+**Note for the other sheets:** rapid reschedule remains correctly placed on Flow 2 (the clinician's
+own week) and in the variable backlog; it was only wrong here, attached to call-out coverage.

@@ -145,7 +145,11 @@ arrow(s_read+SBW, sc, d_cap-75-6, sc)
 path(f"M {d_cap+75} {sc} L {d_match-75-6} {sc}", label="Yes", lx=(d_cap+d_match)/2, ly=sc-12)
 path(f"M {d_match+75} {sc} L {s_asn-6} {sc}", label="Yes", lx=(d_match+75+s_asn)/2, ly=sc-12)
 arrow(s_asn+SBW, sc, d_conf-75-6, sc)
-path(f"M {d_conf+75} {sc} L {s_del-6} {sc}", label="Yes", lx=(d_conf+75+s_del)/2, ly=sc-12)
+path(f"M {d_conf+75} {sc} L {s_del-6} {sc}", label="Yes", lx=(d_conf+75+s_del)/2, ly=sc-30)
+add(f'<rect x="{d_conf+79}" y="{sc-18}" width="{s_del-d_conf-85}" height="36" rx="18" fill="#FFFFFF" '
+    f'stroke="{C["clin"]}" stroke-width="1.8"/>')
+add(f'<text x="{(d_conf+79+s_del-6)/2}" y="{sc+5}" class="ct" text-anchor="middle" '
+    f'fill="{C["clin"]}">Accept</text>')
 arrow(s_del+SBW, sc, d_stat-75-6, sc)
 
 # ==================== COLUMN 1 — feeders ====================
@@ -268,8 +272,8 @@ path(f"M {cols[3]+colw/2} {y+BH2+50} L {cols[3]+colw/2} {sc-SBH/2-42} "
 
 # column 4 — below spine: dispositions then recovery
 y4 = SY + SH2 + 46
-lbl(cols[3]+16, y4+6, "THE FIVE DISPOSITIONS — day before", cls="pnl")
-dch = [("Accept", C["clin"]), ("Resched.", C["clin"]), ("Reassign", C["pcc"]),
+lbl(cols[3]+16, y4+6, "NOT CONFIRMED — THE OTHER DISPOSITIONS", cls="pnl")
+dch = [("Resched.", C["clin"]), ("Reassign", C["pcc"]),
        ("Miss", C["dcs"]), ("Decline", C["pcc"])]
 dxx = cols[3]+16
 for t, col in dch:
@@ -278,25 +282,25 @@ for t, col in dch:
         f'stroke="{col}" stroke-width="1.8"/>')
     add(f'<text x="{dxx+wch/2}" y="{y4+38}" class="ct" text-anchor="middle" fill="{col}">{esc(t)}</text>')
     dxx += wch + 8
-lbl(cols[3]+16, y4+72, "selected in HCHB · reassign returns with a plan · decline without one", "start", "note")
-path(f"M {d_conf} {sc+56} L {d_conf} {y4+16-6}", dash=True, label="No / negotiate",
+lbl(cols[3]+16, y4+70, "selected in HCHB · reassign returns with a plan, decline without one", "start", "note")
+lbl(cols[3]+16, y4+88, "decline is the least used — some clinicians are instructed never to use it", "start", "note")
+path(f"M {d_conf} {sc+56} L {d_conf} {y4-34} L {cols[3]+8} {y4-34} L {cols[3]+8} {y4+34} "
+     f"L {cols[3]+16-6} {y4+34}", dash=True, label="No",
      lx=d_conf-14, ly=sc+82, anchor="end")
 
-y4b = y4 + 100
-block(cx(3), y4b, BW2, BH2, C["dcs"], ["Call-out coverage —", "per diem / float"])
+y4b = y4 + 116
+add(f'<rect x="{cx(3)}" y="{y4b}" width="{BW2}" height="{BH2}" rx="6" fill="{C["dcs"]}"/>')
+add(f'<rect x="{cx(3)+BW2/2}" y="{y4b}" width="{BW2/2}" height="{BH2}" rx="6" fill="{C["pcc"]}"/>')
+add(f'<text x="{cx(3)+BW2/2}" y="{y4b+25}" class="bt" fill="#fff" text-anchor="middle">Call-out coverage —</text>')
+add(f'<text x="{cx(3)+BW2/2}" y="{y4b+43}" class="bt" fill="#fff" text-anchor="middle">DCS + scheduler together</text>')
 arrow(cols[3]+colw/2, y4b+BH2, cols[3]+colw/2, y4b+BH2+38)
 y4c = y4b + BH2 + 44
-block(cx(3), y4c, BW2, BH2, C["clin"], ["Care-team /", "office update"])
-arrow(cols[3]+colw/2, y4c+BH2, cols[3]+colw/2, y4c+BH2+38)
-y4d = y4c + BH2 + 44
-block(cx(3), y4d, BW2, BH2, C["pcc"], ["Reschedule → re-slot", "within window"], badge="RAPID RESCHEDULE")
-lbl(cols[3]+colw/2, y4d+BH2+22, "no scheduler workflow at all if rapid", "middle", "note")
-lbl(cols[3]+colw/2, y4d+BH2+40, "reschedule is turned on in HCHB", "middle", "note")
-arrow(cols[3]+colw/2, y4d+BH2+50, cols[3]+colw/2, y4d+BH2+82)
-y4e = y4d + BH2 + 88
-block(cx(3), y4e, BW2, BH2, C["clin"], ["Care coordination — case confer-", "ence · multi-discipline sync"], small=True)
+block(cx(3), y4c, BW2, 66, C["pcc"], ["Scheduler coordinates coverage —", "call · text · Teams — with FT", "or per-diem clinicians"], small=True)
+arrow(cols[3]+colw/2, y4c+66, cols[3]+colw/2, y4c+66+38)
+y4d = y4c + 66 + 44
+block(cx(3), y4d, BW2, 66, C["pcc"], ["Scheduler reassigns to another", "clinician — or moves the visit", "to another day"], small=True)
 gap45 = cols[3]+colw + CGAP/2
-path(f"M {cx(3)+BW2} {y4d+BH2/2} L {gap45} {y4d+BH2/2} L {gap45} {sc+SBH/2+6}",
+path(f"M {cx(3)+BW2} {y4d+33} L {gap45} {y4d+33} L {gap45} {sc+SBH/2+6}",
      dash=True, label="rebook", lx=gap45-8, ly=1200, anchor="end")
 
 # ==================== COLUMN 5 ====================
