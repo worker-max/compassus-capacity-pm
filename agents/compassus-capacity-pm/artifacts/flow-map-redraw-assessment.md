@@ -598,3 +598,86 @@ variable backlog.
 **Canvas is now 2200 × 1680.** The disposition band grew to hold the per-disposition notes and the
 Reassign/Decline statement, and the spine into Accept routes down the left of the band so it clears
 the timing note.
+
+---
+
+## 18. Flow 3 drawn — authorization at its two interfaces
+
+Flow 3 exists. It was the largest gap in the set: the original swimlane gave *Insurance & Auth* a
+colour in the legend and not one block on the sheet.
+
+Drawn to **DE-06** — auth is mapped only where it meets scheduling, not as a map of the auth team's
+internal work. That constraint is what makes the sheet simple, and it is stated in the footer so
+nobody reads the omission as an oversight.
+
+### The organising idea: auth is two different things
+
+The sheet's whole structure is one claim — **auth touches scheduling twice, and it behaves
+differently each time.**
+
+| | Interface 1 · at start of care | Interface 2 · inside the plan of care |
+|---|---|---|
+| What auth is | A **gate** | A **ceiling** |
+| What it controls | Whether anything can be scheduled at all | How many visits may be delivered |
+| Who feels it | Intake and the scheduler | The clinician, the DCS and the scheduler |
+| Failure mode | The referral sits, unschedulable | The visit sits, invisible |
+
+### Interface 1 — the gate
+
+Referral arrives → intake receives in Commure → eligibility and benefits verified → pending auth
+keyed → back to intake for final approval → DCS reviews the referral → scheduler books the SOC and
+the discipline evals. The band is captioned `NOTHING SCHEDULES UNTIL THIS CLEARS`.
+
+Two things are drawn that the old map never showed:
+
+- **The visit count is set by the payer, not by need** — 1, 3, 5 or 10 visits, keyed before anyone
+  has seen the patient.
+- **Traditional Medicare bypasses the auth team entirely**, drawn as a dashed line that leaves the
+  spine after intake and rejoins at final approval. Any other payer takes the long way round.
+
+Under the band, the quote that names the cost: *"We know we have the referral, but it is just not in
+my workflow to schedule yet — it is stuck in auth."*
+
+### Interface 2 — the ceiling
+
+Clinician writes the discipline frequency → DCS reviews and approves the plan of care → **auth on
+file for these visits?** (a gate, asked per visit and answered by HCHB silently) → scheduler assigns
+the authorised visits → visits consume the authorised count → cap approached, re-auth requested with
+supporting documentation.
+
+The no-branch drops to its own strip: **NO AUTH — the visit sits pending.** Not on the clinician's
+calendar, not counted toward productivity, living in the scheduler's head or on a sticky note.
+
+The whole band sits inside a dashed loop, because it is a loop: *every add-on order, recertification
+and resumption of care re-enters it — and each one is a new auth question.*
+
+### The panel: what the payer has already decided
+
+Two columns. The left one carries the real caps — UHC's 5 nursing visits with 4 of 5 completed plus
+documentation before visit 6; Indiana Medicaid's 8 visits shared across PT, OT and ST, paid 30 days
+from the discharge date rather than the admit date; Ohio Medicaid similar.
+
+The right column separates two ceilings that get conflated constantly:
+
+> **Auth is permission** — how many visits the payer will allow.
+> **PDGM is payment** — the economic band for the period.
+> LUPA is the floor; utilisation management is the ceiling. **A visit can be authorised and still be
+> uneconomic.**
+
+Beneath it, the argument this flow exists to make: *the data already exists.* The auth team writes
+the payer's rules into a coordination note at verification, days before anyone writes the plan of
+care. Surfacing those rules **at plan-of-care creation** is the highest-value, lowest-complexity win
+in this flow — and a patient-care win, because abrupt discharges happen when nobody planned for the
+real visit budget.
+
+### Where it breaks
+
+Pending-auth visits are invisible · roughly 50 pending-auth workflows a day per scheduler, which
+trains bulk-clearing without reading · plans of care ignore payer limits, then the team is surprised
+· abrupt discharge when the visit budget quietly runs out.
+
+**Canvas 2200 × 1540.** Same conventions as flows 2 and 4: role colour, band per phase, sublists
+under each step, boundaries strip, named breaks.
+
+**Remaining:** Flow 1 (SOC / ROC / recert / add-on), whose spine is already drawn inside the
+DCS/scheduler practice map, then Flow 4 (exception and recovery), then the composite.
