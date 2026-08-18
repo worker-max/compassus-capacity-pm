@@ -144,9 +144,9 @@ lbl(p2[3]+BW/2, b2+BH+58, "wound timing · catheter · IV · patient preference 
 DY = P2Y + PH + 58
 disp = [("Accept", C["clin"], ["Accept", "visit delivered"], []),
         ("Reschedule", C["clin"], ["Reschedule", "within the week"], ["S-26", "S-27"]),
-        ("Reassign", C["pcc"], ["Reassign", "back to scheduler"], ["S-15", "S-22"]),
+        ("Reassign", C["pcc"], ["Reassign", "back to scheduler —", "usually RN to her own LPN"], ["S-15", "S-22"]),
         ("Miss", C["dcs"], ["Miss", "→ compliance chain"], ["S-38", "S-39"]),
-        ("Decline", C["pcc"], ["Decline", "back to scheduler"], ["S-12", "S-13"])]
+        ("Decline", C["pcc"], ["Decline", "back to scheduler —", "must go to a different clinician"], ["S-12", "S-13"])]
 dx = [IX + i*(BW+GAP) for i in range(5)]
 add(f'<rect x="{BX}" y="{DY}" width="{5*(BW+GAP)+30}" height="{PH-40}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, DY+34, "AT THE VISIT  ·  THE CLINICIAN'S FIVE DISPOSITIONS", cls="band")
@@ -157,6 +157,7 @@ for i, (_, col, lines, ids) in enumerate(disp):
 conn(f"M {p2[5]+BW/2} {b2+BH+CHH+14} L {p2[5]+BW/2} {DY-26} L {dx[2]+BW/2} {DY-26}")
 arrow(dx[2]+BW/2, DY-26, dx[2]+BW/2, bd-6)
 lbl(dx[2]+BW/2, bd+76+CHH+30, "the only recurring scheduler trigger", "middle", "hi")
+lbl(dx[4]+BW/2, bd+76+CHH+30, "the scheduler sees it was declined", "middle", "hi")
 
 # ---------------- boundaries ----------------
 BDY = DY + PH + 26

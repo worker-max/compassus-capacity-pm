@@ -473,3 +473,17 @@ reassignment queue? Drawn as "back to scheduler" for now.
 
 **Deferred by agreement:** an annotated companion sheet with fuller commentary, to be built only once
 the flow itself is right.
+
+### Decline is not reassign
+
+Confirmed 17 Aug, and the two are now drawn as distinct dispositions:
+
+- **Reassign** — back to the scheduler, and typically **RN to her own LPN**. A discipline-role
+  handoff inside the care team. It routes through the scheduler only because HCHB forbids the
+  clinician doing it directly.
+- **Decline** — back to the scheduler, and the visit **must go to a clinician other than the original
+  one**. The scheduler can see that it was declined.
+
+**The decline flag already exists.** That changes the variable-backlog entry: the *fact* of a decline
+is captured today. What is missing is the **reason**, and the accept side of the loop. The fact alone
+trains nothing — the reason is the signal any later optimisation would learn from.
