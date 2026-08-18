@@ -894,3 +894,40 @@ approval and visit generation; assignment language corrected to one pass per dis
 The practice map (`Flow-DCS-Scheduler.pdf`) remains as the simplified DCS/scheduler teaching sheet.
 
 **Next: Flow 5 — recertification and discharge.**
+
+---
+
+## 23. The detailed flow, redrawn in the original's design
+
+`Detailed-Flow-Composite.pdf` — the sheet the team already knows how to read, corrected. Canvas
+2600 × 1780, ratio ≈ 1.46, matching the original's proportions. Same skeleton: five outlined
+functional columns (Clinician Scheduling Workflow · Capacity Read · Scheduling & Assignment ·
+Coordination · Delivery & Outcomes), the grey **clean path** running through the middle from the
+admitted referral to the delivered visit, feeders above the spine, recovery below, centred title,
+circle legend.
+
+### Corrections carried onto the original design
+
+| Where | Was | Now |
+|---|---|---|
+| Spine: PCC completes clinician scheduling workflow | purple | **yellow** — a person works it |
+| Spine: Read open capacity | purple | **yellow** |
+| Spine: Assign visit | yellow | yellow, labelled **one pass** |
+| Spine: Day-before confirm | purple | **blue — by the clinician**, on their own time |
+| Patient rules block (col 3) | green, a patient lane | **purple — a coordination note**, badged `WAS A PATIENT LANE` |
+| Readiness call (col 1) | plain yellow | badged `THE ONE JUDGMENT CALL`, with its question |
+| ED/DCS review (col 2) | maroon | **black — branch leadership review**, badged `WHEN CAPACITY TIGHTENS`, noted territory alignment · referral acceptance |
+| Engage per-diem/float (col 2) | plain | noted **no territory, on purpose — the targeted capacity instrument** |
+| Insurance & Auth | a legend colour with zero blocks | **two orange blocks** — pending-auth invisible (distorting the capacity read, "the read excludes what it cannot see") and the per-visit auth gate |
+| Five dispositions | missing entirely | chip strip in Coordination, day before, selected in HCHB |
+| Reschedule → re-slot | purple | **yellow**, badged `RAPID RESCHEDULE`, noted *no scheduler workflow at all if the flag is on* |
+| Missed — unworked (dead-end oval) | terminus | **the compliance chain**: missed visit documented → scheduler notifies MD within 48h → late → DCS workflow |
+| Visit states | "delivered" as trigger | *scheduled → documentation pending → missed*, with the Citrix sync lag noted under EVV |
+| Routing/GPS feeder | plain | noted **straight-line today — not drive time** |
+
+The KPI feedback loop and the priority-to-scheduling line both survive, re-routed along the bottom
+lane. Footer states the reading rule: *colour = actor; a workflow item in HCHB worked by a person
+carries the person's colour.*
+
+This sheet supersedes nothing — it IS the redrawn original (page 2 of the set; page 1 remains the
+Home Health Intake Reset). The four detail flows stand behind it.

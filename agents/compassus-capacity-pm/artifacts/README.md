@@ -56,6 +56,8 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
+| `Detailed-Flow-Composite.pdf` | **The original swimlane sheet, redrawn with all corrections** — five columns, the grey clean path, feeders above, recovery below | The wall sheet in the design the team already knows. Page 2 of the set (page 1 is the Intake Reset) |
+| `flow-detailed-composite.html` | Source. Regenerate with `_flow-detailed-composite.gen.py` | Editing the detailed composite |
 | `Primary-Flow-Map.pdf` | **The primary current-state map** — the whole episode in four phases, with the detail flows condensed | The wall sheet. Orientation for anyone new, and the map the detail flows hang off |
 | `flow-primary-map.html` | Source. Regenerate with `_flow-primary-map.gen.py` | Editing the primary map |
 | `Flow-SOC-Full.pdf` | Flow 1 — the full SOC/ROC flow: referral pass, then the per-discipline plan-of-care pattern, with the welcome call and the 485 moment | The detailed admission flow, in the shape the team already knows |
