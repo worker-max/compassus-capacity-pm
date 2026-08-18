@@ -55,7 +55,7 @@ def sublist(x, y, items):
     for i, t in enumerate(items):
         add(f'<text x="{x+6}" y="{y+i*17}" class="sub">{esc("·  " + t)}</text>')
 
-W, H = 2200, 1720
+W, H = 2200, 1800
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Recertification and discharge at the end of a sixty-day certification period, shown '
     'through a worked example. Skilled nursing, physical therapy and occupational therapy are all '
@@ -73,9 +73,10 @@ add(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FBFBF8"/>')
 lbl(50, 58, "COMPASSUS HOME HEALTH  ·  FLOW 5", cls="eyebrow")
 lbl(50, 100, "Recertification & Discharge", cls="title")
 lbl(50, 128, "Each discipline decides for itself — and the last one out does the OASIS", cls="deck")
-lx = 1310
+lx = 1100
 for name, col in [("Clinician (SN · PT · OT)", C["clin"]), ("DCS", C["dcs"]),
-                  ("PCC / Scheduler", C["pcc"]), ("HCHB", C["hchb"])]:
+                  ("PCC / Scheduler", C["pcc"]), ("HCHB", C["hchb"]),
+                  ("Insurance & Auth", C["auth"])]:
     add(f'<circle cx="{lx+13}" cy="72" r="13" fill="{col}"/>')
     lbl(lx+34, 78, name, cls="leg")
     lx += 34 + 8.4*len(name) + 36
@@ -180,23 +181,35 @@ lbl(IX+8, EY+EH-26, "one recertifying discipline carries the OASIS recert — he
     "non-OASIS · both visits were already plotted at the original plan of care", "start", "hi")
 
 # ================= BAND 3 · the workflow =================
-WY3, WH3 = EY + EH + 40, 250
+WY3, WH3 = EY + EH + 40, 336
 add(f'<rect x="{BX}" y="{WY3}" width="{BANDW}" height="{WH3}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, WY3+34, "AFTER THE RECERT VISITS  ·  THE NEXT PERIOD IS BUILT", cls="band")
 lbl(BX+BANDW-14, WY3+34, "THE SAME PATTERN AS FLOW 1, PASS 2", "end", "bandhi")
 wb = WY3 + 66
 wc = wb + BH/2
-W5, G5 = 310, 34
-w5x = [IX + i*(W5+G5) for i in range(5)]
+W5, G5 = 280, 30
+w5x = [350, 660, 970, 1460, 1770]
+DGX = 1355
 block(w5x[0], wb, W5, BH, C["clin"], ["PT and OT establish next-", "period frequency orders"], badge="× 2 disciplines")
 block(w5x[1], wb, W5, BH, C["dcs"], ["DCS reviews and approves", "each plan of care"])
 block(w5x[2], wb, W5, BH, C["hchb"], ["HCHB generates visits", "and assignment tasks"])
+diamond(DGX, wc, ["Auth on", "file?"], w=150, h=104)
 block(w5x[3], wb, W5, BH, C["pcc"], ["Scheduler assigns all", "plotted visits — one pass"])
 block(w5x[4], wb, W5, BH, C["clin"], ["New period's visits on", "PT and OT calendars"])
-for a in range(4):
-    arrow(w5x[a]+W5, wc, w5x[a+1]-6, wc)
+arrow(w5x[0]+W5, wc, w5x[1]-6, wc)
+arrow(w5x[1]+W5, wc, w5x[2]-6, wc)
+arrow(w5x[2]+W5, wc, DGX-75-6, wc)
+path(f"M {DGX+75} {wc} L {w5x[3]-6} {wc}", label="Yes", lx=(DGX+75+w5x[3])/2, ly=wc-12)
+arrow(w5x[3]+W5, wc, w5x[4]-6, wc)
+block(DGX-190, wb+BH+42, 380, 54, C["auth"],
+      ["No auth → the visit sits pending —", "not on the calendar, not counted"], small=True)
+path(f"M {DGX} {wc+52} L {DGX} {wb+BH+36}", dash=True, label="No",
+     lx=DGX+14, ly=wc+78, anchor="start")
 lbl(w5x[0], wb+BH+26, "PT 2w3 → 1w3  ·  OT 1w4", "start", "sub")
 lbl(w5x[0], wb+BH+46, "the scheduling workflow fires only now", "start", "sub")
+lbl(IX, WY3+WH3-20, "a new certification period is a new auth question — traditional Medicare passes "
+    "straight through; any other payer re-enters the auth cycle (Flow 3) before these visits can be "
+    "assigned", "start", "hi")
 
 # ================= if nobody recertifies =================
 PY5, PH5 = WY3 + WH3 + 40, 148

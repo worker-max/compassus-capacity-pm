@@ -980,3 +980,13 @@ the original plan of care, so nothing needs scheduling to make them happen.
 discharge), plus the DCS/scheduler practice sheet. Flow 4 (exception & recovery) remains available
 as a future sheet if the missed-visit/call-out/Citrix material ever needs its own page — today it
 lives distributed across the composite and flows 1–2.
+
+### Auth added to Flow 5 (18 Aug, same day)
+
+The workflow band now carries the **auth gate**, exactly as Flow 3 defines it: HCHB generates the
+new period's visits → **Auth on file?** (per visit) → yes, the scheduler assigns in one pass; no, the
+visit drops to the orange strip — *sitting pending, not on the calendar, not counted*. The band's
+closing line states the reason the gate belongs on this sheet: **a new certification period is a new
+auth question** — traditional Medicare passes straight through, any other payer re-enters the auth
+cycle (Flow 3) before the recert visits can be assigned. Insurance & Auth joined the sheet's legend.
+Canvas grew to 2200 × 1800.
