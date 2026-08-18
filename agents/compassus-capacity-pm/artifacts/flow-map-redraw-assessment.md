@@ -304,3 +304,52 @@ rather than needing reconciliation. This is the "layerable" property DE-01 alrea
   fuller review than a routine add-on order approval.
 - **Do recert and ROC fire the full 4-task QA, or only order approval?**
 - **The daily Pulse LUPA report** — still parked, or in?
+
+---
+
+## 12. DCS answers — gates, and the utilisation ceiling
+
+**Plan-of-care QA and order approval are technically the same workflow object.** One maroon gate
+shape, not two. But it fires **once per discipline** — the DCS approves each discipline's plan of
+care separately. The `×N disciplines` annotation therefore belongs on the **DCS gate as well as** the
+scheduler assignment task. The task explosion is doubled: N approvals and N assignment tasks for a
+care-team decision made once.
+
+**Recert and ROC fire the same gates as SOC.** No variation to draw.
+
+**The daily Pulse LUPA report is in** for this flow.
+
+### The pair that matters: floor and ceiling
+
+The DCS also owns **utilisation management for each episode**, and it belongs *inside* plan-of-care
+approval rather than beside it. Under PDGM the 30-day period pays a fixed, case-mix-adjusted amount
+regardless of how many visits are delivered. That creates two thresholds, and the DCS steers both:
+
+| | Threshold | What happens if crossed | Owner |
+|---|---|---|---|
+| **Floor** | **LUPA** — minimum visits in the period | Period reverts to per-visit payment; the period's revenue collapses | DCS runs the daily Pulse report |
+| **Ceiling** | **Utilisation management** — visits beyond clinical need | Payment does not increase, so every extra visit is pure cost; margin erodes and clinician capacity is consumed for nothing | DCS steers via plan-of-care approval |
+
+**The plan-of-care approval is where the episode's visit budget is set.** That is the single reason
+this gate deserves prominence: it is not administrative box-ticking, it is the control point for
+both thresholds at once. Approving each discipline's plan of care *is* the act of setting the band.
+
+### Consequence for the capacity model
+
+This qualifies what "open capacity" means. Our capacity documents currently frame open capacity as
+headroom to be filled. Under PDGM there is an **economically optimal band per episode**, not a
+maximum — a branch that fills every open slot with visits above clinical need destroys margin while
+looking productive. This is ecosystem gap **1B** (the economic layer) arriving from a new direction,
+and it should be reflected when the capacity documents next change.
+
+### How to draw the pair
+
+The existing sheet already carries a *Period at LUPA risk?* diamond with a *Recover / front-load*
+follow-on. Draw the ceiling as its **mirror image** — a second diamond beside it, same shape, same
+maroon owner — so the pair reads as one idea:
+
+- `Period at LUPA risk?` → **Yes** → recover / front-load *(existing)*
+- `Period over utilisation target?` → **Yes** → DCS reviews plan of care, adjusts frequency
+
+Both feed back to the DCS plan-of-care gate, which is where the band was set in the first place.
+Two diamonds, one symmetry, no new vocabulary.
