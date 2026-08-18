@@ -79,6 +79,11 @@ renumbered.
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
+**Drawing a new sheet or correcting one? Use the `process-flow-map` skill**
+([`.claude/skills/process-flow-map/`](../../../.claude/skills/process-flow-map/)) — it carries the
+palette, the type scale, the `flowkit` drawing primitives, the render/PDF build script, and the
+collision checklist. Do not re-derive the conventions by hand.
+
 **Flow-map palette** (sampled from the original sheet, do not re-guess): Intake `#1F6F78` *(new, added
 17 Aug — intake and the auth team are different actors)* · PCC/Scheduler `#C6A01F` ·
 HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#795933` · Patient `#4E8A5B`
