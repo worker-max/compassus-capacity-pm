@@ -3,6 +3,12 @@
 > **Start here if you are a new session.** This folder holds the working artifacts for the capacity
 > and scheduling model. The three-arena model below is the current shared framing; the documents in
 > this folder are all views onto it at different depths.
+>
+> **Status (18 Aug 2026): current-state process flow mapping is DONE** — seven sheets, all
+> regenerable from the `_*.gen.py` beside them. The distilled process facts behind every sheet live
+> in [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) — **read that
+> file before touching any flow sheet.** The correction-by-correction history is
+> `flow-map-redraw-assessment.md` §1–26.
 
 ## The model in one paragraph
 
@@ -70,13 +76,18 @@ renumbered.
 | `flow-recert-discharge.html` | Source. Regenerate with `_flow-recert-discharge.gen.py` | Editing flow 5 |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
-| `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |
+| `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
 **Flow-map palette** (sampled from the original sheet, do not re-guess): Intake `#1F6F78` *(new, added
 17 Aug — intake and the auth team are different actors)* · PCC/Scheduler `#C6A01F` ·
 HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#795933` · Patient `#4E8A5B`
 · Insurance & Auth `#DF751D` · Branch Leadership `#1A1A1A` with white text.
+
+**Colour = actor, and the person beats the system.** A workflow item in HCHB worked by a person
+carries the person's colour — purple appears only where HCHB acts by itself (generates tasks,
+applies rules, checks auth, suggests a route). Every sheet is current state; nothing on them is a
+proposal, and each footer says so.
 
 **Size convention:** large block = happens every time · small block = conditional · pill = watch
 condition, not a step. Introduced so weight on the page matches weight in the process.

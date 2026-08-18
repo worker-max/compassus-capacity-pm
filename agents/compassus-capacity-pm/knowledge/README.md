@@ -8,6 +8,8 @@ The empirical ground truth for the Home Health Expert PM agent. Sourced from Com
 | File | What it is |
 |---|---|
 | [`discovery-session.md`](./discovery-session.md) | The full-day cross-functional discovery session — what schedulers actually do, the end-to-end workflow chain, the tooling landscape, why Smart Scheduling failed, and the session's Next Steps. **The primary ground truth.** |
+| [`process-facts-2026-08.md`](./process-facts-2026-08.md) | **The distilled current-state process facts from the 17–18 Aug flow-mapping sessions** — admission, plan of care, auth's two interfaces, the clinician's own week, the five dispositions, missed-visit chain, capacity levers, recert & discharge, and the binding drawing conventions. Every flow sheet in `../artifacts/` draws from this file. |
+| [`whiteboard-session-2026-08-13.md`](./whiteboard-session-2026-08-13.md) | The 13 Aug on-site whiteboard session — decisions DE-01…DE-10, the named bottlenecks, and the adoption constraints. |
 | [`capacity-scheduling-summary.md`](./capacity-scheduling-summary.md) | The consolidated capacity-vs-scheduling analysis — the two-function framing, the 10 connection points (CP-1…CP-10), four stakeholder perspectives, the failure catalog, and the 9 open questions that gate requirements. |
 
 ## Provenance
