@@ -409,3 +409,40 @@ the original 2070 × 1380.
 prints at 16pt. The earlier A4-scale canvas was printing block text at roughly **4.5pt** — legible on
 screen, useless on paper. Drawing at sheet scale and letting the sheet be large is the only way to
 get type that reads in a room. Apply this to all four flows.
+
+### Intake and the auth team are different actors
+
+Confirmed. The single *Office verifies eligibility* block was wrong. Pass 1 now runs:
+
+1. **Intake** receives the referral, in Commure
+2. **Auth team** verifies eligibility and keys pending auth — *traditional Medicare passes straight
+   through; any other payer routes to the auth team*
+3. **Intake** gives final approval
+4. **DCS** reviews the referral
+5. **Scheduler** books the SOC / ROC visit and the discipline evaluations
+6. **Clinicians** perform those visits
+
+**Intake is a new actor on the legend**, drawn teal `#1F6F78`. It now appears in all four flows.
+
+## 14. Remaining work on the bottom-right corner
+
+The original correction had three parts. Only one is done.
+
+| Part | State |
+|---|---|
+| Missed-visit chain — document → scheduler notifies MD in 48h → DCS on breach; "unworked" removed | **done** |
+| Visit states drawn explicitly — scheduled · missed · completed, sequenced *scheduled → documentation pending → missed* | **not drawn** |
+| The clinician's five dispositions — accept · reassign · reschedule · miss · decline | **not drawn anywhere** |
+
+Underneath all three sits a cause nothing draws yet: **the sync gap.** HCHB runs over Citrix, so the
+back office cannot see a visit until the clinician syncs. A Tuesday visit synced on Friday reads as
+undocumented. A started visit usually means the patient was seen — but not always; the example given
+is a clinician who called 911. Visit state cannot be drawn as a clean trichotomy without showing it.
+
+**Recommended order for the remaining flows:** Flow 4 (exception and recovery) first, because it
+closes the above and the missed-visit chain relocates into it; then Flow 1, whose spine is already
+drawn here; then Flow 3 (auth), which feeds Pass 1; then the composite last, assembled from four
+sheets that are already trusted.
+
+**Open for Flow 4:** on a clinician decline, does a distinct workflow generate, or does it land back
+in the same reassignment queue as everything else?

@@ -3,7 +3,7 @@
 so a 16-unit label prints at 16pt. Ratio ~1.5, matching the original sheet."""
 
 C = dict(pcc="#C6A01F", hchb="#795CA7", dcs="#792E2E", clin="#2E599D",
-         auth="#DF751D", lead="#1A1A1A")
+         auth="#DF751D", intake="#1F6F78", lead="#1A1A1A")
 INK, MUT, RULE, BAND = "#1B211E", "#5A6560", "#C9CCC5", "#E9E9E5"
 
 out = []
@@ -58,8 +58,9 @@ def lbl(x, y, t, anchor="start", cls="lb"):
 
 W, H = 2200, 1620
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
-    'aria-label="Start of care and resumption of care run a referral pass first: office verifies, '
-    'DCS reviews the referral, the scheduler books the SOC or ROC visit and the discipline '
+    'aria-label="Start of care and resumption of care run a referral pass first: intake receives the '
+    'referral in Commure, the auth team verifies eligibility and keys pending auth, intake gives '
+    'final approval, DCS reviews the referral, the scheduler books the SOC or ROC visit and the discipline '
     'evaluations, clinicians perform them. Recertification and add-on orders enter directly. All '
     'converge on the discipline plan-of-care pattern: clinician submits, DCS approves per '
     'discipline, auth gate, scheduler assigns per discipline. Missed visits run a separate '
@@ -74,9 +75,9 @@ lbl(50, 100, "Plan of Care → Assignment", cls="title")
 lbl(50, 128, "The DCS and scheduler handoff — a simplified subset of the full swimlane",
     cls="deck")
 
-lx = 1160
-for name, col in [("PCC / Scheduler", C["pcc"]), ("HCHB", C["hchb"]), ("DCS", C["dcs"]),
-                  ("Clinician", C["clin"]), ("Insurance & Auth", C["auth"])]:
+lx = 1020
+for name, col in [("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("DCS", C["dcs"]),
+                  ("PCC / Scheduler", C["pcc"]), ("Clinician", C["clin"]), ("HCHB", C["hchb"])]:
     add(f'<circle cx="{lx+13}" cy="72" r="13" fill="{col}"/>')
     lbl(lx+34, 78, name, cls="leg")
     lx += 34 + 8.4*len(name) + 40
@@ -92,17 +93,21 @@ BANDW = xs[6] + BW + 30 - BX
 
 # ---------------- PASS 1 ----------------
 P1Y, PH = 185, 225
-add(f'<rect x="{BX}" y="{P1Y}" width="{4*(BW+GAP)+30}" height="{PH}" rx="10" fill="{BAND}"/>')
+add(f'<rect x="{BX}" y="{P1Y}" width="{6*(BW+GAP)+30}" height="{PH}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, P1Y+34, "PASS 1  ·  START OF CARE / RESUMPTION OF CARE — from the referral", cls="band")
 p1y = P1Y + 62
 c1 = p1y + BH/2
-p1x = [IX, IX+BW+GAP, IX+2*(BW+GAP), IX+3*(BW+GAP)]
-block(p1x[0], p1y, BW, BH, C["auth"], ["Office verifies", "eligibility"])
-block(p1x[1], p1y, BW, BH, C["dcs"], ["DCS reviews", "referral"])
-block(p1x[2], p1y, BW, BH, C["pcc"], ["Scheduler books", "SOC / ROC visit", "+ discipline evals"])
-block(p1x[3], p1y, BW, BH, C["clin"], ["Clinicians perform", "SOC / ROC", "+ eval visits"])
-for a in range(3):
+p1x = [IX + i*(BW+GAP) for i in range(6)]
+block(p1x[0], p1y, BW, BH, C["intake"], ["Intake receives", "referral", "in Commure"])
+block(p1x[1], p1y, BW, BH, C["auth"], ["Auth team verifies", "eligibility, keys", "pending auth"])
+block(p1x[2], p1y, BW, BH, C["intake"], ["Intake final", "approval"])
+block(p1x[3], p1y, BW, BH, C["dcs"], ["DCS reviews", "referral"])
+block(p1x[4], p1y, BW, BH, C["pcc"], ["Scheduler books", "SOC / ROC visit", "+ discipline evals"])
+block(p1x[5], p1y, BW, BH, C["clin"], ["Clinicians perform", "SOC / ROC", "+ eval visits"])
+for a in range(5):
     arrow(p1x[a]+BW, c1, p1x[a+1]-6, c1)
+lbl(p1x[1]+BW/2, p1y+BH+30, "traditional Medicare passes straight through;", "middle", "note")
+lbl(p1x[1]+BW/2, p1y+BH+50, "any other payer routes to the auth team", "middle", "note")
 chip(50, c1-38, 250, 76, ["Referral arrives", "with initial orders"], INK)
 arrow(300, c1, IX-6, c1)
 lbl(50, c1-52, "TRIGGER", cls="trg")
@@ -129,8 +134,8 @@ lbl(xs[5]-12, c2-12, "Yes", "end")
 
 # entry bus
 BUS = 316
-conn(f"M {p1x[3]+BW/2} {p1y+BH} L {p1x[3]+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} L {BUS} {c2}")
-lbl((p1x[3]+BW/2 + BUS)/2, P1Y+PH+60,
+conn(f"M {p1x[5]+BW/2} {p1y+BH} L {p1x[5]+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} L {BUS} {c2}")
+lbl((p1x[5]+BW/2 + BUS)/2, P1Y+PH+60,
     "after the eval visits, each discipline writes its own plan of care", "middle", "conn")
 chip(50, c2-118, 250, 84, ["Recertification", "OASIS recert visit, or", "non-OASIS recert eval"], INK)
 chip(50, c2+34, 250, 84, ["Add-on order", "status change: add,", "reduce or shift visits"], INK)

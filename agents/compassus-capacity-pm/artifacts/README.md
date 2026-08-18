@@ -61,7 +61,8 @@ renumbered.
 | `flow-map-redraw-assessment.md` | Assessment of the swimlane map against the four flows, with the correction inventory and the open legend decision | Planning the flow-map redraw |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 
-**Flow-map palette** (sampled from the original sheet, do not re-guess): PCC/Scheduler `#C6A01F` ·
+**Flow-map palette** (sampled from the original sheet, do not re-guess): Intake `#1F6F78` *(new, added
+17 Aug — intake and the auth team are different actors)* · PCC/Scheduler `#C6A01F` ·
 HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#795933` · Patient `#4E8A5B`
 · Insurance & Auth `#DF751D` · Branch Leadership `#1A1A1A` with white text.
 
