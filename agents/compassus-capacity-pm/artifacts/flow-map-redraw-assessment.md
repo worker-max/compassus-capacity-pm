@@ -681,3 +681,42 @@ under each step, boundaries strip, named breaks.
 
 **Remaining:** Flow 1 (SOC / ROC / recert / add-on), whose spine is already drawn inside the
 DCS/scheduler practice map, then Flow 4 (exception and recovery), then the composite.
+
+---
+
+## 19. Composite build rules — carry these or the composite lies
+
+Recorded 18 Aug, before any composite is attempted.
+
+### The composite is CURRENT STATE
+
+Every block must describe what happens today, including the parts that are wasteful, manual or
+plainly wrong. Nothing on the composite is a proposal. The recolours below exist for exactly this
+reason: they correct **who actually does the work**, not who ought to.
+
+| Block | Drawn as | Must be | Why |
+|---|---|---|---|
+| PCC completes clinician scheduling workflow | purple (system) | **yellow — PCC/Scheduler** | A person does this, not HCHB |
+| Read open capacity — day · week · discipline · territory | purple (system) | **yellow — PCC/Scheduler** | Same |
+| Day-before confirm | purple (system) | **blue — Clinician** | The clinician makes that call, on their own time |
+| All PCC in-system workflow steps | purple | **yellow** | A workflow item in HCHB is still a person clearing a queue |
+
+The pattern behind all four: **the original map coloured a step purple whenever it happened inside
+HCHB.** That conflates the system with the person operating it, and it systematically hides human
+labour — which is the exact labour a capacity tool would relieve. Purple is reserved for what HCHB
+does *by itself*: generating tasks, applying rules, checking auth, suggesting a route.
+
+### Still open — the patient lane
+
+The original sheet has a green Patient lane holding *caregiver present · window · day-of-week*.
+Flow 2 draws those same facts as **constraints inside the clinician's steps**, not as patient
+actions. Both cannot be right on one composite. The choice is:
+
+- **Keep the green lane** — the patient is an actor who imposes constraints, and Flow 2 gets a
+  patient lane retro-fitted; or
+- **Drop the lane** — patient constraints are attributes of the visit, carried by whichever actor is
+  holding it, and the composite drops green.
+
+Flow 2's HARD/SOFT panel is the argument for the second reading: the constraint matters at the
+moment the clinician negotiates it, not as a step the patient performs. **Unresolved — decide before
+the composite.**
