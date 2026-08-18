@@ -816,7 +816,7 @@ with everything from §4's correction inventory applied and every answer from §
 | Phase | What it covers | The band's claim |
 |---|---|---|
 | 1 · Referral to admission | Intake → auth → intake approval → DCS → **welcome call** → assign SOC and evals → clinicians perform | *Nothing schedules until auth and intake clear* |
-| 2 · The plan of care is established | Frequency per discipline → DCS approval → **the 485 moment** → HCHB generates → scheduler assigns → visits land | *One task per discipline, twice* |
+| 2 · The plan of care is established | Frequency per discipline → DCS approval → **the 485 moment** → HCHB generates → scheduler assigns → visits land | *Plotted by frequency, assigned in one pass* |
 | 3 · Steady state | The clinician's own week, condensed from Flow 2, with the five dispositions as a strip | *No scheduler workflow* |
 | 4 · End of episode | Recert window → next-period frequency → scheduling workflow · **OR** · discipline discharges → agency D/C OASIS | *Condensed — detail in Flow 5* |
 
@@ -854,3 +854,13 @@ Each band ends just past its last block rather than running to a common right ed
 do not read as half-empty. Same type scale and conventions as flows 2 and 3.
 
 **Next:** Flow 5 — recertification and discharge — which is the strand phase 4 condenses.
+
+### Correction, 18 Aug — phase 2's claim
+
+"One task per discipline, twice" was wrong. The scheduler assigns **all plotted visits in one
+pass** — one working of the assignment task covers every visit the frequency generates
+(frequency × weeks of the period). The per-discipline duplication is real but lives on the
+plan-of-care workflow side (a task per discipline at submission and again at approval), not on the
+assignment side. The band now reads **PLOTTED BY FREQUENCY · ASSIGNED IN ONE PASS**, the scheduler
+block reads "assigns all plotted visits — one pass", and the HCHB block notes that frequency becomes
+many visits under a single assignment task per discipline.

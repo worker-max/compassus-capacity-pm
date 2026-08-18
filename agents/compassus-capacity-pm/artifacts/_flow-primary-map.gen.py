@@ -126,7 +126,7 @@ lbl(50, ac-53, "TRIGGER", cls="trg")
 
 # ================= PHASE 2 =================
 QY, QH = AY + AH + 36, 240
-band(QY, QH, "PHASE 2  ·  THE PLAN OF CARE IS ESTABLISHED", "ONE TASK PER DISCIPLINE, TWICE")
+band(QY, QH, "PHASE 2  ·  THE PLAN OF CARE IS ESTABLISHED", "PLOTTED BY FREQUENCY · ASSIGNED IN ONE PASS")
 qb = QY + 62
 qc = row(qb, [
  (C["clin"], ["Each discipline plots", "its own frequency"],
@@ -136,9 +136,9 @@ qc = row(qb, [
  (C["dcs"], ["THE 485 MOMENT", "QA accepted  ·  POC locked", "485 submitted  ·  orders to MD"],
   ["Four things, not four gates", "Orders finalised and sent for signature"], "ALL AT ONCE", 2),
  (C["hchb"], ["HCHB generates visits", "and assignment tasks"],
-  ["One task per discipline, again", "Eight tasks for a decision already made"], "× N disciplines", 1),
- (C["pcc"], ["Scheduler assigns", "the authorised visits"],
-  ["Auth on file? asked per visit", "No auth → the visit sits pending"], None, 1),
+  ["One assignment task per discipline", "Frequency becomes many visits"], "× N disciplines", 1),
+ (C["pcc"], ["Scheduler assigns all", "plotted visits — one pass"],
+  ["Many visits per frequency", "Auth on file? asked per visit", "No auth → the visit sits pending"], None, 1),
  (C["hchb"], ["Visits land on the", "clinician's calendar"],
   ["Pending-auth visits never appear", "Citrix sync lags behind"], None, 1),
 ])
