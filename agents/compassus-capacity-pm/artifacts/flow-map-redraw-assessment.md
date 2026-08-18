@@ -240,3 +240,67 @@ report, and PTO cross-approval. Rationale — too much to carry into the first r
   ones additionally generate scheduler workflow.
 - **Recert / ROC.** Does the QA gate behave the same as on SOC? The clarifying document treats them
   as one trigger class and records the differences as unknown.
+
+---
+
+## 10. Order approval — resolved
+
+**Every physician order passes the DCS gate.** No exceptions, no bypass.
+
+**The scheduler is only pulled in when the order generates visits to assign.** That is the split —
+not whether the order changes frequency, but whether it produces assignable visits. DCS approval is
+universal; scheduler workflow is conditional on visit generation.
+
+### The five triggers
+
+The scheduler's entire workload in this flow is **one repeating pattern fired by five triggers**:
+
+| # | Trigger | Note |
+|---|---|---|
+| 1 | **Start of care** — initial assessment at first admission | The clinician plots their own discipline |
+| 2 | **Add-on order** — any new order inside the 60-day certification | Routes DCS → auth → scheduler |
+| 3 | **Recertification** — OASIS timestamp | Only the disciplines continuing past day 60 |
+| 4 | **Resumption of care** — hospitalisation during the episode | OASIS timestamp |
+| 5 | **Missed visit** | Different shape — a compliance chain, not an assignment |
+
+Triggers 1–4 all resolve to the same sequence: clinician submits → **DCS gate** → visits generate →
+**auth gate** → scheduler assigns to the care team → visits land on the clinician's calendar.
+Trigger 5 runs a separate path: clinician documents the miss → scheduler workflow to notify MD
+within 48 hours → if not documented in time, workflow to DCS.
+
+**Why this matters for the drawing.** The current map implies scheduler work is continuous. It is
+not — it is five discrete triggers hitting one repeating pattern. Drawing the pattern once and
+showing five entry points into it is both more accurate and far easier to read than drawing the
+work five times.
+
+---
+
+## 11. Agreed next artifact — the simplified DCS / Scheduler map
+
+A cut-down flow covering only the DCS and scheduler roles, to be drawn **before** the full redraw.
+
+**Purpose.** Prove the conventions cheaply, and give the room a legible picture of the handoff that
+carries the pending executive decision on DCS order approval.
+
+**Rule that keeps it safe.** It must be a strict *subset* of the full map, never a different map —
+same colours, same spine idea, same block labels, same shapes. Then it expands into the full flow
+rather than needing reconciliation. This is the "layerable" property DE-01 already asked for.
+
+**Proposed contents**
+
+- Actors: Clinician (blue) · DCS (maroon) · PCC/Scheduler (yellow) · HCHB (purple, minimal) ·
+  Insurance & Auth (orange, as a gate only)
+- Five trigger entry points stacked on the left, feeding one spine
+- **Spine A — orders to visits:** clinician submits → DCS gate (diamond: approved?) → visits generate
+  → auth gate (diamond: auth exists?) → scheduler assigns → clinician calendar
+- **Spine B — missed visit:** clinician documents miss → scheduler MD-notification workflow →
+  diamond: notified inside 48h? → No → DCS backstop
+- Failure branches drop below the spine, as in the original
+
+### Open questions for this artifact
+
+- **Is plan-of-care QA the same DCS workflow object as order approval, or two distinct gates?** The
+  4-task checklist — POC review, calendar accuracy, pending-auth management, POC lock — reads like a
+  fuller review than a routine add-on order approval.
+- **Do recert and ROC fire the full 4-task QA, or only order approval?**
+- **The daily Pulse LUPA report** — still parked, or in?
