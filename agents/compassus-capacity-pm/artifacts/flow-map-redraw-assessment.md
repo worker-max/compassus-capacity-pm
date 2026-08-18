@@ -803,3 +803,54 @@ sequence whose owner is not known until it happens.
 map — *recert or discharge*, with the loop back into a new certification period drawn — and expanded
 in full on its own sheet. Anything more on the primary map buries the spine under a per-discipline
 sequence that only matters once the episode is ending.
+
+---
+
+## 21. The primary map, redrawn
+
+`Primary-Flow-Map.pdf` — *The Episode, End to End*. Canvas 2450 × 1970. Four phases on one spine,
+with everything from §4's correction inventory applied and every answer from §20 built in.
+
+### The four phases
+
+| Phase | What it covers | The band's claim |
+|---|---|---|
+| 1 · Referral to admission | Intake → auth → intake approval → DCS → **welcome call** → assign SOC and evals → clinicians perform | *Nothing schedules until auth and intake clear* |
+| 2 · The plan of care is established | Frequency per discipline → DCS approval → **the 485 moment** → HCHB generates → scheduler assigns → visits land | *One task per discipline, twice* |
+| 3 · Steady state | The clinician's own week, condensed from Flow 2, with the five dispositions as a strip | *No scheduler workflow* |
+| 4 · End of episode | Recert window → next-period frequency → scheduling workflow · **OR** · discipline discharges → agency D/C OASIS | *Condensed — detail in Flow 5* |
+
+### What is new on this sheet
+
+- **The welcome / intake call**, badged `THE ONE JUDGMENT CALL`. It has never been drawn. Its purpose
+  is on the block: is the patient actually home, still inpatient, or deferring admission?
+- **The 485 moment** as a single double-width block carrying four concurrent lines — QA accepted, POC
+  locked, 485 submitted, orders to MD — badged `ALL AT ONCE`. This retires the sequence-of-gates
+  reading that our own two sheets had drifted into.
+- **The recertification loop**, drawn: a new certification period leaves phase 4 and re-enters phase
+  2, because that is literally what happens.
+- **Per diem / float and branch leadership**, together, under `PULLED ON PURPOSE WHEN CAPACITY
+  TIGHTENS — not recovery, instrument`. Float is a capacity instrument, not an exception path, and
+  the leadership block sits beside it because both get used at the same moment.
+- **The missed-visit compliance chain** as a chain — document → notify the MD within 48 hours → DCS
+  if it is late — instead of the maroon dead-end oval on the original.
+- **No patient lane.** Retired per §20.2. Patient preferences appear where they actually bite, in the
+  clinician's constraint step: *"preferences sit in a coordination note."*
+
+### The reading panel
+
+Two columns, because a composite gets read by people who were not in the room.
+
+- **Three different ceilings on one episode** — auth is permission, LUPA is the floor, utilisation
+  management is the ceiling.
+- **What this map is** — current state including the waste; colour is the actor and purple appears
+  only where HCHB acts by itself; the detail flows sit behind the condensed steps.
+
+The footer repeats it: *nothing on this sheet is a proposal.*
+
+### Band widths follow content
+
+Each band ends just past its last block rather than running to a common right edge, so phases 3 and 4
+do not read as half-empty. Same type scale and conventions as flows 2 and 3.
+
+**Next:** Flow 5 — recertification and discharge — which is the strand phase 4 condenses.
