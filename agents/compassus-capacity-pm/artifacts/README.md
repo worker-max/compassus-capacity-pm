@@ -56,7 +56,7 @@ renumbered.
 | `capacity-tool-mockup-data-spec.md` | The built tool's actual data model + as-built review | What exists today |
 | `capacity-ecosystem-map.md` | Coverage scan — the structural gaps (1A readiness, 1B economics, 1C quality) | What the model still cannot see |
 | `source-war-list-worksheet.{md,csv}` | Where each data element actually comes from | Source war-listing sessions |
-| `Flow-Routine-Visits.pdf` | Flow 2 — routine visits, two phases, with variable chips | The clinician's own week |
+| `Flow-Routine-Visits.pdf` | Flow 2 — routine visits, two phases, with the day-before negotiation panel (hard vs. soft) | The clinician's own week |
 | `flow-routine-visits.html` | Source. Regenerate with `_flow-routine-visits.gen.py` | Editing flow 2 |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |

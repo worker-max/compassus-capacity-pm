@@ -34,6 +34,10 @@ def vchip(x, y, w, ids):
         f'stroke="{RULE}" stroke-width="1.3"/>')
     add(f'<text x="{x+w/2}" y="{y+18.5}" class="vid" text-anchor="middle">{esc(" · ".join(ids))}</text>')
 
+def sublist(x, y, w, items):
+    for i, t in enumerate(items):
+        add(f'<text x="{x+6}" y="{y+i*17}" class="sub">{esc("·  " + t)}</text>')
+
 def chip(x, y, w, h, lines, stroke, fill="#FFFFFF"):
     add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{min(h/2,26)}" fill="{fill}" '
         f'stroke="{stroke}" stroke-width="1.8"/>')
@@ -55,7 +59,7 @@ def path(dd, dash=False):
 def lbl(x, y, t, anchor="start", cls="lb"):
     add(f'<text x="{x}" y="{y}" class="{cls}" text-anchor="{anchor}">{esc(t)}</text>')
 
-W, H = 2200, 1290
+W, H = 2200, 1540
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at '
     'admission: each discipline plots its own frequency, every submission generates its own '
@@ -80,7 +84,8 @@ for name, col in [("DCS", C["dcs"]), ("PCC / Scheduler", C["pcc"]),
 add(f'<line x1="50" y1="150" x2="{W-50}" y2="150" stroke="{RULE}" stroke-width="1.4"/>')
 
 BX, IX = 320, 350
-PH = 250 if SHOW_VCHIPS else 205
+PH = 205
+PH2 = 268
 
 # ---------------- PHASE ONE ----------------
 P1Y = 185
@@ -120,28 +125,54 @@ lbl(IX+240, BY+66, "add-on orders route through DCS approval and auth before rea
 # ---------------- PHASE TWO ----------------
 P2Y = BY + 92
 p2 = [IX + i*(BW+GAP) for i in range(6)]
-add(f'<rect x="{BX}" y="{P2Y}" width="{6*(BW+GAP)+30}" height="{PH}" rx="10" fill="{BAND}"/>')
+add(f'<rect x="{BX}" y="{P2Y}" width="{6*(BW+GAP)+30}" height="{PH2}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, P2Y+34, "PHASE 2  ·  STEADY STATE — the clinician runs their own week", cls="band")
 lbl(BX+6*(BW+GAP)+8, P2Y+34, "NO SCHEDULER WORKFLOW", "end", "bandhi")
 b2 = P2Y + 60
 c2 = b2 + BH/2
 steps = [
-    (["Evaluate own", "capacity for", "the week"],            ["S-04", "S-11", "C-06"]),
-    (["Prioritise clinical", "need across", "the caseload"],  ["S-31", "S-33"]),
-    (["Group visits", "geographically"],                      ["S-17", "S-19"]),
-    (["Test against hard", "constraints"],                    ["S-21", "S-25", "S-28", "S-32"]),
-    (["Confirm with the", "patient — day before"],            ["CO-01", "CO-06"]),
-    (["Route — HCHB suggests,", "clinician adjusts"],         ["S-14", "S-18", "S-20"]),
+    (["Evaluate own", "capacity for", "the week"],
+     ["Points already committed", "Days off · PTO · on-call", "Documentation still owed"]),
+    (["Prioritise clinical", "need across", "the caseload"],
+     ["Who is unstable", "Wound · IV · catheter due", "Labs due", "Who can safely wait"]),
+    (["Group visits", "geographically"],
+     ["Who sits near whom", "Drive time, not distance", "Bridges · rivers · crossings", "Where the day starts"]),
+    (["Test against hard", "constraints"],
+     ["Wound care timing", "Catheter and IV schedules", "Caregiver must be present", "Dialysis · MD appointments"]),
+    (["Confirm with the", "patient — day before"],
+     ["\u201cCan you come later?\u201d", "\u201cNot Mondays\u201d", "Patient not home", "\u2192 see the panel below"]),
+    (["Route — HCHB suggests,", "clinician adjusts"],
+     ["The suggested route", "Patient time windows", "Traffic and time of day", "Where the day must end"]),
 ]
-for i, (lines, ids) in enumerate(steps):
+for i, (lines, items) in enumerate(steps):
     block(p2[i], b2, BW, BH, C["clin"], lines)
-    vchip(p2[i], b2+BH+9, BW, ids)
+    sublist(p2[i], b2+BH+26, BW, items)
     if i: arrow(p2[i-1]+BW, c2, p2[i]-6, c2)
-lbl(p2[3]+BW/2, b2+BH+CHH+26, "wound timing · catheter · IV · patient preference · competing appointments",
-    "middle", "note")
+lbl(BX+22, P2Y+PH2-14, "what the clinician is working around at each step", "start", "note")
+
+# ---------------- the day-before negotiation ----------------
+NY, NH = P2Y + PH2 + 46, 152
+add(f'<rect x="{IX}" y="{NY}" width="1450" height="{NH}" rx="10" fill="none" '
+    f'stroke="{RULE}" stroke-width="1.8" stroke-dasharray="8 6"/>')
+lbl(IX+26, NY+36, "THE DAY-BEFORE NEGOTIATION — what the clinician has to hold", cls="pnl")
+lbl(IX+44, NY+72, "HARD  —  accept it and build the day around it", cls="colh")
+sublist(IX+38, NY+96, 520, ["Dialysis days and times",
+                            "MD and specialist appointments",
+                            "Caregiver's working hours",
+                            "Patient genuinely not home"])
+add(f'<line x1="{IX+700}" y1="{NY+54}" x2="{IX+700}" y2="{NY+138}" stroke="{C["clin"]}" stroke-width="3"/>')
+lbl(IX+718, NY+72, "SOFT  —  negotiable, and worth holding the line on", cls="colhb")
+sublist(IX+712, NY+96, 620, ["\u201cCan you come after lunch?\u201d",
+                             "\u201cNot first thing\u201d  ·  \u201cNot Mondays\u201d",
+                             "A preferred time with no reason behind it"])
+add(f'<line x1="{IX+26}" y1="{NY+54}" x2="{IX+26}" y2="{NY+138}" stroke="{INK}" stroke-width="3"/>')
+lbl(IX, NY+NH+36, "The first visit at 8 or 9am is the single largest lever on an individual "
+    "clinician's capacity.", "start", "hi")
+lbl(IX, NY+NH+58, "Newer clinicians let the patient set the time, become over-accommodating, and push "
+    "the cost onto the rest of the team.", "start", "note")
 
 # ---------------- disposition ----------------
-DY = P2Y + PH + 58
+DY = NY + NH + 96
 disp = [("Accept", C["clin"], ["Accept", "visit delivered"], []),
         ("Reschedule", C["clin"], ["Reschedule", "within the week"], ["S-26", "S-27"]),
         ("Reassign", C["pcc"], ["Reassign", "back to scheduler —", "usually RN to her own LPN"], ["S-15", "S-22"]),
@@ -154,13 +185,13 @@ bd = DY + 60
 for i, (_, col, lines, ids) in enumerate(disp):
     block(dx[i], bd, BW, 76, col, lines, small=True)
     vchip(dx[i], bd+76+9, BW, ids)
-conn(f"M {p2[5]+BW/2} {b2+BH+6} L {p2[5]+BW/2} {DY-26} L {dx[2]+BW/2} {DY-26}")
+conn(f"M {p2[5]+BW/2} {b2+BH+6} L {p2[5]+BW/2} {DY-24} L {dx[2]+BW/2} {DY-24}")
 arrow(dx[2]+BW/2, DY-26, dx[2]+BW/2, bd-6)
 lbl(dx[2]+BW/2, bd+76+CHH+26, "the only recurring scheduler trigger", "middle", "hi")
 lbl(dx[4]+BW/2, bd+76+CHH+26, "the scheduler sees it was declined", "middle", "hi")
 
 # ---------------- boundaries ----------------
-BDY = DY + PH + 26
+BDY = DY + (PH-40) + 46
 lbl(50, BDY+30, "BOUNDARIES", cls="trg")
 bnd = ["OASIS visits do not move", "Medicare week is Sunday–Saturday",
        "Inside the 60-day certification period", "Auth still gates assignment"]

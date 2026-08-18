@@ -502,3 +502,50 @@ of the scheduling variables sit inside Phase 2.
 
 **Rule going forward:** flow sheets name steps, not IDs. The variable reference names variables.
 Nothing downstream depends on an ID until the ID is stable.
+
+---
+
+## 16. Plain-language lists replace the chips — and the day-before negotiation
+
+The space the chips left behind is now worth more than the chips were. Each of the six Phase 2 steps
+carries a short list of **what the clinician is actually working around at that step**, in the words
+an operator would use rather than in IDs:
+
+| Step | What the clinician is working around |
+|---|---|
+| Evaluate own capacity for the week | Points already committed · days off, PTO, on-call · documentation still owed |
+| Prioritise clinical need across the caseload | Who is unstable · wound, IV, catheter due · labs due · who can safely wait |
+| Group visits geographically | Who sits near whom · **drive time, not distance** · bridges, rivers, crossings · where the day starts |
+| Test against hard constraints | Wound care timing · catheter and IV schedules · caregiver must be present · dialysis and MD appointments |
+| Confirm with the patient — day before | "Can you come later?" · "Not Mondays" · patient not home |
+| Route — HCHB suggests, clinician adjusts | The suggested route · patient time windows · traffic and time of day · where the day must end |
+
+These are descriptive, not scored. They survive a renumber, which is the whole point — see §15.
+
+### The day-before negotiation panel
+
+The confirm step is where the schedule is actually won or lost, so it gets its own panel below the
+band: **THE DAY-BEFORE NEGOTIATION — what the clinician has to hold.** Two columns, because the two
+kinds of pushback demand opposite responses:
+
+- **HARD — accept it and build the day around it.** Dialysis days and times · MD and specialist
+  appointments · the caregiver's working hours · the patient genuinely not being home. These are
+  facts about the world. Arguing with them wastes the call.
+- **SOFT — negotiable, and worth holding the line on.** "Can you come after lunch?" · "Not first
+  thing" · "Not Mondays" · a preferred time with no reason behind it. These are preferences. They
+  are movable, and the clinician has to find the firmness to move them.
+
+The panel carries the reason it matters, stated plainly on the sheet:
+
+> **The first visit at 8 or 9am is the single largest lever on an individual clinician's capacity.**
+> Newer clinicians let the patient set the time, become over-accommodating, and push the cost onto
+> the rest of the team.
+
+That last sentence is the adoption argument in miniature. The cost of over-accommodation is real, it
+is paid by somebody other than the person who accepted it, and nothing in the system today makes it
+visible. A capacity tool that surfaces the soft/hard distinction at the moment of the call is doing
+something the current process cannot do at all.
+
+**Canvas is now 2200 × 1540** (ratio 1.429) to hold the panel. The Phase 2 → disposition connector
+routes down the right-hand side at x≈1865 and back left below the highlight line, so it clears the
+panel rather than crossing it.
