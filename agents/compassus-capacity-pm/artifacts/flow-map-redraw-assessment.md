@@ -396,3 +396,16 @@ Adding pass 1 makes the sheet taller. The canvas is now 1600 × 1250, a ratio of
 A4 landscape's 1.414, so it prints landscape with side margins rather than filling the sheet. Three
 options if that matters: accept the margins, move to a wider canvas that matches the original sheet's
 1.5 ratio, or move the missed-visit chain onto Flow 4 where it arguably belongs. Not decided.
+
+### Canvas decision — resolved
+
+Option 2 taken: **wider canvas at sheet scale**, missed-visit chain stays on this map because the
+scheduler and DCS both carry real load in that workflow.
+
+The finalised sheet is **2200 × 1620 pt (30.6 × 22.5 in)**, the same class of large-format sheet as
+the original 2070 × 1380.
+
+**The rule that came out of it:** canvas units are points on the output sheet, so a 16-unit label
+prints at 16pt. The earlier A4-scale canvas was printing block text at roughly **4.5pt** — legible on
+screen, useless on paper. Drawing at sheet scale and letting the sheet be large is the only way to
+get type that reads in a room. Apply this to all four flows.

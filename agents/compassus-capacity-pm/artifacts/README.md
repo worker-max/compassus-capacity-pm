@@ -68,6 +68,11 @@ HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#79593
 **Size convention:** large block = happens every time · small block = conditional · pill = watch
 condition, not a step. Introduced so weight on the page matches weight in the process.
 
+**Flow-map canvas rule.** Canvas units are **points on the output sheet**, so a 16-unit label prints
+at 16pt. Draw at sheet scale (the original is 2070 × 1380 pt) rather than at A4 and shrinking —
+A4-scale canvases print block text at about 4.5pt, which is unreadable. Always landscape, one
+unbroken spine, canvas width follows the content.
+
 **Editing rule:** the one-pager, the full lists, the board and the diagram carry the same variable
 set at different depths. Change one, change all four, or they drift.
 
