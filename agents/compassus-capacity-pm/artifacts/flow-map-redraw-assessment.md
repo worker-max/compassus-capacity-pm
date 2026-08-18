@@ -487,3 +487,18 @@ Confirmed 17 Aug, and the two are now drawn as distinct dispositions:
 **The decline flag already exists.** That changes the variable-backlog entry: the *fact* of a decline
 is captured today. What is missing is the **reason**, and the accept side of the loop. The fact alone
 trains nothing — the reason is the signal any later optimisation would learn from.
+
+### Variable chips switched off
+
+The chips are removed from the flow sheets. Reason: **the variable IDs are not stable yet.** More
+capacity and scheduling variables are still to be added, and five existing rows carry no ID at all.
+An ID printed on a sheet goes silently wrong the moment the inventory is renumbered, and nobody
+notices because the sheet still looks correct.
+
+The capability is retained behind `SHOW_VCHIPS` in each generator, so chips can come back in one line
+once the backlog has landed and numbering is settled. The exercise was still worth doing — it showed
+what the annotated companion should eventually look like, and it is the reason we now know roughly 30
+of the scheduling variables sit inside Phase 2.
+
+**Rule going forward:** flow sheets name steps, not IDs. The variable reference names variables.
+Nothing downstream depends on an ID until the ID is stable.

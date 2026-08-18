@@ -9,8 +9,9 @@ out = []
 def add(s): out.append(s)
 def esc(t): return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
+SHOW_VCHIPS = False          # off until the variable IDs are settled
 BW, BH, GAP = 250, 90, 28
-CHH = 27
+CHH = 27 if SHOW_VCHIPS else 0
 EXW, EXH = 250, 78
 
 def block(x, y, w, h, fill, lines, small=False, badge=None):
@@ -28,7 +29,7 @@ def block(x, y, w, h, fill, lines, small=False, badge=None):
 
 def vchip(x, y, w, ids):
     """light variable chip under a block"""
-    if not ids: return
+    if not SHOW_VCHIPS or not ids: return
     add(f'<rect x="{x}" y="{y}" width="{w}" height="{CHH}" rx="6" fill="#FFFFFF" '
         f'stroke="{RULE}" stroke-width="1.3"/>')
     add(f'<text x="{x+w/2}" y="{y+18.5}" class="vid" text-anchor="middle">{esc(" · ".join(ids))}</text>')
@@ -54,7 +55,7 @@ def path(dd, dash=False):
 def lbl(x, y, t, anchor="start", cls="lb"):
     add(f'<text x="{x}" y="{y}" class="{cls}" text-anchor="{anchor}">{esc(t)}</text>')
 
-W, H = 2200, 1420
+W, H = 2200, 1290
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at '
     'admission: each discipline plots its own frequency, every submission generates its own '
@@ -76,11 +77,10 @@ for name, col in [("DCS", C["dcs"]), ("PCC / Scheduler", C["pcc"]),
     add(f'<circle cx="{lx+13}" cy="72" r="13" fill="{col}"/>')
     lbl(lx+34, 78, name, cls="leg")
     lx += 34 + 8.4*len(name) + 40
-lbl(W-50, 112, "chips under each step name the variables that decide it", "end", "key")
 add(f'<line x1="50" y1="150" x2="{W-50}" y2="150" stroke="{RULE}" stroke-width="1.4"/>')
 
 BX, IX = 320, 350
-PH = 250
+PH = 250 if SHOW_VCHIPS else 205
 
 # ---------------- PHASE ONE ----------------
 P1Y = 185
@@ -103,7 +103,7 @@ for a in range(3):
 chip(50, c1-39, 250, 78, ["Admission", "SOC or eval visit"], INK)
 arrow(300, c1, IX-6, c1)
 lbl(50, c1-53, "TRIGGER", cls="trg")
-lbl(p1[0]+BW/2, b1+BH+58, "RN at the SOC; PT and OT at their own evals, 1–2 days later",
+lbl(p1[0], b1+BH+CHH+26, "RN at the SOC; PT and OT at their own evals, 1–2 days later",
     "start", "note")
 
 # ---------------- 485 boundary ----------------
@@ -137,7 +137,7 @@ for i, (lines, ids) in enumerate(steps):
     block(p2[i], b2, BW, BH, C["clin"], lines)
     vchip(p2[i], b2+BH+9, BW, ids)
     if i: arrow(p2[i-1]+BW, c2, p2[i]-6, c2)
-lbl(p2[3]+BW/2, b2+BH+58, "wound timing · catheter · IV · patient preference · competing appointments",
+lbl(p2[3]+BW/2, b2+BH+CHH+26, "wound timing · catheter · IV · patient preference · competing appointments",
     "middle", "note")
 
 # ---------------- disposition ----------------
@@ -154,10 +154,10 @@ bd = DY + 60
 for i, (_, col, lines, ids) in enumerate(disp):
     block(dx[i], bd, BW, 76, col, lines, small=True)
     vchip(dx[i], bd+76+9, BW, ids)
-conn(f"M {p2[5]+BW/2} {b2+BH+CHH+14} L {p2[5]+BW/2} {DY-26} L {dx[2]+BW/2} {DY-26}")
+conn(f"M {p2[5]+BW/2} {b2+BH+6} L {p2[5]+BW/2} {DY-26} L {dx[2]+BW/2} {DY-26}")
 arrow(dx[2]+BW/2, DY-26, dx[2]+BW/2, bd-6)
-lbl(dx[2]+BW/2, bd+76+CHH+30, "the only recurring scheduler trigger", "middle", "hi")
-lbl(dx[4]+BW/2, bd+76+CHH+30, "the scheduler sees it was declined", "middle", "hi")
+lbl(dx[2]+BW/2, bd+76+CHH+26, "the only recurring scheduler trigger", "middle", "hi")
+lbl(dx[4]+BW/2, bd+76+CHH+26, "the scheduler sees it was declined", "middle", "hi")
 
 # ---------------- boundaries ----------------
 BDY = DY + PH + 26
@@ -183,7 +183,7 @@ for lines, col in brk:
     wx += 440
 
 add(f'<line x1="50" y1="{H-72}" x2="{W-50}" y2="{H-72}" stroke="{RULE}" stroke-width="1.4"/>')
-lbl(50, H-40, "Chips name the variables that decide each step · full definitions in the variable reference",
+lbl(50, H-40, "Current state · variables are named in the variable reference, not on this sheet",
     cls="foot")
 lbl(W-50, H-40, "Flow 2 of 4 · routine visits", "end", "foot")
 add('</svg>')

@@ -71,9 +71,11 @@ HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#79593
 **Size convention:** large block = happens every time · small block = conditional · pill = watch
 condition, not a step. Introduced so weight on the page matches weight in the process.
 
-**Variable chips.** Flow sheets carry a light chip under each step naming the variables that decide
-it (`S-04 · S-11 · C-06`). Chips only — no commentary on the flow sheet itself. A separate annotated
-companion carries the commentary, and is only built once the flow is agreed.
+**Variable chips are OFF.** The generators support a light chip under each step naming the deciding
+variables, but `SHOW_VCHIPS = False` until the variable IDs are settled. More capacity and scheduling
+variables are still to be added, and five existing rows have no ID yet — see
+[`variable-backlog.md`](./variable-backlog.md). Printing IDs on a sheet before they are stable means
+they go silently wrong on renumber. Flip the flag once the backlog has landed.
 
 **Flow-map canvas rule.** Canvas units are **points on the output sheet**, so a 16-unit label prints
 at 16pt. Draw at sheet scale (the original is 2070 × 1380 pt) rather than at A4 and shrinking —
