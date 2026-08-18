@@ -549,3 +549,52 @@ something the current process cannot do at all.
 **Canvas is now 2200 × 1540** (ratio 1.429) to hold the panel. The Phase 2 → disposition connector
 routes down the right-hand side at x≈1865 and back left below the highlight line, so it clears the
 panel rather than crossing it.
+
+---
+
+## 17. The dispositions sit before the visit, not at it
+
+Corrected 18 Aug. The five dispositions are **not** what happens when the clinician arrives. They are
+chosen **the day before**, straight after the confirmation call, and selected by the clinician **in
+HCHB**. The band is relabelled `THE DAY BEFORE · THE CLINICIAN'S FIVE DISPOSITIONS`, carries
+`SELECTED IN HCHB`, and states the timing plainly on the sheet: *chosen the day prior, straight after
+the confirmation call — not at the door on the day of the visit.*
+
+This matters more than a caption. If the disposition is picked the day before, then the scheduler's
+recovery window is a full day wide, not an hour wide. Anything the tool could do with a decline or a
+reassign, it has a day to do it in.
+
+### Accept is the default path
+
+The connector out of the steady-state band now lands on **Accept**, not on Reassign. Accept is the
+overwhelmingly common disposition, and drawing the spine into an exception made the exception look
+like the norm. The other four hang off the same band as alternatives.
+
+### Reassign and Decline are both scheduler triggers
+
+The earlier sheet called Reassign *"the only recurring scheduler trigger."* That was wrong. Both are
+clinician selections in HCHB, and both return the visit to the scheduler. The difference is **whether
+a recommendation comes with it**:
+
+| | Returns to scheduler | Carries a plan | Who resolves it |
+|---|---|---|---|
+| **Reassign** | Yes | **Yes** — the clinician recommends who should take it | The scheduler executes the recommendation |
+| **Decline** | Yes | **No** | The branch manages the placement, and it must go to a clinician other than the original |
+
+So the pair is one decision with two levels of assistance. A clinician who knows the answer supplies
+it; a clinician who does not hands the problem back. That is a useful shape for a capacity tool,
+because the reassign path is already the clinician doing the tool's job by hand.
+
+### Rapid reschedule removes the scheduler entirely
+
+**If rapid reschedule is turned on in HCHB, a reschedule inside the week generates no scheduler
+workflow at all.** The clinician moves the visit and nobody else touches it. Noted under the
+Reschedule block on the sheet.
+
+This is a configuration flag, not a process fact, which makes it a branch-by-branch variable: the
+same disposition costs the scheduler nothing in one branch and a queue item in the next. Added to the
+variable backlog.
+
+**Canvas is now 2200 × 1680.** The disposition band grew to hold the per-disposition notes and the
+Reassign/Decline statement, and the spine into Accept routes down the left of the band so it clears
+the timing note.

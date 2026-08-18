@@ -59,13 +59,14 @@ def path(dd, dash=False):
 def lbl(x, y, t, anchor="start", cls="lb"):
     add(f'<text x="{x}" y="{y}" class="{cls}" text-anchor="{anchor}">{esc(t)}</text>')
 
-W, H = 2200, 1540
+W, H = 2200, 1680
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at '
     'admission: each discipline plots its own frequency, every submission generates its own '
     'assignment task. After the 485 the episode enters phase two, where the clinician manages their '
-    'own week with no scheduler workflow at all, and reassignment is the only thing that pulls the '
-    'scheduler back in.">')
+    'own week with no scheduler workflow at all. The day before each visit the clinician confirms '
+    'with the patient and then picks one of five dispositions in HCHB: accept, reschedule, '
+    'reassign, miss or decline.">')
 add('<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" '
     f'orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="{INK}"/></marker></defs>')
 add(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FBFBF8"/>')
@@ -172,26 +173,37 @@ lbl(IX, NY+NH+58, "Newer clinicians let the patient set the time, become over-ac
     "the cost onto the rest of the team.", "start", "note")
 
 # ---------------- disposition ----------------
-DY = NY + NH + 96
-disp = [("Accept", C["clin"], ["Accept", "visit delivered"], []),
-        ("Reschedule", C["clin"], ["Reschedule", "within the week"], ["S-26", "S-27"]),
-        ("Reassign", C["pcc"], ["Reassign", "back to scheduler —", "usually RN to her own LPN"], ["S-15", "S-22"]),
-        ("Miss", C["dcs"], ["Miss", "→ compliance chain"], ["S-38", "S-39"]),
-        ("Decline", C["pcc"], ["Decline", "back to scheduler —", "must go to a different clinician"], ["S-12", "S-13"])]
+DY = NY + NH + 112
+DISPH = 246
+disp = [(C["clin"], ["Accept", "visit delivered as planned"]),
+        (C["clin"], ["Reschedule", "within the week"]),
+        (C["pcc"],  ["Reassign", "back to the scheduler", "WITH a plan"]),
+        (C["dcs"],  ["Miss", "\u2192 compliance chain"]),
+        (C["pcc"],  ["Decline", "back to the scheduler", "WITHOUT a plan"])]
+dnote = [[("the most common disposition", "hi")],
+         [("no scheduler workflow if rapid", "hi"), ("reschedule is turned on in HCHB", "hi")],
+         [("the clinician recommends", "note"), ("who should take it", "note")],
+         [("documentation and", "note"), ("compliance chain follow", "note")],
+         [("nothing recommended \u2014", "note"), ("the branch manages placement", "note")]]
 dx = [IX + i*(BW+GAP) for i in range(5)]
-add(f'<rect x="{BX}" y="{DY}" width="{5*(BW+GAP)+30}" height="{PH-40}" rx="10" fill="{BAND}"/>')
-lbl(BX+22, DY+34, "AT THE VISIT  ·  THE CLINICIAN'S FIVE DISPOSITIONS", cls="band")
-bd = DY + 60
-for i, (_, col, lines, ids) in enumerate(disp):
+add(f'<rect x="{BX}" y="{DY}" width="{5*(BW+GAP)+30}" height="{DISPH}" rx="10" fill="{BAND}"/>')
+lbl(BX+22, DY+34, "THE DAY BEFORE  \u00b7  THE CLINICIAN'S FIVE DISPOSITIONS", cls="band")
+lbl(BX+5*(BW+GAP)+8, DY+34, "SELECTED IN HCHB", "end", "bandhi")
+lbl(BX+22, DY+58, "chosen the day prior, straight after the confirmation call \u2014 not at the door "
+    "on the day of the visit", "start", "note")
+bd = DY + 76
+for i, (col, lines) in enumerate(disp):
     block(dx[i], bd, BW, 76, col, lines, small=True)
-    vchip(dx[i], bd+76+9, BW, ids)
-conn(f"M {p2[5]+BW/2} {b2+BH+6} L {p2[5]+BW/2} {DY-24} L {dx[2]+BW/2} {DY-24}")
-arrow(dx[2]+BW/2, DY-26, dx[2]+BW/2, bd-6)
-lbl(dx[2]+BW/2, bd+76+CHH+26, "the only recurring scheduler trigger", "middle", "hi")
-lbl(dx[4]+BW/2, bd+76+CHH+26, "the scheduler sees it was declined", "middle", "hi")
+    for j, (t, cls) in enumerate(dnote[i]):
+        lbl(dx[i]+BW/2, bd+102+j*18, t, "middle", cls)
+conn(f"M {p2[5]+BW} {c2} L {W-140} {c2} L {W-140} {DY-26} L {BX-30} {DY-26} L {BX-30} {bd+38}")
+arrow(BX-30, bd+38, dx[0]-6, bd+38)
+lbl(IX, DY+DISPH-16, "Reassign and Decline are both clinician selections in HCHB, and both return the "
+    "visit to the scheduler \u2014 the difference is whether a recommendation comes with it.",
+    "start", "hi")
 
 # ---------------- boundaries ----------------
-BDY = DY + (PH-40) + 46
+BDY = DY + DISPH + 46
 lbl(50, BDY+30, "BOUNDARIES", cls="trg")
 bnd = ["OASIS visits do not move", "Medicare week is Sunday–Saturday",
        "Inside the 60-day certification period", "Auth still gates assignment"]
