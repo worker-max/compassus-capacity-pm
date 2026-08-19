@@ -16,6 +16,8 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.worksheet.hyperlink import Hyperlink
 from openpyxl.workbook.defined_name import DefinedName
+from openpyxl.cell.rich_text import CellRichText, TextBlock
+from openpyxl.cell.text import InlineFont
 
 import _content as C
 
@@ -81,7 +83,10 @@ def band_row(ws, r, text, first="B", last="D", fill=BAND, font=f_band, height=22
         cell = ws.cell(row=r, column=col)
         cell.fill = PatternFill("solid", fgColor=fill)
         cell.alignment = A_CTR
-    c = ws.cell(row=r, column=ord(first) - 64, value=text)
+    c1, c2 = ord(first) - 64, ord(last) - 64
+    if c2 > c1:
+        ws.merge_cells(start_row=r, end_row=r, start_column=c1, end_column=c2)
+    c = ws.cell(row=r, column=c1, value=text)
     c.font = font
     c.alignment = Alignment(vertical="center", indent=1)
     ws.row_dimensions[r].height = height
@@ -152,25 +157,33 @@ def build_questionnaire(wb):
     ws.sheet_view.showGridLines = False
     set_widths(ws, [("A", 2.5), ("B", 7), ("C", 44), ("D", 78), ("E", 2.5)])
 
+    ws.merge_cells("B1:D1")
     ws["B1"] = "Compassus Home Health  ·  Capacity & Scheduling Platform"
     ws["B1"].font = Font(name=BODY, size=10, bold=True, color=MUTED)
+    ws.row_dimensions[1].height = 15
+
+    ws.merge_cells("B2:D2")
     ws["B2"] = "Vendor Questionnaire"
     ws["B2"].font = f_title
-    ws.row_dimensions[2].height = 22
+    ws.row_dimensions[2].height = 24
 
-    ws["B3"] = "Vendor"
-    ws["B3"].font = f_hdr
-    ws["C3"].fill = PatternFill("solid", fgColor=ANS_FILL)
-    ws["C3"].border = ANS_BORDER
-    ws["C3"].protection = Protection(locked=False)
-    ws["D3"] = "Completed by / date"
-    ws["D3"].font = f_hdr
-    ws["D3"].alignment = Alignment(horizontal="right")
-    ws.row_dimensions[3].height = 18
+    ws.row_dimensions[3].height = 8
+    for i, label in enumerate(("Vendor", "Completed by / date")):
+        rr = 4 + i
+        c = ws.cell(row=rr, column=3, value=label)
+        c.font = f_hdr
+        c.alignment = Alignment(horizontal="right", vertical="center")
+        a = ws.cell(row=rr, column=4)
+        a.fill = PatternFill("solid", fgColor=ANS_FILL)
+        a.border = ANS_BORDER
+        a.alignment = A_WRAPI
+        a.font = f_ans
+        a.protection = Protection(locked=False)
+        ws.row_dimensions[rr].height = 20
 
-    ws.row_dimensions[4].height = 6
+    ws.row_dimensions[6].height = 8
     answer_rows = []
-    r = 5
+    r = 7
 
     for key, title, framing, qs in C.SECTIONS:
         band_row(ws, r, f"{key}.   {title.upper()}")
@@ -192,8 +205,11 @@ def build_questionnaire(wb):
         for qid, label, text in qs:
             ws.cell(row=r, column=2, value=qid).font = f_qid
             ws.cell(row=r, column=2).alignment = A_TOP
-            qc = ws.cell(row=r, column=3, value=f"{label}\n{text}")
-            qc.font = f_q
+            qc = ws.cell(row=r, column=3)
+            qc.value = CellRichText(
+                TextBlock(InlineFont(rFont=BODY, sz=11, b=True, color="1F2A37"), label + "\n"),
+                TextBlock(InlineFont(rFont=BODY, sz=11, color="1F2A37"), text),
+            )
             qc.alignment = A_WRAP
             a = ws.cell(row=r, column=4)
             a.fill = PatternFill("solid", fgColor=ANS_FILL)
@@ -217,8 +233,8 @@ def build_questionnaire(wb):
                                "understand in the notes column.")
         r += 1
 
-    ws.freeze_panes = "A5"
-    ws.print_title_rows = "1:4"
+    ws.freeze_panes = "A7"
+    ws.print_title_rows = "1:6"
     ws.sheet_properties.tabColor = BAND
     setup_print(ws)
     return ws, answer_rows
