@@ -1,0 +1,39 @@
+Footprint & Fit,,,,,
+"Each cell is a product's weighted coverage of that category, read live from the Tier 2 scorecard (0 = untouched). Set a product to TRUE in the selector row to include it in the combination; 'Combined (selected)' shows the best coverage any selected product reaches, and 'Gap?' flags categories the selected combination still leaves uncovered. This answers whether a few products together can fill our needs.",,,,,
+Include in combination ->,,True,True,,
+Layer,Category,HCHB Web Scheduling,HCHB Smart Scheduling,Combined (selected),Gap?
+Shared,Roster,60,77.5,77.5,covered
+Shared,Availability & PTO,60,85,85,covered
+Shared,Geography,55,75,75,covered
+Shared,Visit weighting,0,70,70,covered
+Shared,Targets,65,85,85,covered
+Shared,Demand events,0,50,50,covered
+Capacity,Supply,0,75,75,covered
+Capacity,Geography,60,72.5,72.5,covered
+Capacity,Load,75,62.5,75,covered
+Capacity,Open room,75,75,75,covered
+Capacity,Buffer,0,60,60,covered
+Capacity,Skill,0,70,70,covered
+Capacity,Ramp,0,0,0,GAP
+Capacity,Context,0,0,0,GAP
+Scheduling,Patient demand,62.5,80,80,covered
+Scheduling,Compliance,0,0,0,GAP
+Scheduling,Clinician pattern,50,56.875,56.875,covered
+Scheduling,Routing,60,82.72727272727273,82.72727272727273,covered
+Scheduling,Matching,55,82.5,82.5,covered
+Scheduling,Constraint,0,80,80,covered
+Scheduling,Continuity,80,85,85,covered
+Scheduling,Preference,0,0,0,GAP
+Scheduling,Patient availability,0,67.85714285714286,67.85714285714286,covered
+Scheduling,Caregiver,0,0,0,GAP
+Scheduling,Clinical timing,0,65,65,covered
+Scheduling,Dependency,0,65,65,covered
+Scheduling,Exception,70,67.5,70,covered
+Scheduling,Distribution,45,55,55,covered
+Coordination,Confirmation & Reminders,67.5,0,67.5,covered
+Coordination,Coverage & Reschedule,57,59,59,covered
+Coordination,Care Coordination,45,50,50,covered
+Coordination,Coordination Cost,0,0,0,GAP
+,Footprint (avg coverage),32.5625,54.81123173701299,57.38935673701299,
+,Categories still a GAP (selected combo),,,6,
+,Categories covered (selected combo),,,26,
