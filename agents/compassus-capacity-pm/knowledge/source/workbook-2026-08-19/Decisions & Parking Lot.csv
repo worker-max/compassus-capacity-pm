@@ -1,0 +1,29 @@
+Decisions & Parking Lot,,,,
+"Capture what the room decides, and park what it can’t settle yet. This is the record you leave with.",,,,
+,,,,
+Decisions,,,,
+Decision,Context / why,Owner,Due,Status
+e.g.  Set continuity vs. efficiency priority for high-acuity patients,Trade-off surfaced on the Concepts tab,(owner),(date),Open
+"HOLD Tier C - do not adopt the five reimbursement-dependent variables (SH-10 to SH-13, S-51) into the inventory","Reimbursement scope is not settled - managed Medicare behaviour across UHC, Humana and others is under separate research. A single financial rule cannot be applied across the book. Recorded on the Parking Lot below so the reasoning survives.",Colin,on research close,Open
+"HOLD - no payment or margin logic may enter the Scorecard, the ROI tab or any KPI until the reimbursement research concludes","Wherever margin or payment consequence is surfaced it is held at Read posture: displayed to inform a human decision, never entering an objective function and never weighing against clinical need. That constraint is correct regardless of how the research resolves.",Colin,on research close,Open
+OPEN - does Pulse expose rehospitalization risk at patient level in a form scheduling can consume? (S-48),S-48 was added on the strength of the S-31 annotation; the integration route is unconfirmed.,Colin,(date),Open
+OPEN - legal confirmation on outbound automated calling before any Patient Engagement design (CO-14),"At least one state treats a call not manually triggered by a human as a robocall. Consents are signed at the SOC visit, so the readiness call is a voice call by necessity.",Legal,(date),Open
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+"Parking Lot   -   including the Tier C variables held pending the reimbursement research, and the items that are real but are not scheduling variables",,,,
+Question or issue,Raised by,Where it belongs,Follow-up,
+e.g.  How do we surface reopened capacity back to intake same day?,(name),Coordination,(next step),
+"SH-10 (held) - Payer class: episodic, per-visit, or managed care. Determines which financial-risk rule applies to a missed visit; the direction of risk differs by class.","Handoff 1, 2026-08-19",Out of scope,"HOLD - reimbursement research. Class taxonomy may need to be finer than three values once managed Medicare variants are mapped. Would require a new Shared-layer category, Authorization & Payer - do not create it yet.",
+"SH-11 (held) - Hospital discharge date, distinct from our admit date. Some benefit windows start at discharge, so elapsed days consume benefit never used.","Handoff 1, 2026-08-19",Out of scope,HOLD - reimbursement research. Which payers behave this way is exactly what the research must establish.,
+"SH-12 (held) - Payment period and case-mix group. Under episodic payment the unit is a 30-day period, and two sit inside one 60-day certification period.","Handoff 1, 2026-08-19",Out of scope,HOLD - reimbursement research.,
+"SH-13 (held) - LUPA threshold: minimum visits a period must reach to be paid the period rate rather than per-visit. Group-specific and recalibrated annually, so reference data rather than configuration.","Handoff 1, 2026-08-19",Out of scope,HOLD - reimbursement research.,
+"S-51 (held) - Period utilization against payment: the ceiling counterpart to the LUPA floor. Above the floor, further visits may be cost without matching revenue.","Handoff 1, 2026-08-19",Scheduling,HOLD - reimbursement research. Posture would be Read: margin consequence may be displayed and must never weigh against clinical need. Also requires cost-per-period data finance has not supplied.,
+Clinician reassignment authority - a clinician handing a visit to their own assistant without routing through a scheduler.,"Handoff 1, 2026-08-19",Scheduling,NOT A VARIABLE - a capability and a product constraint. Removes the only recurring scheduler trigger in routine visits. Belongs in the requirements backlog.,
+Supervisee schedule visibility - a nurse cannot manage aide frequency blind.,"Handoff 1, 2026-08-19",Scheduling,NOT A VARIABLE - a capability. Requirements backlog.,
+Per-discipline task multiplication - each discipline's frequency submission generating its own scheduler assignment task.,"Handoff 1, 2026-08-19",Scheduling,"NOT A VARIABLE - a process defect to design out. The fix is care-team recommendation at referral, so later submissions assign to an established member.",
+Clinician schedule horizon - clinicians can see only seven days.,"Handoff 1, 2026-08-19",Scheduling,NOT A VARIABLE - a product limit.,
+Notification volume - a daily regenerating authorization workflow with no available action.,"Handoff 1, 2026-08-19",Coordination,"NOT A VARIABLE - a product defect. The remedy is to notify on state change, not to build a better inbox. Some current workflows should cease to exist rather than be automated.",

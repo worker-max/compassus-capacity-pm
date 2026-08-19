@@ -17,7 +17,10 @@
 | `8.17.26 Bottleneck Identification.docx` | `1X-KEBygDws3VR5aA97C2G7FRPtbw2vub` | [`bottleneck-dossiers.md`](./bottleneck-dossiers.md) |
 | `8.17.26 Current State Flow Map Revisions.docx` | `1NSHlkaWir6rc7mgZ1ONtwG-sIPsNFayV` | [`source/flow-clarifying-2026-08-17.md`](./source/flow-clarifying-2026-08-17.md) · distilled into [`process-facts-2026-08.md`](./process-facts-2026-08.md) |
 | `8.18 HAND OFF DOCUMENT FOR PAYER AND HH EPISODE ECONOMICS.docx` | `1Er-XhCgtRDbaeFdrq9OBsKEjARZLrnLP` | [`payer-and-episode-economics.md`](./payer-and-episode-economics.md) |
-| `8.13 Compassus Capacity & Scheduling Workbook.xlsx` | `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv` | **Authoritative — stays in Drive.** Index → [`workbook-2026-08-13.md`](./workbook-2026-08-13.md) · finance/KPI/vendor tabs → [`business-case-and-kpis.md`](./business-case-and-kpis.md) · dated CSV snapshot → [`source/workbook-2026-08-13/`](./source/workbook-2026-08-13/) |
+| `8.13 Compassus Capacity & Scheduling Workbook.xlsx` | `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv` | **Superseded 19 Aug by the 8.19 workbook below**, but still the Drive original. Index → [`workbook-2026-08-13.md`](./workbook-2026-08-13.md) · finance/KPI/vendor tabs → [`business-case-and-kpis.md`](./business-case-and-kpis.md) · dated CSV snapshot → [`source/workbook-2026-08-13/`](./source/workbook-2026-08-13/) |
+| `HANDOFF-1-variable-additions.md` | `1y0X3TLKuG4H_W6vpPxQ8opW-HZblfXfD` | Applied 19 Aug → [`variable-inventory-update-2026-08-19.md`](./variable-inventory-update-2026-08-19.md) |
+| `HANDOFF-2-target-architecture.md` | `1lFw02FQEteLoDZf_L_OIl78SbaRvqe8z` | Applied 19 Aug — module grouping → same record |
+| `8.19 Compassus Capacity & Scheduling Workbook.xlsx` | *(not yet in Drive)* | **Authoritative.** 87 numbered variables. Repo copy → [`source/8.19 Compassus Capacity & Scheduling Workbook.xlsx`](./source/) · CSV snapshot → [`source/workbook-2026-08-19/`](./source/workbook-2026-08-19/) · what changed → [`variable-inventory-update-2026-08-19.md`](./variable-inventory-update-2026-08-19.md) |
 
 ## Flow sheets → artifacts
 

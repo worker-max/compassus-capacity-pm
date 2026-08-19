@@ -24,8 +24,8 @@ capacity.
 
 | | |
 |---|---|
-| **Primary workbook** | `8.13 Compassus Capacity & Scheduling Workbook.xlsx` — Google Drive `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv`. Supersedes the 2026-08-11 version (`15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf`). Columns **G (Notes)** and **S (Additional Context)** now carry pain-point, bottleneck and road-bump commentary — read them, they are where the operational truth is |
-| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (79 scored variables → priority). **79 scored rows = 76 numbered + 3 unnumbered**; only the numbered ones roll up. Full tab-by-tab index and the complete ID list: [`../knowledge/workbook-2026-08-13.md`](../knowledge/workbook-2026-08-13.md) |
+| **Primary workbook** | `8.19 Compassus Capacity & Scheduling Workbook.xlsx` — repo copy at [`../knowledge/source/`](../knowledge/source/). Supersedes the 8.13 version (Drive `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv`), which supersedes 2026-08-11 (`15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf`). Columns **G (Notes)** and **S (Additional Context)** carry pain-point, bottleneck and road-bump commentary — read them, they are where the operational truth is |
+| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (**87 numbered variables** → priority). All 87 now roll up — the three unnumbered rows were assigned IDs on 19 Aug. New column **T (Module)** groups each variable into Capacity Management / Scheduling Engine / Patient Engagement. Full tab-by-tab index: [`../knowledge/workbook-2026-08-13.md`](../knowledge/workbook-2026-08-13.md) · what changed on 19 Aug: [`../knowledge/variable-inventory-update-2026-08-19.md`](../knowledge/variable-inventory-update-2026-08-19.md) |
 | Data-model workbook | `Clinician-Capacity-Tool_Data-Index.xlsx` — Drive `1BFxo6k3tSDyoJZxmm7_gFxmnuEm4S_fW` |
 | Drive folder | `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3` |
 | Original flow map | `8.13 capacity scheduling swimlane detail.pdf` — Drive `1SZDHuYYzkMLP-J7uCKdITY3CGZA3qhCx` (page 2 of a set; page 1 is *Home Health Intake Reset*) |
