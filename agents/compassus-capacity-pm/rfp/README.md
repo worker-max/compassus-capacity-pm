@@ -111,30 +111,61 @@ stay in our pocket for the Nashville sessions:
 
 ## How the questionnaire is built
 
-Evan wanted *five or six really important* questions plus *ten or fifteen* diagnostic ones, and a
-structure that makes it obvious where each vendor sits on the three dimensions.
+**Twenty questions and one table.** Evan's target was five or six critical questions plus ten or
+fifteen diagnostic. An earlier draft ran to 32; this is the disciplined version. Everything cut is
+banked in [`question-reserve.md`](./question-reserve.md) with a note on which stage it belongs to.
 
-- **Part A — Company and product (6).** The disqualifiers. **A1 is HCHB integration**, per Evan:
-  *"the home care home base integration, obviously, is an absolute."* Then production-vs-roadmap
-  labelling, customers and references, funding stage and maturity, home-health focus, and
-  security/implementation. A2 makes every later claim carry a P/B/D/R label, which is the antidote
-  to *"they're all going to say they've got this stuff."*
-- **Part B — Coverage self-assessment.** A ten-row matrix mirroring the one-pager's sections. This
-  is the fast cut: it will show immediately who has only a scheduling engine, and who has nothing in
-  patient engagement. It uses only vocabulary already public in the one-pager.
-- **Part C — How your product works (21).** Open questions, deliberately **non-leading**: *"how do
-  you…"*, *"describe…"*, *"walk us through…"* rather than *"do you support X?"* A feature checklist
-  would hand them our vocabulary and teach them the answer we want. These are grouped to mirror the
-  one-pager so the feature questions "fall out of it," as Evan put it.
-- **Part D — Fit and perspective (5).** Including **D2: what do you do that we have not asked about**
-  — the "what else are they doing that we haven't thought of" question.
+The structural move that made 20 possible: **the Part B coverage matrix does the feature work.** Ten
+rows, marked (P)/(D)/(R)/(N)/(PT), cover every sub-area of the one-pager without spending a single
+question. That frees all twenty questions to probe depth, philosophy and reality instead of
+inventory.
 
-Two questions are doing quiet work worth preserving: **C15** (does the product schedule
-autonomously, recommend, or assist — and why) tells us whether their philosophy can survive contact
-with clinician autonomy, which is what sank the Alabama pilot. **D4** (what have you deliberately
-chosen *not* to build) separates teams with a thesis from teams with a backlog.
+| Part | Q | What it is for |
+|---|---|---|
+| **A — Company and product** | 6 | The disqualifiers. **A1 is HCHB integration** — Evan: *"obviously an absolute."* Then honest product maturity, customers and references, company durability, home-health focus, security |
+| **B — Coverage matrix** | table | The fast cut. Shows immediately who has only a scheduling engine and nothing in engagement |
+| **C — How your product works** | 6 | Two capacity, three scheduling, one engagement — at the level of *how they think*, not *what they have* |
+| **D — The clinician's place** | 4 | The carve-out. See below |
+| **E — Fit and perspective** | 4 | Strengths and weaknesses, the "what else", co-development appetite, and what they chose not to build |
 
----
+### Tone: we are not screening for "everything is built"
+
+Explicit in the opening note, at Colin's direction: *"We would rather partner with a product that is
+strong and working today and still developing in places, than with one that claims complete
+coverage."* This changes the answers we get — it makes candour cheap and overstatement expensive.
+**E3** turns it into a question: which parts are you actively building, and where would a committed
+design partner be useful to you? That single question surfaces roadmap, honesty and partnership
+appetite at once.
+
+### Part D — the clinician, and why it is worded the way it is
+
+The section states the **environment**, not our conclusion: clinicians come to home health partly
+for control over their own day, any change to assignment lands on people who feel strongly about it,
+and adoption more than algorithm quality decides success. All true, and it tells vendors nothing
+about our position.
+
+**We deliberately do not say that we intend to preserve clinician autonomy.** Every vendor would
+agree with it for free, the answers would converge on nothing, and we would have handed over a
+stance to aim a pitch at. Instead the four questions are built so that experience shows and
+marketing does not:
+
+- **D1** forces specificity about what a clinician can change, what needs approval, and what is
+  locked.
+- **D2** asks what happens on disagreement — and whether anything changes as a result.
+- **D3** asks for a deployment where clinicians resisted. **Protect this one.** Every vendor has
+  one; only those who have lived it will answer honestly, and the dodge is itself informative.
+- **D4** places them on the decide-versus-advise spectrum and asks how configurable that is.
+
+Two questions moved here from the Scheduling Engine section, where they were really clinician
+questions: the autonomous/recommend/assist architecture question, and how clinicians interact with
+the product.
+
+### Two questions doing quiet work
+
+**C4** (a visit ordered but not yet schedulable) tests whether a vendor understands that ordered and
+schedulable are different states — the authorization and readiness gap that drives much of our
+current pain. **E4** (what have you deliberately chosen *not* to build) separates a team with a
+thesis from a team with a backlog.
 
 ## Open decisions for Colin and Evan
 
