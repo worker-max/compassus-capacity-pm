@@ -25,7 +25,7 @@ capacity.
 | | |
 |---|---|
 | **Primary workbook** | `8.13 Compassus Capacity & Scheduling Workbook.xlsx` — Google Drive `1tVEkPO2FJMFVyqLZP1TrzqbmjX0qEDgv`. Supersedes the 2026-08-11 version (`15rus_8HKOoXkeZmEBvEP51TCNuu_sOzf`). Columns **G (Notes)** and **S (Additional Context)** now carry pain-point, bottleneck and road-bump commentary — read them, they are where the operational truth is |
-| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (79 scored variables → priority) |
+| Tabs that drive these documents | `The Concepts That Matter` (the 15-factor distillation → prominence) and `Variable Inventory` (79 scored variables → priority). **79 scored rows = 76 numbered + 3 unnumbered**; only the numbered ones roll up. Full tab-by-tab index and the complete ID list: [`../knowledge/workbook-2026-08-13.md`](../knowledge/workbook-2026-08-13.md) |
 | Data-model workbook | `Clinician-Capacity-Tool_Data-Index.xlsx` — Drive `1BFxo6k3tSDyoJZxmm7_gFxmnuEm4S_fW` |
 | Drive folder | `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3` |
 | Original flow map | `8.13 capacity scheduling swimlane detail.pdf` — Drive `1SZDHuYYzkMLP-J7uCKdITY3CGZA3qhCx` (page 2 of a set; page 1 is *Home Health Intake Reset*) |
@@ -78,6 +78,16 @@ renumbered.
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
+| `Source-Original-Swimlane-Detail.pdf` | **The original hand-built swimlane map**, before the redraw. Page 2 of a set; page 1 is *Home Health Intake Reset* | Checking what the composite was redrawn *from* |
+| `Capacity-Scheduling-Elemental.pdf` | The six-category plain-terms view — Workforce · Capacity · Demand · Scheduling · Coordination · Results — with primary variables per category | Explaining the model to someone in one page, without the arena vocabulary |
+| `Scenario-Clinician-Day-In-The-Life.pdf` | One SN, five visits, 7.25 points against a ~7.0 ceiling — every constraint tagged by class | Showing what the variables *feel like* in a real day |
+| `Scenario-Scheduler-Callout-Recovery.pdf` | The same day after a 6:45am call-out: one must-cover, four reschedulable, with the DCS escalation contingency | The worked companion to bottleneck 7 (call-out recovery) |
+| `Scenario-Branch-Leader-Territory-Review.pdf` | The ED's quarterly read — four territories classified, then the read-then-lever decision | The worked companion to bottleneck 5 (territory) |
+
+**The four scenario / elemental sheets are illustrative.** Fictional patients, territories and figures;
+the decision logic is real. They predate the 13 Aug on-site and use the earlier six-category framing —
+the plain-terms ancestor of the three-arena model (DE-02), not a contradiction. Provenance for all of
+them is in [`../knowledge/DRIVE-INDEX.md`](../knowledge/DRIVE-INDEX.md).
 
 **Drawing a new sheet or correcting one? Use the `process-flow-map` skill**
 ([`.claude/skills/process-flow-map/`](../../../.claude/skills/process-flow-map/)) — it carries the
