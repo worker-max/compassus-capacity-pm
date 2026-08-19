@@ -70,7 +70,7 @@ Mark your current coverage of each area. Use the same labels as A2:
 | 5 | Matching — discipline/competency fit, clinician and patient needs, clinical timing, continuity | | |
 | 6 | Routing & the week — route optimization, sequencing, front-loading, week balancing | | |
 | 7 | Exceptions — missed visits, reassignment, coverage, rebooking | | |
-| **Engagement & Coordination** ||||
+| **Engagement** ||||
 | 8 | Before the visit — welcome call, availability capture, reminders, confirmation, en-route | | |
 | 9 | When plans change — reschedule, coverage coordination and clinician outreach, call-out and urgent same-day needs, no-show follow-up | | |
 | 10 | Across the care team — multi-discipline coordination, clinician and office updates | | |
@@ -131,7 +131,7 @@ designed it that way.
 
 **C16.** How, if at all, do field clinicians interact with your product directly?
 
-### Engagement & Coordination
+### Engagement
 
 **C17.** List every way your product communicates with a patient about their visits. For each, say
 whether it is automated, who triggers it, and what channel it uses. Separately, describe how it

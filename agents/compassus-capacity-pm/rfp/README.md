@@ -50,7 +50,7 @@ same language as the inventory without exposing it.
 |---|---|
 | Capacity Management | Workforce supply · Availability & reach · The capacity math |
 | Scheduling Engine | Demand · Matching · Routing & the week · Exceptions |
-| Engagement & Coordination | Before the visit · When plans change · Across the care team |
+| Engagement | Before the visit · When plans change · Across the care team |
 
 ### Redundancy found and resolved
 
@@ -182,7 +182,7 @@ Colin reviewed each column in turn. Applied:
 - Routing rebalanced to three clean bullets after the removal.
 
 **Engagement (renamed from Patient Engagement)**
-- The module is now **Engagement & Coordination**, to signal that the system engages with **patients, clinicians
+- The module is now **Engagement**, to signal that the system engages with **patients, clinicians
   and the office** — not patients alone. The descriptor says so explicitly.
 - Coverage coordination lands here rather than in Scheduling's Exceptions, where it was first
   proposed: **matching potential clinicians to an open need and reaching them directly**, plus
@@ -195,3 +195,7 @@ Questionnaire kept in sync: Part B module renamed and rows 9–10 rewritten; Par
 **C17** extended to cover clinician and office communication; **C20** extended to ask how the
 product identifies who could take the work, how it reaches them, and whether the same mechanism
 handles an urgent mid-day need.
+
+- **Naming note.** *Engagement & Coordination* was tried and reverted 19 Aug: the shaded band that
+  wraps Scheduling Engine and this module is itself labelled **Coordination**, so the word was doing
+  two jobs on one sheet. The zone keeps the name; the module is just **Engagement**.
