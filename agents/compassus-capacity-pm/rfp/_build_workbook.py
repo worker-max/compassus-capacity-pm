@@ -5,16 +5,23 @@ Emits two files from one source:
   Compassus-Vendor-Questionnaire.xlsx         vendor-facing  (Instructions, Questionnaire, Overview)
   Compassus-Vendor-Questionnaire-MASTER.xlsx  internal       (+ Coverage-Expanded, Additional, Vetting)
 
-Mechanics follow the verified design spec. Four openpyxl flags are INVERTED from
-how they read — they are commented at each use site.
+Column plan (all sheets share it so the eye does not have to re-learn):
+  A gutter · B number · C question/area · D status (grid only) · E answer/notes · F gutter
+
+Two rules that are easy to get wrong:
+  * A wrapped paragraph must be MERGED across the columns it visually spans, or Excel
+    wraps it inside one narrow column. Merged cells never auto-fit, so every merged
+    paragraph also needs an explicit computed height.
+  * Four openpyxl flags are INVERTED from how they read. Commented at each use site.
 """
 import math
+import re
 
+from PIL import ImageFont
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Protection, Side
-from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
-from openpyxl.worksheet.hyperlink import Hyperlink
+from openpyxl.utils import get_column_letter
 from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.cell.rich_text import CellRichText, TextBlock
 from openpyxl.cell.text import InlineFont
@@ -22,94 +29,188 @@ from openpyxl.cell.text import InlineFont
 import _content as C
 
 # ---------------------------------------------------------------- palette
-INK      = "FF1F2A37"
-MUTED    = "FF5B6572"
-BAND     = "FF1F3B57"
-TINT     = "FFEEF2F6"
-RULE     = "FFD8DEE6"
-ANS_FILL = "FFFDFBF3"
-ANS_EDGE = "FFC7B37A"
-WHITE    = "FFFFFFFF"
+INK, MUTED, BAND = "FF1F2A37", "FF5B6572", "FF1F3B57"
+TINT, RULE = "FFEEF2F6", "FFD8DEE6"
+ANS_FILL, ANS_EDGE, WHITE = "FFFDFBF3", "FFC7B37A", "FFFFFFFF"
 
-CAP, SCH, ENG = "FF2C6A55", "FF3A5C86", "FF8C5A2E"
-ACCENT = {"cap": CAP, "sch": SCH, "eng": ENG}
+BODY = "Calibri"
 
-BODY = "Calibri"   # metrically stable on Windows and Mac; ships with every Office install
-
-f_title   = Font(name=BODY, size=16, bold=True, color=INK)
-f_sub     = Font(name=BODY, size=10.5, color=MUTED)
-f_band    = Font(name=BODY, size=11, bold=True, color=WHITE)
-f_q       = Font(name=BODY, size=11, color=INK)
-f_qid     = Font(name=BODY, size=10, bold=True, color=MUTED)
-f_qlabel  = Font(name=BODY, size=11, bold=True, color=INK)
-f_hdr     = Font(name=BODY, size=9, bold=True, color=MUTED)
-f_ans     = Font(name=BODY, size=11, color=INK)
-f_note    = Font(name=BODY, size=10, italic=True, color=MUTED)
-f_mod     = Font(name=BODY, size=11, bold=True, color=WHITE)
+f_title  = Font(name=BODY, size=16, bold=True, color=INK)
+f_band   = Font(name=BODY, size=11, bold=True, color=WHITE)
+f_q      = Font(name=BODY, size=11, color=INK)
+f_qid    = Font(name=BODY, size=10, bold=True, color=MUTED)
+f_qlabel = Font(name=BODY, size=11, bold=True, color=INK)
+f_hdr    = Font(name=BODY, size=9, bold=True, color=MUTED)
+f_ans    = Font(name=BODY, size=11, color=INK)
+f_note   = Font(name=BODY, size=10.5, italic=True, color=MUTED)
 
 edge = Side(style="thin", color=ANS_EDGE)
 ANS_BORDER = Border(left=edge, right=edge, top=edge, bottom=edge)
-hair = Side(style="thin", color=RULE)
-RULE_BOTTOM = Border(bottom=hair)
+RULE_BOTTOM = Border(bottom=Side(style="thin", color=RULE))
 
 A_WRAP  = Alignment(wrap_text=True, vertical="top")
 A_WRAPI = Alignment(wrap_text=True, vertical="top", indent=1)
 A_TOP   = Alignment(vertical="top")
 A_CTR   = Alignment(vertical="center")
-A_CTRW  = Alignment(wrap_text=True, vertical="center")
 
-# expected answer length in words, per question -> drives row height
+# columns
+W = [("A", 2.5), ("B", 7), ("C", 42), ("D", 16), ("E", 68), ("F", 2.5)]
+COL_N, COL_Q, COL_S, COL_A = 2, 3, 4, 5
+ANSW = 68                    # answer column width, in Excel character units
+
 EXPECTED = {
-    "A1": 200, "A2": 150, "A3": 120, "A4": 90,
-    "C1": 150, "C2": 100, "C3": 150, "C4": 140, "C5": 140, "C6": 140,
-    "D1": 150, "D2": 120, "D3": 150, "D4": 120,
-    "E1": 140, "E2": 140, "E3": 100,
+    "A1": 170, "A2": 140, "A3": 110, "A4": 85,
+    "C1": 140, "C2": 95, "C3": 140, "C4": 130, "C5": 130, "C6": 130,
+    "D1": 140, "D2": 110, "D3": 140, "D4": 110,
+    "E1": 130, "E2": 130, "E3": 95,
 }
 
 
-def answer_height(expected_words, col_width=78, pt=11):
-    chars_per_line = col_width - 3
-    lines = math.ceil(expected_words * 6.2 / chars_per_line)
-    return round(lines * pt * 1.32 + 6)
+# ---------------------------------------------------------------- text metrics
+# Character counts lie: Calibri "M" is ~3.7x the width of "i", and these strings run
+# 30-400 characters. Every merged paragraph needs an explicit height (merged cells
+# never auto-fit), so the height has to come from measured glyph advances.
+# Liberation Sans stands in for Calibri and is ~8% wider, which biases every row
+# slightly tall — the safe direction, since too short clips text with no recourse.
+TTF = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
+TTFB = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+SS = 8                              # supersample so getlength keeps sub-pixel accuracy
+MDW = 7                             # max digit width, Calibri 11 Normal style
+LEAD = 1.34
+_fcache = {}
 
 
-def set_widths(ws, widths):
+def _font(pt, bold=False):
+    key = (round(pt * 100), bold)
+    if key not in _fcache:
+        _fcache[key] = ImageFont.truetype(TTFB if bold else TTF, round(pt * 96 / 72 * SS))
+    return _fcache[key]
+
+
+def text_px(s, pt, bold=False):
+    return _font(pt, bold).getlength(s) / SS
+
+
+def col_px(w):
+    return w * MDW + 5
+
+
+def span_px(ws, c1, c2, pad=9):
+    """Pixel width of a merged run of columns on THIS sheet, less Excel's cell padding.
+
+    Read from the sheet, not from W — the Vetting tab overrides the column plan.
+    """
+    total = 0.0
+    for c in range(c1, c2 + 1):
+        total += col_px(ws.column_dimensions[get_column_letter(c)].width or 8.43)
+    return total - pad
+
+
+def wrap_lines(runs, avail_px):
+    """Line count for a list of (text, pt, bold) runs. Honours explicit newlines."""
+    n, cur = 1, 0.0
+    for text, pt, bold in runs:
+        for i, seg in enumerate(text.split("\n")):
+            if i:
+                n += 1
+                cur = 0.0
+            for w in re.findall(r"\S+\s*", seg):
+                ww = text_px(w, pt, bold)
+                if cur + ww > avail_px and cur:
+                    n += 1
+                    cur = text_px(w.lstrip(), pt, bold)
+                else:
+                    cur += ww
+    return n
+
+
+def block_height(ws, runs, c1, c2, pt=11, pad=6, floor=0):
+    return max(floor, round(wrap_lines(runs, span_px(ws, c1, c2)) * pt * LEAD + pad))
+
+
+# Average advance of one word of ordinary prose, measured rather than assumed —
+# "responsiveness" is 3x the width of "the", so a single specimen word would be wrong.
+PROSE = ("we plan the week against available capacity and confirm each visit with the "
+         "patient before the clinician leaves for it ")
+
+
+def word_px(pt):
+    return text_px(PROSE, pt) / len(PROSE.split())
+
+
+def answer_height(words, col_width=ANSW, pt=11):
+    """Room for a prose answer of roughly `words` words, in a column `col_width` wide."""
+    lines = math.ceil(words * word_px(pt) / (col_px(col_width) - 9))
+    return round(lines * pt * LEAD + 6)
+
+
+def set_widths(ws, widths=W):
     for col, w in widths:
         ws.column_dimensions[col].width = w
 
 
-def band_row(ws, r, text, first="B", last="D", fill=BAND, font=f_band, height=22):
-    for col in range(ord(first) - 64, ord(last) - 64 + 1):
-        cell = ws.cell(row=r, column=col)
-        cell.fill = PatternFill("solid", fgColor=fill)
-        cell.alignment = A_CTR
-    c1, c2 = ord(first) - 64, ord(last) - 64
-    if c2 > c1:
-        ws.merge_cells(start_row=r, end_row=r, start_column=c1, end_column=c2)
+def para(ws, r, text, c1, c2, font, pt=10.5, pad=6):
+    """A wrapped paragraph merged across c1..c2, with a height that fits it."""
+    ws.merge_cells(start_row=r, end_row=r, start_column=c1, end_column=c2)
     c = ws.cell(row=r, column=c1, value=text)
     c.font = font
+    c.alignment = A_WRAP
+    ws.row_dimensions[r].height = block_height(ws, [(text, pt, False)], c1, c2, pt=pt, pad=pad)
+    return r + 1
+
+
+def band_row(ws, r, text, c1=COL_N, c2=COL_A, height=22):
+    for col in range(c1, c2 + 1):
+        ws.cell(row=r, column=col).fill = PatternFill("solid", fgColor=BAND)
+    ws.merge_cells(start_row=r, end_row=r, start_column=c1, end_column=c2)
+    c = ws.cell(row=r, column=c1, value=text)
+    c.font = f_band
     c.alignment = Alignment(vertical="center", indent=1)
     ws.row_dimensions[r].height = height
+    return r + 1
+
+
+def answer_cell(ws, r, col, height=None):
+    a = ws.cell(row=r, column=col)
+    a.fill = PatternFill("solid", fgColor=ANS_FILL)
+    a.border = ANS_BORDER
+    a.alignment = A_WRAPI
+    a.font = f_ans
+    a.protection = Protection(locked=False)   # the only unlocked cells in the sheet
+    if height:
+        ws.row_dimensions[r].height = height
+    return a
+
+
+def col_headers(ws, r, labels):
+    for col, txt in labels:
+        c = ws.cell(row=r, column=col, value=txt)
+        c.font = f_hdr
+        c.border = RULE_BOTTOM
+    ws.row_dimensions[r].height = 15
+    return r + 1
 
 
 # ================================================================ Instructions
 def build_instructions(wb, vendor_facing=True):
     ws = wb.create_sheet("Instructions")
     ws.sheet_view.showGridLines = False
-    set_widths(ws, [("A", 2.5), ("B", 7), ("C", 44), ("D", 78), ("E", 2.5)])
+    set_widths(ws)
 
-    ws["B2"] = "Compassus Home Health"
-    ws["B2"].font = Font(name=BODY, size=10, bold=True, color=MUTED)
-    ws["B3"] = "Capacity & Scheduling Platform — Vendor Questionnaire"
-    ws["B3"].font = f_title
+    ws.merge_cells(start_row=2, end_row=2, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=2, column=COL_N, value="Compassus Home Health").font = Font(
+        name=BODY, size=10, bold=True, color=MUTED)
+    ws.merge_cells(start_row=3, end_row=3, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=3, column=COL_N, value="Capacity & Scheduling Platform — Vendor Questionnaire"
+            ).font = f_title
     ws.row_dimensions[3].height = 24
 
     r = 5
     for head, body in [
         ("How to use this workbook",
-         "Answer in the cream-coloured cells. Everything else is locked so the layout stays intact "
-         "as the file travels — the password is “review” if you ever need it. Nothing here is a "
-         "trick; the protection is only there to keep the document readable when it comes back."),
+         "Answer in the cream-coloured cells. Everything else is locked so the layout stays intact as "
+         "the file travels — the password is “review” if you ever need it. The protection is only "
+         "there to keep the document readable when it comes back."),
         ("Answering",
          "Answer in your own words. Most answers run a short paragraph. There is no advantage in "
          "volume, and where something does not apply to your product, saying so plainly is a "
@@ -125,164 +226,142 @@ def build_instructions(wb, vendor_facing=True):
          "The Overview tab reproduces the one-page summary of what we are looking for. It is there "
          "for reference while you answer."),
     ]:
-        c = ws.cell(row=r, column=2, value=head)
-        c.font = f_qlabel
-        ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=4) if False else None
+        ws.merge_cells(start_row=r, end_row=r, start_column=COL_N, end_column=COL_A)
+        ws.cell(row=r, column=COL_N, value=head).font = f_qlabel
         r += 1
-        c = ws.cell(row=r, column=2, value=body)
-        c.font = f_q
-        c.alignment = A_WRAP
-        ws.row_dimensions[r].height = answer_height(len(body.split()) * 1.0, col_width=125)
-        r += 2
+        r = para(ws, r, body, COL_N, COL_A, f_q, pt=11) + 1
 
-    # progress indicator
-    ws.cell(row=r, column=2, value="Progress").font = f_qlabel
+    ws.merge_cells(start_row=r, end_row=r, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=r, column=COL_N, value="Progress").font = f_qlabel
     r += 1
-    p = ws.cell(row=r, column=2,
-                value='=COUNTA(Questionnaire!D:D)-1 & " of 17 questions answered"')
+    ws.merge_cells(start_row=r, end_row=r, start_column=COL_N, end_column=COL_A)
+    p = ws.cell(row=r, column=COL_N, value="— of — questions answered")
     p.font = Font(name=BODY, size=12, bold=True, color=BAND)
     ws.row_dimensions[r].height = 20
+    ws._progress_cell = p.coordinate      # filled in once the question rows are known
     r += 1
-    n = ws.cell(row=r, column=2, value="Updates as you type. The count includes only the answer cells.")
-    n.font = f_note
+    para(ws, r, "Updates as you type. Counts the answer cells only, not the coverage grid.",
+         COL_N, COL_A, f_note)
 
     ws.sheet_properties.tabColor = "FF9AA5B1"
-    ws.page_setup.orientation = "portrait"
+    setup_print(ws)
     return ws
 
 
 # ================================================================ Questionnaire
+def set_progress(instructions, answer_rows):
+    """Point the counter at the answer cells by name.
+
+    COUNTA over the whole column would also count the section header labels that
+    live in E, so the count has to name the 17 cells.
+    """
+    refs = ",".join(f"Questionnaire!E{r}" for r in answer_rows)
+    instructions[instructions._progress_cell] = (
+        f'=COUNTA({refs}) & " of {len(answer_rows)} questions answered"')
+
+
 def build_questionnaire(wb):
     ws = wb.create_sheet("Questionnaire")
     ws.sheet_view.showGridLines = False
-    set_widths(ws, [("A", 2.5), ("B", 7), ("C", 44), ("D", 78), ("E", 2.5)])
+    set_widths(ws)
 
-    ws.merge_cells("B1:D1")
-    ws["B1"] = "Compassus Home Health  ·  Capacity & Scheduling Platform"
-    ws["B1"].font = Font(name=BODY, size=10, bold=True, color=MUTED)
+    ws.merge_cells(start_row=1, end_row=1, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=1, column=COL_N, value="Compassus Home Health  ·  Capacity & Scheduling Platform"
+            ).font = Font(name=BODY, size=10, bold=True, color=MUTED)
     ws.row_dimensions[1].height = 15
 
-    ws.merge_cells("B2:D2")
-    ws["B2"] = "Vendor Questionnaire"
-    ws["B2"].font = f_title
+    ws.merge_cells(start_row=2, end_row=2, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=2, column=COL_N, value="Vendor Questionnaire").font = f_title
     ws.row_dimensions[2].height = 24
-
     ws.row_dimensions[3].height = 8
+
     for i, label in enumerate(("Vendor", "Completed by / date")):
         rr = 4 + i
-        c = ws.cell(row=rr, column=3, value=label)
+        c = ws.cell(row=rr, column=COL_Q, value=label)
         c.font = f_hdr
         c.alignment = Alignment(horizontal="right", vertical="center")
-        a = ws.cell(row=rr, column=4)
-        a.fill = PatternFill("solid", fgColor=ANS_FILL)
-        a.border = ANS_BORDER
-        a.alignment = A_WRAPI
-        a.font = f_ans
-        a.protection = Protection(locked=False)
-        ws.row_dimensions[rr].height = 20
-
+        answer_cell(ws, rr, COL_A, 20)
     ws.row_dimensions[6].height = 8
-    answer_rows = []
+
+    answer_rows, status_rows = [], []
     r = 7
 
     for key, title, framing, qs in C.SECTIONS:
-        band_row(ws, r, f"{key}.   {title.upper()}")
-        r += 1
+        r = band_row(ws, r, f"{key}.   {title.upper()}")
         if framing:
-            c = ws.cell(row=r, column=2, value=framing)
-            c.font = f_note
-            c.alignment = A_WRAP
-            ws.row_dimensions[r].height = answer_height(len(framing.split()), col_width=125)
-            r += 1
-        # column headers
-        for col, txt in ((2, "#"), (3, "QUESTION"), (4, "YOUR ANSWER")):
-            c = ws.cell(row=r, column=col, value=txt)
-            c.font = f_hdr
-            c.border = RULE_BOTTOM
-        ws.row_dimensions[r].height = 15
-        r += 1
+            r = para(ws, r, framing, COL_N, COL_A, f_note)
+        r = col_headers(ws, r, [(COL_N, "#"), (COL_Q, "QUESTION"), (COL_A, "YOUR ANSWER")])
 
         for qid, label, text in qs:
-            ws.cell(row=r, column=2, value=qid).font = f_qid
-            ws.cell(row=r, column=2).alignment = A_TOP
-            qc = ws.cell(row=r, column=3)
+            n = ws.cell(row=r, column=COL_N, value=qid)
+            n.font = f_qid
+            n.alignment = A_TOP
+            qc = ws.cell(row=r, column=COL_Q)
             qc.value = CellRichText(
                 TextBlock(InlineFont(rFont=BODY, sz=11, b=True, color="1F2A37"), label + "\n"),
                 TextBlock(InlineFont(rFont=BODY, sz=11, color="1F2A37"), text),
             )
             qc.alignment = A_WRAP
-            a = ws.cell(row=r, column=4)
-            a.fill = PatternFill("solid", fgColor=ANS_FILL)
-            a.border = ANS_BORDER
-            a.alignment = A_WRAPI
-            a.font = f_ans
-            a.protection = Protection(locked=False)   # INVERTED elsewhere; here locked=False = editable
-            h = max(answer_height(EXPECTED.get(qid, 120)),
-                    answer_height(len(text.split()) * 1.15, col_width=44))
-            ws.row_dimensions[r].height = h
+            h = max(answer_height(EXPECTED.get(qid, 110)),
+                    block_height(ws, [(label + "\n", 11, True), (text, 11, False)],
+                                 COL_Q, COL_Q, pad=8))
+            answer_cell(ws, r, COL_A, h)
             answer_rows.append(r)
             r += 1
             ws.row_dimensions[r].height = 5
             r += 1
 
-        # Part B goes straight after Part A
         if key == "A":
-            r = build_coverage(ws, r, C.COVERAGE_STANDARD, answer_rows,
-                               "B.   COVERAGE SELF-ASSESSMENT",
-                               "Mark where you stand on each area, then add anything you want us to "
-                               "understand in the notes column.")
+            r, srows = build_coverage(
+                ws, r + 1, C.COVERAGE_STANDARD, "B.   COVERAGE SELF-ASSESSMENT",
+                "Mark where you stand on each area, then use the notes column for anything you want "
+                "us to understand — a partner delivering it, a caveat, or what “in development” "
+                "actually means for you.")
+            status_rows += srows
         r += 1
 
-    ws.freeze_panes = "A7"
-    ws.print_title_rows = "1:6"
+    ws._status_rows = status_rows
+    ws.freeze_panes = "A3"        # title only — deliberately shallow so the reading field stays deep
+    ws.print_title_rows = "1:2"
     ws.sheet_properties.tabColor = BAND
     setup_print(ws)
     return ws, answer_rows
 
 
-def build_coverage(ws, r, coverage, answer_rows, band_text, intro):
-    """Status grid. Returns the next free row."""
-    r += 1
-    band_row(ws, r, band_text)
-    r += 1
-    c = ws.cell(row=r, column=2, value=intro)
-    c.font = f_note
-    c.alignment = A_WRAP
-    ws.row_dimensions[r].height = 28
-    r += 1
-    for col, txt in ((2, "#"), (3, "AREA"), (4, "STATUS  →  then notes")):
-        c = ws.cell(row=r, column=col, value=txt)
-        c.font = f_hdr
-        c.border = RULE_BOTTOM
-    r += 1
-
-    n = 0
-    status_rows = []
+def build_coverage(ws, r, coverage, band_text, intro):
+    """Status grid — status in its own column, notes beside it. Returns (next_row, status_rows)."""
+    r = band_row(ws, r, band_text)
+    r = para(ws, r, intro, COL_N, COL_A, f_note)
+    r = col_headers(ws, r, [(COL_N, "#"), (COL_Q, "AREA"),
+                            (COL_S, "STATUS"), (COL_A, "NOTES")])
+    n, status_rows = 0, []
     for module, rows in coverage:
-        mod = ws.cell(row=r, column=2, value=module)
-        for col in (2, 3, 4):
+        for col in range(COL_N, COL_A + 1):
             ws.cell(row=r, column=col).fill = PatternFill("solid", fgColor=TINT)
-        mod.font = Font(name=BODY, size=10.5, bold=True, color=BAND)
+        ws.merge_cells(start_row=r, end_row=r, start_column=COL_N, end_column=COL_A)
+        m = ws.cell(row=r, column=COL_N, value=module)
+        m.font = Font(name=BODY, size=10.5, bold=True, color=BAND)
+        m.alignment = Alignment(vertical="center", indent=1)
         ws.row_dimensions[r].height = 18
         r += 1
         for name, desc in rows:
             n += 1
-            ws.cell(row=r, column=2, value=n).font = f_qid
-            ws.cell(row=r, column=2).alignment = A_TOP
-            qc = ws.cell(row=r, column=3, value=f"{name} — {desc}")
-            qc.font = f_q
+            idc = ws.cell(row=r, column=COL_N, value=n)
+            idc.font = f_qid
+            idc.alignment = A_TOP
+            qc = ws.cell(row=r, column=COL_Q)
+            qc.value = CellRichText(
+                TextBlock(InlineFont(rFont=BODY, sz=11, b=True, color="1F2A37"), name + "\n"),
+                TextBlock(InlineFont(rFont=BODY, sz=10, color="5B6572"), desc),
+            )
             qc.alignment = A_WRAP
-            a = ws.cell(row=r, column=4)
-            a.fill = PatternFill("solid", fgColor=ANS_FILL)
-            a.border = ANS_BORDER
-            a.alignment = A_WRAPI
-            a.font = f_ans
-            a.protection = Protection(locked=False)
-            ws.row_dimensions[r].height = 30
+            answer_cell(ws, r, COL_S)          # status — dropdown attaches here
+            answer_cell(ws, r, COL_A)          # notes
+            ws.row_dimensions[r].height = block_height(
+                ws, [(name + "\n", 11, True), (desc, 10, False)], COL_Q, COL_Q, pad=10, floor=34)
             status_rows.append(r)
             r += 1
-    ws._status_rows = getattr(ws, "_status_rows", []) + status_rows
-    return r
+    return r, status_rows
 
 
 def setup_print(ws, orientation="portrait"):
@@ -290,107 +369,73 @@ def setup_print(ws, orientation="portrait"):
     ws.page_setup.paperSize = ws.PAPERSIZE_A4
     ws.page_setup.fitToWidth = 1
     ws.page_setup.fitToHeight = 0
-    ws.sheet_properties.pageSetUpPr.fitToPage = True   # REQUIRED or fitToWidth is ignored
+    ws.sheet_properties.pageSetUpPr.fitToPage = True   # required or fitTo* is ignored
     ws.print_options.horizontalCentered = True
-    ws.page_margins.left = ws.page_margins.right = 0.5
-    ws.page_margins.top = ws.page_margins.bottom = 0.6
+    ws.page_margins.left = ws.page_margins.right = 0.4
+    ws.page_margins.top = ws.page_margins.bottom = 0.55
     ws.oddFooter.left.text = "Compassus Home Health — Vendor Questionnaire"
     ws.oddFooter.right.text = "Page &P of &N"
 
 
-# ================================================================ list sheet + validation
+# ================================================================ lists + validation
 def add_lists(wb):
     lists = wb.create_sheet("Lists")
     for i, v in enumerate(C.STATUS_OPTIONS, start=1):
         lists.cell(row=i, column=1, value=v)
     lists.sheet_state = "hidden"
-    wb.defined_names.add(DefinedName("StatusList", attr_text=f"Lists!$A$1:$A${len(C.STATUS_OPTIONS)}"))
+    wb.defined_names.add(DefinedName("StatusList",
+                                     attr_text=f"Lists!$A$1:$A${len(C.STATUS_OPTIONS)}"))
     return lists
 
 
-def attach_status_validation(ws, rows):
+def attach_status_validation(ws, rows, col=COL_S):
     if not rows:
         return
     dv = DataValidation(
         type="list",
-        formula1="StatusList",       # NO leading "=" — openpyxl writes this verbatim
+        formula1="StatusList",       # NO leading "=" — written verbatim into <formula1>
         allow_blank=True,
         showDropDown=False,          # INVERTED: False => the arrow IS shown
         showInputMessage=True,
         promptTitle="Select status",
-        prompt="Production · In development · Roadmap · Not offered. Add a note after your choice.",
-        showErrorMessage=False,      # warn-free: they may want to write a nuanced answer instead
+        prompt="Production · In development · Roadmap · Not offered",
+        showErrorMessage=False,
     )
     ws.add_data_validation(dv)       # MUST precede dv.add()
+    letter = {4: "D", 5: "E"}[col]
     for r in rows:
-        dv.add(f"D{r}")
+        dv.add(f"{letter}{r}")
 
 
-# ================================================================ protection
 def protect(ws):
     ws.protection.sheet = True
     ws.protection.password = "review"
     # INVERTED THROUGHOUT: False = ALLOWED, True = forbidden
-    ws.protection.selectLockedCells = False     # can click/copy question text
-    ws.protection.selectUnlockedCells = False   # MANDATORY — or nobody can type
-    ws.protection.formatCells = False           # can bold a product name
-    ws.protection.formatRows = False            # MANDATORY — can drag a row taller
-    ws.protection.formatColumns = True
-    ws.protection.insertRows = True
-    ws.protection.deleteRows = True
-    ws.protection.insertColumns = True
-    ws.protection.deleteColumns = True
-    ws.protection.sort = True
-    ws.protection.autoFilter = True
-    ws.protection.objects = True
-    ws.protection.scenarios = True
+    ws.protection.selectLockedCells = False
+    ws.protection.selectUnlockedCells = False   # or nobody can type
+    ws.protection.formatCells = False
+    ws.protection.formatRows = False            # or long answers get clipped with no recourse
+    for flag in ("formatColumns", "insertRows", "deleteRows", "insertColumns",
+                 "deleteColumns", "sort", "autoFilter", "objects", "scenarios"):
+        setattr(ws.protection, flag, True)
 
 
 # ================================================================ internal sheets
 def build_expanded(wb):
     ws = wb.create_sheet("Coverage — Expanded")
     ws.sheet_view.showGridLines = False
-    set_widths(ws, [("A", 2.5), ("B", 7), ("C", 62), ("D", 60), ("E", 2.5)])
-    ws["B2"] = "Coverage self-assessment — expanded"
-    ws["B2"].font = f_title
-    ws["B3"] = ("An optional deeper version of the Part B grid, rolled up from the variable "
-                "inventory's own subcategories. Use this instead of the 10-row grid if we want more "
-                "granularity from vendors. It does not expose the numbered inventory itself.")
-    ws["B3"].font = f_note
-    ws["B3"].alignment = A_WRAP
-    ws.row_dimensions[3].height = 32
-    r = 5
-    band_row(ws, r, "COVERAGE — EXPANDED")
-    r += 1
-    for col, txt in ((2, "#"), (3, "AREA"), (4, "STATUS  →  then notes")):
-        c = ws.cell(row=r, column=col, value=txt)
-        c.font = f_hdr
-        c.border = RULE_BOTTOM
-    r += 1
-    n = 0
-    rows = []
-    for module, items in C.COVERAGE_EXPANDED:
-        for col in (2, 3, 4):
-            ws.cell(row=r, column=col).fill = PatternFill("solid", fgColor=TINT)
-        m = ws.cell(row=r, column=2, value=module)
-        m.font = Font(name=BODY, size=10.5, bold=True, color=BAND)
-        ws.row_dimensions[r].height = 18
-        r += 1
-        for name, desc in items:
-            n += 1
-            ws.cell(row=r, column=2, value=n).font = f_qid
-            qc = ws.cell(row=r, column=3, value=f"{name} — {desc}")
-            qc.font = f_q
-            qc.alignment = A_WRAP
-            a = ws.cell(row=r, column=4)
-            a.fill = PatternFill("solid", fgColor=ANS_FILL)
-            a.border = ANS_BORDER
-            a.alignment = A_WRAPI
-            a.protection = Protection(locked=False)
-            ws.row_dimensions[r].height = 28
-            rows.append(r)
-            r += 1
-    ws.freeze_panes = "A7"
+    set_widths(ws)
+    ws.merge_cells(start_row=2, end_row=2, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=2, column=COL_N, value="Coverage self-assessment — expanded").font = f_title
+    ws.row_dimensions[2].height = 22
+    para(ws, 3,
+         "An optional deeper version of the Part B grid, rolled up from the variable inventory's own "
+         "subcategories. Use this instead of the 10-row grid if we decide we want more granularity. "
+         "It does not expose the numbered inventory itself.",
+         COL_N, COL_A, f_note)
+    r, rows = build_coverage(ws, 5, C.COVERAGE_EXPANDED, "COVERAGE — EXPANDED",
+                             "Same four options as the standard grid.")
+    ws.freeze_panes = "A5"
     ws.sheet_properties.tabColor = "FF6B7C93"
     setup_print(ws)
     return ws, rows
@@ -399,26 +444,27 @@ def build_expanded(wb):
 def build_additional(wb):
     ws = wb.create_sheet("Additional Questions")
     ws.sheet_view.showGridLines = False
-    set_widths(ws, [("A", 2.5), ("B", 7), ("C", 110), ("D", 2.5)])
-    ws["B2"] = "Additional questions — held for follow-up"
-    ws["B2"].font = f_title
-    ws["B3"] = ("Internal. Drafted, judged valuable, and deliberately kept out of round one so the "
-                "questionnaire stays answerable. Most need a screen, a follow-up or a tone of voice "
-                "to be worth anything — which is what the virtual calls are for.")
-    ws["B3"].font = f_note
-    ws["B3"].alignment = A_WRAP
-    ws.row_dimensions[3].height = 32
+    set_widths(ws)
+    ws.merge_cells(start_row=2, end_row=2, start_column=COL_N, end_column=COL_A)
+    ws.cell(row=2, column=COL_N, value="Additional questions — held for follow-up").font = f_title
+    ws.row_dimensions[2].height = 22
+    para(ws, 3,
+         "Internal. Drafted, judged valuable, and deliberately kept out of round one so the "
+         "questionnaire stays answerable. Most of these need a screen, a follow-up or a tone of "
+         "voice to be worth anything — which is what the virtual calls are for.",
+         COL_N, COL_A, f_note)
     r = 5
     for group, items in C.ADDITIONAL:
-        band_row(ws, r, group.upper(), last="C")
-        r += 1
+        r = band_row(ws, r, group.upper())
         for i, q in enumerate(items, start=1):
-            ws.cell(row=r, column=2, value=i).font = f_qid
-            ws.cell(row=r, column=2).alignment = A_TOP
-            c = ws.cell(row=r, column=3, value=q)
+            idc = ws.cell(row=r, column=COL_N, value=i)
+            idc.font = f_qid
+            idc.alignment = A_TOP
+            ws.merge_cells(start_row=r, end_row=r, start_column=COL_Q, end_column=COL_A)
+            c = ws.cell(row=r, column=COL_Q, value=q)
             c.font = f_q
             c.alignment = A_WRAP
-            ws.row_dimensions[r].height = max(16, answer_height(len(q.split()) * 1.1, col_width=110))
+            ws.row_dimensions[r].height = block_height(ws, [(q, 11, False)], COL_Q, COL_A, pad=8)
             r += 1
         r += 1
     ws.freeze_panes = "A5"
@@ -430,21 +476,15 @@ def build_additional(wb):
 def build_vetting(wb):
     ws = wb.create_sheet("Vetting — For Leaders")
     ws.sheet_view.showGridLines = False
-    set_widths(ws, [("A", 2.5), ("B", 30), ("C", 74), ("D", 44), ("E", 2.5)])
+    set_widths(ws, [("A", 2.5), ("B", 26), ("C", 62), ("D", 46), ("E", 2.5)])
+    ws.merge_cells("B2:D2")
     ws["B2"] = "Vetting questions — for review with leadership"
     ws["B2"].font = f_title
-    ws["B3"] = C.VETTING_NOTE
-    ws["B3"].font = f_note
-    ws["B3"].alignment = A_WRAP
-    ws.row_dimensions[3].height = 44
+    ws.row_dimensions[2].height = 22
+    para(ws, 3, C.VETTING_NOTE, 2, 4, f_note)
     r = 5
-    band_row(ws, r, "SET ASIDE FROM ROUND ONE")
-    r += 1
-    for col, txt in ((2, "TOPIC"), (3, "QUESTION AS DRAFTED"), (4, "WHY IT IS SET ASIDE")):
-        c = ws.cell(row=r, column=col, value=txt)
-        c.font = f_hdr
-        c.border = RULE_BOTTOM
-    r += 1
+    r = band_row(ws, r, "SET ASIDE FROM ROUND ONE", c1=2, c2=4)
+    r = col_headers(ws, r, [(2, "TOPIC"), (3, "QUESTION AS DRAFTED"), (4, "WHY IT IS SET ASIDE")])
     for topic, q, why in C.VETTING:
         t = ws.cell(row=r, column=2, value=topic)
         t.font = f_qlabel
@@ -456,19 +496,21 @@ def build_vetting(wb):
         w.font = f_note
         w.alignment = A_WRAP
         ws.row_dimensions[r].height = max(
-            answer_height(len(q.split()) * 1.15, col_width=74), 34)
+            block_height(ws, [(q, 11, False)], 3, 3, pad=10, floor=36),
+            block_height(ws, [(why, 10.5, False)], 4, 4, pt=10.5, pad=10))
         r += 1
     ws.freeze_panes = "A7"
     ws.sheet_properties.tabColor = "FF7A4E4E"
-    setup_print(ws)
+    setup_print(ws, "landscape")
     return ws
 
 
 def build_meta(wb, audience):
     ws = wb.create_sheet("Meta")
-    ws["A1"] = "form_version"; ws["B1"] = "2026-08-19"
-    ws["A2"] = "audience";     ws["B2"] = audience
-    ws["A3"] = "issued_by";    ws["B3"] = "Compassus Home Health"
-    ws["A4"] = "question_ids"; ws["B4"] = ",".join(EXPECTED.keys())
+    for i, (k, v) in enumerate([("form_version", "2026-08-19"), ("audience", audience),
+                                ("issued_by", "Compassus Home Health"),
+                                ("question_ids", ",".join(EXPECTED.keys()))], start=1):
+        ws.cell(row=i, column=1, value=k)
+        ws.cell(row=i, column=2, value=v)
     ws.sheet_state = "hidden"
     return ws

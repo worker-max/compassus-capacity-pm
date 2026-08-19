@@ -12,8 +12,9 @@ except ImportError:
 def build(vendor_facing):
     wb = Workbook()
     wb.remove(wb.active)
-    B.build_instructions(wb, vendor_facing)
+    instr = B.build_instructions(wb, vendor_facing)
     qs, answer_rows = B.build_questionnaire(wb)
+    B.set_progress(instr, answer_rows)
     if OV:
         OV.build_overview(wb)
     B.add_lists(wb)
