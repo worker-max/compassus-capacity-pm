@@ -50,7 +50,7 @@ same language as the inventory without exposing it.
 |---|---|
 | Capacity Management | Workforce supply · Availability & reach · The capacity math |
 | Scheduling Engine | Demand · Matching · Routing & the week · Exceptions |
-| Patient Engagement | Before the visit · When plans change · Across the care team |
+| Engagement | Before the visit · When plans change · Across the care team |
 
 ### Redundancy found and resolved
 
@@ -160,3 +160,38 @@ chosen *not* to build) separates teams with a thesis from teams with a backlog.
 | [`vendor-intro-email.md`](./vendor-intro-email.md) | Covering email draft, plus notes not for sending |
 | `../artifacts/Capacity-Scheduling-One-Pager.pdf` | The revised one-pager (source: `capacity-scheduling-one-pager.html`) |
 | `../artifacts/capacity-scheduling-full-lists.html` | The full variable reference — **internal**, not for vendors |
+
+
+---
+
+## Review pass — 19 Aug, column by column
+
+Colin reviewed each column in turn. Applied:
+
+**Capacity Management**
+- *Per-diem and float pool* — dropped "held outside territory assignment." It is a capacity
+  component the system must manage; the territory mechanics are more detail than a vendor needs.
+- *Approved time off and working availability* — dropped "provided by the clinician." In practice
+  this would come from the HR platform, and the sheet does not need to be technical about sourcing.
+
+**Scheduling Engine**
+- *Demand* — plan-of-care orders come "from the EMR (Home Care Home Base) and the intake platform."
+  Naming HCHB here also reinforces the integration requirement that opens the questionnaire.
+- *Clinician safety alerts* — removed. Not this system's job; assignment decisions carry safety
+  through other branch inputs, and the call-out would only confuse vendors.
+- Routing rebalanced to three clean bullets after the removal.
+
+**Engagement (renamed from Patient Engagement)**
+- The module is now **Engagement**, to signal that the system engages with **patients, clinicians
+  and the office** — not patients alone. The descriptor says so explicitly.
+- Coverage coordination lands here rather than in Scheduling's Exceptions, where it was first
+  proposed: **matching potential clinicians to an open need and reaching them directly**, plus
+  **call-out coverage and the urgent or prioritized needs that surface during the day.** This was
+  the one genuine gap in the original sheet.
+- *Across the care team* descriptor now reads "keeping clinicians and the office on the same
+  schedule."
+
+Questionnaire kept in sync: Part B module renamed and rows 9–10 rewritten; Part C section renamed;
+**C17** extended to cover clinician and office communication; **C20** extended to ask how the
+product identifies who could take the work, how it reaches them, and whether the same mechanism
+handles an urgent mid-day need.
