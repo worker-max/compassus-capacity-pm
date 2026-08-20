@@ -19,7 +19,10 @@ def build(vendor_facing):
         OV.build_overview(wb)
     B.add_lists(wb)
     B.attach_validations(qs, getattr(qs, "_grid_rows", {}))
-    B.protect(qs)
+    # Protection is for the copy that leaves the building. On MASTER it just locks
+    # us out of our own working file, so it goes on when the vendor copy is cut.
+    if vendor_facing:
+        B.protect(qs)
 
     if not vendor_facing:
         exp, exp_rows = B.build_expanded(wb)
