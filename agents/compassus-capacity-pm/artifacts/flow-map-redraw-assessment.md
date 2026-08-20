@@ -1041,3 +1041,49 @@ own week) and in the variable backlog; it was only wrong here, attached to call-
 Phase 3's disposition strip now matches the composite: **Accept stands apart as the confirmed
 path** (*confirmed → accepted*), and the remaining four chips sit behind a `NOT CONFIRMED →` label
 with the note *reassign returns with a plan, decline without one — decline is the least used*.
+
+## 27. Payer economics drawn — the eighth sheet, 19 Aug
+
+The first sheet in the set that is not a workflow. It maps **consequence** rather than sequence:
+the same operational event, priced differently in every payer class. It was drawn because the
+variable inventory carried no payer dimension, and because the episode economics research turned up
+facts that change what a scheduling decision means.
+
+**The organising claim.** Four ceilings act on one episode and the current model conflates them —
+**permission** is what the payer allows, **floor** is LUPA, **ceiling** is the flat zone above the
+floor where visits earn nothing, and **cap** is the annual benefit limit on non-episodic payers. A
+visit can be authorised and still be uneconomic. The panel states the four as independent tests.
+
+**Five bands, each a divergence point.**
+
+1. *Referral to schedulable* — the gate is payer-dependent. The auth block carries a `NON-MEDICARE`
+   badge and the sublist *traditional Medicare skips this*, rather than a bypass connector: the
+   book is majority non-traditional-Medicare, so routing the spine through auth **is** the common
+   case, and a bypass line around it would have argued the opposite.
+2. *Plan of care* — the grey feeder in the left margin carries the highest-value fact on the sheet:
+   the payer rule already exists, in a coordination note written days earlier, and it does not
+   surface here. Dashed, because it is reference data nobody reads at this moment, not an input the
+   process consumes.
+3. *What a delivered visit is worth* — one clinician block, then five white payment-state chips.
+   No arrow from the block into the chips: they are alternative values, not a next step. White with
+   an ink outline per the convention that outcomes carry no actor colour, with a margin note saying
+   so, since this is the first sheet where a reader meets several of them at once.
+4. *The missed visit* — the compliance chain, then four value chips. The 100× swing between
+   ~25 dollars mid-period and 1,258–1,386 dollars floor-critical is the single most decision-
+   relevant number on the sheet.
+5. *Period and window end* — a new certification period is a new authorisation question **and** a
+   new case-mix group with a new floor.
+
+**Corrections made against the rendered PNG.** Bands 3 and 5 were first drawn at the height of a
+band with sublists and read half-empty once the chips replaced them; both were sized down to their
+own content and the sheet lost 70 points of height. The payment-state note was added after the
+first render, where five white chips appeared with nothing saying why they were not actors.
+
+**Build note.** `assets/build.py` requires playwright and a Linux Chromium path, so the sheet was
+rendered with `assets/build_win.py`, a sibling shim that drives installed Chrome via its CLI. Same
+arguments, same wrapper, same one-page PDF at canvas size. Chrome refuses to write into the session
+temp tree — build in an ordinary directory.
+
+**What this sheet is not.** It is current state, like the rest of the set. It shows what a payer
+does to the schedule today, including the parts nobody can see. Nothing on it is a proposal, and
+the margin figures are shown to make a consequence visible, never to argue for a visit.

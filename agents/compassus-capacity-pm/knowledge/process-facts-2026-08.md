@@ -47,6 +47,10 @@
 - **Three different ceilings on one episode, never conflate them**: auth is *permission* (what the
   payer allows), LUPA is the *floor* (too few visits → per-visit payment), utilisation management is
   the *ceiling* (extra visits earn nothing). A visit can be authorised and still be uneconomic.
+- **A fourth ceiling applies to non-episodic payers**: the *cap* — an annual benefit limit set by
+  the plan or, on a self-funded plan, by the employer. A commercial or Medicaid patient can be
+  inside authorisation and out of benefit. Detail in
+  [`../artifacts/payer-types-and-episode-economics.md`](../artifacts/payer-types-and-episode-economics.md).
 - The payer's rules already exist in writing — the auth team puts them in a **coordination note at
   verification**, days before anyone writes the plan of care. Surfacing them at POC creation is the
   highest-value, lowest-complexity win identified.

@@ -74,6 +74,10 @@ renumbered.
 | `flow-authorization.html` | Source. Regenerate with `_flow-authorization.gen.py` | Editing flow 3 |
 | `Flow-Recert-Discharge.pdf` | Flow 5 — recert & discharge through a worked example: SN discharges at day 52–53 (non-OASIS, outside the window), PT carries the OASIS recert, OT does a non-OASIS eval, next-period orders PT 2w3→1w3 · OT 1w4 | The end-of-episode teaching sheet; the primary map's phase 4 expanded |
 | `flow-recert-discharge.html` | Source. Regenerate with `_flow-recert-discharge.gen.py` | Editing flow 5 |
+| `Flow-Payer-Economics.pdf` | Payer economics against the schedule: the gate that is payer-dependent, the plan of care where payer limits are invisible, the five values one delivered visit can carry, the four meanings of one missed visit, and the new period as a new authorisation question | Explaining why the same operational event costs differently in every payer class |
+| `flow-payer-economics.html` | Source. Regenerate with `_flow-payer-economics.gen.py` | Editing the payer economics sheet |
+| `payer-types-and-episode-economics.md` | Reference document: episodic vs non-episodic, managed vs unmanaged, the four ceilings, CY2026 amounts, the authorisation object, and where the Blues land | The payer reference. Pairs with the sheet |
+| `reimbursement-research/` | The sourced research corpus behind both: PDGM mechanics and rates, Medicare Advantage, commercial and Medicaid, utilisation and margin, cost and labour, authorisation operations, value-based and policy | Checking a figure, or its source |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
