@@ -211,14 +211,10 @@ def build_instructions(wb, vendor_facing=True):
          "Answer in the cream-coloured cells. Everything else is locked so the layout stays intact as "
          "the file travels — the password is “review” if you ever need it. The protection is only "
          "there to keep the document readable when it comes back."),
-        ("Answering",
-         "Answer in your own words. Most answers run a short paragraph. There is no advantage in "
-         "volume, and where something does not apply to your product, saying so plainly is a "
-         "genuinely useful answer."),
         ("Practical notes",
          "Press Alt+Enter to start a new paragraph inside a cell. Press Ctrl+Shift+U to expand the "
          "formula bar if you would rather write there. You can drag any row taller if you need more "
-         "room — the height we set is only a suggestion of length."),
+         "room."),
         ("Working as a team",
          "If several people need to contribute, put the file in your own SharePoint or Drive to "
          "co-author it, then send the completed workbook back."),
