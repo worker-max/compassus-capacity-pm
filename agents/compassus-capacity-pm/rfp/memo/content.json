@@ -1,0 +1,217 @@
+{
+  "title": "Capacity & Scheduling — response to Evan's feedback",
+  "subtitle": "Compassus Home Health · prepared for the 20 August review",
+  "intro": "Evan's feedback is reproduced below in full and unchanged. Our commentary follows each piece, covering both what we did with it in the file and where we took a different view. Everything added or reworked in the workbook is highlighted yellow — strong yellow for new, pale yellow for reworked — so it can be found on screen while we talk.",
+  "sections": [
+    {
+      "h": "Overview",
+      "items": [
+        {
+          "q": [
+            "This looks great overall – much clearer than where we were yesterday"
+          ],
+          "a": [
+            "Noted, and nothing structural changed. The three-arena layout held, so everything below is layered onto it rather than replacing it.",
+            "One change worth flagging up front: the one-pager now lives only as the Overview tab inside the workbook, not as a separate one-page PDF. That removes the single-page constraint, which is why four bullets could be added without anything being cut to make room."
+          ]
+        },
+        {
+          "q": [
+            "We should make clear somewhere that we expect patient engagement to be largely automated by the platform (e.g. agentic voice, text, email, etc.)"
+          ],
+          "a": [
+            "Added as a new group at the head of the Engagement column, called \"How this should run\", with two bullets: outreach carried by the platform itself — agentic voice, text and email — rather than queued up for a coordinator to work; and staff able to see it, intervene, override, and take any conversation back.",
+            "The second bullet is Colin's addition and it is deliberate. Automated, yes, but with user controls to affect it. A platform that automates outreach with no way for the branch to reach into a conversation is not usable in this business, and saying so on the one-pager keeps a vendor from assuming otherwise.",
+            "The questionnaire now carries the same point twice, from two directions. The new HOW IT RUNS column in Part B forces a per-area answer on whether a person is still doing the work, and question C7 asks how far the automation actually goes before it hands off."
+          ]
+        },
+        {
+          "q": [
+            "On the point about daily clinician outreach, we do need reminder / confirmation calls (which you have in the bullet above), but I’m really hoping we can set this up to the whole day-before scheduling thing can be a thing of the past.  Shouldn’t we be able to schedule visits days or weeks in advance, and use automated outreach to do confirmations and manage churn?"
+          ],
+          "a": [
+            "This is the one place we are taking a different view, and it is the most important item on the page.",
+            "Scheduling out in advance is nearly impossible in home health. It is the hardest constraint in the whole model. The schedule has to stay pliable long enough for changes to be made to the advantage of the clinician and of capacity, without the patient being made aware of changes that will naturally happen — sometimes inside the same week as their visit. The day-before ritual cannot go away.",
+            "What can change is who performs it. So the one-pager keeps the day-before round and adds the reason it exists: \"The day-before confirmation round automated for every patient, every day\", and \"The schedule staying pliable until that confirmation, so clinician and capacity changes can land before the patient is told.\" The goal is not to eliminate the day-before round. It is to stop paying clinicians to make those calls, while keeping the flexibility the round protects.",
+            "This is worth raising directly on the vendor calls. A product built around a fixed schedule set weeks out is mis-fitted to this business, and more than one vendor will present exactly that."
+          ]
+        },
+        {
+          "q": [
+            "Should we call out the idea on ‘surge pricing’ or clinician incentives for more challenging visits?"
+          ],
+          "a": [
+            "Agreed and added, in two places. A bullet under \"When plans change\" on the one-pager, and a new row in the Part B grid — row 10, \"Incentives & offers\" — so it gets marked rather than merely mentioned.",
+            "One caution. Once it is named on the one-pager, every vendor will claim it. The three status columns are what will actually separate them."
+          ]
+        },
+        {
+          "q": [
+            "I’m also thinking ahead to adoption / change mgmt., and having a dashboard for clinicians of some kind that shows them their schedule, serves as an engagement platform, and -most importantly- demonstrates the benefits to them (e.g. X% increased points over Y period, etc.) will be important"
+          ],
+          "a": [
+            "Agreed. Added as a bullet under \"Across the care team\": a clinician view of their own schedule and their own results — the case for the change, made to the person it lands on.",
+            "The part you called most important is also attached to a question, so it cannot be answered with a screenshot. New question D5 asks how they measure clinician adoption and what their data shows across the first six months, then asks separately what a clinician can see in the product about their own results."
+          ]
+        }
+      ]
+    },
+    {
+      "h": "Questionnaire",
+      "items": [
+        {
+          "q": [
+            "Maturity:  This could be a complex answer, because they are all probably at varying levels of maturity across product features.  What do you think about adding this as a column to the ‘Coverage Self-Assessment’ below so they can rate maturity on each category?"
+          ],
+          "a": [
+            "Agreed and done. The standalone maturity question is gone, and maturity now lives per-area in the grid's STATUS column, where it belongs. You were right that there is no single answer to it — asking for one invited a summary of something that has no summary.",
+            "That also freed a question slot, which paid for one of the additions below."
+          ]
+        },
+        {
+          "q": [
+            "Customers and references:  We should ask for total number of live customers, and census for the top 3.  They probably don’t have to give us the reference detail now (it may take them some time to get permission), but we should indicate that it’ll be a key part of our process so they can start working on it"
+          ],
+          "a": [
+            "Rewritten as A2 and highlighted in the file. It now asks for the number of organizations running the product in production, how many of those are Medicare-certified home health, and the census plus branch and clinician counts for the three largest deployments.",
+            "References are signalled as a significant part of the process without asking for the detail now, exactly as you described, so the clock starts on their side.",
+            "The old market-focus question was folded into this one rather than kept separate — both were asking who their customers are."
+          ]
+        },
+        {
+          "q": [
+            "We should also ask about measured impact of their product on current customers.  What’s been the impact on workforce savings, clinician productivity, mileage, scheduling efficiency, etc.?"
+          ],
+          "a": [
+            "Added as new question A3, covering workforce cost, clinician productivity, mileage and scheduling efficiency, and inviting anything else they track.",
+            "It also asks what they measured, over what period, and how they established the baseline. That last clause is the one that matters — it is what separates a real number from a marketing one, and it is hard to answer if the number was never measured properly."
+          ]
+        },
+        {
+          "q": [
+            "Coverage Self-Assessment: To my maturity point above, you may already be covering this in ‘status’.  That said, we should clearly define options for the ‘status’ column vs. letting them input free text.  These techcos will take every opportunity to oversell what they have here, so we should make these status options as discrete and clear as possible – basically try to force as much clarity as possible in the way we setup the form"
+          ],
+          "a": [
+            "Agreed, and the form now enforces it. All three assessment columns are dropdowns with validation switched on, so a typed answer is rejected. Free text is confined to the NOTES column beside them.",
+            "One point for discussion. The status options currently read as facts rather than adjectives: \"Production — multiple customers\", \"Production — one customer\", \"In development — target date in notes\", \"Roadmap — no date yet\". A maturity adjective like \"mature\" or \"developing\" is a judgment the vendor makes about themselves, and to your point they will inflate it. \"Production with multiple customers\" is a claim we can check against references. Happy to change the wording if you would rather it read as a maturity scale."
+          ]
+        },
+        {
+          "q": [
+            "On that note, it’s probably worth having two layers here:  The first should be a simple “In-Scope” – this will tell us whether or not they even have that feature (as I mentioned, many of the companies don’t touch capacity mgmt. or engagement at all – we need clarity on where they all stand).  Then the second could be the ‘Status’ or maturity – so, if they are saying they have a given feature, then they need to tell us how mature it is.  Finally, there’s the notes section which will allow them to provide even more detail"
+          ],
+          "a": [
+            "Built exactly this way. IN SCOPE comes first — Yes, Through a partner, or No — and STATUS follows it. NOTES sits at the end for anything the dropdowns cannot carry.",
+            "The practical value is the scan. Read the IN SCOPE column alone, down all eleven rows, and you can see instantly which vendors do not touch capacity management or engagement at all. That comparison was impossible in the previous version."
+          ]
+        },
+        {
+          "q": [
+            "Make sure we clearly reference the ‘overview’ tab here so they have all the context before starting to answer the questions"
+          ],
+          "a": [
+            "Done in two places. The Part B introduction now opens with it, and the Instructions tab carries a section on the Overview tab plus a new section explaining what each of the three grid columns is asking."
+          ]
+        },
+        {
+          "q": [
+            "On the engagement piece, we should specify what is automated vs. not.  Their product could support / tee up all types of engagement for a human to do, or it could automate them with AI, etc. – we need to be clear on which it is"
+          ],
+          "a": [
+            "This became the third column, HOW IT RUNS: automated end to end; automated, person approves; system prepares it, person does it; or person does it.",
+            "We applied it to the Scheduling rows as well as Engagement, because the same question is worth asking of assignment and routing — a product that proposes and a product that decides are different products. It is marked n/a on the three Capacity rows, which are measurement rather than action."
+          ]
+        },
+        {
+          "q": [
+            "How Your Product Works: You ask about what the product does when a plan breaks – we should probably have a whole question on how it handles callouts, reschedules, etc."
+          ],
+          "a": [
+            "Agreed. New question C6, \"When the plan breaks\", covers call-outs, missed visits and patient reschedules — how the open need is identified, how coverage is found and offered, how quickly, and what happens when nobody takes it.",
+            "The disruption clause was removed from C5 at the same time, so C5 is now purely about planning across a week or an episode and C6 owns disruption end to end. Without that, the two questions would have collected the same answer twice."
+          ]
+        },
+        {
+          "q": [
+            "On the communication question, see my point about differentiating manual vs. automated tasks above.  This may end up being duplicative, but let’s think about how to evolve this question with the added detail in the Coverage Self-Assessment"
+          ],
+          "a": [
+            "You were right that it would have been duplicative as written, so it was rewritten rather than kept. It is now C7, and it asks how far the automation goes: the channels, whether the conversation is scripted or agentic, what it can resolve on its own, what it hands to a person, and what controls a customer has over any of it.",
+            "The division of labour is clean. The grid answers whether and how much, in one mark per area. C7 asks what the automation is actually capable of, which no dropdown can carry."
+          ]
+        },
+        {
+          "q": [
+            "Fit and Perspective:  maybe we retitle to ‘Fit and Partnership’"
+          ],
+          "a": [
+            "Retitled."
+          ]
+        },
+        {
+          "q": [
+            "Love that you have the ‘what did we not ask’ question – we are looking for a thought partner here just as much as we are a competition techco"
+          ],
+          "a": [
+            "Kept as E1, unchanged and first in the section."
+          ]
+        },
+        {
+          "q": [
+            "We should consider having a question around our economic partnership.  We are about to put a ton of sweat equity, SME guidance, deployment effort, etc. into one of these company’s tools, and –since their goal is to sell that to as many of our competitors as they can—we should be sharing in the value that’s being created.  So we should ask a question that tees up the value we are creating (we’ll be a co-marketing partner, in addition to helping to build the thing), and prompts them to define in what ways they’d be willing to share value.  Keep it open-ended and force them to define (it’ll give us a good sense of their openness), but the key options are things like rev share, cap table investments, penny warrants, co-marketing fees, etc."
+          ],
+          "a": [
+            "Added as new question E3, \"Sharing in the value\". It states the value we bring — subject-matter guidance from people who run this work every day, deployment effort across our branches, and a willingness to act as a reference and co-marketing partner in a market where our competitors are their prospects — then asks openly in what ways they would be willing to share in it.",
+            "We deliberately named none of the mechanisms. Rev share, cap table, penny warrants and co-marketing fees are what we are listening for, but if we list them we learn only that they can read a list. Leaving it open is what tells us how they think about the relationship, which is the signal you were after."
+          ]
+        },
+        {
+          "q": [
+            "We should also consider a question about deployment and change mgmt.  Given the sensitivity of changing clinician schedules, what approaches to deployment have they used with other clients?  In what specific ways do they support clients on this journey?  What have they learned?  What is critical to get right?"
+          ],
+          "a": [
+            "Added as new question E4, carrying all four of those asks. It sits alongside D3, which asks them to describe a deployment where clinicians resisted the product — between them, the vendors who have actually done this and the vendors who have only planned for it should separate."
+          ]
+        }
+      ]
+    },
+    {
+      "h": "Other tabs",
+      "items": [
+        {
+          "q": [
+            "Don’t think we need the expanded coverage – we need to try and balance this questionnaire in terms of detail for us, but also burden for them",
+            "When we finalize the questionnaire, we should do a final pass to see what we might be comfortable cutting, consolidating, etc."
+          ],
+          "a": [
+            "Left in place for now at Colin's direction, so we can look at it together and decide in the meeting rather than in advance. It is an internal tab and never goes to a vendor either way, so keeping it costs the vendor nothing.",
+            "The final trim pass is on the agenda."
+          ]
+        },
+        {
+          "q": [
+            "Additional questions: I like the question about capturing patient availability – we should weave that in somewhere",
+            "Asking about adoption rates / measurement is good too"
+          ],
+          "a": [
+            "Both promoted out of the reserve tab. Patient availability became its own question, C8, rather than being folded into another one — it asks how and when availability is captured and what the product does when it conflicts with clinical need.",
+            "Adoption measurement became D5, carrying the clinician-facing half of your dashboard point with it. The rest of the reserve list stays where it is, for the virtual calls."
+          ]
+        }
+      ]
+    }
+  ],
+  "changed": [
+    "One file. We are working only in the MASTER workbook from here. The vendor copy gets made at the end by duplicating it and deleting the internal tabs — less to keep in sync while it moves.",
+    "The one-pager is now the Overview tab rather than a separate PDF, which is what created room for the four additions above.",
+    "Everything added or reworked is highlighted yellow: strong yellow for new, pale yellow for reworked.",
+    "The questionnaire is 21 questions and an 11-row grid. Counting what a vendor actually fills in: 21 written answers and 41 grid fields, of which 30 are dropdowns."
+  ],
+  "open": [
+    "Status wording — facts as currently written, or a maturity scale.",
+    "Burden. The grid went from 20 fillable cells to 41. Most of the increase is dropdowns, and it is carrying work that used to be prose, but it will look heavier when they open the file.",
+    "Whether the expanded coverage tab survives.",
+    "The final trim and consolidation pass across all 21 questions.",
+    "The covering email currently names one attachment and no process maps. That still holds, but worth confirming."
+  ]
+}

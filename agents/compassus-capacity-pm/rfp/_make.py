@@ -18,12 +18,12 @@ def build(vendor_facing):
     if OV:
         OV.build_overview(wb)
     B.add_lists(wb)
-    B.attach_status_validation(qs, getattr(qs, "_status_rows", []))
+    B.attach_validations(qs, getattr(qs, "_grid_rows", {}))
     B.protect(qs)
 
     if not vendor_facing:
         exp, exp_rows = B.build_expanded(wb)
-        B.attach_status_validation(exp, exp_rows)
+        B.attach_validations(exp, exp_rows)
         B.build_additional(wb)
         B.build_vetting(wb)
     B.build_meta(wb, "vendor" if vendor_facing else "internal")
@@ -36,5 +36,6 @@ def build(vendor_facing):
 
 
 if __name__ == "__main__":
-    build(True)
+    # One file only. The vendor-facing copy is made at the end by duplicating this
+    # workbook and deleting the internal tabs — less to keep in sync while it moves.
     build(False)

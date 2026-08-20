@@ -23,6 +23,8 @@ import _content as C
 INK, SEC, MUT = "FF171E1A", "FF4E5A54", "FF7C8781"
 RULE, SHEET, ZONE, ZONE_LINE = "FFD8DAD2", "FFFBFBF8", "FFE8E6DB", "FFC9C6B6"
 ACCENT = {"cap": "FF2C6A55", "sch": "FF3A5C86", "eng": "FF8C5A2E"}
+# 20 Aug additions. Painted last, because the card fill would otherwise cover them.
+HILITE = {"new": "FFFFF3B0", "edit": "FFFFF9DC"}
 
 DISPLAY, BODYF = "Georgia", "Arial"
 BUL = 11.5
@@ -180,7 +182,7 @@ def build_overview(wb):
     accent_row = board_top
     content_top = accent_row + 2
 
-    ends = {}
+    ends, marks = {}, []
     for mod_title, kicker, definition, key, groups in C.ONE_PAGER:
         padL, gly, txt, padR = CARDS[key]
         acc = ACCENT[key]
@@ -201,10 +203,13 @@ def build_overview(wb):
             dl2 = wrap_lines(gdesc, 10.8, col_px(TEXTW + 2.0))
             rr = put(rr, atoms(dl2 * line_h(10.8)), gly, txt, gdesc, F_GD) + 2
             for b in bullets:
+                b, mark = b if isinstance(b, tuple) else (b, None)
                 n = wrap_lines(b, BUL, TEXT_PX) * 4
                 put(rr, n, gly, gly, "•",
                     Font(name=BODYF, size=BUL, color=acc), AL_TL)
                 put(rr, n, txt, txt, b, F_BUL, AL_TL)
+                if mark:
+                    marks.append((rr, rr + n - 1, gly, txt, mark))
                 rr += n + 1
             rr += 2
         ends[key] = rr
@@ -221,6 +226,10 @@ def build_overview(wb):
         paint(accent_row, card_bottom, padL, padR, SHEET)
         paint(accent_row, accent_row, padL, padR, ACCENT[key])
         box(accent_row, card_bottom, padL, padR, RULE, "thin")
+
+    # ---- highlights last: the card fill above would otherwise bury them
+    for r1, r2, c1, c2, mark in marks:
+        paint(r1, r2, c1, c2, HILITE[mark])
 
     # ---- footer
     fr = zone_bottom + 2
