@@ -34,7 +34,6 @@ TINT, RULE = "FFEEF2F6", "FFD8DEE6"
 ANS_FILL, ANS_EDGE, WHITE = "FFFDFBF3", "FFC7B37A", "FFFFFFFF"
 # 20 Aug additions, so they are findable in the meeting. Clear once the round settles.
 HILITE = {"new": "FFFFF3B0", "edit": "FFFFF9DC"}
-NA_FILL = "FFF1F2F4"
 
 BODY = "Calibri"
 
@@ -65,10 +64,10 @@ COL_A, COL_LAST = COL_SCOPE, COL_NOTES      # prose answers span COL_A..COL_LAST
 ANSW = sum(w for c, w in W if c in ("D", "E", "F", "G"))   # merged answer width
 
 EXPECTED = {
-    "A1": 170, "A2": 150, "A3": 120,
-    "C1": 140, "C2": 95, "C3": 140, "C4": 120, "C5": 100, "C6": 150, "C7": 150, "C8": 90,
-    "D1": 140, "D2": 110, "D3": 140, "D4": 110, "D5": 120,
-    "E1": 120, "E2": 130, "E3": 150, "E4": 150, "E5": 90,
+    "A1": 170, "A2": 120, "A3": 120,
+    "C1": 160, "C2": 140, "C3": 120, "C4": 100, "C5": 150, "C6": 140, "C7": 150,
+    "D1": 160, "D2": 110, "D3": 120,
+    "E1": 120, "E2": 150, "E3": 160, "E4": 90,
 }
 
 
@@ -179,14 +178,19 @@ def band_row(ws, r, text, c1=COL_N, c2=COL_LAST, height=22):
 def answer_cell(ws, r, col, height=None, col_to=None, fill=ANS_FILL):
     if col_to and col_to > col:
         ws.merge_cells(start_row=r, end_row=r, start_column=col, end_column=col_to)
+        # Only the outer edges get a border. Excel hides interior borders of a merged
+        # range, but other viewers draw them and the box reads as several boxes.
         for c in range(col, col_to + 1):
             x = ws.cell(row=r, column=c)
             x.fill = PatternFill("solid", fgColor=fill)
-            x.border = ANS_BORDER
+            x.border = Border(top=edge, bottom=edge,
+                              left=edge if c == col else None,
+                              right=edge if c == col_to else None)
             x.protection = Protection(locked=False)
     a = ws.cell(row=r, column=col)
     a.fill = PatternFill("solid", fgColor=fill)
-    a.border = ANS_BORDER
+    if not (col_to and col_to > col):
+        a.border = ANS_BORDER
     a.alignment = A_WRAPI
     a.font = f_ans
     a.protection = Protection(locked=False)   # the only unlocked cells in the sheet
@@ -239,8 +243,10 @@ def build_instructions(wb, vendor_facing=True):
          "three areas the coverage grid uses. It is worth reading before you start."),
         ("The coverage grid",
          "Part B marks each area three ways. IN SCOPE is whether your product does this at all. "
-         "STATUS is how far along it is. HOW IT RUNS is whether a person still does the work. All "
-         "three are dropdowns; the notes column beside them is free text."),
+         "STATUS is how far along it is. HOW IT'S DONE asks where the data comes from on the "
+         "capacity rows, and how much of the work is automated on the rest. All three are "
+         "dropdowns, each carrying an Other option, and the notes column beside them is free text — "
+         "use it whenever a dropdown does not fit your answer."),
     ]:
         ws.merge_cells(start_row=r, end_row=r, start_column=COL_N, end_column=COL_LAST)
         ws.cell(row=r, column=COL_N, value=head).font = f_qlabel
@@ -363,10 +369,10 @@ def build_coverage(ws, r, coverage, band_text, intro):
     r = para(ws, r, intro, COL_N, COL_LAST, f_note)
     r = col_headers(ws, r,
                     [(COL_N, "#"), (COL_Q, "AREA"), (COL_SCOPE, "IN SCOPE"),
-                     (COL_STATUS, "STATUS"), (COL_DELIV, "HOW IT RUNS"), (COL_NOTES, "NOTES")],
-                    rule_to=COL_LAST, mark_cols=(COL_SCOPE, COL_DELIV))
+                     (COL_STATUS, "STATUS"), (COL_DELIV, "HOW IT'S DONE"), (COL_NOTES, "NOTES")],
+                    rule_to=COL_LAST)
     n = 0
-    rows = {COL_SCOPE: [], COL_STATUS: [], COL_DELIV: []}
+    rows = {}
     for module, items in coverage:
         for col in range(COL_N, COL_LAST + 1):
             ws.cell(row=r, column=col).fill = PatternFill("solid", fgColor=TINT)
@@ -376,8 +382,9 @@ def build_coverage(ws, r, coverage, band_text, intro):
         m.alignment = Alignment(vertical="center", indent=1)
         ws.row_dimensions[r].height = 18
         r += 1
-        # Capacity is measurement, not action, so "how it runs" does not apply to it.
-        delivery_applies = not module.lower().startswith("capacity")
+        # Capacity rows are inputs; the rest are actions. Same column, different list.
+        deliv_list = ("CapacityInputList" if module.lower().startswith("capacity")
+                      else "DeliveryList")
         for item in items:
             name, desc = item[:2]
             mark = item[2] if len(item) > 2 else None
@@ -395,19 +402,11 @@ def build_coverage(ws, r, coverage, band_text, intro):
                 for c in (COL_N, COL_Q):
                     ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=HILITE[mark])
 
-            answer_cell(ws, r, COL_SCOPE)
-            answer_cell(ws, r, COL_STATUS)
-            rows[COL_SCOPE].append(r)
-            rows[COL_STATUS].append(r)
-            if delivery_applies:
-                answer_cell(ws, r, COL_DELIV)
-                rows[COL_DELIV].append(r)
-            else:
-                na = ws.cell(row=r, column=COL_DELIV, value="n/a")
-                na.fill = PatternFill("solid", fgColor=NA_FILL)
-                na.border = ANS_BORDER
-                na.font = Font(name=BODY, size=10, color=MUTED)
-                na.alignment = Alignment(horizontal="center", vertical="center")
+            for col, listname in ((COL_SCOPE, "InScopeList"),
+                                  (COL_STATUS, "StatusList"),
+                                  (COL_DELIV, deliv_list)):
+                answer_cell(ws, r, col)
+                rows.setdefault((col, listname), []).append(r)
             answer_cell(ws, r, COL_NOTES)
 
             ws.row_dimensions[r].height = block_height(
@@ -435,7 +434,8 @@ def add_lists(wb):
     for col, (name, values) in enumerate(
             [("InScopeList", C.IN_SCOPE_OPTIONS),
              ("StatusList", C.STATUS_OPTIONS),
-             ("DeliveryList", C.DELIVERY_OPTIONS)], start=1):
+             ("DeliveryList", C.DELIVERY_OPTIONS),
+             ("CapacityInputList", C.CAPACITY_INPUT_OPTIONS)], start=1):
         for i, v in enumerate(values, start=1):
             lists.cell(row=i, column=col, value=v)
         letter = get_column_letter(col)
@@ -445,21 +445,28 @@ def add_lists(wb):
     return lists
 
 
-DROPDOWNS = [
-    (COL_SCOPE, "InScopeList", "Do you do this at all?",
-     "Yes  ·  Through a partner  ·  No"),
-    (COL_STATUS, "StatusList", "How far along is it?",
-     "Production (multiple / one customer)  ·  In development  ·  Roadmap"),
-    (COL_DELIV, "DeliveryList", "Does a person still do the work?",
-     "Automated end to end  ·  Automated, person approves  ·  System prepares it  ·  Person does it"),
-]
+PROMPTS = {
+    "InScopeList": ("Do you do this at all?",
+                    "Yes  ·  Through a partner  ·  No  ·  Other"),
+    "StatusList": ("How far along is it?",
+                   "Production (multiple / one customer)  ·  In development  ·  Roadmap  ·  Other"),
+    "DeliveryList": ("Does a person still do the work?",
+                     "Automated end to end  ·  Automated, person approves  ·  "
+                     "System prepares it  ·  Person does it  ·  Other"),
+    "CapacityInputList": ("Where does this come from?",
+                          "Live feed  ·  Imported on a schedule  ·  Maintained by staff  ·  "
+                          "Entered by the clinician  ·  Derived from FT/PT  ·  Other"),
+}
 
 
-def attach_validations(ws, rows_by_col):
-    for col, listname, title, prompt in DROPDOWNS:
-        rows = rows_by_col.get(col) or []
+def attach_validations(ws, rows_by_list):
+    """rows_by_list maps (column, list name) -> rows, so one column can carry two
+    different lists — the capacity rows ask where data comes from, the rest ask
+    how automated the work is."""
+    for (col, listname), rows in rows_by_list.items():
         if not rows:
             continue
+        title, prompt = PROMPTS[listname]
         dv = DataValidation(
             type="list",
             formula1=listname,          # NO leading "=" — written verbatim into <formula1>
@@ -468,7 +475,7 @@ def attach_validations(ws, rows_by_col):
             showInputMessage=True,
             promptTitle=title,
             prompt=prompt,
-            showErrorMessage=True,      # a list this tight is worth enforcing
+            showErrorMessage=True,      # every list carries "Other", so this can be strict
             errorTitle="Pick from the list",
             error=prompt,
         )

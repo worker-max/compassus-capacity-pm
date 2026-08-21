@@ -74,11 +74,16 @@ def render(path, sheet, out, maxrow=None):
     # borders
     for r in range(1, nrow + 1):
         for c in range(1, ncol + 1):
+            if (r, c) in covered:
+                continue
+            # A merged range is one cell to Excel: its anchor's border is the outline
+            # of the whole block, so it has to be drawn at the block's extents.
+            r2, c2 = merged.get((r, c), (r, c))
             b = ws.cell(row=r, column=c).border
-            for side, pts in (("top", [(xs[c-1], ys[r-1]), (xs[c], ys[r-1])]),
-                              ("bottom", [(xs[c-1], ys[r]), (xs[c], ys[r])]),
-                              ("left", [(xs[c-1], ys[r-1]), (xs[c-1], ys[r])]),
-                              ("right", [(xs[c], ys[r-1]), (xs[c], ys[r])])):
+            for side, pts in (("top", [(xs[c-1], ys[r-1]), (xs[c2], ys[r-1])]),
+                              ("bottom", [(xs[c-1], ys[r2]), (xs[c2], ys[r2])]),
+                              ("left", [(xs[c-1], ys[r-1]), (xs[c-1], ys[r2])]),
+                              ("right", [(xs[c2], ys[r-1]), (xs[c2], ys[r2])])):
                 sd = getattr(b, side)
                 if sd and sd.style:
                     d.line(pts, fill=argb(sd.color, (150, 150, 150)), width=max(1, int(S)))
