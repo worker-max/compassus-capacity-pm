@@ -7,6 +7,13 @@
 This is a living document. The agent updates it as the initiative moves and as reality corrects
 the plan.
 
+> **Before Phase A.** The work that produced this plan — problem framing, discovery, the constraint
+> and bottleneck registers, current-state flow mapping, payer economics, the business case and the
+> vendor questionnaire — is recorded step by step in
+> [`playbooks/initiative-onset-playbook.md`](../../playbooks/initiative-onset-playbook.md), which
+> also generalises it into a reusable procedure for the next Compassus initiative. Read it for the
+> *how*; read this file for the *what next*.
+
 ---
 
 ## The shape of the program

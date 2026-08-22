@@ -206,3 +206,25 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 - [`../knowledge/README.md`](../knowledge/README.md) — the ten load-bearing discovery findings
 - [`../MASTER-capacity-and-scheduling.md`](../MASTER-capacity-and-scheduling.md) — the assembled master document
 - [`../AGENT.md`](../AGENT.md) — the PM agent definition
+
+---
+
+## The master project plan
+
+`HH-Scheduling-Master-Project-Plan.xlsx` — the house project plan with the **Overall Project** tab
+built out for HH Scheduling & Capacity Management: 93 task rows covering the Discovery work
+executed and what remains, filed against the workbook's own `Category` / `Phase` / `Status`
+vocabularies from its `List` tab. Every row cites the decision, register entry or finding behind it.
+
+Upstream in Drive: `HH Scheduling_Master Project Plan_July 2026.xlsx` —
+`1rx5XCr28qFOALEO4xiLxOG5mxPcPAhnK`. **Drive is authoritative for this workbook;** the copy here is
+the built-out version pending publication back to Drive.
+
+The workbook's other tabs are the completed **HH Intake Platform rollout** — a real precedent run to
+completion across ~70 locations in four waves. They are untouched, and they are the
+change-management template for every phase after Discovery: the go-live date-tracking legend (a full
+calendar of communications, training, office hours and surveys expressed as offsets from go-live),
+the wave structure with ambassadors and holiday blackouts, and the action/issue tracker.
+
+**How the work in this folder came to exist** is recorded stage by stage in
+[`../../../playbooks/initiative-onset-playbook.md`](../../../playbooks/initiative-onset-playbook.md).
