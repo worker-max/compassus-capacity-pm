@@ -1087,3 +1087,56 @@ temp tree — build in an ordinary directory.
 **What this sheet is not.** It is current state, like the rest of the set. It shows what a payer
 does to the schedule today, including the parts nobody can see. Nothing on it is a proposal, and
 the margin figures are shown to make a consequence visible, never to argue for a visit.
+
+## 28. Laci's correction pass — 24 Aug
+
+Four corrections raised against the published sheets by Laci, each attached to a screenshot of the
+region she meant. Recorded here with what was changed and how far the change was carried.
+
+**1. "Add Ons" are evals — Flow 2, the 485 boundary.** The boundary pill read *"485 SUBMITTED —
+after this, every order is an add-on."* That is a terminology error, not a sequence error: an
+**add-on order is an added discipline evaluation**; every other order that arrives after the 485 is
+a **physician order**. The pill now reads *"485 SUBMITTED — after this, changes come by order"* and
+two note lines below it carry the distinction and the routing (both still go through DCS approval
+and auth before reaching the scheduler). Phase 2's band was pushed down 18 points to seat the
+second note line.
+
+*Carried across the set:* Flow 1 and the DCS/Scheduler sheet each carried an `Add-on order` trigger
+chip glossed *"status change: add, reduce or shift visits"* — under the corrected definition that
+describes a physician order, not an add-on. Both chips are now `Add-on / physician order`, with
+*"add-on = an added eval; other orders change visits."* The trigger's function is unchanged; only
+the naming moved.
+
+**2. The plan of care is held when it is not approved — the DCS/Scheduler sheet.** Laci: *"reviewed
+for POC approval — if no, can not move forward and visits are held."* The `Approved?` No branch
+pointed only at *Returned to clinician for correction*, which reads as a rework loop and hides the
+consequence. The No branch is now labelled **"No — nothing moves forward"** and the exception block
+carries a third line, **"— visits are held."**
+
+*Carried across the set:* the same pattern exists on Flow 1 (identical `Approved?` diamond and
+exception row) and, condensed, on the primary map, where the DCS approval step gained the sublist
+line *"Not approved → nothing moves, visits held."*
+
+**3. Remove "DCS reviews the referral" — Flow 3.** Removed from Interface 1, which is now five
+steps: intake receives → eligibility verified → pending auth keyed → back to intake for final
+approval → scheduler books SOC and evals. The band reflowed to its own content and the traditional-
+Medicare bypass still lands on final approval, which is the step that actually clears the gate.
+DCS remains on the sheet at Interface 2 (POC approval), so the legend is unchanged.
+
+*Not carried across the set, deliberately.* The screenshot was of Flow 3, and on Flow 3 the DCS
+referral review is genuinely not an authorization interface. The admission sequence in
+`process-facts-2026-08.md` still has DCS reviewing the referral, and Flow 1, the primary map and
+the DCS/Scheduler sheet still draw it. **Open question for Laci:** does the step come out
+everywhere, or only off the auth sheet?
+
+**4. Remove UHC — Flow 3, "every state is different."** The `Cap approached — re-auth requested`
+sublist lost *"UHC: 4 of 5 done before visit 6"* and now reads *"The rule differs by payer, plan and
+state."* The upstream-cap panel lost the same UHC line and leads instead with *"Every payer, plan
+and state sets its own — there is no single rule to learn"*; the remaining examples are the
+state-named Medicaid ones, which demonstrate the variability rather than assert a national rule.
+The Ohio line picked up *"commercial and MA plans differ again."*
+
+**Rebuilt:** `Flow-Routine-Visits`, `Flow-DCS-Scheduler`, `Flow-SOC-Full`, `Primary-Flow-Map`,
+`Flow-Authorization` — generator, HTML and one-page PDF each. Every sheet checked against its
+rendered PNG at the edited region. The five generators also had a stale hard-coded scratchpad
+output path; they now take the SVG path as `argv[1]` and default to a local filename.

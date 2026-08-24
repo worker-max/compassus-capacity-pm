@@ -15,7 +15,7 @@ seven land without drift.
    It is the source-confirmed current-state process. Drawing against a stale mental model is the
    most expensive mistake available here.
 2. **Skim [`artifacts/flow-map-redraw-assessment.md`](../../../agents/compassus-capacity-pm/artifacts/flow-map-redraw-assessment.md)**
-   (§1–26) if the sheet touches ground that has already been corrected once.
+   (§1–28) if the sheet touches ground that has already been corrected once.
 3. **Talk the flow through with the operator before drawing it.** Every sheet in the set needed a
    correction pass that a conversation would have caught first: SOC/ROC didn't start where the first
    draft assumed, intake and auth turned out to be different actors, the 485 turned out to be one

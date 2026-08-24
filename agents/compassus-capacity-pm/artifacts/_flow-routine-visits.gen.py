@@ -64,7 +64,8 @@ add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at '
     'admission: each discipline plots its own frequency, every submission generates its own '
     'assignment task. After the 485 the episode enters phase two, where the clinician manages their '
-    'own week with no scheduler workflow at all. The day before each visit the clinician confirms '
+    'own week with no scheduler workflow at all. After the 485 an add-on order is an added '
+    'discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms '
     'with the patient and then picks one of five dispositions in HCHB: accept, reschedule, '
     'reassign, miss or decline.">')
 add('<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" '
@@ -119,12 +120,14 @@ add(f'<line x1="{BX}" y1="{BY+26}" x2="{IX-14}" y2="{BY+26}" stroke="{INK}" '
 add(f'<line x1="{IX+494}" y1="{BY+26}" x2="{BX+6*(BW+GAP)+30}" y2="{BY+26}" stroke="{INK}" '
     'stroke-width="2.5" stroke-dasharray="14 7"/>')
 add(f'<rect x="{IX}" y="{BY+6}" width="480" height="40" rx="20" fill="#FBFBF8" stroke="{INK}" stroke-width="2"/>')
-lbl(IX+240, BY+32, "485 SUBMITTED — after this, every order is an add-on", "middle", "boundary")
-lbl(IX+240, BY+66, "add-on orders route through DCS approval and auth before reaching the scheduler",
+lbl(IX+240, BY+32, "485 SUBMITTED — after this, changes come by order", "middle", "boundary")
+lbl(IX+240, BY+64, "an add-on order is an added discipline evaluation; every other order is a "
+    "physician order", "middle", "note")
+lbl(IX+240, BY+84, "both route through DCS approval and auth before reaching the scheduler",
     "middle", "note")
 
 # ---------------- PHASE TWO ----------------
-P2Y = BY + 92
+P2Y = BY + 110
 p2 = [IX + i*(BW+GAP) for i in range(6)]
 add(f'<rect x="{BX}" y="{P2Y}" width="{6*(BW+GAP)+30}" height="{PH2}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, P2Y+34, "PHASE 2  ·  STEADY STATE — the clinician runs their own week", cls="band")
@@ -231,6 +234,7 @@ lbl(50, H-40, "Current state · variables are named in the variable reference, n
 lbl(W-50, H-40, "Flow 2 of 4 · routine visits", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/flow2.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "flow2.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3))

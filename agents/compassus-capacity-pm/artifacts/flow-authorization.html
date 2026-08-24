@@ -20,9 +20,9 @@
 <circle cx="1982.6000000000004" cy="72" r="13" fill="#795CA7"/>
 <text x="2003.6000000000004" y="78" class="leg" text-anchor="start">HCHB</text>
 <line x1="50" y1="150" x2="2150" y2="150" stroke="#C9CCC5" stroke-width="1.4"/>
-<rect x="320" y="190" width="1698" height="300" rx="10" fill="#E9E9E5"/>
+<rect x="320" y="190" width="1420" height="300" rx="10" fill="#E9E9E5"/>
 <text x="342" y="224" class="band" text-anchor="start">INTERFACE 1  ·  AT START OF CARE — auth is a GATE</text>
-<text x="1996" y="224" class="bandhi" text-anchor="end">NOTHING SCHEDULES UNTIL THIS CLEARS</text>
+<text x="1718" y="224" class="bandhi" text-anchor="end">NOTHING SCHEDULES UNTIL THIS CLEARS</text>
 <rect x="350" y="252" width="250" height="90" rx="5" fill="#1F6F78"/>
 <text x="475.0" y="293.5" class="bt" text-anchor="middle">Intake receives</text>
 <text x="475.0" y="312.5" class="bt" text-anchor="middle">in Commure</text>
@@ -46,18 +46,12 @@
 <text x="1190" y="368" class="sub">·  The referral is now complete</text>
 <text x="1190" y="385" class="sub">·  Only now does it move</text>
 <line x1="1156" y1="297.0" x2="1178" y2="297.0" class="ln" marker-end="url(#ar)"/>
-<rect x="1462" y="252" width="250" height="90" rx="5" fill="#792E2E"/>
-<text x="1587.0" y="293.5" class="bt" text-anchor="middle">DCS reviews</text>
-<text x="1587.0" y="312.5" class="bt" text-anchor="middle">the referral</text>
-<text x="1468" y="368" class="sub">·  Orders read</text>
-<text x="1468" y="385" class="sub">·  Disciplines confirmed</text>
+<rect x="1462" y="252" width="250" height="90" rx="5" fill="#C6A01F"/>
+<text x="1587.0" y="293.5" class="bt" text-anchor="middle">Scheduler books</text>
+<text x="1587.0" y="312.5" class="bt" text-anchor="middle">SOC and evals</text>
+<text x="1468" y="368" class="sub">·  The first visits land</text>
+<text x="1468" y="385" class="sub">·  Auth is already spent on these</text>
 <line x1="1434" y1="297.0" x2="1456" y2="297.0" class="ln" marker-end="url(#ar)"/>
-<rect x="1740" y="252" width="250" height="90" rx="5" fill="#C6A01F"/>
-<text x="1865.0" y="293.5" class="bt" text-anchor="middle">Scheduler books</text>
-<text x="1865.0" y="312.5" class="bt" text-anchor="middle">SOC and evals</text>
-<text x="1746" y="368" class="sub">·  The first visits land</text>
-<text x="1746" y="385" class="sub">·  Auth is already spent on these</text>
-<line x1="1712" y1="297.0" x2="1734" y2="297.0" class="ln" marker-end="url(#ar)"/>
 <rect x="50" y="258.0" width="250" height="78" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
 <text x="175.0" y="293.5" class="ct" text-anchor="middle" fill="#1B211E">Referral arrives</text>
 <text x="175.0" y="310.5" class="ct" text-anchor="middle" fill="#1B211E">hospital · MD · facility</text>
@@ -104,7 +98,7 @@
 <text x="1865.0" y="659.5" class="bt" text-anchor="middle">Cap approached —</text>
 <text x="1865.0" y="678.5" class="bt" text-anchor="middle">re-auth requested</text>
 <text x="1746" y="734" class="sub">·  Supporting documentation required</text>
-<text x="1746" y="751" class="sub">·  UHC: 4 of 5 done before visit 6</text>
+<text x="1746" y="751" class="sub">·  The rule differs by payer, plan and state</text>
 <line x1="1712" y1="663.0" x2="1734" y2="663.0" class="ln" marker-end="url(#ar)"/>
 <rect x="350" y="840" width="1640" height="70" rx="8" fill="#FFFFFF" stroke="#DF751D" stroke-width="2"/>
 <rect x="350" y="840" width="7" height="70" rx="3.5" fill="#DF751D"/>
@@ -118,10 +112,10 @@
 <text x="376" y="1032" class="pnl" text-anchor="start">WHAT THE PAYER HAS ALREADY DECIDED — before anyone writes a plan of care</text>
 <line x1="376" y1="1050" x2="376" y2="1168" stroke="#1B211E" stroke-width="3"/>
 <text x="394" y="1070" class="colh" text-anchor="start">THE CAP IS SET UPSTREAM</text>
-<text x="394" y="1094" class="sub">·  UHC — 5 nursing visits; 4 of 5 completed plus documentation before visit 6</text>
+<text x="394" y="1094" class="sub">·  Every payer, plan and state sets its own — there is no single rule to learn</text>
 <text x="394" y="1111" class="sub">·  Indiana Medicaid — 8 visits shared across PT / OT / ST</text>
 <text x="394" y="1128" class="sub">·  Indiana Medicaid — 30 days from the discharge date, not the admit date</text>
-<text x="394" y="1145" class="sub">·  Ohio Medicaid — caps similarly</text>
+<text x="394" y="1145" class="sub">·  Ohio Medicaid — caps similarly; commercial and MA plans differ again</text>
 <line x1="1230" y1="1050" x2="1230" y2="1168" stroke="#DF751D" stroke-width="3"/>
 <text x="1248" y="1070" class="colhA" text-anchor="start">TWO CEILINGS, NOT ONE</text>
 <text x="1248" y="1094" class="sub">·  Auth is permission — how many visits the payer will allow</text>
@@ -187,21 +181,23 @@ svg{display:block;width:100%;min-width:1180px;height:auto}
 .band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
 .trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
 .pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
 .note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
 .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
 .title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
 .deck{font-family:var(--body);font-size:16px;fill:#5A6560}
 .foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
-
-.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
 .boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
 .bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
-.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
-.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
 .colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
 .colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
 .colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
-.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
 @media print{@page{size:2200pt 1540pt;margin:0}
 body{background:#fff;padding:0}
 figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}

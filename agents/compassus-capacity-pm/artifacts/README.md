@@ -4,11 +4,11 @@
 > and scheduling model. The three-arena model below is the current shared framing; the documents in
 > this folder are all views onto it at different depths.
 >
-> **Status (18 Aug 2026): current-state process flow mapping is DONE** — seven sheets, all
-> regenerable from the `_*.gen.py` beside them. The distilled process facts behind every sheet live
-> in [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) — **read that
-> file before touching any flow sheet.** The correction-by-correction history is
-> `flow-map-redraw-assessment.md` §1–26.
+> **Status (18 Aug 2026, corrected 24 Aug): current-state process flow mapping is DONE** — seven
+> sheets, all regenerable from the `_*.gen.py` beside them. The distilled process facts behind every
+> sheet live in [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) —
+> **read that file before touching any flow sheet.** The correction-by-correction history is
+> `flow-map-redraw-assessment.md` §1–28; Laci's 24 Aug pass is §28.
 
 ## The model in one paragraph
 

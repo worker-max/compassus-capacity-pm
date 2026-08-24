@@ -132,7 +132,8 @@ qc = row(qb, [
  (C["clin"], ["Each discipline plots", "its own frequency"],
   ["Written to clinical need", "Payer limits not visible here", "RN also plots aide + MSW / ST"], "× N disciplines", 1),
  (C["dcs"], ["DCS reviews and", "approves the POC"],
-  ["One task per discipline", "Utilisation management starts here"], "× N disciplines", 1),
+  ["One task per discipline", "Utilisation management starts here",
+   "Not approved → nothing moves, visits held"], "× N disciplines", 1),
  (C["dcs"], ["THE 485 MOMENT", "QA accepted  ·  POC locked", "485 submitted  ·  orders to MD"],
   ["Four things, not four gates", "Orders finalised and sent for signature"], "ALL AT ONCE", 2),
  (C["hchb"], ["HCHB generates visits", "and assignment tasks"],
@@ -255,7 +256,8 @@ lbl(50, H-40, "Current state · nothing on this sheet is a proposal", cls="foot"
 lbl(W-50, H-40, "Primary map · four detail flows sit behind it", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/main.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "main.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3),
       "| band right", BX+BANDW, "| last content y", WY+78)

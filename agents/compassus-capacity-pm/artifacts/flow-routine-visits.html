@@ -1,7 +1,7 @@
 <title>Routine Visit Scheduling</title>
 
 <figure>
-<svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
+<svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. After the 485 an add-on order is an added discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
 <defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
 <rect x="0" y="0" width="2200" height="1680" fill="#FBFBF8"/>
 <text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  FLOW 2</text>
@@ -49,131 +49,132 @@
 <line x1="320" y1="462" x2="336" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
 <line x1="844" y1="462" x2="2018" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
 <rect x="350" y="442" width="480" height="40" rx="20" fill="#FBFBF8" stroke="#1B211E" stroke-width="2"/>
-<text x="590" y="468" class="boundary" text-anchor="middle">485 SUBMITTED — after this, every order is an add-on</text>
-<text x="590" y="502" class="note" text-anchor="middle">add-on orders route through DCS approval and auth before reaching the scheduler</text>
-<rect x="320" y="528" width="1698" height="268" rx="10" fill="#E9E9E5"/>
-<text x="342" y="562" class="band" text-anchor="start">PHASE 2  ·  STEADY STATE — the clinician runs their own week</text>
-<text x="1996" y="562" class="bandhi" text-anchor="end">NO SCHEDULER WORKFLOW</text>
-<rect x="350" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="475.0" y="620.0" class="bt" text-anchor="middle">Evaluate own</text>
-<text x="475.0" y="639.0" class="bt" text-anchor="middle">capacity for</text>
-<text x="475.0" y="658.0" class="bt" text-anchor="middle">the week</text>
-<text x="356" y="704" class="sub">·  Points already committed</text>
-<text x="356" y="721" class="sub">·  Days off · PTO · on-call</text>
-<text x="356" y="738" class="sub">·  Documentation still owed</text>
-<rect x="628" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="753.0" y="620.0" class="bt" text-anchor="middle">Prioritise clinical</text>
-<text x="753.0" y="639.0" class="bt" text-anchor="middle">need across</text>
-<text x="753.0" y="658.0" class="bt" text-anchor="middle">the caseload</text>
-<text x="634" y="704" class="sub">·  Who is unstable</text>
-<text x="634" y="721" class="sub">·  Wound · IV · catheter due</text>
-<text x="634" y="738" class="sub">·  Labs due</text>
-<text x="634" y="755" class="sub">·  Who can safely wait</text>
-<line x1="600" y1="633.0" x2="622" y2="633.0" class="ln" marker-end="url(#ar)"/>
-<rect x="906" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="1031.0" y="629.5" class="bt" text-anchor="middle">Group visits</text>
-<text x="1031.0" y="648.5" class="bt" text-anchor="middle">geographically</text>
-<text x="912" y="704" class="sub">·  Who sits near whom</text>
-<text x="912" y="721" class="sub">·  Drive time, not distance</text>
-<text x="912" y="738" class="sub">·  Bridges · rivers · crossings</text>
-<text x="912" y="755" class="sub">·  Where the day starts</text>
-<line x1="878" y1="633.0" x2="900" y2="633.0" class="ln" marker-end="url(#ar)"/>
-<rect x="1184" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="1309.0" y="629.5" class="bt" text-anchor="middle">Test against hard</text>
-<text x="1309.0" y="648.5" class="bt" text-anchor="middle">constraints</text>
-<text x="1190" y="704" class="sub">·  Wound care timing</text>
-<text x="1190" y="721" class="sub">·  Catheter and IV schedules</text>
-<text x="1190" y="738" class="sub">·  Caregiver must be present</text>
-<text x="1190" y="755" class="sub">·  Dialysis · MD appointments</text>
-<line x1="1156" y1="633.0" x2="1178" y2="633.0" class="ln" marker-end="url(#ar)"/>
-<rect x="1462" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="1587.0" y="629.5" class="bt" text-anchor="middle">Confirm with the</text>
-<text x="1587.0" y="648.5" class="bt" text-anchor="middle">patient — day before</text>
-<text x="1468" y="704" class="sub">·  “Can you come later?”</text>
-<text x="1468" y="721" class="sub">·  “Not Mondays”</text>
-<text x="1468" y="738" class="sub">·  Patient not home</text>
-<text x="1468" y="755" class="sub">·  → see the panel below</text>
-<line x1="1434" y1="633.0" x2="1456" y2="633.0" class="ln" marker-end="url(#ar)"/>
-<rect x="1740" y="588" width="250" height="90" rx="5" fill="#2E599D"/>
-<text x="1865.0" y="629.5" class="bt" text-anchor="middle">Route — HCHB suggests,</text>
-<text x="1865.0" y="648.5" class="bt" text-anchor="middle">clinician adjusts</text>
-<text x="1746" y="704" class="sub">·  The suggested route</text>
-<text x="1746" y="721" class="sub">·  Patient time windows</text>
-<text x="1746" y="738" class="sub">·  Traffic and time of day</text>
-<text x="1746" y="755" class="sub">·  Where the day must end</text>
-<line x1="1712" y1="633.0" x2="1734" y2="633.0" class="ln" marker-end="url(#ar)"/>
-<text x="342" y="782" class="note" text-anchor="start">what the clinician is working around at each step</text>
-<rect x="350" y="842" width="1450" height="152" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
-<text x="376" y="878" class="pnl" text-anchor="start">THE DAY-BEFORE NEGOTIATION — what the clinician has to hold</text>
-<text x="394" y="914" class="colh" text-anchor="start">HARD  —  accept it and build the day around it</text>
-<text x="394" y="938" class="sub">·  Dialysis days and times</text>
-<text x="394" y="955" class="sub">·  MD and specialist appointments</text>
-<text x="394" y="972" class="sub">·  Caregiver's working hours</text>
-<text x="394" y="989" class="sub">·  Patient genuinely not home</text>
-<line x1="1050" y1="896" x2="1050" y2="980" stroke="#2E599D" stroke-width="3"/>
-<text x="1068" y="914" class="colhb" text-anchor="start">SOFT  —  negotiable, and worth holding the line on</text>
-<text x="1068" y="938" class="sub">·  “Can you come after lunch?”</text>
-<text x="1068" y="955" class="sub">·  “Not first thing”  ·  “Not Mondays”</text>
-<text x="1068" y="972" class="sub">·  A preferred time with no reason behind it</text>
-<line x1="376" y1="896" x2="376" y2="980" stroke="#1B211E" stroke-width="3"/>
-<text x="350" y="1030" class="hi" text-anchor="start">The first visit at 8 or 9am is the single largest lever on an individual clinician's capacity.</text>
-<text x="350" y="1052" class="note" text-anchor="start">Newer clinicians let the patient set the time, become over-accommodating, and push the cost onto the rest of the team.</text>
-<rect x="320" y="1106" width="1420" height="246" rx="10" fill="#E9E9E5"/>
-<text x="342" y="1140" class="band" text-anchor="start">THE DAY BEFORE  ·  THE CLINICIAN'S FIVE DISPOSITIONS</text>
-<text x="1718" y="1140" class="bandhi" text-anchor="end">SELECTED IN HCHB</text>
-<text x="342" y="1164" class="note" text-anchor="start">chosen the day prior, straight after the confirmation call — not at the door on the day of the visit</text>
-<rect x="350" y="1182" width="250" height="76" rx="5" fill="#2E599D"/>
-<text x="475.0" y="1217.25" class="bt s" text-anchor="middle">Accept</text>
-<text x="475.0" y="1232.75" class="bt s" text-anchor="middle">visit delivered as planned</text>
-<text x="475.0" y="1284" class="hi" text-anchor="middle">the most common disposition</text>
-<rect x="628" y="1182" width="250" height="76" rx="5" fill="#2E599D"/>
-<text x="753.0" y="1217.25" class="bt s" text-anchor="middle">Reschedule</text>
-<text x="753.0" y="1232.75" class="bt s" text-anchor="middle">within the week</text>
-<text x="753.0" y="1284" class="hi" text-anchor="middle">no scheduler workflow if rapid</text>
-<text x="753.0" y="1302" class="hi" text-anchor="middle">reschedule is turned on in HCHB</text>
-<rect x="906" y="1182" width="250" height="76" rx="5" fill="#C6A01F"/>
-<text x="1031.0" y="1209.5" class="bt s" text-anchor="middle">Reassign</text>
-<text x="1031.0" y="1225.0" class="bt s" text-anchor="middle">back to the scheduler</text>
-<text x="1031.0" y="1240.5" class="bt s" text-anchor="middle">WITH a plan</text>
-<text x="1031.0" y="1284" class="note" text-anchor="middle">the clinician recommends</text>
-<text x="1031.0" y="1302" class="note" text-anchor="middle">who should take it</text>
-<rect x="1184" y="1182" width="250" height="76" rx="5" fill="#792E2E"/>
-<text x="1309.0" y="1217.25" class="bt s" text-anchor="middle">Miss</text>
-<text x="1309.0" y="1232.75" class="bt s" text-anchor="middle">→ compliance chain</text>
-<text x="1309.0" y="1284" class="note" text-anchor="middle">documentation and</text>
-<text x="1309.0" y="1302" class="note" text-anchor="middle">compliance chain follow</text>
-<rect x="1462" y="1182" width="250" height="76" rx="5" fill="#C6A01F"/>
-<text x="1587.0" y="1209.5" class="bt s" text-anchor="middle">Decline</text>
-<text x="1587.0" y="1225.0" class="bt s" text-anchor="middle">back to the scheduler</text>
-<text x="1587.0" y="1240.5" class="bt s" text-anchor="middle">WITHOUT a plan</text>
-<text x="1587.0" y="1284" class="note" text-anchor="middle">nothing recommended —</text>
-<text x="1587.0" y="1302" class="note" text-anchor="middle">the branch manages placement</text>
-<path d="M 1990 633.0 L 2060 633.0 L 2060 1080 L 290 1080 L 290 1220" fill="none" class="ln"/>
-<line x1="290" y1="1220" x2="344" y2="1220" class="ln" marker-end="url(#ar)"/>
-<text x="350" y="1336" class="hi" text-anchor="start">Reassign and Decline are both clinician selections in HCHB, and both return the visit to the scheduler — the difference is whether a recommendation comes with it.</text>
-<text x="50" y="1428" class="trg" text-anchor="start">BOUNDARIES</text>
-<rect x="350" y="1406" width="252.39999999999998" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
-<text x="476.2" y="1432.0" class="ct" text-anchor="middle" fill="#5A6560">OASIS visits do not move</text>
-<rect x="622.4" y="1406" width="321.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
-<text x="783.0" y="1432.0" class="ct" text-anchor="middle" fill="#5A6560">Medicare week is Sunday–Saturday</text>
-<rect x="963.5999999999999" y="1406" width="372.8" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
-<text x="1150.0" y="1432.0" class="ct" text-anchor="middle" fill="#5A6560">Inside the 60-day certification period</text>
-<rect x="1356.3999999999999" y="1406" width="278.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
-<text x="1495.4999999999998" y="1432.0" class="ct" text-anchor="middle" fill="#5A6560">Auth still gates assignment</text>
-<text x="50" y="1514" class="trg" text-anchor="start">WHERE IT</text>
-<text x="50" y="1532" class="trg" text-anchor="start">BREAKS</text>
-<rect x="350" y="1488" width="420" height="70" rx="5" fill="#792E2E"/>
-<text x="560.0" y="1520.25" class="bt s" text-anchor="middle">RN cannot reassign to her own LPN</text>
-<text x="560.0" y="1535.75" class="bt s" text-anchor="middle">an HCHB rule, not Medicare</text>
-<rect x="790" y="1488" width="420" height="70" rx="5" fill="#792E2E"/>
-<text x="1000.0" y="1520.25" class="bt s" text-anchor="middle">Supervisor cannot see</text>
-<text x="1000.0" y="1535.75" class="bt s" text-anchor="middle">the supervisee's schedule</text>
-<rect x="1230" y="1488" width="420" height="70" rx="5" fill="#2E599D"/>
-<text x="1440.0" y="1520.25" class="bt s" text-anchor="middle">Day-before calls are</text>
-<text x="1440.0" y="1535.75" class="bt s" text-anchor="middle">unpaid evening work</text>
-<rect x="1670" y="1488" width="420" height="70" rx="5" fill="#2E599D"/>
-<text x="1880.0" y="1520.25" class="bt s" text-anchor="middle">The weekly logic is</text>
-<text x="1880.0" y="1535.75" class="bt s" text-anchor="middle">undocumented and unassisted</text>
+<text x="590" y="468" class="boundary" text-anchor="middle">485 SUBMITTED — after this, changes come by order</text>
+<text x="590" y="500" class="note" text-anchor="middle">an add-on order is an added discipline evaluation; every other order is a physician order</text>
+<text x="590" y="520" class="note" text-anchor="middle">both route through DCS approval and auth before reaching the scheduler</text>
+<rect x="320" y="546" width="1698" height="268" rx="10" fill="#E9E9E5"/>
+<text x="342" y="580" class="band" text-anchor="start">PHASE 2  ·  STEADY STATE — the clinician runs their own week</text>
+<text x="1996" y="580" class="bandhi" text-anchor="end">NO SCHEDULER WORKFLOW</text>
+<rect x="350" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="475.0" y="638.0" class="bt" text-anchor="middle">Evaluate own</text>
+<text x="475.0" y="657.0" class="bt" text-anchor="middle">capacity for</text>
+<text x="475.0" y="676.0" class="bt" text-anchor="middle">the week</text>
+<text x="356" y="722" class="sub">·  Points already committed</text>
+<text x="356" y="739" class="sub">·  Days off · PTO · on-call</text>
+<text x="356" y="756" class="sub">·  Documentation still owed</text>
+<rect x="628" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="753.0" y="638.0" class="bt" text-anchor="middle">Prioritise clinical</text>
+<text x="753.0" y="657.0" class="bt" text-anchor="middle">need across</text>
+<text x="753.0" y="676.0" class="bt" text-anchor="middle">the caseload</text>
+<text x="634" y="722" class="sub">·  Who is unstable</text>
+<text x="634" y="739" class="sub">·  Wound · IV · catheter due</text>
+<text x="634" y="756" class="sub">·  Labs due</text>
+<text x="634" y="773" class="sub">·  Who can safely wait</text>
+<line x1="600" y1="651.0" x2="622" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="1031.0" y="647.5" class="bt" text-anchor="middle">Group visits</text>
+<text x="1031.0" y="666.5" class="bt" text-anchor="middle">geographically</text>
+<text x="912" y="722" class="sub">·  Who sits near whom</text>
+<text x="912" y="739" class="sub">·  Drive time, not distance</text>
+<text x="912" y="756" class="sub">·  Bridges · rivers · crossings</text>
+<text x="912" y="773" class="sub">·  Where the day starts</text>
+<line x1="878" y1="651.0" x2="900" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="1309.0" y="647.5" class="bt" text-anchor="middle">Test against hard</text>
+<text x="1309.0" y="666.5" class="bt" text-anchor="middle">constraints</text>
+<text x="1190" y="722" class="sub">·  Wound care timing</text>
+<text x="1190" y="739" class="sub">·  Catheter and IV schedules</text>
+<text x="1190" y="756" class="sub">·  Caregiver must be present</text>
+<text x="1190" y="773" class="sub">·  Dialysis · MD appointments</text>
+<line x1="1156" y1="651.0" x2="1178" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="1587.0" y="647.5" class="bt" text-anchor="middle">Confirm with the</text>
+<text x="1587.0" y="666.5" class="bt" text-anchor="middle">patient — day before</text>
+<text x="1468" y="722" class="sub">·  “Can you come later?”</text>
+<text x="1468" y="739" class="sub">·  “Not Mondays”</text>
+<text x="1468" y="756" class="sub">·  Patient not home</text>
+<text x="1468" y="773" class="sub">·  → see the panel below</text>
+<line x1="1434" y1="651.0" x2="1456" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="1865.0" y="647.5" class="bt" text-anchor="middle">Route — HCHB suggests,</text>
+<text x="1865.0" y="666.5" class="bt" text-anchor="middle">clinician adjusts</text>
+<text x="1746" y="722" class="sub">·  The suggested route</text>
+<text x="1746" y="739" class="sub">·  Patient time windows</text>
+<text x="1746" y="756" class="sub">·  Traffic and time of day</text>
+<text x="1746" y="773" class="sub">·  Where the day must end</text>
+<line x1="1712" y1="651.0" x2="1734" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<text x="342" y="800" class="note" text-anchor="start">what the clinician is working around at each step</text>
+<rect x="350" y="860" width="1450" height="152" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="376" y="896" class="pnl" text-anchor="start">THE DAY-BEFORE NEGOTIATION — what the clinician has to hold</text>
+<text x="394" y="932" class="colh" text-anchor="start">HARD  —  accept it and build the day around it</text>
+<text x="394" y="956" class="sub">·  Dialysis days and times</text>
+<text x="394" y="973" class="sub">·  MD and specialist appointments</text>
+<text x="394" y="990" class="sub">·  Caregiver's working hours</text>
+<text x="394" y="1007" class="sub">·  Patient genuinely not home</text>
+<line x1="1050" y1="914" x2="1050" y2="998" stroke="#2E599D" stroke-width="3"/>
+<text x="1068" y="932" class="colhb" text-anchor="start">SOFT  —  negotiable, and worth holding the line on</text>
+<text x="1068" y="956" class="sub">·  “Can you come after lunch?”</text>
+<text x="1068" y="973" class="sub">·  “Not first thing”  ·  “Not Mondays”</text>
+<text x="1068" y="990" class="sub">·  A preferred time with no reason behind it</text>
+<line x1="376" y1="914" x2="376" y2="998" stroke="#1B211E" stroke-width="3"/>
+<text x="350" y="1048" class="hi" text-anchor="start">The first visit at 8 or 9am is the single largest lever on an individual clinician's capacity.</text>
+<text x="350" y="1070" class="note" text-anchor="start">Newer clinicians let the patient set the time, become over-accommodating, and push the cost onto the rest of the team.</text>
+<rect x="320" y="1124" width="1420" height="246" rx="10" fill="#E9E9E5"/>
+<text x="342" y="1158" class="band" text-anchor="start">THE DAY BEFORE  ·  THE CLINICIAN'S FIVE DISPOSITIONS</text>
+<text x="1718" y="1158" class="bandhi" text-anchor="end">SELECTED IN HCHB</text>
+<text x="342" y="1182" class="note" text-anchor="start">chosen the day prior, straight after the confirmation call — not at the door on the day of the visit</text>
+<rect x="350" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
+<text x="475.0" y="1235.25" class="bt s" text-anchor="middle">Accept</text>
+<text x="475.0" y="1250.75" class="bt s" text-anchor="middle">visit delivered as planned</text>
+<text x="475.0" y="1302" class="hi" text-anchor="middle">the most common disposition</text>
+<rect x="628" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
+<text x="753.0" y="1235.25" class="bt s" text-anchor="middle">Reschedule</text>
+<text x="753.0" y="1250.75" class="bt s" text-anchor="middle">within the week</text>
+<text x="753.0" y="1302" class="hi" text-anchor="middle">no scheduler workflow if rapid</text>
+<text x="753.0" y="1320" class="hi" text-anchor="middle">reschedule is turned on in HCHB</text>
+<rect x="906" y="1200" width="250" height="76" rx="5" fill="#C6A01F"/>
+<text x="1031.0" y="1227.5" class="bt s" text-anchor="middle">Reassign</text>
+<text x="1031.0" y="1243.0" class="bt s" text-anchor="middle">back to the scheduler</text>
+<text x="1031.0" y="1258.5" class="bt s" text-anchor="middle">WITH a plan</text>
+<text x="1031.0" y="1302" class="note" text-anchor="middle">the clinician recommends</text>
+<text x="1031.0" y="1320" class="note" text-anchor="middle">who should take it</text>
+<rect x="1184" y="1200" width="250" height="76" rx="5" fill="#792E2E"/>
+<text x="1309.0" y="1235.25" class="bt s" text-anchor="middle">Miss</text>
+<text x="1309.0" y="1250.75" class="bt s" text-anchor="middle">→ compliance chain</text>
+<text x="1309.0" y="1302" class="note" text-anchor="middle">documentation and</text>
+<text x="1309.0" y="1320" class="note" text-anchor="middle">compliance chain follow</text>
+<rect x="1462" y="1200" width="250" height="76" rx="5" fill="#C6A01F"/>
+<text x="1587.0" y="1227.5" class="bt s" text-anchor="middle">Decline</text>
+<text x="1587.0" y="1243.0" class="bt s" text-anchor="middle">back to the scheduler</text>
+<text x="1587.0" y="1258.5" class="bt s" text-anchor="middle">WITHOUT a plan</text>
+<text x="1587.0" y="1302" class="note" text-anchor="middle">nothing recommended —</text>
+<text x="1587.0" y="1320" class="note" text-anchor="middle">the branch manages placement</text>
+<path d="M 1990 651.0 L 2060 651.0 L 2060 1098 L 290 1098 L 290 1238" fill="none" class="ln"/>
+<line x1="290" y1="1238" x2="344" y2="1238" class="ln" marker-end="url(#ar)"/>
+<text x="350" y="1354" class="hi" text-anchor="start">Reassign and Decline are both clinician selections in HCHB, and both return the visit to the scheduler — the difference is whether a recommendation comes with it.</text>
+<text x="50" y="1446" class="trg" text-anchor="start">BOUNDARIES</text>
+<rect x="350" y="1424" width="252.39999999999998" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="476.2" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">OASIS visits do not move</text>
+<rect x="622.4" y="1424" width="321.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="783.0" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Medicare week is Sunday–Saturday</text>
+<rect x="963.5999999999999" y="1424" width="372.8" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="1150.0" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Inside the 60-day certification period</text>
+<rect x="1356.3999999999999" y="1424" width="278.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="1495.4999999999998" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Auth still gates assignment</text>
+<text x="50" y="1532" class="trg" text-anchor="start">WHERE IT</text>
+<text x="50" y="1550" class="trg" text-anchor="start">BREAKS</text>
+<rect x="350" y="1506" width="420" height="70" rx="5" fill="#792E2E"/>
+<text x="560.0" y="1538.25" class="bt s" text-anchor="middle">RN cannot reassign to her own LPN</text>
+<text x="560.0" y="1553.75" class="bt s" text-anchor="middle">an HCHB rule, not Medicare</text>
+<rect x="790" y="1506" width="420" height="70" rx="5" fill="#792E2E"/>
+<text x="1000.0" y="1538.25" class="bt s" text-anchor="middle">Supervisor cannot see</text>
+<text x="1000.0" y="1553.75" class="bt s" text-anchor="middle">the supervisee's schedule</text>
+<rect x="1230" y="1506" width="420" height="70" rx="5" fill="#2E599D"/>
+<text x="1440.0" y="1538.25" class="bt s" text-anchor="middle">Day-before calls are</text>
+<text x="1440.0" y="1553.75" class="bt s" text-anchor="middle">unpaid evening work</text>
+<rect x="1670" y="1506" width="420" height="70" rx="5" fill="#2E599D"/>
+<text x="1880.0" y="1538.25" class="bt s" text-anchor="middle">The weekly logic is</text>
+<text x="1880.0" y="1553.75" class="bt s" text-anchor="middle">undocumented and unassisted</text>
 <line x1="50" y1="1608" x2="2150" y2="1608" stroke="#C9CCC5" stroke-width="1.4"/>
 <text x="50" y="1640" class="foot" text-anchor="start">Current state · variables are named in the variable reference, not on this sheet</text>
 <text x="2150" y="1640" class="foot" text-anchor="end">Flow 2 of 4 · routine visits</text>
@@ -210,19 +211,23 @@ svg{display:block;width:100%;min-width:1180px;height:auto}
 .band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
 .trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
 .pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
 .note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
 .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
 .title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
 .deck{font-family:var(--body);font-size:16px;fill:#5A6560}
 .foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
-
-.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
 .boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
 .bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
-.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
-.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
 .colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
 .colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
+.colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
 @media print{@page{size:2200pt 1680pt;margin:0}
 body{background:#fff;padding:0}
 figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}

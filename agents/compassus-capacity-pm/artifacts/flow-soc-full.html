@@ -1,7 +1,7 @@
 <title>Start of Care — the Full Flow</title>
 
 <figure>
-<svg viewBox="0 0 2600 1620" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="The full admission flow. Pass one runs the referral: intake receives it in Commure, the auth team verifies eligibility and keys pending auth, intake gives final approval, DCS reviews the referral, the scheduler makes the welcome call to confirm the patient is home, books the SOC or ROC visit and the discipline evaluations, and clinicians perform them. Pass two runs per discipline: the clinician submits the plan of care, DCS approves, the 485 moment locks the plan, visits generate in HCHB, the auth gate is checked, and the scheduler assigns all plotted visits in one pass. Missed visits run a separate 48-hour compliance chain.">
+<svg viewBox="0 0 2600 1620" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="The full admission flow. Pass one runs the referral: intake receives it in Commure, the auth team verifies eligibility and keys pending auth, intake gives final approval, DCS reviews the referral, the scheduler makes the welcome call to confirm the patient is home, books the SOC or ROC visit and the discipline evaluations, and clinicians perform them. Pass two runs per discipline: the clinician submits the plan of care, DCS approves — without that approval nothing moves forward and the visits are held — the 485 moment locks the plan, visits generate in HCHB, the auth gate is checked, and the scheduler assigns all plotted visits in one pass. Missed visits run a separate 48-hour compliance chain.">
 <defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
 <rect x="0" y="0" width="2600" height="1620" fill="#FBFBF8"/>
 <text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  FLOW 1</text>
@@ -120,9 +120,9 @@
 <text x="175.0" y="596.0" class="ct" text-anchor="middle" fill="#1B211E">OASIS recert visit, or</text>
 <text x="175.0" y="613.0" class="ct" text-anchor="middle" fill="#1B211E">non-OASIS recert eval</text>
 <rect x="50" y="701.0" width="250" height="84" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
-<text x="175.0" y="731.0" class="ct" text-anchor="middle" fill="#1B211E">Add-on order</text>
-<text x="175.0" y="748.0" class="ct" text-anchor="middle" fill="#1B211E">status change: add,</text>
-<text x="175.0" y="765.0" class="ct" text-anchor="middle" fill="#1B211E">reduce or shift visits</text>
+<text x="175.0" y="731.0" class="ct" text-anchor="middle" fill="#1B211E">Add-on / physician order</text>
+<text x="175.0" y="748.0" class="ct" text-anchor="middle" fill="#1B211E">add-on = an added eval;</text>
+<text x="175.0" y="765.0" class="ct" text-anchor="middle" fill="#1B211E">other orders change visits</text>
 <text x="50" y="533.0" class="trg" text-anchor="start">OTHER TRIGGERS</text>
 <path d="M 300 591.0 L 316 591.0 L 316 667.0" fill="none" class="ln"/>
 <path d="M 300 743.0 L 316 743.0 L 316 667.0" fill="none" class="ln"/>
@@ -133,14 +133,15 @@
 <text x="711.0" y="874.25" class="bt s" text-anchor="middle">QA backlog</text>
 <text x="711.0" y="889.75" class="bt s" text-anchor="middle">visits compress</text>
 <rect x="871" y="839" width="250" height="76" rx="5" fill="#2E599D"/>
-<text x="996.0" y="874.25" class="bt s" text-anchor="middle">Returned to clinician</text>
-<text x="996.0" y="889.75" class="bt s" text-anchor="middle">for correction</text>
+<text x="996.0" y="866.5" class="bt s" text-anchor="middle">Returned to clinician</text>
+<text x="996.0" y="882.0" class="bt s" text-anchor="middle">for correction</text>
+<text x="996.0" y="897.5" class="bt s" text-anchor="middle">— visits are held</text>
 <rect x="1705" y="839" width="250" height="76" rx="5" fill="#DF751D"/>
 <text x="1830.0" y="874.25" class="bt s" text-anchor="middle">Pending auth</text>
 <text x="1830.0" y="889.75" class="bt s" text-anchor="middle">not on calendar, not counted</text>
 <path d="M 686 712 L 686 833" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
 <path d="M 996.0 719.0 L 996.0 833" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
-<text x="1012.0" y="817" class="lb" text-anchor="start">No</text>
+<text x="1012.0" y="817" class="lb" text-anchor="start">No — nothing moves forward</text>
 <path d="M 1830.0 719.0 L 1830.0 833" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
 <text x="1846.0" y="817" class="lb" text-anchor="start">No</text>
 <rect x="628" y="969" width="1848" height="150" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
@@ -215,21 +216,23 @@ svg{display:block;width:100%;min-width:1180px;height:auto}
 .band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
 .trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
 .pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
 .note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
 .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
 .title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
 .deck{font-family:var(--body);font-size:16px;fill:#5A6560}
 .foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
-
-.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
 .boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
 .bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
-.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
-.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
 .colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
 .colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
 .colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
-.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
 @media print{@page{size:2600pt 1620pt;margin:0}
 body{background:#fff;padding:0}
 figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}

@@ -76,10 +76,10 @@ BX, IX = 320, 350
 
 # ---------------- INTERFACE 1 — the gate at SOC ----------------
 AY, AH = 190, 300
-p = [IX + i*(BW+GAP) for i in range(6)]
-add(f'<rect x="{BX}" y="{AY}" width="{6*(BW+GAP)+30}" height="{AH}" rx="10" fill="{BAND}"/>')
+p = [IX + i*(BW+GAP) for i in range(5)]
+add(f'<rect x="{BX}" y="{AY}" width="{5*(BW+GAP)+30}" height="{AH}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, AY+34, "INTERFACE 1  ·  AT START OF CARE — auth is a GATE", cls="band")
-lbl(BX+6*(BW+GAP)+8, AY+34, "NOTHING SCHEDULES UNTIL THIS CLEARS", "end", "bandhi")
+lbl(BX+5*(BW+GAP)+8, AY+34, "NOTHING SCHEDULES UNTIL THIS CLEARS", "end", "bandhi")
 ab = AY + 62
 ac = ab + BH/2
 a_steps = [
@@ -91,8 +91,6 @@ a_steps = [
      ["1 · 3 · 5 or 10 visits", "Set by the payer, not by need"]),
     (C["intake"], ["Back to intake for", "final approval"],
      ["The referral is now complete", "Only now does it move"]),
-    (C["dcs"], ["DCS reviews", "the referral"],
-     ["Orders read", "Disciplines confirmed"]),
     (C["pcc"], ["Scheduler books", "SOC and evals"],
      ["The first visits land", "Auth is already spent on these"]),
 ]
@@ -134,7 +132,7 @@ q_steps = [
     (C["hchb"], ["Visits consume", "the authorised count"],
      ["Counted down per visit", "Nobody sees the balance"], None),
     (C["auth"], ["Cap approached —", "re-auth requested"],
-     ["Supporting documentation required", "UHC: 4 of 5 done before visit 6"], None),
+     ["Supporting documentation required", "The rule differs by payer, plan and state"], None),
 ]
 for i, (col, lines, subs, badge) in enumerate(q_steps):
     block(q[i], qb, BW, BH, col, lines, badge=badge)
@@ -167,10 +165,10 @@ add(f'<rect x="{IX}" y="{PY}" width="1660" height="{PH}" rx="10" fill="none" '
 lbl(IX+26, PY+36, "WHAT THE PAYER HAS ALREADY DECIDED — before anyone writes a plan of care", cls="pnl")
 add(f'<line x1="{IX+26}" y1="{PY+54}" x2="{IX+26}" y2="{PY+172}" stroke="{INK}" stroke-width="3"/>')
 lbl(IX+44, PY+74, "THE CAP IS SET UPSTREAM", cls="colh")
-sublist(IX+38, PY+98, ["UHC — 5 nursing visits; 4 of 5 completed plus documentation before visit 6",
+sublist(IX+38, PY+98, ["Every payer, plan and state sets its own — there is no single rule to learn",
                        "Indiana Medicaid — 8 visits shared across PT / OT / ST",
                        "Indiana Medicaid — 30 days from the discharge date, not the admit date",
-                       "Ohio Medicaid — caps similarly"])
+                       "Ohio Medicaid — caps similarly; commercial and MA plans differ again"])
 add(f'<line x1="{IX+880}" y1="{PY+54}" x2="{IX+880}" y2="{PY+172}" stroke="{C["auth"]}" stroke-width="3"/>')
 lbl(IX+898, PY+74, "TWO CEILINGS, NOT ONE", cls="colhA")
 sublist(IX+892, PY+98, ["Auth is permission — how many visits the payer will allow",
@@ -212,7 +210,8 @@ lbl(50, H-40, "Current state · auth mapped at its interface with scheduling onl
 lbl(W-50, H-40, "Flow 3 of 4 · authorization", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/flow3.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "flow3.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3),
       "| last content y", WY+78)

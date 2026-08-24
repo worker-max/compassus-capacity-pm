@@ -4,7 +4,7 @@
 > sessions of 17–18 Aug 2026 with PB. Every flow sheet in [`../artifacts/`](../artifacts/) draws
 > from these; if a sheet and this file disagree, one of them is wrong — fix it, don't shrug.
 > Full derivation and the correction-by-correction history live in
-> [`../artifacts/flow-map-redraw-assessment.md`](../artifacts/flow-map-redraw-assessment.md) (§1–26).
+> [`../artifacts/flow-map-redraw-assessment.md`](../artifacts/flow-map-redraw-assessment.md) (§1–28).
 
 ## Admission (SOC / ROC)
 
@@ -34,6 +34,15 @@
 - **Assignment is one pass**: the scheduler receives one assignment task per discipline, and one
   working of that task assigns **every visit the frequency generates**. "One task per discipline,
   twice" is wrong; "plotted by frequency, assigned in one pass" is right.
+- **After the 485, changes arrive by order — and there are two kinds** (Laci, 24 Aug). An **add-on
+  order is an added discipline evaluation**; **every other order is a physician order** (frequency
+  changes, resumed or reduced visits, supplies). Both route through DCS approval and the auth check
+  before they reach the scheduler. The earlier sheet wording — "after the 485 every order is an
+  add-on" — was wrong and is corrected on Flow 2, Flow 1 and the DCS/Scheduler sheet.
+- **A plan of care that is not approved holds everything behind it** (Laci, 24 Aug). The DCS review
+  is a gate, not a formality: no approval → the 485 does not go, HCHB generates nothing, and the
+  visits are held. The clinician-correction loop is the visible half; the held visits are the half
+  that costs capacity.
 
 ## Authorization — two interfaces only (DE-06)
 
@@ -54,6 +63,14 @@
 - The payer's rules already exist in writing — the auth team puts them in a **coordination note at
   verification**, days before anyone writes the plan of care. Surfacing them at POC creation is the
   highest-value, lowest-complexity win identified.
+- **There is no national rule to learn — every payer, plan and state sets its own** (Laci, 24 Aug).
+  Named-payer rules were removed from the sheets for this reason: a rule that holds for one plan in
+  one state reads on a wall sheet as a rule that holds everywhere. State-named Medicaid examples
+  stay, because they demonstrate the variability rather than assert a standard.
+- **On Flow 3, the auth gate ends at intake's final approval.** DCS referral review was removed from
+  the authorization sheet (Laci, 24 Aug) — it is a step in the admission sequence, not an
+  authorization interface. It still appears in the admission sequence above and on Flow 1, the
+  primary map and the DCS/Scheduler sheet. *Open: whether it comes off those sheets too.*
 
 ## The clinician's own week (steady state)
 
@@ -152,13 +169,15 @@
   **off** (`SHOW_VCHIPS = False`) until the inventory is renumbered.
 - Every sheet is **current state**; nothing on them is a proposal, and each footer says so.
 
-## Status — 18 Aug 2026
+## Status — 18 Aug 2026, corrected 24 Aug
 
 **Current-state process flow mapping is DONE** (PB, 18 Aug). The set: `Detailed-Flow-Composite`
 (the original five-column sheet, corrected), `Primary-Flow-Map` (the episode in four phases),
 `Flow-SOC-Full` (1), `Flow-Routine-Visits` (2), `Flow-Authorization` (3), `Flow-Recert-Discharge`
 (5), and `Flow-DCS-Scheduler` (the practice sheet). All regenerable from `_*.gen.py` beside them.
 A separate Flow 4 (exception & recovery) was deliberately not drawn — its material lives across the
-composite and flows 1–2. Still open elsewhere: the variable backlog
+composite and flows 1–2. **A correction pass from Laci landed 24 Aug** — add-on vs. physician order,
+the held plan of care, DCS off the auth sheet, and named-payer rules removed; five sheets rebuilt,
+detail in `flow-map-redraw-assessment.md` §28. Still open elsewhere: the variable backlog
 ([`../artifacts/variable-backlog.md`](../artifacts/variable-backlog.md)) and the workbook rows it
 feeds; an annotated commentary companion for Flow 2 (deferred until wanted).

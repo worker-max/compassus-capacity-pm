@@ -58,7 +58,7 @@ def lbl(x, y, t, anchor="start", cls="lb"):
 
 W, H = 2600, 1620
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
-    'aria-label="The full admission flow. Pass one runs the referral: intake receives it in Commure, the auth team verifies eligibility and keys pending auth, intake gives final approval, DCS reviews the referral, the scheduler makes the welcome call to confirm the patient is home, books the SOC or ROC visit and the discipline evaluations, and clinicians perform them. Pass two runs per discipline: the clinician submits the plan of care, DCS approves, the 485 moment locks the plan, visits generate in HCHB, the auth gate is checked, and the scheduler assigns all plotted visits in one pass. Missed visits run a separate 48-hour compliance chain.">')
+    'aria-label="The full admission flow. Pass one runs the referral: intake receives it in Commure, the auth team verifies eligibility and keys pending auth, intake gives final approval, DCS reviews the referral, the scheduler makes the welcome call to confirm the patient is home, books the SOC or ROC visit and the discipline evaluations, and clinicians perform them. Pass two runs per discipline: the clinician submits the plan of care, DCS approves \u2014 without that approval nothing moves forward and the visits are held \u2014 the 485 moment locks the plan, visits generate in HCHB, the auth gate is checked, and the scheduler assigns all plotted visits in one pass. Missed visits run a separate 48-hour compliance chain.">')
 add('<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" '
     f'orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="{INK}"/></marker></defs>')
 add(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FBFBF8"/>')
@@ -143,7 +143,7 @@ conn(f"M {p1x[6]+BW/2} {p1y+BH} L {p1x[6]+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} 
 lbl((p1x[6]+BW/2 + BUS)/2, P1Y+PH+60,
     "after the eval visits, each discipline writes its own plan of care", "middle", "conn")
 chip(50, c2-118, 250, 84, ["Recertification", "OASIS recert visit, or", "non-OASIS recert eval"], INK)
-chip(50, c2+34, 250, 84, ["Add-on order", "status change: add,", "reduce or shift visits"], INK)
+chip(50, c2+34, 250, 84, ["Add-on / physician order", "add-on = an added eval;", "other orders change visits"], INK)
 lbl(50, c2-134, "OTHER TRIGGERS", cls="trg")
 conn(f"M 300 {c2-76} L {BUS} {c2-76} L {BUS} {c2}")
 conn(f"M 300 {c2+76} L {BUS} {c2+76} L {BUS} {c2}")
@@ -154,11 +154,12 @@ lbl(50, c2+158, "visits without changing the episode total", cls="note")
 # ---------------- exceptions ----------------
 exy = P2Y + PH + 54
 block(xs[1]-42, exy, EXW, EXH, C["dcs"], ["QA backlog", "visits compress"], small=True)
-block(xs[2]-35, exy, EXW, EXH, C["clin"], ["Returned to clinician", "for correction"], small=True)
+block(xs[2]-35, exy, EXW, EXH, C["clin"], ["Returned to clinician", "for correction",
+                                            "\u2014 visits are held"], small=True)
 block(xs[5]-35, exy, EXW, EXH, C["auth"], ["Pending auth", "not on calendar, not counted"], small=True)
 path(f"M {xs[1]+58} {p2y+BH} L {xs[1]+58} {exy-6}", dash=True)
-path(f"M {xs[2]+DW/2} {c2+DH/2} L {xs[2]+DW/2} {exy-6}", dash=True, label="No",
-     lx=xs[2]+DW/2+16, ly=exy-22, anchor="start")
+path(f"M {xs[2]+DW/2} {c2+DH/2} L {xs[2]+DW/2} {exy-6}", dash=True,
+     label="No \u2014 nothing moves forward", lx=xs[2]+DW/2+16, ly=exy-22, anchor="start")
 path(f"M {xs[5]+DW/2} {c2+DH/2} L {xs[5]+DW/2} {exy-6}", dash=True, label="No",
      lx=xs[5]+DW/2+16, ly=exy-22, anchor="start")
 
@@ -200,6 +201,7 @@ lbl(50, H-40, "Large = happens every time  ·  small = conditional  ·  pill = a
 lbl(W-50, H-40, "Flow 1 · SOC / ROC / recert / add-on", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/flow1.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "flow1.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3))
