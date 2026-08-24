@@ -131,6 +131,23 @@ set at different depths. Change one, change all four, or they drift.
 **The handout set** is the one-pager (page 1, summary) plus the variable reference (pages 2–4, one
 per category). Both are A4 landscape and print as a matched 4-page set.
 
+### Published artifact links — update these, do not publish new ones
+
+Republishing to the same URL keeps the link the team already has. Publishing without the URL makes
+a *second* artifact and leaves the shared one stale, which is how Flow 3 ended up unpublished until
+24 Aug.
+
+| Sheet | Artifact |
+|---|---|
+| `Primary-Flow-Map` (*The Episode, End to End*) | https://claude.ai/code/artifact/33fa34d3-08d7-4324-b7dc-e72c7f07ef46 |
+| `Flow-SOC-Full` (1) | https://claude.ai/code/artifact/e967d740-d01b-4926-8edd-abb030210b2f |
+| `Flow-Routine-Visits` (2) | https://claude.ai/code/artifact/e0267da0-056d-408a-a245-e768d7c8c428 |
+| `Flow-Authorization` (3) | https://claude.ai/code/artifact/cae6d954-45a0-4092-b069-a9cf5e42800c |
+| `Flow-DCS-Scheduler` | https://claude.ai/code/artifact/936c2f7b-ef3a-4154-8a7c-806818c21520 |
+
+`Flow-Recert-Discharge`, `Detailed-Flow-Composite` and `Flow-Payer-Economics` have no recorded link
+yet — check `/artifacts` before publishing one, and add the URL here when you do.
+
 ### Re-rendering the PDF
 
 The PDF is generated from the HTML with headless Chromium. The artifact host wraps a published file
