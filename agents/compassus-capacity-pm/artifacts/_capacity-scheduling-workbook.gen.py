@@ -805,6 +805,31 @@ RULING = {
  "CO-12": ("Patient Engagement", "Capacity, Scheduling"),
 }
 
+# ---------------------------------------------------------------- when drift gets caught
+# Colin, 25 Aug: many of the patient- and clinician-tied scheduling variables belong to the
+# weekly build and the day-before confirmation round. That matters more than it first sounds.
+# The day-before round is the ONLY recurring contact point the current process has -- and today
+# every clinician runs it by hand, for every patient, every day, with HCHB sending nothing. So
+# the cheapest place to hang a refresh is the one piece of work the initiative was already
+# planning to automate. The weekly build and the day-before round are two moments of the same
+# rhythm: the clinician evaluates capacity, prioritises, groups geographically, tests the hard
+# constraints, then confirms with the patient the day before.
+RECHECK = {}
+for _v in ("S-04","S-05","S-07","S-08","S-10","S-11","S-27","S-31","S-46","C-09"):
+    RECHECK[_v] = "Weekly \u2014 when the week is built"
+for _v in ("S-06","S-09","S-20","S-25","S-26","S-28","S-30","S-32","S-34"):
+    RECHECK[_v] = "Day before \u2014 the confirmation round"
+for _v in ("S-23","S-24","S-29","CO-05"):
+    RECHECK[_v] = "At start of care"
+for _v in ("S-47","CO-13"):
+    RECHECK[_v] = "At referral / welcome call"
+for _v in ("S-33",):
+    RECHECK[_v] = "At recertification"
+for _v in ("S-12","S-13","gap"):
+    RECHECK[_v] = "On event \u2014 coverage and surge"
+for _v in ("C-10",):
+    RECHECK[_v] = "Not re-checked today"
+
 # ---------------------------------------------------------------- the decay dimension
 # The question that actually separates engagement from the rest is not "does a person touch
 # it" -- almost everything involves a person somewhere. It is "does this stay true on its own,
@@ -869,7 +894,8 @@ HEADERS = [
     ("Who does the work today", 30), ("Who reads it and decides today", 30),
     ("Where the information lives today", 44), ("Confidence", 12),
     ("Future state -- the tool's role", 17), ("Future state -- who decides", 30),
-    ("Trigger / how often", 22), ("Stays true on its own?", 17), ("MVP", 7), ("Gating", 8), ("Adoption sensitivity", 13),
+    ("Trigger / how often", 22), ("Stays true on its own?", 17),
+    ("Re-checked when", 24), ("MVP", 7), ("Gating", 8), ("Adoption sensitivity", 13),
     ("Why this posture / watch-out", 62), ("Open question for the team", 44),
 ]
 
@@ -947,6 +973,7 @@ def build():
         ("Future state -- who decides", "For Assist and Surface rows, the person who confirms or acts. For Automate rows, who owns the exception when automation cannot resolve it."),
         ("Trigger / how often", "What sets the task off and at what rhythm. This is the column the future-state maps are built from -- a map is a sequence of triggers."),
         ("Stays true on its own?", "Stable = record it once and it holds. Drifts = it goes stale unless somebody keeps asking, so it needs a standing engagement mechanism, not a field captured at start of care. Live/computed = recalculated, no decay problem. This is the contact = the row is the outbound work itself."),
+        ("Re-checked when", "For a drifting variable, the moment it gets re-established. Most of them land on the weekly build or the day-before confirmation round \u2014 which are two moments of the same rhythm, and the only recurring contact the current process has. This column is what turns the sheet into a future-state map: it says when each arrow fires."),
         ("Adoption sensitivity", "How much this change will be felt by clinicians. High means the design conversation matters more than the technology."),
     ]
     r = 12
@@ -996,9 +1023,12 @@ def build():
         ("Future state: Surface", "The tool shows, a person decides.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Surface")'),
         ("Drifts \u2014 needs re-contact", "THE ENGAGEMENT LOAD. These go stale unless somebody keeps asking.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Drifts*")'),
         ("...and sitting outside Engagement", "Capacity and scheduling rows that still need an engagement mechanism under them.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$B$2:$B${last},"<>Patient Engagement")'),
-        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$R$2:$R${last},"High")'),
-        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Yes")'),
-        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$Q$2:$Q${last},"Y")'),
+        ("...caught in the day-before round", "The single recurring contact point the process already has. Today it is manual, every patient, every day.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Day before*")'),
+        ("...caught in the weekly build", "The clinician's own weekly planning pass.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Weekly*")'),
+        ("...with no re-check at all", "Drifts, and nothing catches it. Silent staleness.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$P$2:$P${last},"Not re-checked today")'),
+        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$S$2:$S${last},"High")'),
+        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$Q$2:$Q${last},"Yes")'),
+        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$R$2:$R${last},"Y")'),
     ]
     r = 30
     for label, meaning, formula in counts:
@@ -1080,7 +1110,7 @@ def build():
         if vid in RULING:
             arena, also = RULING[vid]
         head = (vid, arena, also, group, alignment(vid, group)) + tuple(r[4:13])
-        rows.append(head + (DECAY[vid],) + tuple(r[13:]))
+        rows.append(head + (DECAY[vid], RECHECK.get(vid, "\u2014")) + tuple(r[13:]))
     rows = sorted(rows, key=lambda x: (ARENA_ORDER[x[1]], GROUP_ORDER.index(x[3])))
     for ri, row in enumerate(rows, start=2):
         for ci, val in enumerate(row, start=1):
@@ -1093,13 +1123,13 @@ def build():
         ml.cell(row=ri, column=4).font = Font(name=FONT, size=10, bold=True, color=INK)
         if not str(row[4]).startswith("Aligned"):
             ml.cell(row=ri, column=5).font = Font(name=FONT, size=9, bold=True, color="9C4221")
-        for ci in (8, 9, 10, 11, 12, 13, 14, 15, 18):
+        for ci in (8, 9, 10, 11, 12, 13, 14, 15, 16, 19):
             ml.cell(row=ri, column=ci).fill = PatternFill("solid", fgColor=EDIT)
-        for ci in (11, 15, 16, 17, 18):
+        for ci in (11, 15, 17, 18, 19):
             ml.cell(row=ri, column=ci).alignment = Alignment(vertical="top", horizontal="center", wrap_text=True)
         ml.row_dimensions[ri].height = 76
 
-    ml.auto_filter.ref = f"A1:T{len(rows) + 1}"
+    ml.auto_filter.ref = f"A1:U{len(rows) + 1}"
 
     # Confidence drives the shading of BOTH the source cell and the confidence cell.
     for value, colour in (("High", HI), ("Medium", MED), ("Low", LO)):
@@ -1109,8 +1139,8 @@ def build():
     # Adoption sensitivity: High is the one that needs attention, so High reads warm.
     for value, colour in (("High", LO), ("Medium", MED), ("Low", HI)):
         ml.conditional_formatting.add(
-            f"R2:R{len(rows) + 1}",
-            FormulaRule(formula=[f'$R2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
+            f"S2:S{len(rows) + 1}",
+            FormulaRule(formula=[f'$S2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
 
     # ------------------------------------------------ Lists
     lists = wb.create_sheet("Lists")
@@ -1127,6 +1157,10 @@ def build():
             "Weekly", "Quarterly", "On event", "Continuous", "Config", "Slow-changing", "One-time decision"]),
         "I": ("Stays true on its own?", ["Stable", "Drifts \u2014 needs re-contact",
               "Live / computed", "This is the contact"]),
+        "J": ("Re-checked when", ["At referral / welcome call", "At start of care",
+              "Weekly \u2014 when the week is built", "Day before \u2014 the confirmation round",
+              "At recertification", "On event \u2014 coverage and surge", "Not re-checked today",
+              "\u2014"]),
         "H": ("Roles (for the two owner columns)", [
             "Intake", "Auth team", "Scheduler", "DCS", "Clinician", "Clinical Manager",
             "Branch Leadership (ED)", "Per Diem / Float", "Case Manager", "HR / Talent",
@@ -1148,8 +1182,8 @@ def build():
     n_rows = len(rows) + 1
     dvs = [
         ("B", "$A$2:$A$4"), ("K", "$B$2:$B$4"), ("L", "$C$2:$C$5"),
-        ("R", "$D$2:$D$4"), ("P", "$E$2:$E$5"), ("Q", "$F$2:$F$3"),
-        ("N", "$G$2:$G$13"), ("O", "$I$2:$I$5"),
+        ("S", "$D$2:$D$4"), ("Q", "$E$2:$E$5"), ("R", "$F$2:$F$3"),
+        ("N", "$G$2:$G$13"), ("O", "$I$2:$I$5"), ("P", "$J$2:$J$9"),
     ]
     for col, ref in dvs:
         dv = DataValidation(type="list", formula1=f"Lists!{ref}", allow_blank=True,
@@ -1215,7 +1249,7 @@ def write_markdown(rows):
     current = None
     for row in rows:
         (vid, arena, also, group, align, name, plain, does, decides, where, conf,
-         future, fowner, trigger, decay, mvp, gating, sens, why, question) = [dash(v) for v in row]
+         future, fowner, trigger, decay, recheck, mvp, gating, sens, why, question) = [dash(v) for v in row]
         key = (arena, group)
         if key != current:
             current = key
@@ -1237,6 +1271,7 @@ def write_markdown(rows):
             f"| Future state — who decides | {fowner} |",
             f"| Trigger / how often | {trigger} |",
             f"| Stays true on its own? | **{decay}** |",
+            f"| Re-checked when | {recheck} |",
             f"| MVP · Gating · Adoption sensitivity | {mvp} · {gating} · {sens} |",
             "",
             f"{why}",

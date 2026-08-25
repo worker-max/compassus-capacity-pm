@@ -27,6 +27,7 @@ How many clinicians the branch actually has, counted by discipline. The base num
 | Future state — who decides | Branch Leadership (ED) — owns the exception when the two systems disagree |
 | Trigger / how often | Continuous — changes on hire/term |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A clean roster fact in a system of record. The only risk is Workday and HCHB disagreeing.
@@ -49,6 +50,7 @@ What licence each person holds — RN, LPN, PT, PTA, OT, COTA, SLP, MSW, aide. C
 | Future state — who decides | — exception only |
 | Trigger / how often | Continuous — changes on hire/term |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Hard licensure fact, fully in the data.
@@ -71,6 +73,7 @@ Whether a clinician can open and evaluate a case (RN, PT, OT, SLP) or only carry
 | Future state — who decides | Clinical Manager — owns offload policy |
 | Trigger / how often | Continuous — derived |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Deterministic from discipline. The sensitivity is not the data, it is the change-management of moving work to assistants.
@@ -93,6 +96,7 @@ Full-time, part-time, per-diem or contract — and the fraction of a full week e
 | Future state — who decides | Branch Leadership (ED) |
 | Trigger / how often | Continuous — changes on status change |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Clean employment attribute. Flagged as a conflict risk: a vendor that models FTE differently will fight the branch.
@@ -115,6 +119,7 @@ The staffed supply cut both ways at once — how many RNs are full-time, how man
 | Future state — who decides | Branch Leadership (ED) |
 | Trigger / how often | Continuous |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A branch is only as capable as its thinnest discipline; this is the view that shows it.
@@ -137,6 +142,7 @@ The flex staff a branch can call on when its core team is full. Per-diem and flo
 | Future state — who decides | DCS — decides who to ask and when |
 | Trigger / how often | On event — call-outs and admission spikes |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Yes · Y · High |
 
 The size of the buffer is legible; whether it actually flexes is relational. The system can show who is available, never assume they will say yes.
@@ -159,6 +165,7 @@ How many clinicians can perform the visits that need more than a licence — wou
 | Future state — who decides | Clinical Manager — confirms who is genuinely competent |
 | Trigger / how often | Slow-changing — on certification or experience |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Not re-checked today |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Competency lives partly in reputation, not credentials. Surfacing it is useful; scoring it is not.
@@ -181,6 +188,7 @@ New hires count as headcount long before they carry a full load. Ignoring the ra
 | Future state — who decides | Clinical Manager — confirms the real ramp position |
 | Trigger / how often | Weekly during onboarding |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Headcount is clear; the true ramp curve is judgment. A system can propose a curve, a manager corrects it.
@@ -203,6 +211,7 @@ Work carried outside the standard week. A clinician coming off a weekend rotatio
 | Future state — who decides | Clinical Manager — owns rotation fairness |
 | Trigger / how often | Weekly |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Legible load once the rotation is recorded. The fairness question is human.
@@ -225,6 +234,7 @@ How readily an individual clinician bends their pattern when asked — takes the
 | Future state — who decides | Scheduler / DCS — decide who to approach |
 | Trigger / how often | On event — coverage and surge |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | On event — coverage and surge |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 A purely relational variable: the act of automating it changes what it measures. Surface who has said yes before; never auto-assign on it.
@@ -247,6 +257,7 @@ Whether a clinician will go beyond target, and on what terms. Strongly tied to p
 | Future state — who decides | Scheduler / DCS |
 | Trigger / how often | On event — coverage and surge |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | On event — coverage and surge |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 Relational and pay-linked. This is the row that connects to the incentives idea in the one-pager: today there is no mechanism, only a phone call.
@@ -272,6 +283,7 @@ The days each clinician is not available, and the pattern they normally work. Th
 | Future state — who decides | Scheduler — owns the exception when it is late or missing |
 | Trigger / how often | Continuous — as requests are approved |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A firm blackout once it is in the field. The integration being off is the single highest-value plumbing fix on this sheet — it makes every capacity number stale.
@@ -294,6 +306,7 @@ Where the branch is responsible for covering, and which of that area each clinic
 | Future state — who decides | Branch Leadership (ED) — approves any territory change |
 | Trigger / how often | Quarterly, or when capacity tightens |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Territory lines look fixed but encode local knowledge and standing agreements. A tool should propose changes, never redraw them.
@@ -316,6 +329,7 @@ The counties the branch has committed to serve. Sets the outer boundary — a ga
 | Future state — who decides | Branch Leadership (ED) |
 | Trigger / how often | Config — set once, revisited rarely |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Fixed boundary, cleanly held in configuration.
@@ -338,6 +352,7 @@ Which zip codes each clinician covers. Territories were originally drawn on thin
 | Future state — who decides | Branch Leadership (ED) with DCS |
 | Trigger / how often | Quarterly, or on demand shift |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · High |
 
 Called out in the inventory as the initial variable in the whole equation. Pairing it with a live census heat-map is the highest-leverage capacity change identified.
@@ -360,6 +375,7 @@ Whether to model coverage at a finer grain than zip. One large zip can span an u
 | Future state — who decides | Initiative team — decide once, deliberately |
 | Trigger / how often | One-time decision |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A modelling choice, not a live control. It reshapes both the capacity map and the routing at once, so it should be decided on purpose rather than inherited from a vendor default.
@@ -382,6 +398,7 @@ Whether the territories are still right. C-03 records what each territory is; th
 | Future state — who decides | Branch Leadership (ED) — redrawing a boundary is a leadership act |
 | Trigger / how often | Quarterly |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Added 19 Aug. The workbook's own example is the whole argument: one territory carrying about thirty patients across two full-time clinicians while the adjacent area declines starts. The tool proposes the misalignment; a person moves the boundary.
@@ -404,6 +421,7 @@ The earliest visit a clinician can actually secure, as distinct from the time th
 | Future state — who decides | Clinical Manager — owns the gap as a problem to work |
 | Trigger / how often | Weekly |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 Added 19 Aug, and deliberately read-only. Inferring the preference from observed start times would record defeat as choice and then optimise to preserve it. Ask, record the answer, report the gap.
@@ -429,6 +447,7 @@ How much work is already on each clinician's calendar, in points. Capacity means
 | Future state — who decides | Clinical Manager — acts on the imbalance |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Low |
 
 Derived and safe to compute. The catch is pending-auth visits, which are on no calendar and count toward nothing — so this number is already understated today.
@@ -451,6 +470,7 @@ How many bookable points are left in each day once assigned work is subtracted. 
 | Future state — who decides | Scheduler — acts on it daily; Clinical Manager — on the pattern |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Pure derivation, but only as good as the point definitions underneath it. This is one of the clearest 'nobody can see this today' rows.
@@ -473,6 +493,7 @@ The 'how much more can we take this week' number — the one a branch leader act
 | Future state — who decides | Branch Leadership (ED) — referral acceptance |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Low |
 
 The headline capacity number. Everything else on this sheet exists to make it trustworthy.
@@ -495,6 +516,7 @@ Open capacity limited to the clinicians who can actually open a case. New patien
 | Future state — who decides | Branch Leadership (ED) / DCS |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 The growth-gating number. Distinct from total open room and more binding.
@@ -517,6 +539,7 @@ The shared currency. A start of care is worth more than a routine visit, so the 
 | Future state — who decides | Corporate / Operations — owns the definition |
 | Trigger / how often | Config — set once, revisited by policy |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Medium |
 
 The values exist. What is undefined is how travel, documentation time and acuity are treated — and until that is settled, every derived capacity number inherits the ambiguity.
@@ -539,6 +562,7 @@ The weekly load a clinician is expected to carry and the daily maximum they shou
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Config |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Medium |
 
 A policy constant and a simple lookup. Conflict risk: a vendor with its own opinion about targets will fight branch policy.
@@ -561,6 +585,7 @@ The two events that move the envelope. A referral consumes capacity when it is a
 | Future state — who decides | Branch Leadership (ED) |
 | Trigger / how often | Continuous — as events occur |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Low |
 
 Detecting the events is straightforward. What to do about the trend is the judgment, and it sits with the branch.
@@ -583,6 +608,7 @@ The rate of incoming referrals. Recorded here for completeness and deliberately 
 | Future state — who decides | — outside this initiative |
 | Trigger / how often | Continuous |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | No · N · Low |
 
 Out of scope by choice, documented so the capacity math is transparent about what it holds constant.
@@ -608,6 +634,7 @@ The days each clinician normally works, including rotations like four long days 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Slow-changing, with informal exceptions |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 A set pattern with informal exceptions — the exceptions are the part no system holds.
@@ -630,6 +657,7 @@ When a clinician likes to begin. It anchors the front of the route, and the firs
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily, in practice |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 Preferred and possible are two different things. Many clinicians want an early first visit and struggle to make it happen; it takes planning and patient motivation, not just a preference field.
@@ -652,6 +680,7 @@ Whether that start time can move day to day. It separates a clinician who will s
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 Depends on a person's willingness. Assuming it is available damages the trust the whole thing runs on — surface only.
@@ -674,6 +703,7 @@ Whether a clinician holds time mid-day for a break or for charting. It removes a
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 A capturable personal habit. Worth knowing, not worth enforcing.
@@ -696,6 +726,7 @@ Time reserved specifically for charting, usually mid-afternoon. It consumes sche
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Same shape as the lunch pattern. Note that documentation time is real capacity consumed, and today it is invisible in the point math.
@@ -718,6 +749,7 @@ A gap in the middle of the day — school pickup, an errand — with visits eith
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily, and it varies |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Maybe · N · High |
 
 A personal daily rhythm that varies. Hard to predict reliably and easily disrupted by a system that assumes it knows — read only.
@@ -740,6 +772,7 @@ The time a clinician must be finished by, usually for childcare or a second comm
 | Future state — who decides | Scheduler |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Yes · N · Medium |
 
 A firm edge once known. The knowing is the tacit part.
@@ -762,6 +795,7 @@ The most visits an individual will carry before the day stops working, regardles
 | Future state — who decides | Scheduler |
 | Trigger / how often | Slow-changing |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 A personal ceiling, capturable and worth confirming. Conflict risk: a vendor that packs to points alone will breach it.
@@ -787,6 +821,7 @@ The point each clinician drives from and returns to. A first visit far from home
 | Future state — who decides | Scheduler — confirms the anchor |
 | Trigger / how often | Slow-changing |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 A legible anchor once captured. Using home addresses for routing has a privacy dimension worth settling early.
@@ -812,6 +847,7 @@ What each discipline has ordered for a patient and how often — the demand sign
 | Future state — who decides | DCS — owns plan-of-care approval |
 | Trigger / how often | Per episode, at plan of care and at each recertification |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Clear in HCHB. Note that each discipline plots to clinical need without seeing payer limits at that moment — which is where the auth collision starts.
@@ -834,6 +870,7 @@ What kind of visit each one is — start of care, routine, recertification, resu
 | Future state — who decides | — exception only |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Clean order attribute.
@@ -856,6 +893,7 @@ Whether the payer has agreed to pay for the visits, and how many. It behaves two
 | Future state — who decides | Scheduler — owns what falls out; Auth team — owns the exception |
 | Trigger / how often | Per episode and per add-on order |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 The largest single bottleneck in current-state scheduling, and the most tractable: the rules already exist in writing before they are needed. Surfacing the coordination note at plan-of-care creation is the highest-value, lowest-complexity win identified. Pending-auth visits sit on no calendar and count toward nothing — if you cannot see it, you cannot plan it.
@@ -878,6 +916,7 @@ Any order written after the plan of care is submitted. In steady state there is 
 | Future state — who decides | DCS |
 | Trigger / how often | On event — mid-episode |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Flagged in the inventory as a bottleneck awaiting DCS workflow. It affects how capacity looks as well as what gets scheduled.
@@ -900,6 +939,7 @@ The date range each ordered visit has to land inside. A visit delivered outside 
 | Future state — who decides | Scheduler — owns the exception |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A hard, legible clock — among the safest things to enforce automatically.
@@ -922,6 +962,7 @@ The clock that starts when a referral is accepted. Every start of care is time-s
 | Future state — who decides | Scheduler; escalates to DCS |
 | Trigger / how often | Per referral |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A hard regulatory clock, fully clear — described in the inventory as the safest automation win available.
@@ -944,6 +985,7 @@ The windows that bind the end of an episode — the recertification visit must f
 | Future state — who decides | DCS |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Regulatory window; enforce and flag. Recert visits are already on the calendar from the original plan of care.
@@ -966,6 +1008,7 @@ The depth and age of the plan-of-care QA queue and the physician-order approval 
 | Future state — who decides | DCS — escalates when the queue is the constraint |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Added 19 Aug. Queue depth and age are countable, but the queue is other people's work — surface it in front of the people it blocks, do not reorder it.
@@ -991,6 +1034,7 @@ Putting the visit with someone licensed to perform it. The one genuine hard gate
 | Future state — who decides | — exception only |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · High |
 
 A hard gate and fully legible. The sensitivity is the flip side: auto-assigning routine visits to assistants opens a lot of capacity but is a significant change-management conversation.
@@ -1013,6 +1057,7 @@ Sending visits that need a specific skill to someone who actually has it. It nar
 | Future state — who decides | Clinical Manager — confirms competency |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Only as good as the competency data, which is incomplete today. This is human work performed on information the system does not hold.
@@ -1035,6 +1080,7 @@ Sending a more complex patient to a more capable clinician. This is clinical jud
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Per visit, especially at admission |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At recertification |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Clinical judgment with patient-safety consequences. Recommend, never decide. Useful for triage when coverage is short.
@@ -1057,6 +1103,7 @@ Firm limits on what an individual can be given — no wound care, north territor
 | Future state — who decides | Clinical Manager — owns the restriction |
 | Trigger / how often | Slow-changing |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 A documented hard gate the system should simply honour — but only once it is actually written down somewhere the system can read.
@@ -1079,6 +1126,7 @@ Keeping the same clinician with a patient across the episode. It improves outcom
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Load-bearing but invisible. Protect it explicitly rather than scoring it against efficiency.
@@ -1101,6 +1149,7 @@ Required supervision visits on a set cadence — an RN must supervise an aide's 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per cadence — typically 14 days |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Rule-based and legible.
@@ -1123,6 +1172,7 @@ Timing set by the medicine, not by preference — a fasting lab in the morning, 
 | Future state — who decides | Clinician |
 | Trigger / how often | Per visit for affected patients |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Clinical judgment with patient-safety consequences — flag it, never decide it. Also the clearest place where a rehospitalisation-risk signal would earn its keep.
@@ -1145,6 +1195,7 @@ The order visits are taken in when infection risk is involved — the immunocomp
 | Future state — who decides | Clinician |
 | Trigger / how often | Daily, when applicable |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Partly rule, partly judgment. A system can propose the sequence and flag conflicts; the clinician confirms.
@@ -1167,6 +1218,7 @@ How likely a patient is to end up back in hospital, used to decide which visits 
 | Future state — who decides | Clinical Manager / Clinician — decide priority |
 | Trigger / how often | Per patient, continuous |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Added 19 Aug. A risk score may inform priority; it may not silently reorder a clinician's day or override clinical judgment. The natural companion to acuity matching when coverage is short.
@@ -1192,6 +1244,7 @@ Whether a candidate visit sits near the ones already booked. Clustering is the p
 | Future state — who decides | Clinician — adjusts the proposal |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Geometry, and safely reversible. The efficiency gain here is real rather than borrowed from someone's slack.
@@ -1214,6 +1267,7 @@ The total driving in a sequenced day. It is the cost being minimised — high mi
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Low |
 
 Deterministic routing maths.
@@ -1236,6 +1290,7 @@ The sequence the day runs in. Fixed points — a caregiver window, a timed teach
 | Future state — who decides | Clinician |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 A legible skeleton pinned by tacit anchors. Propose the sequence; let the person place the anchors.
@@ -1258,6 +1313,7 @@ Committing to a band of time rather than just a day. It turns a day-level order 
 | Future state — who decides | Scheduler / Clinician |
 | Trigger / how often | Day before the visit |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Yes · N · High |
 
 Enforceable once captured; capture is the weak point. Standardising this would move patient satisfaction and team efficiency together — and it is a visible change for clinicians.
@@ -1280,6 +1336,7 @@ Market-specific rules constraining when and where a visit may be scheduled, and 
 | Future state — who decides | Branch Leadership (ED) |
 | Trigger / how often | As raised, and by market rule |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Numbered S-45 on 19 Aug. Where it applies the slot is removed from the route rather than flagged for override. Currently invisible to any scheduling logic, and it varies by market.
@@ -1302,6 +1359,7 @@ Concentrating visits early so a missed day later can still be recovered. The sta
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Weekly |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 A target, not a law. Forcing it flattens the clinician's own rhythm, which costs more than it saves.
@@ -1324,6 +1382,7 @@ Whether a clinician is on track against their own planned week so far. It is the
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Daily |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 A derived read, safe to surface. This is the archetype of the pattern you described: the system can produce it, but somebody has to look and act.
@@ -1346,6 +1405,7 @@ Spreading work so no single day is over-packed and none is idle. It protects aga
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Weekly |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Optimisable, but it touches human routines — assist rather than dictate.
@@ -1371,6 +1431,7 @@ Recovering a visit that was not worked. Spotting the miss is easy; choosing the 
 | Future state — who decides | Scheduler |
 | Trigger / how often | On event |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Sensing the miss is legible; the recovery pulls the whole problem back in. Note the visit states run scheduled, then documentation pending, then missed — so 'missed' is a late signal.
@@ -1393,6 +1454,7 @@ The compliance trail behind a missed visit — the note, and the physician notif
 | Future state — who decides | Scheduler; DCS on escalation |
 | Trigger / how often | On event |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · Low |
 
 Workflow and compliance prompting — safe to automate, and already partly automated.
@@ -1415,6 +1477,7 @@ The gap between a visit happening and its documentation reaching the office. Tod
 | Future state — who decides | Clinical Manager — owns the measure |
 | Trigger / how often | Continuous |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Added 19 Aug, and it constrains the whole design: nothing may depend on real-time visit state read out of HCHB. The workbook's example is stark — a clinician who called an ambulance has started a visit that did not happen, and the schedule still reads as worked.
@@ -1440,6 +1503,7 @@ A flat refusal of a time band — nothing before eleven, no afternoons. It remov
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode, revisited in conversation |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Yes · N · Medium |
 
 Hard once captured, but a stale refusal causes a failed visit — and in practice these soften with relationship. Worth re-testing rather than treating as permanent.
@@ -1462,6 +1526,7 @@ When the patient would like to be seen. Softer than a refusal, but it drives sat
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Optimise toward it, confirm before committing.
@@ -1484,6 +1549,7 @@ Standing commitments that block whole days — dialysis on Monday, Wednesday and
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Weekly — when the week is built |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 A standing constraint, but patient-reported — trust and verify.
@@ -1506,6 +1572,7 @@ Some visits can only happen when a family member or carer is there — wound-car
 | Future state — who decides | Scheduler — confirms with the family |
 | Trigger / how often | Per visit for affected patients |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 The clearest 'surface, never decide' row on the sheet: a hard rule, a changing informal input, and a patient-safety consequence if it is wrong.
@@ -1528,6 +1595,7 @@ When a patient cannot safely admit a clinician or follow instruction alone, a ca
 | Future state — who decides | Clinician / Clinical Manager |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At start of care |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Cognition plus caregiver dependency plus safety. Automation must only surface.
@@ -1550,6 +1618,7 @@ Scheduling around two moving calendars at once — the patient's and a carer who
 | Future state — who decides | Scheduler |
 | Trigger / how often | Weekly, sometimes more |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Two undocumented moving calendars. A system can show what it last heard; it cannot know.
@@ -1572,6 +1641,7 @@ The patient's other appointments — dialysis, infusion, a specialist visit — 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode, and it changes |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | Day before — the confirmation round |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Capturable if reported. The failure mode is a visit booked into an appointment nobody knew about.
@@ -1594,6 +1664,7 @@ A patient's request for a clinician of a particular gender, often for cultural, 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At start of care |
 | MVP · Gating · Adoption sensitivity | No · N · Medium |
 
 Sensitive. Surface and confirm rather than auto-matching on it.
@@ -1616,6 +1687,7 @@ Pairing a patient with a clinician who shares their language where possible. It 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At start of care |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Capturable on both sides, and worth confirming specifically for teaching-critical visits.
@@ -1641,6 +1713,7 @@ The first call to a newly referred patient. Today it carries a real judgment as 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per referral |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Automate the trigger and the routine parts; keep a person on the line for the judgment. This is the highest-value human call in the admission chain.
@@ -1663,6 +1736,7 @@ Checking the patient — and where needed the caregiver — can actually make a 
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per visit at booking |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Feeds directly off the caregiver-availability rows, which are the least reliable data on the sheet. Surface what is known; do not presume it is current.
@@ -1685,6 +1759,7 @@ The call that confirms tomorrow's visit will actually happen. It is the single b
 | Future state — who decides | Clinician — takes over when the automated round surfaces a problem |
 | Trigger / how often | Daily, day before |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · N · High |
 
 The largest single block of clinician time this initiative can hand back. The one-pager now commits to automating the round and to keeping the schedule pliable until confirmation, so changes can land before the patient is told. The care in the design is that the call also surfaces things a reminder never would.
@@ -1707,6 +1782,7 @@ System-sent reminders ahead of a visit. A clean, low-risk automation that reduce
 | Future state — who decides | — exception only |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Deterministic and safe. This is the most obvious quick win in the engagement arena.
@@ -1729,6 +1805,7 @@ Telling the patient the clinician is roughly twenty minutes out. It is fully der
 | Future state — who decides | — exception only |
 | Trigger / how often | Per visit |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Deterministic from position and route. Note it implies clinician location tracking, which is a conversation to have deliberately.
@@ -1751,6 +1828,7 @@ How each patient wants to be reached — text, call or email — and what they h
 | Future state — who decides | Scheduler |
 | Trigger / how often | Per episode |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At start of care |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Honour it, never assume it. Conflict risk: a vendor with its own communication model may not respect an existing preference store. Consent and opt-out rules also carry regulatory weight.
@@ -1773,6 +1851,7 @@ Whether someone other than the patient holds legal authority to sign admission c
 | Future state — who decides | Scheduler — confirms who may be contacted |
 | Trigger / how often | Per referral, before booking |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At referral / welcome call |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Medium |
 
 Added 19 Aug. The failure it prevents is concrete: a nurse arrives for the start of care, the patient cannot sign, and the power of attorney is two states away. The visit is wasted and the clock keeps running.
@@ -1795,6 +1874,7 @@ The confirmed phone number and reachable channel for the patient and, where it a
 | Future state — who decides | Scheduler — owns the exception when nobody answers |
 | Trigger / how often | Per referral, verified at admission |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | At referral / welcome call |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Added 19 Aug, and distinct from channel preference: a preference is no use without a working number for the right party. The failure it names is reminders going to a disconnected mobile while the daughter who books every visit is never contacted.
@@ -1817,6 +1897,7 @@ Which channels we are legally allowed to use — texting, and sharing informatio
 | Future state — who decides | — exception only |
 | Trigger / how often | Per episode, signed at the start of care |
 | Stays true on its own? | **Stable** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Added 19 Aug, and it puts a hard boundary on the automation the one-pager promises: consents are signed at the start-of-care visit, so no automated texting can precede admission and the readiness call before that first visit is necessarily a voice call.
@@ -1842,6 +1923,7 @@ Negotiating a new time when the planned one stops working. A system can propose 
 | Future state — who decides | Clinician / Scheduler |
 | Trigger / how often | On event |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Medium |
 
 Human negotiation around a moving constraint. Note that when rapid reschedule is switched on, a clinician moving their own visit inside the week creates no office work at all — so the volume the office sees is a branch configuration choice, not a fact.
@@ -1864,6 +1946,7 @@ Chasing the visit that did not happen — reaching the patient, rebooking, docum
 | Future state — who decides | Scheduler |
 | Trigger / how often | On event |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · Low |
 
 Detection is clean; the recovery pulls in every soft constraint again.
@@ -1886,6 +1969,7 @@ The scramble when a clinician is out. It is owned jointly by the DCS and the sch
 | Future state — who decides | DCS and Scheduler — jointly |
 | Trigger / how often | On event |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Yes · Y · High |
 
 Runs on the same relational willingness as the per-diem and elasticity rows. A system can assemble the candidate list and reach people directly; it cannot decide who will say yes. This is where an incentive on a hard-to-fill visit would attach.
@@ -1908,6 +1992,7 @@ Surfacing a difficult visit to the clinicians who could take it, with whatever i
 | Future state — who decides | Branch Leadership (ED) — would own the spend |
 | Trigger / how often | On event |
 | Stays true on its own? | **Drifts — needs re-contact** |
+| Re-checked when | On event — coverage and surge |
 | MVP · Gating · Adoption sensitivity | -- · N · High |
 
 A genuine gap, not an oversight: this was added to the vendor ask on 21 Aug and the 19 Aug inventory predates it. Recorded here so the workbook and the questionnaire stay aligned. Next free IDs after 19 Aug are SH-10, C-15, S-51 and CO-15.
@@ -1933,6 +2018,7 @@ Spacing the nurse, the therapist and the aide sensibly across a week rather than
 | Future state — who decides | Scheduler |
 | Trigger / how often | Weekly per patient |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Rule-informed but bounded by what a patient will tolerate in a week. Propose, do not dictate.
@@ -1955,6 +2041,7 @@ The connective work of telling the case manager and the office when something ch
 | Future state — who decides | Clinical Manager |
 | Trigger / how often | Continuous |
 | Stays true on its own? | **This is the contact** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Logging and notifying is automatable; deciding what deserves an escalation is human judgment.
@@ -1977,6 +2064,7 @@ The time clinicians and schedulers spend on coordination rather than care. It is
 | Future state — who decides | Clinical Manager / Branch Leadership — to act on the trend |
 | Trigger / how often | Continuous |
 | Stays true on its own? | **Live / computed** |
+| Re-checked when | — |
 | MVP · Gating · Adoption sensitivity | Maybe · N · Low |
 
 Measure and surface it; do not try to control the people doing it. This is the number that turns the business case from theory into a figure the branch recognises.
