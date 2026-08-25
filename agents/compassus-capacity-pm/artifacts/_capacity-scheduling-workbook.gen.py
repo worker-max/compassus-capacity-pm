@@ -794,6 +794,41 @@ MODULE = {
  "gap":"Patient Engagement",   # not in the inventory; placed where the one-pager puts it
 }
 
+# ---------------------------------------------------------------- Colin's 25 Aug ruling
+# Coordination is engagement work: it is carried by contact with a patient or a clinician.
+# This DIVERGES from the Module column of the 19 Aug workbook, which has these four under
+# Scheduling Engine. The workbook is upstream -- this needs writing back to it.
+RULING = {
+ "CO-09": ("Patient Engagement", "Capacity, Scheduling"),
+ "CO-10": ("Patient Engagement", "Scheduling"),
+ "CO-11": ("Patient Engagement", "Scheduling"),
+ "CO-12": ("Patient Engagement", "Capacity, Scheduling"),
+}
+
+# ---------------------------------------------------------------- the decay dimension
+# The question that actually separates engagement from the rest is not "does a person touch
+# it" -- almost everything involves a person somewhere. It is "does this stay true on its own,
+# or does it go stale unless we keep asking?"  A caregiver-present requirement is real for the
+# first three weeks and then quietly is not. A competing appointment does not exist at start of
+# care and does exist by week four. Those are not static facts captured once; they are a
+# standing conversation. That property can attach to a capacity or a scheduling variable, which
+# is why it is a column of its own rather than a third bucket things move into.
+DECAY = {}
+for _v in ("SH-01","SH-02","SH-04","SH-05","SH-06","SH-07","SH-08","SH-09","C-01","C-02","C-03",
+           "C-04","C-11","C-12","C-13","S-01","S-02","S-14","S-16","S-21","S-22","S-39","S-43",
+           "S-44","S-45","CO-14"):
+    DECAY[_v] = "Stable"
+for _v in ("SH-03","C-05","C-06","C-07","C-08","C-14","S-03","S-15","S-17","S-18","S-19","S-35",
+           "S-36","S-37","S-38","S-40","S-41","S-42","S-48","S-49","S-50","CO-12"):
+    DECAY[_v] = "Live / computed"
+for _v in ("C-09","C-10","S-04","S-05","S-06","S-07","S-08","S-09","S-10","S-11","S-12","S-13",
+           "S-20","S-23","S-24","S-25","S-26","S-27","S-28","S-29","S-30","S-31","S-32","S-33",
+           "S-34","S-46","S-47","CO-05","CO-13","gap"):
+    DECAY[_v] = "Drifts \u2014 needs re-contact"
+for _v in ("CO-01","CO-02","CO-03","CO-04","CO-06","CO-07","CO-08","CO-09","CO-10","CO-11"):
+    DECAY[_v] = "This is the contact"
+
+
 SHORT = {"Capacity": "Capacity Management", "Scheduling": "Scheduling Engine",
          "Engagement": "Patient Engagement"}
 
@@ -808,15 +843,19 @@ GROUP_ARENA = {
 }
 
 def alignment(vid, group):
-    """The 19 Aug workbook and the 21 Aug one-pager do not always agree on placement.
-    Neither is wrong -- the workbook is the internal model, the one-pager is the vendor
-    view -- but a vendor answering Part B under one heading while we score it under
-    another gives a false coverage read. So the disagreements are surfaced, not resolved."""
-    mod = MODULE.get(vid)
+    """Three authorities can disagree about where a variable belongs: the Module column of the
+    19 Aug workbook, the vendor one-pager, and any ruling made since. Neither of the first two is
+    wrong -- the workbook is the internal model, the one-pager is the vendor view -- but a vendor
+    answering Part B under one heading while we score it under another gives a false coverage
+    read. So the disagreements are surfaced, never quietly resolved."""
     grp = GROUP_ARENA[group]
-    if mod == grp:
+    if vid in RULING:
+        return (f"Ruled 25 Aug \u2014 moved to {RULING[vid][0]}. The 8.19 workbook still has it "
+                f"under {MODULE[vid]}; write this back to the workbook")
+    if MODULE.get(vid) == grp:
         return "Aligned"
     return f"Differs \u2014 the one-pager groups this under {grp}"
+
 
 ARENA_ORDER = {"Capacity Management": 0, "Scheduling Engine": 1, "Patient Engagement": 2}
 GROUP_ORDER = ["Workforce supply", "Availability & reach", "The capacity math",
@@ -830,7 +869,7 @@ HEADERS = [
     ("Who does the work today", 30), ("Who reads it and decides today", 30),
     ("Where the information lives today", 44), ("Confidence", 12),
     ("Future state -- the tool's role", 17), ("Future state -- who decides", 30),
-    ("Trigger / how often", 22), ("MVP", 7), ("Gating", 8), ("Adoption sensitivity", 13),
+    ("Trigger / how often", 22), ("Stays true on its own?", 17), ("MVP", 7), ("Gating", 8), ("Adoption sensitivity", 13),
     ("Why this posture / watch-out", 62), ("Open question for the team", 44),
 ]
 
@@ -907,6 +946,7 @@ def build():
         ("Future state -- the tool's role", "Automate (the tool does it), Assist (the tool proposes, a person confirms), Surface (the tool shows, a person decides), Stays manual (unchanged)."),
         ("Future state -- who decides", "For Assist and Surface rows, the person who confirms or acts. For Automate rows, who owns the exception when automation cannot resolve it."),
         ("Trigger / how often", "What sets the task off and at what rhythm. This is the column the future-state maps are built from -- a map is a sequence of triggers."),
+        ("Stays true on its own?", "Stable = record it once and it holds. Drifts = it goes stale unless somebody keeps asking, so it needs a standing engagement mechanism, not a field captured at start of care. Live/computed = recalculated, no decay problem. This is the contact = the row is the outbound work itself."),
         ("Adoption sensitivity", "How much this change will be felt by clinicians. High means the design conversation matters more than the technology."),
     ]
     r = 12
@@ -954,9 +994,11 @@ def build():
         ("Future state: Automate", "The tool does it end to end.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Automate")'),
         ("Future state: Assist", "The tool proposes, a person confirms.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Assist")'),
         ("Future state: Surface", "The tool shows, a person decides.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Surface")'),
-        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$Q$2:$Q${last},"High")'),
-        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Yes")'),
-        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Y")'),
+        ("Drifts \u2014 needs re-contact", "THE ENGAGEMENT LOAD. These go stale unless somebody keeps asking.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Drifts*")'),
+        ("...and sitting outside Engagement", "Capacity and scheduling rows that still need an engagement mechanism under them.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$B$2:$B${last},"<>Patient Engagement")'),
+        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$R$2:$R${last},"High")'),
+        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Yes")'),
+        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$Q$2:$Q${last},"Y")'),
     ]
     r = 30
     for label, meaning, formula in counts:
@@ -1033,9 +1075,12 @@ def build():
     # Arena comes from the workbook's Module column, never from the group.
     rows = []
     for r in R:
-        vid, _, also, group = r[0], r[1], r[2], r[3]
+        vid, also, group = r[0], r[2], r[3]
         arena = MODULE.get(vid, SHORT[r[1]])
-        rows.append((vid, arena, also, group, alignment(vid, group)) + tuple(r[4:]))
+        if vid in RULING:
+            arena, also = RULING[vid]
+        head = (vid, arena, also, group, alignment(vid, group)) + tuple(r[4:13])
+        rows.append(head + (DECAY[vid],) + tuple(r[13:]))
     rows = sorted(rows, key=lambda x: (ARENA_ORDER[x[1]], GROUP_ORDER.index(x[3])))
     for ri, row in enumerate(rows, start=2):
         for ci, val in enumerate(row, start=1):
@@ -1048,13 +1093,13 @@ def build():
         ml.cell(row=ri, column=4).font = Font(name=FONT, size=10, bold=True, color=INK)
         if not str(row[4]).startswith("Aligned"):
             ml.cell(row=ri, column=5).font = Font(name=FONT, size=9, bold=True, color="9C4221")
-        for ci in (8, 9, 10, 11, 12, 13, 14, 17):
+        for ci in (8, 9, 10, 11, 12, 13, 14, 15, 18):
             ml.cell(row=ri, column=ci).fill = PatternFill("solid", fgColor=EDIT)
-        for ci in (11, 15, 16, 17):
+        for ci in (11, 15, 16, 17, 18):
             ml.cell(row=ri, column=ci).alignment = Alignment(vertical="top", horizontal="center", wrap_text=True)
         ml.row_dimensions[ri].height = 76
 
-    ml.auto_filter.ref = f"A1:S{len(rows) + 1}"
+    ml.auto_filter.ref = f"A1:T{len(rows) + 1}"
 
     # Confidence drives the shading of BOTH the source cell and the confidence cell.
     for value, colour in (("High", HI), ("Medium", MED), ("Low", LO)):
@@ -1064,8 +1109,8 @@ def build():
     # Adoption sensitivity: High is the one that needs attention, so High reads warm.
     for value, colour in (("High", LO), ("Medium", MED), ("Low", HI)):
         ml.conditional_formatting.add(
-            f"Q2:Q{len(rows) + 1}",
-            FormulaRule(formula=[f'$Q2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
+            f"R2:R{len(rows) + 1}",
+            FormulaRule(formula=[f'$R2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
 
     # ------------------------------------------------ Lists
     lists = wb.create_sheet("Lists")
@@ -1080,6 +1125,8 @@ def build():
         "G": ("Trigger / how often", [
             "Per referral", "Per episode", "Per visit", "Daily", "Day before the visit",
             "Weekly", "Quarterly", "On event", "Continuous", "Config", "Slow-changing", "One-time decision"]),
+        "I": ("Stays true on its own?", ["Stable", "Drifts \u2014 needs re-contact",
+              "Live / computed", "This is the contact"]),
         "H": ("Roles (for the two owner columns)", [
             "Intake", "Auth team", "Scheduler", "DCS", "Clinician", "Clinical Manager",
             "Branch Leadership (ED)", "Per Diem / Float", "Case Manager", "HR / Talent",
@@ -1101,8 +1148,8 @@ def build():
     n_rows = len(rows) + 1
     dvs = [
         ("B", "$A$2:$A$4"), ("K", "$B$2:$B$4"), ("L", "$C$2:$C$5"),
-        ("Q", "$D$2:$D$4"), ("O", "$E$2:$E$5"), ("P", "$F$2:$F$3"),
-        ("N", "$G$2:$G$13"),
+        ("R", "$D$2:$D$4"), ("P", "$E$2:$E$5"), ("Q", "$F$2:$F$3"),
+        ("N", "$G$2:$G$13"), ("O", "$I$2:$I$5"),
     ]
     for col, ref in dvs:
         dv = DataValidation(type="list", formula1=f"Lists!{ref}", allow_blank=True,
@@ -1168,7 +1215,7 @@ def write_markdown(rows):
     current = None
     for row in rows:
         (vid, arena, also, group, align, name, plain, does, decides, where, conf,
-         future, fowner, trigger, mvp, gating, sens, why, question) = [dash(v) for v in row]
+         future, fowner, trigger, decay, mvp, gating, sens, why, question) = [dash(v) for v in row]
         key = (arena, group)
         if key != current:
             current = key
@@ -1189,6 +1236,7 @@ def write_markdown(rows):
             f"| Future state | **{future}** |",
             f"| Future state — who decides | {fowner} |",
             f"| Trigger / how often | {trigger} |",
+            f"| Stays true on its own? | **{decay}** |",
             f"| MVP · Gating · Adoption sensitivity | {mvp} · {gating} · {sens} |",
             "",
             f"{why}",
