@@ -144,9 +144,10 @@ a *second* artifact and leaves the shared one stale, which is how Flow 3 ended u
 | `Flow-Routine-Visits` (2) | https://claude.ai/code/artifact/e0267da0-056d-408a-a245-e768d7c8c428 |
 | `Flow-Authorization` (3) | https://claude.ai/code/artifact/cae6d954-45a0-4092-b069-a9cf5e42800c |
 | `Flow-DCS-Scheduler` | https://claude.ai/code/artifact/936c2f7b-ef3a-4154-8a7c-806818c21520 |
+| `Flow-Recert-Discharge` (5) | https://claude.ai/code/artifact/0c51c8e8-1452-4ddc-969f-748b803de981 |
 
-`Flow-Recert-Discharge`, `Detailed-Flow-Composite` and `Flow-Payer-Economics` have no recorded link
-yet — check `/artifacts` before publishing one, and add the URL here when you do.
+`Detailed-Flow-Composite` and `Flow-Payer-Economics` have no recorded link yet — check `/artifacts`
+before publishing one, and add the URL here when you do.
 
 ### Re-rendering the PDF
 
