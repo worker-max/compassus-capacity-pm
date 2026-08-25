@@ -5,7 +5,7 @@
 > Scheduling Engine · **Patient Engagement**). Captured 24 Aug 2026 from the operator's own account of
 > how clinicians actually run this today, and how the assistant must behave for them to hand it over.
 >
-> **Status: OPEN — capture 1 of N.** This is a faithful record of what the operator specified plus the
+> **Status: OPEN — captures 1–2 of N.** This is a faithful record of what the operator specified plus the
 > ground truth it lands on. It is **not** yet a design, a schema, or a prompt. Nothing here is settled
 > that the operator has not settled. Open questions are collected in §8 rather than answered.
 >
@@ -29,7 +29,7 @@ be engineered away; it is the operating reality the protocol is built around.
 
 Together these set the unit of work: **the next-day confirmation sequence** — one clinician, one day's
 assigned visits, run the evening before. Everything in this document is scoped to that sequence. Same-day
-recovery, welcome/readiness calls, and multi-week planning are out of scope for capture 1.
+recovery, welcome/readiness calls, and multi-week planning are out of scope for these captures.
 
 **This is already the clinician's job today, done by hand.** From the process facts:
 
@@ -43,6 +43,58 @@ and
 
 So the protocol is not new work. It is the clinician's evening, handed to an assistant, with the
 clinician keeping authorship.
+
+### 1.1 Why confirming far in advance fails — the second framing constraint
+
+*Operator, capture 2.* The day-before boundary is not only about accuracy. **Confirming appointments too
+far out is unrealistic for the majority of the home health patient population, and it is actively harmful
+to the branch.** Two independent failure paths, and they compound.
+
+**The patient side — the commitment does not survive the wait.** Patients and caregivers do not remember
+a commitment made days out. A confirmation obtained too early is not a confirmation; it is a message that
+has to be sent again.
+
+**The branch side — an early confirmation spends the branch's ability to maneuver.** Narrowing down a
+clinician's commitments too far in advance limits the branch's ability to be nimble — to move visits
+around **within the week** as referrals come in and as capacity needs to be opened.
+
+This is the more important of the two, and it is the one nothing in the current model measures.
+
+### 1.2 The Wednesday SOC — the worked example
+
+> A physical therapist is working on **Tuesday**. **Thursday is already fully scheduled, and the patients
+> have confirmed.**
+>
+> On **Wednesday**, a **priority start-of-care** referral comes in.
+
+Thursday now has no give in it. Every available outcome costs something:
+
+| Outcome | What it costs |
+|---|---|
+| The SOC **goes to another clinician** | Wrong territory, broken continuity, and a per-diem or float call — a capacity lever spent to cover a problem the confirmation created |
+| The SOC is **deflected to Friday** | Delay against the SOC timing window (`S-35`) — *every* SOC/ROC is seen within 48 hours under Medicare guidelines, so "priority" here means something worse than merely late |
+| **One or two confirmed patients are told their appointment has changed** | **The perception of service failure** |
+
+**The third outcome is the one that accumulates.** A single change is absorbed. The operator's point is
+about frequency: *especially if this happens more than once within an episode of care for a patient.*
+Service-failure perception is **cumulative across the episode**, not per-event — so the cost of an early
+confirmation is not paid at the moment it is broken, it is paid at the second or third break, by the
+patient's whole read of the agency.
+
+### 1.3 The design consequence
+
+**A confirmation is a liability as well as an asset.** It protects the visit against a no-show, and in the
+same motion it converts flexible capacity into a commitment that costs something to break. Confirm too
+early and the branch has sold its maneuvering room; confirm too late and the visit is unprotected.
+
+Three things follow, and they shape everything below:
+
+1. **Confirmation timing is itself a variable**, not a fixed rule. The day-before boundary is the current
+   answer; the protocol should hold it as a parameter, not a constant.
+2. **The unit of work is right.** The next-day sequence is not merely convenient — it is the point at
+   which a commitment can be made without spending the week.
+3. **Breaking a confirmation is a tracked event with a cost**, and the count per episode is the thing to
+   watch. Nothing in the model counts it today.
 
 ---
 
@@ -269,6 +321,9 @@ Drawn from the constraint register and the automation postures, not invented her
 | **Q8** | Contact-attempt policy — how many attempts, over what hours, in what channel order? | Quiet hours, elderly patients, and TCPA-adjacent exposure |
 | **Q9** | What happens after confirmation, when the patient calls back to change it? | The sequence has an after-state nobody has specified |
 | **Q10** | Does the arrival-window rule live per clinician only, or does the branch get a floor/ceiling? | §3.1 says clinician-owned; branches may disagree |
+| **Q11** | How much of the week should stay **deliberately unconfirmed** to preserve maneuvering room, and who decides — the clinician, the branch, or a rule? | §1.1. This is the parameter the whole horizon question turns on |
+| **Q12** | When a confirmed visit must be broken to absorb a priority SOC, **who breaks it and how** — the assistant, the clinician, or the scheduler? Does the assistant get a re-contact sequence of its own? | §1.2. Currently unspecified, and it is the most damaging message the system would ever send |
+| **Q13** | Should the tool **count and surface confirmation-breaks per patient per episode**, and does a second break in one episode change the branch's behaviour? | §1.3. Service-failure perception is cumulative; nothing measures it today |
 
 ---
 
@@ -276,6 +331,6 @@ Drawn from the constraint register and the automation postures, not invented her
 
 | | |
 |---|---|
-| **Operator input** | Colin Highland, 24 Aug 2026 — the session that opened this file |
+| **Operator input** | Colin Highland, 25 Aug 2026 — capture 1 (§2–§8) and capture 2 (§1.1–§1.3, the Wednesday-SOC example). More to come; the operator is still supplying material |
 | **Ground truth drawn on** | [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) · [`../knowledge/constraint-register.md`](../knowledge/constraint-register.md) · [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md) (DE-01…DE-10) · [`../artifacts/flow-map-redraw-assessment.md`](../artifacts/flow-map-redraw-assessment.md) §16–17 · [`../artifacts/variable-backlog.md`](../artifacts/variable-backlog.md) · `Variable Inventory` tab of the 8.13 workbook |
 | **Not yet done** | Prompt/agent build (would live in the Aethergrid Prompt Factory, voice + SMS modalities); schema; UI spec; workbook rows for the new `E-` variables |

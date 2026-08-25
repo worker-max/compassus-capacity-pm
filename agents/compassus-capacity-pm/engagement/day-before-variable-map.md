@@ -1,10 +1,10 @@
 # Day-Before Confirmation — the variable map
 
 > **What this is.** Everything that has to be considered when an assistant confirms tomorrow's visits,
-> drawn from the project's own knowledge base rather than from generic scheduling theory. Three parts:
+> drawn from the project's own knowledge base rather than from generic scheduling theory. Four parts:
 > **(A)** the variables that already exist and are scored, **(B)** the constraints that gate the
 > sequence, **(C)** the variables the operator's specification opens that **do not exist in the
-> inventory yet.**
+> inventory yet**, and **(D)** the data that exists in no system today.
 >
 > **Companion:** [`day-before-confirmation-protocol.md`](./day-before-confirmation-protocol.md) — the
 > operator's specification this map serves.
@@ -144,6 +144,29 @@ decline **+ reason**"*, with the reason named as *"the best training signal in t
 the *ceiling*. A fourth — the annual *cap* — applies to non-episodic payers. **A visit can be authorised
 and still be uneconomic.** None of this belongs in anything the patient hears.
 
+## A8. The maneuvering-room problem — what an early confirmation spends
+
+The Wednesday-SOC scenario (protocol §1.2) is not an engagement failure; it is a **capacity** failure that
+an engagement decision caused. These are the rows it lands on.
+
+| ID | Variable | Constraint | MVP | Posture | What it means here |
+|---|---|---|---|---|---|
+| `SH-09` | **Referral inflow / discharge outflow** | Event | Yes | Control | The Wednesday SOC *is* this event. *"Event detection is clear; the downstream action is scored separately"* — and the downstream action is exactly what a confirmed Thursday forecloses |
+| `S-35` | SOC timing window | Hard | Yes | Control | Every SOC/ROC is seen within 48 hours. Deflecting to Friday is spending a regulatory clock |
+| `C-06` | Remaining capacity by day | Derived | Yes | Control | **Reads booked visits — it cannot distinguish a confirmed visit from a movable one.** That distinction is the whole problem |
+| `C-07` | Week open capacity | Derived | Yes | Control | Same defect at week scale |
+| `C-09` | Per-diem / flex capacity | Structural | Yes | Assist | *"Not an exception path; a lever pulled deliberately."* Handing the SOC to a float because Thursday was confirmed is that lever **spent on a self-inflicted problem** |
+| `C-03` | Clinician territory assignment (zip) | Structural | Yes | Assist | The cost of sending the SOC elsewhere |
+| `S-22` | Continuity of care | Soft | Maybe | Assist | *"load-bearing but invisible in the data"* — broken by the same move |
+| `S-38` | Missed / unworked visit rescheduling | Hard | Yes | Assist | The mechanics of breaking a confirmed visit |
+| `S-42` | Day-by-day balancing | Soft | Maybe | Assist | *"Optimizable, but it touches human routines"* — this is the within-week maneuvering the operator is protecting |
+| `CO-12` | Coordination time load | Derived | Maybe | Read | Every broken confirmation is re-contact work nobody counted |
+
+**The gap this exposes.** The capacity rows treat a booked visit as a single state. In reality a visit is
+**booked-and-movable** or **booked-and-confirmed**, and only the first is capacity the branch still
+controls. Nothing in the inventory carries that distinction, so nothing in the model can show a branch
+how much of next week it has already sold.
+
 ---
 
 # Part B — the constraints that gate the sequence
@@ -171,7 +194,7 @@ grid — do not build both.
 
 # Part C — what the operator's specification opens that does not exist yet
 
-**Fourteen variables the protocol requires and the inventory does not carry.** Proposed as an
+**Nineteen variables the protocol requires and the inventory does not carry.** Proposed as an
 **Engagement (`E-`) block** — a fourth layer alongside Shared / Capacity / Scheduling / Coordination,
 because these are properties of *the engagement*, not of a clinician, a patient or a schedule.
 
@@ -195,6 +218,11 @@ because these are properties of *the engagement*, not of a clinician, a patient 
 | `E-12` | **Contact-attempt policy** — attempts, quiet hours, channel fallback order | Engagement | Config | **Yes** | Control | Q8. Elderly patients, evening runs, TCPA-adjacent exposure | — none |
 | `E-13` | **Engagement outcome → disposition write-back** | Engagement | Hard | **Yes** | Assist | §6. The sequence must resolve into one of the five HCHB dispositions — **with the reason**, which is not captured today | Backlog: *"accept / reassign / decline + reason"* |
 | `E-14` | **Escalation to clinician** | Engagement | Hard | **Yes** | **Read** | Q6. When the assistant stops and hands back. The boundary between an assistant and a liability | `CO-07` |
+| `E-15` | **Confirmation horizon** — how far ahead a visit may be confirmed | Engagement | Config | **Yes** | Assist | §1.1. The day-before boundary held **as a parameter, not a constant**. Patients do not remember commitments made days out, and early confirmation spends the branch's maneuvering room | — none |
+| `E-16` | **Unconfirmed reserve** — movable room deliberately held in the clinician-week | Capacity | Soft | **Yes** | **Read** | §1.1. The branch's ability to be nimble as referrals arrive, expressed as a quantity. `Read` on purpose: a system that *allocates* the reserve has taken the branch's judgment | `C-06`, `C-07` (blind to it) |
+| `E-17` | **Visit commitment state** — booked-and-movable vs. booked-and-confirmed | Scheduling | Derived | **Yes** | Control | A8. The distinction the capacity rows do not carry. Without it, "remaining capacity" overstates what the branch can still move | `C-05`, `C-06` |
+| `E-18` | **Confirmation-break event + reason** | Engagement | Hard | **Yes** | Control | §1.2. When a confirmed visit is broken to absorb something else — logged with what displaced it | — none |
+| `E-19` | **Confirmation breaks per patient per episode** | Engagement | Derived | **Yes** | **Read** | §1.3. **Service-failure perception is cumulative, not per-event.** The count is the number that matters, and nothing measures it today | — none |
 
 **Two more, carried from the backlog because this protocol depends on them:**
 
@@ -220,12 +248,14 @@ were there.
 | **The clinician's weekly self-planning logic** | Backlog: *"the largest undocumented decision process in the model."* This protocol touches its output daily |
 | **A payer rules library** | Three seed entries exist — UHC, Indiana Medicaid, Ohio Medicaid — **all from conversation, none from contracts.** The largest content gap in the initiative |
 | **A baseline for `CO-12` coordination time load** | Without it, the time this protocol gives back to clinicians cannot be proven |
+| **Any record of how often a confirmed visit gets broken** | The cost of confirming early is invisible, so the case for a confirmation horizon cannot be made with evidence |
+| **Any measure of service-failure *perception*** | The operator's cumulative-across-the-episode effect is real and entirely unmeasured. HHCAHPS is too slow and too coarse to serve as a proxy |
 
 ---
 
 ## Provenance
 
-Compiled 24 Aug 2026 from the project knowledge base: the `Variable Inventory` and `Definitions &
+Compiled 25 Aug 2026 from the project knowledge base: the `Variable Inventory` and `Definitions &
 Concepts` tabs of the 8.13 workbook · [`../knowledge/constraint-register.md`](../knowledge/constraint-register.md)
 (CN-01…CN-51) · [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) ·
 [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md)
