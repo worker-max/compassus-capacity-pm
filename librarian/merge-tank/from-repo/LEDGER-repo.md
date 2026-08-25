@@ -16,6 +16,7 @@ that can.
 
 | Drive ID | File | Ver | Read | Disposition | For | Note |
 |---|---|---|---|---|---|---|
+| (uploaded) | 8.19 Compassus Capacity & Scheduling Workbook.xlsx | 442472/08-19 | 08-25 | ingested | both | **Supersedes the 8.13 workbook.** 87 numbered variables (was 76 + 3 unnumbered); purely additive — zero changes to the existing 76 rows. Adds a populated **Module** column assigning every variable to one of the three arenas. CSV snapshot of all 14 tabs → knowledge/source/workbook-2026-08-19/. Supplied by Colin directly, not via Drive — **confirm which Drive copy is current** |
 | 1iuXRbKOrvrQ | Compassus Capacity & Scheduling Vendor Questionnaire.xlsx | 42859/08-21 13:50 | 08-25 | ingested (partial) | both | **The `Overview` tab only** -> knowledge/vendor-questionnaire-overview-2026-08.md. The current vendor-facing one-pager. Other seven tabs summarised, not ingested. Note: its Meta tab still says form_version 2026-08-19 |
 | 137YIaYkKXly | Compassus RFP One_Pager.pdf | 148968/08-19 17:44 | 08-25 | superseded | both | One-pager v2, the first vendor-facing rewrite. Superseded 21 Aug by the Overview tab. Logged as the lineage midpoint; not separately ingested |
 | 1LnAbz9jXIDj | Questionnaire Feedback (Doc) | 4630/08-20 13:26 | 08-25 | staged | repo | Read. Four of its points landed in the 21 Aug Overview. **The rest are unactioned** - maturity as a scored column, customer counts + top-3 census, measured customer impact, discrete status options. Needs a decision |
@@ -54,7 +55,7 @@ that can.
 
 | Disposition | Count |
 |---|---:|
-| `ingested` | 20 + 1 partial (the questionnaire `Overview` tab) |
+| `ingested` | 21 + 1 partial (the questionnaire `Overview` tab) |
 | `staged` — **needs Colin's decision** | 3 |
 | `superseded` — logged, no action | 4 |
 | unread by this side | 5 |
@@ -65,9 +66,12 @@ that can.
    workbook, which this side cannot regenerate — so the "repo is upstream for the one-pager" rule in
    DRIVE-INDEX no longer holds. Three options and a recommendation are laid out in
    `knowledge/vendor-questionnaire-overview-2026-08.md` §4. **Needs Colin.**
-2. **The `S-43` ruling.** Two unrelated claims on one code, plus `SH-12`/`S-45` describing the same
-   object from two sides. Nothing is written to the workbook yet, so it is still cheap to fix — but
-   Handoff 1 Tier A cannot be applied until this is settled.
+2. ~~**The `S-43` ruling.**~~ **CLOSED 25 Aug.** The 19 Aug workbook ruled: `S-43` Insurance
+   Authorization, `S-44` Add-On Orders, `S-45` Clinician Safety, with consent/POA landing as `S-47`
+   and `CO-14`. The reservations in `artifacts/variable-backlog.md` were overridden; that file now
+   carries the ruling. **What replaces it:** `SH-10`–`SH-14` were *not* adopted, so the payer
+   dimension — payer class, pending-auth allowance, payment period, LUPA threshold — is still
+   missing from the inventory entirely. Needs Colin.
 3. **`Evan _ Colin.docx`** — 452KB, dropped 19 August, unopened by either instance. Whoever reads it
    first should log it and say what it is.
 4. **`Pass Through Material Temp`** — Colin's running flow-map corrections, last edited 24 August and

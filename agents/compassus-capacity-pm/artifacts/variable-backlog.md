@@ -11,8 +11,27 @@
 > move the entry to the *Landed* table at the bottom with the ID and date. Append freely — this file
 > is meant to grow between sessions.
 
-**Next free IDs:** `SH-10` · `C-14` · `S-45` · `CO-13`
-*(S-43 and S-44 are reserved below and not yet in the workbook — do not reuse.)*
+> ⚠️ **Superseded on 19 Aug — read this first.** The 19 Aug workbook assigned eleven new IDs and
+> **the reservations below were not honoured.** What actually happened:
+>
+> | ID | Reserved here for | **Assigned on 19 Aug to** |
+> |---|---|---|
+> | `S-43` | Consent / POA signature status | **Insurance Authorization** |
+> | `S-44` | POA availability to sign at the visit | **Add-On Orders** |
+> | `S-45` | Insurance authorization | **Clinician Safety** |
+> | `C-14` | *(listed as next free)* | **Territory currency** ✓ |
+> | `CO-13` | *(listed as next free)* | **Patient & caregiver contact channel** ✓ |
+>
+> The consent/POA material was not dropped — it landed as **`S-47` POA status and signing authority**
+> and **`CO-14` Consent state by channel**, which together cover more than the two reserved rows did.
+> **The `S-43` collision is therefore resolved**, and the ledger item waiting on it is closed.
+>
+> **`SH-10`–`SH-14` were not adopted.** The entire payer dimension — payer class, authorization state
+> and pending-auth allowance, payment period and case-mix group, LUPA threshold — is still absent from
+> the inventory. `S-43` covers authorization as a *scheduling* variable only. **This is now the open
+> question, not the ID collision.**
+
+**Next free IDs (after 19 Aug):** `SH-10` · `C-15` · `S-51` · `CO-15`
 
 > ## ⚠️ ID COLLISION — resolve before numbering anything
 >

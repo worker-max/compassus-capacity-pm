@@ -260,16 +260,16 @@ R = [
  "Clean order attribute.",
  "Nothing outstanding."),
 
-("NEW-1","Scheduling","Capacity","Demand","Insurance authorization",
+("S-43","Scheduling","Capacity","Demand","Insurance authorization",
  "Whether the payer has agreed to pay for the visits, and how many. It behaves two completely different ways: at admission it is a gate -- nothing schedules until it clears -- and inside the episode it is a silent ceiling checked visit by visit.",
  "Auth team -- verifies eligibility and keys the pending auth; Intake -- gives final approval","Auth team, then Intake -- and the Scheduler holds what is stuck",
- "HCHB holds auth status per visit. The payer's actual rules are written by the auth team into a coordination note at verification -- days before anyone writes the plan of care.","Medium","Automate","Scheduler -- owns what falls out; Auth team -- owns the exception",
+ "HCHB holds auth status per visit; the referral side sits in Commure. The payer's actual rules are written by the auth team into a coordination note at verification -- days before anyone writes the plan of care.","Medium","Automate","Scheduler -- owns what falls out; Auth team -- owns the exception",
  "Per episode and per add-on order","Yes","Y","Medium",
  "The largest single bottleneck in current-state scheduling, and the most tractable: the rules already exist in writing before they are needed. Surfacing the coordination note at plan-of-care creation is the highest-value, lowest-complexity win identified. Pending-auth visits sit on no calendar and count toward nothing -- if you cannot see it, you cannot plan it.",
  "Can the auth coordination note be surfaced into the plan-of-care screen, and who owns that change?"),
 
-("NEW-2","Scheduling","Capacity","Demand","Add-on orders",
- "Extra visits ordered mid-episode when a patient is not progressing. Each one is a fresh authorization question and re-enters the whole loop, so it distorts both the capacity picture and the schedule.",
+("S-44","Scheduling","Capacity","Demand","Add-on orders",
+ "Any order written after the plan of care is submitted. In steady state there is no recurring scheduler workflow at all unless an add-on changes the frequency -- at which point it routes through DCS approval, then authorization, then back to the scheduler, for every affected discipline.",
  "Clinician -- requests; DCS -- reviews","DCS -- decides, then it returns to the auth loop",
  "HCHB -- orders. The DCS review workflow itself is described as still being defined.","Low","Assist","DCS",
  "On event -- mid-episode","Yes","Y","Medium",
@@ -534,12 +534,12 @@ R = [
  "Enforceable once captured; capture is the weak point. Standardising this would move patient satisfaction and team efficiency together -- and it is a visible change for clinicians.",
  "Do we want to move to committed time windows, and what would that cost in flexibility?"),
 
-("NEW-3","Scheduling","","Routing & the week","Clinician safety",
- "Places and times where a visit carries a personal-safety concern for the clinician, and the rules a market puts around them -- daylight only, paired visits, or a no-go flag.",
+("S-45","Scheduling","","Routing & the week","Clinician safety",
+ "Market-specific rules constraining when and where a visit may be scheduled, and the alerts a clinician must see before they go. These are requirements, not preferences: one market screens for firearms in the home, other people present, and mental illness -- a rule instituted after a clinician was killed in a patient's home.",
  "Clinician -- raises it; Branch Leadership -- sets the rule","Branch Leadership (ED) -- owns the policy",
  "Not held in a system today; handled market by market.","Low","Assist","Branch Leadership (ED)",
  "As raised, and by market rule","Maybe","N","Medium",
- "Added to the inventory during the 8.13 session as time blocks and warnings for market-specific alerts. Non-negotiable when it applies, and currently invisible to any scheduling logic.",
+ "Numbered S-45 on 19 Aug. Where it applies the slot is removed from the route rather than flagged for override. Currently invisible to any scheduling logic, and it varies by market.",
  "Which markets have safety rules today, and where are they written down?"),
 
 ("S-40","Scheduling","Capacity","Routing & the week","Front-loading the week",
@@ -682,22 +682,150 @@ R = [
  "Measure and surface it; do not try to control the people doing it. This is the number that turns the business case from theory into a figure the branch recognises.",
  "Is there an appetite to measure this directly, or should it be estimated from the automation we remove?"),
 
-("-- gap --","Engagement","Capacity","When plans change","Incentives and offers on hard-to-fill visits",
+("gap","Engagement","Capacity","When plans change","Incentives and offers on hard-to-fill visits",
  "Surfacing a difficult visit to the clinicians who could take it, with whatever incentive or differential is attached. The one-pager now asks vendors about this and the questionnaire scores it -- but no variable in the inventory covers it.",
  "-- does not exist today","-- no one today; does not exist",
  "Nothing today. Pay model is in Workday; there is no mechanism for a visit-level offer.","High","Assist","Branch Leadership (ED) -- would own the spend",
  "On event","--","N","High",
- "A genuine gap, not an oversight: this was added to the vendor ask on 21 Aug and the inventory has not caught up. Recording it here so the workbook and the questionnaire stay aligned.",
+ "A genuine gap, not an oversight: this was added to the vendor ask on 21 Aug and the 19 Aug inventory predates it. Recorded here so the workbook and the questionnaire stay aligned. Next free IDs after 19 Aug are SH-10, C-15, S-51 and CO-15.",
  "Do we add this to the variable inventory as a new ID? It is currently asked of vendors but not modelled by us."),
+
+# ============================== ADDED IN THE 19 AUG WORKBOOK
+("C-14","Capacity","Scheduling","Availability & reach","Territory currency",
+ "Whether the territories are still right. C-03 records what each territory is; this records whether it still matches where the patients actually are, and how far the two have drifted. The drift is invisible until capacity is stranded in one zip while the area next to it turns work away.",
+ "-- not done today","Branch Leadership (ED) with DCS -- at the joint review when capacity tightens",
+ "Not captured. It would come from comparing the territory assignment in HCHB against actual caseload and referral distribution.","Low","Assist","Branch Leadership (ED) -- redrawing a boundary is a leadership act",
+ "Quarterly","Yes","Y","Medium",
+ "Added 19 Aug. The workbook's own example is the whole argument: one territory carrying about thirty patients across two full-time clinicians while the adjacent area declines starts. The tool proposes the misalignment; a person moves the boundary.",
+ "What cadence do we want for territory review, and who convenes it?"),
+
+("S-46","Capacity","Scheduling","Availability & reach","Achievable first-visit time",
+ "The earliest visit a clinician can actually secure, as distinct from the time they would like to start. Nothing records the gap between the two -- and that gap is the clearest measure of a day lost to the caseload rather than to any decision anyone made.",
+ "-- not measured today","-- no one today",
+ "Not captured. It has to be asked, not inferred.","Low","Surface","Clinical Manager -- owns the gap as a problem to work",
+ "Weekly","Maybe","N","High",
+ "Added 19 Aug, and deliberately read-only. Inferring the preference from observed start times would record defeat as choice and then optimise to preserve it. Ask, record the answer, report the gap.",
+ "Who asks, and how often? This only works if the answer is collected rather than derived."),
+
+("S-49","Scheduling","Capacity","Demand","How far behind the review queues are",
+ "The depth and age of the plan-of-care QA queue and the physician-order approval queue. QA is a hard stop -- nothing schedules until it clears -- so when the queue runs behind, an assistant waits and a week of care compresses into a few days.",
+ "QA and Clinical Manager -- work the queue","-- no one downstream can see it today",
+ "HCHB holds the queues. Their depth and age are not surfaced to the people they block.","Medium","Surface","DCS -- escalates when the queue is the constraint",
+ "Daily","Yes","Y","Low",
+ "Added 19 Aug. Queue depth and age are countable, but the queue is other people's work -- surface it in front of the people it blocks, do not reorder it.",
+ "Can queue age be reported daily, and who owns acting on it?"),
+
+("S-48","Scheduling","","Matching","Rehospitalisation risk",
+ "How likely a patient is to end up back in hospital, used to decide which visits matter most. A scheduling input as much as a clinical one: it should decide which visit survives a call-out and which patient can tolerate a gap.",
+ "-- produced by Pulse","-- no one uses it for scheduling today",
+ "Pulse.","Medium","Surface","Clinical Manager / Clinician -- decide priority",
+ "Per patient, continuous","Maybe","N","Medium",
+ "Added 19 Aug. A risk score may inform priority; it may not silently reorder a clinician's day or override clinical judgment. The natural companion to acuity matching when coverage is short.",
+ "Is Pulse data reachable from scheduling today, and in what form?"),
+
+("S-50","Scheduling","Engagement","Exceptions","The blind window before documentation syncs",
+ "The gap between a visit happening and its documentation reaching the office. Today the office can only see that a visit was started or is incomplete -- a visit performed Tuesday may not sync until Friday, and a started visit is not always one that happened.",
+ "Clinician -- syncs; the delay is nobody's task","-- no one measures it today",
+ "HCHB, derived from the gap between visit time and sync time.","Medium","Surface","Clinical Manager -- owns the measure",
+ "Continuous","Maybe","N","Low",
+ "Added 19 Aug, and it constrains the whole design: nothing may depend on real-time visit state read out of HCHB. The workbook's example is stark -- a clinician who called an ambulance has started a visit that did not happen, and the schedule still reads as worked.",
+ "How long is the blind window in practice? Nobody has measured it."),
+
+("S-47","Engagement","Scheduling","Before the visit","Power of attorney and who can sign",
+ "Whether someone other than the patient holds legal authority to sign admission consents and to be the contact of record. Where a power of attorney exists the patient's own agreement does not satisfy consent, and some direct that the patient not be contacted at all.",
+ "Intake and Scheduler -- capture it if it surfaces","Scheduler -- decides who to contact",
+ "Partly Commure at referral, otherwise manual. Not reliably known before the visit is booked.","Low","Assist","Scheduler -- confirms who may be contacted",
+ "Per referral, before booking","Yes","Y","Medium",
+ "Added 19 Aug. The failure it prevents is concrete: a nurse arrives for the start of care, the patient cannot sign, and the power of attorney is two states away. The visit is wasted and the clock keeps running.",
+ "Where would POA status be captured so the scheduler sees it before booking rather than after?"),
+
+("CO-13","Engagement","","Before the visit","A verified number for the right person",
+ "The confirmed phone number and reachable channel for the patient and, where it applies, the caregiver or power of attorney -- including which of them is the right person to talk to about scheduling. Every piece of coordination depends on this, and today it is scattered.",
+ "Intake and Scheduler -- capture what they are given","Scheduler -- works out who to call",
+ "Partly HCHB, partly Commure, partly neither. There is no single verified record.","Low","Automate","Scheduler -- owns the exception when nobody answers",
+ "Per referral, verified at admission","Yes","Y","Low",
+ "Added 19 Aug, and distinct from channel preference: a preference is no use without a working number for the right party. The failure it names is reminders going to a disconnected mobile while the daughter who books every visit is never contacted.",
+ "Who verifies the number, and at what point in admission?"),
+
+("CO-14","Engagement","","Before the visit","Consent to contact, by channel",
+ "Which channels we are legally allowed to use -- texting, and sharing information with family -- and whether the consent has actually been signed. A legal gate rather than a preference.",
+ "Clinician -- obtains consent at the start-of-care visit","-- enforced by rule, not decided by anyone",
+ "HCHB, once signed at admission.","Medium","Automate","-- exception only",
+ "Per episode, signed at the start of care","Yes","Y","Low",
+ "Added 19 Aug, and it puts a hard boundary on the automation the one-pager promises: consents are signed at the start-of-care visit, so no automated texting can precede admission and the readiness call before that first visit is necessarily a voice call.",
+ "Does this change what we can promise vendors about pre-admission outreach?"),
 ]
 
-ARENA_ORDER = {"Capacity": 0, "Scheduling": 1, "Engagement": 2}
+# The authoritative arena for each variable is the "Module" column of the 19 Aug workbook
+# (Variable Inventory, column T). Copied verbatim; do not edit here -- edit the workbook.
+MODULE = {
+ "SH-01":"Capacity Management","SH-02":"Capacity Management","SH-03":"Capacity Management",
+ "SH-04":"Capacity Management","SH-05":"Capacity Management","SH-06":"Capacity Management",
+ "SH-07":"Capacity Management","SH-08":"Capacity Management","SH-09":"Capacity Management",
+ "C-01":"Capacity Management","C-02":"Capacity Management","C-03":"Capacity Management",
+ "C-14":"Capacity Management","C-04":"Capacity Management","C-05":"Capacity Management",
+ "C-12":"Capacity Management","C-06":"Capacity Management","C-07":"Capacity Management",
+ "C-08":"Capacity Management","C-09":"Capacity Management","C-10":"Capacity Management",
+ "C-11":"Capacity Management","C-13":"Capacity Management",
+ "S-01":"Scheduling Engine","S-02":"Scheduling Engine","S-03":"Scheduling Engine",
+ "S-35":"Scheduling Engine","S-43":"Scheduling Engine","S-44":"Scheduling Engine",
+ "S-36":"Scheduling Engine","S-49":"Scheduling Engine",
+ "S-04":"Capacity Management","S-05":"Capacity Management","S-46":"Capacity Management",
+ "S-06":"Capacity Management","S-07":"Capacity Management","S-08":"Capacity Management",
+ "S-09":"Capacity Management","S-10":"Capacity Management","S-11":"Capacity Management",
+ "S-12":"Capacity Management","S-13":"Capacity Management",
+ "S-14":"Scheduling Engine","S-17":"Scheduling Engine","S-18":"Scheduling Engine",
+ "S-19":"Scheduling Engine","S-45":"Scheduling Engine","S-20":"Scheduling Engine",
+ "S-15":"Scheduling Engine","S-16":"Scheduling Engine","S-33":"Scheduling Engine",
+ "S-21":"Scheduling Engine","S-22":"Scheduling Engine",
+ "S-23":"Patient Engagement","S-24":"Patient Engagement","S-25":"Patient Engagement",
+ "S-26":"Patient Engagement","S-27":"Patient Engagement","S-28":"Patient Engagement",
+ "S-47":"Patient Engagement","S-29":"Patient Engagement","S-30":"Patient Engagement",
+ "S-31":"Scheduling Engine","S-48":"Scheduling Engine","S-32":"Patient Engagement",
+ "S-34":"Scheduling Engine","S-37":"Scheduling Engine","S-38":"Scheduling Engine",
+ "S-39":"Scheduling Engine","S-50":"Scheduling Engine","S-40":"Scheduling Engine",
+ "S-41":"Scheduling Engine","S-42":"Scheduling Engine",
+ "CO-01":"Patient Engagement","CO-02":"Patient Engagement","CO-03":"Patient Engagement",
+ "CO-04":"Patient Engagement","CO-05":"Patient Engagement","CO-13":"Patient Engagement",
+ "CO-14":"Patient Engagement","CO-06":"Patient Engagement","CO-07":"Patient Engagement",
+ "CO-08":"Patient Engagement",
+ "CO-09":"Scheduling Engine","CO-10":"Scheduling Engine","CO-11":"Scheduling Engine",
+ "CO-12":"Scheduling Engine",
+ "gap":"Patient Engagement",   # not in the inventory; placed where the one-pager puts it
+}
+
+SHORT = {"Capacity": "Capacity Management", "Scheduling": "Scheduling Engine",
+         "Engagement": "Patient Engagement"}
+
+# Which arena each one-pager group belongs to, so we can flag the disagreements.
+GROUP_ARENA = {
+ "Workforce supply": "Capacity Management", "Availability & reach": "Capacity Management",
+ "The capacity math": "Capacity Management",
+ "Demand": "Scheduling Engine", "Matching": "Scheduling Engine",
+ "Routing & the week": "Scheduling Engine", "Exceptions": "Scheduling Engine",
+ "Before the visit": "Patient Engagement", "When plans change": "Patient Engagement",
+ "Across the care team": "Patient Engagement",
+}
+
+def alignment(vid, group):
+    """The 19 Aug workbook and the 21 Aug one-pager do not always agree on placement.
+    Neither is wrong -- the workbook is the internal model, the one-pager is the vendor
+    view -- but a vendor answering Part B under one heading while we score it under
+    another gives a false coverage read. So the disagreements are surfaced, not resolved."""
+    mod = MODULE.get(vid)
+    grp = GROUP_ARENA[group]
+    if mod == grp:
+        return "Aligned"
+    return f"Differs \u2014 the one-pager groups this under {grp}"
+
+ARENA_ORDER = {"Capacity Management": 0, "Scheduling Engine": 1, "Patient Engagement": 2}
 GROUP_ORDER = ["Workforce supply", "Availability & reach", "The capacity math",
                "Demand", "Matching", "Routing & the week", "Exceptions",
                "Before the visit", "When plans change", "Across the care team"]
 
 HEADERS = [
-    ("ID", 10), ("Arena", 12), ("Also touches", 17), ("Group", 20),
+    ("ID", 10), ("Arena (8.19 workbook)", 15), ("Also touches", 17),
+    ("One-pager group", 20), ("Placement check", 30),
     ("Variable (workbook name)", 30), ("In plain terms", 62),
     ("Who does the work today", 30), ("Who reads it and decides today", 30),
     ("Where the information lives today", 44), ("Confidence", 12),
@@ -716,7 +844,8 @@ def dash(v):
     return v
 
 def band(arena):
-    return {"Capacity": CAP, "Scheduling": SCH, "Engagement": ENG}[arena]
+    return {"Capacity Management": CAP, "Scheduling Engine": SCH,
+            "Patient Engagement": ENG}[arena]
 
 def build():
     wb = Workbook()
@@ -767,8 +896,10 @@ def build():
 
     sub(11, "How to read a row")
     rows = [
-        ("Arena / Also touches", "Where the variable primarily belongs, and which other arenas it also shows up in. Plenty of these are shared -- that is expected, not a problem to resolve."),
-        ("Group", "The ten group headings from the vendor one-pager. Part B of the questionnaire scores exactly these groups, so the workbook, the one-pager and the vendor ask all line up."),
+        ("Arena (8.19 workbook)", "Straight from the Module column of the 19 Aug workbook. That column is authoritative -- change it there, not here."),
+        ("Also touches", "The other arenas the variable shows up in. Plenty are shared -- that is expected, not a problem to resolve."),
+        ("One-pager group", "The ten group headings from the vendor one-pager. Part B of the questionnaire scores exactly these groups."),
+        ("Placement check", "Whether the workbook and the one-pager agree on where this belongs. They disagree on a number of rows -- neither is wrong, the workbook is the internal model and the one-pager is the vendor view, but a vendor answering under one heading while we score under another gives a false coverage read. The disagreements are surfaced here rather than resolved."),
         ("In plain terms", "Written for a reader with no home-health background. If a sentence needs clinical knowledge to parse, it needs rewriting."),
         ("Who does the work today", "The role that physically performs the task. Shared ownership is fine -- 'DCS and Scheduler' is a real answer."),
         ("Who reads it and decides today", "The role that looks at the result and acts. Often a different person from the one who does the work, and sometimes the honest answer is nobody -- those rows are marked '-- no one today' and they are the interesting ones."),
@@ -810,21 +941,22 @@ def build():
     n = len(R)
     last = 2 + n - 1  # master list data rows 2..last
     counts = [
-        ("Rows in total", "79 variables from the inventory, plus 1 flagged gap. Nothing dropped.", f'=COUNTA(\'Master List\'!$A$2:$A${last})'),
-        ("Capacity", "Rows whose primary arena is capacity.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Capacity")'),
-        ("Scheduling", "Rows whose primary arena is scheduling.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Scheduling")'),
-        ("Engagement", "Rows whose primary arena is engagement.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Engagement")'),
-        ("Shared across arenas", "Rows that also show up somewhere else -- the seams.", f'=COUNTIF(\'Master List\'!$C$2:$C${last},"?*")'),
-        ("Low confidence on source", "START HERE. We do not know where this lives.", f'=COUNTIF(\'Master List\'!$J$2:$J${last},"Low")'),
-        ("Medium confidence on source", "Right system, wrong-or-unknown screen.", f'=COUNTIF(\'Master List\'!$J$2:$J${last},"Medium")'),
-        ("High confidence on source", "Settled.", f'=COUNTIF(\'Master List\'!$J$2:$J${last},"High")'),
-        ("Nobody decides today", "No role reads the result. The clearest opportunities on the sheet.", f'=COUNTIF(\'Master List\'!$H$2:$H${last},"-- no one*")'),
-        ("Future state: Automate", "The tool does it end to end.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Automate")'),
-        ("Future state: Assist", "The tool proposes, a person confirms.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Assist")'),
-        ("Future state: Surface", "The tool shows, a person decides.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Surface")'),
-        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"High")'),
-        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$N$2:$N${last},"Yes")'),
-        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Y")'),
+        ("Rows in total", "87 variables from the 19 Aug inventory, plus 1 flagged gap. Nothing dropped.", f'=COUNTA(\'Master List\'!$A$2:$A${last})'),
+        ("Capacity Management", "Rows the workbook assigns to capacity.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Capacity Management")'),
+        ("Scheduling Engine", "Rows the workbook assigns to scheduling.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Scheduling Engine")'),
+        ("Patient Engagement", "Rows the workbook assigns to engagement.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Patient Engagement")'),
+        ("Shared across arenas", "Rows that also show up somewhere else \u2014 the seams.", f'=COUNTIF(\'Master List\'!$C$2:$C${last},"?*")'),
+        ("Placement differs from the one-pager", "DECISION NEEDED. The workbook and the vendor page disagree on where these belong.", f'=COUNTIF(\'Master List\'!$E$2:$E${last},"Differs*")'),
+        ("Low confidence on source", "START HERE. We do not know where this lives.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Low")'),
+        ("Medium confidence on source", "Right system, wrong-or-unknown screen.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Medium")'),
+        ("High confidence on source", "Settled.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"High")'),
+        ("Nobody decides today", "No role reads the result. The clearest opportunities on the sheet.", f'=COUNTIF(\'Master List\'!$I$2:$I${last},"\u2014 no one*")'),
+        ("Future state: Automate", "The tool does it end to end.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Automate")'),
+        ("Future state: Assist", "The tool proposes, a person confirms.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Assist")'),
+        ("Future state: Surface", "The tool shows, a person decides.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Surface")'),
+        ("High adoption sensitivity", "Rows where the change lands on clinicians. Design these with them.", f'=COUNTIF(\'Master List\'!$Q$2:$Q${last},"High")'),
+        ("Day-one must-haves", "MVP = Yes.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Yes")'),
+        ("Knockout requirements", "Gating = Y. A product that cannot do these should not advance.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Y")'),
     ]
     r = 30
     for label, meaning, formula in counts:
@@ -842,8 +974,10 @@ def build():
     ex_row += 1
     example = [
         ("ID", "C-03"),
-        ("Arena / Also touches", "Capacity / Scheduling"),
-        ("Group", "Availability & reach"),
+        ("Arena (8.19 workbook)", "Capacity Management"),
+        ("Also touches", "Scheduling"),
+        ("One-pager group", "Availability & reach"),
+        ("Placement check", "Aligned"),
         ("In plain terms", "Which zip codes each clinician covers. Territories were drawn on thin data and have stayed static, so capacity drifts away from demand quietly."),
         ("Who does the work today", "DCS and Scheduler -- assign and adjust"),
         ("Who reads it and decides today", "Branch Leadership (ED) with DCS -- at the joint review when capacity tightens"),
@@ -883,7 +1017,7 @@ def build():
 
     # ------------------------------------------------ Master List
     ml = wb.create_sheet("Master List")
-    ml.freeze_panes = "F2"
+    ml.freeze_panes = "G2"
     thin = Side(style="thin", color="D0D5DA")
     border = Border(left=thin, right=thin, top=thin, bottom=thin)
 
@@ -896,7 +1030,13 @@ def build():
         ml.column_dimensions[get_column_letter(i)].width = w
     ml.row_dimensions[1].height = 34
 
-    rows = sorted(R, key=lambda x: (ARENA_ORDER[x[1]], GROUP_ORDER.index(x[3])))
+    # Arena comes from the workbook's Module column, never from the group.
+    rows = []
+    for r in R:
+        vid, _, also, group = r[0], r[1], r[2], r[3]
+        arena = MODULE.get(vid, SHORT[r[1]])
+        rows.append((vid, arena, also, group, alignment(vid, group)) + tuple(r[4:]))
+    rows = sorted(rows, key=lambda x: (ARENA_ORDER[x[1]], GROUP_ORDER.index(x[3])))
     for ri, row in enumerate(rows, start=2):
         for ci, val in enumerate(row, start=1):
             c = ml.cell(row=ri, column=ci, value=dash(val))
@@ -906,30 +1046,32 @@ def build():
         ml.cell(row=ri, column=2).font = Font(name=FONT, size=10, bold=True, color=band(row[1]))
         ml.cell(row=ri, column=1).font = Font(name=FONT, size=10, bold=True, color=NAVY)
         ml.cell(row=ri, column=4).font = Font(name=FONT, size=10, bold=True, color=INK)
-        for ci in (7, 8, 9, 10, 11, 12, 13, 16):
+        if not str(row[4]).startswith("Aligned"):
+            ml.cell(row=ri, column=5).font = Font(name=FONT, size=9, bold=True, color="9C4221")
+        for ci in (8, 9, 10, 11, 12, 13, 14, 17):
             ml.cell(row=ri, column=ci).fill = PatternFill("solid", fgColor=EDIT)
-        for ci in (10, 14, 15, 16):
+        for ci in (11, 15, 16, 17):
             ml.cell(row=ri, column=ci).alignment = Alignment(vertical="top", horizontal="center", wrap_text=True)
         ml.row_dimensions[ri].height = 76
 
-    ml.auto_filter.ref = f"A1:R{len(rows) + 1}"
+    ml.auto_filter.ref = f"A1:S{len(rows) + 1}"
 
     # Confidence drives the shading of BOTH the source cell and the confidence cell.
     for value, colour in (("High", HI), ("Medium", MED), ("Low", LO)):
         ml.conditional_formatting.add(
-            f"I2:J{len(rows) + 1}",
-            FormulaRule(formula=[f'$J2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
+            f"J2:K{len(rows) + 1}",
+            FormulaRule(formula=[f'$K2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
     # Adoption sensitivity: High is the one that needs attention, so High reads warm.
     for value, colour in (("High", LO), ("Medium", MED), ("Low", HI)):
         ml.conditional_formatting.add(
-            f"P2:P{len(rows) + 1}",
-            FormulaRule(formula=[f'$P2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
+            f"Q2:Q{len(rows) + 1}",
+            FormulaRule(formula=[f'$Q2="{value}"'], fill=PatternFill("solid", bgColor=colour), stopIfTrue=False))
 
     # ------------------------------------------------ Lists
     lists = wb.create_sheet("Lists")
     lists.sheet_view.showGridLines = False
     cols = {
-        "A": ("Arena", ["Capacity", "Scheduling", "Engagement"]),
+        "A": ("Arena (8.19 workbook)", ["Capacity Management", "Scheduling Engine", "Patient Engagement"]),
         "B": ("Confidence", ["High", "Medium", "Low"]),
         "C": ("Future state -- the tool's role", FUTURE_VALUES),
         "D": ("Adoption sensitivity", ["High", "Medium", "Low"]),
@@ -958,9 +1100,9 @@ def build():
 
     n_rows = len(rows) + 1
     dvs = [
-        ("B", "$A$2:$A$4"), ("J", "$B$2:$B$4"), ("K", "$C$2:$C$5"),
-        ("P", "$D$2:$D$4"), ("N", "$E$2:$E$5"), ("O", "$F$2:$F$3"),
-        ("M", "$G$2:$G$13"),
+        ("B", "$A$2:$A$4"), ("K", "$B$2:$B$4"), ("L", "$C$2:$C$5"),
+        ("Q", "$D$2:$D$4"), ("O", "$E$2:$E$5"), ("P", "$F$2:$F$3"),
+        ("N", "$G$2:$G$13"),
     ]
     for col, ref in dvs:
         dv = DataValidation(type="list", formula1=f"Lists!{ref}", allow_blank=True,
@@ -1017,15 +1159,15 @@ def write_markdown(rows):
         "> [`Capacity-Scheduling-Variable-Workbook.xlsx`](./Capacity-Scheduling-Variable-Workbook.xlsx) —"
         " edit there, then regenerate this file with `_capacity-scheduling-workbook.gen.py`.",
         "",
-        "Every variable in the 8.13 inventory, placed under the three arenas of the vendor one-pager,",
-        "in the same plain language, with current-state ownership, where the information lives, and the",
-        "future-state posture. **Where-it-lives entries are first-pass hypotheses, not findings** — the",
-        "confidence column says how much to trust each one.",
+        "Every variable in the 19 Aug inventory (87 of them), placed under the three arenas the",
+        "workbook itself assigns, in the plain language of the vendor one-pager, with current-state",
+        "ownership, where the information lives, and the future-state posture. **Where-it-lives entries",
+        "are first-pass hypotheses, not findings** — the confidence column says how much to trust each.",
         "",
     ]
     current = None
     for row in rows:
-        (vid, arena, also, group, name, plain, does, decides, where, conf,
+        (vid, arena, also, group, align, name, plain, does, decides, where, conf,
          future, fowner, trigger, mvp, gating, sens, why, question) = [dash(v) for v in row]
         key = (arena, group)
         if key != current:
@@ -1039,6 +1181,7 @@ def write_markdown(rows):
             f"| | |",
             f"|---|---|",
             f"| Also touches | {also or '—'} |",
+            f"| Placement check | {align} |",
             f"| Who does the work today | {does} |",
             f"| Who reads it and decides today | {decides} |",
             f"| Where it lives today | {where} |",
