@@ -1,11 +1,14 @@
 # Drive Index — every file in the initiative folder, and where it lives here
 
 > **Drive folder:** `1RPI1ogTdyDeEf64OBRmaRQ0ESNWp5k5o` — the working folder for the Compassus capacity
-> and scheduling initiative. Fully ingested **18 Aug 2026**; twenty files, all accounted for below.
+> and scheduling initiative. Fully ingested **18 Aug 2026** (twenty files, below); re-swept **25 Aug
+> 2026**, which found eight more — see [§ New since 18 Aug](#new-since-18-aug).
 >
 > **Rule.** Drive is upstream. The workbook is authoritative for variables; the flow PDFs published to
 > Drive are generated from the `_*.gen.py` in [`../artifacts/`](../artifacts/), so **the repo is upstream
-> for those** — regenerate here, publish there, never edit the PDF.
+> for those** — regenerate here, publish there, never edit the PDF. **Exception, 21 Aug: the one-pager.**
+> The vendor-facing version is now edited in the questionnaire workbook and the repo cannot regenerate
+> it — see [`vendor-questionnaire-overview-2026-08.md`](./vendor-questionnaire-overview-2026-08.md) §4.
 
 ## Documents → knowledge
 
@@ -32,12 +35,37 @@ repo copies and the Drive copies are the same render.
 | `8.18.26 Auth Flow Process within Capacity and Scheduling Map - Current State.pdf` | `1075tGPK9KQXi_YZc2xe9QvHcWbOLQ5p_` | `Flow-Authorization.pdf` |
 | `8.18 Recert and DIscharge Flow - Current State.pdf` | `19JBJ1zQ0sZRFMzmt1wM0JS3m0yZavhtN` | `Flow-Recert-Discharge.pdf` |
 | `8.18.26 DCS and Scheduler Flow Map - Current State.pdf` | `1LrxdSrd5VNS0X6EJ5g1i1V0uZpcJ3WH7` | `Flow-DCS-Scheduler.pdf` |
-| `Capacity Scheduling One Pager 8.17.26.pdf` | `1nRLnwWnj-qlF3cTxEr2b5D1APnua4WN-` | `Capacity-Scheduling-One-Pager.pdf` |
+| `Capacity Scheduling One Pager 8.17.26.pdf` | `1nRLnwWnj-qlF3cTxEr2b5D1APnua4WN-` | `Capacity-Scheduling-One-Pager.pdf` — **version 1, internal.** Superseded for vendor use by the questionnaire `Overview` tab; still the only page that maps the model to the variable IDs |
 | `8.17.26 Capacity Scheduling Variable Lists.pdf` | `1xHiWUoZVmBLpAzW5DkQKBfIZKVGfNOV7` | `Capacity-Scheduling-Variable-Reference.pdf` |
 | `8.13 capacity scheduling swimlane detail.pdf` | `1SZDHuYYzkMLP-J7uCKdITY3CGZA3qhCx` | `Source-Original-Swimlane-Detail.pdf` — **the original hand-built map** the composite was redrawn from. Page 2 of a set; page 1 is *Home Health Intake Reset* |
 
 **`Flow-SOC-Full.pdf` (flow 1) exists in the repo but has no Drive copy.** Either publish it or note
 deliberately that the composite covers it.
+
+## New since 18 Aug
+
+Found by the 25 Aug re-sweep. **Only the one-pager was asked for and only it is ingested**; the rest are
+logged here so nothing is invisible, and left for a deliberate decision.
+
+### Ingested
+
+| Drive file | Drive ID | Where it lives here |
+|---|---|---|
+| `Compassus Capacity & Scheduling Vendor Questionnaire.xlsx` — the **`Overview`** tab only | `1iuXRbKOrvrQa4lKWyDw92t_ziIx0ZEqD` | [`vendor-questionnaire-overview-2026-08.md`](./vendor-questionnaire-overview-2026-08.md) — **the current one-pager.** Modified 21 Aug, 42,859 bytes. The other seven tabs are summarised, not ingested |
+
+### Logged, not ingested
+
+| Drive file | Drive ID | What it is |
+|---|---|---|
+| `Compassus RFP One_Pager.pdf` | `137YIaYkKXly3dhtXoQRXykoTNAOfe8de` | One-pager **version 2** (19 Aug) — the first vendor-facing rewrite. Superseded three days later by the Overview tab; kept as the lineage midpoint |
+| `CompassusVendorQuestionnaire.xlsx` · `CompassusVendorQuestionnaireMASTER.xlsx` | `1d-SMfjOIqVGUnGpQX1mGPjzGJdCcYxN3` · `1Xoo926ayT57672RqHWhn84wDg2q7pdX2` | 19 Aug questionnaire pair — superseded |
+| `CompassusVendorQuestionnaireMASTER 2.0.xlsx` | `159-3GQzFbubJHKwsM0VJYoMJ-nislrwJ` | 20 Aug questionnaire, in the Merge Tank — superseded by the 21 Aug file above |
+| `Questionnaire Feedback` (Doc) | `1LnAbz9jXIDjbS0TTBB1hqgmEHsvrBAxYalCUu3ovKWQ` | The 20 Aug review that drove the four Overview additions. **Worth ingesting properly** — it also carries unactioned asks on maturity scoring, references, and measured impact |
+| `Capacity Scheduling Evan Feedback.docx` | `1lfv3tCgpcVenMZkL2KuMFyS3Gm9ONJ20` | 20 Aug, Merge Tank. Unread by this side |
+| `Business use cases` (Doc) · `HH Scheduling_Master Project Plan_July 2026.xlsx` | `1tAILpvwtEzLLCHv6XoLqasvYAfmlURIrhGWkfFpiiT4` · `1rx5XCr28qFOALEO4xiLxOG5mxPcPAhnK` | 21 Aug, Merge Tank. Unread by this side |
+| `Pass Through Material Temp` (Doc) | `1-ji7fpnkQmhcVsFSlHtB3vONsuYGIy3y5W0TC3YB_CA` | Running flow-map corrections from Colin (last edit 24 Aug). **Live** — likely affects the flow sheets |
+| `Financial Business Cases/` folder | `1OgPv_kgpcMBkkO6u07FVZ_d0v80f0Ple` | `Payer Types & Episode Economics` (Doc) + `Payer Economics & the Schedule Flow.pdf` — repo-side publications of existing artifacts |
+| Merge Tank flow PDFs (5) | `1lgycUpdxbdf…`, `1jPaUpxeuqfv…`, `1Z21kWul-Agod…`, `1jc7-ILyxHDa…`, `1bKbAGl0E_3b…` | 24 Aug republished renders — `PrimaryFlowMap`, `FlowDCSScheduler`, `FlowSOCFull`, `FlowRoutineVisits`, `FlowAuthorization`. **`FlowSOCFull` closes the gap noted above** |
 
 ## The earlier illustrative set (11–12 Aug) → artifacts
 
@@ -55,5 +83,11 @@ Scheduling · Coordination · Results — which is the plain-terms ancestor of t
 
 ## Nothing in Drive is unaccounted for
 
-Twenty files: 7 knowledge documents, 9 flow sheets, 4 illustrative scenarios. **Everything either lives
-in this repo or is deliberately left in Drive as the authoritative upstream (the workbook).**
+**The original twenty (18 Aug):** 7 knowledge documents, 9 flow sheets, 4 illustrative scenarios.
+Everything either lives in this repo or is deliberately left in Drive as the authoritative upstream
+(the workbook).
+
+**Plus the 25 Aug sweep:** everything in [§ New since 18 Aug](#new-since-18-aug) is listed, but only
+the questionnaire `Overview` tab is ingested. **Eight items are logged-not-ingested** — two of them
+live and worth a decision soon: `Pass Through Material Temp` (flow corrections, edited 24 Aug) and
+`Questionnaire Feedback` (unactioned asks beyond the four that landed in the Overview).

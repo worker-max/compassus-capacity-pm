@@ -4,13 +4,28 @@
 file.** The Compassus Claude reads it but never edits it — see
 [`../HANDOFF-0-establish-the-channel.md`](../HANDOFF-0-establish-the-channel.md) §2.
 
-**Last sync:** 2026-08-19
+**Last sync:** 2026-08-25
 
 `Ver` is the first 6 characters of the file's md5. If a file's current md5 no longer matches the
 value here, I read an older version and it needs re-ingesting.
 
+**Rows added 25 Aug carry `size/mtime` instead of an md5.** The Drive tooling available to this side
+does not expose md5 without downloading the whole file, so those rows record byte size and modified
+time — a weaker fingerprint, but a real one. Re-hash them when the file next passes through a side
+that can.
+
 | Drive ID | File | Ver | Read | Disposition | For | Note |
 |---|---|---|---|---|---|---|
+| 1iuXRbKOrvrQ | Compassus Capacity & Scheduling Vendor Questionnaire.xlsx | 42859/08-21 13:50 | 08-25 | ingested (partial) | both | **The `Overview` tab only** -> knowledge/vendor-questionnaire-overview-2026-08.md. The current vendor-facing one-pager. Other seven tabs summarised, not ingested. Note: its Meta tab still says form_version 2026-08-19 |
+| 137YIaYkKXly | Compassus RFP One_Pager.pdf | 148968/08-19 17:44 | 08-25 | superseded | both | One-pager v2, the first vendor-facing rewrite. Superseded 21 Aug by the Overview tab. Logged as the lineage midpoint; not separately ingested |
+| 1LnAbz9jXIDj | Questionnaire Feedback (Doc) | 4630/08-20 13:26 | 08-25 | staged | repo | Read. Four of its points landed in the 21 Aug Overview. **The rest are unactioned** - maturity as a scored column, customer counts + top-3 census, measured customer impact, discrete status options. Needs a decision |
+| 1-ji7fpnkQmh | Pass Through Material Temp (Doc) | 53876/08-24 15:53 | 08-25 | UNREAD | ? | Skimmed only. Running flow-map corrections from Colin, edited 24 Aug. **Live and likely affects the flow sheets** - read properly next |
+| 159-3GQzFbub | CompassusVendorQuestionnaireMASTER 2.0.xlsx | 42880/08-20 14:30 | - | superseded | - | Superseded by the 21 Aug questionnaire |
+| 1Xoo926ayT57 | CompassusVendorQuestionnaireMASTER.xlsx | 37646/08-19 18:17 | - | superseded | - | Superseded |
+| 1d-SMfjOIqVG | CompassusVendorQuestionnaire.xlsx | 28557/08-19 18:17 | - | superseded | - | Superseded |
+| 1lfv3tCgpcVe | Capacity Scheduling Evan Feedback.docx | 16377/08-20 14:29 | - | UNREAD | ? | Merge Tank, from-employer side. Unopened by this side |
+| 1tAILpvwtEzL | Business use cases (Doc) | 298150/08-21 20:42 | - | UNREAD | ? | Merge Tank. Unopened by this side |
+| 1rx5XCr28qFO | HH Scheduling_Master Project Plan_July 2026.xlsx | 580054/08-21 21:43 | - | UNREAD | ? | Merge Tank. Unopened by this side |
 | 1y0X3TLKuG4H | HANDOFF-1-variable-additions.md | f180b0 | 08-19 | staged | repo | Read. Recommends 76 -> 92 variables in tiers A/B/C. Tier A collides with the S-43 reservation. Not applied - needs Colin |
 | 1lFw02FQEteL | HANDOFF-2-target-architecture.md | aeb41e | 08-19 | staged | repo | Read. Three-module construct keyed to the inventory; consistent with DE-02. Not applied - depends on the same ID ruling |
 | 1c_SFJDmZF_j | Evan _ Colin.docx | 92d203 | - | UNREAD | ? | UNREAD - nobody on either side has opened this |
@@ -39,20 +54,34 @@ value here, I read an older version and it needs re-ingesting.
 
 | Disposition | Count |
 |---|---:|
-| `ingested` | 20 |
-| `staged` — **needs Colin's decision** | 2 |
-| unread by anyone | 1 |
+| `ingested` | 20 + 1 partial (the questionnaire `Overview` tab) |
+| `staged` — **needs Colin's decision** | 3 |
+| `superseded` — logged, no action | 4 |
+| unread by this side | 5 |
 
 ## What I am waiting on
 
-1. **The `S-43` ruling.** Two unrelated claims on one code, plus `SH-12`/`S-45` describing the same
+1. **The one-pager's ownership.** The vendor-facing one-pager is now edited inside the questionnaire
+   workbook, which this side cannot regenerate — so the "repo is upstream for the one-pager" rule in
+   DRIVE-INDEX no longer holds. Three options and a recommendation are laid out in
+   `knowledge/vendor-questionnaire-overview-2026-08.md` §4. **Needs Colin.**
+2. **The `S-43` ruling.** Two unrelated claims on one code, plus `SH-12`/`S-45` describing the same
    object from two sides. Nothing is written to the workbook yet, so it is still cheap to fix — but
    Handoff 1 Tier A cannot be applied until this is settled.
-2. **`Evan _ Colin.docx`** — 452KB, dropped 19 August, unopened by either instance. Whoever reads it
+3. **`Evan _ Colin.docx`** — 452KB, dropped 19 August, unopened by either instance. Whoever reads it
    first should log it and say what it is.
+4. **`Pass Through Material Temp`** — Colin's running flow-map corrections, last edited 24 August and
+   still live. Read properly before the next flow-sheet regeneration; the corrections in it are not
+   yet in `process-facts-2026-08.md`.
 
 ## Repo-owned files in this Drive folder
 
 The nine PDFs marked *repo-owned render* above are generated from `_*.gen.py` in the repository. **The
 repo is upstream for those** — regenerate there and republish here. Editing the PDF in Drive puts it
 out of sync with its generator, and the librarian will flag it as drift rather than adopt it.
+
+**One exception, as of 21 Aug: the one-pager.** `Capacity Scheduling One Pager 8.17.26.pdf` is still a
+repo-owned render, but it is now the *internal* version. The **vendor-facing** one-pager was rewritten
+outside the repo and now lives as the `Overview` tab of the vendor questionnaire — the repo has no
+generator for it, so for that page **Drive is upstream and this side ingests.** Do not "correct" the
+drift by regenerating; see `knowledge/vendor-questionnaire-overview-2026-08.md` §4.
