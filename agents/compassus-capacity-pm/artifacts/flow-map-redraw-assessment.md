@@ -1087,3 +1087,61 @@ temp tree — build in an ordinary directory.
 **What this sheet is not.** It is current state, like the rest of the set. It shows what a payer
 does to the schedule today, including the parts nobody can see. Nothing on it is a proposal, and
 the margin figures are shown to make a consequence visible, never to argue for a visit.
+
+---
+
+## 27. The first future-state sheet — start of care (25 Aug)
+
+`Future-State-Flow-SOC.pdf`. The set's first proposal sheet, drawn against
+`Flow-SOC-Full` and off the future-state columns of
+[`Capacity-Scheduling-Variable-Workbook.xlsx`](./Capacity-Scheduling-Variable-Workbook.xlsx).
+
+**It breaks two non-negotiables on purpose.** Every other sheet is current state and says nothing
+on it is a proposal. This one is entirely a proposal. A future-state sheet that looks like a
+current-state sheet is a wall-level hazard, so three things mark it: the eyebrow reads
+`FUTURE STATE`, a 5pt accent rule in the platform colour sits under the masthead, and the footer
+inverts — *every box on this sheet is a proposal. Current practice is Flow 1.*
+
+**A new actor, and a new colour.** `#A63A79`, "the platform". The house rule is colour = actor and
+the person beats the system, with purple reserved for HCHB acting alone. A future-state sheet needs
+a way to show what the new system does by itself, and reusing HCHB purple would have said the
+wrong thing — that this is HCHB. The colour is far enough from every existing hue to read at
+distance.
+
+**Posture as a badge.** Each block carries `AUTOMATED` · `PROPOSES · CONFIRM` · `SURFACES · DECIDE` ·
+`STAYS HUMAN`, read straight from the workbook's future-state column rather than invented at the
+drawing board. Colour still says who owns it; the badge says how far the software goes.
+
+**Two corrections caught in the first review pass.**
+
+1. The first draft had intake out of the flow entirely — the platform read the referral and the
+   branch director accepted it. Wrong: intake still receives the referral in Commure and still
+   gives final approval after auth verification. Both are back, marked `STAYS HUMAN`. The proposal
+   is that a capacity answer is *inserted before* the existing chain, not that the chain is replaced.
+2. **DCS reviews the referral is not on this sheet, deliberately.** Colin's running corrections in
+   the Drive `Pass Through Material Temp` document say *"Remove — DCS reviews the referral."* That
+   correction has not yet been applied to `Flow-SOC-Full`, `Detailed-Flow-Composite` or
+   `process-facts-2026-08.md`, all of which still carry the step. **It needs applying to the
+   current-state set.**
+
+**What the sheet claims, in order.** The capacity answer moves to the front (admission capacity by
+discipline is the growth-gating number nobody can see today, and the decline reason is not kept).
+The payer's rules are surfaced into the plan of care at creation rather than sitting in a
+coordination note written days earlier, and held visits enter the capacity picture instead of
+sitting on no calendar. Readiness outreach is an agentic voice call — **not a design preference but
+a constraint**: `CO-14` says consent for text and email is signed at the start-of-care visit, so
+nothing texted can precede admission. Assignment is proposed by the platform and confirmed by a
+person, always, with the override reason captured because it is the best training signal in the
+process. The plan-of-care pass is drawn slim and marked *largely unchanged* — the asymmetry is the
+finding.
+
+**The handoff panel is the bridge to Flow 2.** The constraints captured at start of care — caregiver
+present, caregiver's own schedule, competing appointments, refused times, contact preference — are
+the workbook's drifting rows. They are real at admission and quietly stop being real. The panel
+says so and hands them to the weekly build and the day-before round rather than letting the sheet
+imply they are captured once and trusted.
+
+**Open, and needing Colin.** Whether routine referral acceptance really moves to the branch director
+or stays with intake with a capacity number attached; whether the readiness voice call can carry the
+"is the patient actually home" judgment or only surface it; and whether `S-49` queue age belongs on
+this sheet or on a plan-of-care sheet of its own.
