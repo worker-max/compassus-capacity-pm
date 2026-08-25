@@ -1140,3 +1140,27 @@ The Ohio line picked up *"commercial and MA plans differ again."*
 `Flow-Authorization` — generator, HTML and one-page PDF each. Every sheet checked against its
 rendered PNG at the edited region. The five generators also had a stale hard-coded scratchpad
 output path; they now take the SVG path as `argv[1]` and default to a local filename.
+
+## 29. Flow 2 was missing the DCS plan-of-care gate — 25 Aug
+
+Raised against the rebuilt sheet: phase 1 ran *clinician plots frequency → RN also plots → HCHB
+generates the assignment task → scheduler assigns*, with **no DCS approval anywhere on it**. The DCS
+has to approve every time a discipline submits its plan of care, and the approval is **per
+discipline**, not per patient.
+
+This was an omission, not a simplification. Flow 1, the DCS/Scheduler sheet and the primary map all
+draw the gate; Flow 2 was the only sheet in the set that let a plan of care reach the scheduler
+without it — which made phase 1 read as a straight-through burst when it is actually a burst behind
+a gate.
+
+**The fix.** A maroon `DCS reviews & approves the POC` block, badged **× N disciplines**, inserted
+between the HCHB block and the scheduler block, with the note *"one approval per discipline; not
+approved → visits held."* Phase 1's band grew from four columns to five and resized to its own
+content. The `S-15 · S-16 · S-22` variable chip moved with the scheduler block to `p1[4]`.
+
+**Why that position is right.** The purple block is the workflow task generated **at submission** —
+per `process-facts-2026-08.md`, the plan-of-care workflow fires once per discipline at submission and
+again at approval. So the sequence is: submission generates the task → DCS approves → the scheduler
+can work it. The gate sits after HCHB and before the scheduler, exactly as raised.
+
+**Consistency check:** no other sheet needed a change — the other three already drew the gate.

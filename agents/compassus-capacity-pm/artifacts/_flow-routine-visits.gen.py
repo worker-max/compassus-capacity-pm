@@ -63,7 +63,8 @@ W, H = 2200, 1680
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at '
     'admission: each discipline plots its own frequency, every submission generates its own '
-    'assignment task. After the 485 the episode enters phase two, where the clinician manages their '
+    'assignment task, and the DCS approves each discipline plan of care — not approved, the visits '
+    'are held. After the 485 the episode enters phase two, where the clinician manages their '
     'own week with no scheduler workflow at all. After the 485 an add-on order is an added '
     'discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms '
     'with the patient and then picks one of five dispositions in HCHB: accept, reschedule, '
@@ -91,8 +92,8 @@ PH2 = 268
 
 # ---------------- PHASE ONE ----------------
 P1Y = 185
-p1 = [IX + i*(BW+GAP) for i in range(4)]
-add(f'<rect x="{BX}" y="{P1Y}" width="{4*(BW+GAP)+30}" height="{PH}" rx="10" fill="{BAND}"/>')
+p1 = [IX + i*(BW+GAP) for i in range(5)]
+add(f'<rect x="{BX}" y="{P1Y}" width="{5*(BW+GAP)+30}" height="{PH}" rx="10" fill="{BAND}"/>')
 lbl(BX+22, P1Y+34, "PHASE 1  ·  FREQUENCY PLOTTING & INITIAL ASSIGNMENT — the burst", cls="band")
 b1 = P1Y + 60
 c1 = b1 + BH/2
@@ -101,17 +102,21 @@ block(p1[0], b1, BW, BH, C["clin"], ["Evaluating clinician", "plots own discipli
 block(p1[1], b1, BW, BH, C["clin"], ["RN also plots aide", "frequency + MSW / ST", "initial eval"])
 block(p1[2], b1, BW, BH, C["hchb"], ["Each submission", "generates its own", "assignment task"],
       badge="× N disciplines")
-block(p1[3], b1, BW, BH, C["pcc"], ["Scheduler assigns", "visits to care team"])
+block(p1[3], b1, BW, BH, C["dcs"], ["DCS reviews &", "approves the POC"],
+      badge="× N disciplines")
+block(p1[4], b1, BW, BH, C["pcc"], ["Scheduler assigns", "visits to care team"])
 vchip(p1[0], b1+BH+9, BW, ["S-01", "S-02", "S-03"])
 vchip(p1[1], b1+BH+9, BW, ["SH-03", "S-37"])
-vchip(p1[3], b1+BH+9, BW, ["S-15", "S-16", "S-22"])
-for a in range(3):
+vchip(p1[4], b1+BH+9, BW, ["S-15", "S-16", "S-22"])
+for a in range(4):
     arrow(p1[a]+BW, c1, p1[a+1]-6, c1)
 chip(50, c1-39, 250, 78, ["Admission", "SOC or eval visit"], INK)
 arrow(300, c1, IX-6, c1)
 lbl(50, c1-53, "TRIGGER", cls="trg")
 lbl(p1[0], b1+BH+CHH+26, "RN at the SOC; PT and OT at their own evals, 1–2 days later",
     "start", "note")
+lbl(p1[3]+BW/2, b1+BH+CHH+26, "one approval per discipline; not approved → visits held",
+    "middle", "note")
 
 # ---------------- 485 boundary ----------------
 BY = P1Y + PH + 46

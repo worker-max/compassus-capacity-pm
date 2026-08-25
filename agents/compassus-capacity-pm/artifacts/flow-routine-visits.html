@@ -1,7 +1,7 @@
 <title>Routine Visit Scheduling</title>
 
 <figure>
-<svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. After the 485 an add-on order is an added discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
+<svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task, and the DCS approves each discipline plan of care — not approved, the visits are held. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. After the 485 an add-on order is an added discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
 <defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
 <rect x="0" y="0" width="2200" height="1680" fill="#FBFBF8"/>
 <text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  FLOW 2</text>
@@ -16,7 +16,7 @@
 <circle cx="1761.8000000000002" cy="72" r="13" fill="#795CA7"/>
 <text x="1782.8000000000002" y="78" class="leg" text-anchor="start">HCHB</text>
 <line x1="50" y1="150" x2="2150" y2="150" stroke="#C9CCC5" stroke-width="1.4"/>
-<rect x="320" y="185" width="1142" height="205" rx="10" fill="#E9E9E5"/>
+<rect x="320" y="185" width="1420" height="205" rx="10" fill="#E9E9E5"/>
 <text x="342" y="219" class="band" text-anchor="start">PHASE 1  ·  FREQUENCY PLOTTING &amp; INITIAL ASSIGNMENT — the burst</text>
 <rect x="350" y="245" width="250" height="90" rx="5" fill="#2E599D"/>
 <text x="475.0" y="277.0" class="bt" text-anchor="middle">Evaluating clinician</text>
@@ -34,18 +34,25 @@
 <text x="1031.0" y="315.0" class="bt" text-anchor="middle">assignment task</text>
 <rect x="1005.5" y="231" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#795CA7" stroke-width="1.8"/>
 <text x="1076.75" y="247" class="bdg" text-anchor="middle" fill="#795CA7">× N disciplines</text>
-<rect x="1184" y="245" width="250" height="90" rx="5" fill="#C6A01F"/>
-<text x="1309.0" y="286.5" class="bt" text-anchor="middle">Scheduler assigns</text>
-<text x="1309.0" y="305.5" class="bt" text-anchor="middle">visits to care team</text>
+<rect x="1184" y="245" width="250" height="90" rx="5" fill="#792E2E"/>
+<text x="1309.0" y="286.5" class="bt" text-anchor="middle">DCS reviews &amp;</text>
+<text x="1309.0" y="305.5" class="bt" text-anchor="middle">approves the POC</text>
+<rect x="1283.5" y="231" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1354.75" y="247" class="bdg" text-anchor="middle" fill="#792E2E">× N disciplines</text>
+<rect x="1462" y="245" width="250" height="90" rx="5" fill="#C6A01F"/>
+<text x="1587.0" y="286.5" class="bt" text-anchor="middle">Scheduler assigns</text>
+<text x="1587.0" y="305.5" class="bt" text-anchor="middle">visits to care team</text>
 <line x1="600" y1="290.0" x2="622" y2="290.0" class="ln" marker-end="url(#ar)"/>
 <line x1="878" y1="290.0" x2="900" y2="290.0" class="ln" marker-end="url(#ar)"/>
 <line x1="1156" y1="290.0" x2="1178" y2="290.0" class="ln" marker-end="url(#ar)"/>
+<line x1="1434" y1="290.0" x2="1456" y2="290.0" class="ln" marker-end="url(#ar)"/>
 <rect x="50" y="251.0" width="250" height="78" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
 <text x="175.0" y="286.5" class="ct" text-anchor="middle" fill="#1B211E">Admission</text>
 <text x="175.0" y="303.5" class="ct" text-anchor="middle" fill="#1B211E">SOC or eval visit</text>
 <line x1="300" y1="290.0" x2="344" y2="290.0" class="ln" marker-end="url(#ar)"/>
 <text x="50" y="237.0" class="trg" text-anchor="start">TRIGGER</text>
 <text x="350" y="361" class="note" text-anchor="start">RN at the SOC; PT and OT at their own evals, 1–2 days later</text>
+<text x="1309.0" y="361" class="note" text-anchor="middle">one approval per discipline; not approved → visits held</text>
 <line x1="320" y1="462" x2="336" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
 <line x1="844" y1="462" x2="2018" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
 <rect x="350" y="442" width="480" height="40" rx="20" fill="#FBFBF8" stroke="#1B211E" stroke-width="2"/>
