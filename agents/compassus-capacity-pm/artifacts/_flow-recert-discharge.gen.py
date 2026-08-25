@@ -191,7 +191,8 @@ W5, G5 = 280, 30
 w5x = [350, 660, 970, 1460, 1770]
 DGX = 1355
 block(w5x[0], wb, W5, BH, C["clin"], ["PT and OT establish next-", "period frequency orders"], badge="× 2 disciplines")
-block(w5x[1], wb, W5, BH, C["dcs"], ["DCS reviews and approves", "each plan of care"])
+block(w5x[1], wb, W5, BH, C["dcs"], ["DCS reviews and approves", "each plan of care"],
+      badge="× 2 disciplines")
 block(w5x[2], wb, W5, BH, C["hchb"], ["HCHB generates visits", "and assignment tasks"])
 diamond(DGX, wc, ["Auth on", "file?"], w=150, h=104)
 block(w5x[3], wb, W5, BH, C["pcc"], ["Scheduler assigns all", "plotted visits — one pass"])
@@ -236,7 +237,8 @@ lbl(50, H-40, "Current state · condensed on the primary map as phase 4", cls="f
 lbl(W-50, H-40, "Flow 5 · recertification & discharge", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/flow5.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "flow5.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3),
       "| boundary x", XEND, "| last y", BDY+50)

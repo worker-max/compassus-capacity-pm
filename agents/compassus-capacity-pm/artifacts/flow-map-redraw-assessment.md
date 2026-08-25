@@ -1164,3 +1164,21 @@ again at approval. So the sequence is: submission generates the task → DCS app
 can work it. The gate sits after HCHB and before the scheduler, exactly as raised.
 
 **Consistency check:** no other sheet needed a change — the other three already drew the gate.
+
+**Set-wide check on the DCS gate (25 Aug).** All eight sheets were walked. Result:
+
+| Sheet | The DCS plan-of-care gate | Action |
+|---|---|---|
+| Flow 1 · SOC Full | `DCS reviews & approves` **× N disciplines** + `Approved?` + *visits are held* | correct |
+| Flow-DCS-Scheduler | same | correct |
+| Primary map | `DCS reviews and approves the POC` **× N** + *Not approved → nothing moves, visits held* | correct |
+| Flow 3 · Authorization | `DCS reviews and approves the POC`, sublist *"One task per discipline"* | correct — Flow 3's device is sublists, not badges, and the per-discipline fact is stated |
+| Flow 2 · Routine Visits | **was missing entirely** | fixed, §29 above |
+| **Flow 5 · Recert & Discharge** | gate present and correctly placed, but **no per-discipline badge** while the adjacent clinician block carried `× 2 disciplines` — and the band claims *THE SAME PATTERN AS FLOW 1, PASS 2*, where the DCS block **is** badged | **badge added** (`× 2 disciplines`, matching the sheet's PT/OT worked example) |
+| Detailed composite | absent **by design** — the clean path is scoped *"Admitted Episodic Referral — Ready to Schedule → Delivered Visit"*, with `From Intake: signed orders / 485 + F2F on file` as the feeder tag marking that approval already happened upstream | correct |
+| Payer economics | folded into one block, `QA, POC lock, 485, orders to the MD` — that sheet maps consequence, not sequence | correct for its purpose |
+
+**Still open on Flow 5:** band 3 has no *not-approved* branch. Flow 1 pass 2 carries an `Approved?`
+diamond and a held-visits exception; Flow 5 compresses the same pattern into a straight run and shows
+only the auth exception. Adding a second diamond would cost the band its compression — flagged for a
+decision rather than changed unilaterally.
