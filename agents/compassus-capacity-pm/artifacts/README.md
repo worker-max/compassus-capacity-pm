@@ -232,8 +232,9 @@ a *second* artifact and leaves the shared one stale, which is how Flow 3 ended u
 | `Flow-Recert-Discharge` (5) | https://claude.ai/code/artifact/0c51c8e8-1452-4ddc-969f-748b803de981 |
 | `Flow-SOC-Target-State` (1T) | https://claude.ai/code/artifact/ce6afec9-2e56-4aa6-b576-9b16b02fc5d0 |
 | `Episode-Target-State` | https://claude.ai/code/artifact/59f82f31-3bde-4bf9-8924-1c2031159733 |
+| `Detailed-Flow-Composite` (the SOC/ROC sheet) | https://claude.ai/code/artifact/e648db98-7ce3-4f5a-9a9a-aa98c559b107 |
 
-`Detailed-Flow-Composite` and `Flow-Payer-Economics` have no recorded link yet — check `/artifacts`
+`Flow-Payer-Economics` has no recorded link yet — check `/artifacts`
 before publishing one, and add the URL here when you do.
 
 ### Re-rendering the PDF
