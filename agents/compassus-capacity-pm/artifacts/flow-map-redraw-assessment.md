@@ -1182,3 +1182,72 @@ can work it. The gate sits after HCHB and before the scheduler, exactly as raise
 diamond and a held-visits exception; Flow 5 compresses the same pattern into a straight run and shows
 only the auth exception. Adding a second diamond would cost the band its compression — flagged for a
 decision rather than changed unilaterally.
+
+## 30. The first target-state sheets — 26 Aug
+
+Two v1.0 proposals drawn beside the current-state set: `Flow-SOC-Target-State` (Flow 1T) and
+`Episode-Target-State`. They are the first sheets in the set that are **not** current state, and
+that changes their contract — the footer says *PROPOSED, not current state*, and a masthead line
+carries the DE-03 horizon: phase 1 is visualisation only, so nothing on either sheet is release-1
+scope. Without that line a vendor reads a target-state sheet as a requirement.
+
+**The posture came from the workbook, not from us.** Every block's marking is the 25 Aug variable
+workbook's own *Future state — the tool's role* value for the variables that bind to that step —
+Automate 34 · Assist 33 · Surface 19 · Stays manual 1 across 87 rows. The *Future state — who
+decides* column supplied the actor colour on Assist and Surface blocks, so the sheets answer "who
+owns this when the tool cannot" without inventing an owner.
+
+**One addition to the drawing grammar, and only one.** Colour still equals actor; size still equals
+weight. Added: a four-way posture vocabulary — solid purple for Automate, a split block for Assist,
+a purple stripe across the top of the person's block for Surface, plain person's colour for Manual.
+An explicit key sits above the first band on both sheets, because a reader meeting a split block for
+the first time will otherwise read it as joint ownership rather than propose-and-confirm.
+
+**Why Assist needed its own device.** Drawing Assist as purple claims Control. That is exactly the
+posture-overreach the Functional Scorecard already counts (16 variables on one candidate product),
+and with Assist at 33 of 87 rows it would have misrepresented more than a third of the model. The
+split block was already in `flowkit`; this is its first real use.
+
+**The corrections that shaped the SOC sheet.**
+
+- **The welcome call does not become purple.** An earlier read had it automating outright on the
+  strength of the bottleneck dossier's "clear low-hanging fruit". The workbook splits it in two:
+  `CO-04` *New-patient welcome call* is **Assist**, but `CO-06` *Confirming availability before
+  booking* is **Surface** — Hard, MVP Yes, gating, Low confidence, and tacit today. So the outreach
+  automates and the judgment does not. On the sheet the step splits: an Assist contact block, then a
+  Surface block badged **STILL THE JUDGMENT CALL**, with the band reading *ONE HUMAN GATE LEFT*.
+  This is the single most important thing on the sheet, and getting it wrong would have promised
+  Compassus something the workbook explicitly refuses.
+- **Seven gating constraints stay human**, and both sheets end with a panel naming them:
+  availability before booking · caregiver present · the caregiver's own changing schedule ·
+  cognitive and dementia constraints · clinically driven timing · matching acuity to skill ·
+  call-out coverage. All Hard, all gating, all living in someone's head today.
+- **The pending-auth exception is promoted to a state.** Current state draws *Pending auth — not on
+  calendar, not counted* as a small block below the line. Target state puts it on the spine: *Auth
+  checked per visit — pending stays visible*, with the visit on the calendar, marked pending, and
+  counted as committed load. An exception becomes a state; that is the shape of the fix.
+- **The payer rule is a left-margin feeder, not a connector.** It first rendered as a rail from
+  pass 1 into pass 2 and collided with the exception row. Redrawn as a grey `tag()` in the left
+  margin badged CARRIED FORWARD — the same idiom the payer-economics sheet uses, and truer: the
+  rules are reference data written days earlier, not a step the process performs.
+- **Plan-of-care QA stays a hard stop**, drawn in plain DCS maroon with *QA is a hard stop — it
+  stays*. Only physician-order adjudication automates, and the sheet says the gray cases escalate.
+  Laci's read that POC QA cannot be turned off is load-bearing here.
+
+**Collision fixes caught only by rendering.** Two connectors ended in ~10pt leftward runs into their
+exception blocks — the checklist's "8pt final segment" failure. Both redrawn as straight drops from
+the gap above the block onto its top edge. The queue-depth chip was re-centred under its connector
+for the same reason. A `hi` line crossed a dashed vertical and was moved below the chip row. On the
+episode sheet, phase 4's `OR` divider sat under the band callout; the callout was shortened to
+*NEW PERIOD = NEW AUTH*.
+
+**Open, and deliberately not decided here.**
+
+1. **Order adjudication sits on the spine** between plan-of-care approval and the 485. That asserts
+   every admission waits on it. Defensible — the 485 already bundles *orders to MD* — but it may
+   belong below the line as conditional. Wanted a view before moving it.
+2. **`S-49` queue depth is drawn as a watch condition**, not a step. It is Surface and gating, so it
+   could equally be a block the DCS works.
+3. The episode sheet's phase 3 shows the day-before confirmation automating (`CO-01`, `CO-02`). That
+   is the change clinicians will feel most — the unpaid evening calls stop — and it is the row most
+   worth testing with them before it is promised.

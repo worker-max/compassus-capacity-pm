@@ -74,6 +74,10 @@ renumbered.
 | `flow-authorization.html` | Source. Regenerate with `_flow-authorization.gen.py` | Editing flow 3 |
 | `Flow-Recert-Discharge.pdf` | Flow 5 — recert & discharge through a worked example: SN discharges at day 52–53 (non-OASIS, outside the window), PT carries the OASIS recert, OT does a non-OASIS eval, next-period orders PT 2w3→1w3 · OT 1w4 | The end-of-episode teaching sheet; the primary map's phase 4 expanded |
 | `flow-recert-discharge.html` | Source. Regenerate with `_flow-recert-discharge.gen.py` | Editing flow 5 |
+| `Flow-SOC-Target-State.pdf` | **Flow 1T — start of care, TARGET STATE (v1.0)**. The same flow as the current-state sheet, every step marked Automate / Assist / Surface / Manual | The future-state conversation. Pairs with `Flow-SOC-Full.pdf` side by side |
+| `flow-soc-target.html` | Source. Regenerate with `_flow-soc-target.gen.py` | Editing the SOC target state |
+| `Episode-Target-State.pdf` | **The episode end to end, TARGET STATE (v1.0)**. Four phases, same as the primary map, posture-marked | The future-state wall sheet. Pairs with `Primary-Flow-Map.pdf` |
+| `flow-episode-target.html` | Source. Regenerate with `_flow-episode-target.gen.py` | Editing the episode target state |
 | `business-case-register.md` | **Every financially-connected case tied to the initiative** — workforce and administrative cost, revenue capture, utilisation and margin, growth, quality-linked revenue, risk avoided and option value, with sizing formulas and the inputs needed to commit them | Building the business case. Start here |
 | `reimbursement-linked-variables.md` | The factors reimbursement adds to the logic, organised by where each binds — the payer spine, the authorisation object, capacity additions, derived fields and postures | Requirements and data-model work |
 | `authorization-and-capacity-forecasting.md` | How authorisation enters the capacity forecast: what is deterministic and ignored, what is genuinely unpredictable, and the three curves the forecast should emit | Forecasting design |
@@ -130,6 +134,30 @@ set at different depths. Change one, change all four, or they drift.
 
 **The handout set** is the one-pager (page 1, summary) plus the variable reference (pages 2–4, one
 per category). Both are A4 landscape and print as a matched 4-page set.
+
+
+### Target-state sheets — a different contract from the rest of the set
+
+Two sheets are **proposals**, and they invert the set's usual footer. `Flow-SOC-Target-State` and
+`Episode-Target-State` say *PROPOSED, not current state* and carry a horizon line, because DE-03
+holds phase 1 to visualisation only — nothing on them is release-1 scope.
+
+They add one thing to the drawing grammar, and nothing else changes:
+
+| Posture | How it is drawn | What it means |
+|---|---|---|
+| **Automate** | solid purple | the tool does it; a person owns the exception |
+| **Assist** | split block — purple half, person's half | the tool proposes, a person confirms |
+| **Surface** | the person's colour with a purple stripe across the top | the tool shows, the person decides |
+| **Manual** | plain person's colour | unchanged — clinical judgment, or hands on the patient |
+
+**The posture on every block comes from the 25 Aug variable workbook's own *Future state — the
+tool's role* column**, not from judgment. That column reads Automate 34 · Assist 33 · Surface 19 ·
+Stays manual 1 across 87 variables. Where a sheet and that column disagree, the column wins.
+
+**Colour still means actor.** An Assist or Surface block keeps the colour of the person who
+*decides*, taken from the workbook's *Future state — who decides* column — so the sheet answers
+"who owns this when the tool cannot" without a separate legend.
 
 ### Published artifact links — update these, do not publish new ones
 

@@ -1,0 +1,329 @@
+<title>The Episode, End to End — Target State</title>
+
+<figure>
+<svg viewBox="0 0 2450 1690" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="The whole home health episode in target state, in four phases. Phase one, referral to admission: capture, eligibility and pending authorisation, and release to scheduling are automated; the care team and the welcome contact are proposed by the tool and confirmed by a person; confirming the patient is genuinely available stays a human decision and nothing books until it clears. Phase two, the plan of care: each discipline plots frequency against a visit budget the tool now shows, the DCS still approves each plan of care as a hard stop, the 485 moment is unchanged, visits generate, authorisation is checked with pending visits staying visible, and assignment is proposed in one pass. Phase three, steady state: the week is proposed against committed load, routing is automated, and the day-before confirmation becomes automated text and voice instead of the clinician's own evening calls — but clinical priority and the caregiver constraints stay human. Phase four: the recertification window is tracked by the tool, each discipline still decides for itself, and a new period is a new authorisation question.">
+<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
+<rect x="0" y="0" width="2450" height="1690" fill="#FBFBF8"/>
+<text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  CAPACITY &amp; SCHEDULING  ·  TARGET STATE  ·  v1.0</text>
+<text x="50" y="100" class="title" text-anchor="start">The Episode, End to End — where the work goes</text>
+<text x="50" y="128" class="deck" text-anchor="start">The same four phases as the current-state map, with every step marked by how far the tool may go</text>
+<line x1="50" y1="150" x2="2400" y2="150" stroke="#C9CCC5" stroke-width="1.4"/>
+<circle cx="1303" cy="72" r="13" fill="#1F6F78"/>
+<text x="1324" y="78" class="leg" text-anchor="start">Intake</text>
+<circle cx="1409.4" cy="72" r="13" fill="#DF751D"/>
+<text x="1430.4" y="78" class="leg" text-anchor="start">Insurance &amp; Auth</text>
+<circle cx="1599.8000000000002" cy="72" r="13" fill="#792E2E"/>
+<text x="1620.8000000000002" y="78" class="leg" text-anchor="start">DCS</text>
+<circle cx="1681.0000000000002" cy="72" r="13" fill="#C6A01F"/>
+<text x="1702.0000000000002" y="78" class="leg" text-anchor="start">PCC / Scheduler</text>
+<circle cx="1863.0000000000002" cy="72" r="13" fill="#2E599D"/>
+<text x="1884.0000000000002" y="78" class="leg" text-anchor="start">Clinician</text>
+<circle cx="1994.6000000000004" cy="72" r="13" fill="#795CA7"/>
+<text x="2015.6000000000004" y="78" class="leg" text-anchor="start">The tool</text>
+<text x="2400" y="112" class="key" text-anchor="end">PROPOSED — TARGET STATE, NOT RELEASE 1  ·  phase 1 is visualisation only (DE-03)</text>
+<rect x="320" y="172" width="1976" height="60" rx="8" fill="#FFFFFF" stroke="#C9CCC5" stroke-width="1.6"/>
+<text x="340" y="208" class="colh" text-anchor="start">HOW FAR THE TOOL GOES</text>
+<rect x="552" y="189" width="44" height="26" rx="5" fill="#795CA7"/>
+<text x="606" y="201" class="colh" text-anchor="start">Automate</text>
+<text x="606" y="219" class="note" text-anchor="start">the tool does it — a person owns the exception</text>
+<rect x="1027.6" y="189" width="44" height="26" rx="5" fill="#795CA7"/>
+<rect x="1049.6" y="189" width="22" height="26" rx="5" fill="#C6A01F"/>
+<text x="1081.6" y="201" class="colh" text-anchor="start">Assist</text>
+<text x="1081.6" y="219" class="note" text-anchor="start">the tool proposes, a person confirms</text>
+<rect x="1417.1999999999998" y="189" width="44" height="26" rx="5" fill="#C6A01F"/>
+<rect x="1417.1999999999998" y="189" width="44" height="9" rx="4" fill="#795CA7"/>
+<text x="1471.1999999999998" y="201" class="colh" text-anchor="start">Surface</text>
+<text x="1471.1999999999998" y="219" class="note" text-anchor="start">the tool shows, the person decides</text>
+<rect x="1789.6" y="189" width="44" height="26" rx="5" fill="#2E599D"/>
+<text x="1843.6" y="201" class="colh" text-anchor="start">Manual</text>
+<text x="1843.6" y="219" class="note" text-anchor="start">unchanged — hands on the patient</text>
+<rect x="320" y="262" width="1976" height="236" rx="10" fill="#E9E9E5"/>
+<text x="342" y="296" class="band" text-anchor="start">PHASE 1  ·  REFERRAL TO ADMISSION</text>
+<text x="2282" y="296" class="bandhi" text-anchor="end">ONE HUMAN GATE LEFT</text>
+<rect x="350" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="475.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Referral captured</text>
+<text x="475.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">in Commure</text>
+<text x="356" y="440" class="sub">·  Payer, plan, discharge date</text>
+<text x="356" y="457" class="sub">·  A verified number, and consent</text>
+<rect x="628" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="753.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Eligibility and pending</text>
+<text x="753.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">auth derived</text>
+<text x="634" y="440" class="sub">·  From the payer, not keyed</text>
+<text x="634" y="457" class="sub">·  Traditional Medicare passes through</text>
+<line x1="600" y1="369.0" x2="622" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1031.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Released to</text>
+<text x="1031.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">scheduling</text>
+<text x="912" y="440" class="sub">·  Completeness is rule-checked</text>
+<text x="912" y="457" class="sub">·  Exception only → intake</text>
+<line x1="878" y1="369.0" x2="900" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="1309.0" y="324" width="125.0" height="90" rx="6" fill="#792E2E"/>
+<text x="1309.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Care team</text>
+<text x="1309.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">recommended</text>
+<rect x="1358.2" y="310" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1392.1" y="326" class="bdg" text-anchor="middle" fill="#792E2E">ASSIST</text>
+<text x="1190" y="440" class="sub">·  Discipline, role, restrictions</text>
+<text x="1190" y="457" class="sub">·  Territory · competency · continuity</text>
+<line x1="1156" y1="369.0" x2="1178" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="1587.0" y="324" width="125.0" height="90" rx="6" fill="#C6A01F"/>
+<text x="1587.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Welcome contact</text>
+<text x="1587.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">— voice and text</text>
+<rect x="1636.2" y="310" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1670.1" y="326" class="bdg" text-anchor="middle" fill="#C6A01F">ASSIST</text>
+<text x="1468" y="440" class="sub">·  The tool makes contact</text>
+<text x="1468" y="457" class="sub">·  Scheduler works the no-answers</text>
+<line x1="1434" y1="369.0" x2="1456" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="324" width="250" height="90" rx="6" fill="#C6A01F"/>
+<text x="1865.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">Is the patient</text>
+<text x="1865.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">actually available?</text>
+<rect x="1847.8" y="310" width="134.20000000000002" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1914.9" y="326" class="bdg" text-anchor="middle" fill="#C6A01F">THE HUMAN GATE</text>
+<path d="M 1746 324 L 1984 324 A 6 6 0 0 1 1990 330 L 1990 337 L 1740 337 L 1740 330 A 6 6 0 0 1 1746 324 Z" fill="#795CA7"/>
+<text x="1746" y="440" class="sub">·  The tool shows what it heard</text>
+<text x="1746" y="457" class="sub">·  The scheduler decides</text>
+<text x="1746" y="474" class="sub">·  Nothing books until this clears</text>
+<line x1="1712" y1="369.0" x2="1734" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="2018" y="324" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="2143.0" y="324" width="125.0" height="90" rx="6" fill="#C6A01F"/>
+<text x="2143.0" y="365.5" class="bt" style="fill:#fff" text-anchor="middle">SOC and evals</text>
+<text x="2143.0" y="384.5" class="bt" style="fill:#fff" text-anchor="middle">scheduled</text>
+<rect x="2192.2" y="310" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="2226.1" y="326" class="bdg" text-anchor="middle" fill="#C6A01F">ASSIST</text>
+<text x="2024" y="440" class="sub">·  48-hour SOC window enforced</text>
+<text x="2024" y="457" class="sub">·  Scheduler confirms</text>
+<line x1="1990" y1="369.0" x2="2012" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<rect x="50" y="330.0" width="250" height="78" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="175.0" y="365.5" class="ct" text-anchor="middle" fill="#1B211E">Referral arrives</text>
+<text x="175.0" y="382.5" class="ct" text-anchor="middle" fill="#1B211E">hospital · MD · facility</text>
+<line x1="300" y1="369.0" x2="344" y2="369.0" class="ln" marker-end="url(#ar)"/>
+<text x="50" y="316.0" class="trg" text-anchor="start">TRIGGER</text>
+<rect x="320" y="532" width="1976" height="236" rx="10" fill="#E9E9E5"/>
+<text x="342" y="566" class="band" text-anchor="start">PHASE 2  ·  THE PLAN OF CARE</text>
+<text x="2282" y="566" class="bandhi" text-anchor="end">THE BUDGET IS VISIBLE BEFORE IT IS SPENT</text>
+<rect x="350" y="594" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="475.0" y="635.5" class="bt" style="fill:#fff" text-anchor="middle">Each discipline plots</text>
+<text x="475.0" y="654.5" class="bt" style="fill:#fff" text-anchor="middle">its own frequency</text>
+<rect x="449.5" y="580" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="520.75" y="596" class="bdg" text-anchor="middle" fill="#2E599D">× N disciplines</text>
+<path d="M 356 594 L 594 594 A 6 6 0 0 1 600 600 L 600 607 L 350 607 L 350 600 A 6 6 0 0 1 356 594 Z" fill="#795CA7"/>
+<text x="356" y="710" class="sub">·  The visit budget is shown here</text>
+<text x="356" y="727" class="sub">·  Payer limits, from the auth note</text>
+<text x="356" y="744" class="sub">·  Clinical need still decides</text>
+<rect x="628" y="594" width="250" height="90" rx="6" fill="#792E2E"/>
+<text x="753.0" y="635.5" class="bt" style="fill:#fff" text-anchor="middle">DCS approves the</text>
+<text x="753.0" y="654.5" class="bt" style="fill:#fff" text-anchor="middle">plan of care</text>
+<rect x="727.5" y="580" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="798.75" y="596" class="bdg" text-anchor="middle" fill="#792E2E">× N disciplines</text>
+<text x="634" y="710" class="sub">·  QA is a hard stop — it stays</text>
+<text x="634" y="727" class="sub">·  Not approved → visits held</text>
+<line x1="600" y1="639.0" x2="622" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="594" width="528" height="90" rx="6" fill="#792E2E"/>
+<text x="1170.0" y="626.0" class="bt" style="fill:#fff" text-anchor="middle">THE 485 MOMENT</text>
+<text x="1170.0" y="645.0" class="bt" style="fill:#fff" text-anchor="middle">QA accepted · POC locked</text>
+<text x="1170.0" y="664.0" class="bt" style="fill:#fff" text-anchor="middle">485 submitted · orders to MD</text>
+<rect x="1333.3" y="580" width="92.7" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1379.65" y="596" class="bdg" text-anchor="middle" fill="#792E2E">UNCHANGED</text>
+<text x="912" y="710" class="sub">·  Four things, not four gates</text>
+<text x="912" y="727" class="sub">·  Clear orders auto-adjudicated; gray escalates</text>
+<line x1="878" y1="639.0" x2="900" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="594" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1587.0" y="645.0" class="bt" style="fill:#fff" text-anchor="middle">Visits generate</text>
+<text x="1468" y="710" class="sub">·  Frequency becomes many visits</text>
+<line x1="1434" y1="639.0" x2="1456" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="594" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1865.0" y="635.5" class="bt" style="fill:#fff" text-anchor="middle">Auth checked —</text>
+<text x="1865.0" y="654.5" class="bt" style="fill:#fff" text-anchor="middle">pending stays visible</text>
+<text x="1746" y="710" class="sub">·  On the calendar, marked pending</text>
+<text x="1746" y="727" class="sub">·  Counted as committed load</text>
+<line x1="1712" y1="639.0" x2="1734" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<rect x="2018" y="594" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="2143.0" y="594" width="125.0" height="90" rx="6" fill="#C6A01F"/>
+<text x="2143.0" y="635.5" class="bt" style="fill:#fff" text-anchor="middle">Assignment proposed</text>
+<text x="2143.0" y="654.5" class="bt" style="fill:#fff" text-anchor="middle">— one pass</text>
+<rect x="2192.2" y="580" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="2226.1" y="596" class="bdg" text-anchor="middle" fill="#C6A01F">ASSIST</text>
+<text x="2024" y="710" class="sub">·  Against the established team</text>
+<text x="2024" y="727" class="sub">·  No task per discipline</text>
+<line x1="1990" y1="639.0" x2="2012" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<rect x="50" y="605.0" width="250" height="68" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="175.0" y="635.5" class="tg" text-anchor="middle">The payer's rules, written</text>
+<text x="175.0" y="652.5" class="tg" text-anchor="middle">at verification days earlier</text>
+<line x1="300" y1="639.0" x2="344" y2="639.0" class="ln" marker-end="url(#ar)"/>
+<text x="50" y="591.0" class="trg" text-anchor="start">CARRIED FORWARD</text>
+<rect x="320" y="802" width="1976" height="318" rx="10" fill="#E9E9E5"/>
+<text x="342" y="836" class="band" text-anchor="start">PHASE 3  ·  STEADY STATE — the clinician's week</text>
+<text x="2282" y="836" class="bandhi" text-anchor="end">THE EVENING CALLS STOP</text>
+<rect x="350" y="864" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="475.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">The week is</text>
+<text x="475.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">proposed</text>
+<text x="356" y="980" class="sub">·  Against committed load and</text>
+<text x="356" y="997" class="sub">·  open room · days off · PTO</text>
+<rect x="628" y="864" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="753.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">Clinical priority</text>
+<text x="753.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">across the caseload</text>
+<path d="M 634 864 L 872 864 A 6 6 0 0 1 878 870 L 878 877 L 628 877 L 628 870 A 6 6 0 0 1 634 864 Z" fill="#795CA7"/>
+<text x="634" y="980" class="sub">·  Who is unstable</text>
+<text x="634" y="997" class="sub">·  Wound · IV · catheter · labs</text>
+<line x1="600" y1="909.0" x2="622" y2="909.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="864" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1031.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">Grouped and</text>
+<text x="1031.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">routed</text>
+<text x="912" y="980" class="sub">·  Drive time, not distance</text>
+<text x="912" y="997" class="sub">·  Bridges · rivers · crossings</text>
+<line x1="878" y1="909.0" x2="900" y2="909.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="864" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="1309.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">What the tool can</text>
+<text x="1309.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">only show</text>
+<path d="M 1190 864 L 1428 864 A 6 6 0 0 1 1434 870 L 1434 877 L 1184 877 L 1184 870 A 6 6 0 0 1 1190 864 Z" fill="#795CA7"/>
+<text x="1190" y="980" class="sub">·  Caregiver must be present</text>
+<text x="1190" y="997" class="sub">·  Cognitive · dementia constraints</text>
+<text x="1190" y="1014" class="sub">·  The caregiver's own schedule</text>
+<line x1="1156" y1="909.0" x2="1178" y2="909.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="864" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1587.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">Day-before confirmation</text>
+<text x="1587.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">— text and voice</text>
+<rect x="1536.6" y="850" width="167.4" height="23" rx="11.5" fill="#FFFFFF" stroke="#795CA7" stroke-width="1.8"/>
+<text x="1620.3" y="866" class="bdg" text-anchor="middle" fill="#795CA7">THE BIGGEST CHANGE</text>
+<text x="1468" y="980" class="sub">·  The tool confirms, not the clinician</text>
+<text x="1468" y="997" class="sub">·  Clinician takes over when it fails</text>
+<line x1="1434" y1="909.0" x2="1456" y2="909.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="864" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="1865.0" y="864" width="125.0" height="90" rx="6" fill="#2E599D"/>
+<text x="1865.0" y="905.5" class="bt" style="fill:#fff" text-anchor="middle">Order within</text>
+<text x="1865.0" y="924.5" class="bt" style="fill:#fff" text-anchor="middle">the day</text>
+<rect x="1914.2" y="850" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="1948.1" y="866" class="bdg" text-anchor="middle" fill="#2E599D">ASSIST</text>
+<text x="1746" y="980" class="sub">·  The tool proposes the sequence</text>
+<text x="1746" y="997" class="sub">·  The clinician adjusts</text>
+<line x1="1712" y1="909.0" x2="1734" y2="909.0" class="ln" marker-end="url(#ar)"/>
+<text x="350" y="1030" class="trg" text-anchor="start">THE DAY BEFORE  ·  THE FIVE DISPOSITIONS — chosen a day wide, not at the door</text>
+<rect x="350" y="1042" width="115.6" height="42" rx="21.0" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="407.8" y="1068.0" class="ct" text-anchor="middle" fill="#2E599D">Accept</text>
+<rect x="481.6" y="1042" width="150.0" height="42" rx="21.0" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="556.6" y="1068.0" class="ct" text-anchor="middle" fill="#2E599D">Reschedule</text>
+<rect x="647.6" y="1042" width="132.8" height="42" rx="21.0" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="714.0" y="1068.0" class="ct" text-anchor="middle" fill="#C6A01F">Reassign</text>
+<rect x="796.4000000000001" y="1042" width="98.4" height="42" rx="21.0" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="845.6000000000001" y="1068.0" class="ct" text-anchor="middle" fill="#792E2E">Miss</text>
+<rect x="910.8000000000001" y="1042" width="124.19999999999999" height="42" rx="21.0" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="972.9000000000001" y="1068.0" class="ct" text-anchor="middle" fill="#C6A01F">Decline</text>
+<text x="1065.0" y="1069" class="note" text-anchor="start">rebooking and failed-visit follow-up are proposed to the scheduler; the reason a visit was declined is finally captured</text>
+<rect x="320" y="1154" width="1976" height="236" rx="10" fill="#E9E9E5"/>
+<text x="342" y="1188" class="band" text-anchor="start">PHASE 4  ·  RECERTIFY OR DISCHARGE</text>
+<text x="2282" y="1188" class="bandhi" text-anchor="end">NEW PERIOD = NEW AUTH</text>
+<rect x="350" y="1216" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="475.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">Each discipline reviews</text>
+<text x="475.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">its own goals</text>
+<path d="M 356 1216 L 594 1216 A 6 6 0 0 1 600 1222 L 600 1229 L 350 1229 L 350 1222 A 6 6 0 0 1 356 1216 Z" fill="#795CA7"/>
+<text x="356" y="1332" class="sub">·  Decided separately</text>
+<text x="356" y="1349" class="sub">·  Some discharge before recert</text>
+<rect x="628" y="1216" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="753.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">The recert window</text>
+<text x="753.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">is tracked</text>
+<text x="634" y="1332" class="sub">·  Days 56–60</text>
+<text x="634" y="1349" class="sub">·  Binds only recertifying disciplines</text>
+<line x1="600" y1="1261.0" x2="622" y2="1261.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="1216" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="1031.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">Recert visits</text>
+<text x="1031.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">performed</text>
+<text x="912" y="1332" class="sub">·  One carries the OASIS recert</text>
+<text x="912" y="1349" class="sub">·  The others are non-OASIS</text>
+<line x1="878" y1="1261.0" x2="900" y2="1261.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="1216" width="250" height="90" rx="6" fill="#792E2E"/>
+<text x="1309.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">DCS approves the</text>
+<text x="1309.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">next-period plan</text>
+<rect x="1283.5" y="1202" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1354.75" y="1218" class="bdg" text-anchor="middle" fill="#792E2E">× N disciplines</text>
+<text x="1190" y="1332" class="sub">·  The same hard stop as phase 2</text>
+<line x1="1156" y1="1261.0" x2="1178" y2="1261.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="1216" width="250" height="90" rx="6" fill="#795CA7"/>
+<text x="1587.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">Auth re-checked for</text>
+<text x="1587.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">the new period</text>
+<text x="1468" y="1332" class="sub">·  A new period is a new question</text>
+<line x1="1434" y1="1261.0" x2="1456" y2="1261.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="1216" width="250" height="90" rx="6" fill="#795CA7"/>
+<rect x="1865.0" y="1216" width="125.0" height="90" rx="6" fill="#C6A01F"/>
+<text x="1865.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">The next period</text>
+<text x="1865.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">is assigned</text>
+<rect x="1914.2" y="1202" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1948.1" y="1218" class="bdg" text-anchor="middle" fill="#C6A01F">ASSIST</text>
+<text x="1746" y="1332" class="sub">·  Same one-pass proposal</text>
+<line x1="1712" y1="1261.0" x2="1734" y2="1261.0" class="ln" marker-end="url(#ar)"/>
+<rect x="2018" y="1216" width="250" height="90" rx="6" fill="#2E599D"/>
+<text x="2143.0" y="1257.5" class="bt" style="fill:#fff" text-anchor="middle">Or — the agency</text>
+<text x="2143.0" y="1276.5" class="bt" style="fill:#fff" text-anchor="middle">discharge</text>
+<text x="2024" y="1332" class="sub">·  The last discipline out does</text>
+<text x="2024" y="1349" class="sub">·  the D/C OASIS</text>
+<text x="2024" y="1366" class="sub">·  Capacity returns to the branch</text>
+<line x1="2004.0" y1="1212" x2="2004.0" y2="1310" stroke="#5A6560" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="2004.0" y="1200" class="trg" text-anchor="middle">OR</text>
+<rect x="350" y="1426" width="1976" height="150" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="376" y="1462" class="pnl" text-anchor="start">WHAT THE TOOL MAY ONLY SURFACE — the gating constraints a person still decides</text>
+<line x1="376" y1="1478" x2="376" y2="1562" stroke="#1B211E" stroke-width="3"/>
+<text x="396" y="1504" class="sub">·  Is the patient actually available, before anything books</text>
+<text x="396" y="1521" class="sub">·  The caregiver must be present  ·  the caregiver's own changing schedule</text>
+<text x="396" y="1538" class="sub">·  Cognitive and dementia constraints  ·  clinically driven timing</text>
+<line x1="1440" y1="1478" x2="1440" y2="1562" stroke="#792E2E" stroke-width="3"/>
+<text x="1462" y="1504" class="sub">·  Matching acuity to skill level</text>
+<text x="1462" y="1521" class="sub">·  Finding coverage when someone calls out</text>
+<text x="1462" y="1538" class="sub">·  Each is a hard constraint that lives in someone's head today</text>
+<line x1="50" y1="1618" x2="2400" y2="1618" stroke="#C9CCC5" stroke-width="1.4"/>
+<text x="50" y="1650" class="foot" text-anchor="start">Target state · v1.0 · PROPOSED, not current state — posture per the 25 Aug workbook's future-state column</text>
+<text x="2400" y="1650" class="foot" text-anchor="end">The episode, end to end — target state</text>
+</svg>
+</figure>
+
+<style>
+:root{--paper:#F2F3EF;--rule:#D8DAD2;
+--shadow:0 1px 2px rgba(23,30,26,.05),0 12px 34px -22px rgba(23,30,26,.35);
+--body:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+--display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+--mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}}
+:root[data-theme="dark"]{--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:var(--body);
+padding:clamp(10px,2vw,32px);-webkit-font-smoothing:antialiased}
+figure{margin:0 auto;max-width:1900px;border:1px solid var(--rule);border-radius:12px;
+box-shadow:var(--shadow);overflow-x:auto;background:#FBFBF8}
+svg{display:block;width:100%;min-width:1180px;height:auto}
+/* --- in-SVG type. units are points on the output sheet --- */
+.bt{font-family:var(--body);font-size:16px;font-weight:600;fill:#fff}
+.bt.s{font-size:13.5px}
+.dt{font-family:var(--body);font-size:15px;font-weight:600;fill:#1B211E}
+.ct{font-family:var(--body);font-size:15px;font-weight:600}
+.bdg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.ln{stroke:#1B211E;stroke-width:2}
+.lb{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.conn{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.leg{font-family:var(--body);font-size:15.5px;font-weight:600;fill:#1B211E}
+.key{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;fill:#7C8781}
+.band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
+.trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
+.pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
+.title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
+.deck{font-family:var(--body);font-size:16px;fill:#5A6560}
+.foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
+.boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
+.bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
+.colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
+.colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
+.colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
+@media print{@page{size:2450pt 1690pt;margin:0}
+body{background:#fff;padding:0}
+figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}
+svg{min-width:0;width:2450pt;height:1690pt}}
+</style>
