@@ -72,37 +72,38 @@ def ghost(x, y, w, h, lines, n=None):
     lbl(x+w/2, gy+gh+18, "NO LONGER A STEP", "middle", "trg")
     if n: xref(x, gy, n)
 
-W, H = 2830, 1780
-GW = 168                       # a ghost slot is narrower than a live one
+# ---- geometry cloned from _flow-soc-full.gen.py so the two sheets overlay ----
+DW, DH, W485 = 180, 104, 320
+EXW, EXH = 250, 76
+GW = 168
 GSLOT = GW + GAP
+xs = [IX, IX+BW+GAP, IX+2*(BW+GAP), IX+2*(BW+GAP)+DW+GAP,
+      IX+2*(BW+GAP)+DW+GAP+W485+GAP, IX+3*(BW+GAP)+DW+GAP+W485+GAP,
+      IX+3*(BW+GAP)+2*(DW+GAP)+W485+GAP, IX+4*(BW+GAP)+2*(DW+GAP)+W485+GAP]
+BANDW = xs[7] + BW + 30 - BX
+P1W = 8*SLOT + GSLOT + 30
 
+W, H = 2830, 1820
 begin(W, H, aria=(
-    "Start of care, target state, version 1.1. Every block carries the number of the step it "
-    "replaces on the current-state sheet, so the two can be read side by side. A dashed empty block "
-    "marks a step that no longer exists: the DCS referral review in pass one, and the per-discipline "
-    "assignment task in pass two. Light green blocks are the new capacity and scheduling engine; "
-    "purple blocks are work that still happens inside HCHB. The engine captures the referral, derives "
-    "eligibility and pending authorisation from the payer, and releases the referral to scheduling. It "
-    "recommends a care team and makes the welcome contact, but confirming the patient is genuinely "
-    "available stays the scheduler's decision and nothing books until it clears. In pass two the "
-    "clinician plots frequency against a visit budget the engine now shows, the DCS still approves "
-    "each plan of care as a hard stop, HCHB still generates the visits and checks authorisation, and "
-    "the engine proposes the assignment in one pass."))
+    "Start of care, target state, version 1.2, drawn on the same skeleton as the current-state "
+    "Flow 1 sheet so the two overlay: the same two passes, the same approved and auth-on-file "
+    "decision diamonds, the same entry bus and other-trigger chips, the same exception row, episode "
+    "visit budget panel and missed-visit compliance chain. Every block carries the number of the "
+    "step it replaces. A dashed empty block marks a step that no longer exists. Light green is the "
+    "new capacity and scheduling engine; purple is work that still happens inside HCHB."))
 
-masthead("COMPASSUS HOME HEALTH  ·  FLOW 1 — TARGET STATE  ·  v1.1",
+masthead("COMPASSUS HOME HEALTH  ·  FLOW 1 — TARGET STATE  ·  v1.2",
          "Start of Care — where the work goes",
-         "Read beside Flow-SOC-Full. Numbers map to that sheet's steps; dashed blocks are steps that no longer exist")
-
+         "Same skeleton as Flow-SOC-Full so the sheets overlay. Numbers map to that sheet's steps")
 legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("DCS", C["dcs"]),
         ("PCC / Scheduler", C["pcc"]), ("Clinician", C["clin"]), ("HCHB", HCHB),
         ("Capacity & Scheduling Engine", ENG)], x=1310, per_row=7, gap=22)
 lbl(W-50, 112, "PROPOSED — TARGET STATE, NOT RELEASE 1   ·   phase 1 is visualisation only (DE-03)",
     "end", "key")
 
-# ---------------- key: posture, then cross-reference ----------------
+# ---------------- key ----------------
 KY = 168
-BANDW = 8*SLOT + GSLOT + 30
-add(f'<rect x="{BX}" y="{KY}" width="{BANDW}" height="108" rx="8" fill="#FFFFFF" '
+add(f'<rect x="{BX}" y="{KY}" width="{P1W}" height="108" rx="8" fill="#FFFFFF" '
     f'stroke="{RULE}" stroke-width="1.6"/>')
 lbl(BX+22, KY+34, "HOW FAR THE ENGINE GOES", cls="colh")
 kx = BX + 250
@@ -124,172 +125,175 @@ for kind, txt in [("Engine", "the engine does it — a person owns the exception
         add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{HCHB}"/>')
     else:
         add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{C["clin"]}"/>')
-    lbl(kx+58, KY+28, kind, cls="colh")
-    lbl(kx+58, KY+46, txt, cls="note")
+    lbl(kx+58, KY+28, kind, cls="colh"); lbl(kx+58, KY+46, txt, cls="note")
     kx += 58 + 8.6*len(txt) + 26
-
-add(f'<line x1="{BX+22}" y1="{KY+62}" x2="{BX+BANDW-22}" y2="{KY+62}" stroke="{RULE}" stroke-width="1.2"/>')
+add(f'<line x1="{BX+22}" y1="{KY+62}" x2="{BX+P1W-22}" y2="{KY+62}" stroke="{RULE}" stroke-width="1.2"/>')
 lbl(BX+22, KY+92, "READING IT AGAINST THE ORIGINAL", cls="colh")
 cx0 = BX + 330
 add(f'<rect x="{cx0}" y="{KY+74}" width="30" height="23" rx="5" fill="#FFFFFF" stroke="{MUT}" stroke-width="1.4"/>')
 add(f'<text x="{cx0+15}" y="{KY+90}" class="bdg" text-anchor="middle" fill="{MUT}">4</text>')
-lbl(cx0+42, KY+90, "the step's position on the current-state sheet, counting left to right", cls="note")
-cx1 = cx0 + 42 + 8.6*66 + 30
+lbl(cx0+42, KY+90, "the step's position on Flow-SOC-Full  ·  5a / 5b = one step that splits", cls="note")
+cx1 = cx0 + 42 + 8.6*68 + 26
 add(f'<rect x="{cx1}" y="{KY+74}" width="46" height="23" rx="5" fill="#FFFFFF" stroke="{MUT}" stroke-width="1.4"/>')
 add(f'<text x="{cx1+23}" y="{KY+90}" class="bdg" text-anchor="middle" fill="{MUT}">NEW</text>')
-lbl(cx1+58, KY+90, "no equivalent on the current-state sheet", cls="note")
-cx2 = cx1 + 58 + 8.6*39 + 30
+lbl(cx1+58, KY+90, "no equivalent there", cls="note")
+cx2 = cx1 + 58 + 8.6*20 + 26
 add(f'<rect x="{cx2}" y="{KY+74}" width="46" height="23" rx="5" fill="{PAPER}" stroke="{MUT}" '
     f'stroke-width="1.6" stroke-dasharray="5 4"/>')
 lbl(cx2+58, KY+90, "a step that no longer exists — the flow passes over it", cls="note")
 
 # ================= PASS 1 =================
-P1Y, PH = 306, 244
-add(f'<rect x="{BX}" y="{P1Y}" width="{BANDW}" height="{PH}" rx="10" fill="{BAND}"/>')
-lbl(BX+22, P1Y+34, "PASS 1  ·  REFERRAL TO THE FIRST VISITS", cls="band")
-lbl(BX+BANDW-14, P1Y+34, "ONE HUMAN GATE LEFT", "end", "bandhi")
-b1 = P1Y + 68
-c1 = b1 + BH/2
-# slot walk: 3 engine, ghost, then 5 more
+P1Y, PH = 306, 242
+add(f'<rect x="{BX}" y="{P1Y}" width="{P1W}" height="{PH}" rx="10" fill="{BAND}"/>')
+lbl(BX+22, P1Y+34, "PASS 1  ·  START OF CARE / RESUMPTION OF CARE — from the referral", cls="band")
+lbl(BX+P1W-14, P1Y+34, "ONE HUMAN GATE LEFT", "end", "bandhi")
+p1y = P1Y + 66
+c1 = p1y + BH/2
 x = IX
-eng(x, b1, BW, BH, ["Referral captured", "in Commure"], n="1")
-sublist(x, b1+BH+26, ["Payer, plan, discharge date", "A verified number for the",
-                      "right person  ·  consent to contact"]); s1e = x+BW; x += SLOT
-eng(x, b1, BW, BH, ["Eligibility verified,", "pending auth derived", "from the payer"], n="2")
-sublist(x, b1+BH+26, ["Derived, not keyed by hand", "Payer rules ride with the referral"])
-authx = x; x += SLOT
-eng(x, b1, BW, BH, ["Referral released", "to scheduling"], n="3")
-sublist(x, b1+BH+26, ["Completeness is rule-checked", "Exception only → intake"])
-prev = x + BW; x += SLOT
-ghost(x, b1, GW, BH, ["DCS reviews", "the referral"], n="4")
-gx = x; x += GSLOT
-assist(x, b1, BW, BH, C["dcs"], ["Care team", "recommended"], badge="ASSIST", n="NEW")
-sublist(x, b1+BH+26, ["Discipline, role, restrictions", "Territory · competency · continuity",
-                      "DCS and scheduler confirm"])
-arrow(prev, c1, x-6, c1)                       # the flow passes over the ghost
-nxt = x + BW; x += SLOT
-assist(x, b1, BW, BH, C["pcc"], ["Welcome contact", "— voice and text"], badge="ASSIST", n="5a")
-sublist(x, b1+BH+26, ["The engine makes contact", "Scheduler works the no-answers",
-                      "Asks who may sign — POA"])
-arrow(nxt, c1, x-6, c1); nxt = x + BW; x += SLOT
-surf(x, b1, BW, BH, C["pcc"], ["Is the patient", "actually available?"],
-     badge="THE JUDGMENT CALL", n="5b")
-sublist(x, b1+BH+26, ["The engine shows what it heard", "The scheduler decides",
-                      "Nothing books until this clears"])
-arrow(nxt, c1, x-6, c1); gatex = x; nxt = x + BW; x += SLOT
-assist(x, b1, BW, BH, C["pcc"], ["SOC and evals", "scheduled"], badge="ASSIST", n="6")
-sublist(x, b1+BH+26, ["48-hour SOC window enforced", "Slots proposed against capacity",
-                      "Scheduler confirms"])
-arrow(nxt, c1, x-6, c1); nxt = x + BW; x += SLOT
-man(x, b1, BW, BH, C["clin"], ["Clinicians perform", "SOC and evals"], n="7")
-sublist(x, b1+BH+26, ["RN at the SOC", "PT · OT · ST at their own"])
-arrow(nxt, c1, x-6, c1)
-arrow(s1e, c1, authx-6, c1)
-arrow(authx+BW, c1, authx+SLOT-6, c1)
-path(f"M {gx+GW/2} {c1} L {gx+GW/2} {b1+24-6}", dash=True)
-chip(50, c1-39, 250, 78, ["Referral arrives", "hospital · MD · facility"], INK)
+eng(x, p1y, BW, BH, ["Referral captured", "in Commure"], n="1")
+sublist(x, p1y+BH+26, ["Payer, plan, discharge date", "A verified number, and consent"]); pv=x+BW; x+=SLOT
+eng(x, p1y, BW, BH, ["Eligibility verified,", "pending auth derived", "from the payer"], n="2")
+arrow(pv, c1, x-6, c1)
+lbl(x+BW/2, p1y+BH+30, "traditional Medicare still passes straight", "middle", "note")
+lbl(x+BW/2, p1y+BH+50, "through; the rest is derived, not keyed", "middle", "note")
+authx=x; pv=x+BW; x+=SLOT
+eng(x, p1y, BW, BH, ["Referral released", "to scheduling"], n="3")
+sublist(x, p1y+BH+26, ["Completeness is rule-checked", "Exception only → intake"])
+arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
+ghost(x, p1y, GW, BH, ["DCS reviews", "referral"], n="4"); gx=x; x+=GSLOT
+assist(x, p1y, BW, BH, C["dcs"], ["Care team", "recommended"], badge="ASSIST", n="NEW")
+sublist(x, p1y+BH+26, ["Discipline, role, restrictions", "DCS and scheduler confirm"])
+arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
+assist(x, p1y, BW, BH, C["pcc"], ["Welcome contact", "— voice and text"], badge="ASSIST", n="5a")
+sublist(x, p1y+BH+26, ["The engine makes contact", "Scheduler works the no-answers"])
+arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
+surf(x, p1y, BW, BH, C["pcc"], ["Is the patient", "actually available?"], badge="THE JUDGMENT CALL", n="5b")
+arrow(pv, c1, x-6, c1)
+lbl(x+BW/2, p1y+BH+30, "is the patient actually home? not still", "middle", "note")
+lbl(x+BW/2, p1y+BH+50, "inpatient, not deferring admission", "middle", "note")
+gatex=x; pv=x+BW; x+=SLOT
+assist(x, p1y, BW, BH, C["pcc"], ["Scheduler books", "SOC / ROC visit", "+ discipline evals"],
+       badge="ASSIST", n="6")
+arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
+man(x, p1y, BW, BH, C["clin"], ["Clinicians perform", "SOC / ROC", "+ eval visits"], n="7")
+arrow(pv, c1, x-6, c1)
+lastp1 = x
+path(f"M {gx+GW/2} {c1} L {gx+GW/2} {p1y+24-6}", dash=True)
+chip(50, c1-38, 250, 76, ["Referral arrives", "with initial orders"], INK)
 arrow(300, c1, IX-6, c1)
-lbl(50, c1-53, "TRIGGER", cls="trg")
+lbl(50, c1-52, "TRIGGER", cls="trg")
 
-# pass-1 exceptions
-E1 = P1Y + PH + 44
-EXW2 = 290
-block(authx-34, E1, EXW2, 72, C["auth"], ["Payer outside the rules library", "→ the auth team works it"], small=True)
-block(gatex-34, E1, EXW2, 72, C["pcc"], ["Not home, or deferring", "→ the referral holds"], small=True)
-path(f"M {authx-14} {c1} L {authx-14} {E1-6}", dash=True)
-path(f"M {gatex-14} {c1} L {gatex-14} {E1-6}", dash=True)
-lbl(50, E1+42, "WHAT FALLS", cls="trg"); lbl(50, E1+60, "TO A PERSON", cls="trg")
-
-# ================= PASS 2 =================
-P2Y = E1 + 72 + 50
+# ================= PASS 2 — identical xs geometry to the current-state sheet =================
+P2Y = P1Y + PH + 150
 add(f'<rect x="{BX}" y="{P2Y}" width="{BANDW}" height="{PH}" rx="10" fill="{BAND}"/>')
-lbl(BX+22, P2Y+34, "PASS 2  ·  THE PLAN OF CARE", cls="band")
-lbl(BX+BANDW-14, P2Y+34, "THE VISIT BUDGET IS VISIBLE BEFORE IT IS SPENT", "end", "bandhi")
-b2 = P2Y + 68
-c2 = b2 + BH/2
-x = IX
-surf(x, b2, BW, BH, C["clin"], ["Clinician plots", "discipline frequency"], badge="SURFACE", n="1")
-sublist(x, b2+BH+26, ["The visit budget is shown here", "Payer limits, from the auth note",
-                      "Clinical need still decides"]); nxt = x+BW; x += SLOT
-man(x, b2, BW, BH, C["dcs"], ["DCS approves the", "plan of care"], badge="× N disciplines", n="2·3")
-sublist(x, b2+BH+26, ["QA is a hard stop — it stays", "Not approved → visits held"])
-arrow(nxt, c2, x-6, c2); dcsx = x; nxt = x+BW; x += SLOT
-eng(x, b2, BW, BH, ["Physician orders", "auto-adjudicated"], n="NEW")
-sublist(x, b2+BH+26, ["Clear cases clear themselves", "Gray ones escalate to the DCS",
-                      "A config choice, not a rule"])
-arrow(nxt, c2, x-6, c2); nxt = x+BW; x += SLOT
-man(x, b2, BW, BH, C["dcs"], ["THE 485 MOMENT", "QA · lock · submit · orders"], badge="UNCHANGED", n="4")
-sublist(x, b2+BH+26, ["Four things, not four gates"])
-arrow(nxt, c2, x-6, c2); nxt = x+BW; x += SLOT
-man(x, b2, BW, BH, HCHB, ["Visits generate", "in HCHB"], n="5")
-sublist(x, b2+BH+26, ["Frequency becomes many visits"])
-arrow(nxt, c2, x-6, c2); prev2 = x+BW; x += SLOT
-ghost(x, b2, GW, BH, ["one assignment task", "per discipline"], n="5×N")
-gx2 = x; x += GSLOT
-man(x, b2, BW, BH, HCHB, ["Auth checked per visit", "— pending stays visible"], n="6")
-sublist(x, b2+BH+26, ["On the calendar, marked pending", "Counted as committed load",
-                      "The engine shows the balance"])
-arrow(prev2, c2, x-6, c2); nxt = x+BW; x += SLOT
-assist(x, b2, BW, BH, C["pcc"], ["Assignment proposed", "— one pass"], badge="ASSIST", n="7")
-sublist(x, b2+BH+26, ["Against the established team", "No task per discipline",
-                      "Scheduler owns urgency"])
-arrow(nxt, c2, x-6, c2); nxt = x+BW; x += SLOT
-man(x, b2, BW, BH, HCHB, ["Visits on the", "clinician's calendar"], n="8")
-sublist(x, b2+BH+26, ["Pending visits appear too"])
-arrow(nxt, c2, x-6, c2)
-path(f"M {gx2+GW/2} {c2} L {gx2+GW/2} {b2+24-6}", dash=True)
+lbl(BX+22, P2Y+34, "PASS 2  ·  DISCIPLINE PLAN OF CARE — the repeating pattern", cls="band")
+lbl(BX+BANDW-14, P2Y+34, "THE BUDGET IS VISIBLE BEFORE IT IS SPENT", "end", "bandhi")
+p2y = P2Y + 66
+c2 = p2y + BH/2
+surf(xs[0], p2y, BW, BH, C["clin"], ["Clinician submits", "discipline plan", "of care"],
+     badge="× N disciplines", n="1")
+sublist(xs[0], p2y+BH+26, ["The visit budget is shown here", "Payer limits, from the auth note"])
+man(xs[1], p2y, BW, BH, C["dcs"], ["DCS reviews &", "approves"], badge="× N disciplines", n="2")
+sublist(xs[1], p2y+BH+26, ["QA is a hard stop — it stays"])
+diamond(xs[2]+DW/2, c2, ["Approved?"])
+man(xs[3], p2y, W485, BH, C["dcs"], ["THE 485 MOMENT", "QA accepted · POC locked",
+                                     "485 submitted · orders to MD"], badge="ALL AT ONCE", n="4")
+sublist(xs[3], p2y+BH+26, ["Four things, not four gates", "Clear orders auto-adjudicated; gray escalates"])
+man(xs[4], p2y, BW, BH, HCHB, ["Visits generate", "in HCHB"], n="5")
+diamond(xs[5]+DW/2, c2, ["Auth on", "file?"])
+assist(xs[6], p2y, BW, BH, C["pcc"], ["Scheduler assigns all", "plotted visits", "— one pass"],
+       badge="ASSIST", n="7")
+sublist(xs[6], p2y+BH+26, ["Against the established team", "Scheduler owns urgency"])
+man(xs[7], p2y, BW, BH, HCHB, ["Visits on", "clinician calendar"], n="8")
+sublist(xs[7], p2y+BH+26, ["Pending visits appear too"])
+for a, b in [(xs[0]+BW, xs[1]), (xs[1]+BW, xs[2]), (xs[2]+DW, xs[3]),
+             (xs[3]+W485, xs[4]), (xs[4]+BW, xs[5]), (xs[5]+DW, xs[6]), (xs[6]+BW, xs[7])]:
+    arrow(a, c2, b-6, c2)
+lbl(xs[3]-12, c2-12, "Yes", "end")
+lbl(xs[6]-12, c2-12, "Yes", "end")
+add(f'<rect x="{xs[2]+8}" y="{c2-DH/2-14}" width="30" height="23" rx="5" fill="#FFFFFF" '
+    f'stroke="{MUT}" stroke-width="1.4"/>')
+add(f'<text x="{xs[2]+23}" y="{c2-DH/2+2}" class="bdg" text-anchor="middle" fill="{MUT}">3</text>')
+add(f'<rect x="{xs[5]+8}" y="{c2-DH/2-14}" width="30" height="23" rx="5" fill="#FFFFFF" '
+    f'stroke="{MUT}" stroke-width="1.4"/>')
+add(f'<text x="{xs[5]+23}" y="{c2-DH/2+2}" class="bdg" text-anchor="middle" fill="{MUT}">6</text>')
 
-tag(50, c2-34, 250, 68, ["The payer's rules, written", "at verification days earlier"])
-arrow(312, c2, IX-6, c2)
-lbl(50, c2-48, "CARRIED FORWARD", cls="trg")
+# entry bus + other triggers — cloned
+BUS = 316
+conn(f"M {lastp1+BW/2} {p1y+BH} L {lastp1+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} L {BUS} {c2}")
+lbl((lastp1+BW/2 + BUS)/2, P1Y+PH+60,
+    "after the eval visits, each discipline writes its own plan of care", "middle", "conn")
+chip(50, c2-118, 250, 84, ["Recertification", "OASIS recert visit, or", "non-OASIS recert eval"], INK)
+chip(50, c2+34, 250, 84, ["Add-on / physician order", "add-on = an added eval;", "other orders change visits"], INK)
+lbl(50, c2-134, "OTHER TRIGGERS", cls="trg")
+conn(f"M 300 {c2-76} L {BUS} {c2-76} L {BUS} {c2}")
+conn(f"M 300 {c2+76} L {BUS} {c2+76} L {BUS} {c2}")
+arrow(BUS, c2, xs[0]-6, c2)
+tag(50, c2+140, 250, 58, ["The payer's rules, from", "verification days earlier"])
+lbl(50, c2+216, "carried forward — surfaced at the plan of care, not at the cap", "start", "note")
 
-QD = P2Y + PH + 34
-qcx = dcsx + BW + 14
-chip(qcx-149, QD, 298, 44, ["Queue depth is visible"], C["dcs"])
-lbl(qcx+165, QD+28, "the DCS escalates before the backlog compresses anyone's visits", "start", "note")
-path(f"M {qcx} {c2} L {qcx} {QD-6}", dash=True)
-lbl(IX, QD+76, "Those rules were written days before anyone plotted a frequency. Surfacing them "
-    "here — not at the cap — is the highest-value, lowest-complexity change on this sheet.",
-    "start", "hi")
+# ---------------- exceptions — two survive, two are gone ----------------
+exy = P2Y + PH + 54
+man(xs[1]-42, exy, EXW, EXH, C["dcs"], ["QA backlog", "visits compress"])
+add(f'<rect x="{xs[1]-42+8}" y="{exy-14}" width="30" height="23" rx="5" fill="#FFFFFF" '
+    f'stroke="{MUT}" stroke-width="1.4"/>')
+add(f'<text x="{xs[1]-42+23}" y="{exy+2}" class="bdg" text-anchor="middle" fill="{MUT}">e1</text>')
+man(xs[2]-35, exy, EXW, EXH, C["clin"], ["Returned to clinician", "for correction"])
+add(f'<rect x="{xs[2]-35+8}" y="{exy-14}" width="30" height="23" rx="5" fill="#FFFFFF" '
+    f'stroke="{MUT}" stroke-width="1.4"/>')
+add(f'<text x="{xs[2]-35+23}" y="{exy+2}" class="bdg" text-anchor="middle" fill="{MUT}">e2</text>')
+ghost(xs[4]-35, exy-24, EXW, EXH+22, ["one assignment task", "per discipline"], n="e3")
+ghost(xs[6]-35, exy-24, EXW+40, EXH+22, ["Pending auth — not on", "calendar, not counted"], n="e4")
+path(f"M {xs[1]+58} {p2y+BH} L {xs[1]+58} {exy-6}", dash=True)
+path(f"M {xs[2]+DW/2} {c2+DH/2} L {xs[2]+DW/2} {exy-6}", dash=True,
+     label="No — nothing moves forward", lx=xs[2]+DW/2+16, ly=exy-22, anchor="start")
+path(f"M {xs[5]+DW/2} {c2+DH/2} L {xs[5]+DW/2} {exy-6}", dash=True,
+     label="No — but the visit stays visible now", lx=xs[5]+DW/2+16, ly=exy-22, anchor="start")
+lbl(50, exy+64, "WHAT USED TO", cls="trg"); lbl(50, exy+82, "FALL OUT", cls="trg")
 
-# ================= MISSED VISIT =================
-MVY = QD + 76 + 40
-mv = [IX + i*SLOT for i in range(5)]
-add(f'<rect x="{BX}" y="{MVY}" width="{5*SLOT+30}" height="{PH-30}" rx="10" fill="{BAND}"/>')
-lbl(BX+22, MVY+34, "A MISSED VISIT  ·  THE COMPLIANCE CHAIN", cls="band")
-lbl(BX+5*SLOT+16, MVY+34, "THE CLOCK BECOMES THE ENGINE'S", "end", "bandhi")
-b3 = MVY + 62
-c3 = b3 + BH/2
-man(mv[0], b3, BW, BH, C["clin"], ["Clinician documents", "the missed visit"], n="1")
-eng(mv[1], b3, BW, BH, ["MD notified inside", "48 hours"], n="2·3")
-sublist(mv[1], b3+BH+26, ["The engine owns the clock", "Not a workflow someone works"])
-assist(mv[2], b3, BW, BH, C["pcc"], ["Rebooking proposed"], badge="ASSIST", n="NEW")
-sublist(mv[2], b3+BH+26, ["Into the week's open room", "Scheduler confirms"])
-assist(mv[3], b3, BW, BH, C["pcc"], ["Follow-up on the", "failed visit"], badge="ASSIST", n="NEW")
-sublist(mv[3], b3+BH+26, ["The contact attempt is logged", "Scheduler owns the outcome"])
-man(mv[4], b3, BW, BH, HCHB, ["Documented", "in HCHB"], n="4")
-for a in range(4):
-    arrow(mv[a]+BW, c3, mv[a+1]-6, c3)
-chip(50, c3-24, 250, 48, ["Missed visit"], INK)
-arrow(300, c3, IX-6, c3)
-block(mv[1]-34, MVY+PH-30+26, EXW2, 72, C["dcs"],
-      ["48-hour breach", "→ still escalates to the DCS"], small=True)
-path(f"M {mv[1]-14} {c3} L {mv[1]-14} {MVY+PH-30+20}", dash=True)
+# ---------------- episode budget — cloned ----------------
+py, ph = exy + EXH + 62, 150
+panel(xs[1], py, xs[7]+BW-xs[1], ph, "EPISODE VISIT BUDGET — now visible at plan-of-care creation, not at the cap")
+chip(xs[1]+26, py+58, 330, 46, ["LUPA floor · too few visits"], C["dcs"])
+chip(xs[1]+382, py+58, 400, 46, ["Utilisation ceiling · visits beyond need"], C["dcs"])
+lbl(xs[1]+818, py+80, "Fixed 30-day PDGM payment: below the floor the period pays per visit;", cls="note")
+lbl(xs[1]+818, py+100, "above the ceiling extra visits earn nothing and consume capacity.", cls="note")
+path(f"M {xs[1]+186} {py-6} L {xs[1]+186} {exy+EXH+6}", dash=True)
 
-# ---------------- what stays human ----------------
-PY2 = MVY + PH - 30 + 26 + 72 + 44
-panel(IX, PY2, 2300, 160,
-      "WHAT THE ENGINE MAY ONLY SURFACE — the gating constraints a person still decides")
-column_rule(IX+26, PY2+56, PY2+146)
-sublist(IX+40, PY2+82, ["Is the patient actually available, before anything books",
-                        "The caregiver has to be present  ·  the caregiver's own changing schedule",
-                        "Cognitive and dementia constraints  ·  clinically driven timing"])
-column_rule(IX+1290, PY2+56, PY2+146, C["dcs"])
-sublist(IX+1306, PY2+82, ["Matching acuity to skill level",
-                          "Finding coverage when someone calls out",
-                          "Every one is a hard constraint, and lives in someone's head today"])
+# ================= MISSED VISIT — cloned, plus two new steps =================
+MVY = py + ph + 54
+MVW = xs[5] + BW + 30 - BX
+add(f'<rect x="{BX}" y="{MVY}" width="{MVW}" height="{PH}" rx="10" fill="{BAND}"/>')
+lbl(BX+22, MVY+34, "MISSED VISIT — the compliance chain", cls="band")
+lbl(BX+MVW-14, MVY+34, "THE CLOCK BECOMES THE ENGINE'S", "end", "bandhi")
+m2y = MVY + 66
+c3 = m2y + BH/2
+man(xs[0], m2y, BW, BH, C["clin"], ["Clinician documents", "missed visit"], n="1")
+eng(xs[1], m2y, BW, BH, ["MD notified inside", "48 hours"], n="2")
+sublist(xs[1], m2y+BH+26, ["The engine owns the clock", "Not a workflow someone works"])
+diamond(xs[2]+DW/2, c3, ["MD notified", "within 48h?"], w=200)
+add(f'<rect x="{xs[2]+8}" y="{c3-DH/2-14}" width="30" height="23" rx="5" fill="#FFFFFF" '
+    f'stroke="{MUT}" stroke-width="1.4"/>')
+add(f'<text x="{xs[2]+23}" y="{c3-DH/2+2}" class="bdg" text-anchor="middle" fill="{MUT}">3</text>')
+man(xs[3], m2y, BW, BH, HCHB, ["Documented", "in HCHB"], n="4")
+assist(xs[4], m2y, BW, BH, C["pcc"], ["Rebooking proposed"], badge="ASSIST", n="NEW")
+sublist(xs[4], m2y+BH+26, ["Into the week's open room", "Scheduler confirms"])
+assist(xs[5], m2y, BW, BH, C["pcc"], ["Follow-up on the", "failed visit"], badge="ASSIST", n="NEW")
+sublist(xs[5], m2y+BH+26, ["The contact attempt is logged", "Scheduler owns the outcome"])
+arrow(xs[0]+BW, c3, xs[1]-6, c3)
+arrow(xs[1]+BW, c3, xs[2]+DW/2-100-6, c3)
+arrow(xs[2]+DW/2+100, c3, xs[3]-6, c3)
+arrow(xs[3]+BW, c3, xs[4]-6, c3)
+arrow(xs[4]+BW, c3, xs[5]-6, c3)
+lbl(xs[3]-12, c3-12, "Yes", "end")
+chip(50, c3-38, 250, 76, ["Missed visit"], INK)
+arrow(300, c3, xs[0]-6, c3)
+lbl(50, c3-52, "TRIGGER", cls="trg")
+man(xs[2]-35, MVY+PH+62, EXW, EXH, C["dcs"], ["DCS workflow", "48h breach"])
+path(f"M {xs[2]+DW/2} {c3+DH/2} L {xs[2]+DW/2} {MVY+PH+44}", dash=True, label="No",
+     lx=xs[2]+DW/2+16, ly=MVY+PH+30, anchor="start")
 
-footer("Target state · v1.1 · PROPOSED, not current state — posture per the 25 Aug workbook's future-state column",
+footer("Target state · v1.2 · PROPOSED, not current state — same skeleton as Flow-SOC-Full, posture from the 25 Aug workbook",
        "Flow 1T · start of care — target state")
 finish(sys.argv[1] if len(sys.argv) > 1 else "flow1t.svg")
-print("last content y", PY2+160, "| footer rule", H-72, "| band right", BX+BANDW)
+print("last content y", MVY+PH+62+EXH, "| footer rule", H-72, "| pass1 right", BX+P1W)

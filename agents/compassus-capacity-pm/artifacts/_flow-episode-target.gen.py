@@ -76,15 +76,17 @@ GW = 168
 GSLOT = GW + GAP
 
 begin(W, H, aria=(
-    "The whole home health episode in target state, version 1.1, in four phases, cross-referenced "
+    "The whole home health episode in target state, version 1.2, in four phases, cross-referenced "
     "against the current-state primary map. Every block carries the number of the step it replaces. "
     "A dashed empty block marks a step that no longer exists: the DCS referral review in phase one, "
     "and the per-discipline assignment task in phase two. Light green blocks are the new capacity and "
     "scheduling engine; purple blocks are work that still happens inside HCHB. In phase three the "
-    "day-before confirmation becomes automated text and voice instead of the clinician's own evening "
-    "calls, while clinical priority and the caregiver constraints stay human decisions."))
+    "engine recommends the week and the routing, but the clinician assesses and decides each day's "
+    "visit order and time window for every patient, and the clinician releases the confirmation; "
+    "only then does the engine place the call or send the text. Clinical priority and the caregiver "
+    "constraints stay human decisions throughout."))
 
-masthead("COMPASSUS HOME HEALTH  ·  CAPACITY & SCHEDULING  ·  TARGET STATE  ·  v1.1",
+masthead("COMPASSUS HOME HEALTH  ·  CAPACITY & SCHEDULING  ·  TARGET STATE  ·  v1.2",
          "The Episode, End to End — where the work goes",
          "Read beside Primary-Flow-Map. Numbers map to that sheet's steps, phase by phase")
 legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("DCS", C["dcs"]),
@@ -208,7 +210,7 @@ arrow(312, c2, IX-6, c2); lbl(50, c2-48, "CARRIED FORWARD", cls="trg")
 # ================= PHASE 3 =================
 RY, RH = QY + QH + 34, 334
 RW = 6*SLOT + 30
-phase(RY, RH, "PHASE 3  ·  STEADY STATE — the clinician's week", "THE EVENING CALLS STOP", RW)
+phase(RY, RH, "PHASE 3  ·  STEADY STATE — the clinician's week", "THE CLINICIAN DIRECTS · THE ENGINE DIALS", RW)
 b3 = RY + 66; c3 = b3 + BH/2; x = IX
 eng(x, b3, BW, BH, ["The week is", "proposed"], n="1")
 sublist(x, b3+BH+26, ["Against committed load and", "open room · days off · PTO"]); pv=x+BW; x+=SLOT
@@ -223,11 +225,14 @@ surf(x, b3, BW, BH, C["clin"], ["What the engine", "can only show"], n="4")
 sublist(x, b3+BH+26, ["Caregiver must be present", "Cognitive · dementia constraints",
                       "The caregiver's own schedule"])
 arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-eng(x, b3, BW, BH, ["Day-before confirmation", "— text and voice"], badge="THE BIGGEST CHANGE", n="5")
-sublist(x, b3+BH+26, ["The engine confirms, not the clinician", "Clinician takes over when it fails"])
+assist(x, b3, BW, BH, C["clin"], ["The clinician sets each", "day's order and windows"],
+       badge="THE CLINICIAN DECIDES", n="NEW")
+sublist(x, b3+BH+26, ["The engine recommends per patient", "The clinician assesses and decides",
+                      "Sequence, and the time range"])
 arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-assist(x, b3, BW, BH, C["clin"], ["Order within", "the day"], badge="ASSIST", n="NEW")
-sublist(x, b3+BH+26, ["The engine proposes the sequence", "The clinician adjusts"])
+eng(x, b3, BW, BH, ["Confirmation goes out", "— call and text"], badge="CLINICIAN-TRIGGERED", n="5")
+sublist(x, b3+BH+26, ["Released by the clinician, not sent", "on a schedule of its own",
+                      "Clinician takes over when it fails"])
 arrow(pv, c3, x-6, c3)
 DY = RY + RH - 74
 lbl(IX, DY-12, "THE DAY BEFORE  ·  THE FIVE DISPOSITIONS — chosen a day wide, not at the door", cls="trg")
@@ -280,7 +285,7 @@ sublist(IX+1306, PY2+80, ["Matching acuity to skill level",
                           "Finding coverage when someone calls out",
                           "Each is a hard constraint that lives in someone's head today"])
 
-footer("Target state · v1.1 · PROPOSED, not current state — posture per the 25 Aug workbook's future-state column",
+footer("Target state · v1.2 · PROPOSED, not current state — posture per the 25 Aug workbook's future-state column",
        "The episode, end to end — target state")
 finish(sys.argv[1] if len(sys.argv) > 1 else "episode-target.svg")
 print("last content y", PY2+154, "| footer rule", H-72)

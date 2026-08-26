@@ -176,9 +176,22 @@ sheets answer "what did we actually take off HCHB" at a glance.
 | `3·6` | two current-state steps that merge into one |
 | a **dashed empty block** with struck-through text | **a step that no longer exists.** It keeps its old number and sits below the spine, so the main arrow visibly passes over it |
 
-Two ghosts exist so far: **DCS reviews the referral** (pass 1 / phase 1) and **one assignment task
-per discipline** (pass 2 / phase 2, killed by establishing the care team at referral, DE-05). Phase 3
-has none — its steps merge and automate, but nothing is eliminated.
+Three ghosts exist so far. **DCS reviews the referral** sits in the spine (pass 1 / phase 1). The
+other two sit in the **exception row**, because that is where they lived on the current-state sheet:
+**one assignment task per discipline** (killed by establishing the care team at referral, DE-05) and
+**pending auth — not on calendar, not counted** (killed by making pending visits visible; the
+`Auth on file?` No-branch now lands on it). Phase 3 has none — its steps merge and automate, but
+nothing is eliminated.
+
+**`Flow-SOC-Target-State` is built on the current-state generator's own geometry** — the same `xs`
+array, the same `DW=180` diamonds and `W485=320` block — so **pass 2 overlays `Flow-SOC-Full` block
+for block.** Pass 1 is wider (eight live steps against seven) because the process genuinely gains a
+step. Keep it that way: if the two sheets stop overlaying, the cross-reference numbering is decoration.
+
+**Where the engine touches a patient, name who released it.** Engagement is clinician-*directed*,
+not clinician-*replaced*: the engine recommends, the clinician decides each day's visit order and
+time window per patient, the clinician triggers the contact, and only then does the engine dial. An
+automated contact with no named human trigger is a posture claim, not a design.
 
 **The posture on every block comes from the 25 Aug variable workbook's own *Future state — the
 tool's role* column**, not from judgment. That column reads Automate 34 · Assist 33 · Surface 19 ·

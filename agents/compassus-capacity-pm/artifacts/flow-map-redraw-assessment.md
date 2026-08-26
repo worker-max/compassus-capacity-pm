@@ -1308,3 +1308,60 @@ tail wagging the dog. The target sheet carries the whole cost of the mapping.
 **Open.** *Referral captured in Commure* is drawn as engine work, but Commure is a third system with
 no colour in the palette. It is neither HCHB nor the engine. Flagged rather than fudged — if Commure
 earns a colour, this block changes.
+
+## 32. Target state v1.2 — the SOC sheet becomes a true clone, and engagement gets its owner back — 26 Aug
+
+Two corrections, both raised against v1.1.
+
+**1. The SOC target sheet was a lookalike, not an overlay.** It carried the same *content* as
+`Flow-SOC-Full` but not the same *skeleton* — no `Approved?` or `Auth on file?` diamonds, no entry
+bus from pass 1 into pass 2, no OTHER TRIGGERS chips, no exception row, no episode-budget panel, and
+a missed-visit band drawn to its own geometry. Put the two sheets side by side and nothing lined up,
+which defeated the whole point of the cross-reference numbering added in §31.
+
+Rebuilt from the current-state generator's own geometry rather than approximated: the same `xs`
+array (`BW`/`GAP` slots with `DW=180` diamonds and the `W485=320` wide 485 block), so **pass 2 now
+overlays the current-state sheet exactly, block for block.** Both diamonds are back and carry their
+own ordinals (3 and 6). The entry bus, the recert and add-on trigger chips, the episode visit budget
+panel and the missed-visit chain with its 48-hour diamond and DCS breach block are all restored.
+
+Pass 1 is necessarily wider — target state has eight live steps where current state has seven, plus
+a ghost — so the sheet is 2830 wide against the original's 2600. That is the one place the shapes
+cannot match, because the process genuinely gained a step (care team at referral).
+
+**The exception row turned out to be where the honest ghosts live.** In v1.1 the per-discipline
+assignment task was drawn as a ghost *on the spine*, which was wrong twice over: it broke the
+alignment, and it was never a spine step on the current sheet either — it was the `× N disciplines`
+badge. Both eliminations belong in the exception row, and there are two:
+
+- **`e3` one assignment task per discipline** — killed by establishing the care team at referral.
+- **`e4` pending auth — not on calendar, not counted** — killed by making pending visits visible.
+  The `Auth on file?` No-branch now reads *"No — but the visit stays visible now"* and lands on the
+  ghost of the state it used to fall into. That is the clearest single picture of what the pending-
+  auth fix actually does.
+
+`e1` QA backlog and `e2` returned to clinician survive unchanged, and are drawn solid.
+
+**2. Patient engagement is clinician-*directed*, not clinician-*replaced*.** v1.1 drew the day-before
+confirmation as a single Engine block badged THE BIGGEST CHANGE, with the band reading *THE EVENING
+CALLS STOP*. That overstated it, and in the direction that matters most — it read as the tool taking
+the clinician's judgment away.
+
+The correction, from the operator: the engine recommends, **the clinician assesses and makes the
+final decision on each day's visit order and the time range for every patient, and the clinician
+triggers the interaction.** Only the interaction itself automates.
+
+Redrawn as two steps in sequence:
+
+| | |
+|---|---|
+| **The clinician sets each day's order and windows** — Assist, clinician bar, badged **THE CLINICIAN DECIDES** | *the engine recommends per patient · the clinician assesses and decides · sequence, and the time range* |
+| **Confirmation goes out — call and text** — Engine, badged **CLINICIAN-TRIGGERED** | *released by the clinician, not sent on a schedule of its own · clinician takes over when it fails* |
+
+Band callout changed from *THE EVENING CALLS STOP* to **THE CLINICIAN DIRECTS · THE ENGINE DIALS**,
+which is both accurate and the better line: what stops is the dialling, not the directing.
+
+**The general principle worth carrying to every future-state sheet:** where the engine touches a
+patient, name who released it. An automated contact with no named human trigger is a posture claim,
+not a design. The SOC sheet's welcome contact already satisfies this — it is Assist, scheduler-owned
+— but the rule should be checked on every engagement step drawn from here on.
