@@ -1,291 +1,344 @@
 # -*- coding: utf-8 -*-
-"""The Episode, End to End — TARGET STATE. v1.1.
+"""The primary current-state flow map. Canvas units = points on the output sheet."""
 
-Same four phases as the current-state primary map, cross-referenced step by step.
-Posture from the 25 Aug workbook's 'Future state — the tool's role' column.
-"""
-import sys, os
-sys.path.insert(0, os.environ.get("FLOWKIT", "/home/user/compassus-capacity-pm/.claude/skills/process-flow-map/assets"))
-from flowkit import *
+C = dict(pcc="#C6A01F", hchb="#795CA7", dcs="#792E2E", clin="#2E599D",
+         auth="#DF751D", intake="#1F6F78", float_="#795933", lead="#1A1A1A")
+INK, MUT, RULE, BAND = "#1B211E", "#5A6560", "#C9CCC5", "#E9E9E5"
 
-ENG = "#A6E22E"           # THE CAPACITY & SCHEDULING ENGINE — the only light block, dark text
-HCHB = C["hchb"]          # unchanged: work that still happens inside HCHB
+out = []
+def add(s): out.append(s)
+def esc(t): return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-def _badge(x, y, w, txt, col):
-    bw = 8.3*len(txt)+18
-    add(f'<rect x="{x+w-bw-8}" y="{y-14}" width="{bw}" height="23" rx="11.5" '
-        f'fill="#FFFFFF" stroke="{col}" stroke-width="1.8"/>')
-    add(f'<text x="{x+w-bw/2-8}" y="{y+2}" class="bdg" text-anchor="middle" '
-        f'fill="{col}">{esc(txt)}</text>')
+BW, BH, GAP = 250, 90, 28
+
+def block(x, y, w, h, fill, lines, small=False, badge=None, tc="#fff", bc=None):
+    add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="5" fill="{fill}"/>')
+    lh = 15.5 if small else 19
+    cls = "bt s" if small else "bt"
+    cy = y + h/2 - (len(lines)-1)*lh/2 + (5 if small else 6)
+    for i, ln in enumerate(lines):
+        add(f'<text x="{x+w/2}" y="{cy+i*lh}" class="{cls}" style="fill:{tc}" text-anchor="middle">{esc(ln)}</text>')
+    if badge:
+        bw = 8.3*len(badge)+18
+        add(f'<rect x="{x+w-bw-8}" y="{y-14}" width="{bw}" height="23" rx="11.5" fill="#FFFFFF" '
+            f'stroke="{bc or fill}" stroke-width="1.8"/>')
+        add(f'<text x="{x+w-bw/2-8}" y="{y+2}" class="bdg" text-anchor="middle" fill="{bc or fill}">{esc(badge)}</text>')
+
+
+# ================= TARGET-STATE POSTURE VOCABULARY =================
+PAPER = "#FBFBF8"
+ENG, ENGD = "#A6E22E", "#5F8A12"     # the capacity & scheduling engine; dark green for its badges
 
 def xref(x, y, n):
-    """Cross-reference ordinal — which step on the current-state sheet this is."""
-    w = 30 if len(str(n)) < 3 else 8.3*len(str(n))+16
-    add(f'<rect x="{x+8}" y="{y-14}" width="{w}" height="23" rx="5" fill="#FFFFFF" '
-        f'stroke="{MUT}" stroke-width="1.4"/>')
-    add(f'<text x="{x+8+w/2}" y="{y+2}" class="bdg" text-anchor="middle" fill="{MUT}">{esc(n)}</text>')
+    w = 8.3*len(str(n))+16
+    add(f'<rect x="{x+8}" y="{y-14}" width="{w}" height="22" rx="5" fill="#FFFFFF" '
+        f'stroke="{MUT}" stroke-width="1.3"/>')
+    add(f'<text x="{x+8+w/2}" y="{y+1}" class="bdg" text-anchor="middle" fill="{MUT}">{esc(str(n))}</text>')
 
-def eng(x, y, w, h, lines, badge=None, n=None):
+def eng(x, y, w, h, lines, small=False, badge=None, n=None):
     """AUTOMATE — the engine does it."""
-    block(x, y, w, h, ENG, lines, tc=INK)
-    if badge: _badge(x, y, w, badge, "#5F8A12")
+    block(x, y, w, h, ENG, lines, small=small, badge=badge, tc=INK, bc=ENGD)
     if n: xref(x, y, n)
 
-def assist(x, y, w, h, person, lines, badge=None, n=None):
-    """ASSIST — the engine proposes, a person confirms. The bar names who confirms."""
-    BAR = 46
-    add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="6" fill="{ENG}"/>')
+def assist(x, y, w, h, person, lines, small=False, badge=None, n=None):
+    """ASSIST — the engine proposes, the named person confirms."""
+    BAR = 52
+    add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="5" fill="{ENG}"/>')
     add(f'<path d="M {x+w-BAR} {y} L {x+w-6} {y} A 6 6 0 0 1 {x+w} {y+6} L {x+w} {y+h-6} '
         f'A 6 6 0 0 1 {x+w-6} {y+h} L {x+w-BAR} {y+h} Z" fill="{person}"/>')
-    cy = y + h/2 - (len(lines)-1)*19/2 + 6
+    lh = 15.5 if small else 19
+    cls = "bt s" if small else "bt"
+    cy = y + h/2 - (len(lines)-1)*lh/2 + (5 if small else 6)
     for i, ln in enumerate(lines):
-        add(f'<text x="{x+(w-BAR)/2}" y="{cy+i*19}" class="bt" style="fill:{INK}" '
+        add(f'<text x="{x+(w-BAR)/2}" y="{cy+i*lh}" class="{cls}" style="fill:{INK}" '
             f'text-anchor="middle">{esc(ln)}</text>')
-    if badge: _badge(x, y, w, badge, person)
+    if badge:
+        bw = 8.3*len(badge)+18
+        add(f'<rect x="{x+w-bw-8}" y="{y-14}" width="{bw}" height="23" rx="11.5" fill="#FFFFFF" '
+            f'stroke="{person}" stroke-width="1.8"/>')
+        add(f'<text x="{x+w-bw/2-8}" y="{y+2}" class="bdg" text-anchor="middle" fill="{person}">{esc(badge)}</text>')
     if n: xref(x, y, n)
 
-def surf(x, y, w, h, person, lines, badge=None, n=None):
+def surf(x, y, w, h, person, lines, small=False, badge=None, n=None):
     """SURFACE — the engine shows it, the person decides."""
-    block(x, y, w, h, person, lines, badge=badge)
-    add(f'<path d="M {x+6} {y} L {x+w-6} {y} A 6 6 0 0 1 {x+w} {y+6} L {x+w} {y+14} '
-        f'L {x} {y+14} L {x} {y+6} A 6 6 0 0 1 {x+6} {y} Z" fill="{ENG}"/>')
+    block(x, y, w, h, person, lines, small=small)
+    add(f'<path d="M {x+6} {y} L {x+w-6} {y} A 6 6 0 0 1 {x+w} {y+6} L {x+w} {y+13} '
+        f'L {x} {y+13} L {x} {y+6} A 6 6 0 0 1 {x+6} {y} Z" fill="{ENG}"/>')
+    if badge:
+        bw = 8.3*len(badge)+18
+        add(f'<rect x="{x+w-bw-8}" y="{y-14}" width="{bw}" height="23" rx="11.5" fill="#FFFFFF" '
+            f'stroke="{person}" stroke-width="1.8"/>')
+        add(f'<text x="{x+w-bw/2-8}" y="{y+2}" class="bdg" text-anchor="middle" fill="{person}">{esc(badge)}</text>')
     if n: xref(x, y, n)
 
-def man(x, y, w, h, person, lines, badge=None, n=None):
-    """STAYS MANUAL, or still inside HCHB — unchanged."""
-    block(x, y, w, h, person, lines, badge=badge)
+def man(x, y, w, h, person, lines, small=False, badge=None, n=None):
+    """Unchanged — a person, or still inside HCHB."""
+    block(x, y, w, h, person, lines, small=small, badge=badge)
     if n: xref(x, y, n)
 
-def ghost(x, y, w, h, lines, n=None):
-    """A step that no longer exists. Drops below the spine; the flow passes over it."""
-    gy, gh = y + 24, h - 22
-    add(f'<rect x="{x}" y="{gy}" width="{w}" height="{gh}" rx="6" fill="{PAPER}" '
-        f'stroke="{MUT}" stroke-width="1.8" stroke-dasharray="7 5" opacity=".75"/>')
-    cy = gy + gh/2 - (len(lines)-1)*16/2 + 5
+def ghost(x, y, w, h, lines, n=None, label="NO LONGER A STEP", above=False):
+    """A step that no longer exists — it keeps its footprint, the flow runs past it."""
+    add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="5" fill="{PAPER}" '
+        f'stroke="{MUT}" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>')
+    cy = y + h/2 - (len(lines)-1)*16/2 + 5
     for i, ln in enumerate(lines):
         add(f'<text x="{x+w/2}" y="{cy+i*16}" class="bt s" style="fill:{MUT}" '
             f'text-anchor="middle" opacity=".85">{esc(ln)}</text>')
         wl = 7.0*len(ln)
         add(f'<line x1="{x+w/2-wl/2}" y1="{cy+i*16-5}" x2="{x+w/2+wl/2}" y2="{cy+i*16-5}" '
-            f'stroke="{MUT}" stroke-width="1.3" opacity=".8"/>')
-    lbl(x+w/2, gy+gh+18, "NO LONGER A STEP", "middle", "trg")
-    if n: xref(x, gy, n)
+            f'stroke="{MUT}" stroke-width="1.2" opacity=".8"/>')
+    if label: lbl(x+w/2, y+h+18 if not above else y-20, label, "middle", "trg")
+    if n: xref(x, y, n)
 
-W, H = 2830, 1800
-GW = 168
-GSLOT = GW + GAP
+def sublist(x, y, items):
+    for i, t in enumerate(items):
+        add(f'<text x="{x+6}" y="{y+i*17}" class="sub">{esc("·  " + t)}</text>')
 
-begin(W, H, aria=(
-    "The whole home health episode in target state, version 1.2, in four phases, cross-referenced "
-    "against the current-state primary map. Every block carries the number of the step it replaces. "
-    "A dashed empty block marks a step that no longer exists: the DCS referral review in phase one, "
-    "and the per-discipline assignment task in phase two. Light green blocks are the new capacity and "
-    "scheduling engine; purple blocks are work that still happens inside HCHB. In phase three the "
-    "engine recommends the week and the routing, but the clinician assesses and decides each day's "
-    "visit order and time window for every patient, and the clinician releases the confirmation; "
-    "only then does the engine place the call or send the text. Clinical priority and the caregiver "
-    "constraints stay human decisions throughout."))
+def chip(x, y, w, h, lines, stroke, fill="#FFFFFF"):
+    add(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{min(h/2,26)}" fill="{fill}" '
+        f'stroke="{stroke}" stroke-width="1.8"/>')
+    y0 = y + h/2 - (len(lines)-1)*17/2 + 5
+    for i, ln in enumerate(lines):
+        add(f'<text x="{x+w/2}" y="{y0+i*17}" class="ct" text-anchor="middle" fill="{stroke}">{esc(ln)}</text>')
 
-masthead("COMPASSUS HOME HEALTH  ·  CAPACITY & SCHEDULING  ·  TARGET STATE  ·  v1.2",
-         "The Episode, End to End — where the work goes",
-         "Read beside Primary-Flow-Map. Numbers map to that sheet's steps, phase by phase")
-legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("DCS", C["dcs"]),
-        ("PCC / Scheduler", C["pcc"]), ("Clinician", C["clin"]), ("HCHB", HCHB),
-        ("Capacity & Scheduling Engine", ENG)], x=1310, per_row=7, gap=22)
-lbl(W-50, 112, "PROPOSED — TARGET STATE, NOT RELEASE 1  ·  phase 1 is visualisation only (DE-03)",
-    "end", "key")
+def arrow(x1, y1, x2, y2, dash=False):
+    d = ' stroke-dasharray="7 5" opacity=".68"' if dash else ''
+    add(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" class="ln"{d} marker-end="url(#ar)"/>')
 
-# ---------------- key ----------------
-KY = 168
-KW = 8*SLOT + GSLOT + 30
-add(f'<rect x="{BX}" y="{KY}" width="{KW}" height="108" rx="8" fill="#FFFFFF" '
-    f'stroke="{RULE}" stroke-width="1.6"/>')
-lbl(BX+22, KY+34, "HOW FAR THE ENGINE GOES", cls="colh")
-kx = BX + 250
-for kind, txt in [("Engine", "the engine does it — a person owns the exception"),
-                  ("Assist", "the engine proposes, the named person confirms"),
-                  ("Surface", "the engine shows, the person decides"),
-                  ("HCHB", "still done inside HCHB — unchanged"),
-                  ("Manual", "unchanged — hands on the patient")]:
-    y = KY+16
-    if kind == "Engine":
-        add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{ENG}"/>')
-    elif kind == "Assist":
-        add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{ENG}"/>')
-        add(f'<rect x="{kx+32}" y="{y}" width="14" height="26" rx="5" fill="{C["pcc"]}"/>')
-    elif kind == "Surface":
-        add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{C["pcc"]}"/>')
-        add(f'<rect x="{kx}" y="{y}" width="46" height="10" rx="4" fill="{ENG}"/>')
-    elif kind == "HCHB":
-        add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{HCHB}"/>')
-    else:
-        add(f'<rect x="{kx}" y="{y}" width="46" height="26" rx="5" fill="{C["clin"]}"/>')
-    lbl(kx+58, KY+28, kind, cls="colh")
-    lbl(kx+58, KY+46, txt, cls="note")
-    kx += 58 + 8.6*len(txt) + 26
-add(f'<line x1="{BX+22}" y1="{KY+62}" x2="{BX+KW-22}" y2="{KY+62}" stroke="{RULE}" stroke-width="1.2"/>')
-lbl(BX+22, KY+92, "READING IT AGAINST THE ORIGINAL", cls="colh")
-cx0 = BX + 330
-add(f'<rect x="{cx0}" y="{KY+74}" width="30" height="23" rx="5" fill="#FFFFFF" stroke="{MUT}" stroke-width="1.4"/>')
-add(f'<text x="{cx0+15}" y="{KY+90}" class="bdg" text-anchor="middle" fill="{MUT}">4</text>')
-lbl(cx0+42, KY+90, "the step's position in that phase on the current-state map", cls="note")
-cx1 = cx0 + 42 + 8.6*58 + 30
-add(f'<rect x="{cx1}" y="{KY+74}" width="46" height="23" rx="5" fill="#FFFFFF" stroke="{MUT}" stroke-width="1.4"/>')
-add(f'<text x="{cx1+23}" y="{KY+90}" class="bdg" text-anchor="middle" fill="{MUT}">NEW</text>')
-lbl(cx1+58, KY+90, "no equivalent on the current-state map", cls="note")
-cx2 = cx1 + 58 + 8.6*38 + 30
-add(f'<rect x="{cx2}" y="{KY+74}" width="46" height="23" rx="5" fill="{PAPER}" stroke="{MUT}" '
-    f'stroke-width="1.6" stroke-dasharray="5 4"/>')
-lbl(cx2+58, KY+90, "a step that no longer exists — the flow passes over it", cls="note")
+def path(dd, dash=False):
+    d = ' stroke-dasharray="7 5" opacity=".68"' if dash else ''
+    add(f'<path d="{dd}" fill="none" class="ln"{d} marker-end="url(#ar)"/>')
 
-def phase(y, h, title, right, w):
+def lbl(x, y, t, anchor="start", cls="lb"):
+    add(f'<text x="{x}" y="{y}" class="{cls}" text-anchor="{anchor}">{esc(t)}</text>')
+
+W, H = 2450, 1970
+BX, IX = 320, 350
+SLOT = BW + GAP
+BANDW = 7*SLOT + 30
+
+add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
+    'aria-label="The current-state home health scheduling map in four phases. Referral to '
+    'admission, plan of care established, steady state where the clinician runs their own week, '
+    'and the end of the episode where the case either recertifies into a new period or discharges '
+    'discipline by discipline. Colour marks the actor: intake, insurance and auth, the scheduler, '
+    'the DCS, the clinician, HCHB itself, the float pool and branch leadership.">')
+add('<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" '
+    f'orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="{INK}"/></marker></defs>')
+add(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FBFBF8"/>')
+
+# ---------------- masthead ----------------
+lbl(50, 58, "COMPASSUS HOME HEALTH  ·  CAPACITY & SCHEDULING  ·  TARGET STATE  ·  v1.0", cls="eyebrow")
+lbl(50, 100, "The Episode, End to End", cls="title")
+lbl(50, 128, "Read beside Primary-Flow-Map — same blocks, same positions; only fill and wording change",
+    cls="deck")
+LEG0 = 1748
+for r, grp in enumerate([[("Intake", C["intake"]), ("Insurance & Auth", C["auth"]),
+                          ("PCC / Scheduler", C["pcc"]), ("DCS", C["dcs"])],
+                         [("Clinician", C["clin"]), ("HCHB", C["hchb"]),
+                          ("Per Diem / Float", C["float_"]), ("Branch Leadership", C["lead"])],
+                         [("Capacity & Scheduling Engine", ENG)]]):
+    lx, cy = LEG0, 58 + r*34
+    for name, col in grp:
+        add(f'<circle cx="{lx+13}" cy="{cy}" r="13" fill="{col}"/>')
+        lbl(lx+34, cy+6, name, cls="leg")
+        lx += 34 + 8.4*len(name) + 30
+add(f'<line x1="50" y1="150" x2="{W-50}" y2="150" stroke="{RULE}" stroke-width="1.4"/>')
+
+def band(y, h, title, right=None, slots=7, pad=0):
+    w = slots*SLOT + 30 + pad
     add(f'<rect x="{BX}" y="{y}" width="{w}" height="{h}" rx="10" fill="{BAND}"/>')
     lbl(BX+22, y+34, title, cls="band")
-    lbl(BX+w-14, y+34, right, "end", "bandhi")
+    if right: lbl(BX+w-14, y+34, right, "end", "bandhi")
+
+def row(y, steps, x0=None, breaks=(), post=None):
+    """steps: (col, lines, subs, badge, slots). post: parallel [(kind, ordinal)] for target state."""
+    x = IX if x0 is None else x0
+    cy = y + BH/2
+    prev = None
+    for i, (col, lines, subs, badge, slots) in enumerate(steps):
+        w = slots*SLOT - GAP
+        kind, nn = (post[i] if post else ("man", None))
+        if kind == "eng":
+            eng(x, y, w, BH, lines, badge=badge, n=nn)
+        elif kind == "surf":
+            surf(x, y, w, BH, col, lines, badge=badge, n=nn)
+        elif kind == "assist":
+            assist(x, y, w, BH, col, lines, badge=badge or "ASSIST", n=nn)
+        elif kind == "ghost":
+            ghost(x, y, w, BH, lines, n=nn, label="")
+        else:
+            man(x, y, w, BH, col, lines, badge=badge, n=nn)
+        if subs: sublist(x, y+BH+26, subs)
+        if prev is not None:
+            if i in breaks:
+                mx = (prev + x)/2
+                add(f'<line x1="{mx}" y1="{y-4}" x2="{mx}" y2="{y+BH+4}" stroke="{MUT}" '
+                    'stroke-width="2" stroke-dasharray="6 5"/>')
+                lbl(mx, y-16, "OR", "middle", "trg")
+            else:
+                arrow(prev, cy, x-6, cy)
+        prev = x + w
+        x += slots*SLOT
+    return cy
 
 # ================= PHASE 1 =================
-AY, AH = 306, 240
-AW = 8*SLOT + GSLOT + 30
-phase(AY, AH, "PHASE 1  ·  REFERRAL TO ADMISSION", "ONE HUMAN GATE LEFT", AW)
-b1 = AY + 66; c1 = b1 + BH/2; x = IX
-eng(x, b1, BW, BH, ["Referral captured", "in Commure"], n="1")
-sublist(x, b1+BH+26, ["Payer, plan, discharge date", "A verified number, and consent"]); pv=x+BW; x+=SLOT
-eng(x, b1, BW, BH, ["Eligibility and pending", "auth derived"], n="2")
-sublist(x, b1+BH+26, ["From the payer, not keyed", "Traditional Medicare passes through"])
-arrow(pv, c1, x-6, c1); authx=x; pv=x+BW; x+=SLOT
-eng(x, b1, BW, BH, ["Released to", "scheduling"], n="3")
-sublist(x, b1+BH+26, ["Completeness is rule-checked", "Exception only → intake"])
-arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
-ghost(x, b1, GW, BH, ["DCS reviews", "the referral"], n="4"); gx=x; x+=GSLOT
-assist(x, b1, BW, BH, C["dcs"], ["Care team", "recommended"], badge="ASSIST", n="NEW")
-sublist(x, b1+BH+26, ["Discipline, role, restrictions", "DCS and scheduler confirm"])
-arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
-assist(x, b1, BW, BH, C["pcc"], ["Welcome contact", "— voice and text"], badge="ASSIST", n="5a")
-sublist(x, b1+BH+26, ["The engine makes contact", "Scheduler works the no-answers"])
-arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
-surf(x, b1, BW, BH, C["pcc"], ["Is the patient", "actually available?"], badge="THE HUMAN GATE", n="5b")
-sublist(x, b1+BH+26, ["The engine shows what it heard", "The scheduler decides",
-                      "Nothing books until this clears"])
-arrow(pv, c1, x-6, c1); gatex=x; pv=x+BW; x+=SLOT
-assist(x, b1, BW, BH, C["pcc"], ["SOC and evals", "scheduled"], badge="ASSIST", n="6")
-sublist(x, b1+BH+26, ["48-hour SOC window enforced", "Scheduler confirms"])
-arrow(pv, c1, x-6, c1); pv=x+BW; x+=SLOT
-man(x, b1, BW, BH, C["clin"], ["Clinicians perform", "SOC and evals"], n="7")
-sublist(x, b1+BH+26, ["RN at the SOC", "PT · OT · ST at their own"])
-arrow(pv, c1, x-6, c1)
-path(f"M {gx+GW/2} {c1} L {gx+GW/2} {b1+24-6}", dash=True)
-chip(50, c1-39, 250, 78, ["Referral arrives", "hospital · MD · facility"], INK)
-arrow(300, c1, IX-6, c1); lbl(50, c1-53, "TRIGGER", cls="trg")
+AY, AH = 190, 240
+band(AY, AH, "PHASE 1  ·  REFERRAL TO ADMISSION", "NOTHING SCHEDULES UNTIL AUTH AND INTAKE CLEAR")
+ab = AY + 62
+AC_POST = [("eng","1"),("eng","2"),("eng","3"),("man","4"),("surf","5"),("assist","6"),("man","7")]
+ac = row(ab, [
+ (C["intake"], ["Intake receives", "the referral"], ["In Commure", "Payer and plan captured"], None, 1),
+ (C["auth"], ["Auth verifies eligibility", "keys pending auth"],
+  ["Traditional Medicare passes through", "Visit count set by the payer", "→ detail in Flow 3"], None, 1),
+ (C["intake"], ["Intake gives", "final approval"], ["The referral is now complete", "Only now does it move"], None, 1),
+ (C["dcs"], ["DCS reviews", "the referral"], ["Orders read", "Disciplines confirmed"], None, 1),
+ (C["pcc"], ["Scheduler makes the", "welcome / intake call"],
+  ["Is the patient actually home?", "Not still inpatient", "Not deferring admission"], "THE ONE JUDGMENT CALL", 1),
+ (C["pcc"], ["Scheduler assigns the", "SOC and discipline evals"], ["SOC first", "Evals one to two days later"], None, 1),
+ (C["clin"], ["Clinicians perform", "SOC and evals"], ["RN at the SOC", "PT · OT · ST at their own"], None, 1),
+], post=AC_POST)
+chip(50, ac-39, 250, 78, ["Referral arrives", "hospital · MD · facility"], INK)
+arrow(300, ac, IX-6, ac)
+lbl(50, ac-53, "TRIGGER", cls="trg")
 
 # ================= PHASE 2 =================
-QY, QH = AY + AH + 34, 240
-QW = 7*SLOT + GSLOT + 30
-phase(QY, QH, "PHASE 2  ·  THE PLAN OF CARE", "THE BUDGET IS VISIBLE BEFORE IT IS SPENT", QW)
-b2 = QY + 66; c2 = b2 + BH/2; x = IX
-surf(x, b2, BW, BH, C["clin"], ["Each discipline plots", "its own frequency"], badge="× N", n="1")
-sublist(x, b2+BH+26, ["The visit budget is shown here", "Payer limits, from the auth note"]); pv=x+BW; x+=SLOT
-man(x, b2, BW, BH, C["dcs"], ["DCS approves the", "plan of care"], badge="× N", n="2")
-sublist(x, b2+BH+26, ["QA is a hard stop — it stays", "Not approved → visits held"])
-arrow(pv, c2, x-6, c2); pv=x+BW; x+=SLOT
-man(x, b2, BW, BH, C["dcs"], ["THE 485 MOMENT", "QA · lock · submit · orders"], badge="UNCHANGED", n="3")
-sublist(x, b2+BH+26, ["Four things, not four gates", "Clear orders auto-adjudicated"])
-arrow(pv, c2, x-6, c2); pv=x+BW; x+=SLOT
-man(x, b2, BW, BH, HCHB, ["Visits generate", "in HCHB"], n="4")
-sublist(x, b2+BH+26, ["Frequency becomes many visits"])
-arrow(pv, c2, x-6, c2); pv=x+BW; x+=SLOT
-ghost(x, b2, GW, BH, ["one assignment task", "per discipline"], n="4×N"); gx2=x; x+=GSLOT
-man(x, b2, BW, BH, HCHB, ["Auth checked —", "pending stays visible"], n="NEW")
-sublist(x, b2+BH+26, ["On the calendar, marked pending", "The engine shows the balance"])
-arrow(pv, c2, x-6, c2); pv=x+BW; x+=SLOT
-assist(x, b2, BW, BH, C["pcc"], ["Assignment proposed", "— one pass"], badge="ASSIST", n="5")
-sublist(x, b2+BH+26, ["Against the established team", "No task per discipline"])
-arrow(pv, c2, x-6, c2); pv=x+BW; x+=SLOT
-man(x, b2, BW, BH, HCHB, ["Visits on the", "clinician's calendar"], n="6")
-sublist(x, b2+BH+26, ["Pending visits appear too"])
-arrow(pv, c2, x-6, c2)
-path(f"M {gx2+GW/2} {c2} L {gx2+GW/2} {b2+24-6}", dash=True)
-tag(50, c2-34, 250, 68, ["The payer's rules, written", "at verification days earlier"])
-arrow(312, c2, IX-6, c2); lbl(50, c2-48, "CARRIED FORWARD", cls="trg")
+QY, QH = AY + AH + 36, 240
+band(QY, QH, "PHASE 2  ·  THE PLAN OF CARE IS ESTABLISHED", "PLOTTED BY FREQUENCY · ASSIGNED IN ONE PASS")
+qb = QY + 62
+QC_POST = [("surf","1"),("man","2"),("man","3"),("man","4"),("assist","5"),("man","6")]
+qc = row(qb, [
+ (C["clin"], ["Each discipline plots", "its own frequency"],
+  ["Written to clinical need", "Payer limits not visible here", "RN also plots aide + MSW / ST"], "× N disciplines", 1),
+ (C["dcs"], ["DCS reviews and", "approves the POC"],
+  ["One task per discipline", "Utilisation management starts here",
+   "Not approved → nothing moves, visits held"], "× N disciplines", 1),
+ (C["dcs"], ["THE 485 MOMENT", "QA accepted  ·  POC locked", "485 submitted  ·  orders to MD"],
+  ["Four things, not four gates", "Orders finalised and sent for signature"], "ALL AT ONCE", 2),
+ (C["hchb"], ["HCHB generates", "the visits"],
+  ["The care team is already set", "Frequency becomes many visits"], None, 1),
+ (C["pcc"], ["Scheduler assigns all", "plotted visits — one pass"],
+  ["Many visits per frequency", "Auth on file? asked per visit", "No auth → the visit sits pending"], None, 1),
+ (C["hchb"], ["Visits land on the", "clinician's calendar"],
+  ["Pending visits appear, marked", "The sync lag is measured and shown"], None, 1),
+], post=QC_POST)
 
 # ================= PHASE 3 =================
-RY, RH = QY + QH + 34, 334
-RW = 6*SLOT + 30
-phase(RY, RH, "PHASE 3  ·  STEADY STATE — the clinician's week", "THE CLINICIAN DIRECTS · THE ENGINE DIALS", RW)
-b3 = RY + 66; c3 = b3 + BH/2; x = IX
-eng(x, b3, BW, BH, ["The week is", "proposed"], n="1")
-sublist(x, b3+BH+26, ["Against committed load and", "open room · days off · PTO"]); pv=x+BW; x+=SLOT
-surf(x, b3, BW, BH, C["clin"], ["Clinical priority", "across the caseload"], n="2")
-sublist(x, b3+BH+26, ["Who is unstable", "Wound · IV · catheter · labs"])
-arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-eng(x, b3, BW, BH, ["Grouped and", "routed"], n="3·6")
-sublist(x, b3+BH+26, ["Drive time, not distance", "Bridges · rivers · crossings",
-                      "Two current steps, merged"])
-arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-surf(x, b3, BW, BH, C["clin"], ["What the engine", "can only show"], n="4")
-sublist(x, b3+BH+26, ["Caregiver must be present", "Cognitive · dementia constraints",
-                      "The caregiver's own schedule"])
-arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-assist(x, b3, BW, BH, C["clin"], ["The clinician sets each", "day's order and windows"],
-       badge="THE CLINICIAN DECIDES", n="NEW")
-sublist(x, b3+BH+26, ["The engine recommends per patient", "The clinician assesses and decides",
-                      "Sequence, and the time range"])
-arrow(pv, c3, x-6, c3); pv=x+BW; x+=SLOT
-eng(x, b3, BW, BH, ["Confirmation goes out", "— call and text"], badge="CLINICIAN-TRIGGERED", n="5")
-sublist(x, b3+BH+26, ["Released by the clinician, not sent", "on a schedule of its own",
-                      "Clinician takes over when it fails"])
-arrow(pv, c3, x-6, c3)
-DY = RY + RH - 74
-lbl(IX, DY-12, "THE DAY BEFORE  ·  THE FIVE DISPOSITIONS — chosen a day wide, not at the door", cls="trg")
-dx = IX
-for t, col in [("Accept", C["clin"]), ("Reschedule", C["clin"]), ("Reassign", C["pcc"]),
+RY, RH = QY + QH + 36, 316
+band(RY, RH, "PHASE 3  ·  STEADY STATE — the clinician runs their own week",
+     "NO SCHEDULER WORKFLOW", slots=6)
+rb = RY + 62
+RC_POST = [("eng","1"),("surf","2"),("eng","3"),("surf","4"),("assist","5"),("eng","6")]
+rc = row(rb, [
+ (C["clin"], ["Evaluate own capacity", "for the week"], ["Points already committed", "Days off · PTO · on-call"], None, 1),
+ (C["clin"], ["Prioritise clinical need", "across the caseload"], ["Who is unstable", "Wound · IV · catheter · labs due"], None, 1),
+ (C["clin"], ["Group visits", "geographically"], ["Drive time, not distance", "Bridges · rivers · crossings"], None, 1),
+ (C["clin"], ["Test against hard", "constraints"],
+  ["Wound · catheter · IV timing", "Caregiver must be present", "Preferences sit in a coordination note"], None, 1),
+ (C["clin"], ["Confirmation — clinician", "directs, engine calls"], ["Hard versus soft pushback", "→ detail in Flow 2"], "CLINICIAN-TRIGGERED", 1),
+ (None, ["Routed on drive time,", "not distance"], ["Time windows", "Where the day starts and ends"], None, 1),
+], post=RC_POST)
+# dispositions strip inside the band
+DSY = rb + BH + 108
+lbl(IX, DSY-10, "THE DISPOSITIONS  —  chosen the day before, selected in HCHB", cls="pnl")
+dxx = IX
+w = 8.9*6 + 60
+chip(dxx, DSY+4, w, 40, ["Accept"], C["clin"])
+dxx += w + 14
+lbl(dxx, DSY+30, "confirmed → accepted", "start", "note")
+dxx += 158
+lbl(dxx, DSY+30, "NOT CONFIRMED →", "start", "trg")
+dxx += 152
+for t, col in [("Reschedule", C["clin"]), ("Reassign", C["pcc"]),
                ("Miss", C["dcs"]), ("Decline", C["pcc"])]:
-    w = 8.6*len(t) + 64
-    chip(dx, DY, w, 42, [t], col); dx += w + 16
-lbl(dx + 14, DY+27, "rebooking and failed-visit follow-up are proposed to the scheduler; "
-    "the reason a visit was declined is finally captured", "start", "note")
+    w = 8.9*len(t) + 60
+    chip(dxx, DSY+4, w, 40, [t], col)
+    dxx += w + 14
+lbl(dxx + 8, DSY+30, "reassign returns with a plan, decline without one — decline is the least used",
+    "start", "note")
 
 # ================= PHASE 4 =================
-SY2, SH2 = RY + RH + 34, 240
-SW = 6*SLOT + 30 + 130
-phase(SY2, SH2, "PHASE 4  ·  RECERTIFY OR DISCHARGE", "NEW PERIOD = NEW AUTH", SW)
-b4 = SY2 + 66; c4 = b4 + BH/2; x = IX
-eng(x, b4, BW, BH, ["The recert window", "is tracked"], n="1")
-sublist(x, b4+BH+26, ["Days 56–60", "Recert visits are already booked"]); pv=x+BW; x+=SLOT
-surf(x, b4, BW, BH, C["clin"], ["Recertifying disciplines", "set the next period"], n="2")
-sublist(x, b4+BH+26, ["Discipline by discipline", "Goals met → discharge instead"])
-arrow(pv, c4, x-6, c4); pv=x+BW; x+=SLOT
-eng(x, b4, BW, BH, ["Auth re-checked for", "the new period"], n="NEW")
-sublist(x, b4+BH+26, ["A new period is a new question"])
-arrow(pv, c4, x-6, c4); pv=x+BW; x+=SLOT
-assist(x, b4, BW, BH, C["pcc"], ["The next period", "is assigned"], badge="ASSIST", n="3")
-sublist(x, b4+BH+26, ["Only after frequency is set", "Same one-pass proposal"])
-arrow(pv, c4, x-6, c4); pv=x+BW; x+=SLOT
-mx = (pv + x)/2
-add(f'<line x1="{mx}" y1="{b4-4}" x2="{mx}" y2="{b4+BH+4}" stroke="{MUT}" stroke-width="2" '
-    'stroke-dasharray="6 5"/>')
-lbl(mx, b4-16, "OR", "middle", "trg")
-man(x, b4, BW, BH, C["clin"], ["Or discharge — each", "discipline separately"], n="4")
-sublist(x, b4+BH+26, ["Discharges are non-OASIS", "Staggered, not simultaneous"]); pv=x+BW; x+=SLOT
-man(x, b4, BW, BH, C["clin"], ["The last discipline out", "does the agency D/C OASIS"], n="5")
-sublist(x, b4+BH+26, ["Whoever visits last", "Owner unknown until it happens"])
-arrow(pv, c4, x-6, c4)
-chip(x+SLOT-28, c4-39, 280, 78, ["Capacity returns", "to the branch"], INK)
-arrow(x+BW, c4, x+SLOT-34, c4)
+SY, SH = RY + RH + 36, 230
+band(SY, SH, "PHASE 4  ·  END OF EPISODE — recertify or discharge", "CONDENSED · DETAIL IN FLOW 5",
+     slots=6, pad=76)
+sb = SY + 62
+sc = row(sb, [
+ (C["hchb"], ["Recert window opens", "— last 5 days"],
+  ["Recert visits are already booked", "Plotted at the original POC"], None, 1),
+ (C["clin"], ["Recertifying disciplines", "set the next 60 days"],
+  ["Discipline by discipline", "Goals met → discharge instead"], None, 1),
+ (C["pcc"], ["The next period", "is assigned"],
+  ["Only after frequency is set", "Same one-pass proposal"], None, 1),
+ (C["clin"], ["Or discharge — each", "discipline separately"],
+  ["Discipline discharges are non-OASIS", "Staggered, not simultaneous"], None, 1),
+ (C["clin"], ["The last discipline out", "does the agency D/C OASIS"],
+  ["RN, PT, OT — whoever visits last", "Owner is unknown until it happens"], None, 1),
+], breaks=(3,), post=[("eng","1"), ("surf","2"), ("assist","3"), ("man","4"), ("man","5")])
+chip(IX + 5*SLOT + 24, sc-39, 300, 78, ["Capacity returns", "to the branch"], INK)
+arrow(IX + 4*SLOT + BW, sc, IX + 5*SLOT + 18, sc)
 
-# ---------------- what stays human ----------------
-PY2 = SY2 + SH2 + 36
-panel(IX, PY2, 2300, 154,
-      "WHAT THE ENGINE MAY ONLY SURFACE — the gating constraints a person still decides")
-column_rule(IX+26, PY2+54, PY2+140)
-sublist(IX+40, PY2+80, ["Is the patient actually available, before anything books",
-                        "The caregiver must be present  ·  the caregiver's own changing schedule",
-                        "Cognitive and dementia constraints  ·  clinically driven timing"])
-column_rule(IX+1290, PY2+54, PY2+140, C["dcs"])
-sublist(IX+1306, PY2+80, ["Matching acuity to skill level",
-                          "Finding coverage when someone calls out",
-                          "Each is a hard constraint that lives in someone's head today"])
+# recert loop back into phase 2
+LOOP = SY + SH + 26
+lpx = IX + 2*SLOT + 214
+path(f"M {lpx} {sb+BH+6} L {lpx} {LOOP} L {BX-34} {LOOP} L {BX-34} {qc} L {IX-6} {qc}", dash=True)
+lbl(lpx - 24, LOOP-12, "a new certification period re-enters the plan-of-care phase",
+    "end", "hi")
 
-footer("Target state · v1.2 · PROPOSED, not current state — posture per the 25 Aug workbook's future-state column",
-       "The episode, end to end — target state")
-finish(sys.argv[1] if len(sys.argv) > 1 else "episode-target.svg")
-print("last content y", PY2+154, "| footer rule", H-72)
+# ================= exceptions & levers =================
+EY = LOOP + 54
+lbl(50, EY+30, "MISSED VISIT", cls="trg"); lbl(50, EY+48, "AND LEVERS", cls="trg")
+MC_POST = [("man",None),("eng",None),("man",None)]
+mc = row(EY, [
+ (C["clin"], ["Clinician documents", "a missed visit"], None, None, 1),
+ (None, ["MD notified inside", "48 hours"], None, None, 1),
+ (C["dcs"], ["Not in time →", "workflow to the DCS"], None, None, 1),
+], post=MC_POST)
+lbl(IX, EY+BH+26, "A compliance chain, not a dead end — Medicare requirement and an HCHB hard stop",
+    "start", "note")
+lvx = IX + 3*SLOT + 40
+block(lvx, EY, 2*SLOT-GAP, BH, C["float_"], ["Per diem / float pool", "— no territory, on purpose"])
+sublist(lvx, EY+BH+26, ["Takes the SOCs, absorbing the admission spike",
+                        "Or covers visits to free a territory clinician"])
+block(lvx + 2*SLOT, EY, 2*SLOT-GAP, BH, C["lead"], ["Branch leadership", "— the capacity decision"])
+sublist(lvx + 2*SLOT, EY+BH+26, ["Territory alignment",
+                                 "Referral acceptance when capacity tightens"])
+lbl(lvx, EY-14, "PULLED ON PURPOSE WHEN CAPACITY TIGHTENS — not recovery, instrument", cls="trg")
+
+# ================= panel =================
+PY, PH = EY + BH + 80, 160
+add(f'<rect x="{IX}" y="{PY}" width="{BANDW-60}" height="{PH}" rx="10" fill="none" '
+    f'stroke="{RULE}" stroke-width="1.8" stroke-dasharray="8 6"/>')
+lbl(IX+26, PY+36, "READING THIS MAP", cls="pnl")
+add(f'<line x1="{IX+26}" y1="{PY+54}" x2="{IX+26}" y2="{PY+144}" stroke="{INK}" stroke-width="3"/>')
+lbl(IX+44, PY+74, "THREE DIFFERENT CEILINGS ON ONE EPISODE", cls="colh")
+sublist(IX+38, PY+98, ["Auth is permission — how many visits the payer will allow",
+                       "LUPA is the floor — too few visits and the period pays per visit",
+                       "Utilisation management is the ceiling — extra visits earn nothing"])
+add(f'<line x1="{IX+1010}" y1="{PY+54}" x2="{IX+1010}" y2="{PY+144}" stroke="{C["pcc"]}" stroke-width="3"/>')
+lbl(IX+1028, PY+74, "WHAT THIS MAP IS", cls="colhb")
+sublist(IX+1022, PY+98, ["Target state — every block sits where the current-state map put it",
+                         "Green is the engine. Purple is still HCHB. A colour bar means a person decides",
+                         "Numbered chips read against the same numbers on Primary-Flow-Map"])
+
+# ================= where it breaks =================
+WY = PY + PH + 48
+lbl(50, WY+34, "WHERE IT", cls="trg"); lbl(50, WY+52, "BROKE", cls="trg")
+brk = [(["Eight tasks for one decision", "the per-discipline explosion"], C["hchb"]),
+       (["Pending-auth visits are invisible", "not on a calendar, not counted"], C["auth"]),
+       (["The weekly logic is undocumented", "and entirely unassisted"], C["clin"]),
+       (["Capacity is read, never modelled", "so the levers are pulled late"], C["pcc"])]
+wx = IX
+for lines, col in brk:
+    ghost(wx, WY+8, 480, 70, lines, label="ADDRESSED ABOVE")
+    wx += 500
+
+add(f'<line x1="50" y1="{H-72}" x2="{W-50}" y2="{H-72}" stroke="{RULE}" stroke-width="1.4"/>')
+lbl(50, H-40, "TARGET STATE, PROPOSED · green = the capacity & scheduling engine (dark text); purple = still inside HCHB · phase 1 is visualisation only (DE-03)", cls="foot")
+lbl(W-50, H-40, "The episode, end to end — target state", "end", "foot")
+add('</svg>')
+
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "episode-target.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
+print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3),
+      "| band right", BX+BANDW, "| last content y", WY+78)

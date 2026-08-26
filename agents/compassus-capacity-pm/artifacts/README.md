@@ -78,6 +78,14 @@ renumbered.
 | `flow-soc-target.html` | Source. Regenerate with `_flow-soc-target.gen.py` | Editing the SOC target state |
 | `Episode-Target-State.pdf` | **The episode end to end, TARGET STATE (v1.0)**. Four phases, same as the primary map, posture-marked | The future-state wall sheet. Pairs with `Primary-Flow-Map.pdf` |
 | `flow-episode-target.html` | Source. Regenerate with `_flow-episode-target.gen.py` | Editing the episode target state |
+| `Flow-Routine-Visits-Target-State.pdf` | **Flow 2T — routine visit scheduling, TARGET STATE (v1.0)**. Positional clone of `Flow-Routine-Visits`; the per-discipline assignment-task burst is ghosted | Pairs with `Flow-Routine-Visits.pdf` side by side |
+| `flow-routine-visits-target.html` | Source. Regenerate with `_flow-routine-visits-target.gen.py` | Editing flow 2T |
+| `Flow-Authorization-Target-State.pdf` | **Flow 3T — authorization, TARGET STATE (v1.0)**. Positional clone of `Flow-Authorization`; pending auth is derived rather than keyed, and the pending visit stays visible and counted | Pairs with `Flow-Authorization.pdf` side by side |
+| `flow-authorization-target.html` | Source. Regenerate with `_flow-authorization-target.gen.py` | Editing flow 3T |
+| `Flow-DCS-Scheduler-Target-State.pdf` | **Plan of care → assignment, TARGET STATE (v1.0)**. Positional clone of `Flow-DCS-Scheduler`; DCS approval per discipline is unchanged, the pending-auth dead end is ghosted | Pairs with `Flow-DCS-Scheduler.pdf` side by side |
+| `flow-dcs-scheduler-target.html` | Source. Regenerate with `_flow-dcs-scheduler-target.gen.py` | Editing the DCS/scheduler target state |
+| `Flow-Recert-Discharge-Target-State.pdf` | **Flow 5T — recert & discharge, TARGET STATE (v1.0)**. Positional clone of `Flow-Recert-Discharge`; same worked example, same timeline, the no-auth dead end is ghosted | Pairs with `Flow-Recert-Discharge.pdf` side by side |
+| `flow-recert-discharge-target.html` | Source. Regenerate with `_flow-recert-discharge-target.gen.py` | Editing flow 5T |
 | `business-case-register.md` | **Every financially-connected case tied to the initiative** — workforce and administrative cost, revenue capture, utilisation and margin, growth, quality-linked revenue, risk avoided and option value, with sizing formulas and the inputs needed to commit them | Building the business case. Start here |
 | `reimbursement-linked-variables.md` | The factors reimbursement adds to the logic, organised by where each binds — the payer spine, the authorisation object, capacity additions, derived fields and postures | Requirements and data-model work |
 | `authorization-and-capacity-forecasting.md` | How authorisation enters the capacity forecast: what is deterministic and ignored, what is genuinely unpredictable, and the three curves the forecast should emit | Forecasting design |
@@ -138,9 +146,28 @@ per category). Both are A4 landscape and print as a matched 4-page set.
 
 ### Target-state sheets — a different contract from the rest of the set
 
-Two sheets are **proposals**, and they invert the set's usual footer. `Flow-SOC-Target-State` and
-`Episode-Target-State` say *PROPOSED, not current state* and carry a horizon line, because DE-03
-holds phase 1 to visualisation only — nothing on them is release-1 scope.
+**Six sheets are proposals**, and they invert the set's usual footer. Every one of them says
+*TARGET STATE, PROPOSED* and carries the DE-03 horizon line, because phase 1 is held to
+visualisation only — nothing on them is release-1 scope. Each is a **positional clone** of one
+current-state sheet, so the pair overlays block for block:
+
+| Target sheet | Its current-state twin |
+|---|---|
+| `Flow-SOC-Target-State` (1T) | `Detailed-Flow-Composite` — **not** `Flow-SOC-Full`; see the warning below |
+| `Episode-Target-State` | `Primary-Flow-Map` |
+| `Flow-Routine-Visits-Target-State` (2T) | `Flow-Routine-Visits` |
+| `Flow-Authorization-Target-State` (3T) | `Flow-Authorization` |
+| `Flow-DCS-Scheduler-Target-State` | `Flow-DCS-Scheduler` |
+| `Flow-Recert-Discharge-Target-State` (5T) | `Flow-Recert-Discharge` |
+
+**Hash the original before you clone it.** The Drive titles and the repo filenames do not agree, and
+a target sheet was once built against the wrong original for exactly that reason. Every pairing above
+was confirmed by md5 against the file the team is actually circulating.
+
+**On a positional clone, a better idea that moves a block is a worse sheet.** If the target state
+needs to say something different about a step, say it in that block's text, its badge or its fill —
+never by splitting it, resizing it or moving it. The cross-reference numbering is decoration the
+moment the two sheets stop overlaying.
 
 They add one thing to the drawing grammar, and nothing else changes:
 
@@ -184,9 +211,27 @@ Ghosts on the SOC/ROC target sheet:
   visits visible. The note beneath it flips from *"the read excludes what it cannot see"* to
   *"the read now includes what is still pending."*
 
-On the episode sheet: **DCS reviews the referral** (phase 1) and **one assignment task per
-discipline** (phase 2, killed by DE-05). Phase 3 has none — its steps merge and automate, but
-nothing is eliminated.
+Ghosts on the other target sheets:
+
+- **Episode (2T's parent):** all four *WHERE IT BROKE* items are ghosted `ADDRESSED ABOVE` — the
+  per-discipline explosion, invisible pending-auth visits, the undocumented weekly logic, and
+  capacity read but never modelled. No phase step is eliminated: they merge and automate in place.
+- **Flow 2T — routine visits:** *Each submission generates its own assignment task* (killed by
+  DE-05); the arrow from block 2 routes under the ghost straight into the DCS approval. Two of the
+  four *WHERE IT BROKE* items are ghosted `FIXED BY THE ENGINE` — day-before calls as unpaid evening
+  work, and the undocumented weekly logic. The other two are HCHB rules the engine cannot repeal, so
+  they stay solid.
+- **Flow 3T — authorization:** no step is ghosted; all four *WHERE IT BROKE* items are, as
+  `ADDRESSED ABOVE`. The NO AUTH panel is retitled *the visit is pending, and visible*.
+- **DCS → assignment:** the *pending auth — not on calendar, not counted* dead end below the
+  auth-on-file gate.
+- **Flow 5T — recert & discharge:** the *no auth → the visit sits pending* dead end, same reason.
+  The band header flips to *PENDING VISITS STAY VISIBLE*.
+
+**DCS approval survives everywhere it appears.** Laci's correction — DCS approves each discipline's
+plan of care, every time, per discipline — is a real control, not a queue artefact. It is drawn
+solid DCS red on 2T, 3T and the DCS/scheduler target, and it is the reason none of those sheets
+ghosts the approval step itself.
 
 ### ⚠️ Which sheet is "the SOC/ROC flow"
 

@@ -1468,3 +1468,83 @@ versions.
 **Housekeeping:** `_flow-detailed-composite.gen.py` and `_flow-payer-economics.gen.py` still carried
 stale hard-coded scratchpad output paths and could not be regenerated at all until fixed. Every
 generator in the folder now takes its output path as `argv[1]`.
+
+---
+
+## 35. The rest of the set gets its target-state twin — 26 Aug
+
+**The ask.** *"do the same for all the other flows. be sure you use the most up to date version."*
+Mid-turn, a link to the Full Episode Flow so there could be no doubt which original was meant.
+
+### Hash first, clone second
+
+The rule from §33 was applied before a line was written. Every original was matched by md5 against
+the file the team is circulating in Drive, not by filename:
+
+| Drive title | bytes | md5 | repo file |
+|---|---|---|---|
+| 8.18 Full SOC_ROC Flow Updated | 194,347 | `767d603563363a91990c4685d348f29f` | `Detailed-Flow-Composite.pdf` |
+| 8.18 Full Episode Flow | 172,325 | `43bfd9949c75f0ac7ce3c7ae0fca1570` | `Primary-Flow-Map.pdf` |
+| 8.18.26 Routine Clinician Visit | 145,318 | — | `Flow-Routine-Visits.pdf` |
+| 8.18.26 Auth Flow | 150,975 | — | `Flow-Authorization.pdf` |
+| 8.18.26 DCS and Scheduler | 131,369 | — | `Flow-DCS-Scheduler.pdf` |
+| 8.18 Recert and DIscharge | 158,219 | — | `Flow-Recert-Discharge.pdf` |
+
+`Flow-SOC-Full` is not in the project folder at all — it was never circulated, which is exactly how
+§33 happened.
+
+### What was built
+
+Four new positional clones, plus the episode finished:
+
+- **`_flow-routine-visits-target.gen.py`** → Flow 2T. Canvas unchanged at 2200×1680. The
+  per-discipline assignment-task burst is ghosted and the arrow from block 2 routes *under* it into
+  DCS approval — the visual statement that the step can be skipped entirely. Block 6 becomes
+  *Route — HCHB suggests, clinician adjusts*; block 5 becomes *Confirmation — clinician directs,
+  engine calls*, badged `CLINICIAN-TRIGGERED`. Two of the four WHERE IT BROKE items ghost
+  `FIXED BY THE ENGINE`; the two that are HCHB rules stay solid, because the engine cannot repeal
+  them.
+- **`_flow-authorization-target.gen.py`** → Flow 3T. Canvas 1540 → 1600 to fit the reworded NO AUTH
+  panel, which is retitled *the visit is pending, and visible* and given an engine accent bar. No
+  step is ghosted — every failure this sheet used to end on is answered upstream, so all four
+  WHERE IT BROKE items ghost `ADDRESSED ABOVE` instead. *Pending auth derived from the payer* is the
+  single highest-value block on the sheet: the data already exists in the auth team's coordination
+  note, days before anyone writes a plan of care.
+- **`_flow-dcs-scheduler-target.gen.py`** → plan of care → assignment. The pending-auth dead end
+  below the auth gate is ghosted; the gate itself stays HCHB purple, because that check still runs
+  inside HCHB.
+- **`_flow-recert-discharge-target.gen.py`** → Flow 5T. Same worked example, same day-51-to-60
+  timeline, same three discipline lanes. The no-auth dead end is ghosted and the band header flips
+  to `PENDING VISITS STAY VISIBLE`. The legend moved from x=1100 to x=760 to make room for the tenth
+  colour.
+- **`_flow-episode-target.gen.py`** finished: all four WHERE IT BROKE items ghosted
+  `ADDRESSED ABOVE`, the engine added as a third legend row, `WHERE IT BREAKS` → `WHERE IT BROKE`,
+  and the READING THIS MAP panel rewritten — it still claimed *"current state — including what is
+  wasteful or manual"* on a proposal sheet.
+
+### What did not change, on purpose
+
+**DCS approval is solid red on every sheet it appears on.** §29's correction is a real control —
+DCS approves each discipline's plan of care, every time, per discipline. It is not a queue artefact
+and it is not ghosted anywhere.
+
+**HCHB purple keeps its meaning.** Visit generation, the per-visit auth check and the clinician's
+calendar stay purple on all six target sheets. That is what makes "what did we actually take off
+HCHB" answerable at a glance.
+
+**No block moved.** Not one. Where the target state needed to say something different, it said it in
+the block's text, its badge or its fill.
+
+### Cross-reference chips include the diamonds
+
+On sheets with decision diamonds, the ordinals count the diamond even though the diamond carries no
+chip — so `Flow-DCS-Scheduler-Target-State` pass 2 reads 1, 2, ⟨Approved?⟩, 4, ⟨Auth on file?⟩, 6, 7.
+A reader counting left to right on the current-state sheet lands on the same numbers. Skipping the
+diamond in the count would have broken that.
+
+### Build note
+
+All six regenerate from `sys.argv[1]` and render through
+`.claude/skills/process-flow-map/assets/build.py`. Every one was screenshotted and read at full size
+before shipping, plus a 1.4× crop of each ghost row — a ghost label is the one element on these
+sheets that sits outside its own block's footprint and can collide with the footer rule.
