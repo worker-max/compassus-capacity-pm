@@ -1421,3 +1421,50 @@ were long enough to sit under their column's incoming connector and were shorten
 **Still open.** `Flow-SOC-Full` now has no target-state twin. It may not need one — if the composite
 is the sheet in circulation, the two-band sheet is a reference view rather than a working one. Worth
 a decision rather than an assumption.
+
+## 34. The target sheet becomes a true overlay, and "add-on" is retired — 26 Aug
+
+**1. Stop adding blocks.** §33 got the skeleton right but still split two steps and moved a third,
+so the sheets did not line up when laid on top of each other. The instruction was plainer than I was
+treating it: **re-create the sheet, changing only fill and wording.**
+
+Reverted to the composite's exact coordinates:
+
+| Was doing | Now |
+|---|---|
+| Column 1's *Welcome / readiness call by PCC* split into an Assist contact block and a Surface gate | **one block, same position**, drawn Surface, keeping the original **THE ONE JUDGMENT CALL** badge — the stricter gating posture wins, and the badge already says the judgment is human |
+| Column 4's *Visit confirmation coordination* split into two, shifting *Patient confirms* down | **one block, same position**, drawn Assist with the clinician bar and badged **CLINICIAN-TRIGGERED**; the text carries the meaning — *"the clinician directs; the engine calls / texts"* |
+| Column 1's ghost resized and re-placed | **the ghost occupies the vacated block's exact footprint**; the live flow routes past it down the column's left gutter |
+
+Every block, diamond, oval, chip and tag now sits at its current-state coordinate. Rendered both
+sheets at the same DPI and stacked them to confirm it.
+
+**The lesson worth keeping: on a positional clone, a better idea that moves a block is a worse
+sheet.** Where a target-state distinction genuinely needs saying — the split between automated
+outreach and the human availability call — it goes in the block's *text*, its *badge* or its
+*posture fill*, never in a new box.
+
+**2. "Add-on order" is retired from every sheet.** The term named one *kind* of physician order as
+though it were a different object, and read as confusing. All thirteen occurrences across eight
+generators are now **physician order**:
+
+`_flow-authorization` · `_flow-dcs-scheduler` · `_flow-detailed-composite` · `_flow-payer-economics`
+· `_flow-recert-discharge` · `_flow-routine-visits` · `_flow-soc-full` · `_flow-soc-target`
+
+Flow 2's 485 boundary now reads *"485 SUBMITTED — changes come by physician order"* over
+*"a physician order may add a discipline evaluation, change the frequency, or reduce the visits"*.
+The trigger chip on Flow 1 and the DCS sheet becomes **Physician order** / *adds a discipline eval,
+or changes the visits ordered*.
+
+**Laci's 24 Aug substance survives** — an added discipline evaluation is still called out as a thing
+a physician order can do. Only the label went. **The workbook is deliberately not renamed:** `S-44`
+is still *Add-on orders* there, because variable names and IDs are never renamed. Sheet vocabulary
+and workbook vocabulary differ on this one row on purpose, and that is recorded in
+`process-facts-2026-08.md`.
+
+**All eight sheets rebuilt and checked** — one page each, page sizes unchanged from their committed
+versions.
+
+**Housekeeping:** `_flow-detailed-composite.gen.py` and `_flow-payer-economics.gen.py` still carried
+stale hard-coded scratchpad output paths and could not be regenerated at all until fixed. Every
+generator in the folder now takes its output path as `argv[1]`.

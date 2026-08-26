@@ -219,24 +219,21 @@ y = CT + 56
 tag(cx(0), y, BW2, 56, ["From Intake: signed orders /", "485 + F2F on file"])
 arrow(cols[0]+colw/2, y+56, cols[0]+colw/2, y+96)
 y += 102
-tag(cx(0), y, BW2, 56, ["Ordered frequency & visit types", "(SOC / ROC / recert / add-on)"])
+tag(cx(0), y, BW2, 56, ["Ordered frequency & visit types", "(SOC / ROC / recert / physician order)"])
 arrow(cols[0]+colw/2, y+56, cols[0]+colw/2, y+96)
 y += 102
-assist(cx(0), y, BW2, BH2, C["pcc"], ["Welcome contact —", "voice and text"], n="1.3")
-arrow(cols[0]+colw/2, y+BH2, cols[0]+colw/2, y+BH2+26)
-y += BH2 + 48
-surf(cx(0), y, BW2, BH2, C["pcc"], ["Is the patient", "actually available?"], badge="THE JUDGMENT CALL", n="1.3b")
-lbl(cols[0]+colw/2, y+BH2+22, "the engine shows what it heard;", "middle", "note")
-lbl(cols[0]+colw/2, y+BH2+40, "the scheduler decides — nothing books until it clears", "middle", "note")
-# the scheduling grid is gone — DE-04, the capacity tool IS the grid
-GY = y + BH2 + 62
-ghost(cx(0), GY, 236, 50, ["PCC creates scheduling", "grid entry"], n="1.4")
-lbl(cx(0), GY+88, "the capacity tool replaces the grid — DE-04:", "start", "note")
-lbl(cx(0), GY+106, "they are the same object, do not build both", "start", "note")
-GBX = cx(0) + BW2 - 34
-add(f'<path d="M {cols[0]+colw/2} {y+BH2} L {cols[0]+colw/2} {y+BH2+14} L {GBX} {y+BH2+14} '
-    f'L {GBX} {sc-SBH/2-40} L {cols[0]+colw/2} {sc-SBH/2-40}" fill="none" class="ln"/>')
-arrow(cols[0]+colw/2, sc-SBH/2-40, cols[0]+colw/2, sc-SBH/2-6)
+surf(cx(0), y, BW2, BH2, C["pcc"], ["Welcome / readiness — engine", "calls, scheduler decides"],
+     badge="THE ONE JUDGMENT CALL", n="1.3")
+lbl(cols[0]+colw/2, y+BH2+22, "is the patient actually home? not still", "middle", "note")
+lbl(cols[0]+colw/2, y+BH2+40, "inpatient · not deferring admission", "middle", "note")
+GBX = cols[0] + 22
+add(f'<path d="M {cols[0]+colw/2} {y+BH2+50} L {cols[0]+colw/2} {y+BH2+64} L {GBX} {y+BH2+64} '
+    f'L {GBX} {sc-SBH/2-30} L {cols[0]+colw/2} {sc-SBH/2-30}" fill="none" class="ln"/>')
+y += BH2 + 92
+ghost(cx(0), y, BW2, BH2, ["PCC creates scheduling", "grid entry"], n="1.4")
+lbl(cols[0]+colw/2, y+BH2+38, "DE-04 — the capacity tool replaces the grid;", "middle", "note")
+lbl(cols[0]+colw/2, y+BH2+56, "they are the same object, do not build both", "middle", "note")
+arrow(cols[0]+colw/2, sc-SBH/2-30, cols[0]+colw/2, sc-SBH/2-6)
 
 # column 1 — below spine
 y1 = SY + SH2 + 56
@@ -330,18 +327,11 @@ path(f"M {cx(2)} {y3c+BH2+52+27} L {cx(1)+BW2+24} {y3c+BH2+52+27} "
      f"L {cx(1)+BW2+24} 704", dash=True)
 
 # ==================== COLUMN 4 ====================
-y = CT + 268
-assist(cx(3), y, BW2, BH2, C["clin"], ["Clinician sets the day's", "order and time windows"],
-       badge="THE CLINICIAN DECIDES", n="4.1a")
-lbl(cols[3]+colw/2, y+BH2+20, "the engine recommends per patient; the clinician", "middle", "note")
-lbl(cols[3]+colw/2, y+BH2+38, "assesses and decides sequence and window", "middle", "note")
-arrow(cols[3]+colw/2, y+BH2+48, cols[3]+colw/2, y+BH2+78)
-y += BH2 + 84
-eng(cx(3), y, BW2, BH2, ["Confirmation goes out —", "call and text"], badge="CLINICIAN-TRIGGERED", n="4.1b")
-lbl(cols[3]+colw/2, y+BH2+20, "released by the clinician, not sent on a", "middle", "note")
-lbl(cols[3]+colw/2, y+BH2+38, "schedule of its own", "middle", "note")
-arrow(cols[3]+colw/2, y+BH2+48, cols[3]+colw/2, y+BH2+78)
-y += BH2 + 84
+y = CT + 300
+assist(cx(3), y, BW2, BH2, C["clin"], ["Visit confirmation — the clinician", "directs; the engine calls / texts"],
+       badge="CLINICIAN-TRIGGERED", n="4.1")
+arrow(cols[3]+colw/2, y+BH2, cols[3]+colw/2, y+BH2+40)
+y += BH2 + 46
 man(cx(3), y, BW2, BH2, C["pat"], ["Patient confirms /", "negotiates"], n="4.2")
 lbl(cols[3]+colw/2, y+BH2+22, "hard constraints get built around —", "middle", "note")
 lbl(cols[3]+colw/2, y+BH2+40, "soft preferences are worth holding", "middle", "note")

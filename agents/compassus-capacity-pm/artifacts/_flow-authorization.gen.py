@@ -151,11 +151,11 @@ nx = q[2]+BW+14
 path(f"M {nx} {qc} L {nx} {EY-6}", dash=True)
 lbl(nx+12, EY-14, "No — no auth on file", "start", "conn")
 
-# add-on / recert loop
+# physician order / recert loop
 LY = EY + 70 + 40
 path(f"M {q[5]+BW} {qc} L {W-140} {qc} L {W-140} {LY} L {BX-30} {LY} L {BX-30} {qc}"
      f" L {q[0]-6} {qc}", dash=True)
-lbl(IX+18, LY-12, "Every add-on order, recertification and resumption of care re-enters this loop — "
+lbl(IX+18, LY-12, "Every physician order, recertification and resumption of care re-enters this loop — "
     "and each one is a new auth question", "start", "hi")
 
 # ---------------- what the payer already decided ----------------

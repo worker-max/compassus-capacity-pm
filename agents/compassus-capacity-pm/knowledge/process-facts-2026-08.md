@@ -34,11 +34,15 @@
 - **Assignment is one pass**: the scheduler receives one assignment task per discipline, and one
   working of that task assigns **every visit the frequency generates**. "One task per discipline,
   twice" is wrong; "plotted by frequency, assigned in one pass" is right.
-- **After the 485, changes arrive by order — and there are two kinds** (Laci, 24 Aug). An **add-on
-  order is an added discipline evaluation**; **every other order is a physician order** (frequency
-  changes, resumed or reduced visits, supplies). Both route through DCS approval and the auth check
-  before they reach the scheduler. The earlier sheet wording — "after the 485 every order is an
-  add-on" — was wrong and is corrected on Flow 2, Flow 1 and the DCS/Scheduler sheet.
+- **After the 485, every change arrives as a PHYSICIAN ORDER** (26 Aug). That is the term the sheets
+  use. A physician order may **add a discipline evaluation**, change the frequency, or reduce the
+  visits ordered. All of them route through DCS approval and the auth check before reaching the
+  scheduler.
+  **"Add-on" is retired from the sheets** — it was found confusing, because it named one *kind* of
+  physician order as though it were a different object. The substance of Laci's 24 Aug correction
+  survives (an added discipline eval is a real thing and is called out); only the label is gone.
+  Note the workbook still carries `S-44 Add-on orders` as a variable name — **IDs and variable names
+  are not renamed**, so the sheet vocabulary and the workbook vocabulary differ here on purpose.
 - **A plan of care that is not approved holds everything behind it** (Laci, 24 Aug). The DCS review
   is a gate, not a formality: no approval → the 485 does not go, HCHB generates nothing, and the
   visits are held. The clinician-correction loop is the visible half; the held visits are the half

@@ -157,7 +157,7 @@ y = CT + 56
 tag(cx(0), y, BW2, 56, ["From Intake: signed orders /", "485 + F2F on file"])
 arrow(cols[0]+colw/2, y+56, cols[0]+colw/2, y+96)
 y += 102
-tag(cx(0), y, BW2, 56, ["Ordered frequency & visit types", "(SOC / ROC / recert / add-on)"])
+tag(cx(0), y, BW2, 56, ["Ordered frequency & visit types", "(SOC / ROC / recert / physician order)"])
 arrow(cols[0]+colw/2, y+56, cols[0]+colw/2, y+96)
 y += 102
 block(cx(0), y, BW2, BH2, C["pcc"], ["Welcome / readiness", "call by PCC"], badge="THE ONE JUDGMENT CALL")
@@ -345,6 +345,7 @@ lbl(M, H-34, "Compassus Home Health · Capacity & Scheduling — current state; 
 lbl(W-M, H-34, "Continues: Home Health Intake Reset · Page 2", "end", "foot")
 add('</svg>')
 
-open("/tmp/claude-0/-home-user/f0ef1ecc-a04c-5098-a365-4b559e397089/scratchpad/gen/detail.svg",
-     "w", encoding="utf-8").write("\n".join(out))
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "detail.svg"
+open(OUT, "w", encoding="utf-8").write("\n".join(out))
 print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3))

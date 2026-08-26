@@ -110,7 +110,7 @@ row(B5 + 58, [
     (C["hchb"], ["New certification", "period generates"],
      ["recert visits already plotted"], None, 1),
     (C["auth"], ["New auth question"],
-     ["every recert, ROC, add-on", "new window, new allowance"], "GATE", 1),
+     ["every recert, ROC, physician order", "new window, new allowance"], "GATE", 1),
 ])
 chip(1184, B5 + 57, 300, 92,
      ["NEW 30-DAY PERIOD", "new case-mix group,", "new floor threshold"], INK)
@@ -144,4 +144,5 @@ sublist(1776, P + 76, [
 footer("Current state, August 2026.  Nothing on this sheet is a proposal.",
        "Compassus Home Health  ·  Payer economics and the schedule")
 print("last content y =", P + 280)
-finish("flow.svg")
+import sys
+finish(sys.argv[1] if len(sys.argv) > 1 else "payer-economics.svg")

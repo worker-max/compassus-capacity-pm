@@ -66,7 +66,7 @@ add(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#FBFBF8"/>')
 # ---------------- masthead ----------------
 lbl(50, 58, "COMPASSUS HOME HEALTH  ·  FLOW 1", cls="eyebrow")
 lbl(50, 100, "Start of Care — the Full Flow", cls="title")
-lbl(50, 128, "From the referral through the plan of care to visits on the calendar — SOC · ROC · recert · add-on orders", cls="deck")
+lbl(50, 128, "From the referral through the plan of care to visits on the calendar — SOC · ROC · recert · physician orders", cls="deck")
 
 lx = 1420
 for name, col in [("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("DCS", C["dcs"]),
@@ -143,7 +143,7 @@ conn(f"M {p1x[6]+BW/2} {p1y+BH} L {p1x[6]+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} 
 lbl((p1x[6]+BW/2 + BUS)/2, P1Y+PH+60,
     "after the eval visits, each discipline writes its own plan of care", "middle", "conn")
 chip(50, c2-118, 250, 84, ["Recertification", "OASIS recert visit, or", "non-OASIS recert eval"], INK)
-chip(50, c2+34, 250, 84, ["Add-on / physician order", "add-on = an added eval;", "other orders change visits"], INK)
+chip(50, c2+34, 250, 84, ["Physician order", "adds a discipline eval, or", "changes the visits ordered"], INK)
 lbl(50, c2-134, "OTHER TRIGGERS", cls="trg")
 conn(f"M 300 {c2-76} L {BUS} {c2-76} L {BUS} {c2}")
 conn(f"M 300 {c2+76} L {BUS} {c2+76} L {BUS} {c2}")
@@ -198,7 +198,7 @@ path(f"M {xs[2]+DW/2} {c3+DH/2} L {xs[2]+DW/2} {MVY+PH+44}", dash=True, label="N
 add(f'<line x1="50" y1="{H-72}" x2="{W-50}" y2="{H-72}" stroke="{RULE}" stroke-width="1.4"/>')
 lbl(50, H-40, "Large = happens every time  ·  small = conditional  ·  pill = a threshold, not a step. "
     "Both gates fire once per discipline.", cls="foot")
-lbl(W-50, H-40, "Flow 1 · SOC / ROC / recert / add-on", "end", "foot")
+lbl(W-50, H-40, "Flow 1 · SOC / ROC / recert / physician order", "end", "foot")
 add('</svg>')
 
 import sys

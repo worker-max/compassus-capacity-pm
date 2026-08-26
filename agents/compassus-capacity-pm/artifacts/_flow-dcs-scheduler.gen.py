@@ -61,7 +61,7 @@ add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'aria-label="Start of care and resumption of care run a referral pass first: intake receives the '
     'referral in Commure, the auth team verifies eligibility and keys pending auth, intake gives '
     'final approval, DCS reviews the referral, the scheduler books the SOC or ROC visit and the discipline '
-    'evaluations, clinicians perform them. Recertification and add-on orders enter directly. All '
+    'evaluations, clinicians perform them. Recertification and physician orders enter directly. All '
     'converge on the discipline plan-of-care pattern: clinician submits, DCS approves per '
     'discipline \u2014 without that approval nothing moves forward and the visits are held \u2014 '
     'auth gate, scheduler assigns per discipline. Missed visits run a separate '
@@ -139,7 +139,7 @@ conn(f"M {p1x[5]+BW/2} {p1y+BH} L {p1x[5]+BW/2} {P1Y+PH+72} L {BUS} {P1Y+PH+72} 
 lbl((p1x[5]+BW/2 + BUS)/2, P1Y+PH+60,
     "after the eval visits, each discipline writes its own plan of care", "middle", "conn")
 chip(50, c2-118, 250, 84, ["Recertification", "OASIS recert visit, or", "non-OASIS recert eval"], INK)
-chip(50, c2+34, 250, 84, ["Add-on / physician order", "add-on = an added eval;", "other orders change visits"], INK)
+chip(50, c2+34, 250, 84, ["Physician order", "adds a discipline eval, or", "changes the visits ordered"], INK)
 lbl(50, c2-134, "OTHER TRIGGERS", cls="trg")
 conn(f"M 300 {c2-76} L {BUS} {c2-76} L {BUS} {c2}")
 conn(f"M 300 {c2+76} L {BUS} {c2+76} L {BUS} {c2}")

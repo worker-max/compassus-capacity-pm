@@ -110,7 +110,7 @@ lbl(IX+1300, AY+70, "DISCIPLINE-DEPENDENT", cls="colh")
 sublist(IX+1294, AY+94, ["Some services discharge before recert",
                          "Others continue on goals not yet met",
                          "Slow progress mid-episode →",
-                         "add-on order extends care (Flow 1)"])
+                         "a physician order extends care (Flow 1)"])
 
 # ================= BAND 2 · the worked example =================
 EY, EH = AY + AH + 40, 560

@@ -65,8 +65,8 @@ add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg" '
     'admission: each discipline plots its own frequency, every submission generates its own '
     'assignment task, and the DCS approves each discipline plan of care — not approved, the visits '
     'are held. After the 485 the episode enters phase two, where the clinician manages their '
-    'own week with no scheduler workflow at all. After the 485 an add-on order is an added '
-    'discipline evaluation and every other order is a physician order. The day before each visit the clinician confirms '
+    'own week with no scheduler workflow at all. After the 485 every change arrives as a physician '
+    'order — which may add a discipline evaluation, change frequency or reduce visits. The day before each visit the clinician confirms '
     'with the patient and then picks one of five dispositions in HCHB: accept, reschedule, '
     'reassign, miss or decline.">')
 add('<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" '
@@ -125,10 +125,10 @@ add(f'<line x1="{BX}" y1="{BY+26}" x2="{IX-14}" y2="{BY+26}" stroke="{INK}" '
 add(f'<line x1="{IX+494}" y1="{BY+26}" x2="{BX+6*(BW+GAP)+30}" y2="{BY+26}" stroke="{INK}" '
     'stroke-width="2.5" stroke-dasharray="14 7"/>')
 add(f'<rect x="{IX}" y="{BY+6}" width="480" height="40" rx="20" fill="#FBFBF8" stroke="{INK}" stroke-width="2"/>')
-lbl(IX+240, BY+32, "485 SUBMITTED — after this, changes come by order", "middle", "boundary")
-lbl(IX+240, BY+64, "an add-on order is an added discipline evaluation; every other order is a "
-    "physician order", "middle", "note")
-lbl(IX+240, BY+84, "both route through DCS approval and auth before reaching the scheduler",
+lbl(IX+240, BY+32, "485 SUBMITTED — changes come by physician order", "middle", "boundary")
+lbl(IX+240, BY+64, "a physician order may add a discipline evaluation, change the frequency, "
+    "or reduce the visits", "middle", "note")
+lbl(IX+240, BY+84, "every one routes through DCS approval and auth before reaching the scheduler",
     "middle", "note")
 
 # ---------------- PHASE TWO ----------------
