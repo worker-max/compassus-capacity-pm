@@ -1251,3 +1251,60 @@ episode sheet, phase 4's `OR` divider sat under the band callout; the callout wa
 3. The episode sheet's phase 3 shows the day-before confirmation automating (`CO-01`, `CO-02`). That
    is the change clinicians will feel most — the unpaid evening calls stop — and it is the row most
    worth testing with them before it is promised.
+
+## 31. Target state v1.1 — the engine gets a colour, and skipped steps get a ghost — 26 Aug
+
+Three changes, all in service of one thing: making a target sheet readable *beside* its
+current-state twin rather than instead of it.
+
+**1. A tenth colour, chosen on measurements rather than taste.** The engine's work needed to be
+distinguishable from HCHB's. Two candidates were put up — highlighter green and bright pink — and
+the numbers settled it decisively in favour of green, for a reason neither of us had in mind.
+
+The nine existing actor colours are all *dark*: relative luminance 0.010 (Leadership) to 0.372
+(PCC gold), every one carrying white text. **Bright pink `#FF1493` sits at 0.239 — inside that
+range.** Printed in mono, or photocopied, it is indistinguishable from Patient green (0.206) and
+Auth orange (0.285). It fails the one test a wall sheet has to pass.
+
+A full sweep of colour space confirmed the deeper problem: **the palette is out of room.** Requiring
+white-text contrast ≥ 4.0 and scoring every candidate against all nine existing colours under
+normal vision plus deuteranopia, protanopia and tritanopia, the best available separation was only
+ΔE00 ≈ 19. There is no tenth *hue* that is safely distinct.
+
+So the engine does not separate by hue. **It separates by lightness, and it is the only block in the
+set with dark text.** `#A6E22E` at luminance 0.70 sits a third of the scale above anything else on
+the sheet, with 11:1 contrast on ink. That channel survives greyscale, print and every form of
+colour blindness — none of which hue alone would have done. Raw `#39FF14` scored slightly better on
+paper but is outside CMYK gamut and prints muddy; `#A6E22E` is the printable version of the same idea.
+
+**HCHB purple keeps its meaning exactly as it was** — a target block is purple only where the work
+still happens inside HCHB. That turned out to be the more valuable half of the change: visit
+generation, the per-visit auth check and the clinician's calendar stay purple, so the sheets now
+answer *what did we actually take off HCHB* at a glance, which neither v1.0 nor the current-state
+set could show.
+
+**2. Ghost blocks.** A step that no longer exists is drawn as a dashed empty block with its old
+label struck through, dropped below the spine so the main arrow visibly passes over it, tagged
+**NO LONGER A STEP** and keeping its current-state number. Two exist:
+
+- **DCS reviews the referral** — pass 1 / phase 1. Note this is *not* yet an agreed elimination:
+  Laci removed it from Flow 3 only, and the open question from §28 stands. The ghost is honest about
+  that in a way v1.0 was not — v1.0 simply dropped the step, which asserted the same thing silently.
+- **One assignment task per discipline** — pass 2 / phase 2, eliminated by establishing the care team
+  at referral (DE-05, dossier 4: *"once you create that care team, I don't need a task every time a
+  new discipline gets pushed through"*).
+
+**Phase 3 has no ghosts, and that is the finding.** Its steps merge (grouping and routing become
+one) and automate (the day-before call), but nothing is eliminated. The instinct that there might be
+more skipped steps than there are was worth testing; the answer is that automation here moves work
+rather than removing it.
+
+**3. Cross-reference ordinals.** Every block carries a small grey number — its position on the
+current-state sheet. `NEW` where there is no equivalent, `5a`/`5b` where one step splits, `3·6`
+where two merge. This was chosen over renumbering the current-state sheets deliberately: those have
+been reviewed and published, and adding marks to them for the benefit of a proposal would be the
+tail wagging the dog. The target sheet carries the whole cost of the mapping.
+
+**Open.** *Referral captured in Commure* is drawn as engine work, but Commure is a third system with
+no colour in the palette. It is neither HCHB nor the engine. Flagged rather than fudged — if Commure
+earns a colour, this block changes.

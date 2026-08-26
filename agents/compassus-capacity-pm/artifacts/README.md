@@ -146,10 +146,39 @@ They add one thing to the drawing grammar, and nothing else changes:
 
 | Posture | How it is drawn | What it means |
 |---|---|---|
-| **Automate** | solid purple | the tool does it; a person owns the exception |
-| **Assist** | split block — purple half, person's half | the tool proposes, a person confirms |
-| **Surface** | the person's colour with a purple stripe across the top | the tool shows, the person decides |
-| **Manual** | plain person's colour | unchanged — clinical judgment, or hands on the patient |
+| **Engine** | solid **`#A6E22E`**, dark text | the engine does it; a person owns the exception |
+| **Assist** | engine block with the person's colour as a bar down the right edge | the engine proposes, the named person confirms |
+| **Surface** | the person's colour with an engine stripe across the top | the engine shows, the person decides |
+| **HCHB** | solid HCHB purple `#795CA7` | **still done inside HCHB — unchanged** |
+| **Manual** | plain person's colour | unchanged — hands on the patient |
+
+**The engine colour is `#A6E22E`, and it is the only light block in the set.** Every one of the nine
+actor colours is dark and carries white text; the engine carries **dark** text. That is deliberate —
+it is the one channel that survives greyscale, photocopying and all three types of colour blindness.
+The measured case: the existing palette spans relative luminance 0.010–0.372, and `#A6E22E` sits at
+0.70 — a third of the scale clear of anything already in use. A bright pink was tested and rejected:
+`#FF1493` lands at 0.239, *inside* the existing range, so it is indistinguishable from Patient green
+and Auth orange the moment a sheet is printed in mono. Hue alone cannot carry a tenth colour — a full
+sweep of colour space found nothing more than ΔE00 ≈ 19 from the existing nine once colour-blind
+simulation is included. Lightness plus dark text is what makes the engine legible.
+
+**HCHB purple keeps its meaning.** A target-state block is purple only where the work still happens
+inside HCHB — visit generation, the per-visit auth check, the clinician's calendar. That way the
+sheets answer "what did we actually take off HCHB" at a glance.
+
+### Cross-referencing a target sheet against its current-state twin
+
+| Mark | Meaning |
+|---|---|
+| a small grey number at the block's top-left | that step's position on the current-state sheet |
+| `NEW` | no equivalent on the current-state sheet |
+| `5a` / `5b` | one current-state step that splits into two |
+| `3·6` | two current-state steps that merge into one |
+| a **dashed empty block** with struck-through text | **a step that no longer exists.** It keeps its old number and sits below the spine, so the main arrow visibly passes over it |
+
+Two ghosts exist so far: **DCS reviews the referral** (pass 1 / phase 1) and **one assignment task
+per discipline** (pass 2 / phase 2, killed by establishing the care team at referral, DE-05). Phase 3
+has none — its steps merge and automate, but nothing is eliminated.
 
 **The posture on every block comes from the 25 Aug variable workbook's own *Future state — the
 tool's role* column**, not from judgment. That column reads Automate 34 · Assist 33 · Surface 19 ·
