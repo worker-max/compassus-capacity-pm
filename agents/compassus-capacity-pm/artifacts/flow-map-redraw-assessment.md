@@ -1365,3 +1365,59 @@ which is both accurate and the better line: what stops is the dialling, not the 
 patient, name who released it. An automated contact with no named human trigger is a posture claim,
 not a design. The SOC sheet's welcome contact already satisfies this — it is Assist, scheduler-owned
 — but the rule should be checked on every engagement step drawn from here on.
+
+## 33. The target SOC sheet was cloned from the wrong original — 26 Aug
+
+**The error.** §32 rebuilt `Flow-SOC-Target-State` on `Flow-SOC-Full`'s skeleton — the two-band
+sheet. That was the wrong original. The SOC/ROC flow the team actually circulates is
+**`Detailed-Flow-Composite`**, the five-column sheet.
+
+**Why it happened, and the trap worth recording.** In Drive that file is titled
+**"8.18 Full SOC_ROC Flow Updated - Current State.pdf"**
+(`1bv2iOHAQUbtrcnNNvMh99m8rAZ2z3evc`). The repo calls it `Detailed-Flow-Composite.pdf`. They are the
+same bytes — md5 `767d603563363a91990c4685d348f29f`, 194,347 bytes, mediabox 2600 × 1780 — under two
+different names. Meanwhile `Flow-SOC-Full.pdf` (2600 × 1620) has a name that *sounds* like the SOC/ROC
+flow and is not the sheet in circulation. Drive also holds two earlier same-day siblings —
+*Corrected* (18:13) and *Re-Designed* (17:57) — and the repo's `Flow-SOC-Full.pdf` matches the
+139,680-byte *Re-Designed* one.
+
+**Rule for next time: hash before you clone.** Do not infer which sheet someone means from a
+filename. `md5sum` the Drive PDF against the repo's, and clone from the generator whose output
+matches.
+
+**The rebuild.** `_flow-soc-target.gen.py` is now a transformed copy of
+`_flow-detailed-composite.gen.py` rather than a re-implementation: same five columns and column
+titles, same `colw` / `BW2` / `BH2`, same grey clean-path spine at the same `SY`, same feeders above
+and recovery below, same diamonds (`Capacity available?` · `Clean match?` · `Confirmed?` ·
+`Visit status?` · `SOC / ROC urgent?`), same dispositions chips, same revenue oval and KPI feedback
+loop. **Every block sits at its current-state coordinates**, so the sheets overlay directly. Only
+fill, label and posture changed.
+
+**Two ghosts, both well-grounded:**
+
+- **`1.4` PCC creates scheduling grid entry** — DE-04 is explicit: *the capacity tool replaces the
+  scheduling grid. They are the same object; do not build both.* The connector routes around it down
+  the column's right gutter, so the flow visibly runs past a vacated position.
+- **`2.5` Pending-auth visits invisible — not on calendar, not counted** — and the note under it
+  flips from *"the read excludes what it cannot see"* to *"the read now includes what is still
+  pending — it is on the calendar and counted as committed."* That pair of notes, read against each
+  other, is the clearest statement of the pending-auth fix anywhere in the set.
+
+**Cross-reference ordinals are column-relative here** — `3.4` is column 3, fourth block; `S2` is the
+second block on the clean-path spine. Left-to-right numbering makes no sense on a columnar sheet.
+
+**Engagement carries the §32 correction through.** Column 4's single *Visit confirmation coordination
+(SMS / voice) — day before* becomes two: **`4.1a` Clinician sets the day's order and time windows**
+(Assist, badged THE CLINICIAN DECIDES) then **`4.1b` Confirmation goes out — call and text** (Engine,
+badged CLINICIAN-TRIGGERED).
+
+**Rendering bugs caught only by looking.** The composite's `block()` sets text colour with
+`fill="..."`, which loses to the CSS class — dark text on the engine green silently rendered white
+until it was changed to `style="fill:..."` (the checklist's own warning, hit again). And `surf()`
+drew its badge before the engine stripe, so the stripe painted over the badge; the draw order is now
+stripe first, badge last. Two badges — *THE ENGINE MAY ONLY SHOW THESE* and *WHEN CAPACITY TIGHTENS* —
+were long enough to sit under their column's incoming connector and were shortened.
+
+**Still open.** `Flow-SOC-Full` now has no target-state twin. It may not need one — if the composite
+is the sheet in circulation, the two-band sheet is a reference view rather than a working one. Worth
+a decision rather than an assumption.

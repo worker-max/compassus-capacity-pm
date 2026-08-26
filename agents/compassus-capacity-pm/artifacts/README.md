@@ -170,23 +170,38 @@ sheets answer "what did we actually take off HCHB" at a glance.
 
 | Mark | Meaning |
 |---|---|
-| a small grey number at the block's top-left | that step's position on the current-state sheet |
+| a small grey number at the block's top-left | column and position on the current-state sheet — `3.4` = column 3, fourth block; `S2` = second block on the clean-path spine |
 | `NEW` | no equivalent on the current-state sheet |
 | `5a` / `5b` | one current-state step that splits into two |
 | `3·6` | two current-state steps that merge into one |
 | a **dashed empty block** with struck-through text | **a step that no longer exists.** It keeps its old number and sits below the spine, so the main arrow visibly passes over it |
 
-Three ghosts exist so far. **DCS reviews the referral** sits in the spine (pass 1 / phase 1). The
-other two sit in the **exception row**, because that is where they lived on the current-state sheet:
-**one assignment task per discipline** (killed by establishing the care team at referral, DE-05) and
-**pending auth — not on calendar, not counted** (killed by making pending visits visible; the
-`Auth on file?` No-branch now lands on it). Phase 3 has none — its steps merge and automate, but
+Ghosts on the SOC/ROC target sheet:
+
+- **`1.4` PCC creates scheduling grid entry** — killed by **DE-04**: *the capacity tool replaces the
+  scheduling grid; they are the same object, do not build both.* The flow routes around it.
+- **`2.5` Pending-auth visits invisible — not on calendar, not counted** — killed by making pending
+  visits visible. The note beneath it flips from *"the read excludes what it cannot see"* to
+  *"the read now includes what is still pending."*
+
+On the episode sheet: **DCS reviews the referral** (phase 1) and **one assignment task per
+discipline** (phase 2, killed by DE-05). Phase 3 has none — its steps merge and automate, but
 nothing is eliminated.
 
-**`Flow-SOC-Target-State` is built on the current-state generator's own geometry** — the same `xs`
-array, the same `DW=180` diamonds and `W485=320` block — so **pass 2 overlays `Flow-SOC-Full` block
-for block.** Pass 1 is wider (eight live steps against seven) because the process genuinely gains a
-step. Keep it that way: if the two sheets stop overlaying, the cross-reference numbering is decoration.
+### ⚠️ Which sheet is "the SOC/ROC flow"
+
+**The team's SOC/ROC flow is `Detailed-Flow-Composite` — the five-column sheet — not `Flow-SOC-Full`.**
+In Drive that same file is titled **"8.18 Full SOC_ROC Flow Updated - Current State.pdf"**
+([`1bv2iOHAQUbtrcnNNvMh99m8rAZ2z3evc`](https://drive.google.com/file/d/1bv2iOHAQUbtrcnNNvMh99m8rAZ2z3evc/view)),
+and it is byte-identical to the repo's `Detailed-Flow-Composite.pdf` (md5 `767d603563363a91990c4685d348f29f`).
+The name in Drive does not match the name in the repo. **Check the md5 before assuming which sheet
+someone means** — a target-state sheet was once built against the wrong original for exactly this reason.
+
+**`Flow-SOC-Target-State` is therefore built on `_flow-detailed-composite.gen.py`'s own geometry** —
+the same five columns, the same `colw`/`BW2`/`BH2`, the same grey clean-path spine at the same `SY`,
+the same feeders above and recovery below. **Every block sits where its current-state counterpart
+sits**, so the two sheets overlay directly. Keep it that way: if they stop overlaying, the
+cross-reference numbering is decoration.
 
 **Where the engine touches a patient, name who released it.** Engagement is clinician-*directed*,
 not clinician-*replaced*: the engine recommends, the clinician decides each day's visit order and
