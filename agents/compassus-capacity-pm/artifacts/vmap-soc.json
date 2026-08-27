@@ -1,0 +1,39 @@
+{
+  "_README": "Block -> workbook variable IDs for the SOC/ROC composite (the primary flow). Keyed on the block's own text as _flow-detailed-composite.gen.py draws it, em-dashes normalised to hyphens. Map a block to the variables behind the DECISION it embodies, not merely the data it touches - mapping an approval step to the data it reads makes it posture as Automate, which is wrong. An empty list means deliberately mapped to nothing.",
+
+  "PCC completes clinician scheduling workflow": ["S-01", "S-02", "S-35"],
+  "Read open capacity - day · week · discipline · territory": ["C-05", "C-06", "C-07", "C-08", "SH-05", "C-02"],
+  "Assign visit - clinician, day, sequence - one pass": ["S-15", "S-16", "S-21", "S-22", "S-19", "C-03"],
+  "Visit delivered - docu- mented, OASIS locked": ["S-50", "S-41"],
+
+  "Welcome / readiness call by PCC": ["CO-04", "CO-06", "CO-13", "CO-14"],
+  "PCC creates scheduling grid entry": ["C-05", "C-06"],
+  "Priority flag to scheduling": ["S-35", "S-48", "S-33"],
+
+  "Compute committed load (points)": ["C-05", "SH-07", "SH-08"],
+  "Assessing capacity by discipline": ["C-08", "SH-02", "SH-03"],
+  "Pending-auth visits invisible - not on calendar, not counted": ["S-43"],
+  "Branch leadership review - reopen zip · adjust · defer": ["C-02", "C-14", "SH-06", "SH-09"],
+  "Engage per-diem / float - SOCs or coverage visits": ["C-09", "C-12"],
+
+  "Discipline / role match (gate)": ["S-15", "SH-02", "SH-03"],
+  "Territory list - zip code reference": ["C-03", "C-04", "C-14", "SH-06"],
+  "Specialty competency match": ["S-16", "C-10"],
+  "Continuity - prefer same clinician": ["S-22"],
+  "Reads patient preferences - coordination note: caregiver · window · day-of-week": ["S-25", "S-26", "S-27", "S-28", "S-29", "S-30", "S-20"],
+  "Front-load early visits (protect LUPA floor)": ["S-40", "S-41", "S-03"],
+  "Resolve - reassign · resequence · escalate": ["S-38", "CO-09", "S-19"],
+  "Clinician receives schedule": ["CO-11"],
+  "Auth gate - checked per visit; no auth → the visit sits pending": ["S-43"],
+
+  "Visit confirmation coordination (SMS / voice) - day before": ["CO-01", "CO-02", "CO-05", "CO-13", "CO-14"],
+  "Patient confirms / negotiates": ["CO-06", "CO-07", "S-25", "S-26"],
+  "Scheduler coordinates coverage - call · text · Teams - with FT or per-diem clinicians": ["CO-09", "C-09", "S-13"],
+  "Scheduler reassigns to another clinician - or moves the visit to another day": ["S-38", "CO-07", "S-15"],
+
+  "Visit in progress (EVV / clock-in)": ["S-50", "CO-03"],
+  "Documentation pending": ["S-50", "S-41"],
+  "Missed visit - clinician documents": ["S-39", "CO-08"],
+  "Scheduler workflow - notify MD within 48h": ["S-39"],
+  "Rebook within window · recover / front-load": ["S-38", "S-40", "S-03", "CO-08"]
+}

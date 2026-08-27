@@ -1,0 +1,353 @@
+<title>SOC/ROC</title>
+
+<figure>
+<svg viewBox="0 0 2600 1780" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Home health capacity and scheduling, detailed current-state flow in the original five-column design with corrections. Columns: clinician scheduling workflow, capacity read, scheduling and assignment, coordination, delivery and outcomes. A grey clean path runs through the middle from the admitted referral to the delivered visit. Corrections: scheduler steps are yellow because a person works them, visit confirmation coordination is run by the clinician the day before, patient preferences are a coordination note, the five dispositions are chosen the day before, the missed visit runs a 48-hour compliance chain, and pending-auth visits are invisible to the capacity read.">
+<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
+<rect x="0" y="0" width="2600" height="1780" fill="#FBFBF8"/>
+<text x="1300.0" y="52" class="title" text-anchor="middle">Home Health Capacity &amp; Scheduling — Detailed Flow</text>
+<text x="1300.0" y="82" class="deck" text-anchor="middle">Continues the Home Health Intake Reset — from the PCC clinician scheduling workflow forward   ·   FUTURE STATE VISUALIZATION · MVP</text>
+<circle cx="652.8" cy="122" r="13" fill="#C6A01F"/>
+<text x="673.8" y="128" class="leg" text-anchor="start">PCC (Scheduler)</text>
+<circle cx="851.8" cy="122" r="13" fill="#795CA7"/>
+<text x="872.8" y="128" class="leg" text-anchor="start">HCHB</text>
+<circle cx="960.5999999999999" cy="122" r="13" fill="#792E2E"/>
+<text x="981.5999999999999" y="128" class="leg" text-anchor="start">ED / DCS</text>
+<circle cx="1102.1999999999998" cy="122" r="13" fill="#2E599D"/>
+<text x="1123.1999999999998" y="128" class="leg" text-anchor="start">Clinician</text>
+<circle cx="1251.9999999999998" cy="122" r="13" fill="#795933"/>
+<text x="1272.9999999999998" y="128" class="leg" text-anchor="start">Per Diem / Float</text>
+<circle cx="1459.1999999999998" cy="122" r="13" fill="#4E8A5B"/>
+<text x="1480.1999999999998" y="128" class="leg" text-anchor="start">Patient</text>
+<circle cx="1592.6" cy="122" r="13" fill="#DF751D"/>
+<text x="1613.6" y="128" class="leg" text-anchor="start">Insurance &amp; Auth</text>
+<circle cx="1799.8" cy="122" r="13" fill="#1A1A1A"/>
+<text x="1820.8" y="128" class="leg" text-anchor="start">Branch Leadership</text>
+<rect x="36.0" y="170" width="488.0" height="1490" rx="4" fill="none" stroke="#795CA7" stroke-width="1.6"/>
+<text x="52.0" y="200" class="colt" fill="#795CA7">Clinician Scheduling Workflow</text>
+<rect x="546.0" y="170" width="488.0" height="1490" rx="4" fill="none" stroke="#2E86AB" stroke-width="1.6"/>
+<text x="562.0" y="200" class="colt" fill="#2E86AB">Capacity Read</text>
+<rect x="1056.0" y="170" width="488.0" height="1490" rx="4" fill="none" stroke="#C6A01F" stroke-width="1.6"/>
+<text x="1072.0" y="200" class="colt" fill="#C6A01F">Scheduling &amp; Assignment</text>
+<rect x="1566.0" y="170" width="488.0" height="1490" rx="4" fill="none" stroke="#4E8A5B" stroke-width="1.6"/>
+<text x="1582.0" y="200" class="colt" fill="#4E8A5B">Coordination</text>
+<rect x="2076.0" y="170" width="488.0" height="1490" rx="4" fill="none" stroke="#792E2E" stroke-width="1.6"/>
+<text x="2092.0" y="200" class="colt" fill="#792E2E">Delivery &amp; Outcomes</text>
+<rect x="22" y="830" width="2556" height="170" fill="#DBDBD6" opacity=".55"/>
+<text x="38" y="854" class="spine" text-anchor="start">Admitted Episodic Referral — Ready to Schedule → Delivered Visit  (the clean path)</text>
+<rect x="132.0" y="890.0" width="300" height="74" rx="6" fill="#C6A01F"/>
+<text x="282.0" y="924.0" class="bt" fill="#fff" text-anchor="middle">PCC completes clinician</text>
+<text x="282.0" y="942.0" class="bt" fill="#fff" text-anchor="middle">scheduling workflow</text>
+<rect x="128.0" y="886.0" width="308" height="82" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<rect x="576.0" y="890.0" width="300" height="74" rx="6" fill="#C6A01F"/>
+<text x="726.0" y="924.0" class="bt" fill="#fff" text-anchor="middle">Read open capacity — day ·</text>
+<text x="726.0" y="942.0" class="bt" fill="#fff" text-anchor="middle">week · discipline · territory</text>
+<rect x="572.0" y="886.0" width="308" height="82" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<polygon points="946.0,871.0 1021.0,927.0 946.0,983.0 871.0,927.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="946.0" y="924.0" class="dt" text-anchor="middle">Capacity</text>
+<text x="946.0" y="940.0" class="dt" text-anchor="middle">available?</text>
+<polygon points="1122.0,871.0 1197.0,927.0 1122.0,983.0 1047.0,927.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="1122.0" y="924.0" class="dt" text-anchor="middle">Clean</text>
+<text x="1122.0" y="940.0" class="dt" text-anchor="middle">match?</text>
+<rect x="1208.0" y="890.0" width="300" height="74" rx="6" fill="#C6A01F"/>
+<text x="1358.0" y="924.0" class="bt" fill="#fff" text-anchor="middle">Assign visit — clinician,</text>
+<text x="1358.0" y="942.0" class="bt" fill="#fff" text-anchor="middle">day, sequence — one pass</text>
+<rect x="1204.0" y="886.0" width="308" height="82" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<polygon points="1966.0,871.0 2041.0,927.0 1966.0,983.0 1891.0,927.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="1966.0" y="932.0" class="dt" text-anchor="middle">Confirmed?</text>
+<rect x="2116.0" y="890.0" width="300" height="74" rx="6" fill="#2E599D"/>
+<text x="2266.0" y="924.0" class="bt" fill="#fff" text-anchor="middle">Visit delivered — docu-</text>
+<text x="2266.0" y="942.0" class="bt" fill="#fff" text-anchor="middle">mented, OASIS locked</text>
+<polygon points="2504.0,871.0 2579.0,927.0 2504.0,983.0 2429.0,927.0" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="2504.0" y="924.0" class="dt" text-anchor="middle">Visit</text>
+<text x="2504.0" y="940.0" class="dt" text-anchor="middle">status?</text>
+<line x1="432.0" y1="927.0" x2="570.0" y2="927.0" class="ln" marker-end="url(#ar)"/>
+<line x1="876.0" y1="927.0" x2="865.0" y2="927.0" class="ln" marker-end="url(#ar)"/>
+<path d="M 1021.0 927.0 L 1041.0 927.0" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="1034.0" y="915.0" class="lb" text-anchor="middle">Yes</text>
+<path d="M 1197.0 927.0 L 1202.0 927.0" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="1202.5" y="915.0" class="lb" text-anchor="middle">Yes</text>
+<line x1="1508.0" y1="927.0" x2="1885.0" y2="927.0" class="ln" marker-end="url(#ar)"/>
+<path d="M 2041.0 927.0 L 2110.0 927.0" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="2078.5" y="897.0" class="lb" text-anchor="middle">Yes</text>
+<rect x="2045.0" y="909.0" width="65.0" height="36" rx="18" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="2077.5" y="932.0" class="ct" text-anchor="middle" fill="#2E599D">Accept</text>
+<line x1="2416.0" y1="927.0" x2="2423.0" y2="927.0" class="ln" marker-end="url(#ar)"/>
+<rect x="84.0" y="226" width="392.0" height="56" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="280.0" y="250.5" class="tg" text-anchor="middle">From Intake: signed orders /</text>
+<text x="280.0" y="267.5" class="tg" text-anchor="middle">485 + F2F on file</text>
+<line x1="280.0" y1="282" x2="280.0" y2="322" class="ln" marker-end="url(#ar)"/>
+<rect x="84.0" y="328" width="392.0" height="56" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="280.0" y="352.5" class="tg" text-anchor="middle">Ordered frequency &amp; visit types</text>
+<text x="280.0" y="369.5" class="tg" text-anchor="middle">(SOC / ROC / recert / physician order)</text>
+<line x1="280.0" y1="384" x2="280.0" y2="424" class="ln" marker-end="url(#ar)"/>
+<rect x="84.0" y="430" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="280.0" y="456.0" class="bt" fill="#fff" text-anchor="middle">Welcome / readiness</text>
+<text x="280.0" y="474.0" class="bt" fill="#fff" text-anchor="middle">call by PCC</text>
+<rect x="290.4" y="417" width="177.6" height="22" rx="11" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.7"/>
+<text x="379.2" y="432.5" class="bdg" text-anchor="middle" fill="#C6A01F">THE ONE JUDGMENT CALL</text>
+<rect x="80.0" y="426" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<rect x="275.7" y="416" width="192.3" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="371.85" y="432" class="bdg" text-anchor="middle" fill="#C6A01F">THE ONE JUDGMENT CALL</text>
+<text x="280.0" y="510" class="note" text-anchor="middle">is the patient actually home? not still</text>
+<text x="280.0" y="528" class="note" text-anchor="middle">inpatient · not deferring admission</text>
+<line x1="280.0" y1="538" x2="280.0" y2="574" class="ln" marker-end="url(#ar)"/>
+<rect x="84.0" y="580" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="280.0" y="606.0" class="bt" fill="#fff" text-anchor="middle">PCC creates scheduling</text>
+<text x="280.0" y="624.0" class="bt" fill="#fff" text-anchor="middle">grid entry</text>
+<rect x="80.0" y="576" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="280.0" y1="638" x2="280.0" y2="884.0" class="ln" marker-end="url(#ar)"/>
+<polygon points="280.0,1090.0 375.0,1150 280.0,1210.0 185.0,1150" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="280.0" y="1147.0" class="dt" text-anchor="middle">SOC / ROC</text>
+<text x="280.0" y="1163.0" class="dt" text-anchor="middle">urgent?</text>
+<path d="M 280.0 1210 L 280.0 1246" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="294.0" y="1236" class="lb" text-anchor="start">Yes</text>
+<rect x="84.0" y="1252" width="392.0" height="58" rx="6" fill="#792E2E"/>
+<text x="280.0" y="1278.0" class="bt" fill="#fff" text-anchor="middle">Priority flag</text>
+<text x="280.0" y="1296.0" class="bt" fill="#fff" text-anchor="middle">to scheduling</text>
+<rect x="80.0" y="1248" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<text x="280.0" y="1336" class="note" text-anchor="middle">every SOC / ROC is already time-sensitive —</text>
+<text x="280.0" y="1354" class="note" text-anchor="middle">seen within 48 hours under Medicare. Urgent =</text>
+<text x="280.0" y="1372" class="note" text-anchor="middle">clinical diagnosis or another factor deserving priority</text>
+<path d="M 476.0 1281.0 L 533 1281.0 L 533 1620 L 1073 1620 L 1073 1139.0 L 1098.0 1139.0" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="810" y="1610" class="lb" text-anchor="middle">priority to scheduling</text>
+<path d="M 280.0 964.0 L 280.0 1084" fill="none" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="226" width="392.0" height="56" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="790.0" y="250.5" class="tg" text-anchor="middle">Roster — assessing (RN/PT/OT)</text>
+<text x="790.0" y="267.5" class="tg" text-anchor="middle">vs assistant (LPN/PTA/HHA)</text>
+<line x1="790.0" y1="282" x2="790.0" y2="322" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="328" width="392.0" height="56" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="790.0" y="352.5" class="tg" text-anchor="middle">FTE · per-diem · PTO ·</text>
+<text x="790.0" y="369.5" class="tg" text-anchor="middle">availability</text>
+<line x1="790.0" y1="384" x2="790.0" y2="424" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="430" width="392.0" height="58" rx="6" fill="#795CA7"/>
+<text x="790.0" y="456.0" class="bt" fill="#fff" text-anchor="middle">Compute committed</text>
+<text x="790.0" y="474.0" class="bt" fill="#fff" text-anchor="middle">load (points)</text>
+<rect x="590.0" y="426" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="790.0" y1="488" x2="790.0" y2="528" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="534" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="790.0" y="560.0" class="bt" fill="#fff" text-anchor="middle">Assessing capacity</text>
+<text x="790.0" y="578.0" class="bt" fill="#fff" text-anchor="middle">by discipline</text>
+<rect x="590.0" y="530" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="790.0" y1="592" x2="790.0" y2="884.0" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="644" width="392.0" height="54" rx="6" fill="#DF751D"/>
+<text x="790.0" y="668.0" class="bt s" fill="#fff" text-anchor="middle">Pending-auth visits invisible —</text>
+<text x="790.0" y="684.0" class="bt s" fill="#fff" text-anchor="middle">not on calendar, not counted</text>
+<rect x="590.0" y="640" width="400.0" height="62" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<path d="M 700.0 644 L 700.0 600" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="790.0" y="718" class="note" text-anchor="middle">the read excludes what it cannot see</text>
+<rect x="594.0" y="1056" width="392.0" height="58" rx="6" fill="#1A1A1A"/>
+<text x="790.0" y="1082.0" class="bt" fill="#fff" text-anchor="middle">Branch leadership review —</text>
+<text x="790.0" y="1100.0" class="bt" fill="#fff" text-anchor="middle">reopen zip · adjust · defer</text>
+<rect x="792.8" y="1043" width="185.2" height="22" rx="11" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1.7"/>
+<text x="885.4" y="1058.5" class="bdg" text-anchor="middle" fill="#1A1A1A">WHEN CAPACITY TIGHTENS</text>
+<rect x="590.0" y="1052" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<rect x="777.4" y="1042" width="200.60000000000002" height="23" rx="11.5" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1.8"/>
+<text x="877.7" y="1058" class="bdg" text-anchor="middle" fill="#1A1A1A">WHEN CAPACITY TIGHTENS</text>
+<path d="M 946.0 983.0 L 946.0 1016 L 790.0 1016 L 790.0 1050" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="960.0" y="1007.0" class="lb" text-anchor="start">No</text>
+<text x="790.0" y="1136" class="note" text-anchor="middle">territory alignment · referral acceptance</text>
+<line x1="790.0" y1="1146" x2="790.0" y2="1178" class="ln" marker-end="url(#ar)"/>
+<rect x="594.0" y="1184" width="392.0" height="58" rx="6" fill="#795933"/>
+<text x="790.0" y="1210.0" class="bt" fill="#fff" text-anchor="middle">Engage per-diem / float —</text>
+<text x="790.0" y="1228.0" class="bt" fill="#fff" text-anchor="middle">SOCs or coverage visits</text>
+<rect x="590.0" y="1180" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<text x="790.0" y="1264" class="note" text-anchor="middle">no territory, on purpose — the</text>
+<text x="790.0" y="1282" class="note" text-anchor="middle">targeted capacity instrument</text>
+<path d="M 790.0 1292 L 790.0 1328" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="804.0" y="1316" class="lb" text-anchor="start">none left</text>
+<ellipse cx="790.0" cy="1372" rx="170" ry="40" fill="#792E2E"/>
+<text x="790.0" y="1368.5" class="bt s" style="fill:#fff" text-anchor="middle">Defer / waitlist /</text>
+<text x="790.0" y="1385.5" class="bt s" style="fill:#fff" text-anchor="middle">refer out</text>
+<rect x="1104.0" y="226" width="392.0" height="56" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="1300.0" y="250.5" class="tg" text-anchor="middle">Routing / GPS — home base,</text>
+<text x="1300.0" y="267.5" class="tg" text-anchor="middle">mileage, sequence</text>
+<text x="1300.0" y="300" class="note" text-anchor="middle">straight-line today — not drive time</text>
+<line x1="1300.0" y1="308" x2="1300.0" y2="322" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="328" width="392.0" height="58" rx="6" fill="#795CA7"/>
+<text x="1300.0" y="354.0" class="bt" fill="#fff" text-anchor="middle">Discipline / role</text>
+<text x="1300.0" y="372.0" class="bt" fill="#fff" text-anchor="middle">match (gate)</text>
+<rect x="1100.0" y="324" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1300.0" y1="386" x2="1300.0" y2="418" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="424" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="450.0" class="bt" fill="#fff" text-anchor="middle">Territory list — zip code</text>
+<text x="1300.0" y="468.0" class="bt" fill="#fff" text-anchor="middle">reference</text>
+<rect x="1100.0" y="420" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1300.0" y1="482" x2="1300.0" y2="514" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="520" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="546.0" class="bt" fill="#fff" text-anchor="middle">Specialty competency</text>
+<text x="1300.0" y="564.0" class="bt" fill="#fff" text-anchor="middle">match</text>
+<rect x="1100.0" y="516" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1300.0" y1="578" x2="1300.0" y2="610" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="616" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="642.0" class="bt" fill="#fff" text-anchor="middle">Continuity — prefer</text>
+<text x="1300.0" y="660.0" class="bt" fill="#fff" text-anchor="middle">same clinician</text>
+<line x1="1300.0" y1="674" x2="1300.0" y2="706" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="712" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="738.0" class="bt s" fill="#fff" text-anchor="middle">Reads patient preferences — coordination</text>
+<text x="1300.0" y="754.0" class="bt s" fill="#fff" text-anchor="middle">note: caregiver · window · day-of-week</text>
+<rect x="1333.2" y="699" width="154.79999999999998" height="22" rx="11" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.7"/>
+<text x="1410.6" y="714.5" class="bdg" text-anchor="middle" fill="#C6A01F">WAS A PATIENT LANE</text>
+<rect x="1100.0" y="708" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<rect x="1320.6" y="698" width="167.4" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1404.3" y="714" class="bdg" text-anchor="middle" fill="#C6A01F">WAS A PATIENT LANE</text>
+<line x1="1300.0" y1="770" x2="1300.0" y2="884.0" class="ln" marker-end="url(#ar)"/>
+<text x="1300.0" y="800" class="note" text-anchor="middle">the information is housed in HCHB — a person wrote</text>
+<text x="1300.0" y="818" class="note" text-anchor="middle">it, and the scheduler acts on it before selecting</text>
+<path d="M 1122.0 983.0 L 1122.0 1104" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="1136.0" y="1007.0" class="lb" text-anchor="start">No</text>
+<rect x="1104.0" y="1110" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="1136.0" class="bt" fill="#fff" text-anchor="middle">Front-load early visits</text>
+<text x="1300.0" y="1154.0" class="bt" fill="#fff" text-anchor="middle">(protect LUPA floor)</text>
+<line x1="1300.0" y1="1168" x2="1300.0" y2="1208" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="1214" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1300.0" y="1240.0" class="bt" fill="#fff" text-anchor="middle">Resolve — reassign ·</text>
+<text x="1300.0" y="1258.0" class="bt" fill="#fff" text-anchor="middle">resequence · escalate</text>
+<rect x="1100.0" y="1210" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1300.0" y1="1272" x2="1300.0" y2="1312" class="ln" marker-end="url(#ar)"/>
+<rect x="1104.0" y="1318" width="392.0" height="58" rx="6" fill="#2E599D"/>
+<text x="1300.0" y="1344.0" class="bt" fill="#fff" text-anchor="middle">Clinician receives</text>
+<text x="1300.0" y="1362.0" class="bt" fill="#fff" text-anchor="middle">schedule</text>
+<rect x="1104.0" y="1428" width="392.0" height="54" rx="6" fill="#DF751D"/>
+<text x="1300.0" y="1452.0" class="bt s" fill="#fff" text-anchor="middle">Auth gate — checked per visit;</text>
+<text x="1300.0" y="1468.0" class="bt s" fill="#fff" text-anchor="middle">no auth → the visit sits pending</text>
+<rect x="1100.0" y="1424" width="400.0" height="62" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<path d="M 1104.0 1455 L 1010.0 1455 L 1010.0 704" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<rect x="1614.0" y="470" width="392.0" height="58" rx="6" fill="#2E599D"/>
+<text x="1810.0" y="496.0" class="bt" fill="#fff" text-anchor="middle">Visit confirmation coordination</text>
+<text x="1810.0" y="514.0" class="bt" fill="#fff" text-anchor="middle">(SMS / voice) — day before</text>
+<rect x="1610.0" y="466" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1810.0" y1="528" x2="1810.0" y2="568" class="ln" marker-end="url(#ar)"/>
+<rect x="1614.0" y="574" width="392.0" height="58" rx="6" fill="#4E8A5B"/>
+<text x="1810.0" y="600.0" class="bt" fill="#fff" text-anchor="middle">Patient confirms /</text>
+<text x="1810.0" y="618.0" class="bt" fill="#fff" text-anchor="middle">negotiates</text>
+<rect x="1610.0" y="570" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<text x="1810.0" y="654" class="note" text-anchor="middle">hard constraints get built around —</text>
+<text x="1810.0" y="672" class="note" text-anchor="middle">soft preferences are worth holding</text>
+<path d="M 1810.0 682 L 1810.0 848.0 L 1966.0 848.0 L 1966.0 865.0" fill="none" class="ln" marker-end="url(#ar)"/>
+<text x="1582.0" y="1052" class="pnl" text-anchor="start">NOT CONFIRMED — THE OTHER DISPOSITIONS</text>
+<rect x="1582.0" y="1062" width="86.8" height="36" rx="18" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="1625.4" y="1084" class="ct" text-anchor="middle" fill="#2E599D">Resched.</text>
+<rect x="1676.8" y="1062" width="86.8" height="36" rx="18" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1720.2" y="1084" class="ct" text-anchor="middle" fill="#C6A01F">Reassign</text>
+<rect x="1771.6" y="1062" width="56.4" height="36" rx="18" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1799.8" y="1084" class="ct" text-anchor="middle" fill="#792E2E">Miss</text>
+<rect x="1836.0" y="1062" width="79.19999999999999" height="36" rx="18" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1875.6" y="1084" class="ct" text-anchor="middle" fill="#C6A01F">Decline</text>
+<text x="1582.0" y="1116" class="note" text-anchor="start">selected in HCHB · reassign returns with a plan, decline without one</text>
+<text x="1582.0" y="1134" class="note" text-anchor="start">decline is the least used — some clinicians are instructed never to use it</text>
+<path d="M 1966.0 983.0 L 1966.0 1012 L 1574.0 1012 L 1574.0 1080 L 1576.0 1080" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="1952.0" y="1009.0" class="lb" text-anchor="end">No</text>
+<rect x="1614.0" y="1162" width="392.0" height="58" rx="6" fill="#792E2E"/>
+<rect x="1810.0" y="1162" width="196.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="1810.0" y="1187" class="bt" fill="#fff" text-anchor="middle">Call-out coverage —</text>
+<text x="1810.0" y="1205" class="bt" fill="#fff" text-anchor="middle">DCS + scheduler together</text>
+<line x1="1810.0" y1="1220" x2="1810.0" y2="1258" class="ln" marker-end="url(#ar)"/>
+<rect x="1614.0" y="1264" width="392.0" height="66" rx="6" fill="#C6A01F"/>
+<text x="1810.0" y="1286.0" class="bt s" fill="#fff" text-anchor="middle">Scheduler coordinates coverage —</text>
+<text x="1810.0" y="1302.0" class="bt s" fill="#fff" text-anchor="middle">call · text · Teams — with FT</text>
+<text x="1810.0" y="1318.0" class="bt s" fill="#fff" text-anchor="middle">or per-diem clinicians</text>
+<rect x="1610.0" y="1260" width="400.0" height="74" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="1810.0" y1="1330" x2="1810.0" y2="1368" class="ln" marker-end="url(#ar)"/>
+<rect x="1614.0" y="1374" width="392.0" height="66" rx="6" fill="#C6A01F"/>
+<text x="1810.0" y="1396.0" class="bt s" fill="#fff" text-anchor="middle">Scheduler reassigns to another</text>
+<text x="1810.0" y="1412.0" class="bt s" fill="#fff" text-anchor="middle">clinician — or moves the visit</text>
+<text x="1810.0" y="1428.0" class="bt s" fill="#fff" text-anchor="middle">to another day</text>
+<rect x="1610.0" y="1370" width="400.0" height="74" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<path d="M 2006.0 1407 L 2065.0 1407 L 2065.0 970.0" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="2057.0" y="1200" class="lb" text-anchor="end">rebook</text>
+<rect x="2124.0" y="590" width="392.0" height="58" rx="6" fill="#2E599D"/>
+<text x="2320.0" y="616.0" class="bt" fill="#fff" text-anchor="middle">Visit in progress</text>
+<text x="2320.0" y="634.0" class="bt" fill="#fff" text-anchor="middle">(EVV / clock-in)</text>
+<text x="2320.0" y="670" class="note" text-anchor="middle">Citrix sync lags — the status the office</text>
+<text x="2320.0" y="688" class="note" text-anchor="middle">sees can be hours behind</text>
+<line x1="2320.0" y1="698" x2="2320.0" y2="884.0" class="ln" marker-end="url(#ar)"/>
+<rect x="2124.0" y="1056" width="392.0" height="58" rx="6" fill="#2E599D"/>
+<text x="2320.0" y="1082.0" class="bt" fill="#fff" text-anchor="middle">Documentation</text>
+<text x="2320.0" y="1100.0" class="bt" fill="#fff" text-anchor="middle">pending</text>
+<path d="M 2504.0 983.0 L 2504.0 1032 L 2320.0 1032 L 2320.0 1050" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="2416.0" y="1009.0" class="lb" text-anchor="middle">not documented</text>
+<text x="2320.0" y="1134" class="note" text-anchor="middle">scheduled → documentation pending → missed</text>
+<line x1="2320.0" y1="1144" x2="2320.0" y2="1174" class="ln" marker-end="url(#ar)"/>
+<rect x="2124.0" y="1180" width="392.0" height="58" rx="6" fill="#2E599D"/>
+<text x="2320.0" y="1206.0" class="bt" fill="#fff" text-anchor="middle">Missed visit —</text>
+<text x="2320.0" y="1224.0" class="bt" fill="#fff" text-anchor="middle">clinician documents</text>
+<rect x="2120.0" y="1176" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<line x1="2320.0" y1="1238" x2="2320.0" y2="1274" class="ln" marker-end="url(#ar)"/>
+<rect x="2124.0" y="1280" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="2320.0" y="1306.0" class="bt" fill="#fff" text-anchor="middle">Scheduler workflow —</text>
+<text x="2320.0" y="1324.0" class="bt" fill="#fff" text-anchor="middle">notify MD within 48h</text>
+<rect x="2120.0" y="1276" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<text x="2320.0" y="1358" class="note" text-anchor="middle">Medicare requirement and an HCHB hard stop;</text>
+<text x="2320.0" y="1376" class="note" text-anchor="middle">late → workflow generates to the DCS</text>
+<line x1="2320.0" y1="1386" x2="2320.0" y2="1416" class="ln" marker-end="url(#ar)"/>
+<rect x="2124.0" y="1422" width="392.0" height="58" rx="6" fill="#C6A01F"/>
+<text x="2320.0" y="1448.0" class="bt" fill="#fff" text-anchor="middle">Rebook within window ·</text>
+<text x="2320.0" y="1466.0" class="bt" fill="#fff" text-anchor="middle">recover / front-load</text>
+<rect x="2120.0" y="1418" width="400.0" height="66" rx="9" fill="none" stroke="#A6E22E" stroke-width="5"/>
+<ellipse cx="2330.0" cy="420" rx="180" ry="42" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="2330.0" y="416.5" class="bt s" style="fill:#1B211E" text-anchor="middle">Period revenue realized</text>
+<text x="2330.0" y="433.5" class="bt s" style="fill:#1B211E" text-anchor="middle">(PDGM 30-day · timely NOA)</text>
+<path d="M 2504.0 871.0 L 2504.0 426" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="2490.0" y="831.0" class="lb" text-anchor="end">completed</text>
+<rect x="2124.0" y="1522" width="392.0" height="50" rx="3" fill="#E8EAED" stroke="#C6CBD1" stroke-width="1"/>
+<text x="2320.0" y="1552.0" class="tg" text-anchor="middle">KPIs update → feedback to capacity</text>
+<path d="M 2320.0 1572 L 2320.0 1640 L 566 1640 L 566 984 L 640 984 L 640 970.0" fill="none" class="ln" stroke-dasharray="6 5" opacity=".7" marker-end="url(#ar)"/>
+<text x="1300" y="1630" class="lb" text-anchor="middle">KPIs feed the capacity re-read</text>
+<line x1="36" y1="1716" x2="2564" y2="1716" stroke="#C9CCC5" stroke-width="1.4"/>
+<text x="36" y="1746" class="foot" text-anchor="start">Compassus Home Health · Capacity &amp; Scheduling — FUTURE STATE VISUALIZATION · MVP — the process is unchanged; a green outline marks a step that gains one consolidated view instead of several reports · scope and posture read from the workbook's MVP column</text>
+<text x="2564" y="1746" class="foot" text-anchor="end">Continues: Home Health Intake Reset · Page 2</text>
+</svg>
+</figure>
+
+<style>
+:root{--paper:#F2F3EF;--rule:#D8DAD2;
+--shadow:0 1px 2px rgba(23,30,26,.05),0 12px 34px -22px rgba(23,30,26,.35);
+--body:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+--display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+--mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}}
+:root[data-theme="dark"]{--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:var(--body);
+padding:clamp(10px,2vw,32px);-webkit-font-smoothing:antialiased}
+figure{margin:0 auto;max-width:1900px;border:1px solid var(--rule);border-radius:12px;
+box-shadow:var(--shadow);overflow-x:auto;background:#FBFBF8}
+svg{display:block;width:100%;min-width:1180px;height:auto}
+/* --- in-SVG type. units are points on the output sheet --- */
+.bt{font-family:var(--body);font-size:16px;font-weight:600;fill:#fff}
+.bt.s{font-size:13.5px}
+.dt{font-family:var(--body);font-size:15px;font-weight:600;fill:#1B211E}
+.ct{font-family:var(--body);font-size:15px;font-weight:600}
+.bdg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.ln{stroke:#1B211E;stroke-width:2}
+.lb{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.conn{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.leg{font-family:var(--body);font-size:15.5px;font-weight:600;fill:#1B211E}
+.key{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;fill:#7C8781}
+.band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
+.trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
+.pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
+.title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
+.deck{font-family:var(--body);font-size:16px;fill:#5A6560}
+.foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
+.boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
+.bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
+.colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
+.colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
+.colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
+@media print{@page{size:2600pt 1780pt;margin:0}
+body{background:#fff;padding:0}
+figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}
+svg{min-width:0;width:2600pt;height:1780pt}}
+</style>

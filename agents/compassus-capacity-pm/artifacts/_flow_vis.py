@@ -42,6 +42,10 @@ RANK = {"Automate": 3, "Assist": 2, "Surface": 1, "Stays manual": 0}
 # the tool goes on each variable, never that a step stops existing — so it is carried here from
 # the target-state sheets, which is the only place that judgment was ever written down.
 REMOVED = {
+    "soc": {"PCC creates scheduling grid entry": "DE-04 — the capacity tool replaces the "
+            "scheduling grid; they are the same object, do not build both",
+            "Pending-auth visits invisible - not on calendar, not counted": "pending visits "
+            "become visible and counted, so the blind spot stops existing"},
     "routine": {"Each submission generates its own assignment task": "DE-05 — the care team is "
                 "set at referral, so the per-discipline assignment task has nothing to do"},
 }
@@ -113,8 +117,8 @@ def __ghost__(x, y, w, h, lines):
         wl = 7.0*len(ln)
         add(f'<line x1="{{x+w/2-wl/2}}" y1="{{cy+i*16-5}}" x2="{{x+w/2+wl/2}}" '
             f'y2="{{cy+i*16-5}}" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>')
-    add(f'<text x="{{x+w/2}}" y="{{y+h+18}}" class="trg" text-anchor="middle">'
-        f'NO LONGER A STEP</text>')
+    # no label: several sheets already put a note directly under a block, and the dashed,
+    # struck-through styling says it on its own. The footer carries the key.
 
 def __skip__(lines):
     """A removed step is never drawn at all — painting the ghost over it leaves the original
@@ -203,6 +207,12 @@ def build(flow, mode, out):
         mode = "future"               # drawn with the same posture vocabulary
     src = src.replace("CURRENT STATE", title)
     src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
+    src = src.replace("   \u00b7   current state, corrected 18 Aug 2026",
+                      "   \u00b7   " + title)
+    # the composite's footer is three concatenated fragments, so swap the whole lbl() call
+    src = re.sub(r'lbl\(M, H-34, "Compassus.*?cls="foot"\)',
+                 lambda _: 'lbl(M, H-34, "Compassus Home Health \u00b7 Capacity & Scheduling \u2014 '
+                           + key.replace('"', "'") + '", cls="foot")', src, flags=re.S)
 
     ns = {"__name__": "__vis__"}
     argv = sys.argv
