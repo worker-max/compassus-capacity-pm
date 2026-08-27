@@ -230,62 +230,52 @@ drawn in those two colours, so the band reads against the row above it. They are
 the clinician tries to place the last patient, by which point the first seven are committed — that
 is the line the sheet closes the band with.
 
-### The visualise-only and MVP sheets
+### The four states, in order
 
-**Visualise-only does not change the process.** Every step, actor and handoff stays where the
-current-state sheet put it. What changes is that reports scattered across HCHB, Workday, Commure,
-routing and telephony are pulled into one view, so the person already assigned to that step decides
-faster and better informed.
+One ladder. Each rung is drawn on the current-state sheet's own geometry, so any two overlay
+block for block.
 
-So these are built from the **current-state** generators, not the target ones — an earlier version
-derived them from the target sheets and had to invent postures for work that release 1 does not
-automate. `_flow_vis.py` hooks the generator's `block()` and adds a **bold green outline** to the
-steps that gain a consolidated view. Nothing is recoloured, nothing moves, nothing is automated,
-and the sheets overlay their current-state twin exactly.
+| # | State | What it says | How it is drawn |
+|---|---|---|---|
+| 1 | **Current State** | today | the base sheets |
+| 2 | **Future State** | the visual, dashboard-like future. Reports scattered across HCHB, Workday, Commure, routing and telephony pulled into one view so the person already assigned to the step decides faster. **Nothing is automated** | current-state sheet, bold green outline on every step that gains that view |
+| 3 | **MVP** | the first stage where the tool *acts* — and **not** the end of the road. Scope is the workbook's `MVP = Yes` column | in-scope steps redrawn at their workbook posture; everything else unchanged |
+| 4 | **Target State** | the end. The same posture treatment across **every** variable, MVP or not | as MVP, at full scope |
 
-| Sheet | Rule | Outline |
-|---|---|---|
-| `*-Visualise-Only` | a majority of the block's variables have Current-state = **In-system** | solid green |
-| `*-MVP` | a majority of the block's **MVP Req. = Yes** variables are In-system | solid green |
-| `*-MVP` | the block's MVP variables exist but are Manual or Tacit | **dashed** green |
+`python3 _flow_vis.py <flow> future|mvp|target <out.svg>` — all three read the workbook, none is
+an editorial list. Change the MVP column and re-run; the sheets change with it.
 
-**The bar is a majority, not any one variable.** Consolidating one report out of seven does not
-make a decision quicker or better informed — it moves where you go to be under-informed. On an
-"any" rule, 19 of routine visits' 21 blocks light up and the two sheets are indistinguishable,
-which is useless for a demo and is also not true.
+**Future State is deliberately full scope.** Showing is cheap, so it shows everything the workbook
+holds. If it were MVP-scoped it would just be MVP with less automation, and the rung would carry no
+information of its own.
 
-**MVP is not a subset of visualise-only, and the gap between the two sheets is the release-1 build
-list.** Across the inventory: 38 variables are In-system, 47 are MVP Req. = Yes, 27 are both — and
-**20 are MVP=Yes but Manual or Tacit**, committed for release 1 with nothing recording them today.
-Those are the dashed blocks. On routine visits the split is 14 solid on visualise-only, versus 12
-solid and 8 dashed on MVP.
+**Posture per block is the MODAL role among the in-scope variables, ties broken toward the weaker
+posture.** Strongest-wins made 18 of 19 blocks read `Automate` because one variable in each did.
 
-**Dashed vs solid carries the distinction on its own** — a "NEEDS CAPTURE" pill was tried and there
-is nowhere to put it: above the block is the badge, below is the sublist, inside is the block's own
-wording. The footer states the key instead.
+**Target State supersedes the hand-built target sheets.** Those were authored before the workbook
+existed; the derived sheet is the same artefact read from the `Future state -- the tool's role`
+column instead of from judgment. On SOC/ROC they agree on all but three blocks, and per the rule
+already recorded the column wins. The originals are kept as `*-Target-State-v1-authored.pdf` for
+provenance only — do not circulate them.
 
-**The outline is drawn after the block, then the badge is redrawn on top of the outline** — a badge
-sitting on a block's top edge is otherwise struck straight through.
+**One thing the workbook cannot express**, carried across by hand in `REMOVED`: that a step stops
+existing. The workbook says how far the tool goes on a *variable*, never that a *step* disappears.
+Without that table the derived sheets would silently lose what the hand-built targets knew.
 
-**Blocked on two things.** Only routine visits has a `vmap`; the other five flows need one authored.
-And the authorization flow cannot be driven from this inventory at all — it contains **zero**
-authorization variables, which live unnumbered in `variable-backlog.md` as `S-43`–`S-47`.
+**Narrowing to MVP can change a posture, not only drop a block.** On SOC/ROC, MVP drops 6 blocks and
+*shifts* 4 more, because the modal role among only the `MVP = Yes` variables differs from the modal
+across all of them. It will look like an error to anyone expecting a pure subset.
 
-### Putting these on a SharePoint page
+### SOC/ROC is the primary flow
 
-Modern SharePoint pages strip `<script>`, so the interactive HTML will not run there. What works:
+Every decision is based on SOC/ROC and carried outward to the others. `vmap-soc.json` is the first
+real block-to-variable map — 30 blocks, each mapped to the variables behind **the decision it
+embodies, not the data it happens to read**. Mapping an approval step to the data it reads makes it
+posture as `Automate`, which is wrong; that is how DCS plan-of-care approval first drew as fully
+automated.
 
-| Method | Interactivity | Admin needed |
-|---|---|---|
-| **Image web part + the `@2x` PNG** | none | none — this is the reliable default |
-| **File Viewer web part + the PDF** | zoom only | none |
-| **Embed web part + `<iframe>`** | full | tenant admin must allow-list the host domain |
-| **SPFx web part** | full | developer build + tenant deployment |
-
-Each sheet therefore ships a **2x PNG** (3800px wide) alongside the PDF, sized for the Image web
-part. Do not upload the `.html` to a document library expecting it to render — SharePoint serves
-HTML from libraries as a download unless permissive browser file handling is on, which most tenants
-leave off.
+Maps still to author: episode, DCS, recert. Authorization **cannot** be derived from this workbook —
+`S-43` is the only authorization variable in it.
 
 ### Cross-referencing a target sheet against its current-state twin
 

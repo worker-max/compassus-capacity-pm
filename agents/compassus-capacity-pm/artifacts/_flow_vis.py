@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 """_flow_vis — draw the future-state sheets from the Capacity & Scheduling Variable Workbook.
 
-    python3 _flow_vis.py <flow> viz|future <out.svg>
+    python3 _flow_vis.py <flow> future|mvp|target <out.svg>
 
-Both sheets are MVP-scoped: a step is in scope when a majority of the variables behind it are
-MVP = Yes in the workbook's own MVP column. They differ only in how far the tool is allowed to go.
+Three stages on one ladder, each drawn on the current-state sheet's own geometry:
 
-    viz     FUTURE STATE VISUALIZATION MVP — release 1. The process is unchanged; every step,
-            actor and handoff stays where the current-state sheet put it. Reports scattered
-            across HCHB, Workday, Commure, routing and telephony are pulled into one view, so
-            the person already assigned to the step decides faster. A bold green outline marks
-            a step that gains that view. Nothing is automated.
+    future  FUTURE STATE — the visual, dashboard-like future. The process is unchanged; every
+            step, actor and handoff stays where the current-state sheet put it. Reports
+            scattered across HCHB, Workday, Commure, routing and telephony are pulled into one
+            view, so the person already assigned to the step decides faster. A bold green
+            outline marks a step that gains that view. Nothing is automated, and the scope is
+            everything the workbook holds — showing is cheap, so show it all.
 
-    future  FUTURE STATE MVP — where the same MVP scope ends up. Each in-scope step is redrawn
-            at the posture the workbook's "Future state -- the tool's role" column gives it:
-            Automate, Assist or Surface. Steps out of MVP scope stay exactly as they are today,
-            so the sheet shows release-1 scope against an unchanged background.
+    mvp     MVP — the first stage where the tool acts, and not the end of the road. Restricted
+            to variables the workbook marks MVP = Yes; each in-scope step is drawn at the
+            posture its "Future state -- the tool's role" column gives it. Steps outside MVP
+            stay exactly as they are today.
+
+    target  TARGET STATE — the end. The same posture treatment applied to every variable,
+            MVP or not.
 
 Nothing here is an editorial list. Change the MVP column in the workbook, re-run, and both
 sheets change with it.
@@ -123,13 +126,13 @@ def __ghost__(x, y, w, h, lines):
 def __skip__(lines):
     """A removed step is never drawn at all — painting the ghost over it leaves the original
     block's badge showing through the dashes."""
-    return __MODE__ != "viz" and __key__(lines) in __GONE__
+    return __MODE__ != "future" and __key__(lines) in __GONE__
 
 def __vis_mark__(x, y, w, h, lines, fill=None, small=False, badge=None, bc=None):
     role = __SCOPE__.get(__key__(lines))
     if not role:
         return
-    if __MODE__ == "viz":
+    if __MODE__ == "future":
         # release 1 changes nothing but what the person can see
         add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
             f'stroke="{{GRN}}" stroke-width="5"/>')
@@ -166,7 +169,7 @@ def build(flow, mode, out):
     for k, ids in vmap.items():
         if k.startswith("_") or not ids:
             continue
-        r = scope(ids, V, mvp_only=(mode != "full"))
+        r = scope(ids, V, mvp_only=(mode == "mvp"))
         if r:
             sc[k] = r
 
@@ -186,25 +189,28 @@ def build(flow, mode, out):
     src = src[:m.end(1)] + guard + src[m.end(1):]
     src = PRELUDE.format(scope=sc, gone=REMOVED.get(flow, {}), mode=mode) + "\n" + src
 
-    if mode == "full":
-        title, key = ("FUTURE STATE · FULL",
-                      "FUTURE STATE · FULL — every variable in the workbook, MVP or not · "
-                      "solid green = the tool does it; green with a colour bar = the tool "
-                      "proposes, the named person confirms; a green top stripe = the tool "
-                      "shows, the person decides")
-    elif mode == "viz":
-        title, key = ("FUTURE STATE VISUALIZATION · MVP",
-                      "FUTURE STATE VISUALIZATION · MVP — the process is unchanged; a "
-                      "green outline marks a step that gains one consolidated view instead of "
-                      "several reports · scope and posture read from the workbook's MVP column")
+    if mode == "target":
+        title, key = ("TARGET STATE",
+                      "TARGET STATE — where this ends up, across every variable in the "
+                      "workbook · solid green = the tool does it; green with a colour bar = "
+                      "the tool proposes, the named person confirms; a green top stripe = the "
+                      "tool shows, the person decides; a dashed struck-through block is a step "
+                      "that no longer exists")
+    elif mode == "mvp":
+        title, key = ("MVP",
+                      "MVP — the first stage where the tool acts, not the end of the road · "
+                      "scope is the workbook's MVP = Yes column · solid green = the tool does "
+                      "it; green with a colour bar = the tool proposes, the named person "
+                      "confirms; a green top stripe = the tool shows, the person decides · "
+                      "unmarked steps are outside MVP and unchanged")
     else:
-        title, key = ("FUTURE STATE · MVP",
-                      "FUTURE STATE · MVP — solid green = the tool does it; green with a "
-                      "colour bar = the tool proposes, the named person confirms; a green top "
-                      "stripe = the tool shows, the person decides · unmarked steps are out "
-                      "of MVP scope and unchanged")
-    if mode == "full":
-        mode = "future"               # drawn with the same posture vocabulary
+        title, key = ("FUTURE STATE",
+                      "FUTURE STATE — the process is unchanged; a green outline marks a step "
+                      "that gains one consolidated view instead of several scattered reports · "
+                      "nothing here is automated")
+
+    if mode != "future":
+        mode = "posture"              # mvp and target share the posture vocabulary
     src = src.replace("CURRENT STATE", title)
     src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
     src = src.replace("   \u00b7   current state, corrected 18 Aug 2026",
