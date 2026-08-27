@@ -767,37 +767,37 @@ MODULE = {
  "C-12":"Capacity Management","C-06":"Capacity Management","C-07":"Capacity Management",
  "C-08":"Capacity Management","C-09":"Capacity Management","C-10":"Capacity Management",
  "C-11":"Capacity Management","C-13":"Capacity Management",
- "S-01":"Scheduling","S-02":"Scheduling","S-03":"Scheduling",
- "S-35":"Scheduling","S-43":"Scheduling","S-44":"Scheduling",
- "S-36":"Scheduling","S-49":"Scheduling",
+ "S-01":"Scheduling Engine","S-02":"Scheduling Engine","S-03":"Scheduling Engine",
+ "S-35":"Scheduling Engine","S-43":"Scheduling Engine","S-44":"Scheduling Engine",
+ "S-36":"Scheduling Engine","S-49":"Scheduling Engine",
  "S-04":"Capacity Management","S-05":"Capacity Management","S-46":"Capacity Management",
  "S-06":"Capacity Management","S-07":"Capacity Management","S-08":"Capacity Management",
  "S-09":"Capacity Management","S-10":"Capacity Management","S-11":"Capacity Management",
  "S-12":"Capacity Management","S-13":"Capacity Management",
- "S-14":"Scheduling","S-17":"Scheduling","S-18":"Scheduling",
- "S-19":"Scheduling","S-45":"Scheduling","S-20":"Scheduling",
- "S-15":"Scheduling","S-16":"Scheduling","S-33":"Scheduling",
- "S-21":"Scheduling","S-22":"Scheduling",
+ "S-14":"Scheduling Engine","S-17":"Scheduling Engine","S-18":"Scheduling Engine",
+ "S-19":"Scheduling Engine","S-45":"Scheduling Engine","S-20":"Scheduling Engine",
+ "S-15":"Scheduling Engine","S-16":"Scheduling Engine","S-33":"Scheduling Engine",
+ "S-21":"Scheduling Engine","S-22":"Scheduling Engine",
  "S-23":"Engagement","S-24":"Engagement","S-25":"Engagement",
  "S-26":"Engagement","S-27":"Engagement","S-28":"Engagement",
  "S-47":"Engagement","S-29":"Engagement","S-30":"Engagement",
- "S-31":"Scheduling","S-48":"Scheduling","S-32":"Engagement",
- "S-34":"Scheduling","S-37":"Scheduling","S-38":"Scheduling",
- "S-39":"Scheduling","S-50":"Scheduling","S-40":"Scheduling",
- "S-41":"Scheduling","S-42":"Scheduling",
+ "S-31":"Scheduling Engine","S-48":"Scheduling Engine","S-32":"Engagement",
+ "S-34":"Scheduling Engine","S-37":"Scheduling Engine","S-38":"Scheduling Engine",
+ "S-39":"Scheduling Engine","S-50":"Scheduling Engine","S-40":"Scheduling Engine",
+ "S-41":"Scheduling Engine","S-42":"Scheduling Engine",
  "CO-01":"Engagement","CO-02":"Engagement","CO-03":"Engagement",
  "CO-04":"Engagement","CO-05":"Engagement","CO-13":"Engagement",
  "CO-14":"Engagement","CO-06":"Engagement","CO-07":"Engagement",
  "CO-08":"Engagement",
- "CO-09":"Scheduling","CO-10":"Scheduling","CO-11":"Scheduling",
- "CO-12":"Scheduling",
+ "CO-09":"Scheduling Engine","CO-10":"Scheduling Engine","CO-11":"Scheduling Engine",
+ "CO-12":"Scheduling Engine",
  "gap":"Engagement",   # not in the inventory; placed where the one-pager puts it
 }
 
 # ---------------------------------------------------------------- Colin's 25 Aug ruling
 # Coordination is engagement work: it is carried by contact with a patient or a clinician.
 # This DIVERGES from the Module column of the 19 Aug workbook, which has these four under
-# Scheduling. The workbook is upstream -- this needs writing back to it.
+# Scheduling Engine. The workbook is upstream -- this needs writing back to it.
 RULING = {
  "CO-09": ("Engagement", "Capacity, Scheduling"),
  "CO-10": ("Engagement", "Scheduling"),
@@ -854,15 +854,15 @@ for _v in ("CO-01","CO-02","CO-03","CO-04","CO-06","CO-07","CO-08","CO-09","CO-1
     DECAY[_v] = "This is the contact"
 
 
-SHORT = {"Capacity": "Capacity Management", "Scheduling": "Scheduling",
+SHORT = {"Capacity": "Capacity Management", "Scheduling": "Scheduling Engine",
          "Engagement": "Engagement"}
 
 # Which arena each one-pager group belongs to, so we can flag the disagreements.
 GROUP_ARENA = {
  "Workforce supply": "Capacity Management", "Availability & reach": "Capacity Management",
  "The capacity math": "Capacity Management",
- "Demand": "Scheduling", "Matching": "Scheduling",
- "Routing & the week": "Scheduling", "Exceptions": "Scheduling",
+ "Demand": "Scheduling Engine", "Matching": "Scheduling Engine",
+ "Routing & the week": "Scheduling Engine", "Exceptions": "Scheduling Engine",
  "Before the visit": "Engagement", "When plans change": "Engagement",
  "Across the care team": "Engagement",
 }
@@ -882,7 +882,7 @@ def alignment(vid, group):
     return f"Differs \u2014 the one-pager groups this under {grp}"
 
 
-ARENA_ORDER = {"Capacity Management": 0, "Scheduling": 1, "Engagement": 2}
+ARENA_ORDER = {"Capacity Management": 0, "Scheduling Engine": 1, "Engagement": 2}
 GROUP_ORDER = ["Workforce supply", "Availability & reach", "The capacity math",
                "Demand", "Matching", "Routing & the week", "Exceptions",
                "Before the visit", "When plans change", "Across the care team"]
@@ -909,7 +909,7 @@ def dash(v):
     return v
 
 def band(arena):
-    return {"Capacity Management": CAP, "Scheduling": SCH,
+    return {"Capacity Management": CAP, "Scheduling Engine": SCH,
             "Engagement": ENG}[arena]
 
 def build():
@@ -961,8 +961,8 @@ def build():
 
     sub(11, "How to read a row")
     rows = [
-        ("Arena (8.19 workbook)", "One of the three project categories: Capacity Management, Scheduling, Engagement. Placement is straight from the Module column of the 19 Aug workbook, which is authoritative -- change it there, not here. Only the names are shortened to match the one-pager (the workbook writes the third one as \u201cPatient Engagement\u201d)."),
-        ("What Engagement covers", "Not only the patient. Engagement is the contact work that turns a schedule into delivered visits, whoever it is with \u2014 office to clinician, clinician back to the office, clinician to clinician, and the care team to each other, as well as the patient and their caregiver. Finding coverage for a call-out is engagement; so is keeping the case manager in step. The one-pager already says so: \u201cwith patients, clinicians and the office.\u201d"),
+        ("Arena (8.19 workbook)", "One of the three project categories: Capacity Management, Scheduling Engine, Engagement. Placement is straight from the Module column of the 19 Aug workbook, which is authoritative -- change it there, not here. The only renaming is \u201cPatient Engagement\u201d \u2192 \u201cEngagement\u201d, to match the one-pager."),
+        ("What Engagement covers", "Not only the patient \u2014 which is exactly why the label was shortened. Engagement is the contact work that turns a schedule into delivered visits, whoever it is with: office to clinician, clinician back to the office, clinician to clinician, and the care team to each other, as well as the patient and their caregiver. Finding coverage for a call-out is engagement; so is keeping the case manager in step. The one-pager already says so: \u201cwith patients, clinicians and the office.\u201d"),
         ("Also touches", "The other arenas the variable shows up in. Plenty are shared -- that is expected, not a problem to resolve."),
         ("One-pager group", "The ten group headings from the vendor one-pager. Part B of the questionnaire scores exactly these groups."),
         ("Placement check", "Whether the workbook and the one-pager agree on where this belongs. They disagree on a number of rows -- neither is wrong, the workbook is the internal model and the one-pager is the vendor view, but a vendor answering under one heading while we score under another gives a false coverage read. The disagreements are surfaced here rather than resolved."),
@@ -1011,7 +1011,7 @@ def build():
     counts = [
         ("Rows in total", "87 variables from the 19 Aug inventory, plus 1 flagged gap. Nothing dropped.", f'=COUNTA(\'Master List\'!$A$2:$A${last})'),
         ("Capacity Management", "Rows the workbook assigns to capacity.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Capacity Management")'),
-        ("Scheduling", "Rows the workbook assigns to scheduling.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Scheduling")'),
+        ("Scheduling Engine", "Rows the workbook assigns to scheduling.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Scheduling Engine")'),
         ("Engagement", "Rows the workbook assigns to engagement.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Engagement")'),
         ("Shared across arenas", "Rows that also show up somewhere else \u2014 the seams.", f'=COUNTIF(\'Master List\'!$C$2:$C${last},"?*")'),
         ("Placement differs from the one-pager", "DECISION NEEDED. The workbook and the vendor page disagree on where these belong.", f'=COUNTIF(\'Master List\'!$E$2:$E${last},"Differs*")'),
@@ -1147,7 +1147,7 @@ def build():
     lists = wb.create_sheet("Lists")
     lists.sheet_view.showGridLines = False
     cols = {
-        "A": ("Arena (8.19 workbook)", ["Capacity Management", "Scheduling", "Engagement"]),
+        "A": ("Arena (8.19 workbook)", ["Capacity Management", "Scheduling Engine", "Engagement"]),
         "B": ("Confidence", ["High", "Medium", "Low"]),
         "C": ("Future state -- the tool's role", FUTURE_VALUES),
         "D": ("Adoption sensitivity", ["High", "Medium", "Low"]),

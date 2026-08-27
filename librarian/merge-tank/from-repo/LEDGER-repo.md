@@ -62,11 +62,10 @@ that can.
 
 ## What I am waiting on
 
-1. **The three category names, and what Engagement means.** The project's categories are
-   **Capacity Management · Scheduling · Engagement** (Colin, 25 Aug). The 19 Aug workbook's Module
-   column writes them as *Capacity Management / Scheduling Engine / Patient Engagement*. The
-   variable workbook uses the short names; the Module column upstream still uses the long ones.
-   **"Patient Engagement" is the one that actively misleads** — engagement is the contact work that
+1. **What Engagement means.** Arena names in the variable workbook are the Module column's own,
+   with one change: **"Patient Engagement" → "Engagement"** (Colin, 25 Aug). "Scheduling Engine"
+   stays for now, by his call. The rename is not cosmetic — the old label actively misleads:
+   engagement is the contact work that
    turns a schedule into delivered visits *whoever it is with*: office to clinician, clinician back
    to the office, clinician to clinician, care team to each other, as well as patient and caregiver.
    Finding coverage for a call-out is engagement. The one-pager already has this right — "with
