@@ -77,11 +77,11 @@ against exists at all* — and it re-enters the loop, because half of what you f
 | **6** Update flows | 17 – 18 Aug | 26 correction rounds | Redraw assessment · process-facts file · flow-map skill |
 | **7** Business case | 19 Aug – ongoing | parallel | Business case register · payer economics · research corpus |
 | **8** Feeding platforms | Jul – Aug | 2 | Ecosystem coverage scan · source war-list · data index |
-| **9** MVP spec | **open** | 0 | *not yet written* |
+| **9** MVP spec | 22 Aug | 1 | **MVP spec sheet — 19 variables in scope of 79** |
 | **10** Target state | **open** | 0 | *not yet drawn* |
 
-**Steps 9 and 10 are honestly incomplete.** Their sections are written as *procedure to run*, with
-the inputs already assembled, rather than as history. Everything they need exists.
+**Step 10 is still open.** Its section is written as *procedure to run*, with the inputs already
+assembled, rather than as history. Everything it needs exists.
 
 ---
 
@@ -253,7 +253,7 @@ urgent same-day · no-show · multi-discipline · care-team updates · coordinat
 | Category / rollup | For the coverage view |
 | **Constraint class** | Hard · Structural · Soft — decides whether it can be traded off |
 | **MVP requirement** | Yes / Maybe / No |
-| **Automation posture** | **Drive · Assist · Read-only** — what we will permit a system to do |
+| **Automation posture** | **Control · Assist · Read** — what we will permit a system to do |
 | Current state | How it works today, or that it doesn't |
 | **Notes / additional context** | Pain-point and road-bump commentary. *This is where the operational truth is* |
 
@@ -303,7 +303,7 @@ FAMILIES (name 3–5; these become your ID prefixes)
 ROW SCHEMA — every variable gets all of these
   [ ] ID (never renumbered)      [ ] Constraint class: hard / structural / soft
   [ ] Plain-language name        [ ] MVP requirement: yes / maybe / no
-  [ ] One-sentence definition    [ ] AUTOMATION POSTURE: drive / assist / read-only
+  [ ] One-sentence definition    [ ] AUTOMATION POSTURE: control / assist / read
   [ ] Category / rollup          [ ] Current state
   [ ] NOTES — the pain-point commentary
 
@@ -1100,8 +1100,8 @@ EXIT TEST
 
 # STEP 9 — Developing the MVP spec sheet with priorities
 
-> **Status: not yet written.** Every input exists. This section is the procedure to run, with the
-> inputs named.
+> **Status: written 22 Aug 2026** — [`mvp-spec-sheet.md`](../agents/compassus-capacity-pm/artifacts/mvp-spec-sheet.md).
+> 19 of 79 variables in scope. The derivation below is what produced it.
 
 ### The thinking
 
@@ -1160,12 +1160,46 @@ leaders visibility they have never had. **The value is not the schedule — it i
    programme with a date. Say so explicitly rather than quietly dropping it.
 3. **Cross it against the business case.** A variable no lever depends on is a candidate for v2,
    however satisfying it would be to build.
-4. **Apply the phase-1 posture.** Under visualisation-only, anything whose posture is *drive* moves
+4. **Apply the phase-1 posture.** Under visualisation-only, anything whose posture is *control* moves
    out of v1 by definition. This is a fast, large cut.
 5. **Write the "not in v1" list as a first-class section**, with the reason and the trigger that
    would bring each item in.
 6. **State the MVP's job in one sentence** that does not contain the word "optimise."
 7. **Attach the P0 decisions as prerequisites**, with owners and dates, at the top of the spec.
+
+### What it produced, and what the derivation found
+
+Four filters over 79 scored rows left **19 in scope** — the Shared and Capacity layers only, MVP
+required, sourceable, with a phase-1 posture override. **11 of the 19 are gating.**
+
+**Two findings the arithmetic produced that judgment would have missed:**
+
+**1 · The posture override is the whole discipline of the release.** Fifteen of the nineteen
+in-scope variables are scored `Control` — the system *could* decide and act. **In phase 1 none of
+them do; all nineteen ship at `Read`.** The scored posture is the *target-state ceiling*, not a v1
+commitment. A team reading the inventory as a v1 automation spec has misread it — and that misread
+is precisely what failed last time.
+
+**2 · The MVP has a single point of failure, and it is a decision, not a build.** The four derived
+variables that *are* the MVP's output — committed load, remaining capacity by day, week open
+capacity, and assessing capacity by discipline — are all computed from two variables that are
+**undecided policy**: the point values per visit type, and the productivity target and ceiling.
+
+```
+   SH-07 point values ──┐
+                        ├──▶ C-05 ──┬──▶ C-06  remaining capacity by day
+   SH-08 target/ceiling ┘           ├──▶ C-07  week open capacity
+                                    └──▶ C-08  assessing capacity  ★ the growth number
+```
+
+> **Until those two are decided, the MVP has nothing to display.** This is the same conclusion as
+> Step 5's open question #1, reached independently from the data model — which is a good sign the
+> chain held. It has had no named owner since 17 August, and it is the largest risk to the release.
+
+**This is why Step 9 is a projection and not an invention.** The scope, the knockouts, the critical
+path and the honest statement of which business case levers v1 can and cannot move all fell out of
+columns that already existed. **If writing the MVP spec requires fresh invention, one of Steps 2, 5,
+7 or 8 is incomplete — go back there.**
 
 ### ▢ Run it on a new initiative
 
@@ -1255,7 +1289,7 @@ survive.**
    post-MVP, and probably three horizons.
 3. **Delete before you redesign.** Start with the workflows Step 4 identified as illegitimate. A box
    removed is worth more than a box automated.
-4. **Show the posture on the sheet.** Where the system drives, where it assists, where it only reads.
+4. **Show the posture on the sheet.** Where the system controls, where it assists, where it only reads.
    That is the single most contested thing in the whole design; put it in the drawing.
 5. **Close the connection points explicitly.** Each `CP-` from Step 4 should be visibly resolved, or
    visibly still open, in the target state.
@@ -1279,7 +1313,7 @@ DRAW AGAINST THE CONSTRAINTS
 
 PER-BOX MARKING
   [ ] Phase: MVP / phase 2 / later
-  [ ] Posture: system drives / system assists / system reads only
+  [ ] Posture: system controls / system assists / system reads
   [ ] Actor (same colour convention as current state)
 
 THE ADOPTION TEST — name the person, then walk the sheet as them
@@ -1339,7 +1373,7 @@ deliverable list for a new initiative** — if a step produced nothing, it did n
 | 30 | Mockup / as-built data spec | 8 | What the built tool's model actually is |
 | 31 | Ecosystem coverage scan | 8 | Data index diffed against discovery. Structural gaps vs. extensions |
 | 32 | Drive index | all | Every file in the working folder, mapped to where it lives |
-| 33 | **MVP spec sheet** | 9 | *Not yet written — inputs assembled* |
+| 33 | **MVP spec sheet** | 9 | Scored inventory + war-list + business case register + DE-02/03/04/09. 19 of 79 variables in scope, 11 gating, all shipped at `Read` |
 | 34 | **Target-state flow sheets** | 10 | *Not yet drawn — inputs assembled* |
 
 ---
@@ -1396,6 +1430,8 @@ STEP 8 · WHAT FEEDS THE WORK                         [ ] not started
 
 STEP 9 · MVP SPEC + PRIORITIES                       [ ] not started
   The one sentence: "The MVP does not ________. It ________."
+  Variables: ____ total → ____ in scope → ____ gating
+  Single point of failure (the one decision that nulls the release): ____________
   ► Hands forward: the scope the target state is phased against
 
 STEP 10 · TARGET STATE                               [ ] not started
