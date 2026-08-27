@@ -266,6 +266,28 @@ not on an index. Two consequences worth knowing:
 An empty list is meaningful: it means *deliberately mapped to nothing* — a trigger, a boundary
 pill, a where-it-broke note. That is different from a missing key, which reports as unmapped.
 
+#### Sharing it — the PDFs do not carry the pop-ups
+
+**The shipped PDFs have nothing interactive in them, on purpose.** The hit layer is
+`display:none` in print, so the wall sheet stays a wall sheet. Three ways to hand someone the
+hover version, in the order they actually work:
+
+| How | Works for | Caveat |
+|---|---|---|
+| **Share the artifact link** | anyone with the link, desktop or phone, nothing to install | needs a browser and the link |
+| **Send the standalone `.html`** | anyone — double-click, no server, no network | ~70 KB; some mail filters strip `.html`, so zip it |
+| **`--pdf` annotated PDF** | Acrobat Reader, macOS Preview | **not** Chrome/Edge's built-in viewer, **not** Google Drive's preview |
+
+The HTML file is genuinely self-contained — the only `url()` in it is an internal SVG arrowhead
+reference. It renders correctly opened straight off disk with no `<!doctype>` wrapper, which was
+tested, not assumed.
+
+`--pdf` writes the mapping into an existing PDF as one invisible rect annotation per block, and
+verifies the page renders pixel-identically afterwards — it prints `render identical: True` and
+warns if not. Readers that support markup-annotation popups show the variables on mouse-over.
+**Most of the team will be previewing in Drive, where annotations do not render at all**, so treat
+the annotated PDF as a bonus for whoever opens it in Acrobat, never as the delivery mechanism.
+
 `variables.json` is generated from `knowledge/source/workbook-2026-08-13/Variable Inventory.csv`
 and holds all 76 IDs. **It is the 13 Aug inventory, not the 25 Aug build** — so the panel does not
 yet carry the *Future state — the tool's role* or *who decides* columns, and the 11 IDs the build

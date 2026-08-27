@@ -2,6 +2,7 @@
 """_flow_live — turn any flow-map generator into a hoverable sheet, without editing it.
 
     python3 _flow_live.py <generator.gen.py> <hotspot-map.json> <out.html> "<Title>"
+    python3 _flow_live.py --pdf <generator.gen.py> <hotspot-map.json> <in.pdf> <out.pdf>
 
 How it works. The generator is executed with its block-drawing helpers instrumented, so
 every block reports its own geometry and text. Nothing it draws changes — the SVG this
@@ -9,6 +10,11 @@ produces is byte-identical to the shipped sheet. The geometry is then used to la
 transparent hit-layer over the finished drawing, and each hot spot carries the workbook
 IDs for that block. Hover fires a panel; the sheet underneath is untouched, so the PDF
 pipeline and the printed wall sheet are unaffected.
+
+--pdf writes the same mapping into an existing PDF as invisible annotations, one per block.
+The rendered page stays pixel-identical, but readers that support markup-annotation popups
+(Acrobat Reader, macOS Preview) show the variables on mouse-over. Browser PDF viewers and
+Google Drive's preview do NOT render them — for those, share the HTML instead.
 
 The block -> variable mapping lives in the hotspot JSON, keyed on the block's own text.
 That is the only file to edit when the workbook moves.
@@ -57,8 +63,8 @@ def key_of(lines):
     return " ".join(lines).replace("—", "-").replace("’", "'").strip()
 
 
-def main():
-    gen, mapfile, out_html, title = sys.argv[1:5]
+def resolve(gen, mapfile):
+    """Run the generator and join each block it draws to its workbook variable IDs."""
     svg, rec, W, H = run(gen)
     vmap = json.loads(pathlib.Path(mapfile).read_text())
     variables = json.loads((pathlib.Path(gen).parent / "variables.json").read_text())
@@ -90,6 +96,12 @@ def main():
     for k in unmapped:
         print("  unmapped:", k)
     print(f"{len(hot)} hot spots · {len(unmapped)} unmapped · {len(rec)} blocks drawn")
+    return svg, hot, variables, W, H
+
+
+def main():
+    gen, mapfile, out_html, title = sys.argv[1:5]
+    svg, hot, variables, W, H = resolve(gen, mapfile)
 
     layer = ['<g id="hits">']
     for i, s in enumerate(hot):
@@ -229,5 +241,54 @@ document.addEventListener('click', e => { if (!vp.contains(e.target)) unpin(); }
 </script>
 """
 
+def annotate_pdf():
+    """Write the same mapping into an existing PDF as invisible popup annotations."""
+    import pymupdf
+    gen, mapfile, in_pdf, out_pdf = sys.argv[2:6]
+    _, hot, variables, W, H = resolve(gen, mapfile)
+
+    def body(ids):
+        rows = []
+        for i in ids:
+            d = variables.get(i)
+            if not d:
+                rows.append(f"{i} — not in the inventory; check variable-backlog.md")
+                continue
+            tags = " · ".join(t for t in [
+                d.get("constraint"),
+                "MVP" if d.get("mvp") == "Yes" else None,
+                d.get("posture"),
+                "GATING" if d.get("gating") == "Y" else None,
+                f"conf {d['confidence']}" if d.get("confidence") else None,
+            ] if t)
+            rows.append(f"{i} · {d.get('layer')} — {d.get('variable')}\n"
+                        f"[{tags}]\n{d.get('notes', '')}")
+        return "\n\n".join(rows)
+
+    doc = pymupdf.open(in_pdf)
+    pg = doc[0]
+    sx, sy = pg.rect.width / W, pg.rect.height / H
+    for s in hot:
+        a = pg.add_rect_annot(pymupdf.Rect(s["x"]*sx, s["y"]*sy,
+                                           (s["x"]+s["w"])*sx, (s["y"]+s["h"])*sy))
+        a.set_colors(stroke=None, fill=None)
+        a.set_border(width=0)
+        a.set_opacity(0)           # invisible: the printed sheet is unchanged
+        a.set_info(title=s["t"], content=body(s["v"]))
+        a.update()
+    doc.save(out_pdf)
+
+    # the page must render identically — a visible annotation would ruin the wall sheet
+    import hashlib
+    h = lambda p: hashlib.md5(pymupdf.open(p)[0].get_pixmap(dpi=72).samples).hexdigest()
+    same = h(in_pdf) == h(out_pdf)
+    print(f"wrote {out_pdf} · {len(hot)} annotations · render identical: {same}")
+    if not same:
+        print("!! the page changed — do not ship this")
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--pdf":
+        annotate_pdf()
+    else:
+        main()
