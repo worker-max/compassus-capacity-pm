@@ -1485,7 +1485,7 @@ Added 19 Aug, and it constrains the whole design: nothing may depend on real-tim
 **Open question:** How long is the blind window in practice? Nobody has measured it.
 
 
-## Patient Engagement — Matching
+## Engagement — Matching
 
 ### `S-25` Times the patient will not accept
 
@@ -1695,7 +1695,7 @@ Capturable on both sides, and worth confirming specifically for teaching-critica
 **Open question:** Do we hold clinician language capability anywhere today?
 
 
-## Patient Engagement — Before the visit
+## Engagement — Before the visit
 
 ### `CO-04` New-patient welcome call
 
@@ -1905,7 +1905,7 @@ Added 19 Aug, and it puts a hard boundary on the automation the one-pager promis
 **Open question:** Does this change what we can promise vendors about pre-admission outreach?
 
 
-## Patient Engagement — When plans change
+## Engagement — When plans change
 
 ### `CO-07` Rescheduling with the patient
 
@@ -1960,7 +1960,7 @@ The scramble when a clinician is out. It is owned jointly by the DCS and the sch
 | | |
 |---|---|
 | Also touches | Capacity, Scheduling |
-| Placement check | Ruled 25 Aug — moved to Patient Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
 | Who does the work today | DCS and Scheduler — jointly |
 | Who reads it and decides today | DCS and Scheduler — jointly; DCS escalates for a start of care |
 | Where it lives today | No system holds this. It runs on phone, text and Teams, against the scheduler's knowledge of who might take it. |
@@ -2000,7 +2000,7 @@ A genuine gap, not an oversight: this was added to the vendor ask on 21 Aug and 
 **Open question:** Do we add this to the variable inventory as a new ID? It is currently asked of vendors but not modelled by us.
 
 
-## Patient Engagement — Across the care team
+## Engagement — Across the care team
 
 ### `CO-10` Coordinating visits across disciplines
 
@@ -2009,7 +2009,7 @@ Spacing the nurse, the therapist and the aide sensibly across a week rather than
 | | |
 |---|---|
 | Also touches | Scheduling |
-| Placement check | Ruled 25 Aug — moved to Patient Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
 | Who does the work today | Scheduler — spaces them; Clinician — adjusts |
 | Who reads it and decides today | Scheduler |
 | Where it lives today | HCHB holds the visits; the spacing judgment is manual. |
@@ -2032,7 +2032,7 @@ The connective work of telling the case manager and the office when something ch
 | | |
 |---|---|
 | Also touches | Scheduling |
-| Placement check | Ruled 25 Aug — moved to Patient Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
 | Who does the work today | Scheduler and Clinician — write the notes |
 | Who reads it and decides today | Case Manager / Clinical Manager — act on what they read |
 | Where it lives today | HCHB coordination notes. |
@@ -2055,7 +2055,7 @@ The time clinicians and schedulers spend on coordination rather than care. It is
 | | |
 |---|---|
 | Also touches | Capacity, Scheduling |
-| Placement check | Ruled 25 Aug — moved to Patient Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
 | Who does the work today | Everyone — it is spread across every role |
 | Who reads it and decides today | — no one measures it today |
 | Where it lives today | Not measured anywhere. |

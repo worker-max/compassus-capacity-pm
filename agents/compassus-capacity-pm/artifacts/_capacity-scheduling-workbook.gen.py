@@ -778,20 +778,20 @@ MODULE = {
  "S-19":"Scheduling Engine","S-45":"Scheduling Engine","S-20":"Scheduling Engine",
  "S-15":"Scheduling Engine","S-16":"Scheduling Engine","S-33":"Scheduling Engine",
  "S-21":"Scheduling Engine","S-22":"Scheduling Engine",
- "S-23":"Patient Engagement","S-24":"Patient Engagement","S-25":"Patient Engagement",
- "S-26":"Patient Engagement","S-27":"Patient Engagement","S-28":"Patient Engagement",
- "S-47":"Patient Engagement","S-29":"Patient Engagement","S-30":"Patient Engagement",
- "S-31":"Scheduling Engine","S-48":"Scheduling Engine","S-32":"Patient Engagement",
+ "S-23":"Engagement","S-24":"Engagement","S-25":"Engagement",
+ "S-26":"Engagement","S-27":"Engagement","S-28":"Engagement",
+ "S-47":"Engagement","S-29":"Engagement","S-30":"Engagement",
+ "S-31":"Scheduling Engine","S-48":"Scheduling Engine","S-32":"Engagement",
  "S-34":"Scheduling Engine","S-37":"Scheduling Engine","S-38":"Scheduling Engine",
  "S-39":"Scheduling Engine","S-50":"Scheduling Engine","S-40":"Scheduling Engine",
  "S-41":"Scheduling Engine","S-42":"Scheduling Engine",
- "CO-01":"Patient Engagement","CO-02":"Patient Engagement","CO-03":"Patient Engagement",
- "CO-04":"Patient Engagement","CO-05":"Patient Engagement","CO-13":"Patient Engagement",
- "CO-14":"Patient Engagement","CO-06":"Patient Engagement","CO-07":"Patient Engagement",
- "CO-08":"Patient Engagement",
+ "CO-01":"Engagement","CO-02":"Engagement","CO-03":"Engagement",
+ "CO-04":"Engagement","CO-05":"Engagement","CO-13":"Engagement",
+ "CO-14":"Engagement","CO-06":"Engagement","CO-07":"Engagement",
+ "CO-08":"Engagement",
  "CO-09":"Scheduling Engine","CO-10":"Scheduling Engine","CO-11":"Scheduling Engine",
  "CO-12":"Scheduling Engine",
- "gap":"Patient Engagement",   # not in the inventory; placed where the one-pager puts it
+ "gap":"Engagement",   # not in the inventory; placed where the one-pager puts it
 }
 
 # ---------------------------------------------------------------- Colin's 25 Aug ruling
@@ -799,10 +799,10 @@ MODULE = {
 # This DIVERGES from the Module column of the 19 Aug workbook, which has these four under
 # Scheduling Engine. The workbook is upstream -- this needs writing back to it.
 RULING = {
- "CO-09": ("Patient Engagement", "Capacity, Scheduling"),
- "CO-10": ("Patient Engagement", "Scheduling"),
- "CO-11": ("Patient Engagement", "Scheduling"),
- "CO-12": ("Patient Engagement", "Capacity, Scheduling"),
+ "CO-09": ("Engagement", "Capacity, Scheduling"),
+ "CO-10": ("Engagement", "Scheduling"),
+ "CO-11": ("Engagement", "Scheduling"),
+ "CO-12": ("Engagement", "Capacity, Scheduling"),
 }
 
 # ---------------------------------------------------------------- when drift gets caught
@@ -855,7 +855,7 @@ for _v in ("CO-01","CO-02","CO-03","CO-04","CO-06","CO-07","CO-08","CO-09","CO-1
 
 
 SHORT = {"Capacity": "Capacity Management", "Scheduling": "Scheduling Engine",
-         "Engagement": "Patient Engagement"}
+         "Engagement": "Engagement"}
 
 # Which arena each one-pager group belongs to, so we can flag the disagreements.
 GROUP_ARENA = {
@@ -863,8 +863,8 @@ GROUP_ARENA = {
  "The capacity math": "Capacity Management",
  "Demand": "Scheduling Engine", "Matching": "Scheduling Engine",
  "Routing & the week": "Scheduling Engine", "Exceptions": "Scheduling Engine",
- "Before the visit": "Patient Engagement", "When plans change": "Patient Engagement",
- "Across the care team": "Patient Engagement",
+ "Before the visit": "Engagement", "When plans change": "Engagement",
+ "Across the care team": "Engagement",
 }
 
 def alignment(vid, group):
@@ -882,7 +882,7 @@ def alignment(vid, group):
     return f"Differs \u2014 the one-pager groups this under {grp}"
 
 
-ARENA_ORDER = {"Capacity Management": 0, "Scheduling Engine": 1, "Patient Engagement": 2}
+ARENA_ORDER = {"Capacity Management": 0, "Scheduling Engine": 1, "Engagement": 2}
 GROUP_ORDER = ["Workforce supply", "Availability & reach", "The capacity math",
                "Demand", "Matching", "Routing & the week", "Exceptions",
                "Before the visit", "When plans change", "Across the care team"]
@@ -910,7 +910,7 @@ def dash(v):
 
 def band(arena):
     return {"Capacity Management": CAP, "Scheduling Engine": SCH,
-            "Patient Engagement": ENG}[arena]
+            "Engagement": ENG}[arena]
 
 def build():
     wb = Workbook()
@@ -1011,7 +1011,7 @@ def build():
         ("Rows in total", "87 variables from the 19 Aug inventory, plus 1 flagged gap. Nothing dropped.", f'=COUNTA(\'Master List\'!$A$2:$A${last})'),
         ("Capacity Management", "Rows the workbook assigns to capacity.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Capacity Management")'),
         ("Scheduling Engine", "Rows the workbook assigns to scheduling.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Scheduling Engine")'),
-        ("Patient Engagement", "Rows the workbook assigns to engagement.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Patient Engagement")'),
+        ("Engagement", "Rows the workbook assigns to engagement.", f'=COUNTIF(\'Master List\'!$B$2:$B${last},"Engagement")'),
         ("Shared across arenas", "Rows that also show up somewhere else \u2014 the seams.", f'=COUNTIF(\'Master List\'!$C$2:$C${last},"?*")'),
         ("Placement differs from the one-pager", "DECISION NEEDED. The workbook and the vendor page disagree on where these belong.", f'=COUNTIF(\'Master List\'!$E$2:$E${last},"Differs*")'),
         ("Low confidence on source", "START HERE. We do not know where this lives.", f'=COUNTIF(\'Master List\'!$K$2:$K${last},"Low")'),
@@ -1022,7 +1022,7 @@ def build():
         ("Future state: Assist", "The tool proposes, a person confirms.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Assist")'),
         ("Future state: Surface", "The tool shows, a person decides.", f'=COUNTIF(\'Master List\'!$L$2:$L${last},"Surface")'),
         ("Drifts \u2014 needs re-contact", "THE ENGAGEMENT LOAD. These go stale unless somebody keeps asking.", f'=COUNTIF(\'Master List\'!$O$2:$O${last},"Drifts*")'),
-        ("...and sitting outside Engagement", "Capacity and scheduling rows that still need an engagement mechanism under them.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$B$2:$B${last},"<>Patient Engagement")'),
+        ("...and sitting outside Engagement", "Capacity and scheduling rows that still need an engagement mechanism under them.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$B$2:$B${last},"<>Engagement")'),
         ("...caught in the day-before round", "The single recurring contact point the process already has. Today it is manual, every patient, every day.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Day before*")'),
         ("...caught in the weekly build", "The clinician's own weekly planning pass.", f'=COUNTIF(\'Master List\'!$P$2:$P${last},"Weekly*")'),
         ("...with no re-check at all", "Drifts, and nothing catches it. Silent staleness.", f'=COUNTIFS(\'Master List\'!$O$2:$O${last},"Drifts*",\'Master List\'!$P$2:$P${last},"Not re-checked today")'),
@@ -1146,7 +1146,7 @@ def build():
     lists = wb.create_sheet("Lists")
     lists.sheet_view.showGridLines = False
     cols = {
-        "A": ("Arena (8.19 workbook)", ["Capacity Management", "Scheduling Engine", "Patient Engagement"]),
+        "A": ("Arena (8.19 workbook)", ["Capacity Management", "Scheduling Engine", "Engagement"]),
         "B": ("Confidence", ["High", "Medium", "Low"]),
         "C": ("Future state -- the tool's role", FUTURE_VALUES),
         "D": ("Adoption sensitivity", ["High", "Medium", "Low"]),
