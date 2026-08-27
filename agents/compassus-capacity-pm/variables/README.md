@@ -1,5 +1,11 @@
 # Variable workbook
 
+`8.13-Compassus-Capacity-Scheduling-Workbook.xlsx` — the origin workbook from the 13 August
+on-site, pulled from Drive. Fourteen tabs: the Variable Inventory the IDs come from, plus the
+Functional Scorecard, Definitions & Concepts, Decisions & Parking Lot, KPIs & Baseline, ROI &
+Finance Case, and the four role tabs. Kept here because the team is migrating off it and the
+migration has to be checked against something.
+
 `CapacitySchedulingVariableWorkbook.xlsx` — the unabridged variable inventory. One row per
 variable, numbered in four layers: `SH-` shared, `C-` capacity, `S-` scheduling, `CO-`
 coordination and engagement. The ID is the join key back to the 8.13 workbook, so IDs are
