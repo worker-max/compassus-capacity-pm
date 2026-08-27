@@ -1,0 +1,50 @@
+{
+  "_README": "Block -> workbook variable IDs for the full episode flow. Map a block to the variables behind the DECISION it embodies, not the data it happens to read. Empty list = deliberately mapped to nothing (a trigger, an output, a human gate, or where-it-breaks commentary).",
+
+  "Referral arrives hospital · MD · facility": [],
+  "Intake receives the referral": ["SH-09"],
+  "Auth verifies eligibility keys pending auth": ["S-43"],
+  "Intake gives final approval": [],
+  "DCS reviews the referral": ["S-33", "S-48"],
+  "Scheduler makes the welcome / intake call": ["CO-04", "CO-06", "CO-13", "CO-14"],
+  "Scheduler assigns the SOC and discipline evals": ["S-35", "S-15", "C-08"],
+  "Clinicians perform SOC and evals": [],
+
+  "Each discipline plots its own frequency": ["S-01", "S-02", "S-03"],
+  "DCS reviews and approves the POC": ["S-49", "S-44"],
+  "THE 485 MOMENT QA accepted  ·  POC locked 485 submitted  ·  orders to MD": ["S-49", "S-01"],
+  "HCHB generates visits and assignment tasks": ["S-01", "S-03"],
+  "Scheduler assigns all plotted visits - one pass": ["S-15", "S-16", "S-21", "S-22", "C-03"],
+  "Visits land on the clinician's calendar": [],
+
+  "Evaluate own capacity for the week": ["C-05", "C-06", "C-07", "SH-05", "SH-07", "SH-08"],
+  "Prioritise clinical need across the caseload": ["S-33", "S-31", "S-48"],
+  "Group visits geographically": ["S-14", "S-17", "S-18", "C-03"],
+  "Test against hard constraints": ["S-27", "S-28", "S-29", "S-30", "S-31", "S-32"],
+  "Confirm with the patient - the day before": ["CO-01", "CO-02", "CO-06", "CO-13", "CO-14"],
+  "Route - HCHB suggests, clinician adjusts": ["S-18", "S-19", "S-20", "S-14"],
+
+  "Accept": ["CO-03"],
+  "Reschedule": ["S-38", "CO-07"],
+  "Reassign": ["CO-09", "S-15"],
+  "Miss": ["S-39", "CO-08"],
+  "Decline": ["CO-09", "S-15"],
+
+  "Recert window opens - last 5 days": ["S-36"],
+  "Recertifying disciplines set the next 60 days": ["S-01", "S-03", "S-36"],
+  "Scheduling workflow fires for the new period": ["S-15", "C-08"],
+  "Or discharge - each discipline separately": [],
+  "The last discipline out does the agency D/C OASIS": [],
+  "Capacity returns to the branch": ["C-06", "C-07", "SH-09"],
+
+  "Clinician documents a missed visit": ["S-39"],
+  "Scheduler notifies the MD within 48 hours": ["S-39"],
+  "Not in time → workflow to the DCS": ["S-39", "CO-08"],
+  "Per diem / float pool - no territory, on purpose": ["C-09", "C-12"],
+  "Branch leadership - the capacity decision": ["C-02", "C-14", "SH-06", "SH-09"],
+
+  "Eight tasks for one decision the per-discipline explosion": [],
+  "Pending-auth visits are invisible not on a calendar, not counted": [],
+  "The weekly logic is undocumented and entirely unassisted": [],
+  "Capacity is read, never modelled so the levers are pulled late": []
+}

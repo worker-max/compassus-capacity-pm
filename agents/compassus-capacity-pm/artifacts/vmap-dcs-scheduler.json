@@ -1,0 +1,31 @@
+{
+  "_README": "Block -> workbook variable IDs for the DCS / scheduler flow. Map a block to the variables behind the DECISION it embodies, not the data it happens to read. Empty list = deliberately mapped to nothing (a trigger, an output, or a human gate no variable owns).",
+
+  "Referral arrives with initial orders": [],
+  "Intake receives referral in Commure": ["SH-09"],
+  "Auth team verifies eligibility, keys pending auth": ["S-43"],
+  "Intake final approval": [],
+  "DCS reviews referral": ["S-33", "S-48"],
+  "Scheduler books SOC / ROC visit + discipline evals": ["S-35", "S-15", "C-08"],
+  "Clinicians perform SOC / ROC + eval visits": [],
+
+  "Clinician submits discipline plan of care": ["S-01", "S-02", "S-03"],
+  "DCS reviews & approves": ["S-49", "S-44"],
+  "Visits generate in HCHB": ["S-01", "S-03"],
+  "Scheduler assigns to care team": ["S-15", "S-16", "S-21", "S-22", "C-03"],
+  "Visits on clinician calendar": [],
+  "Recertification OASIS recert visit, or non-OASIS recert eval": ["S-36"],
+  "Physician order adds a discipline eval, or changes the visits ordered": ["S-44", "S-01"],
+
+  "QA backlog visits compress": ["S-49"],
+  "Returned to clinician for correction - visits are held": ["S-49"],
+  "Pending auth not on calendar, not counted": ["S-43"],
+  "LUPA floor · too few visits": ["S-41", "S-03"],
+  "Utilisation ceiling · visits beyond need": ["S-41", "S-01"],
+
+  "Missed visit": [],
+  "Clinician documents missed visit": ["S-39"],
+  "Scheduler workflow notify MD": ["S-39"],
+  "Documented in HCHB": ["S-39"],
+  "DCS workflow 48h breach": ["S-39", "CO-08"]
+}

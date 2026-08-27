@@ -52,6 +52,8 @@ REMOVED = {
             "scheduling grid; they are the same object, do not build both",
             "Pending-auth visits invisible - not on calendar, not counted": "pending visits "
             "become visible and counted, so the blind spot stops existing"},
+    "dcs": {"Pending auth not on calendar, not counted": "pending visits become visible and "
+            "counted, so the blind spot stops existing"},
     "routine": {"Each submission generates its own assignment task": "DE-05 — the care team is "
                 "set at referral, so the per-discipline assignment task has nothing to do"},
 }
@@ -221,8 +223,16 @@ def build(flow, mode, out):
                       "green outline marks a step that gains one consolidated view · nothing "
                       "is automated")
 
+    # the episode sheet has a "Current state — ..." line inside its READING THIS MAP panel;
+    # the generic replace below would drop the whole footer key into that bullet.
+    # Read this BEFORE mode is collapsed to the drawing vocabulary below.
+    blurb = {"future": "The process is unchanged \u2014 the tool shows more",
+             "mvp": "The dashboard, plus the engine on MVP variables",
+             "target": "Every variable acted on in the desired way"}[mode]
+
     if mode != "future":
         mode = "posture"              # mvp and target share the posture vocabulary
+    src = src.replace("Current state \u2014 including what is wasteful or manual", blurb)
     src = src.replace("CURRENT STATE", title)
     src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
     src = src.replace("   \u00b7   current state, corrected 18 Aug 2026",
@@ -231,6 +241,19 @@ def build(flow, mode, out):
     src = re.sub(r'lbl\(M, H-34, "Compassus.*?cls="foot"\)',
                  lambda _: 'lbl(M, H-34, "Compassus Home Health \u00b7 Capacity & Scheduling \u2014 '
                            + key.replace('"', "'") + '", cls="foot")', src, flags=re.S)
+
+    # Not every generator says "current state" — the DCS sheet's eyebrow is just the company
+    # name and its footer explains the sizing convention. Without a fallback those sheets ship
+    # with no state on them at all, which is the one thing they must never do.
+    if title not in src:
+        src, n = re.subn(r'(cls="eyebrow"\))', r'\1', src, count=1)
+        src = re.sub(r'(lbl\([^,]+,\s*[\d.]+,\s*")([^"]*)("\s*,\s*cls="eyebrow"\))',
+                     lambda m: m.group(1) + m.group(2) + "   \u00b7   " + title + m.group(3),
+                     src, count=1)
+        src = re.sub(r'lbl\(\s*(?:50|M)\s*,\s*H-\d+\s*,\s*"(?:[^"\\]|\\.)*"'
+                     r'(?:\s*"(?:[^"\\]|\\.)*")*\s*,\s*cls="foot"\)',
+                     lambda _: 'lbl(50, H-40, "' + key.replace('"', "'") + '", cls="foot")',
+                     src, count=1)
 
     ns = {"__name__": "__vis__"}
     argv = sys.argv
