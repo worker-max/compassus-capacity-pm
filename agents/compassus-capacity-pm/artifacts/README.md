@@ -78,6 +78,8 @@ renumbered.
 | `flow-soc-target.html` | Source. Regenerate with `_flow-soc-target.gen.py` | Editing the SOC target state |
 | `Episode-Target-State.pdf` | **The episode end to end, TARGET STATE (v1.0)**. Four phases, same as the primary map, posture-marked | The future-state wall sheet. Pairs with `Primary-Flow-Map.pdf` |
 | `flow-episode-target.html` | Source. Regenerate with `_flow-episode-target.gen.py` | Editing the episode target state |
+| `Every-Patient-Visit-Competing-Priorities.pdf` | **Foundation sheet for the engagement maps.** The exec slide's eight competing priorities replotted against how immovable each one is and whether the tool can compute it, plus the six named collisions the original had no room for | Opening the patient-scheduling engagement work |
+| `flow-competing-priorities.html` | Source. Regenerate with `_flow-competing-priorities.gen.py` | Editing the foundation sheet |
 | `Flow-Routine-Visits-Target-State.pdf` | **Flow 2T — routine visit scheduling, TARGET STATE (v1.0)**. Positional clone of `Flow-Routine-Visits`; the per-discipline assignment-task burst is ghosted | Pairs with `Flow-Routine-Visits.pdf` side by side |
 | `flow-routine-visits-target.html` | Source. Regenerate with `_flow-routine-visits-target.gen.py` | Editing flow 2T |
 | `Flow-Authorization-Target-State.pdf` | **Flow 3T — authorization, TARGET STATE (v1.0)**. Positional clone of `Flow-Authorization`; pending auth is derived rather than keyed, and the pending visit stays visible and counted | Pairs with `Flow-Authorization.pdf` side by side |
