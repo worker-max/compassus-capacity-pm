@@ -3,22 +3,25 @@
 
     python3 _flow_vis.py <flow> future|mvp|target <out.svg>
 
-Three stages on one ladder, each drawn on the current-state sheet's own geometry:
+Four states. The two middle ones are BOTH future states — different evolutions of the same
+future, not different subjects — and they are cumulative: MVP keeps everything the dashboard
+gives you and adds the engine on top.
 
-    future  FUTURE STATE — the visual, dashboard-like future. The process is unchanged; every
-            step, actor and handoff stays where the current-state sheet put it. Reports
-            scattered across HCHB, Workday, Commure, routing and telephony are pulled into one
-            view, so the person already assigned to the step decides faster. A bold green
-            outline marks a step that gains that view. Nothing is automated, and the scope is
-            everything the workbook holds — showing is cheap, so show it all.
+    future  FUTURE STATE — DASHBOARD VISUALIZATION. The process is unchanged; every step, actor
+            and handoff stays where the current-state sheet put it. Reports scattered across
+            HCHB, Workday, Commure, routing and telephony are pulled into one view, so the
+            person already assigned to the step decides faster. A bold green outline marks a
+            step that gains that view. Nothing is automated, and the scope is everything the
+            workbook holds — showing is cheap, so show it all.
 
-    mvp     MVP — the first stage where the tool acts, and not the end of the road. Restricted
-            to variables the workbook marks MVP = Yes; each in-scope step is drawn at the
-            posture its "Future state -- the tool's role" column gives it. Steps outside MVP
-            stay exactly as they are today.
+    mvp     FUTURE STATE — MVP. The dashboard, PLUS the automation and AI engine on the
+            variables the workbook marks MVP = Yes. Those steps are redrawn at the posture
+            their "Future state -- the tool's role" column gives them; every other step keeps
+            the dashboard outline, because the visualisation does not go away when the engine
+            arrives.
 
-    target  TARGET STATE — the end. The same posture treatment applied to every variable,
-            MVP or not.
+    target  TARGET STATE — optimal functionality. Every variable accounted for and acted on in
+            the way the workbook says is most desirable.
 
 Nothing here is an editorial list. Change the MVP column in the workbook, re-run, and both
 sheets change with it.
@@ -88,6 +91,7 @@ PRELUDE = '''
 __VIS__ = True
 __D__ = [0]
 __SCOPE__ = {scope!r}
+__SEEN__ = {seen!r}
 __GONE__ = {gone!r}
 __MODE__ = {mode!r}
 GRN, GRND, DARKINK = "#A6E22E", "#5F8A12", "#1B211E"
@@ -128,15 +132,21 @@ def __skip__(lines):
     block's badge showing through the dashes."""
     return __MODE__ != "future" and __key__(lines) in __GONE__
 
+def __outline__(x, y, w, h, badge, fill, bc):
+    add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
+        f'stroke="{{GRN}}" stroke-width="5"/>')
+    if badge: __badge__(x, y, w, badge, bc or fill)
+
 def __vis_mark__(x, y, w, h, lines, fill=None, small=False, badge=None, bc=None):
-    role = __SCOPE__.get(__key__(lines))
-    if not role:
-        return
+    k = __key__(lines)
+    role = __SCOPE__.get(k)
     if __MODE__ == "future":
-        # release 1 changes nothing but what the person can see
-        add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
-            f'stroke="{{GRN}}" stroke-width="5"/>')
-        if badge: __badge__(x, y, w, badge, bc or fill)
+        # the dashboard: the process is untouched, the person just sees more
+        if role: __outline__(x, y, w, h, badge, fill, bc)
+        return
+    if not role:
+        # MVP keeps the dashboard everywhere the engine has not reached yet
+        if k in __SEEN__: __outline__(x, y, w, h, badge, fill, bc)
         return
     # future state: repaint the step at the posture the workbook gives it
     if role == "Automate":
@@ -187,27 +197,29 @@ def build(flow, mode, out):
              f"        return __vis_mark__(x, y, w, h, lines, fill=fill"
              f"{', ' + back if back else ''})\n")
     src = src[:m.end(1)] + guard + src[m.end(1):]
-    src = PRELUDE.format(scope=sc, gone=REMOVED.get(flow, {}), mode=mode) + "\n" + src
+    # every mapped block gains the dashboard view; MVP shows it wherever the engine has not
+    # yet taken over, so the two future states read as one evolving into the other
+    seen = {k for k, ids in vmap.items() if not k.startswith("_") and ids}
+    src = PRELUDE.format(scope=sc, seen=seen, gone=REMOVED.get(flow, {}),
+                         mode=mode) + "\n" + src
 
+    # these land in a single-line footer with page text on the right — the 2200pt canvas
+    # leaves room for roughly 180 characters, so keep them short
     if mode == "target":
         title, key = ("TARGET STATE",
-                      "TARGET STATE — where this ends up, across every variable in the "
-                      "workbook · solid green = the tool does it; green with a colour bar = "
-                      "the tool proposes, the named person confirms; a green top stripe = the "
-                      "tool shows, the person decides; a dashed struck-through block is a step "
-                      "that no longer exists")
+                      "TARGET STATE — optimal functionality, every variable acted on · solid = "
+                      "the tool does it; colour bar = it proposes; top stripe = it shows; "
+                      "dashed = no longer a step")
     elif mode == "mvp":
-        title, key = ("MVP",
-                      "MVP — the first stage where the tool acts, not the end of the road · "
-                      "scope is the workbook's MVP = Yes column · solid green = the tool does "
-                      "it; green with a colour bar = the tool proposes, the named person "
-                      "confirms; a green top stripe = the tool shows, the person decides · "
-                      "unmarked steps are outside MVP and unchanged")
+        title, key = ("FUTURE STATE · MVP",
+                      "FUTURE STATE · MVP — the dashboard plus the engine on MVP = Yes "
+                      "variables · solid = the tool does it; colour bar = it proposes; top "
+                      "stripe = it shows; outline = view only")
     else:
-        title, key = ("FUTURE STATE",
-                      "FUTURE STATE — the process is unchanged; a green outline marks a step "
-                      "that gains one consolidated view instead of several scattered reports · "
-                      "nothing here is automated")
+        title, key = ("FUTURE STATE · DASHBOARD VISUALIZATION",
+                      "FUTURE STATE · DASHBOARD VISUALIZATION — the process is unchanged; a "
+                      "green outline marks a step that gains one consolidated view · nothing "
+                      "is automated")
 
     if mode != "future":
         mode = "posture"              # mvp and target share the posture vocabulary

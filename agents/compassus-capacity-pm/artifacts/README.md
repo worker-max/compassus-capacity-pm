@@ -232,39 +232,43 @@ is the line the sheet closes the band with.
 
 ### The four states, in order
 
-One ladder. Each rung is drawn on the current-state sheet's own geometry, so any two overlay
-block for block.
+**Two of the four are future states** — the dashboard and MVP are different evolutions of the
+same future, not different subjects. They are **cumulative**: MVP keeps everything the dashboard
+gives you and adds the engine on top. Each is drawn on the current-state sheet's own geometry, so
+any two overlay block for block.
 
 | # | State | What it says | How it is drawn |
 |---|---|---|---|
 | 1 | **Current State** | today | the base sheets |
-| 2 | **Future State** | the visual, dashboard-like future. Reports scattered across HCHB, Workday, Commure, routing and telephony pulled into one view so the person already assigned to the step decides faster. **Nothing is automated** | current-state sheet, bold green outline on every step that gains that view |
-| 3 | **MVP** | the first stage where the tool *acts* — and **not** the end of the road. Scope is the workbook's `MVP = Yes` column | in-scope steps redrawn at their workbook posture; everything else unchanged |
-| 4 | **Target State** | the end. The same posture treatment across **every** variable, MVP or not | as MVP, at full scope |
+| 2 | **Future State · Dashboard Visualization** | reports scattered across HCHB, Workday, Commure, routing and telephony pulled into one view, so the person already assigned to the step decides faster. **Nothing automated** | bold green outline on every step that gains that view |
+| 3 | **Future State · MVP** | the dashboard **plus** the automation / AI engine on the `MVP = Yes` variables | in-scope steps at their workbook posture; **every other step keeps the dashboard outline** |
+| 4 | **Target State** | optimal functionality — every variable accounted for and acted on in the most desirable way | posture treatment at full scope |
 
-`python3 _flow_vis.py <flow> future|mvp|target <out.svg>` — all three read the workbook, none is
-an editorial list. Change the MVP column and re-run; the sheets change with it.
+`python3 _flow_vis.py <flow> future|mvp|target <out.svg>` — all three read the workbook. Change
+the MVP column and re-run; the sheets change with it.
 
-**Future State is deliberately full scope.** Showing is cheap, so it shows everything the workbook
-holds. If it were MVP-scoped it would just be MVP with less automation, and the rung would carry no
-information of its own.
+**MVP must not drop the dashboard.** The visualisation does not go away when the engine arrives, so
+on the MVP sheet a step outside MVP scope still carries its green outline. An earlier version left
+those steps bare, which read as though release 2 took capability away.
+
+**Dashboard is deliberately full scope.** Showing is cheap, so it shows everything the workbook
+holds. MVP-scoping it would make it MVP with less automation and no information of its own.
 
 **Posture per block is the MODAL role among the in-scope variables, ties broken toward the weaker
 posture.** Strongest-wins made 18 of 19 blocks read `Automate` because one variable in each did.
 
-**Target State supersedes the hand-built target sheets.** Those were authored before the workbook
-existed; the derived sheet is the same artefact read from the `Future state -- the tool's role`
-column instead of from judgment. On SOC/ROC they agree on all but three blocks, and per the rule
-already recorded the column wins. The originals are kept as `*-Target-State-v1-authored.pdf` for
-provenance only — do not circulate them.
+**Target State supersedes the hand-built target sheets**, which were authored before the workbook
+existed. On SOC/ROC they agree on all but three blocks and the column wins. Originals kept as
+`*-Target-State-v1-authored.pdf` for provenance only — do not circulate.
 
-**One thing the workbook cannot express**, carried across by hand in `REMOVED`: that a step stops
-existing. The workbook says how far the tool goes on a *variable*, never that a *step* disappears.
-Without that table the derived sheets would silently lose what the hand-built targets knew.
+**One thing the workbook cannot express**, carried by hand in `REMOVED`: that a step stops existing.
+The workbook says how far the tool goes on a *variable*, never that a *step* disappears.
 
-**Narrowing to MVP can change a posture, not only drop a block.** On SOC/ROC, MVP drops 6 blocks and
-*shifts* 4 more, because the modal role among only the `MVP = Yes` variables differs from the modal
-across all of them. It will look like an error to anyone expecting a pure subset.
+**Narrowing to MVP can change a posture, not only drop a block** — on SOC/ROC it drops 6 and shifts
+4, because the modal role among only the `MVP = Yes` variables differs.
+
+**Footer keys must stay under ~180 characters.** They share one line with the page reference on the
+right; longer strings collide on the 2200pt canvases.
 
 ### SOC/ROC is the primary flow
 
