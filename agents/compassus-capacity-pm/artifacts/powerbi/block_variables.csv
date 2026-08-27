@@ -6,11 +6,8 @@ Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,SH-
 Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-01
 Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,SH-03
 Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-37
-Routine Visit Scheduling,Each submission generates its own assignment task,S-01
-Routine Visit Scheduling,Each submission generates its own assignment task,S-15
-Routine Visit Scheduling,DCS reviews & approves the POC,S-01
-Routine Visit Scheduling,DCS reviews & approves the POC,S-03
-Routine Visit Scheduling,DCS reviews & approves the POC,S-36
+Routine Visit Scheduling,DCS reviews & approves the POC,S-49
+Routine Visit Scheduling,DCS reviews & approves the POC,S-44
 Routine Visit Scheduling,Scheduler assigns visits to care team,S-15
 Routine Visit Scheduling,Scheduler assigns visits to care team,S-16
 Routine Visit Scheduling,Scheduler assigns visits to care team,S-21
@@ -70,15 +67,3 @@ Routine Visit Scheduling,Miss → compliance chain,CO-08
 Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,CO-09
 Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,S-15
 Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,C-09
-Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",SH-03
-Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",S-15
-Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",S-37
-Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,S-37
-Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,C-08
-Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-01
-Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-06
-Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-12
-Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-41
-Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-42
-Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-12
-Routine Visit Scheduling,The weekly logic is undocumented and unassisted,C-05

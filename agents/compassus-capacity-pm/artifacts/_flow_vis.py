@@ -1,29 +1,24 @@
 # -*- coding: utf-8 -*-
-"""_flow_vis — derive the VISUALISE-ONLY and MVP sheets from a CURRENT-STATE generator.
+"""_flow_vis — draw the future-state sheets from the Capacity & Scheduling Variable Workbook.
 
-    python3 _flow_vis.py <flow> full|mvp <out.svg>
+    python3 _flow_vis.py <flow> viz|future <out.svg>
 
-Visualise-only does not change the process. Every step, every actor and every handoff stays
-exactly where the current-state sheet put it. What changes is that reports scattered across
-HCHB, Workday, Commure, routing and telephony are pulled into one view, so the person already
-assigned to that step decides faster and better informed.
+Both sheets are MVP-scoped: a step is in scope when a majority of the variables behind it are
+MVP = Yes in the workbook's own MVP column. They differ only in how far the tool is allowed to go.
 
-So these sheets are the current-state sheets, marked. A bold green outline says: this step gets
-a consolidated view. Nothing is recoloured, nothing moves, nothing is automated — which is also
-why they overlay their current-state twin perfectly.
+    viz     FUTURE STATE VISUALIZATION MVP — release 1. The process is unchanged; every step,
+            actor and handoff stays where the current-state sheet put it. Reports scattered
+            across HCHB, Workday, Commure, routing and telephony are pulled into one view, so
+            the person already assigned to the step decides faster. A bold green outline marks
+            a step that gains that view. Nothing is automated.
 
-Both documents are derived from the workbook through vmap-<flow>.json, not from an editorial
-list:
+    future  FUTURE STATE MVP — where the same MVP scope ends up. Each in-scope step is redrawn
+            at the posture the workbook's "Future state -- the tool's role" column gives it:
+            Automate, Assist or Surface. Steps out of MVP scope stay exactly as they are today,
+            so the sheet shows release-1 scope against an unchanged background.
 
-    full   outline where ANY variable behind the block has Current-state = In-system.
-           The ceiling of free visualisation: no new capture, only consolidation.
-
-    mvp    outline where ANY variable behind the block has MVP Req. = Yes.
-           Where those variables are already In-system the outline is solid; where they are
-           Manual or Tacit it is dashed and badged NEEDS CAPTURE, because release 1 committed
-           to them and nothing records them yet.
-
-MVP is not a subset of full. The difference between the two sheets is the release-1 build list.
+Nothing here is an editorial list. Change the MVP column in the workbook, re-run, and both
+sheets change with it.
 """
 import json
 import pathlib
@@ -33,111 +28,121 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 
 FLOWS = {
-    "soc":     ("_flow-detailed-composite.gen.py", "vmap-soc.json",
-                "Home Health Capacity & Scheduling — Detailed Flow"),
-    "episode": ("_flow-primary-map.gen.py",        "vmap-episode.json",
-                "The Episode, End to End"),
-    "routine": ("_flow-routine-visits.gen.py",     "vmap-routine-visits.json",
-                "Routine Visit Scheduling"),
-    "auth":    ("_flow-authorization.gen.py",      "vmap-authorization.json", "Authorization"),
-    "dcs":     ("_flow-dcs-scheduler.gen.py",      "vmap-dcs-scheduler.json",
-                "Plan of Care → Assignment"),
-    "recert":  ("_flow-recert-discharge.gen.py",   "vmap-recert-discharge.json",
-                "Recertification & Discharge"),
+    "soc":     ("_flow-detailed-composite.gen.py", "vmap-soc.json"),
+    "episode": ("_flow-primary-map.gen.py",        "vmap-episode.json"),
+    "routine": ("_flow-routine-visits.gen.py",     "vmap-routine-visits.json"),
+    "auth":    ("_flow-authorization.gen.py",      "vmap-authorization.json"),
+    "dcs":     ("_flow-dcs-scheduler.gen.py",      "vmap-dcs-scheduler.json"),
+    "recert":  ("_flow-recert-discharge.gen.py",   "vmap-recert-discharge.json"),
 }
 
-LIT, CAPTURE, DARK = "lit", "capture", "dark"
+# strongest posture wins when a block's MVP variables disagree
+RANK = {"Automate": 3, "Assist": 2, "Surface": 1, "Stays manual": 0}
 
 
 def key_of(lines):
     return " ".join(lines).replace("—", "-").replace("’", "'").strip()
 
 
-def classify(ids, variables, mvp):
-    """Read the workbook columns behind a block and decide how it is marked.
+def scope(ids, V):
+    """In MVP when a majority of the block's variables are MVP = Yes.
 
-    The bar is a MAJORITY of the block's variables, not any one of them. Consolidating one
-    report out of seven does not make the decision quicker or better informed — it just moves
-    where you go to be under-informed. On an "any" rule 19 of routine visits' 21 blocks light
-    up and the two sheets are indistinguishable, which is no use in a demo and, worse, is not
-    true.
+    A majority, not any one of them: on an "any" rule almost every block qualifies and the
+    sheets stop discriminating, which is no use in a demo and is not true either.
     """
-    ds = [variables[i] for i in ids if i in variables]
+    ds = [V[i] for i in ids if i in V]
     if not ds:
-        return DARK
-    if not mvp:
-        insys = sum(1 for d in ds if d.get("current") == "In-system")
-        return LIT if insys * 2 >= len(ds) else DARK
+        return None
     yes = [d for d in ds if d.get("mvp") == "Yes"]
-    if not yes:
-        return DARK
-    insys = sum(1 for d in yes if d.get("current") == "In-system")
-    return LIT if insys * 2 >= len(yes) else CAPTURE
-
-
-def sources(ids, variables):
-    """The platforms a block's data would be pulled from, for the consolidated view."""
-    out = []
-    for i in ids:
-        for tok in re.split(r"[+/,]", variables.get(i, {}).get("sot", "")):
-            tok = tok.strip()
-            if tok and tok.lower() not in ("manual", "derived", "config") and tok not in out:
-                out.append(tok)
-    return out
+    if len(yes) * 2 < len(ds):
+        return None
+    # the MODAL posture, ties broken toward the weaker one. Taking the strongest instead makes
+    # a step read "Automate" because one variable of seven does — 18 of 19 blocks on routine
+    # visits came out Automate that way, which is not what the workbook says.
+    import collections
+    tally = collections.Counter(d.get("role", "") for d in yes if d.get("role"))
+    if not tally:
+        return None
+    top = max(tally.values())
+    return min((r for r, n in tally.items() if n == top), key=lambda r: RANK.get(r, 0))
 
 
 PRELUDE = '''
 __VIS__ = True
 __D__ = [0]
-__STATE__ = {state!r}
-__SRC__ = {src!r}
-GRN, GRND = "#A6E22E", "#5F8A12"
+__SCOPE__ = {scope!r}
+__MODE__ = {mode!r}
+GRN, GRND, DARKINK = "#A6E22E", "#5F8A12", "#1B211E"
 
 def __key__(lines):
     return " ".join(lines).replace("\\u2014", "-").replace("\\u2019", "'").strip()
 
-def __vis_mark__(x, y, w, h, lines, fill=None, badge=None, bc=None):
-    """Outline a step that gains a consolidated view. The block itself is untouched."""
-    st = __STATE__.get(__key__(lines))
-    if st not in ("lit", "capture"):
+def __text__(x, y, w, h, lines, small, colour):
+    lh = 15.5 if small else 19
+    cls = "bt s" if small else "bt"
+    cy = y + h/2 - (len(lines)-1)*lh/2 + (5 if small else 6)
+    for i, ln in enumerate(lines):
+        add(f'<text x="{{x+w/2}}" y="{{cy+i*lh}}" class="{{cls}}" style="fill:{{colour}}" '
+            f'text-anchor="middle">{{esc(ln)}}</text>')
+
+def __badge__(x, y, w, label, colour):
+    bw = 8.3*len(label)+18
+    add(f'<rect x="{{x+w-bw-8}}" y="{{y-14}}" width="{{bw}}" height="23" rx="11.5" '
+        f'fill="#FFFFFF" stroke="{{colour}}" stroke-width="1.8"/>')
+    add(f'<text x="{{x+w-bw/2-8}}" y="{{y+2}}" class="bdg" text-anchor="middle" '
+        f'fill="{{colour}}">{{esc(label)}}</text>')
+
+def __vis_mark__(x, y, w, h, lines, fill=None, small=False, badge=None, bc=None):
+    role = __SCOPE__.get(__key__(lines))
+    if not role:
         return
-    # solid vs dashed carries the distinction on its own. A text pill was tried and there is
-    # nowhere to put it: above the block is the badge, below it is the sublist, inside it is
-    # the block's own wording.
-    dash = ' stroke-dasharray="9 6"' if st == "capture" else ""
-    add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
-        f'stroke="{{GRN}}" stroke-width="5"{{dash}}/>')
-    # the outline runs straight through a badge sitting on the block's top edge, so put the
-    # badge back on top of it
-    if badge:
-        bw = 8.3*len(badge)+18
-        add(f'<rect x="{{x+w-bw-8}}" y="{{y-14}}" width="{{bw}}" height="23" rx="11.5" '
-            f'fill="#FFFFFF" stroke="{{bc or fill}}" stroke-width="1.8"/>')
-        add(f'<text x="{{x+w-bw/2-8}}" y="{{y+2}}" class="bdg" text-anchor="middle" '
-            f'fill="{{bc or fill}}">{{esc(badge)}}</text>')
+    if __MODE__ == "viz":
+        # release 1 changes nothing but what the person can see
+        add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
+            f'stroke="{{GRN}}" stroke-width="5"/>')
+        if badge: __badge__(x, y, w, badge, bc or fill)
+        return
+    # future state: repaint the step at the posture the workbook gives it
+    if role == "Automate":
+        add(f'<rect x="{{x}}" y="{{y}}" width="{{w}}" height="{{h}}" rx="5" fill="{{GRN}}"/>')
+        __text__(x, y, w, h, lines, small, DARKINK)
+        __badge__(x, y, w, badge or "AUTOMATE", GRND)
+    elif role == "Assist":
+        BAR = 52
+        add(f'<rect x="{{x}}" y="{{y}}" width="{{w}}" height="{{h}}" rx="5" fill="{{GRN}}"/>')
+        add(f'<path d="M {{x+w-BAR}} {{y}} L {{x+w-6}} {{y}} A 6 6 0 0 1 {{x+w}} {{y+6}} '
+            f'L {{x+w}} {{y+h-6}} A 6 6 0 0 1 {{x+w-6}} {{y+h}} L {{x+w-BAR}} {{y+h}} Z" '
+            f'fill="{{fill}}"/>')
+        __text__(x, y, w-BAR, h, lines, small, DARKINK)
+        __badge__(x, y, w, badge or "ASSIST", fill)
+    else:                                   # Surface — the person still decides
+        add(f'<path d="M {{x+6}} {{y}} L {{x+w-6}} {{y}} A 6 6 0 0 1 {{x+w}} {{y+6}} '
+            f'L {{x+w}} {{y+13}} L {{x}} {{y+13}} L {{x}} {{y+6}} '
+            f'A 6 6 0 0 1 {{x+6}} {{y}} Z" fill="{{GRN}}"/>')
+        if badge: __badge__(x, y, w, badge, bc or fill)
 '''
 
 
-def build(flow, mvp, out):
-    gen, mapfile, nice = FLOWS[flow]
+def build(flow, mode, out):
+    gen, mapfile = FLOWS[flow]
     src = (HERE / gen).read_text()
-    variables = json.loads((HERE / "variables.json").read_text())
+    V = json.loads((HERE / "variables.json").read_text())
     vmap = json.loads((HERE / mapfile).read_text())
 
-    state, srcmap = {}, {}
+    sc = {}
     for k, ids in vmap.items():
         if k.startswith("_") or not ids:
             continue
-        state[k] = classify(ids, variables, mvp)
-        srcmap[k] = sources(ids, variables)
+        r = scope(ids, V)
+        if r:
+            sc[k] = r
 
-    # one hook covers every block on the sheet: the row/phase helpers all call block()
     m = re.search(r"^(def block\(([^)]*)\):\n)", src, re.M)
     if not m:
         raise SystemExit(f"{gen}: no block() to hook")
     args = m.group(2)
     fwd = ", ".join(f"{k}={k}" for k in ("small", "badge", "tc", "bc") if k in args)
-    back = ", ".join(f"{k}={k}" for k in ("badge", "bc") if k in args)
+    back = ", ".join(f"{k}={k}" for k in ("small", "badge", "bc") if k in args)
     guard = (f"    if __VIS__ and not __D__[0]:\n"
              f"        __D__[0] += 1\n"
              f"        try: block(x, y, w, h, fill, lines{', ' + fwd if fwd else ''})\n"
@@ -145,17 +150,21 @@ def build(flow, mvp, out):
              f"        return __vis_mark__(x, y, w, h, lines, fill=fill"
              f"{', ' + back if back else ''})\n")
     src = src[:m.end(1)] + guard + src[m.end(1):]
-    src = PRELUDE.format(state=state, src=srcmap) + "\n" + src
+    src = PRELUDE.format(scope=sc, mode=mode) + "\n" + src
 
-    scope = "MVP" if mvp else "VISUALISE ONLY"
-    key = ("MVP · solid green = one consolidated view, from data already in a system · "
-           "dashed green = committed for release 1, nothing records it yet"
-           if mvp else
-           "VISUALISE ONLY · a green outline marks a step that gains one consolidated view "
-           "instead of several reports · the process itself is unchanged")
-    src = src.replace("CURRENT STATE", scope)
+    if mode == "viz":
+        title, key = ("FUTURE STATE VISUALIZATION · MVP",
+                      "FUTURE STATE VISUALIZATION · MVP — the process is unchanged; a "
+                      "green outline marks a step that gains one consolidated view instead of "
+                      "several reports · scope and posture read from the workbook's MVP column")
+    else:
+        title, key = ("FUTURE STATE · MVP",
+                      "FUTURE STATE · MVP — solid green = the tool does it; green with a "
+                      "colour bar = the tool proposes, the named person confirms; a green top "
+                      "stripe = the tool shows, the person decides · unmarked steps are out "
+                      "of MVP scope and unchanged")
+    src = src.replace("CURRENT STATE", title)
     src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
-    src = re.sub(r'"[Nn]othing on this sheet is a proposal[^"]*"', lambda _: '"' + key + '"', src)
 
     ns = {"__name__": "__vis__"}
     argv = sys.argv
@@ -164,14 +173,11 @@ def build(flow, mvp, out):
         exec(compile(src, gen, "exec"), ns)
     finally:
         sys.argv = argv
-    lit = sum(1 for v in state.values() if v == LIT)
-    cap = sum(1 for v in state.values() if v == CAPTURE)
-    print(f"{flow:8} {'mvp' if mvp else 'full':4} -> {out}  "
-          f"({ns['W']}x{ns['H']})  outlined {lit}  needs-capture {cap}  "
-          f"unmarked {len(state)-lit-cap}")
-    return ns["W"], ns["H"], nice
+    import collections
+    c = collections.Counter(sc.values())
+    print(f"{flow:8} {mode:6} -> {out}  ({ns['W']}x{ns['H']})  "
+          f"in MVP {len(sc)}  {dict(c)}")
 
 
 if __name__ == "__main__":
-    flow, scope, out = sys.argv[1:4]
-    build(flow, scope == "mvp", out)
+    build(sys.argv[1], sys.argv[2], sys.argv[3])

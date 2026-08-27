@@ -1,5 +1,5 @@
 {
-  "_README": "Block -> workbook variable IDs for Flow 2 (routine visits), current and target. Keyed on the block's own text as the generator draws it (em-dashes normalised to hyphens). An empty list means deliberately mapped to nothing - a trigger, a boundary or a where-it-broke note, not a step that carries variables. Edit this file, not the generator.",
+  "_README": "Block -> workbook variable IDs for Flow 2 (routine visits). Keyed on the block's own text as the generator draws it (em-dashes normalised to hyphens). An empty list means deliberately mapped to nothing - a trigger, a boundary pill, a where-it-breaks note, or an artefact the future state removes. Map a block to the variables behind the DECISION it embodies, not merely the data it touches: mapping DCS approval to the frequency variables made it read Automate, which is wrong. Edit this file, not the generator.",
   "Admission SOC or eval visit": [],
   "Evaluating clinician plots own discipline frequency": [
     "S-01",
@@ -12,14 +12,10 @@
     "SH-03",
     "S-37"
   ],
-  "Each submission generates its own assignment task": [
-    "S-01",
-    "S-15"
-  ],
+  "Each submission generates its own assignment task": [],
   "DCS reviews & approves the POC": [
-    "S-01",
-    "S-03",
-    "S-36"
+    "S-49",
+    "S-44"
   ],
   "Scheduler assigns visits to care team": [
     "S-15",
@@ -117,24 +113,8 @@
   "Medicare week is Sunday–Saturday": [],
   "Inside the 60-day certification period": [],
   "Auth still gates assignment": [],
-  "RN cannot reassign to her own LPN an HCHB rule, not Medicare": [
-    "SH-03",
-    "S-15",
-    "S-37"
-  ],
-  "Supervisor cannot see the supervisee's schedule": [
-    "S-37",
-    "C-08"
-  ],
-  "Day-before calls are unpaid evening work": [
-    "CO-01",
-    "CO-06",
-    "CO-12"
-  ],
-  "The weekly logic is undocumented and unassisted": [
-    "S-41",
-    "S-42",
-    "S-12",
-    "C-05"
-  ]
+  "RN cannot reassign to her own LPN an HCHB rule, not Medicare": [],
+  "Supervisor cannot see the supervisee's schedule": [],
+  "Day-before calls are unpaid evening work": [],
+  "The weekly logic is undocumented and unassisted": []
 }
