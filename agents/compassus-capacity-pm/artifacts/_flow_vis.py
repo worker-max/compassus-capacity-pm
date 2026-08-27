@@ -14,15 +14,21 @@ Two documents, because they answer different questions:
   mvp  — the same sheet cut to what release 1 actually lights up. Everything else is drawn as
          NOT IN MVP so the gap between the two documents is the release-1 conversation.
 
-Posture transform, applied to the target sheet:
+Both documents are DERIVED FROM THE WORKBOOK, not from an editorial list. A block is joined to
+its variables through vmap-<flow>.json (the same map the hover layer uses), and each variable's
+own columns decide how the block is drawn:
 
-  target SURFACE  -> VISUALISED   the engine already only showed it; that is release 1
-  target ENGINE   -> VISUALISED   if the block is a read or a computation over data we hold,
-                                  and the actor who owns it when the tool is silent is named
-                                  in RELEASE below. Otherwise PHASE 2.
-  target ASSIST   -> PHASE 2      a proposal is an action; release 1 does not propose
-  target MANUAL   -> unchanged    hands on the patient, or still inside HCHB
-  target GHOST    -> restored     where the step still exists in release 1 (see RESTORE)
+  full  a block lights up when ANY variable behind it has Current-state = In-system.
+        This is the ceiling of free visualisation: everything the system can already put on a
+        screen, with no new capture. 38 of the 76 inventory variables qualify.
+
+  mvp   a block lights up when ANY variable behind it has MVP Req. = Yes. 47 qualify — but
+        only 27 of those are also In-system. The other 20 are Manual or Tacit, so the MVP
+        sheet needs a third state, NEEDS CAPTURE: committed for release 1, and not on any
+        screen today because nobody records it.
+
+MVP is therefore NOT a subset of the full-scenario sheet, and the gap between them is the
+release-1 build list rather than a drawing choice.
 
 Colour still means actor. A VISUALISED block keeps the person's colour and takes the engine
 stripe; it never becomes solid green, because solid green means the engine did the work.
@@ -108,6 +114,23 @@ RESTORE = {
 }
 
 HELPERS = ["eng", "assist", "surf", "man", "ghost"]
+
+# how a block is drawn once its variables have been read
+LIT, CAPTURE, DARK = "lit", "capture", "dark"
+
+
+def classify(ids, variables, mvp):
+    """Decide a block's state from the workbook columns behind it."""
+    ds = [variables[i] for i in ids if i in variables]
+    if not ds:
+        return None                       # nothing mapped — leave the target posture alone
+    insys = [d for d in ds if d.get("current") == "In-system"]
+    if not mvp:
+        return LIT if insys else DARK
+    yes = [d for d in ds if d.get("mvp") == "Yes"]
+    if not yes:
+        return DARK
+    return LIT if any(d.get("current") == "In-system" for d in yes) else CAPTURE
 
 PRELUDE = '''
 __VIS__ = True
