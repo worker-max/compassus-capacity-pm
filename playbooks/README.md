@@ -1,23 +1,24 @@
 # Playbooks
 
-Reusable process and procedure, extracted from initiatives that have actually been run.
+Reusable process, extracted from initiatives that have actually been run.
 
 | File | What it is |
 |---|---|
-| [`initiative-onset-playbook.md`](./initiative-onset-playbook.md) | **How the Compassus Capacity & Scheduling initiative was worked from a blank page to a vendor questionnaire, and the procedure to repeat it.** Nine stages, each with what we did, the deliverable, the exit test, the transferable procedure and the trap. Includes the full business-case section, the onset checklist, deliverable specifications, and the mapping into the house master project plan. |
+| [`initiative-build-process.md`](./initiative-build-process.md) | **The ten-step build process** — meetings, variable list, current state, bottlenecks and pain points, re-cut and prioritise, update the flows, business case in parallel, what feeds the work, MVP spec, target state. Each step carries the thinking, the mechanics, every document it produced and what went into it, and a fill-in block for running it on a new initiative. |
 
-## Scope
+## The shape
 
-The onset playbook covers **Discovery only** — problem framing through the vendor questionnaire.
-It stops where [`initiative-playbook.md`](../agents/compassus-capacity-pm/initiative-playbook.md)
-picks up: pilot, scale, sustain.
+Steps 1 and 10 are endpoints. **Steps 2–6 are a loop** — run it more than once. **Step 7, the
+business case, runs in parallel** from the first loop pass. **Step 8 feeds back into the loop**,
+because half of what it finds is a new variable.
 
-## Companion workbook
+## Status
 
-[`../agents/compassus-capacity-pm/artifacts/HH-Scheduling-Master-Project-Plan.xlsx`](../agents/compassus-capacity-pm/artifacts/HH-Scheduling-Master-Project-Plan.xlsx)
-is the house master project plan with the **Overall Project** tab built out — 93 task rows covering
-the Discovery work executed and what remains, filed against the workbook's own Category / Phase /
-Status vocabularies. The precedent HH Intake Platform rollout tabs are untouched and are the
-change-management template for the phases after Discovery.
+Steps 1–8 are written as history — the worked Compassus Capacity & Scheduling example, with every
+document named and its inputs traced. **Steps 9 (MVP spec) and 10 (target state) are still open**;
+their sections are written as procedure to run, with the inputs already assembled.
 
-Source in Drive: [`HH Scheduling_Master Project Plan_July 2026.xlsx`](https://docs.google.com/spreadsheets/d/1rx5XCr28qFOALEO4xiLxOG5mxPcPAhnK/edit)
+## Reuse
+
+Copy the `▢ Run it on a new initiative` block from each step, plus the **Starting kit** at the end.
+Those are the instrument; everything else is the worked example.

@@ -21,7 +21,7 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
 | [`agents/compassus-capacity-pm/knowledge/`](./agents/compassus-capacity-pm/knowledge/) | **The empirical ground truth** — Compassus's own July-2026 discovery work (discovery session + capacity/scheduling analysis). The agent reasons from this first. |
 | [`agents/compassus-capacity-pm/artifacts/`](./agents/compassus-capacity-pm/artifacts/) | **The working artifacts** — the capacity / scheduling / engagement model, the variable inventory, the data index, and the source war-list. Start at its [README](./agents/compassus-capacity-pm/artifacts/README.md). |
 | [`.claude/agents/compassus-capacity-pm.md`](./.claude/agents/compassus-capacity-pm.md) | A runnable Claude Code subagent — a tight standing prompt you can invoke directly for PM guidance. |
-| [`playbooks/initiative-onset-playbook.md`](./playbooks/initiative-onset-playbook.md) | **How this initiative was actually worked, from blank page to vendor questionnaire — and the reusable procedure.** Nine stages, the business-case method, the onset checklist, and the mapping into the house master project plan. |
+| [`playbooks/initiative-build-process.md`](./playbooks/initiative-build-process.md) | **The ten-step build process** — how this initiative was actually worked, every document that came out of each step and what went into it, and a fill-in block per step so a new initiative can be dropped in and built out. |
 
 ### How to use it
 

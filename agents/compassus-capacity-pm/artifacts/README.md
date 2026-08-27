@@ -209,22 +209,9 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
 
 ---
 
-## The master project plan
+## How this folder came to exist
 
-`HH-Scheduling-Master-Project-Plan.xlsx` — the house project plan with the **Overall Project** tab
-built out for HH Scheduling & Capacity Management: 93 task rows covering the Discovery work
-executed and what remains, filed against the workbook's own `Category` / `Phase` / `Status`
-vocabularies from its `List` tab. Every row cites the decision, register entry or finding behind it.
-
-Upstream in Drive: `HH Scheduling_Master Project Plan_July 2026.xlsx` —
-`1rx5XCr28qFOALEO4xiLxOG5mxPcPAhnK`. **Drive is authoritative for this workbook;** the copy here is
-the built-out version pending publication back to Drive.
-
-The workbook's other tabs are the completed **HH Intake Platform rollout** — a real precedent run to
-completion across ~70 locations in four waves. They are untouched, and they are the
-change-management template for every phase after Discovery: the go-live date-tracking legend (a full
-calendar of communications, training, office hours and surveys expressed as offsets from go-live),
-the wave structure with ambassadors and holiday blackouts, and the action/issue tracker.
-
-**How the work in this folder came to exist** is recorded stage by stage in
-[`../../../playbooks/initiative-onset-playbook.md`](../../../playbooks/initiative-onset-playbook.md).
+Every document here was produced by a specific step of the ten-step build process recorded in
+[`../../../playbooks/initiative-build-process.md`](../../../playbooks/initiative-build-process.md).
+Its document register maps each artifact to the step that made it and to what went into it — start
+there if you are asking "why does this file exist, and what fed it?"
