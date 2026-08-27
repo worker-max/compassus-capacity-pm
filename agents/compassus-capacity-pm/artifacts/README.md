@@ -78,7 +78,7 @@ renumbered.
 | `flow-soc-target.html` | Source. Regenerate with `_flow-soc-target.gen.py` | Editing the SOC target state |
 | `Episode-Target-State.pdf` | **The episode end to end, TARGET STATE (v1.0)**. Four phases, same as the primary map, posture-marked | The future-state wall sheet. Pairs with `Primary-Flow-Map.pdf` |
 | `flow-episode-target.html` | Source. Regenerate with `_flow-episode-target.gen.py` | Editing the episode target state |
-| `Every-Patient-Visit-Competing-Priorities.pdf` | **Foundation sheet for the engagement maps.** Scheduling priorities in three tiers — the givens fixed before scheduling begins, the decision that is actually being made, and productivity as the derived result — plus the six collisions that recur every week | Opening the patient-scheduling engagement work |
+| `Building-Tomorrows-Day.pdf` | **Foundation sheet for the engagement maps.** The eight questions a clinician asks about every patient on the caseload before tomorrow's day exists, where each answer lives, and the six collisions that appear when the answers have to fit into one day | Opening the patient-scheduling engagement work |
 | `flow-competing-priorities.html` | Source. Regenerate with `_flow-competing-priorities.gen.py` | Editing the foundation sheet |
 | `Flow-Routine-Visits-Target-State.pdf` | **Flow 2T — routine visit scheduling, TARGET STATE (v1.0)**. Positional clone of `Flow-Routine-Visits`; the per-discipline assignment-task burst is ghosted | Pairs with `Flow-Routine-Visits.pdf` side by side |
 | `flow-routine-visits-target.html` | Source. Regenerate with `_flow-routine-visits-target.gen.py` | Editing flow 2T |
@@ -195,36 +195,40 @@ simulation is included. Lightness plus dark text is what makes the engine legibl
 inside HCHB — visit generation, the per-visit auth check, the clinician's calendar. That way the
 sheets answer "what did we actually take off HCHB" at a glance.
 
-### The foundation sheet — givens, decision, result
+### The foundation sheet — building tomorrow's day
 
 `_flow-competing-priorities.gen.py` is the opening sheet for the patient-scheduling engagement
 work. It is **team-facing**: no commentary about where the content came from, no notes addressed to
 one reader. Keep it that way when editing.
 
-**Three tiers, not a ring of peers.** The scheduling priorities are not co-equal:
+**The unit is one clinician, one evening, one caseload — not scheduling in the abstract.** The
+sheet follows a single clinician sitting down the night before and going patient by patient to
+build tomorrow. Eight questions get asked about *every* patient before any visit can be placed.
+That per-patient loop is the whole point; an earlier version organised the same content as an
+org-level taxonomy of who-decides-what and it did not describe anything a clinician actually does.
 
-- **The givens** — regulatory timing, ordered frequency, MD orders, and the patient's hard
-  constraints. Fixed before anyone opens a calendar. Changing one needs a new order, a payer
-  decision, or a change in the patient's life.
-- **The decision** — geography, which clinician, which days inside the ordered window, who first
-  when the week is tight, what time inside the patient's window. This is the entire set of degrees
-  of freedom anyone actually has.
-- **The result** — productivity. Derived, never chosen.
+**The eight are questions, not categories.** "Do I owe this patient a visit tomorrow?" not
+"Frequency". The category name is the block label; the question is the content. Each one also
+carries **where the answer lives** — HCHB, the 485, the clinician's memory, or a phone call.
 
-**Ordered frequency belongs in the givens, not the decision.** If the order says 2x a week the
-patient is seen 2x a week; seeing them fewer times is a compliance problem, not a scheduling
-choice. What *is* decided is which days inside that window. Getting this wrong was the main defect
-in the first version of this sheet — do not let frequency drift back into the levers.
+**Seven answers are on a screen. One is only on the phone.** That asymmetry is the sheet's payload
+and the hook the engagement maps hang from: patient availability is the single question that cannot
+be answered without contacting the patient, which is why the whole pass happens after hours, one
+patient at a time. It is also the only moment the patient has any say in when they are seen. The
+phone-call tag is deliberately the one highlighted element on the sheet.
 
-**Patient availability splits across two tiers, and the split is the point.** Dialysis, caregiver
-presence, cognitive windows and day-of-week constraints are hard givens. "Not first thing" and
-"can you come after lunch" are preferences inside the decision. Lumping them together is what makes
-the whole category feel like an unwinnable judgment call.
+**The multiplication is stated plainly** — eight questions across a representative caseload of
+sixteen is ~128 judgments before tomorrow exists. Caseload size is shown as representative and
+labelled as such in the footer; change `CASELOAD` if a real figure is agreed.
 
-**One axis, stated once.** Every row runs left to right from what a system already holds to what
-only a person holds. That ordering carries the sheet's argument: what the tool can compute is
-already in HCHB, Workday or the 485; what it cannot is tacit and written down nowhere. Do not add a
-second axis — an earlier version used a 2x2 and the fourth quadrant was empty and unexplainable.
+**Ordered frequency is a given, not a lever.** If the order says 2x a week the patient is seen 2x a
+week; seeing them fewer times is a compliance problem, not a scheduling choice. What is decided is
+which days inside that window. Getting this wrong was the main defect in an earlier draft.
+
+**The collisions only appear at assembly.** Each of the six pairs two of the eight questions and is
+drawn in those two colours, so the band reads against the row above it. They are invisible until
+the clinician tries to place the last patient, by which point the first seven are committed — that
+is the line the sheet closes the band with.
 
 ### The visualise-only sheets — what release 1 actually lights up
 
