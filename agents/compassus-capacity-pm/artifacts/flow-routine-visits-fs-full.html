@@ -1,4 +1,4 @@
-<title>Routine visits — future state MVP</title>
+<title>Routine visits — future state, full</title>
 
 <figure>
 <svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task, and the DCS approves each discipline plan of care — not approved, the visits are held. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. After the 485 every change arrives as a physician order — which may add a discipline evaluation, change frequency or reduce visits. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
@@ -40,12 +40,6 @@
 <text x="753.0" y="315.0" class="bt" style="fill:#1B211E" text-anchor="middle">initial eval</text>
 <rect x="785.6" y="231" width="84.4" height="23" rx="11.5" fill="#FFFFFF" stroke="#5F8A12" stroke-width="1.8"/>
 <text x="827.8" y="247" class="bdg" text-anchor="middle" fill="#5F8A12">AUTOMATE</text>
-<rect x="906" y="245" width="250" height="90" rx="5" fill="#795CA7"/>
-<text x="1031.0" y="277.0" class="bt" text-anchor="middle">Each submission</text>
-<text x="1031.0" y="296.0" class="bt" text-anchor="middle">generates its own</text>
-<text x="1031.0" y="315.0" class="bt" text-anchor="middle">assignment task</text>
-<rect x="1005.5" y="231" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#795CA7" stroke-width="1.8"/>
-<text x="1076.75" y="247" class="bdg" text-anchor="middle" fill="#795CA7">× N disciplines</text>
 <rect x="906" y="245" width="250" height="90" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5"/>
 <text x="1031.0" y="279.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Each submission</text>
 <line x1="978.5" y1="274.0" x2="1083.5" y2="274.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
@@ -186,16 +180,16 @@
 <rect x="350" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
 <text x="475.0" y="1235.25" class="bt s" text-anchor="middle">Accept</text>
 <text x="475.0" y="1250.75" class="bt s" text-anchor="middle">visit delivered as planned</text>
+<rect x="350" y="1200" width="250" height="76" rx="5" fill="#A6E22E"/>
+<text x="475.0" y="1235.25" class="bt s" style="fill:#1B211E" text-anchor="middle">Accept</text>
+<text x="475.0" y="1250.75" class="bt s" style="fill:#1B211E" text-anchor="middle">visit delivered as planned</text>
+<rect x="507.6" y="1186" width="84.4" height="23" rx="11.5" fill="#FFFFFF" stroke="#5F8A12" stroke-width="1.8"/>
+<text x="549.8" y="1202" class="bdg" text-anchor="middle" fill="#5F8A12">AUTOMATE</text>
 <text x="475.0" y="1302" class="hi" text-anchor="middle">the most common disposition</text>
 <rect x="628" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
 <text x="753.0" y="1235.25" class="bt s" text-anchor="middle">Reschedule</text>
 <text x="753.0" y="1250.75" class="bt s" text-anchor="middle">within the week</text>
-<rect x="628" y="1200" width="250" height="76" rx="5" fill="#A6E22E"/>
-<path d="M 826 1200 L 872 1200 A 6 6 0 0 1 878 1206 L 878 1270 A 6 6 0 0 1 872 1276 L 826 1276 Z" fill="#2E599D"/>
-<text x="727.0" y="1235.25" class="bt s" style="fill:#1B211E" text-anchor="middle">Reschedule</text>
-<text x="727.0" y="1250.75" class="bt s" style="fill:#1B211E" text-anchor="middle">within the week</text>
-<rect x="802.2" y="1186" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
-<text x="836.1" y="1202" class="bdg" text-anchor="middle" fill="#2E599D">ASSIST</text>
+<path d="M 634 1200 L 872 1200 A 6 6 0 0 1 878 1206 L 878 1213 L 628 1213 L 628 1206 A 6 6 0 0 1 634 1200 Z" fill="#A6E22E"/>
 <text x="753.0" y="1302" class="hi" text-anchor="middle">no scheduler workflow if rapid</text>
 <text x="753.0" y="1320" class="hi" text-anchor="middle">reschedule is turned on in HCHB</text>
 <rect x="906" y="1200" width="250" height="76" rx="5" fill="#C6A01F"/>
@@ -250,7 +244,7 @@
 <text x="1880.0" y="1538.25" class="bt s" text-anchor="middle">The weekly logic is</text>
 <text x="1880.0" y="1553.75" class="bt s" text-anchor="middle">undocumented and unassisted</text>
 <line x1="50" y1="1608" x2="2150" y2="1608" stroke="#C9CCC5" stroke-width="1.4"/>
-<text x="50" y="1640" class="foot" text-anchor="start">FUTURE STATE · MVP — solid green = the tool does it; green with a colour bar = the tool proposes, the named person confirms; a green top stripe = the tool shows, the person decides · unmarked steps are out of MVP scope and unchanged</text>
+<text x="50" y="1640" class="foot" text-anchor="start">FUTURE STATE · FULL — every variable in the workbook, MVP or not · solid green = the tool does it; green with a colour bar = the tool proposes, the named person confirms; a green top stripe = the tool shows, the person decides</text>
 <text x="2150" y="1640" class="foot" text-anchor="end">Flow 2 of 4 · routine visits</text>
 </svg>
 </figure>

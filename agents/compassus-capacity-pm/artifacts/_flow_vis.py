@@ -36,16 +36,23 @@ FLOWS = {
     "recert":  ("_flow-recert-discharge.gen.py",   "vmap-recert-discharge.json"),
 }
 
-# strongest posture wins when a block's MVP variables disagree
 RANK = {"Automate": 3, "Assist": 2, "Surface": 1, "Stays manual": 0}
+
+# Steps the future state removes outright. The workbook cannot express this — it says how far
+# the tool goes on each variable, never that a step stops existing — so it is carried here from
+# the target-state sheets, which is the only place that judgment was ever written down.
+REMOVED = {
+    "routine": {"Each submission generates its own assignment task": "DE-05 — the care team is "
+                "set at referral, so the per-discipline assignment task has nothing to do"},
+}
 
 
 def key_of(lines):
     return " ".join(lines).replace("—", "-").replace("’", "'").strip()
 
 
-def scope(ids, V):
-    """In MVP when a majority of the block's variables are MVP = Yes.
+def scope(ids, V, mvp_only=True):
+    """In scope when a majority of the block's variables are MVP = Yes.
 
     A majority, not any one of them: on an "any" rule almost every block qualifies and the
     sheets stop discriminating, which is no use in a demo and is not true either.
@@ -53,9 +60,12 @@ def scope(ids, V):
     ds = [V[i] for i in ids if i in V]
     if not ds:
         return None
-    yes = [d for d in ds if d.get("mvp") == "Yes"]
-    if len(yes) * 2 < len(ds):
-        return None
+    if mvp_only:
+        yes = [d for d in ds if d.get("mvp") == "Yes"]
+        if len(yes) * 2 < len(ds):
+            return None
+    else:
+        yes = ds                      # full scope — every variable, MVP or not
     # the MODAL posture, ties broken toward the weaker one. Taking the strongest instead makes
     # a step read "Automate" because one variable of seven does — 18 of 19 blocks on routine
     # visits came out Automate that way, which is not what the workbook says.
@@ -71,6 +81,7 @@ PRELUDE = '''
 __VIS__ = True
 __D__ = [0]
 __SCOPE__ = {scope!r}
+__GONE__ = {gone!r}
 __MODE__ = {mode!r}
 GRN, GRND, DARKINK = "#A6E22E", "#5F8A12", "#1B211E"
 
@@ -91,6 +102,24 @@ def __badge__(x, y, w, label, colour):
         f'fill="#FFFFFF" stroke="{{colour}}" stroke-width="1.8"/>')
     add(f'<text x="{{x+w-bw/2-8}}" y="{{y+2}}" class="bdg" text-anchor="middle" '
         f'fill="{{colour}}">{{esc(label)}}</text>')
+
+def __ghost__(x, y, w, h, lines):
+    add(f'<rect x="{{x}}" y="{{y}}" width="{{w}}" height="{{h}}" rx="5" fill="#FBFBF8" '
+        f'stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5"/>')
+    cy = y + h/2 - (len(lines)-1)*16/2 + 5
+    for i, ln in enumerate(lines):
+        add(f'<text x="{{x+w/2}}" y="{{cy+i*16}}" class="bt s" style="fill:#5A6560" '
+            f'text-anchor="middle" opacity=".85">{{esc(ln)}}</text>')
+        wl = 7.0*len(ln)
+        add(f'<line x1="{{x+w/2-wl/2}}" y1="{{cy+i*16-5}}" x2="{{x+w/2+wl/2}}" '
+            f'y2="{{cy+i*16-5}}" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>')
+    add(f'<text x="{{x+w/2}}" y="{{y+h+18}}" class="trg" text-anchor="middle">'
+        f'NO LONGER A STEP</text>')
+
+def __skip__(lines):
+    """A removed step is never drawn at all — painting the ghost over it leaves the original
+    block's badge showing through the dashes."""
+    return __MODE__ != "viz" and __key__(lines) in __GONE__
 
 def __vis_mark__(x, y, w, h, lines, fill=None, small=False, badge=None, bc=None):
     role = __SCOPE__.get(__key__(lines))
@@ -133,7 +162,7 @@ def build(flow, mode, out):
     for k, ids in vmap.items():
         if k.startswith("_") or not ids:
             continue
-        r = scope(ids, V)
+        r = scope(ids, V, mvp_only=(mode != "full"))
         if r:
             sc[k] = r
 
@@ -144,15 +173,22 @@ def build(flow, mode, out):
     fwd = ", ".join(f"{k}={k}" for k in ("small", "badge", "tc", "bc") if k in args)
     back = ", ".join(f"{k}={k}" for k in ("small", "badge", "bc") if k in args)
     guard = (f"    if __VIS__ and not __D__[0]:\n"
+             f"        if __skip__(lines): return __ghost__(x, y, w, h, lines)\n"
              f"        __D__[0] += 1\n"
              f"        try: block(x, y, w, h, fill, lines{', ' + fwd if fwd else ''})\n"
              f"        finally: __D__[0] -= 1\n"
              f"        return __vis_mark__(x, y, w, h, lines, fill=fill"
              f"{', ' + back if back else ''})\n")
     src = src[:m.end(1)] + guard + src[m.end(1):]
-    src = PRELUDE.format(scope=sc, mode=mode) + "\n" + src
+    src = PRELUDE.format(scope=sc, gone=REMOVED.get(flow, {}), mode=mode) + "\n" + src
 
-    if mode == "viz":
+    if mode == "full":
+        title, key = ("FUTURE STATE · FULL",
+                      "FUTURE STATE · FULL — every variable in the workbook, MVP or not · "
+                      "solid green = the tool does it; green with a colour bar = the tool "
+                      "proposes, the named person confirms; a green top stripe = the tool "
+                      "shows, the person decides")
+    elif mode == "viz":
         title, key = ("FUTURE STATE VISUALIZATION · MVP",
                       "FUTURE STATE VISUALIZATION · MVP — the process is unchanged; a "
                       "green outline marks a step that gains one consolidated view instead of "
@@ -163,6 +199,8 @@ def build(flow, mode, out):
                       "colour bar = the tool proposes, the named person confirms; a green top "
                       "stripe = the tool shows, the person decides · unmarked steps are out "
                       "of MVP scope and unchanged")
+    if mode == "full":
+        mode = "future"               # drawn with the same posture vocabulary
     src = src.replace("CURRENT STATE", title)
     src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
 
