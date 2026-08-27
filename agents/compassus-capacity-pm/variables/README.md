@@ -6,7 +6,9 @@ Functional Scorecard, Definitions & Concepts, Decisions & Parking Lot, KPIs & Ba
 Finance Case, and the four role tabs. Kept here because the team is migrating off it and the
 migration has to be checked against something.
 
-`CapacitySchedulingVariableWorkbook.xlsx` — the unabridged variable inventory. One row per
+`FINAL_Capacity_Scheduling_Variable_Workbook.xlsx` — the unabridged variable inventory, and
+the only copy. The earlier `CapacitySchedulingVariableWorkbook.xlsx` was removed on 27 Aug rather
+than left alongside it; two near-identical inventories is the problem this file exists to end. One row per
 variable, numbered in four layers: `SH-` shared, `C-` capacity, `S-` scheduling, `CO-`
 coordination and engagement. The ID is the join key back to the 8.13 workbook, so IDs are
 never reused or renumbered.
@@ -63,3 +65,17 @@ said **do not reuse**. This workbook binds `S-43` to Insurance authorization, `S
 orders, and shifts `S-45`, `S-46`, `S-47` accordingly. The rebinding happened when this workbook
 was first built and is now load-bearing — the fix is to correct the backlog, not the sheet. Any
 document citing `S-43` through `S-47` against the backlog's numbering is wrong.
+
+## Parallel with the vendor questionnaire — verified 27 Aug
+
+The questionnaire is frozen: it has gone to vendors and cannot change. Every congruency fix
+therefore lands here. As of this build the two are in parallel and it is checked, not assumed:
+
+- **93 variables**, sequential in all four layers, no gaps, nothing unnumbered.
+- **All eleven** Part B grid areas have variables behind them, and **no** group value lacks a
+  grid row. The join on `One-pager group` is total in both directions.
+- **Arena vocabulary matches**: `Capacity Management` · `Scheduling Engine` · `Engagement`. The
+  arena was renamed from `Patient Engagement` to match the questionnaire's bands.
+
+Re-run that check after any edit to the group or arena columns. Both are load-bearing for
+scoring the returned questionnaires.
