@@ -230,48 +230,62 @@ drawn in those two colours, so the band reads against the row above it. They are
 the clinician tries to place the last patient, by which point the first seven are committed — that
 is the line the sheet closes the band with.
 
-### The visualise-only sheets — what release 1 actually lights up
+### The visualise-only and MVP sheets
 
-The target sheets describe the eventual target. DE-03 holds phase 1 to **visualisation only**, so a
-target sheet handed to a vendor or a branch reads as a promise nobody made. `_flow_vis.py` derives
-the release-1 sheets from the target generators — same instrumentation trick as `_flow_live.py`, so
-they stay positional clones of the current-state sheets for free.
+**Visualise-only does not change the process.** Every step, actor and handoff stays where the
+current-state sheet put it. What changes is that reports scattered across HCHB, Workday, Commure,
+routing and telephony are pulled into one view, so the person already assigned to that step decides
+faster and better informed.
 
-**Two documents per flow, because they answer different questions.**
+So these are built from the **current-state** generators, not the target ones — an earlier version
+derived them from the target sheets and had to invent postures for work that release 1 does not
+automate. `_flow_vis.py` hooks the generator's `block()` and adds a **bold green outline** to the
+steps that gain a consolidated view. Nothing is recoloured, nothing moves, nothing is automated,
+and the sheets overlay their current-state twin exactly.
 
-| Document | Question it answers |
-|---|---|
-| `*-Visualise-Full-Scenario.pdf` | What does the picture look like when **every report** named on the current-state sheets is feeding it? |
-| `*-Visualise-MVP.pdf` | What does **release 1** actually light up? Everything else is drawn `NOT IN MVP`, so the gap between the two documents *is* the release-1 conversation. |
-
-The posture transform, applied to the target sheet:
-
-| Target | Becomes | Why |
+| Sheet | Rule | Outline |
 |---|---|---|
-| **Surface** | VISUALISED — person's colour, engine stripe | the engine only ever showed it; that is already release 1 |
-| **Engine** | VISUALISED if `RELEASE` names it, else PHASE 2 | a read or a computation over data we hold can ship; doing the work cannot |
-| **Assist** | VISUALISED if `RELEASE` names it, else PHASE 2 | keeps the actor colour it already carries — an assist names whoever decides |
-| **Manual / HCHB** | unchanged | hands on the patient, or still inside HCHB |
-| **Ghost** | restored where `RESTORE` names it | see the editorial line below |
+| `*-Visualise-Only` | a majority of the block's variables have Current-state = **In-system** | solid green |
+| `*-MVP` | a majority of the block's **MVP Req. = Yes** variables are In-system | solid green |
+| `*-MVP` | the block's MVP variables exist but are Manual or Tacit | **dashed** green |
 
-**Nothing is ever solid green on these sheets.** Solid green means the engine did the work, and in
-release 1 it does not. A visualised block keeps the person's colour and takes the engine stripe; a
-later-phase block keeps the person's colour and takes a dashed green edge plus a `PHASE 2` badge.
-The horizon badge deliberately **overwrites** any posture badge inherited from the target sheet — a
-block still reading `ASSIST` here would imply release-1 scope, which is the one thing these sheets
-exist to deny.
+**The bar is a majority, not any one variable.** Consolidating one report out of seven does not
+make a decision quicker or better informed — it moves where you go to be under-informed. On an
+"any" rule, 19 of routine visits' 21 blocks light up and the two sheets are indistinguishable,
+which is useless for a demo and is also not true.
 
-**The editorial line on restored ghosts: visualisation cures invisibility, it does not cure
-workload.** A step ghosted on the target sheet comes back on the visualise-only sheets when fixing
-it needs automation, and stays ghosted when simply seeing the thing is the fix. So the per-discipline
-assignment-task explosion, the unpaid day-before calls, the undocumented weekly logic and the ~50
-daily pending-auth workflows all return, badged `STILL A STEP`; invisible pending-auth visits,
-capacity read but never modelled, and plans of care ignoring payer limits stay ghosted, because
-release 1 genuinely fixes those by showing them.
+**MVP is not a subset of visualise-only, and the gap between the two sheets is the release-1 build
+list.** Across the inventory: 38 variables are In-system, 47 are MVP Req. = Yes, 27 are both — and
+**20 are MVP=Yes but Manual or Tacit**, committed for release 1 with nothing recording them today.
+Those are the dashed blocks. On routine visits the split is 14 solid on visualise-only, versus 12
+solid and 8 dashed on MVP.
 
-**`RELEASE` and `RESTORE` in `_flow_vis.py` are the editorial surface.** They are keyed on block text
-exactly like the vmaps, and an unlisted engine block defaults to PHASE 2 — the conservative direction.
-Re-word a block and it silently drops to PHASE 2, so re-read the sheet after any text edit.
+**Dashed vs solid carries the distinction on its own** — a "NEEDS CAPTURE" pill was tried and there
+is nowhere to put it: above the block is the badge, below is the sublist, inside is the block's own
+wording. The footer states the key instead.
+
+**The outline is drawn after the block, then the badge is redrawn on top of the outline** — a badge
+sitting on a block's top edge is otherwise struck straight through.
+
+**Blocked on two things.** Only routine visits has a `vmap`; the other five flows need one authored.
+And the authorization flow cannot be driven from this inventory at all — it contains **zero**
+authorization variables, which live unnumbered in `variable-backlog.md` as `S-43`–`S-47`.
+
+### Putting these on a SharePoint page
+
+Modern SharePoint pages strip `<script>`, so the interactive HTML will not run there. What works:
+
+| Method | Interactivity | Admin needed |
+|---|---|---|
+| **Image web part + the `@2x` PNG** | none | none — this is the reliable default |
+| **File Viewer web part + the PDF** | zoom only | none |
+| **Embed web part + `<iframe>`** | full | tenant admin must allow-list the host domain |
+| **SPFx web part** | full | developer build + tenant deployment |
+
+Each sheet therefore ships a **2x PNG** (3800px wide) alongside the PDF, sized for the Image web
+part. Do not upload the `.html` to a document library expecting it to render — SharePoint serves
+HTML from libraries as a download unless permissive browser file handling is on, which most tenants
+leave off.
 
 ### Cross-referencing a target sheet against its current-state twin
 

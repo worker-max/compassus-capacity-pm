@@ -1,38 +1,31 @@
 # -*- coding: utf-8 -*-
-"""_flow_vis — derive the VISUALISE-ONLY sheets from a target-state generator.
+"""_flow_vis — derive the VISUALISE-ONLY and MVP sheets from a CURRENT-STATE generator.
 
     python3 _flow_vis.py <flow> full|mvp <out.svg>
 
-Release 1 is visualisation only (DE-03): the tool SHOWS, it does not ACT. These sheets say that
-in the drawing rather than in a footnote, and they are derived from the target generator with its
-posture helpers rebound — so they stay positional clones of the current-state sheet for free.
+Visualise-only does not change the process. Every step, every actor and every handoff stays
+exactly where the current-state sheet put it. What changes is that reports scattered across
+HCHB, Workday, Commure, routing and telephony are pulled into one view, so the person already
+assigned to that step decides faster and better informed.
 
-Two documents, because they answer different questions:
+So these sheets are the current-state sheets, marked. A bold green outline says: this step gets
+a consolidated view. Nothing is recoloured, nothing moves, nothing is automated — which is also
+why they overlay their current-state twin perfectly.
 
-  full — every report feeds the picture. What the visualisation looks like when all the data
-         named on the current-state sheets is flowing into it.
-  mvp  — the same sheet cut to what release 1 actually lights up. Everything else is drawn as
-         NOT IN MVP so the gap between the two documents is the release-1 conversation.
+Both documents are derived from the workbook through vmap-<flow>.json, not from an editorial
+list:
 
-Both documents are DERIVED FROM THE WORKBOOK, not from an editorial list. A block is joined to
-its variables through vmap-<flow>.json (the same map the hover layer uses), and each variable's
-own columns decide how the block is drawn:
+    full   outline where ANY variable behind the block has Current-state = In-system.
+           The ceiling of free visualisation: no new capture, only consolidation.
 
-  full  a block lights up when ANY variable behind it has Current-state = In-system.
-        This is the ceiling of free visualisation: everything the system can already put on a
-        screen, with no new capture. 38 of the 76 inventory variables qualify.
+    mvp    outline where ANY variable behind the block has MVP Req. = Yes.
+           Where those variables are already In-system the outline is solid; where they are
+           Manual or Tacit it is dashed and badged NEEDS CAPTURE, because release 1 committed
+           to them and nothing records them yet.
 
-  mvp   a block lights up when ANY variable behind it has MVP Req. = Yes. 47 qualify — but
-        only 27 of those are also In-system. The other 20 are Manual or Tacit, so the MVP
-        sheet needs a third state, NEEDS CAPTURE: committed for release 1, and not on any
-        screen today because nobody records it.
-
-MVP is therefore NOT a subset of the full-scenario sheet, and the gap between them is the
-release-1 build list rather than a drawing choice.
-
-Colour still means actor. A VISUALISED block keeps the person's colour and takes the engine
-stripe; it never becomes solid green, because solid green means the engine did the work.
+MVP is not a subset of full. The difference between the two sheets is the release-1 build list.
 """
+import json
 import pathlib
 import re
 import sys
@@ -40,217 +33,145 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 
 FLOWS = {
-    "soc":     ("_flow-soc-target.gen.py",              "SOC / ROC"),
-    "episode": ("_flow-episode-target.gen.py",          "The episode, end to end"),
-    "routine": ("_flow-routine-visits-target.gen.py",   "Routine visit scheduling"),
-    "auth":    ("_flow-authorization-target.gen.py",    "Authorization"),
-    "dcs":     ("_flow-dcs-scheduler-target.gen.py",    "Plan of care to assignment"),
-    "recert":  ("_flow-recert-discharge-target.gen.py", "Recertification & discharge"),
+    "soc":     ("_flow-detailed-composite.gen.py", "vmap-soc.json",
+                "Home Health Capacity & Scheduling — Detailed Flow"),
+    "episode": ("_flow-primary-map.gen.py",        "vmap-episode.json",
+                "The Episode, End to End"),
+    "routine": ("_flow-routine-visits.gen.py",     "vmap-routine-visits.json",
+                "Routine Visit Scheduling"),
+    "auth":    ("_flow-authorization.gen.py",      "vmap-authorization.json", "Authorization"),
+    "dcs":     ("_flow-dcs-scheduler.gen.py",      "vmap-dcs-scheduler.json",
+                "Plan of Care → Assignment"),
+    "recert":  ("_flow-recert-discharge.gen.py",   "vmap-recert-discharge.json",
+                "Recertification & Discharge"),
 }
 
-# Which engine blocks survive as visualisation, who owns them when the tool is silent, and
-# whether the data is there on day one. "mvp" = lit in both documents. "full" = lit only in
-# the full-scenario document. Anything not named here is PHASE 2 in both.
-RELEASE = {
-"soc": {
-  "Open capacity read - day · week · discipline · territory": ("pcc",  "mvp"),
-  "Committed load computed - points, live":                   ("pcc",  "mvp"),
-  "Assessing capacity by discipline":                         ("pcc",  "mvp"),
-  "Front-load early visits (protect LUPA floor)":             ("dcs",  "mvp"),
-  "MD notified inside 48h - the engine owns the clock":        ("dcs",  "mvp"),
-  "Territory applied - zip · drive time":                     ("pcc",  "full"),
-  "Branch leadership review - reopen zip · adjust · defer":   ("lead", "full"),
-  "Continuity - prefer same clinician":                       ("clin", "full"),
-},
-"episode": {
-  "Auth verifies eligibility keys pending auth":              ("auth", "mvp"),
-  "Evaluate own capacity for the week":                       ("clin", "mvp"),
-  "Recert window opens - last 5 days":                        ("clin", "mvp"),
-  "MD notified inside 48 hours":                              ("dcs",  "mvp"),
-  "Intake receives the referral":                             ("intake", "full"),
-  "Group visits geographically":                              ("clin", "full"),
-  "Routed on drive time, not distance":                       ("clin", "full"),
-},
-"routine": {
-  "Evaluate own capacity for the week":                       ("clin", "mvp"),
-  "Group visits geographically":                              ("clin", "full"),
-  "Route - HCHB suggests, clinician adjusts":                 ("clin", "full"),
-},
-"auth": {
-  "Pending auth derived from the payer":                      ("auth", "mvp"),
-  "Cap approached - re-auth requested":                       ("auth", "mvp"),
-  "Intake receives in Commure":                               ("intake", "full"),
-  "Eligibility and benefits verified":                        ("auth", "full"),
-  "Released to scheduling":                                   ("auth", "full"),
-},
-"dcs": {
-  "Eligibility verified, pending auth derived from the payer": ("auth", "mvp"),
-  "MD notified inside 48 hours":                               ("dcs",  "mvp"),
-  "Referral captured in Commure":                              ("intake", "full"),
-  "Released to scheduling":                                    ("auth", "full"),
-},
-"recert": {},
-}
-
-# Ghosted steps that come BACK in release 1. The editorial line: visualisation cures
-# invisibility, it does not cure workload. A ghost stays ghosted only where simply seeing
-# the thing is the fix.
-RESTORE = {
-"soc": {},
-"episode": {
-  "Eight tasks for one decision the per-discipline explosion":  "hchb",
-  "The weekly logic is undocumented and entirely unassisted":   "clin",
-},
-"routine": {
-  "Each submission generates its own assignment task":          "hchb",
-  "Day-before calls are unpaid evening work":                   "clin",
-  "The weekly logic is undocumented and unassisted":            "clin",
-},
-"auth": {
-  "~50 pending-auth workflows a day so schedulers bulk-clear without reading": "pcc",
-},
-"dcs": {},
-"recert": {},
-}
-
-HELPERS = ["eng", "assist", "surf", "man", "ghost"]
-
-# how a block is drawn once its variables have been read
 LIT, CAPTURE, DARK = "lit", "capture", "dark"
 
 
+def key_of(lines):
+    return " ".join(lines).replace("—", "-").replace("’", "'").strip()
+
+
 def classify(ids, variables, mvp):
-    """Decide a block's state from the workbook columns behind it."""
+    """Read the workbook columns behind a block and decide how it is marked.
+
+    The bar is a MAJORITY of the block's variables, not any one of them. Consolidating one
+    report out of seven does not make the decision quicker or better informed — it just moves
+    where you go to be under-informed. On an "any" rule 19 of routine visits' 21 blocks light
+    up and the two sheets are indistinguishable, which is no use in a demo and, worse, is not
+    true.
+    """
     ds = [variables[i] for i in ids if i in variables]
     if not ds:
-        return None                       # nothing mapped — leave the target posture alone
-    insys = [d for d in ds if d.get("current") == "In-system"]
+        return DARK
     if not mvp:
-        return LIT if insys else DARK
+        insys = sum(1 for d in ds if d.get("current") == "In-system")
+        return LIT if insys * 2 >= len(ds) else DARK
     yes = [d for d in ds if d.get("mvp") == "Yes"]
     if not yes:
         return DARK
-    return LIT if any(d.get("current") == "In-system" for d in yes) else CAPTURE
+    insys = sum(1 for d in yes if d.get("current") == "In-system")
+    return LIT if insys * 2 >= len(yes) else CAPTURE
+
+
+def sources(ids, variables):
+    """The platforms a block's data would be pulled from, for the consolidated view."""
+    out = []
+    for i in ids:
+        for tok in re.split(r"[+/,]", variables.get(i, {}).get("sot", "")):
+            tok = tok.strip()
+            if tok and tok.lower() not in ("manual", "derived", "config") and tok not in out:
+                out.append(tok)
+    return out
+
 
 PRELUDE = '''
 __VIS__ = True
-# The visualise-only helpers redraw THROUGH the generator's own surf()/block(), which are
-# themselves guarded — so the guard has to stand down while we are inside one.
 __D__ = [0]
-__REL__ = {rel!r}
-__RES__ = {res!r}
-__MVP__ = {mvp!r}
-P2_EDGE = "#5F8A12"
+__STATE__ = {state!r}
+__SRC__ = {src!r}
+GRN, GRND = "#A6E22E", "#5F8A12"
 
 def __key__(lines):
     return " ".join(lines).replace("\\u2014", "-").replace("\\u2019", "'").strip()
 
-def __vis_lit__(x, y, w, h, person, lines, small=False, badge=None, n=None):
-    """VISUALISED — the tool shows this in release 1. Person's colour, engine stripe."""
-    __D__[0] += 1
-    try:
-        surf(x, y, w, h, C[person] if isinstance(person, str) and person in C else person,
-             lines, small=small, badge=badge, n=n)
-    finally:
-        __D__[0] -= 1
-
-def __vis_p2__(x, y, w, h, person, lines, small=False, badge=None, n=None, label="PHASE 2"):
-    """Not in release 1 — drawn in the actor's colour, with the horizon marked."""
-    col = C[person] if isinstance(person, str) and person in C else person
-    # the horizon beats whatever posture badge the target sheet carried: a block that still
-    # says ASSIST here would read as release-1 scope, which is the one thing these sheets deny
-    block(x, y, w, h, col, lines, small=small, badge=label, bc=P2_EDGE)
-    add(f'<line x1="{{x+4}}" y1="{{y+h+3}}" x2="{{x+w-4}}" y2="{{y+h+3}}" stroke="{{P2_EDGE}}" '
-        f'stroke-width="2.4" stroke-dasharray="6 4"/>')
-    if n: xref(x, y, n)
-
-def __vis_route__(kind, x, y, w, h, lines, person=None, small=False, badge=None, n=None):
-    k = __key__(lines)
-    if kind == "surf":
-        # the engine only ever showed it — that IS release 1
-        return __vis_lit__(x, y, w, h, person, lines, small, badge, n)
-
-    hit = __REL__.get(k)
-    if not hit:
-        # an assist keeps the actor it already names; an unlisted engine block has none
-        return __vis_p2__(x, y, w, h, person if kind == "assist" else MUT,
-                          lines, small, badge, n)
-    who, when = hit
-    # an assist block already carries the colour of whoever decides; do not override it
-    actor = person if kind == "assist" else who
-    if __MVP__ and when == "full":
-        return __vis_p2__(x, y, w, h, actor, lines, small, badge, n, label="NOT IN MVP")
-    return __vis_lit__(x, y, w, h, actor, lines, small, badge, n)
-
-def __vis_ghost__(x, y, w, h, lines, **kw):
-    who = __RES__.get(__key__(lines))
-    if who is None:
-        __D__[0] += 1                     # leave it ghosted — seeing it IS the fix
-        try:
-            return ghost(x, y, w, h, lines, **kw)
-        finally:
-            __D__[0] -= 1
-    n = kw.get("n")
-    __vis_p2__(x, y, w, h, who, lines, small=True, n=n, label="STILL A STEP")
+def __vis_mark__(x, y, w, h, lines, fill=None, badge=None, bc=None):
+    """Outline a step that gains a consolidated view. The block itself is untouched."""
+    st = __STATE__.get(__key__(lines))
+    if st not in ("lit", "capture"):
+        return
+    # solid vs dashed carries the distinction on its own. A text pill was tried and there is
+    # nowhere to put it: above the block is the badge, below it is the sublist, inside it is
+    # the block's own wording.
+    dash = ' stroke-dasharray="9 6"' if st == "capture" else ""
+    add(f'<rect x="{{x-4}}" y="{{y-4}}" width="{{w+8}}" height="{{h+8}}" rx="9" fill="none" '
+        f'stroke="{{GRN}}" stroke-width="5"{{dash}}/>')
+    # the outline runs straight through a badge sitting on the block's top edge, so put the
+    # badge back on top of it
+    if badge:
+        bw = 8.3*len(badge)+18
+        add(f'<rect x="{{x+w-bw-8}}" y="{{y-14}}" width="{{bw}}" height="23" rx="11.5" '
+            f'fill="#FFFFFF" stroke="{{bc or fill}}" stroke-width="1.8"/>')
+        add(f'<text x="{{x+w-bw/2-8}}" y="{{y+2}}" class="bdg" text-anchor="middle" '
+            f'fill="{{bc or fill}}">{{esc(badge)}}</text>')
 '''
 
 
 def build(flow, mvp, out):
-    gen, nice = FLOWS[flow]
+    gen, mapfile, nice = FLOWS[flow]
     src = (HERE / gen).read_text()
+    variables = json.loads((HERE / "variables.json").read_text())
+    vmap = json.loads((HERE / mapfile).read_text())
 
-    # route each posture helper through the visualise-only vocabulary
-    for h in HELPERS:
-        m = re.search(rf"^(def {h}\(([^)]*)\):\n)", src, re.M)
-        if not m:
+    state, srcmap = {}, {}
+    for k, ids in vmap.items():
+        if k.startswith("_") or not ids:
             continue
-        args = m.group(2)
-        if h == "ghost":
-            # ghost() is not spelled the same in every generator — the SOC sheet's has no
-            # label/above. Forward only the parameters this one actually declares.
-            opt = ", ".join(f"{k}={k}" for k in ("n", "label", "above") if k in args)
-            guard = (f"    if __VIS__ and not __D__[0]: return __vis_ghost__("
-                     f"x, y, w, h, lines{', ' + opt if opt else ''})\n")
-        elif h == "eng":
-            guard = ("    if __VIS__ and not __D__[0]: return __vis_route__('eng', x, y, w, h, lines, "
-                     "small=small, badge=badge, n=n)\n")
-        elif h == "man":
-            continue                      # manual work is unchanged in release 1
-        else:
-            guard = (f"    if __VIS__ and not __D__[0]: return __vis_route__({h!r}, x, y, w, h, lines, "
-                     "person=person, small=small, badge=badge, n=n)\n")
-        src = src[:m.end(1)] + guard + src[m.end(1):]
+        state[k] = classify(ids, variables, mvp)
+        srcmap[k] = sources(ids, variables)
 
-    src = PRELUDE.format(rel=RELEASE[flow], res=RESTORE[flow], mvp=mvp) + "\n" + src
+    # one hook covers every block on the sheet: the row/phase helpers all call block()
+    m = re.search(r"^(def block\(([^)]*)\):\n)", src, re.M)
+    if not m:
+        raise SystemExit(f"{gen}: no block() to hook")
+    args = m.group(2)
+    fwd = ", ".join(f"{k}={k}" for k in ("small", "badge", "tc", "bc") if k in args)
+    back = ", ".join(f"{k}={k}" for k in ("badge", "bc") if k in args)
+    guard = (f"    if __VIS__ and not __D__[0]:\n"
+             f"        __D__[0] += 1\n"
+             f"        try: block(x, y, w, h, fill, lines{', ' + fwd if fwd else ''})\n"
+             f"        finally: __D__[0] -= 1\n"
+             f"        return __vis_mark__(x, y, w, h, lines, fill=fill"
+             f"{', ' + back if back else ''})\n")
+    src = src[:m.end(1)] + guard + src[m.end(1):]
+    src = PRELUDE.format(state=state, src=srcmap) + "\n" + src
 
-    # re-label the sheet: it is no longer the target state
-    scope = "MVP" if mvp else "FULL SCENARIO"
-    src = src.replace("TARGET STATE", f"VISUALISE ONLY · {scope}")
-    src = src.replace("target state", f"visualise only — {scope.lower()}")
-    src = src.replace(
-        "green = the capacity & scheduling engine (dark text); purple = still inside HCHB",
-        "a green stripe = the tool shows it; a dashed green edge = a later phase; purple = HCHB")
-    src = src.replace(
-        "Green = the capacity & scheduling engine (dark text); purple = still inside HCHB.",
-        "A green stripe = the tool shows it; a dashed green edge = a later phase; purple = HCHB.")
-    src = src.replace("A dashed, struck-through block is a step that no longer exists",
-                      "The tool shows; it does not act. A dashed green edge is a later phase")
-    src = src.replace("same blocks, same positions; only fill and wording change",
-                      "same blocks, same positions. The tool shows; it does not act")
-    src = src.replace("Capacity & Scheduling Engine", "Shown by the tool")
-    src = src.replace("PROPOSED \u00b7 a green stripe", "PROPOSED \u00b7 a green stripe")
+    scope = "MVP" if mvp else "VISUALISE ONLY"
+    key = ("MVP · solid green = one consolidated view, from data already in a system · "
+           "dashed green = committed for release 1, nothing records it yet"
+           if mvp else
+           "VISUALISE ONLY · a green outline marks a step that gains one consolidated view "
+           "instead of several reports · the process itself is unchanged")
+    src = src.replace("CURRENT STATE", scope)
+    src = re.sub(r'"Current state[^"]*"', lambda _: '"' + key + '"', src)
+    src = re.sub(r'"[Nn]othing on this sheet is a proposal[^"]*"', lambda _: '"' + key + '"', src)
 
-    ns = {"__REC__": [], "__name__": "__vis__"}
+    ns = {"__name__": "__vis__"}
     argv = sys.argv
     sys.argv = ["gen", out]
     try:
         exec(compile(src, gen, "exec"), ns)
     finally:
         sys.argv = argv
+    lit = sum(1 for v in state.values() if v == LIT)
+    cap = sum(1 for v in state.values() if v == CAPTURE)
+    print(f"{flow:8} {'mvp' if mvp else 'full':4} -> {out}  "
+          f"({ns['W']}x{ns['H']})  outlined {lit}  needs-capture {cap}  "
+          f"unmarked {len(state)-lit-cap}")
     return ns["W"], ns["H"], nice
 
 
 if __name__ == "__main__":
     flow, scope, out = sys.argv[1:4]
-    W, H, nice = build(flow, scope == "mvp", out)
-    print(f"{flow:8} {scope:4} -> {out}  ({W}x{H})  {nice}")
+    build(flow, scope == "mvp", out)
