@@ -625,7 +625,7 @@ The days each clinician normally works, including rotations like four long days 
 | | |
 |---|---|
 | Also touches | Capacity |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — states it; Scheduler — holds it |
 | Who reads it and decides today | Scheduler |
 | Where it lives today | Partly HCHB, partly the scheduler's own knowledge. Rotations and swaps are handled informally. |
@@ -648,7 +648,7 @@ When a clinician likes to begin. It anchors the front of the route, and the firs
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — states it |
 | Who reads it and decides today | Scheduler — decides how far to accommodate |
 | Where it lives today | Nobody's system — the scheduler's working knowledge. |
@@ -671,7 +671,7 @@ Whether that start time can move day to day. It separates a clinician who will s
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — decides in the moment |
 | Who reads it and decides today | Scheduler — asks |
 | Where it lives today | Nobody's system. |
@@ -694,7 +694,7 @@ Whether a clinician holds time mid-day for a break or for charting. It removes a
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — their own habit |
 | Who reads it and decides today | Scheduler — builds around it |
 | Where it lives today | Nobody's system. |
@@ -717,7 +717,7 @@ Time reserved specifically for charting, usually mid-afternoon. It consumes sche
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — their own habit |
 | Who reads it and decides today | Scheduler — builds around it |
 | Where it lives today | Nobody's system. |
@@ -740,7 +740,7 @@ A gap in the middle of the day — school pickup, an errand — with visits eith
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — their own routine |
 | Who reads it and decides today | Scheduler — builds around it when told |
 | Where it lives today | Nobody's system. |
@@ -763,7 +763,7 @@ The time a clinician must be finished by, usually for childcare or a second comm
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — states it |
 | Who reads it and decides today | Scheduler — honours it |
 | Where it lives today | Nobody's system. |
@@ -786,7 +786,7 @@ The most visits an individual will carry before the day stops working, regardles
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — states it |
 | Who reads it and decides today | Scheduler — respects it |
 | Where it lives today | Nobody's system. |
@@ -803,7 +803,7 @@ A personal ceiling, capturable and worth confirming. Conflict risk: a vendor tha
 **Open question:** Do we want a branch-level maximum as well as an individual one?
 
 
-## Scheduling Engine — Availability & reach
+## Scheduling — Availability & reach
 
 ### `S-14` Home base — where the day starts and ends
 
@@ -829,7 +829,7 @@ A legible anchor once captured. Using home addresses for routing has a privacy d
 **Open question:** Can we use clinician home addresses for drive-time calculation, and has that been agreed with them?
 
 
-## Scheduling Engine — Demand
+## Scheduling — Demand
 
 ### `S-01` Ordered visits and frequency
 
@@ -1016,7 +1016,7 @@ Added 19 Aug. Queue depth and age are countable, but the queue is other people's
 **Open question:** Can queue age be reported daily, and who owns acting on it?
 
 
-## Scheduling Engine — Matching
+## Scheduling — Matching
 
 ### `S-15` Discipline and role match
 
@@ -1226,7 +1226,7 @@ Added 19 Aug. A risk score may inform priority; it may not silently reorder a cl
 **Open question:** Is Pulse data reachable from scheduling today, and in what form?
 
 
-## Scheduling Engine — Routing & the week
+## Scheduling — Routing & the week
 
 ### `S-17` Closeness to the rest of the day's route
 
@@ -1413,7 +1413,7 @@ Optimisable, but it touches human routines — assist rather than dictate.
 **Open question:** Nothing outstanding.
 
 
-## Scheduling Engine — Exceptions
+## Scheduling — Exceptions
 
 ### `S-38` Rebooking a visit that never happened
 
@@ -1494,7 +1494,7 @@ A flat refusal of a time band — nothing before eleven, no afternoons. It remov
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler or Clinician — captures it in conversation |
 | Who reads it and decides today | Scheduler — schedules around it |
 | Where it lives today | HCHB coordination note — free text written by a person, not a structured field. |
@@ -1517,7 +1517,7 @@ When the patient would like to be seen. Softer than a refusal, but it drives sat
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler or Clinician — captures it |
 | Who reads it and decides today | Scheduler — optimises toward it |
 | Where it lives today | HCHB coordination note — free text. |
@@ -1540,7 +1540,7 @@ Standing commitments that block whole days — dialysis on Monday, Wednesday and
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler or Clinician — captures it |
 | Who reads it and decides today | Scheduler — schedules around it |
 | Where it lives today | HCHB coordination note — free text. |
@@ -1563,7 +1563,7 @@ Some visits can only happen when a family member or carer is there — wound-car
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler or Clinician — confirms before booking |
 | Who reads it and decides today | Scheduler — and the Clinician on the day |
 | Where it lives today | HCHB coordination note — free text. |
@@ -1586,7 +1586,7 @@ When a patient cannot safely admit a clinician or follow instruction alone, a ca
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Clinician — identifies it; Scheduler — schedules to it |
 | Who reads it and decides today | Clinician — owns the clinical judgment |
 | Where it lives today | Clinical detail in HCHB; the scheduling consequence in the coordination note. |
@@ -1609,7 +1609,7 @@ Scheduling around two moving calendars at once — the patient's and a carer who
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler and Clinician — renegotiate as it changes |
 | Who reads it and decides today | Scheduler — with the family |
 | Where it lives today | Not recorded anywhere in a durable form. |
@@ -1632,7 +1632,7 @@ The patient's other appointments — dialysis, infusion, a specialist visit — 
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler or Clinician — learns it by asking |
 | Who reads it and decides today | Scheduler |
 | Where it lives today | HCHB coordination note when captured; otherwise not recorded. |
@@ -1655,7 +1655,7 @@ A patient's request for a clinician of a particular gender, often for cultural, 
 | | |
 |---|---|
 | Also touches | — |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler — captures and matches |
 | Who reads it and decides today | Scheduler |
 | Where it lives today | HCHB coordination note — free text. |
@@ -1678,7 +1678,7 @@ Pairing a patient with a clinician who shares their language where possible. It 
 | | |
 |---|---|
 | Also touches | Engagement |
-| Placement check | Differs — the one-pager groups this under Scheduling Engine |
+| Placement check | Differs — the one-pager groups this under Scheduling |
 | Who does the work today | Scheduler — matches where they can |
 | Who reads it and decides today | Scheduler; Clinician — raises it when teaching fails |
 | Where it lives today | Languages spoken are not reliably recorded for clinicians; patient language is in HCHB. |
@@ -1960,7 +1960,7 @@ The scramble when a clinician is out. It is owned jointly by the DCS and the sch
 | | |
 |---|---|
 | Also touches | Capacity, Scheduling |
-| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling; write this back to the workbook |
 | Who does the work today | DCS and Scheduler — jointly |
 | Who reads it and decides today | DCS and Scheduler — jointly; DCS escalates for a start of care |
 | Where it lives today | No system holds this. It runs on phone, text and Teams, against the scheduler's knowledge of who might take it. |
@@ -2009,7 +2009,7 @@ Spacing the nurse, the therapist and the aide sensibly across a week rather than
 | | |
 |---|---|
 | Also touches | Scheduling |
-| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling; write this back to the workbook |
 | Who does the work today | Scheduler — spaces them; Clinician — adjusts |
 | Who reads it and decides today | Scheduler |
 | Where it lives today | HCHB holds the visits; the spacing judgment is manual. |
@@ -2032,7 +2032,7 @@ The connective work of telling the case manager and the office when something ch
 | | |
 |---|---|
 | Also touches | Scheduling |
-| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling; write this back to the workbook |
 | Who does the work today | Scheduler and Clinician — write the notes |
 | Who reads it and decides today | Case Manager / Clinical Manager — act on what they read |
 | Where it lives today | HCHB coordination notes. |
@@ -2055,7 +2055,7 @@ The time clinicians and schedulers spend on coordination rather than care. It is
 | | |
 |---|---|
 | Also touches | Capacity, Scheduling |
-| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling Engine; write this back to the workbook |
+| Placement check | Ruled 25 Aug — moved to Engagement. The 8.19 workbook still has it under Scheduling; write this back to the workbook |
 | Who does the work today | Everyone — it is spread across every role |
 | Who reads it and decides today | — no one measures it today |
 | Where it lives today | Not measured anywhere. |

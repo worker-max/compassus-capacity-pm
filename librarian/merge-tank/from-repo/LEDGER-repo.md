@@ -62,25 +62,35 @@ that can.
 
 ## What I am waiting on
 
-1. **Write Colin's 25 Aug coordination ruling back to the workbook.** `CO-09`–`CO-12` (call-out
+1. **The three category names, and what Engagement means.** The project's categories are
+   **Capacity Management · Scheduling · Engagement** (Colin, 25 Aug). The 19 Aug workbook's Module
+   column writes them as *Capacity Management / Scheduling Engine / Patient Engagement*. The
+   variable workbook uses the short names; the Module column upstream still uses the long ones.
+   **"Patient Engagement" is the one that actively misleads** — engagement is the contact work that
+   turns a schedule into delivered visits *whoever it is with*: office to clinician, clinician back
+   to the office, clinician to clinician, care team to each other, as well as patient and caregiver.
+   Finding coverage for a call-out is engagement. The one-pager already has this right — "with
+   patients, clinicians and the office" — the workbook label does not.
+
+2. **Write Colin's 25 Aug coordination ruling back to the workbook.** `CO-09`–`CO-12` (call-out
    coverage, multi-discipline coordination, care-team updates, coordination time load) are
    **engagement**, not scheduling: all four are carried by contact with a patient or a clinician.
    The 19 Aug workbook's Module column still has them under Scheduling Engine. The variable
    workbook carries the ruling and flags the divergence on every affected row; **the workbook is
    upstream and has to be updated for real**, or the two drift apart. Ruled by Colin, 25 Aug.
-2. **The one-pager's ownership.** The vendor-facing one-pager is now edited inside the questionnaire
+3. **The one-pager's ownership.** The vendor-facing one-pager is now edited inside the questionnaire
    workbook, which this side cannot regenerate — so the "repo is upstream for the one-pager" rule in
    DRIVE-INDEX no longer holds. Three options and a recommendation are laid out in
    `knowledge/vendor-questionnaire-overview-2026-08.md` §4. **Needs Colin.**
-3. ~~**The `S-43` ruling.**~~ **CLOSED 25 Aug.** The 19 Aug workbook ruled: `S-43` Insurance
+4. ~~**The `S-43` ruling.**~~ **CLOSED 25 Aug.** The 19 Aug workbook ruled: `S-43` Insurance
    Authorization, `S-44` Add-On Orders, `S-45` Clinician Safety, with consent/POA landing as `S-47`
    and `CO-14`. The reservations in `artifacts/variable-backlog.md` were overridden; that file now
    carries the ruling. **What replaces it:** `SH-10`–`SH-14` were *not* adopted, so the payer
    dimension — payer class, pending-auth allowance, payment period, LUPA threshold — is still
    missing from the inventory entirely. Needs Colin.
-4. **`Evan _ Colin.docx`** — 452KB, dropped 19 August, unopened by either instance. Whoever reads it
+5. **`Evan _ Colin.docx`** — 452KB, dropped 19 August, unopened by either instance. Whoever reads it
    first should log it and say what it is.
-5. **`Pass Through Material Temp`** — Colin's running flow-map corrections, last edited 24 August and
+6. **`Pass Through Material Temp`** — Colin's running flow-map corrections, last edited 24 August and
    still live. Read properly before the next flow-sheet regeneration; the corrections in it are not
    yet in `process-facts-2026-08.md`.
 
