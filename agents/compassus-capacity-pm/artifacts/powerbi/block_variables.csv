@@ -1,0 +1,84 @@
+﻿Flow,Block,Id
+Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-01
+Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-02
+Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-03
+Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,SH-02
+Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-01
+Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,SH-03
+Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-37
+Routine Visit Scheduling,Each submission generates its own assignment task,S-01
+Routine Visit Scheduling,Each submission generates its own assignment task,S-15
+Routine Visit Scheduling,DCS reviews & approves the POC,S-01
+Routine Visit Scheduling,DCS reviews & approves the POC,S-03
+Routine Visit Scheduling,DCS reviews & approves the POC,S-36
+Routine Visit Scheduling,Scheduler assigns visits to care team,S-15
+Routine Visit Scheduling,Scheduler assigns visits to care team,S-16
+Routine Visit Scheduling,Scheduler assigns visits to care team,S-21
+Routine Visit Scheduling,Scheduler assigns visits to care team,S-22
+Routine Visit Scheduling,Scheduler assigns visits to care team,C-08
+Routine Visit Scheduling,Scheduler assigns visits to care team,SH-02
+Routine Visit Scheduling,Evaluate own capacity for the week,C-05
+Routine Visit Scheduling,Evaluate own capacity for the week,C-06
+Routine Visit Scheduling,Evaluate own capacity for the week,C-07
+Routine Visit Scheduling,Evaluate own capacity for the week,SH-05
+Routine Visit Scheduling,Evaluate own capacity for the week,SH-07
+Routine Visit Scheduling,Evaluate own capacity for the week,SH-08
+Routine Visit Scheduling,Evaluate own capacity for the week,C-12
+Routine Visit Scheduling,Evaluate own capacity for the week,S-41
+Routine Visit Scheduling,Prioritise clinical need across the caseload,S-31
+Routine Visit Scheduling,Prioritise clinical need across the caseload,S-33
+Routine Visit Scheduling,Prioritise clinical need across the caseload,S-03
+Routine Visit Scheduling,Prioritise clinical need across the caseload,S-40
+Routine Visit Scheduling,Prioritise clinical need across the caseload,S-42
+Routine Visit Scheduling,Group visits geographically,S-14
+Routine Visit Scheduling,Group visits geographically,S-17
+Routine Visit Scheduling,Group visits geographically,S-18
+Routine Visit Scheduling,Group visits geographically,C-02
+Routine Visit Scheduling,Group visits geographically,C-03
+Routine Visit Scheduling,Group visits geographically,C-04
+Routine Visit Scheduling,Test against hard constraints,S-27
+Routine Visit Scheduling,Test against hard constraints,S-28
+Routine Visit Scheduling,Test against hard constraints,S-29
+Routine Visit Scheduling,Test against hard constraints,S-30
+Routine Visit Scheduling,Test against hard constraints,S-31
+Routine Visit Scheduling,Test against hard constraints,S-32
+Routine Visit Scheduling,Test against hard constraints,S-34
+Routine Visit Scheduling,Confirm with the patient - day before,CO-01
+Routine Visit Scheduling,Confirm with the patient - day before,CO-02
+Routine Visit Scheduling,Confirm with the patient - day before,CO-06
+Routine Visit Scheduling,Confirm with the patient - day before,CO-05
+Routine Visit Scheduling,Confirm with the patient - day before,S-25
+Routine Visit Scheduling,Confirm with the patient - day before,S-26
+Routine Visit Scheduling,Confirm with the patient - day before,S-20
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-18
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-19
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-20
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-10
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-14
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-06
+Routine Visit Scheduling,Accept visit delivered as planned,CO-03
+Routine Visit Scheduling,Reschedule within the week,S-38
+Routine Visit Scheduling,Reschedule within the week,S-03
+Routine Visit Scheduling,Reschedule within the week,CO-07
+Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,CO-09
+Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,S-15
+Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,S-21
+Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,C-09
+Routine Visit Scheduling,Miss → compliance chain,S-38
+Routine Visit Scheduling,Miss → compliance chain,S-39
+Routine Visit Scheduling,Miss → compliance chain,CO-08
+Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,CO-09
+Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,S-15
+Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,C-09
+Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",SH-03
+Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",S-15
+Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",S-37
+Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,S-37
+Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,C-08
+Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-01
+Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-06
+Routine Visit Scheduling,Day-before calls are unpaid evening work,CO-12
+Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-41
+Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-42
+Routine Visit Scheduling,The weekly logic is undocumented and unassisted,S-12
+Routine Visit Scheduling,The weekly logic is undocumented and unassisted,C-05

@@ -1,0 +1,77 @@
+﻿Id,Layer,Variable,Constraint,Mvp,Posture,Gating,Confidence,Current,Sot,Sourced,Measure,Rollup,Weight,Notes
+C-01,Capacity,Headcount by discipline & employment type,Structural,Yes,Control,Y,High,In-system,Workday,Branch,Quantitative,CAP-A,3,Clear supply fact.
+C-02,Capacity,Branch coverage territory (county),Structural,Yes,Control,Y,High,In-system,HCHB,Geography,Quantitative,CAP-B,3,Fixed coverage boundary.
+C-03,Capacity,Clinician territory assignment (zip),Structural,Yes,Assist,Y,Medium,Manual,HCHB + Manual,Geography,Quantitative,CAP-B,3,Noted info above related to branch territories.  Clinician territoriies are to be maintained in system to facilitate scheduling and capacity management -- paired with a real-time census heatmap would allow for territory adjustments PRN or quarterly--huge effects on both capacity and scheduling
+C-04,Capacity,Census-tract granularity (under evaluation),Config,Yes,Assist,N,Medium,In-system,Census,Geography,Quantitative,CAP-B,3,"A modeling choice, not a live control; evaluate deliberately."
+C-05,Capacity,Committed load / points scheduled,Derived,Yes,Control,N,High,In-system,Derived,System,Quantitative,CAP-C,3,Derived from booked visits.
+C-06,Capacity,Remaining capacity by day,Derived,Yes,Control,N,High,In-system,Derived,System,Quantitative,CAP-D,3,Direct derivation from the schedule.
+C-07,Capacity,Week open capacity,Derived,Yes,Control,N,High,In-system,Derived,System,Quantitative,CAP-D,3,Direct derivation.
+C-08,Capacity,Assessing capacity by discipline,Derived,Yes,Control,N,High,In-system,Derived,System,Quantitative,CAP-D,3,"Direct derivation, discipline-filtered."
+C-09,Capacity,Per-diem / flex capacity,Structural,Yes,Assist,Y,Medium,Manual,Manual + HCHB,Branch,Quantitative,CAP-E,3,Availability is stated; actual engagement depends on the relationship.
+C-10,Capacity,Specialty competency supply,Structural,Maybe,Assist,N,Medium,Tacit,Workday + Manual,Clinician,Quantitative,CAP-F,1,"Competency is often informal, not fully credentialed in the data."
+C-11,Capacity,Orientation / ramp status,Structural,Maybe,Assist,N,Medium,In-system,Workday,Branch,Quantitative,CAP-G,1,Headcount is clear; the true ramp curve requires judgment.
+C-12,Capacity,On-call / weekend rotation load,Structural,Yes,Control,Y,High,In-system,HCHB,System,Quantitative,CAP-C,3,Clear from the rotation log.
+C-13,Capacity,Referral volume (out of scope),Context,No,Read,N,Low,In-system,HCHB,System,Quantitative,CAP-H,0,Out of scope; More related to Commure
+CO-01,Coordination,Day-before / same-day visit confirmation,Soft,Yes,Assist,N,Medium,Manual,Manual,Clinician,Quantitative,CRD-A,3,"Confirmation cuts failed visits; the call can surface changes, so prompt and let a person confirm."
+CO-02,Coordination,Automated appointment reminders,Soft,Yes,Control,N,High,In-system,Telephony,System,Quantitative,CRD-A,3,Rule-based reminder dispatch - a clean automation win.
+CO-03,Coordination,En-route / on-my-way notification,Soft,Maybe,Control,N,High,In-system,Routing,Clinician,Quantitative,CRD-A,1,Derived from the live route; safe to automate.
+CO-04,Coordination,New-patient welcome call,Soft,Maybe,Assist,N,Medium,In-system,Telephony + HCHB,System,Quantitative,CRD-A,1,Automate the trigger; the call itself is human and relational.
+CO-05,Coordination,Communication channel & preference management,Soft,Maybe,Assist,N,Medium,Manual,Manual + Config,System,Quantitative,CRD-A,1,Capturable preference; confirm it for reliability-critical messages.
+CO-06,Coordination,Availability confirmation before booking,Hard,Yes,Read,Y,Low,Tacit,Manual,Patient,Qualitative,CRD-B,3,"Depends on fluctuating patient and caregiver windows; surface, a person owns it."
+CO-07,Coordination,Reschedule coordination,Soft,Maybe,Read,N,Low,Tacit,Manual,Clinician,Qualitative,CRD-B,1,"Relational negotiation; the system can propose slots, a person owns the outcome."
+CO-08,Coordination,Failed-visit / no-show follow-up & rebooking,Hard,Yes,Assist,Y,Medium,Manual,HCHB + Manual,Branch,Qualitative,CRD-B,3,Detecting the miss is clean; the rebooking pulls in every soft constraint.
+CO-09,Coordination,Call-out coverage coordination,Hard,Yes,Read,Y,Low,Tacit,Manual,Branch,Qualitative,CRD-B,3,"Coverage hinges on relational willingness; surface options, a person works it."
+CO-10,Coordination,Multi-discipline visit coordination,Soft,Maybe,Assist,N,Medium,Manual,HCHB + Manual,System,Qualitative,CRD-C,1,Rule-informed but pinned by patient tolerance and clinician routes; propose.
+CO-11,Coordination,Care-team / office coordination updates,Soft,Maybe,Assist,N,Medium,In-system,HCHB,System,Qualitative,CRD-C,1,Logging and notification are automatable; what to escalate is human judgment.
+CO-12,Coordination,Coordination time load,Derived,Maybe,Read,N,Low,Tacit,Derived + Manual,Branch,Quantitative,CRD-D,1,Measure and surface it; the coordination work itself stays human.
+S-01,Scheduling,Plan-of-care orders / ordered frequency,Hard,Yes,Control,Y,High,In-system,HCHB,Patient,Quantitative,SCH-A,3,Orders are clear in HCHB.
+S-02,Scheduling,Visit type,Hard,Yes,Control,Y,High,In-system,HCHB,Patient,Quantitative,SCH-A,3,Clear order attribute.
+S-03,Scheduling,Ordered-frequency compliance window,Hard,Yes,Control,Y,High,In-system,HCHB,System,Quantitative,SCH-B,3,Rule-based date window; ideal to enforce and flag.
+S-04,Scheduling,Preferred working days,Soft,Maybe,Assist,N,Medium,Tacit,Manual + HCHB,Clinician,Qualitative,SCH-C,1,"Set pattern, but rotations and swaps are informal."
+S-05,Scheduling,Preferred start time,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Capturable preference; confirm before acting.
+S-06,Scheduling,Start-time flexibility,Soft,Maybe,Read,N,Low,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Depends on the clinician's willingness; a wrong assumption damages trust.
+S-07,Scheduling,Lunch pattern/ Documentation Pattern,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Capturable habit.
+S-08,Scheduling,Mid-day documentation block,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Capturable habit.
+S-09,Scheduling,Split-shift / mid-day personal break,Soft,Maybe,Read,N,Low,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Personal daily routine that varies; hard to predict reliably.
+S-10,Scheduling,Preferred end time / hard stop,Hard/Soft,Yes,Assist,N,Medium,Tacit,Manual,Clinician,Qualitative,SCH-C,3,"Firm once known, but knowing it depends on the clinician telling you."
+S-11,Scheduling,Max consecutive visits / daily volume,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Capturable ceiling; confirm.
+S-12,Scheduling,Elasticity / willingness to flex,Soft,Maybe,Read,N,Low,Tacit,Manual,Clinician,Qualitative,SCH-C,1,Relationship-based; automating it can damage the trust it depends on.  Role Expecation reinforcement and facilitate willingness to travel outside assigned territory
+S-13,Scheduling,Overtime / extra-visit willingness,Soft,Maybe,Read,N,Low,Tacit,Manual,Clinician,Qualitative,SCH-C,1,"Relationship- and pay-linked; surface it, do not assume."
+S-14,Scheduling,Home base (start/end location),Structural,Yes,Control,Y,High,Manual,Manual + Routing,Geography,Quantitative,SCH-D,3,Clear location anchor.
+S-15,Scheduling,Discipline / role match,Hard,Yes,Control,Y,High,In-system,Derived,System,Quantitative,SCH-E,3,"Firm licensure gate, fully clear. Assessing clinician vs paraprofessional; orientee considerations."
+S-16,Scheduling,Specialty competency match,Hard,Yes,Assist,Y,Medium,Manual,Workday + Manual,System,Quantitative,SCH-E,3,"Only as good as the competency data, which is often incomplete."
+S-17,Scheduling,Proximity to existing route,Soft,Maybe,Control,N,High,In-system,Routing,Geography,Quantitative,SCH-D,1,Geographic optimization; safe and reversible.
+S-18,Scheduling,Optimized-route mileage,Derived,Yes,Control,N,High,In-system,Routing,Geography,Quantitative,SCH-D,3,Deterministic routing math.
+S-19,Scheduling,Intra-day sequencing,Soft,Maybe,Assist,N,Medium,In-system,Derived,Geography,Quantitative,SCH-D,1,"Clear, but pinned by fixed time constraints; propose a sequence."
+S-20,Scheduling,Appointment window (time of day),Hard/Soft,Yes,Assist,N,Medium,Manual,HCHB + Manual,Geography,Quantitative,SCH-D,3,Enforceable once captured; capture is the weak point.
+S-21,Scheduling,Clinician restrictions,Hard,Yes,Control,Y,High,Tacit,Manual,Clinician,Qualitative,SCH-F,3,Documented firm restriction; honor it.
+S-22,Scheduling,Continuity of care,Soft,Maybe,Assist,N,Medium,In-system,HCHB,Patient,Qualitative,SCH-G,1,Prior clinician is known; the relationship's value is informal.
+S-23,Scheduling,Gender preference,Hard/Soft,No,Assist,N,Medium,Tacit,Manual,Patient,Qualitative,SCH-H,0,Sensitive; surface and confirm rather than auto-match.
+S-24,Scheduling,Language / cultural match,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Patient,Qualitative,SCH-H,1,Capturable; confirm for teaching-critical visits.
+S-25,Scheduling,Time-of-day refusal,Soft,Yes,Assist,N,Medium,Tacit,Manual,Patient,Qualitative,SCH-I,3,"Firm rule once captured, but a stale refusal causes a failed visit."
+S-26,Scheduling,Preferred visit window,Soft,Maybe,Assist,N,Medium,Tacit,Manual,Patient,Qualitative,SCH-I,1,"Soft window; optimize toward it, confirm."
+S-27,Scheduling,Day-of-week constraint,Hard,Yes,Assist,Y,Medium,Tacit,Manual + HCHB,Patient,Qualitative,SCH-I,3,Standing commitments are capturable but patient-reported.
+S-28,Scheduling,Caregiver-present requirement,Hard,Yes,Read,Y,Low,Tacit,Manual,Caregiver,Qualitative,SCH-J,3,"Firm requirement, but the input is informal and changing, with patient-safety impact."
+S-29,Scheduling,Cognitive / dementia constraint,Hard,Yes,Read,Y,Low,Tacit,Manual + HCHB,Caregiver,Qualitative,SCH-J,3,"Cognition plus caregiver dependency; system surfaces, a person decides."
+S-30,Scheduling,Caregiver schedule / fluctuating availability,Hard,Yes,Read,Y,Low,Tacit,Manual,Caregiver,Qualitative,SCH-J,3,"Two changing calendars, largely undocumented; needs a person."
+S-31,Scheduling,Diagnosis-driven timing,Hard,Yes,Read,Y,Low,Tacit,HCHB + Manual,Patient,Quantitative,SCH-K,3,"Clinical timing judgment with patient-safety impact; flag, do not decide."
+S-32,Scheduling,Competing medical appointments,Hard,Yes,Assist,Y,Medium,Manual,Manual + HCHB,Patient,Quantitative,SCH-K,3,"Capturable if reported, but often surfaces only in conversation."
+S-33,Scheduling,Acuity to discipline / skill,Hard,Yes,Read,Y,Low,Tacit,HCHB + Manual,System,Quantitative,SCH-E,3,"Acuity-to-skill is clinical judgment; recommend, a person confirms."
+S-34,Scheduling,Infection-control sequencing,Soft,Maybe,Assist,N,Medium,Manual,Manual,Patient,Quantitative,SCH-K,1,Partly rule-based; confirm for complex cases.
+S-35,Scheduling,SOC timing window,Hard,Yes,Control,Y,High,In-system,HCHB,System,Quantitative,SCH-B,3,"Regulatory clock, fully clear - the safest automation win."
+S-36,Scheduling,Recert / face-to-face window,Hard,Yes,Control,Y,High,In-system,HCHB,System,Quantitative,SCH-B,3,Regulatory window; enforce and flag.
+S-37,Scheduling,Supervisory visit dependency,Hard,Yes,Control,Y,High,In-system,HCHB,System,Quantitative,SCH-L,3,Rule-based cadence dependency; clear and enforceable.
+S-38,Scheduling,Missed / unworked visit rescheduling,Hard,Yes,Assist,Y,Medium,In-system,HCHB + Derived,System,Quantitative,SCH-M,3,Detecting the miss is straightforward; choosing the reschedule pulls in every soft constraint.
+S-39,Scheduling,Missed-visit documentation,Config,Yes,Control,N,High,In-system,HCHB,System,Quantitative,SCH-M,3,Workflow and compliance prompt and tracking.
+S-40,Scheduling,Front-loading,Soft,Maybe,Assist,N,Medium,In-system,Derived,System,Quantitative,SCH-N,1,"Optimize toward the target, but forcing it disrupts clinician routines."
+S-41,Scheduling,Pace vs. schedule,Derived,Maybe,Control,N,High,In-system,Derived,System,Quantitative,SCH-N,1,Derived metric; safe to surface.
+S-42,Scheduling,Day-by-day balancing,Soft,Maybe,Assist,N,Medium,In-system,Derived,System,Quantitative,SCH-N,1,"Optimizable, but it touches human routines and informal constraints."
+SH-01,Shared,Clinician headcount,Structural,Yes,Control,Y,High,In-system,Workday + HCHB,Branch,Quantitative,SHD-A,3,Clear roster fact; safe to sync and read.
+SH-02,Shared,Discipline,Structural,Yes,Control,Y,High,In-system,Workday + HCHB,Branch,Quantitative,SHD-A,3,"Firm licensure fact, fully in the data."
+SH-03,Shared,Role (assessing vs assistant),Structural,Yes,Control,Y,High,In-system,Derived,Branch,Quantitative,SHD-A,3,Derived directly from discipline.
+SH-04,Shared,FTE / employment type,Structural,Yes,Control,Y,High,In-system,Workday,Branch,Quantitative,SHD-A,3,Clear employment attribute.
+SH-05,Shared,Approved time off / availability,Hard,Yes,Control,Y,High,In-system,Workday + HCHB,Clinician,Quantitative,SHD-B,3,"Once entered, a firm blackout the system can honor."
+SH-06,Shared,Territory / service area,Structural,Yes,Assist,Y,Medium,Manual,HCHB + Manual + Census,Geography,Quantitative,SHD-C,3,Territory lines carry local knowledge; propose and confirm.  Territory zip code/CCT list to be connected as well as include pre-ordained backup options for coverage.  Visit assignment:  Human Confirm as final step.
+SH-07,Shared,Productivity points per visit type,Config,Yes,Control,N,High,In-system,Config,System,Quantitative,SHD-D,3,Policy constant; simple lookup.
+SH-08,Shared,Productivity target & ceiling,Config,Yes,Control,N,High,In-system,HCHB + Config,Branch,Quantitative,SHD-E,3,Policy constant; simple lookup.
+SH-09,Shared,Referral inflow / discharge outflow,Event,Yes,Control,N,High,In-system,HCHB,System,Quantitative,SHD-F,3,Event detection is clear; the downstream action is scored separately.

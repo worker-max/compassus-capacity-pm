@@ -1,0 +1,26 @@
+﻿Flow,Block,Visualise,MVP,Variables,X,Y,BubbleSize,LeftPct,TopPct,WidthPct,HeightPct
+Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,lit,lit,4,21.591,82.738,60.88,15.909,14.583,11.364,5.357
+Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,lit,lit,3,34.227,82.738,60.88,28.545,14.583,11.364,5.357
+Routine Visit Scheduling,Each submission generates its own assignment task,lit,lit,2,46.864,82.738,60.88,41.182,14.583,11.364,5.357
+Routine Visit Scheduling,DCS reviews & approves the POC,lit,lit,3,59.5,82.738,60.88,53.818,14.583,11.364,5.357
+Routine Visit Scheduling,Scheduler assigns visits to care team,lit,lit,6,72.136,82.738,60.88,66.455,14.583,11.364,5.357
+Routine Visit Scheduling,Admission SOC or eval visit,dark,dark,0,7.955,82.738,52.76,2.273,14.94,11.364,4.643
+Routine Visit Scheduling,Evaluate own capacity for the week,lit,lit,8,21.591,61.25,60.88,15.909,36.071,11.364,5.357
+Routine Visit Scheduling,Prioritise clinical need across the caseload,lit,capture,5,34.227,61.25,60.88,28.545,36.071,11.364,5.357
+Routine Visit Scheduling,Group visits geographically,lit,lit,6,46.864,61.25,60.88,41.182,36.071,11.364,5.357
+Routine Visit Scheduling,Test against hard constraints,dark,capture,7,59.5,61.25,60.88,53.818,36.071,11.364,5.357
+Routine Visit Scheduling,Confirm with the patient - day before,dark,capture,7,72.136,61.25,60.88,66.455,36.071,11.364,5.357
+Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",dark,capture,6,84.773,61.25,60.88,79.091,36.071,11.364,5.357
+Routine Visit Scheduling,Accept visit delivered as planned,lit,dark,1,21.591,26.31,51.41,15.909,71.429,11.364,4.524
+Routine Visit Scheduling,Reschedule within the week,lit,lit,3,34.227,26.31,51.41,28.545,71.429,11.364,4.524
+Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,dark,capture,4,46.864,26.31,51.41,41.182,71.429,11.364,4.524
+Routine Visit Scheduling,Miss → compliance chain,lit,lit,3,59.5,26.31,51.41,53.818,71.429,11.364,4.524
+Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,dark,capture,3,72.136,26.31,51.41,66.455,71.429,11.364,4.524
+Routine Visit Scheduling,OASIS visits do not move,dark,dark,0,21.645,13.988,28.68,15.909,84.762,11.473,2.5
+Routine Visit Scheduling,Medicare week is Sunday–Saturday,dark,dark,0,35.591,13.988,36.5,28.291,84.762,14.6,2.5
+Routine Visit Scheduling,Inside the 60-day certification period,dark,dark,0,52.273,13.988,42.36,43.8,84.762,16.945,2.5
+Routine Visit Scheduling,Auth still gates assignment,dark,dark,0,67.977,13.988,31.61,61.655,84.762,12.645,2.5
+Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",lit,lit,3,25.455,8.274,79.55,15.909,89.643,19.091,4.167
+Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,lit,lit,2,45.455,8.274,79.55,35.909,89.643,19.091,4.167
+Routine Visit Scheduling,Day-before calls are unpaid evening work,dark,capture,3,65.455,8.274,79.55,55.909,89.643,19.091,4.167
+Routine Visit Scheduling,The weekly logic is undocumented and unassisted,lit,lit,4,85.455,8.274,79.55,75.909,89.643,19.091,4.167
