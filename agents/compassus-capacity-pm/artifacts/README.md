@@ -279,8 +279,27 @@ hover version, in the order they actually work:
 | **`--pdf` annotated PDF** | Acrobat Reader, macOS Preview | **not** Chrome/Edge's built-in viewer, **not** Google Drive's preview |
 
 The HTML file is genuinely self-contained — the only `url()` in it is an internal SVG arrowhead
-reference. It renders correctly opened straight off disk with no `<!doctype>` wrapper, which was
-tested, not assumed.
+reference.
+
+**Two output shapes, and they are not interchangeable.** The artifact host supplies its own
+`<!doctype><html><head><body>`, so a page published as an artifact must stay a fragment. A file
+handed to someone to open off disk must *not* be a fragment — with no doctype every browser drops
+into quirks mode. `--standalone` wraps the fragment in a real document with `lang`, `charset` and a
+viewport meta. Use it for anything emailed or put on a shared drive.
+
+**Browser support.** Tested across six viewports from 1920×1080 down to 390×844, mouse and touch:
+standards mode, panel opens, panel stays inside the viewport, dismiss works, no console errors. The
+newest thing the page uses is `??` and `clamp()` (both 2020) and flex `gap` (Safari 14.1, 2021), so
+anything from 2021 on is fine. Only Chromium could be driven here — Firefox and WebKit are not
+installed in this environment — so that matrix is a Chromium result plus a feature-support audit,
+not a WebKit test.
+
+**Touch needs pointer events, not hover.** A tap fires `mouseenter` then `mouseleave` and sends no
+click at all, so a hover-only binding opens the panel and shuts it in the same gesture. Binding
+`click` *as well as* `pointerup` is the other trap — a tap sends both, so the pin toggles straight
+back off. The page therefore pins on `pointerup` for every input type and keeps `pointerenter` /
+`pointerleave` gated to `pointerType === 'mouse'`. Under 640px the panel becomes a bottom sheet so
+the block being read stays visible above it. Do not reintroduce a `click` handler on `.hit`.
 
 `--pdf` writes the mapping into an existing PDF as one invisible rect annotation per block, and
 verifies the page renders pixel-identically afterwards — it prints `render identical: True` and

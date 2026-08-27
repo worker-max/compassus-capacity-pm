@@ -2,6 +2,7 @@
 """_flow_live — turn any flow-map generator into a hoverable sheet, without editing it.
 
     python3 _flow_live.py <generator.gen.py> <hotspot-map.json> <out.html> "<Title>"
+    python3 _flow_live.py --standalone <generator.gen.py> <map.json> <out.html> "<Title>"
     python3 _flow_live.py --pdf <generator.gen.py> <hotspot-map.json> <in.pdf> <out.pdf>
 
 How it works. The generator is executed with its block-drawing helpers instrumented, so
@@ -99,7 +100,24 @@ def resolve(gen, mapfile):
     return svg, hot, variables, W, H
 
 
-def main():
+# The artifact host supplies its own <!doctype><html><head><body>, so a page published
+# as an artifact must stay a fragment. A file handed to someone to open off disk must NOT —
+# without a doctype every browser falls into quirks mode. Hence two output shapes.
+SHELL = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{head}
+</head>
+<body>
+{body}
+</body>
+</html>
+"""
+
+
+def main(standalone=False):
     gen, mapfile, out_html, title = sys.argv[1:5]
     svg, hot, variables, W, H = resolve(gen, mapfile)
 
@@ -115,8 +133,11 @@ def main():
                .replace("__W", str(W)).replace("__H", str(H)))
     page += LIVE.replace("__HOT__", json.dumps(hot, ensure_ascii=False)) \
                 .replace("__VARS__", json.dumps(variables, ensure_ascii=False))
-    pathlib.Path(out_html).write_text(page)
-    print("wrote", out_html)
+    if standalone:
+        title_tag, rest = page.split("\n", 1)
+        page = SHELL.format(head=title_tag, body=rest)
+    pathlib.Path(out_html).write_text(page, encoding="utf-8")
+    print("wrote", out_html, "· standalone document" if standalone else "· artifact fragment")
 
 
 LIVE = r"""
@@ -132,7 +153,7 @@ LIVE = r"""
 #vp-hint{max-width:1900px;margin:14px auto 0;font-family:var(--mono);font-size:12.5px;
   color:#7C8781;letter-spacing:.03em}
 #vp-hint b{color:#5A6560}
-.hit{fill:transparent;cursor:pointer;pointer-events:all}
+.hit{fill:transparent;cursor:pointer;pointer-events:all;touch-action:manipulation}
 .hit:hover,.hit.pin{fill:#A6E22E;fill-opacity:.20;stroke:#A6E22E;stroke-width:3.5}
 .hit.pin{stroke-dasharray:6 4}
 #vp{position:fixed;right:clamp(10px,2vw,26px);top:clamp(10px,2vw,26px);width:min(380px,92vw);
@@ -141,6 +162,8 @@ LIVE = r"""
   font-family:var(--body);color:#1B211E}
 #vp[hidden]{display:none}
 #vp.left{right:auto;left:clamp(10px,2vw,26px)}
+@media (max-width:640px){#vp,#vp.left{left:8px;right:8px;top:auto;bottom:8px;width:auto;
+  max-height:52vh}}
 #vp header{display:flex;gap:10px;align-items:flex-start;padding:14px 14px 10px;
   border-bottom:1px solid #E9E9E5;position:sticky;top:0;background:#FBFBF8;border-radius:12px 12px 0 0}
 #vp header b{flex:1;font-size:14.5px;line-height:1.35}
@@ -218,15 +241,33 @@ function clear(){
   hits.classList.remove('on');
 }
 
+// Touch never sends a click here: a tap fires mouseenter then mouseleave, so a
+// hover-only binding opens the panel and shuts it again in the same gesture. Pointer
+// events carry pointerType, so one binding can serve a mouse and a finger honestly.
+function pin(i, el){
+  document.querySelectorAll('.hit.pin').forEach(p => p.classList.remove('pin'));
+  if (pinned === i) { pinned = null; clear(); return; }
+  pinned = i;
+  el.classList.add('pin');
+  show(i);
+}
+
 document.querySelectorAll('.hit').forEach(el => {
   const i = +el.dataset.i;
-  el.addEventListener('mouseenter', () => { if (pinned === null) show(i); });
-  el.addEventListener('mouseleave', clear);
-  el.addEventListener('click', e => {
+  // hover preview is mouse-only: a finger has no hover state to give
+  el.addEventListener('pointerenter', e => {
+    if (e.pointerType === 'mouse' && pinned === null) show(i);
+  });
+  el.addEventListener('pointerleave', e => {
+    if (e.pointerType === 'mouse') clear();
+  });
+  // pin on pointerup for every input type. Binding click as well would double-fire on
+  // touch — a tap sends pointerup AND a synthesized click, toggling the pin straight off.
+  el.addEventListener('pointerdown', e => e.stopPropagation());
+  el.addEventListener('pointerup', e => {
+    if (e.button !== 0) return;
     e.stopPropagation();
-    document.querySelectorAll('.hit.pin').forEach(p => p.classList.remove('pin'));
-    if (pinned === i) { pinned = null; clear(); return; }
-    pinned = i; el.classList.add('pin'); show(i);
+    pin(i, el);
   });
 });
 
@@ -237,7 +278,7 @@ function unpin(){
 }
 document.getElementById('vp-x').addEventListener('click', unpin);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
-document.addEventListener('click', e => { if (!vp.contains(e.target)) unpin(); });
+document.addEventListener('pointerdown', e => { if (!vp.contains(e.target)) unpin(); });
 </script>
 """
 
@@ -290,5 +331,8 @@ def annotate_pdf():
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--pdf":
         annotate_pdf()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--standalone":
+        sys.argv.pop(1)
+        main(standalone=True)
     else:
         main()
