@@ -193,6 +193,49 @@ simulation is included. Lightness plus dark text is what makes the engine legibl
 inside HCHB — visit generation, the per-visit auth check, the clinician's calendar. That way the
 sheets answer "what did we actually take off HCHB" at a glance.
 
+### The visualise-only sheets — what release 1 actually lights up
+
+The target sheets describe the eventual target. DE-03 holds phase 1 to **visualisation only**, so a
+target sheet handed to a vendor or a branch reads as a promise nobody made. `_flow_vis.py` derives
+the release-1 sheets from the target generators — same instrumentation trick as `_flow_live.py`, so
+they stay positional clones of the current-state sheets for free.
+
+**Two documents per flow, because they answer different questions.**
+
+| Document | Question it answers |
+|---|---|
+| `*-Visualise-Full-Scenario.pdf` | What does the picture look like when **every report** named on the current-state sheets is feeding it? |
+| `*-Visualise-MVP.pdf` | What does **release 1** actually light up? Everything else is drawn `NOT IN MVP`, so the gap between the two documents *is* the release-1 conversation. |
+
+The posture transform, applied to the target sheet:
+
+| Target | Becomes | Why |
+|---|---|---|
+| **Surface** | VISUALISED — person's colour, engine stripe | the engine only ever showed it; that is already release 1 |
+| **Engine** | VISUALISED if `RELEASE` names it, else PHASE 2 | a read or a computation over data we hold can ship; doing the work cannot |
+| **Assist** | VISUALISED if `RELEASE` names it, else PHASE 2 | keeps the actor colour it already carries — an assist names whoever decides |
+| **Manual / HCHB** | unchanged | hands on the patient, or still inside HCHB |
+| **Ghost** | restored where `RESTORE` names it | see the editorial line below |
+
+**Nothing is ever solid green on these sheets.** Solid green means the engine did the work, and in
+release 1 it does not. A visualised block keeps the person's colour and takes the engine stripe; a
+later-phase block keeps the person's colour and takes a dashed green edge plus a `PHASE 2` badge.
+The horizon badge deliberately **overwrites** any posture badge inherited from the target sheet — a
+block still reading `ASSIST` here would imply release-1 scope, which is the one thing these sheets
+exist to deny.
+
+**The editorial line on restored ghosts: visualisation cures invisibility, it does not cure
+workload.** A step ghosted on the target sheet comes back on the visualise-only sheets when fixing
+it needs automation, and stays ghosted when simply seeing the thing is the fix. So the per-discipline
+assignment-task explosion, the unpaid day-before calls, the undocumented weekly logic and the ~50
+daily pending-auth workflows all return, badged `STILL A STEP`; invisible pending-auth visits,
+capacity read but never modelled, and plans of care ignoring payer limits stay ghosted, because
+release 1 genuinely fixes those by showing them.
+
+**`RELEASE` and `RESTORE` in `_flow_vis.py` are the editorial surface.** They are keyed on block text
+exactly like the vmaps, and an unlisted engine block defaults to PHASE 2 — the conservative direction.
+Re-word a block and it silently drops to PHASE 2, so re-read the sheet after any text edit.
+
 ### Cross-referencing a target sheet against its current-state twin
 
 | Mark | Meaning |

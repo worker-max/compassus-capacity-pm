@@ -1,0 +1,256 @@
+<title>Authorization — visualise only, FULL SCENARIO</title>
+
+<figure>
+<svg viewBox="0 0 2200 1600" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Authorization mapped at its two interfaces with scheduling. At start of care auth is a gate: eligibility is verified, pending auth is keyed at a visit count set by the payer, and the referral returns to intake for final approval before a scheduler can touch it. Inside the episode auth is a ceiling: the plan of care is written to clinical need, every visit is checked for auth on file, authorised visits are consumed and a re-authorisation is requested as the cap approaches.">
+<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
+<rect x="0" y="0" width="2200" height="1600" fill="#FBFBF8"/>
+<text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  FLOW 3 — VISUALISE ONLY · FULL SCENARIO  ·  v1.0</text>
+<text x="50" y="100" class="title" text-anchor="start">Authorization</text>
+<text x="50" y="128" class="deck" text-anchor="start">Read beside Flow-Authorization — same blocks, same positions. The tool shows; it does not act. A dashed green edge is a later phase</text>
+<circle cx="1003" cy="72" r="13" fill="#1F6F78"/>
+<text x="1024" y="78" class="leg" text-anchor="start">Intake</text>
+<circle cx="1121.4" cy="72" r="13" fill="#DF751D"/>
+<text x="1142.4" y="78" class="leg" text-anchor="start">Insurance &amp; Auth</text>
+<circle cx="1323.8000000000002" cy="72" r="13" fill="#792E2E"/>
+<text x="1344.8000000000002" y="78" class="leg" text-anchor="start">DCS</text>
+<circle cx="1417.0000000000002" cy="72" r="13" fill="#2E599D"/>
+<text x="1438.0000000000002" y="78" class="leg" text-anchor="start">Clinician</text>
+<circle cx="1560.6000000000004" cy="72" r="13" fill="#C6A01F"/>
+<text x="1581.6000000000004" y="78" class="leg" text-anchor="start">PCC / Scheduler</text>
+<circle cx="1754.6000000000004" cy="72" r="13" fill="#795CA7"/>
+<text x="1775.6000000000004" y="78" class="leg" text-anchor="start">HCHB</text>
+<circle cx="1856.2000000000003" cy="72" r="13" fill="#A6E22E"/>
+<text x="1877.2000000000003" y="78" class="leg" text-anchor="start">Shown by the tool</text>
+<line x1="50" y1="150" x2="2150" y2="150" stroke="#C9CCC5" stroke-width="1.4"/>
+<rect x="320" y="190" width="1420" height="300" rx="10" fill="#E9E9E5"/>
+<text x="342" y="224" class="band" text-anchor="start">INTERFACE 1  ·  AT START OF CARE — auth is a GATE</text>
+<text x="1718" y="224" class="bandhi" text-anchor="end">THE GATE CLEARS ITSELF</text>
+<rect x="350" y="252" width="250" height="90" rx="5" fill="#1F6F78"/>
+<text x="475.0" y="293.5" class="bt" style="fill:#fff" text-anchor="middle">Intake receives</text>
+<text x="475.0" y="312.5" class="bt" style="fill:#fff" text-anchor="middle">in Commure</text>
+<path d="M 356 252 L 594 252 A 6 6 0 0 1 600 258 L 600 265 L 350 265 L 350 258 A 6 6 0 0 1 356 252 Z" fill="#A6E22E"/>
+<rect x="358" y="238" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="370.15" y="253" class="bdg" text-anchor="middle" fill="#5A6560">1</text>
+<text x="356" y="368" class="sub">·  From hospital, MD, facility</text>
+<text x="356" y="385" class="sub">·  Payer and plan captured</text>
+<rect x="628" y="252" width="250" height="90" rx="5" fill="#DF751D"/>
+<text x="753.0" y="293.5" class="bt" style="fill:#fff" text-anchor="middle">Eligibility and</text>
+<text x="753.0" y="312.5" class="bt" style="fill:#fff" text-anchor="middle">benefits verified</text>
+<path d="M 634 252 L 872 252 A 6 6 0 0 1 878 258 L 878 265 L 628 265 L 628 258 A 6 6 0 0 1 634 252 Z" fill="#A6E22E"/>
+<rect x="636" y="238" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="648.15" y="253" class="bdg" text-anchor="middle" fill="#5A6560">2</text>
+<text x="634" y="368" class="sub">·  Automated today</text>
+<text x="634" y="385" class="sub">·  Coordination note written here</text>
+<text x="634" y="402" class="sub">·  ← the payer's rules land here</text>
+<line x1="600" y1="297.0" x2="622" y2="297.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="252" width="250" height="90" rx="5" fill="#DF751D"/>
+<text x="1031.0" y="293.5" class="bt" style="fill:#fff" text-anchor="middle">Pending auth derived</text>
+<text x="1031.0" y="312.5" class="bt" style="fill:#fff" text-anchor="middle">from the payer</text>
+<path d="M 912 252 L 1150 252 A 6 6 0 0 1 1156 258 L 1156 265 L 906 265 L 906 258 A 6 6 0 0 1 912 252 Z" fill="#A6E22E"/>
+<rect x="914" y="238" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="926.15" y="253" class="bdg" text-anchor="middle" fill="#5A6560">3</text>
+<text x="912" y="368" class="sub">·  1 · 3 · 5 or 10 visits</text>
+<text x="912" y="385" class="sub">·  Derived, not keyed by hand</text>
+<line x1="878" y1="297.0" x2="900" y2="297.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="252" width="250" height="90" rx="5" fill="#DF751D"/>
+<text x="1309.0" y="293.5" class="bt" style="fill:#fff" text-anchor="middle">Released to</text>
+<text x="1309.0" y="312.5" class="bt" style="fill:#fff" text-anchor="middle">scheduling</text>
+<path d="M 1190 252 L 1428 252 A 6 6 0 0 1 1434 258 L 1434 265 L 1184 265 L 1184 258 A 6 6 0 0 1 1190 252 Z" fill="#A6E22E"/>
+<rect x="1192" y="238" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1204.15" y="253" class="bdg" text-anchor="middle" fill="#5A6560">4</text>
+<text x="1190" y="368" class="sub">·  Completeness is rule-checked</text>
+<text x="1190" y="385" class="sub">·  Exception only → intake</text>
+<line x1="1156" y1="297.0" x2="1178" y2="297.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="252" width="250" height="90" rx="5" fill="#C6A01F"/>
+<text x="1587.0" y="293.5" class="bt" style="fill:#fff" text-anchor="middle">Scheduler books</text>
+<text x="1587.0" y="312.5" class="bt" style="fill:#fff" text-anchor="middle">SOC and evals</text>
+<rect x="1627.9" y="238" width="76.10000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#5F8A12" stroke-width="1.8"/>
+<text x="1665.95" y="254" class="bdg" text-anchor="middle" fill="#5F8A12">PHASE 2</text>
+<line x1="1466" y1="345" x2="1708" y2="345" stroke="#5F8A12" stroke-width="2.4" stroke-dasharray="6 4"/>
+<rect x="1470" y="238" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1482.15" y="253" class="bdg" text-anchor="middle" fill="#5A6560">5</text>
+<text x="1468" y="368" class="sub">·  The first visits land</text>
+<text x="1468" y="385" class="sub">·  Auth is already spent on these</text>
+<line x1="1434" y1="297.0" x2="1456" y2="297.0" class="ln" marker-end="url(#ar)"/>
+<rect x="50" y="258.0" width="250" height="78" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="175.0" y="293.5" class="ct" text-anchor="middle" fill="#1B211E">Referral arrives</text>
+<text x="175.0" y="310.5" class="ct" text-anchor="middle" fill="#1B211E">hospital · MD · facility</text>
+<line x1="300" y1="297.0" x2="344" y2="297.0" class="ln" marker-end="url(#ar)"/>
+<text x="50" y="244.0" class="trg" text-anchor="start">TRIGGER</text>
+<path d="M 614 297.0 L 614 450 L 1410 450 L 1410 348" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
+<text x="1012.0" y="439" class="note" text-anchor="middle">Traditional Medicare — no pending auth, straight through</text>
+<text x="350" y="524" class="hi" text-anchor="start">The sentence this removes: “We know we have the referral, but it is just not in my workflow to schedule yet — it is stuck in auth.”</text>
+<rect x="320" y="556" width="1698" height="240" rx="10" fill="#E9E9E5"/>
+<text x="342" y="590" class="band" text-anchor="start">INTERFACE 2  ·  INSIDE THE PLAN OF CARE — auth is a CEILING</text>
+<text x="1996" y="590" class="bandhi" text-anchor="end">CHECKED PER VISIT, NOT PER EPISODE</text>
+<rect x="350" y="618" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="475.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">Clinician writes</text>
+<text x="475.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">discipline frequency</text>
+<path d="M 356 618 L 594 618 A 6 6 0 0 1 600 624 L 600 631 L 350 631 L 350 624 A 6 6 0 0 1 356 618 Z" fill="#A6E22E"/>
+<rect x="358" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="370.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">1</text>
+<text x="356" y="734" class="sub">·  Written to clinical need</text>
+<text x="356" y="751" class="sub">·  The visit budget is shown here</text>
+<rect x="628" y="618" width="250" height="90" rx="5" fill="#792E2E"/>
+<text x="753.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">DCS reviews and</text>
+<text x="753.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">approves the POC</text>
+<rect x="636" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="648.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">2</text>
+<text x="634" y="734" class="sub">·  Utilisation management</text>
+<text x="634" y="751" class="sub">·  One task per discipline</text>
+<line x1="600" y1="663.0" x2="622" y2="663.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="618" width="250" height="90" rx="5" fill="#795CA7"/>
+<text x="1031.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">Auth on file for</text>
+<text x="1031.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">these visits?</text>
+<rect x="1096.8" y="604" width="51.2" height="23" rx="11.5" fill="#FFFFFF" stroke="#795CA7" stroke-width="1.8"/>
+<text x="1122.4" y="620" class="bdg" text-anchor="middle" fill="#795CA7">GATE</text>
+<rect x="914" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="926.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">3</text>
+<text x="912" y="734" class="sub">·  Asked of every visit</text>
+<text x="912" y="751" class="sub">·  Answered by HCHB, silently</text>
+<line x1="878" y1="663.0" x2="900" y2="663.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="618" width="250" height="90" rx="5" fill="#C6A01F"/>
+<text x="1309.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">Scheduler assigns</text>
+<text x="1309.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">the authorised visits</text>
+<rect x="1349.9" y="604" width="76.10000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#5F8A12" stroke-width="1.8"/>
+<text x="1387.95" y="620" class="bdg" text-anchor="middle" fill="#5F8A12">PHASE 2</text>
+<line x1="1188" y1="711" x2="1430" y2="711" stroke="#5F8A12" stroke-width="2.4" stroke-dasharray="6 4"/>
+<rect x="1192" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1204.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">4</text>
+<text x="1190" y="734" class="sub">·  Proposed against the team</text>
+<text x="1190" y="751" class="sub">·  Pending visits stay visible</text>
+<line x1="1156" y1="663.0" x2="1178" y2="663.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="618" width="250" height="90" rx="5" fill="#795CA7"/>
+<text x="1587.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">Visits consume</text>
+<text x="1587.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">the authorised count</text>
+<rect x="1470" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1482.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">5</text>
+<text x="1468" y="734" class="sub">·  Counted down per visit</text>
+<text x="1468" y="751" class="sub">·  The balance is on screen</text>
+<line x1="1434" y1="663.0" x2="1456" y2="663.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="618" width="250" height="90" rx="5" fill="#DF751D"/>
+<text x="1865.0" y="659.5" class="bt" style="fill:#fff" text-anchor="middle">Cap approached —</text>
+<text x="1865.0" y="678.5" class="bt" style="fill:#fff" text-anchor="middle">re-auth requested</text>
+<path d="M 1746 618 L 1984 618 A 6 6 0 0 1 1990 624 L 1990 631 L 1740 631 L 1740 624 A 6 6 0 0 1 1746 618 Z" fill="#A6E22E"/>
+<rect x="1748" y="604" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1760.15" y="619" class="bdg" text-anchor="middle" fill="#5A6560">6</text>
+<text x="1746" y="734" class="sub">·  Supporting documentation required</text>
+<text x="1746" y="751" class="sub">·  The rule differs by payer, plan and state</text>
+<line x1="1712" y1="663.0" x2="1734" y2="663.0" class="ln" marker-end="url(#ar)"/>
+<rect x="350" y="840" width="1640" height="70" rx="8" fill="#FFFFFF" stroke="#DF751D" stroke-width="2"/>
+<rect x="350" y="840" width="7" height="70" rx="3.5" fill="#A6E22E"/>
+<text x="378" y="869" class="pnlA" text-anchor="start">NO AUTH  —  the visit is pending, and visible</text>
+<text x="378" y="892" class="note" text-anchor="start">It sits on the clinician's calendar marked pending, it counts as committed load, and the remaining balance is on screen. Nothing lives on a sticky note.</text>
+<path d="M 1170 663.0 L 1170 834" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
+<text x="1182" y="826" class="conn" text-anchor="start">No — no auth on file</text>
+<path d="M 1990 663.0 L 2060 663.0 L 2060 950 L 290 950 L 290 663.0 L 344 663.0" fill="none" class="ln" stroke-dasharray="7 5" opacity=".68" marker-end="url(#ar)"/>
+<text x="368" y="938" class="hi" text-anchor="start">Every physician order, recertification and resumption of care re-enters this loop — and each one is a new auth question</text>
+<rect x="350" y="996" width="1660" height="190" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="376" y="1032" class="pnl" text-anchor="start">WHAT THE PAYER HAS ALREADY DECIDED — before anyone writes a plan of care</text>
+<line x1="376" y1="1050" x2="376" y2="1168" stroke="#1B211E" stroke-width="3"/>
+<text x="394" y="1070" class="colh" text-anchor="start">THE CAP IS SET UPSTREAM</text>
+<text x="394" y="1094" class="sub">·  Every payer, plan and state sets its own — there is no single rule to learn</text>
+<text x="394" y="1111" class="sub">·  Indiana Medicaid — 8 visits shared across PT / OT / ST</text>
+<text x="394" y="1128" class="sub">·  Indiana Medicaid — 30 days from the discharge date, not the admit date</text>
+<text x="394" y="1145" class="sub">·  Ohio Medicaid — caps similarly; commercial and MA plans differ again</text>
+<line x1="1230" y1="1050" x2="1230" y2="1168" stroke="#DF751D" stroke-width="3"/>
+<text x="1248" y="1070" class="colhA" text-anchor="start">TWO CEILINGS, NOT ONE</text>
+<text x="1248" y="1094" class="sub">·  Auth is permission — how many visits the payer will allow</text>
+<text x="1248" y="1111" class="sub">·  PDGM is payment — the economic band for the period</text>
+<text x="1248" y="1128" class="sub">·  LUPA is the floor; utilisation management is the ceiling</text>
+<text x="1248" y="1145" class="sub">·  A visit can be authorised and still be uneconomic</text>
+<text x="350" y="1222" class="hi" text-anchor="start">The data already exists. The auth team writes the payer's rules into a coordination note at verification — days before anyone writes the plan of care.</text>
+<text x="350" y="1244" class="note" text-anchor="start">Surfacing those rules at plan-of-care creation is the highest-value, lowest-complexity win in this flow — and a patient-care win, because abrupt discharges happen when nobody planned for the real visit budget.</text>
+<text x="50" y="1298" class="trg" text-anchor="start">BOUNDARIES</text>
+<rect x="350" y="1276" width="424.4" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="562.2" y="1302.0" class="ct" text-anchor="middle" fill="#5A6560">Auth is drawn only where it meets scheduling</text>
+<rect x="794.4" y="1276" width="390.0" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="989.4" y="1302.0" class="ct" text-anchor="middle" fill="#5A6560">Traditional Medicare has no pending auth</text>
+<rect x="1204.4" y="1276" width="441.59999999999997" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="1425.2" y="1302.0" class="ct" text-anchor="middle" fill="#5A6560">Auth governs permission · PDGM governs payment</text>
+<text x="50" y="1384" class="trg" text-anchor="start">WHERE IT</text>
+<text x="50" y="1402" class="trg" text-anchor="start">BROKE</text>
+<rect x="350" y="1358" width="420" height="70" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="560.0" y="1390.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Pending-auth visits are invisible</text>
+<line x1="444.5" y1="1385.0" x2="675.5" y2="1385.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="560.0" y="1406.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">not on a calendar, not counted</text>
+<line x1="455.0" y1="1401.0" x2="665.0" y2="1401.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="560.0" y="1446" class="trg" text-anchor="middle">ADDRESSED ABOVE</text>
+<rect x="790" y="1358" width="420" height="70" rx="5" fill="#C6A01F"/>
+<text x="1000.0" y="1390.25" class="bt s" style="fill:#fff" text-anchor="middle">~50 pending-auth workflows a day</text>
+<text x="1000.0" y="1405.75" class="bt s" style="fill:#fff" text-anchor="middle">so schedulers bulk-clear without reading</text>
+<rect x="1084.4" y="1344" width="117.60000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#5F8A12" stroke-width="1.8"/>
+<text x="1143.2" y="1360" class="bdg" text-anchor="middle" fill="#5F8A12">STILL A STEP</text>
+<line x1="794" y1="1431" x2="1206" y2="1431" stroke="#5F8A12" stroke-width="2.4" stroke-dasharray="6 4"/>
+<rect x="1230" y="1358" width="420" height="70" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="1440.0" y="1390.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Plans of care ignore payer limits</text>
+<line x1="1324.5" y1="1385.0" x2="1555.5" y2="1385.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1440.0" y="1406.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">then the team is surprised</text>
+<line x1="1349.0" y1="1401.0" x2="1531.0" y2="1401.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1440.0" y="1446" class="trg" text-anchor="middle">ADDRESSED ABOVE</text>
+<rect x="1670" y="1358" width="420" height="70" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="1880.0" y="1390.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Abrupt discharge when the</text>
+<line x1="1792.5" y1="1385.0" x2="1967.5" y2="1385.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1880.0" y="1406.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">visit budget quietly runs out</text>
+<line x1="1778.5" y1="1401.0" x2="1981.5" y2="1401.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1880.0" y="1446" class="trg" text-anchor="middle">ADDRESSED ABOVE</text>
+<text x="350" y="1468" class="hi" text-anchor="start">Every failure this sheet used to end on is answered above: auth is derived rather than keyed, and the pending visit stays visible and counted.</text>
+<text x="350" y="1488" class="note" text-anchor="start">The payer's budget is shown at plan-of-care creation, and the balance is on screen long before it runs out.</text>
+<line x1="50" y1="1528" x2="2150" y2="1528" stroke="#C9CCC5" stroke-width="1.4"/>
+<text x="50" y="1560" class="foot" text-anchor="start">VISUALISE ONLY · FULL SCENARIO, PROPOSED · a green stripe = the tool shows it; a dashed green edge = a later phase; purple = HCHB · phase 1 is visualisation only (DE-03)</text>
+<text x="2150" y="1560" class="foot" text-anchor="end">Flow 3T · authorization — visualise only — full scenario</text>
+</svg>
+</figure>
+
+<style>
+:root{--paper:#F2F3EF;--rule:#D8DAD2;
+--shadow:0 1px 2px rgba(23,30,26,.05),0 12px 34px -22px rgba(23,30,26,.35);
+--body:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+--display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+--mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}}
+:root[data-theme="dark"]{--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:var(--body);
+padding:clamp(10px,2vw,32px);-webkit-font-smoothing:antialiased}
+figure{margin:0 auto;max-width:1900px;border:1px solid var(--rule);border-radius:12px;
+box-shadow:var(--shadow);overflow-x:auto;background:#FBFBF8}
+svg{display:block;width:100%;min-width:1180px;height:auto}
+/* --- in-SVG type. units are points on the output sheet --- */
+.bt{font-family:var(--body);font-size:16px;font-weight:600;fill:#fff}
+.bt.s{font-size:13.5px}
+.dt{font-family:var(--body);font-size:15px;font-weight:600;fill:#1B211E}
+.ct{font-family:var(--body);font-size:15px;font-weight:600}
+.bdg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.ln{stroke:#1B211E;stroke-width:2}
+.lb{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.conn{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.leg{font-family:var(--body);font-size:15.5px;font-weight:600;fill:#1B211E}
+.key{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;fill:#7C8781}
+.band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
+.trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
+.pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
+.title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
+.deck{font-family:var(--body);font-size:16px;fill:#5A6560}
+.foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
+.boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
+.bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
+.colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
+.colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
+.colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
+@media print{@page{size:2200pt 1600pt;margin:0}
+body{background:#fff;padding:0}
+figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}
+svg{min-width:0;width:2200pt;height:1600pt}}
+</style>
