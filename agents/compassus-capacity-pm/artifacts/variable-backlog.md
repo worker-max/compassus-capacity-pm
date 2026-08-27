@@ -11,8 +11,15 @@
 > move the entry to the *Landed* table at the bottom with the ID and date. Append freely — this file
 > is meant to grow between sessions.
 
-**Next free IDs:** `SH-10` · `C-14` · `S-45` · `CO-13`
-*(S-43 and S-44 are reserved below and not yet in the workbook — do not reuse.)*
+> **SUPERSEDED 26 Aug.** The ID reservations below were overtaken when
+> `variables/CapacitySchedulingVariableWorkbook.xlsx` was built. Its bindings are authoritative:
+> `S-43` Insurance authorization · `S-44` Add-on orders · `S-45` Clinician safety ·
+> `S-46` Achievable first-visit time · `S-47` Power of attorney and who can sign.
+> The consent and POA rows the tables below propose for `S-43`/`S-44` landed instead as `S-47`
+> and `CO-14`. Read the sections below as a record of what was outstanding on 13 Aug, not as a
+> live ID ledger.
+
+**Next free IDs (26 Aug):** `SH-10` · `C-15` · `S-55` · `CO-17`
 
 ---
 

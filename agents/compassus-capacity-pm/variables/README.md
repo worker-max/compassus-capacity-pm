@@ -22,7 +22,7 @@ Six rows are highlighted yellow and all six need MVP, gating and posture confirm
 
 | ID | Variable | Why it is new |
 |---|---|---|
-| `CO-15` | Incentives and offers on hard-to-fill visits | Existed as a row but carried no ID, so it never rolled up. Asked of vendors in Part B row 10 from 21 Aug |
+| `CO-15` | Incentives and offers on hard-to-fill visits | Existed in this workbook as a row with the literal ID `gap`, so it never rolled up. It is **not** recovered from the 8.13 inventory — that inventory has no incentives row. It originates in the 21 Aug vendor ask |
 | `S-51` | The clinician's five dispositions | 13 Aug backlog, confirmed real, never drafted. Refined 18 Aug |
 | `S-52` | The clinician's own weekly plan | 13 Aug backlog. The largest undocumented decision process in the model |
 | `S-53` | Physical barriers and crossing windows | 13 Aug backlog. Placement decision still open |
@@ -39,4 +39,27 @@ to `--` and gating left blank deliberately: those are calls for the team, and ea
   8.13 backlog left open whether branch configuration belongs in the inventory; keeping it as
   a note is that question answered the conservative way.
 - **Plan-of-care QA / DCS clearance** — folded into `S-49`.
-- **Consent and power of attorney** — landed 19 Aug as `S-47` and `CO-13`.
+- **Consent and power of attorney** — landed 19 Aug as `S-47` (who may sign) and `CO-14` (consent to contact). `CO-13` is the verified-number row, which is adjacent but different.
+
+## Restored from the 8.13 inventory — 26 Aug
+
+Nine per-variable columns existed in the 8.13 `Variable Inventory` and had no home here, which
+meant retiring that workbook would have lost them. They are appended, suffixed `(8.13)` to mark
+provenance, and populated by ID for the 76 legacy rows. The 17 rows added since are blank —
+those values were never assessed.
+
+| Column | Why it matters |
+|---|---|
+| `Constraint (8.13)` | Hard / Soft / Structural / Derived / Config / Event / Context. `Gating` is derived from it, so without it the derivation is unauditable. The single most consequential loss |
+| `Conflict risk (8.13)` | 14 rows flagged `Y` — where a vendor's built-in way of working could contradict ours |
+| `Weight (8.13)` · `Rollup key (8.13)` | The `Functional Scorecard` formulas key on these. `Rollup key` carries a 32-way category rollup that `One-pager group` collapses to 10 |
+| `Automation confidence (8.13)` | **Not the same as this sheet's `Confidence` column.** That one is about where the data lives; this one is how safely software can act on the variable. 32 of 76 values differ — do not read one as the other |
+| `Measurability` · `Sourced by` · `Current state` · `Source of truth` | Machine-groupable enums that became free prose here. `Current state` marks 26 rows `Tacit` |
+
+## Known ID hazard
+
+`artifacts/variable-backlog.md` reserved `S-43` and `S-44` for consent and POA availability and
+said **do not reuse**. This workbook binds `S-43` to Insurance authorization, `S-44` to Add-on
+orders, and shifts `S-45`, `S-46`, `S-47` accordingly. The rebinding happened when this workbook
+was first built and is now load-bearing — the fix is to correct the backlog, not the sheet. Any
+document citing `S-43` through `S-47` against the backlog's numbering is wrong.
