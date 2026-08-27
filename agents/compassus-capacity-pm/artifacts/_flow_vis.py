@@ -181,7 +181,7 @@ def build(flow, mode, out):
     for k, ids in vmap.items():
         if k.startswith("_") or not ids:
             continue
-        r = scope(ids, V, mvp_only=(mode == "mvp"))
+        r = scope(ids, V, mvp_only=(mode == "mvp"))   # "both" uses full scope
         if r:
             sc[k] = r
 
@@ -207,7 +207,14 @@ def build(flow, mode, out):
 
     # these land in a single-line footer with page text on the right — the 2200pt canvas
     # leaves room for roughly 180 characters, so keep them short
-    if mode == "target":
+    if mode == "both":
+        # some flows have no variable outside MVP, so the two sheets are byte-identical and
+        # shipping both invites the reader to hunt for a difference that is not there
+        title, key = ("FUTURE STATE · MVP  +  TARGET STATE",
+                      "FUTURE STATE · MVP and TARGET STATE are identical here \u2014 every "
+                      "variable behind every step is MVP = Yes \u00b7 solid = the tool does it; "
+                      "colour bar = it proposes; top stripe = it shows")
+    elif mode == "target":
         title, key = ("TARGET STATE",
                       "TARGET STATE — optimal functionality, every variable acted on · solid = "
                       "the tool does it; colour bar = it proposes; top stripe = it shows; "
@@ -228,7 +235,8 @@ def build(flow, mode, out):
     # Read this BEFORE mode is collapsed to the drawing vocabulary below.
     blurb = {"future": "The process is unchanged \u2014 the tool shows more",
              "mvp": "The dashboard, plus the engine on MVP variables",
-             "target": "Every variable acted on in the desired way"}[mode]
+             "target": "Every variable acted on in the desired way",
+             "both": "Every variable acted on in the desired way"}[mode]
 
     if mode != "future":
         mode = "posture"              # mvp and target share the posture vocabulary
