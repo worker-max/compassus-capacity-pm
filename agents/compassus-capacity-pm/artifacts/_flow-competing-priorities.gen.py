@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
-"""Every Patient Visit — the eight competing priorities, replotted.
+"""Every Patient Visit — the givens, the decision, and the result.
 
-The source slide draws eight priorities as a symmetrical flower around one hub. Its own title
-says they compete; its layout says they are equal, independent and interchangeable. They are
-none of those. This sheet plots the same eight against the two axes that decide what actually
-happens on a Tuesday, and names the collisions the flower has no room for.
+Foundation sheet for the patient-scheduling engagement maps. Canvas units = points.
 
-Canvas units = points on the output sheet.
+Three tiers, because the eight scheduling priorities are not peers: most are fixed before
+anyone opens a calendar, a few are genuinely chosen, and one is only ever measured. Inside
+each tier, blocks run left to right from what a system already holds to what only a person
+holds. Variable counts and the in-system / tacit tags come from the workbook inventory.
 """
 import sys
 import textwrap
 
 C = dict(pcc="#C6A01F", hchb="#795CA7", dcs="#792E2E", clin="#2E599D",
-         auth="#DF751D", intake="#1F6F78", lead="#1A1A1A", pat="#4E8A5B",
-         float="#795933")
+         auth="#DF751D", intake="#1F6F78", lead="#1A1A1A", pat="#4E8A5B")
 INK, MUT, RULE, BAND = "#1B211E", "#5A6560", "#C9CCC5", "#E9E9E5"
 PAPER, ENG, ENGD = "#FBFBF8", "#A6E22E", "#5F8A12"
 
-W, H = 2600, 1760
+W, H = 2600, 1660
 out = []
 def add(s): out.append(s)
 def esc(t): return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
@@ -40,9 +39,9 @@ def block(x, y, w, h, fill, lines, small=False, badge=None, tc="#fff", bc=None):
         add(f'<text x="{x+w-bw/2-8}" y="{y+2}" class="bdg" text-anchor="middle" '
             f'fill="{bc or fill}">{esc(badge)}</text>')
 
-def sublist(x, y, items, cls="sub"):
+def sublist(x, y, items):
     for i, t in enumerate(items):
-        lbl(x, y+i*17, "· " + t, cls=cls)
+        lbl(x, y+i*17, "· " + t, cls="sub")
 
 add(f'<svg viewBox="0 0 {W} {H}" role="img" xmlns="http://www.w3.org/2000/svg">')
 add(f'<rect width="{W}" height="{H}" fill="{PAPER}"/>')
@@ -51,174 +50,185 @@ add('<style>'
     'letter-spacing:.04em;fill:#fff}'
     '.xs{font-family:var(--mono),monospace;font-size:15px;font-weight:700;fill:#792E2E}'
     '.kh{font-family:var(--body),sans-serif;font-size:14.5px;font-weight:700;fill:#1B211E}'
+    '.tier{font-family:var(--mono),monospace;font-size:15px;font-weight:700;'
+    'letter-spacing:.14em;fill:#1B211E}'
     '</style>')
 add('<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" '
     'markerHeight="6" orient="auto-start-reverse">'
-    f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{INK}"/></marker></defs>')
+    f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{INK}"/></marker>'
+    '<marker id="arm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" '
+    'markerHeight="6" orient="auto">'
+    f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{MUT}"/></marker></defs>')
 
 # ---------------- header ----------------
 lbl(50, 62, "COMPASSUS HOME HEALTH  ·  PATIENT SCHEDULING  ·  FOUNDATION SHEET", cls="eyebrow")
 lbl(50, 104, "Every Patient Visit", cls="title")
-lbl(50, 132, "The eight competing priorities, replotted — because a flower cannot show a "
-             "collision, and the collisions are the job", cls="deck")
+lbl(50, 132, "What is fixed before scheduling begins  ·  what is actually being decided  ·  "
+             "what falls out of the decision", cls="deck")
 
-lx = 1400
-for nm, col in [("System / HCHB", C["hchb"]), ("Clinician", C["clin"]), ("DCS", C["dcs"]),
-                ("Patient", C["pat"]), ("Geography", C["pcc"]), ("Branch", C["lead"])]:
+lx = 1500
+for nm, col in [("System / HCHB", C["hchb"]), ("Clinical order", C["dcs"]),
+                ("Clinician", C["clin"]), ("Patient", C["pat"]),
+                ("Scheduler", C["pcc"]), ("Branch", C["lead"])]:
     add(f'<circle cx="{lx}" cy="58" r="9" fill="{col}"/>')
     lbl(lx+16, 63, nm, cls="leg")
-    lx += 8.6*len(nm) + 54
+    lx += 8.6*len(nm) + 50
 lbl(W-50, 104, "COLOUR = WHO OWNS THE TRUTH", "end", "colh")
-lbl(W-50, 128, "SIZE = HOW MANY WORKBOOK VARIABLES SIT BEHIND IT", "end", "key")
+lbl(W-50, 128, "COUNT = WORKBOOK VARIABLES BEHIND IT", "end", "key")
 add(f'<line x1="50" y1="158" x2="{W-50}" y2="158" stroke="{RULE}" stroke-width="1.4"/>')
 
-# ================= band 1 · the plot =================
-PY_, PH = 186, 940
-add(f'<rect x="50" y="{PY_}" width="{W-100}" height="{PH}" rx="10" fill="{BAND}"/>')
-lbl(72, PY_+34, "THE EIGHT, PLOTTED AGAINST THE TWO AXES THAT DECIDE TUESDAY", cls="band")
-lbl(W-72, PY_+34, "THE FLOWER GAVE ALL EIGHT THE SAME SIZE AND THE SAME DISTANCE FROM THE MIDDLE",
-    "end", "bandhi")
+# ---------------- the one axis ----------------
+BX0, BXW = 330, 2220
+AXY = 206
+lbl(BX0, AXY, "ALREADY IN A SYSTEM", cls="colhb")
+lbl(BX0, AXY+20, "HCHB · Workday · the 485 — a tool can read it today", cls="sub")
+lbl(BX0+BXW, AXY, "HELD BY ONE PERSON", "end", "pnl")
+lbl(BX0+BXW, AXY+20, "tacit, patient-held — a tool can only ask for it", "end", "sub")
+lbl(BX0+BXW/2, AXY+2, "EVERY ROW BELOW RUNS LEFT TO RIGHT ALONG THIS LINE", "middle", "key")
+add(f'<line x1="{BX0}" y1="{AXY+40}" x2="{BX0+BXW-30}" y2="{AXY+40}" stroke="{MUT}" '
+    f'stroke-width="1.6" marker-end="url(#arm)"/>')
 
-AX0, AY0 = 300, PY_+96          # plot origin (top-left of the field)
-AW, AH = 1780, 700
+# ---------------- the three tiers ----------------
+TIERS = [
+ ("THE GIVENS", "fixed before scheduling begins",
+  "CHANGING ONE NEEDS A NEW ORDER, A PAYER DECISION, OR A CHANGE IN THE PATIENT'S LIFE",
+  [(["Regulatory", "Timing"], C["hchb"], "3 VARS · ALL IN SYSTEM",
+    ["SOC OASIS inside 48 hours", "The 5-day recert window", "Missed-visit documentation"]),
+   (["Ordered", "Frequency"], C["dcs"], "3 VARS · IN THE 485",
+    ["2x a week means 2x a week", "Changing it needs a new order",
+     "Compliance window per discipline"]),
+   (["MD Orders"], C["dcs"], "3 VARS · ALL HARD",
+    ["Wound care every 3 days", "Labs before the MD visit", "Protocol-driven timing"]),
+   (["Patient hard", "constraints"], C["pat"], "5 VARS · 4 TACIT · 0 IN SYSTEM",
+    ["Dialysis · MD appointments", "Caregiver must be present", "Cognitive windows",
+     "Day-of-week constraints"])],
+  "Ordered frequency is an order, not a preference. Seeing a patient fewer times than "
+  "ordered is a compliance problem, not a scheduling choice."),
 
-# quadrant washes
-add(f'<rect x="{AX0}" y="{AY0}" width="{AW/2}" height="{AH/2}" fill="#792E2E" opacity=".07"/>')
-add(f'<rect x="{AX0+AW/2}" y="{AY0}" width="{AW/2}" height="{AH/2}" fill="{ENGD}" opacity=".07"/>')
-add(f'<rect x="{AX0+AW/2}" y="{AY0+AH/2}" width="{AW/2}" height="{AH/2}" fill="{ENGD}" opacity=".14"/>')
-add(f'<rect x="{AX0}" y="{AY0}" width="{AW}" height="{AH}" fill="none" stroke="{RULE}" stroke-width="1.6"/>')
-add(f'<line x1="{AX0+AW/2}" y1="{AY0}" x2="{AX0+AW/2}" y2="{AY0+AH}" stroke="{RULE}" stroke-width="1.6"/>')
-add(f'<line x1="{AX0}" y1="{AY0+AH/2}" x2="{AX0+AW}" y2="{AY0+AH/2}" stroke="{RULE}" stroke-width="1.6"/>')
-
-# axes
-add(f'<line x1="{AX0-40}" y1="{AY0}" x2="{AX0-40}" y2="{AY0+AH}" stroke="{INK}" '
-    f'stroke-width="2" marker-start="url(#ar)"/>')
-lbl(AX0-56, AY0+8, "CANNOT MOVE", "end", "colh")
-lbl(AX0-56, AY0+28, "the schedule bends around it", "end", "sub")
-lbl(AX0-56, AY0+AH-16, "MOVES FREELY", "end", "colh")
-add(f'<line x1="{AX0}" y1="{AY0+AH+40}" x2="{AX0+AW}" y2="{AY0+AH+40}" stroke="{INK}" '
-    f'stroke-width="2" marker-end="url(#ar)"/>')
-lbl(AX0+4, AY0+AH+64, "THE TOOL CANNOT COMPUTE IT", cls="colh")
-lbl(AX0+4, AY0+AH+84, "tacit, patient-held, low confidence", cls="sub")
-lbl(AX0+AW-4, AY0+AH+64, "THE TOOL CAN COMPUTE IT", "end", "colh")
-lbl(AX0+AW-4, AY0+AH+84, "in-system, derived, high confidence", "end", "sub")
-
-# quadrant names
-lbl(AX0+18, AY0+30, "THE HARD PART", cls="pnl")
-lbl(AX0+18, AY0+50, "immovable, and no system holds it — this is the judgment", cls="sub")
-lbl(AX0+AW-18, AY0+30, "THE FLOOR", "end", "colhb")
-lbl(AX0+AW-18, AY0+50, "immovable, and already known — automate it and stop thinking", "end", "sub")
-lbl(AX0+18, AY0+AH/2+30, "NOISE", cls="colh")
-lbl(AX0+18, AY0+AH/2+50, "soft and unknowable — nothing to build here", cls="sub")
-lbl(AX0+AW-18, AY0+AH/2+30, "THE LEVERS", "end", "colhb")
-lbl(AX0+AW-18, AY0+AH/2+50, "movable and computable — where the tool earns its keep", "end", "sub")
-
-# the eight. x, y are fractions of the field; n = variables behind it
-ROW = {"a": 105/700, "b": 230/700, "c": 520/700}
-P = [
- ("Patient Availability", ["Patient", "Availability"], C["pat"],  .14, ROW["a"], 10, "7 OF 10 HARD",
-  ["Dialysis · MD appointments", "Caregiver must be present", "Cognitive windows",
-   "“Not Mondays” · “not first thing”"]),
- ("MD Orders", ["MD Orders"], C["dcs"], .63, ROW["a"], 3, "ALL HARD",
-  ["Wound care every 3 days", "Labs before the MD visit", "Protocol-driven timing"]),
- ("Regulatory Timing", ["Regulatory", "Timing"], C["hchb"], .87, ROW["a"], 4, "SYSTEM-HELD",
-  ["SOC OASIS inside 48h", "The 5-day recert window", "Ordered-frequency compliance"]),
- ("Prioritize", ["Prioritize"], C["clin"], .28, ROW["b"], 3, "TACIT",
-  ["Who is unstable", "Hospitalisation risk", "Who can safely wait"]),
- ("Care Team", ["Care Team"], C["dcs"], .44, ROW["b"], 5, "MIXED",
-  ["Other disciplines' visits", "Supervisory dependency", "Discipline / role match"]),
- ("Frequency", ["Frequency"], C["clin"], .56, ROW["c"], 4, "MIXED",
-  ["Spread, not compressed", "Front-load vs LUPA floor", "Day-by-day balancing"]),
- ("Geography", ["Geography"], C["pcc"], .735, ROW["c"], 7, "0 HARD · ALL COMPUTABLE",
-  ["Drive time, not distance", "Zip · territory · home base", "Bridges · rivers · crossings"]),
- ("Productivity", ["Productivity"], C["lead"], .91, ROW["c"], 9, "6 OF 9 DERIVED",
-  ["Points · target · ceiling", "Committed load", "Pace vs schedule"]),
+ ("THE DECISION", "the only real degrees of freedom",
+  "THIS IS THE WHOLE OF WHAT A SCHEDULER OR A CLINICIAN ACTUALLY CHOOSES",
+  [(["Geography"], C["pcc"], "6 VARS · 4 COMPUTABLE",
+    ["Drive time, not distance", "Zip · territory · home base", "Bridges · rivers · crossings"]),
+   (["Which", "clinician"], C["dcs"], "4 VARS",
+    ["Discipline / role match", "Specialty competency", "Continuity of care",
+     "Around other disciplines"]),
+   (["Which days inside", "the ordered window"], C["clin"], "3 VARS",
+    ["Spread, not compressed", "Front-load vs the LUPA floor", "Day-by-day balancing"]),
+   (["Who first when", "the week is tight"], C["clin"], "3 VARS · ALL TACIT",
+    ["Who is unstable", "Hospitalisation risk", "Who can safely wait"]),
+   (["What time inside", "the patient's window"], C["pat"], "5 VARS · 0 IN SYSTEM",
+    ["“Can you come after lunch?”", "“Not first thing”", "A preferred time, no reason given"])],
+  "The left of this row is already in a system. The right of it is held by one person "
+  "and written down nowhere — and it is where the week is actually won or lost."),
 ]
-for key, lines, col, fx, fy, n, tag, items in P:
-    bw = 168 + n*7
-    bh = 64
-    cx = AX0 + fx*AW
-    cy = AY0 + fy*AH
-    x, y = cx - bw/2, cy - bh/2
-    block(x, y, bw, bh, col, lines, badge=f"{n} VARS", bc=col)
-    lbl(cx, y+bh+18, tag, "middle", "trg")
-    sublist(x, y+bh+38, items)
 
-lbl(72, PY_+PH-22, "Productivity is not the eighth priority — it is what is left after the other "
-    "seven have taken their cut. Six of its nine variables are derived, not chosen.", cls="hi")
+TY = 288
+for title, sub, right, blocks, note in TIERS:
+    TH = 300
+    add(f'<rect x="50" y="{TY}" width="{W-100}" height="{TH}" rx="10" fill="{BAND}"/>')
+    lbl(72, TY+36, title, cls="tier")
+    lbl(72, TY+58, sub, cls="sub")
+    lbl(W-72, TY+36, right, "end", "bandhi")
+    n = len(blocks)
+    gap = 90 if n == 4 else 60
+    bw = (BXW - (n-1)*gap) / n
+    for i, (lines, col, tag, items) in enumerate(blocks):
+        x = BX0 + i*(bw+gap)
+        by = TY + 82
+        block(x, by, bw, 70, col, lines)
+        lbl(x+bw/2, by+88, tag, "middle", "trg")
+        sublist(x, by+110, items)
+    lbl(72, TY+TH-20, note, cls="hi")
+    TY += TH + 26
 
-# ================= band 2 · the collisions =================
-KY, KH = PY_ + PH + 46, 336
-add(f'<rect x="50" y="{KY}" width="{W-100}" height="{KH}" rx="10" fill="none" '
+# ---------------- the result ----------------
+RH = 176
+add(f'<rect x="50" y="{TY}" width="{W-100}" height="{RH}" rx="10" fill="none" '
+    f'stroke="{C["lead"]}" stroke-width="2"/>')
+lbl(72, TY+36, "THE RESULT", cls="tier")
+lbl(72, TY+58, "derived, not chosen", cls="sub")
+block(BX0, TY+30, 480, 70, C["lead"], ["Productivity"])
+lbl(BX0+240, TY+118, "6 OF 8 ALREADY IN SYSTEM", "middle", "trg")
+sublist(BX0, TY+140, ["Points · target · ceiling", "Committed load · pace vs schedule"])
+lbl(BX0+560, TY+56, "Productivity is what is left after the givens are obeyed and the "
+    "decision is made.", cls="kh")
+lbl(BX0+560, TY+80, "It is measured, not selected — which is why pushing on it directly "
+    "moves nothing. It moves when the decision row gets better information.", cls="sub")
+lbl(BX0+560, TY+114, "Six of its eight variables are already in a system today. The "
+    "constraint is not the data — it is that nobody sees the trade before the day is built.",
+    cls="sub")
+TY += RH + 30
+
+# ---------------- the collisions ----------------
+KH = 290
+add(f'<rect x="50" y="{TY}" width="{W-100}" height="{KH}" rx="10" fill="none" '
     f'stroke="{C["dcs"]}" stroke-width="2"/>')
-lbl(72, KY+34, "WHERE THEY ACTUALLY COLLIDE  —  the six the flower has no room for", cls="pnl")
-lbl(W-72, KY+34, "EVERY ONE IS RESOLVED BY ONE PERSON, THE NIGHT BEFORE", "end", "bandhi")
+lbl(72, TY+36, "WHERE THE DECISION COLLIDES WITH ITSELF  —  six that happen every week", cls="pnl")
+lbl(W-72, TY+36, "EACH ONE IS RESOLVED BY ONE PERSON, THE NIGHT BEFORE", "end", "bandhi")
 
 COL = [
  (("Regulatory Timing", C["hchb"]), ("Geography", C["pcc"]),
-  "The 48-hour SOC lands in the wrong zip",
-  "Someone drives an hour, or the SOC is late. There is no third option."),
- (("Patient Availability", C["pat"]), ("Geography", C["pcc"]),
+  "SOC OASIS due in 48 hours, patient is 50 minutes out",
+  "Someone drives it, or the assessment is late. There is no third option."),
+ (("Patient window", C["pat"]), ("Geography", C["pcc"]),
   "The 2pm-only patient breaks the cluster",
   "The clinician absorbs the drive, or the patient waits a day."),
- (("Care Team", C["dcs"]), ("Frequency", C["clin"]),
-  "PT and OT both want Tuesday",
-  "Two visits in one day, none on Thursday. Whoever schedules first wins."),
- (("Prioritize", C["clin"]), ("Productivity", C["lead"]),
+ (("Ordered Frequency", C["dcs"]), ("Care team", C["dcs"]),
+  "PT and OT are both ordered 2x a week",
+  "Both want the same two days. Whoever schedules first wins."),
+ (("Who first", C["clin"]), ("Productivity", C["lead"]),
   "The unstable patient takes 90 minutes",
   "Same points as a 40-minute visit. The clinician simply runs late."),
- (("MD Orders", C["dcs"]), ("Patient Availability", C["pat"]),
+ (("MD Orders", C["dcs"]), ("Patient constraints", C["pat"]),
   "Wound care every 3 days, caregiver only weekends",
   "Negotiated on the phone, agreed verbally, written down nowhere."),
- (("Frequency", C["clin"]), ("Regulatory Timing", C["hchb"]),
-  "Front-load, LUPA floor and the recert window",
-  "Nobody models all three at once, so the period quietly ends short."),
+ (("Ordered Frequency", C["dcs"]), ("Regulatory Timing", C["hchb"]),
+  "3x a week ordered, recert visit lands the same week",
+  "The LUPA floor, the order and the window all bind at once."),
 ]
-cw = (W - 100 - 44 - 5*18) / 6
+cw = (W - 144 - 5*18) / 6
 for i, ((a, ca), (b, cb), head, tail) in enumerate(COL):
     x = 72 + i*(cw+18)
-    y = KY + 58
+    y = TY + 62
     add(f'<rect x="{x}" y="{y}" width="{cw}" height="26" rx="13" fill="{ca}"/>')
     lbl(x+cw/2, y+18, a, "middle", "chp")
     lbl(x+cw/2, y+50, "✕", "middle", "xs")
     add(f'<rect x="{x}" y="{y+58}" width="{cw}" height="26" rx="13" fill="{cb}"/>')
     lbl(x+cw/2, y+76, b, "middle", "chp")
-    hl = textwrap.wrap(head, 26)
+    hl = textwrap.wrap(head, 27)
     for j, ln in enumerate(hl):
         lbl(x+cw/2, y+114+j*17, ln, "middle", "kh")
     base = y + 114 + len(hl)*17 + 10
-    for j, ln in enumerate(textwrap.wrap(tail, 32)):
+    for j, ln in enumerate(textwrap.wrap(tail, 33)):
         lbl(x+cw/2, base+j*16, ln, "middle", "sub")
+TY += KH + 34
 
-# ================= band 3 · who resolves it, and what changes =================
-FY = KY + KH + 40
-add(f'<line x1="50" y1="{FY}" x2="{W-50}" y2="{FY}" stroke="{RULE}" stroke-width="1.4"/>')
-lbl(72, FY+40, "TODAY", cls="trg")
-block(190, FY+16, 640, 66, C["clin"],
-      ["One clinician resolves all six — unpaid, the night before,",
-       "in their head, and written down nowhere"], small=True)
-lbl(190, FY+104, "this is bottleneck 3: the weekly logic is undocumented and entirely unassisted", cls="sub")
+# ---------------- today / the tool / next ----------------
+add(f'<line x1="50" y1="{TY}" x2="{W-50}" y2="{TY}" stroke="{RULE}" stroke-width="1.4"/>')
+lbl(72, TY+42, "TODAY", cls="trg")
+block(190, TY+18, 640, 64, C["clin"],
+      ["One clinician resolves all six — the night before,", "in their head, written down nowhere"],
+      small=True)
+lbl(190, TY+104, "the weekly logic is undocumented and entirely unassisted", cls="sub")
 
-lbl(880, FY+40, "THE TOOL", cls="trg")
-block(1000, FY+16, 700, 66, ENG,
-      ["It does not resolve the collision. It shows the collision before",
-       "the day is built, and prices both sides. The clinician still decides."],
-      small=True, tc=INK, bc=ENGD)
-lbl(1000, FY+104, "release 1 is visualisation only (DE-03) — seeing the trade is the whole of it",
-    cls="sub")
+lbl(880, TY+42, "THE TOOL", cls="trg")
+block(1010, TY+18, 700, 64, ENG,
+      ["It shows the collision before the day is built, and prices",
+       "both sides. The clinician still decides."], small=True, tc=INK, bc=ENGD)
+lbl(1010, TY+104, "release 1 is visualisation only — seeing the trade is the whole of it", cls="sub")
 
-lbl(1750, FY+40, "NEXT", cls="trg")
-block(1850, FY+16, 700, 66, C["pcc"],
-      ["Engagement maps hang off this sheet: each collision becomes",
-       "a conversation, with a named owner and a named moment"], small=True)
-lbl(1850, FY+104, "the foundation this sheet exists to give them", cls="sub")
+lbl(1760, TY+42, "NEXT", cls="trg")
+block(1860, TY+18, 690, 64, C["pcc"],
+      ["Each collision becomes an engagement map: a named", "owner, a named moment, a named ask"],
+      small=True)
+lbl(1860, TY+104, "what this sheet exists to carry", cls="sub")
 
-add(f'<line x1="50" y1="{H-64}" x2="{W-50}" y2="{H-64}" stroke="{RULE}" stroke-width="1.4"/>')
-lbl(50, H-34, "FOUNDATION SHEET · the eight are the source slide's own; the axes, the sizes and "
-    "the collisions are this project's data · variable counts from the workbook inventory", cls="foot")
-lbl(W-50, H-34, "Every patient visit · competing priorities", "end", "foot")
+add(f'<line x1="50" y1="{H-58}" x2="{W-50}" y2="{H-58}" stroke="{RULE}" stroke-width="1.4"/>')
+lbl(50, H-30, "FOUNDATION SHEET · patient scheduling · variable counts and in-system / tacit "
+    "tags from the capacity & scheduling workbook inventory", cls="foot")
+lbl(W-50, H-30, "Every patient visit", "end", "foot")
 add('</svg>')
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "competing.svg"
 open(OUT, "w", encoding="utf-8").write("\n".join(out))
-print("emitted", len(out), "| canvas", W, "x", H, "| ratio", round(W/H, 3))
+print("emitted", len(out), "| canvas", W, "x", H, "| last y", TY+104)

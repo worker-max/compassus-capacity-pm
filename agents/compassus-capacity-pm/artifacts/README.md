@@ -78,7 +78,7 @@ renumbered.
 | `flow-soc-target.html` | Source. Regenerate with `_flow-soc-target.gen.py` | Editing the SOC target state |
 | `Episode-Target-State.pdf` | **The episode end to end, TARGET STATE (v1.0)**. Four phases, same as the primary map, posture-marked | The future-state wall sheet. Pairs with `Primary-Flow-Map.pdf` |
 | `flow-episode-target.html` | Source. Regenerate with `_flow-episode-target.gen.py` | Editing the episode target state |
-| `Every-Patient-Visit-Competing-Priorities.pdf` | **Foundation sheet for the engagement maps.** The exec slide's eight competing priorities replotted against how immovable each one is and whether the tool can compute it, plus the six named collisions the original had no room for | Opening the patient-scheduling engagement work |
+| `Every-Patient-Visit-Competing-Priorities.pdf` | **Foundation sheet for the engagement maps.** Scheduling priorities in three tiers — the givens fixed before scheduling begins, the decision that is actually being made, and productivity as the derived result — plus the six collisions that recur every week | Opening the patient-scheduling engagement work |
 | `flow-competing-priorities.html` | Source. Regenerate with `_flow-competing-priorities.gen.py` | Editing the foundation sheet |
 | `Flow-Routine-Visits-Target-State.pdf` | **Flow 2T — routine visit scheduling, TARGET STATE (v1.0)**. Positional clone of `Flow-Routine-Visits`; the per-discipline assignment-task burst is ghosted | Pairs with `Flow-Routine-Visits.pdf` side by side |
 | `flow-routine-visits-target.html` | Source. Regenerate with `_flow-routine-visits-target.gen.py` | Editing flow 2T |
@@ -194,6 +194,37 @@ simulation is included. Lightness plus dark text is what makes the engine legibl
 **HCHB purple keeps its meaning.** A target-state block is purple only where the work still happens
 inside HCHB — visit generation, the per-visit auth check, the clinician's calendar. That way the
 sheets answer "what did we actually take off HCHB" at a glance.
+
+### The foundation sheet — givens, decision, result
+
+`_flow-competing-priorities.gen.py` is the opening sheet for the patient-scheduling engagement
+work. It is **team-facing**: no commentary about where the content came from, no notes addressed to
+one reader. Keep it that way when editing.
+
+**Three tiers, not a ring of peers.** The scheduling priorities are not co-equal:
+
+- **The givens** — regulatory timing, ordered frequency, MD orders, and the patient's hard
+  constraints. Fixed before anyone opens a calendar. Changing one needs a new order, a payer
+  decision, or a change in the patient's life.
+- **The decision** — geography, which clinician, which days inside the ordered window, who first
+  when the week is tight, what time inside the patient's window. This is the entire set of degrees
+  of freedom anyone actually has.
+- **The result** — productivity. Derived, never chosen.
+
+**Ordered frequency belongs in the givens, not the decision.** If the order says 2x a week the
+patient is seen 2x a week; seeing them fewer times is a compliance problem, not a scheduling
+choice. What *is* decided is which days inside that window. Getting this wrong was the main defect
+in the first version of this sheet — do not let frequency drift back into the levers.
+
+**Patient availability splits across two tiers, and the split is the point.** Dialysis, caregiver
+presence, cognitive windows and day-of-week constraints are hard givens. "Not first thing" and
+"can you come after lunch" are preferences inside the decision. Lumping them together is what makes
+the whole category feel like an unwinnable judgment call.
+
+**One axis, stated once.** Every row runs left to right from what a system already holds to what
+only a person holds. That ordering carries the sheet's argument: what the tool can compute is
+already in HCHB, Workday or the 485; what it cannot is tacit and written down nowhere. Do not add a
+second axis — an earlier version used a 2x2 and the fourth quadrant was empty and unexplainable.
 
 ### The visualise-only sheets — what release 1 actually lights up
 
