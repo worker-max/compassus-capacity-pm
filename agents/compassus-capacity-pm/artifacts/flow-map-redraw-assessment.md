@@ -1087,3 +1087,70 @@ temp tree — build in an ordinary directory.
 **What this sheet is not.** It is current state, like the rest of the set. It shows what a payer
 does to the schedule today, including the parts nobody can see. Nothing on it is a proposal, and
 the margin figures are shown to make a consequence visible, never to argue for a visit.
+
+---
+
+## §27 — The target-state sheet (22 Aug 2026)
+
+The first sheet in the set that is **not** current state, and the first that is a proposal. Drawn as
+Step 10 of [`playbooks/initiative-build-process.md`](../../../playbooks/initiative-build-process.md),
+after current state reached zero new corrections — which was the stated precondition and the reason
+it was deferred through §1–26.
+
+### What it asserts
+
+The capacity envelope is drawn as a **standing band above the episode**, not as a phase of it. The
+episode then runs in the same four phases as the primary map, and the referral decision **consults
+the envelope** — a solid connector down into the `Capacity read` block. Discharge returns room to
+the envelope on a dashed feedback path. That single loop is the sheet's argument: *a discharge is
+capacity, not an ending.*
+
+### Marking, and why two markers rather than one
+
+Every block carries `RELEASE · POSTURE` in its badge — `MVP · READ`, `V2 · ASSIST`, `V3 · CONTROL`.
+
+One marker would not have been enough. **Release** answers *when*; **posture** answers *how far the
+system may go*, and they move independently — the sheet has `V2 · READ` blocks and `V3 · CONTROL`
+blocks. Posture is the contested question in this initiative, so it belongs in the drawing rather
+than in a document nobody opens next to the wall sheet.
+
+The key panel carries the line the sheet exists to make unmissable:
+
+> **15 of the 19 MVP variables are *scored* control. In phase 1 every one ships at `READ` — the
+> score is a ceiling, not a commitment.**
+
+### Six boxes deliberately not drawn
+
+The skill's rule — *do not fill a gap with a plausible box; a wrong box on a wall sheet outlives the
+meeting* — binds harder on a target state than on a current state, because there is no operational
+reality to correct it against. Rather than guess, the sheet carries an `OPEN · NOT DRAWN` panel:
+
+1. Where does the capacity tool live relative to Commure?
+2. Do we accept the risk of turning off DCS order approval?
+3. Is the capacity read a hard gate, or advice a leader may overrule?
+4. Who owns the capacity number day to day — a new role, or the DCS?
+5. Does automated confirmation replace the day-before call, or add to it?
+6. Point values and productivity targets — undecided, and they block the MVP.
+
+**(1) and (2) are recorded in the whiteboard session as executive decisions carried elsewhere.
+(6) is open question #1 and the MVP's single point of failure.** (3), (4) and (5) surfaced while
+drawing: each is a place where the sheet could have been drawn two defensible ways.
+
+### Build notes
+
+- `2300 × 1840`, ratio 1.25 — the low end of the range. Five bands is a tall sheet; band heights
+  were cut to their own content twice to get there.
+- Bands sized individually (5 / 6 / 5 / 5 / 5 slots). The first draft ran every band to 7 slots and
+  the short ones read half-empty, exactly as the design system warns.
+- Sublists capped at ~38 characters. The first draft overflowed into the next column in three
+  places — `Replaces ~30 min a day, unpaid, in the evening` was the worst.
+- The return-path label was orphaned in the Phase 2 band on the first pass; it now sits in the gap
+  between bands 2 and 3, clear of every fill.
+- `Referral inflow / discharge outflow` is the one purple block in the envelope band — the platform
+  measures it by itself. The other four are Branch Leadership, because a person reads them.
+
+### What still has to happen
+
+**This sheet has not been validated.** Current state earned its authority through 26 correction
+rounds; this has had none. It should be walked with the operator and the system-of-record SME the
+same way, and the correction rounds counted here.

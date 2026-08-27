@@ -97,6 +97,7 @@ renders a one-page landscape PDF. Chromium is at `/opt/pw-browsers/chromium-1194
 | `Flow-Authorization` (3) | Auth as a gate at SOC, a ceiling inside the plan of care. |
 | `Flow-Recert-Discharge` (5) | End of episode, through a worked SN/PT/OT example. |
 | `Flow-DCS-Scheduler` | The simplified practice sheet. |
+| `Flow-Target-State` | **The only proposal sheet.** The envelope, the episode run against it, every step marked release + posture. |
 
 Read the nearest existing sheet's generator before starting a new one — matching an existing sheet
 is faster and safer than reasoning the layout out from scratch.

@@ -91,10 +91,33 @@ ones read half-empty. `band(..., slots=N, pad=P)` sizes each one to its last blo
 - **One gold `.hi` line per band, at most** — the sentence you want remembered.
 - **Footer:** *current state · nothing on this sheet is a proposal* on the left, sheet identity right.
 
+## The one sheet that is a proposal
+
+`Flow-Target-State` (22 Aug 2026) is the first and only sheet in the set that breaks
+non-negotiables 1 and 2, deliberately and visibly:
+
+- The eyebrow reads `TARGET STATE`, not `CURRENT STATE`.
+- The footer is **inverted**: *this sheet IS a proposal — the only sheet in the set that is · every
+  other sheet is current state.* A reader who has seen any other sheet must not have to guess.
+- Every block carries **two markers in its badge**: the release that delivers it (`MVP` / `V2` /
+  `V3`) and how far the system may go (`READ` / `ASSIST` / `CONTROL`). An unmarked block on a
+  target-state sheet is an unbounded promise.
+- It carries an **OPEN · NOT DRAWN** panel naming the design questions the operator still has to
+  close. Boxes that would have been guesses are absent and *listed as absent* — the skill's rule
+  about not filling a gap with a plausible box matters more here than anywhere, because a target
+  state has no reality to be corrected against.
+
+Everything else — palette, actor rule, size semantics, type scale, band grammar — is unchanged, so
+current and target lay side by side and the delta is the only thing that reads as different.
+
+**Do not treat this as licence for a second proposal sheet.** If another is ever drawn, it inherits
+all four rules above.
+
 ## Non-negotiables
 
-1. Every sheet is **current state**, including what is wasteful or manual, and says so in the footer.
-2. Nothing on a sheet is a proposal.
+1. Every sheet is **current state**, including what is wasteful or manual, and says so in the footer
+   — *except* `Flow-Target-State`, which says the opposite in its footer.
+2. Nothing on a sheet is a proposal, with that one labelled exception.
 3. One unbroken spine per sheet; exceptions hang off it, they don't interrupt it.
 4. Solid connectors are the main path; dashed are exceptions, loops and feedback.
 5. Same type scale across every sheet in the set, so they read as one system.

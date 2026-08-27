@@ -78,10 +78,11 @@ against exists at all* — and it re-enters the loop, because half of what you f
 | **7** Business case | 19 Aug – ongoing | parallel | Business case register · payer economics · research corpus |
 | **8** Feeding platforms | Jul – Aug | 2 | Ecosystem coverage scan · source war-list · data index |
 | **9** MVP spec | 22 Aug | 1 | **MVP spec sheet — 19 variables in scope of 79** |
-| **10** Target state | **open** | 0 | *not yet drawn* |
+| **10** Target state | 22 Aug | 1 | **Flow-Target-State** — the set's only proposal sheet |
 
-**Step 10 is still open.** Its section is written as *procedure to run*, with the inputs already
-assembled, rather than as history. Everything it needs exists.
+**All ten steps have now run at least once.** Steps 9 and 10 ran on 22 Aug from inputs the first
+eight had already assembled — which is the claim this document makes about the loop: if the early
+steps are done properly, the late ones are projections rather than inventions.
 
 ---
 
@@ -1237,8 +1238,8 @@ EXIT TEST
 
 # STEP 10 — Mapping the future / target state
 
-> **Status: not yet drawn.** It was deliberately deferred until current state stopped moving. It is
-> now unblocked.
+> **Status: drawn 22 Aug 2026** — `Flow-Target-State.pdf`. Deferred through 26 correction rounds
+> until current state stopped moving, which was the precondition.
 
 ### The thinking
 
@@ -1297,6 +1298,29 @@ survive.**
    window is not a target state, it is a liability.
 7. **Validate it the same way current state was validated** — bring the draft to the people who do
    the work and count the correction rounds. **Target states get corrected too.**
+
+### What it produced, and the two choices that mattered
+
+**Two markers per box, not one.** Every block carries `RELEASE · POSTURE` — `MVP · READ`,
+`V2 · ASSIST`, `V3 · CONTROL`. One marker would not have done: release answers *when*, posture
+answers *how far the system may go*, and they move independently. Posture is the contested question
+in this initiative, so it belongs in the drawing rather than in a document nobody opens next to the
+wall sheet. The key panel carries the line the sheet exists to make unmissable:
+
+> **15 of the 19 MVP variables are *scored* control. In phase 1 every one ships at `READ` — the
+> score is a ceiling, not a commitment.**
+
+**Six boxes deliberately not drawn.** The rule about never filling a gap with a plausible box binds
+harder on a target state than on a current state, **because there is no operational reality to
+correct it against.** Rather than guess, the sheet carries an `OPEN · NOT DRAWN` panel listing what
+the operator still has to close — where the tool sits relative to the intake platform, whether the
+capacity read is a gate or advice, who owns the number day to day, and three more. Two of the six
+were already on record as executive decisions carried elsewhere; three surfaced while drawing,
+because each was a place the sheet could have been drawn two defensible ways.
+
+**And the honest caveat, recorded on the sheet's own record:** current state earned its authority
+through 26 correction rounds. **The target state has had none.** It must be walked with the operator
+and the system-of-record SME the same way before it is treated as settled.
 
 ### ▢ Run it on a new initiative
 
@@ -1374,7 +1398,7 @@ deliverable list for a new initiative** — if a step produced nothing, it did n
 | 31 | Ecosystem coverage scan | 8 | Data index diffed against discovery. Structural gaps vs. extensions |
 | 32 | Drive index | all | Every file in the working folder, mapped to where it lives |
 | 33 | **MVP spec sheet** | 9 | Scored inventory + war-list + business case register + DE-02/03/04/09. 19 of 79 variables in scope, 11 gating, all shipped at `Read` |
-| 34 | **Target-state flow sheets** | 10 | *Not yet drawn — inputs assembled* |
+| 34 | **Target-state flow sheet** | 10 | Current-state sheets + constraint register + connection points + MVP spec + DE-02/03/05/08/09. Same visual language; every box marked release + posture; six boxes deliberately undrawn |
 
 ---
 
@@ -1436,7 +1460,10 @@ STEP 9 · MVP SPEC + PRIORITIES                       [ ] not started
 
 STEP 10 · TARGET STATE                               [ ] not started
   Precondition met (current state at zero corrections)? [ ]
+  Markers on every box: release ____________ posture ____________
+  Boxes deliberately NOT drawn: ______  ( listed on the sheet, not guessed )
   Hardest person to convince: ____________________
+  Correction rounds on the TARGET sheet: ______  ← it needs them too
   ► Done.
 
 ════════════════════════════════════════════════════════════════════
