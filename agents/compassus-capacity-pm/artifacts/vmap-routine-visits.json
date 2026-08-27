@@ -1,0 +1,140 @@
+{
+  "_README": "Block -> workbook variable IDs for Flow 2 (routine visits), current and target. Keyed on the block's own text as the generator draws it (em-dashes normalised to hyphens). An empty list means deliberately mapped to nothing - a trigger, a boundary or a where-it-broke note, not a step that carries variables. Edit this file, not the generator.",
+  "Admission SOC or eval visit": [],
+  "Evaluating clinician plots own discipline frequency": [
+    "S-01",
+    "S-02",
+    "S-03",
+    "SH-02"
+  ],
+  "RN also plots aide frequency + MSW / ST initial eval": [
+    "S-01",
+    "SH-03",
+    "S-37"
+  ],
+  "Each submission generates its own assignment task": [
+    "S-01",
+    "S-15"
+  ],
+  "DCS reviews & approves the POC": [
+    "S-01",
+    "S-03",
+    "S-36"
+  ],
+  "Scheduler assigns visits to care team": [
+    "S-15",
+    "S-16",
+    "S-21",
+    "S-22",
+    "C-08",
+    "SH-02"
+  ],
+  "Evaluate own capacity for the week": [
+    "C-05",
+    "C-06",
+    "C-07",
+    "SH-05",
+    "SH-07",
+    "SH-08",
+    "C-12",
+    "S-41"
+  ],
+  "Prioritise clinical need across the caseload": [
+    "S-31",
+    "S-33",
+    "S-03",
+    "S-40",
+    "S-42"
+  ],
+  "Group visits geographically": [
+    "S-14",
+    "S-17",
+    "S-18",
+    "C-02",
+    "C-03",
+    "C-04"
+  ],
+  "Test against hard constraints": [
+    "S-27",
+    "S-28",
+    "S-29",
+    "S-30",
+    "S-31",
+    "S-32",
+    "S-34"
+  ],
+  "Confirmation - clinician directs, engine calls": [
+    "CO-01",
+    "CO-02",
+    "CO-06",
+    "CO-05",
+    "S-25",
+    "S-26",
+    "S-20"
+  ],
+  "Confirm with the patient - day before": [
+    "CO-01",
+    "CO-02",
+    "CO-06",
+    "CO-05",
+    "S-25",
+    "S-26",
+    "S-20"
+  ],
+  "Route - HCHB suggests, clinician adjusts": [
+    "S-18",
+    "S-19",
+    "S-20",
+    "S-10",
+    "S-14",
+    "S-06"
+  ],
+  "Accept visit delivered as planned": [
+    "CO-03"
+  ],
+  "Reschedule within the week": [
+    "S-38",
+    "S-03",
+    "CO-07"
+  ],
+  "Reassign back to the scheduler WITH a plan": [
+    "CO-09",
+    "S-15",
+    "S-21",
+    "C-09"
+  ],
+  "Miss → compliance chain": [
+    "S-38",
+    "S-39",
+    "CO-08"
+  ],
+  "Decline back to the scheduler WITHOUT a plan": [
+    "CO-09",
+    "S-15",
+    "C-09"
+  ],
+  "OASIS visits do not move": [],
+  "Medicare week is Sunday–Saturday": [],
+  "Inside the 60-day certification period": [],
+  "Auth still gates assignment": [],
+  "RN cannot reassign to her own LPN an HCHB rule, not Medicare": [
+    "SH-03",
+    "S-15",
+    "S-37"
+  ],
+  "Supervisor cannot see the supervisee's schedule": [
+    "S-37",
+    "C-08"
+  ],
+  "Day-before calls are unpaid evening work": [
+    "CO-01",
+    "CO-06",
+    "CO-12"
+  ],
+  "The weekly logic is undocumented and unassisted": [
+    "S-41",
+    "S-42",
+    "S-12",
+    "C-05"
+  ]
+}

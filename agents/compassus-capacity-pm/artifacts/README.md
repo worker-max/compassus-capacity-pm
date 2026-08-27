@@ -233,6 +233,44 @@ plan of care, every time, per discipline — is a real control, not a queue arte
 solid DCS red on 2T, 3T and the DCS/scheduler target, and it is the reason none of those sheets
 ghosts the approval step itself.
 
+### The hover layer — a sheet that answers "which variables is this?"
+
+`_flow_live.py` turns any generator in this directory into a hoverable HTML sheet:
+
+```
+python3 _flow_live.py <generator.gen.py> <vmap-*.json> <out.html> "<Title>"
+```
+
+It runs the generator with its block helpers instrumented, so every block reports its own
+geometry, then lays a **transparent hit layer** over the finished drawing. **The drawing itself is
+byte-identical to the shipped sheet** — verified, not assumed — and the whole layer is
+`display:none` under `@media print`, so the PDF and the printed wall sheet are unaffected. Nothing
+in a generator had to change to make this work, and nothing will.
+
+Hover shows the workbook row behind a block: ID, layer, variable name, constraint, MVP flag,
+automation posture, gating flag, confidence, current-state handling, source of truth, who it is
+sourced by, and the posture note. Click pins the panel, Esc clears it, and the panel flips to
+whichever side of the window the block is not on.
+
+**The mapping lives in `vmap-<flow>.json`, keyed on the block's own text** — not on coordinates,
+not on an index. Two consequences worth knowing:
+
+- **One map file drives both the current-state sheet and its target-state twin.** Because the twins
+  are positional clones with mostly identical wording, `vmap-routine-visits.json` resolves 20/20
+  blocks on *both* sheets. Only a block whose wording actually changed needs a second key — there is
+  exactly one on Flow 2 (*Confirm with the patient — day before* → *Confirmation — clinician
+  directs, engine calls*), and it is aliased to the same ID list.
+- **Rewording a block silently unmaps it.** The builder prints every unmapped block by name and the
+  hot-spot count, so a mismatch is loud rather than silent. Check that line after any text edit.
+
+An empty list is meaningful: it means *deliberately mapped to nothing* — a trigger, a boundary
+pill, a where-it-broke note. That is different from a missing key, which reports as unmapped.
+
+`variables.json` is generated from `knowledge/source/workbook-2026-08-13/Variable Inventory.csv`
+and holds all 76 IDs. **It is the 13 Aug inventory, not the 25 Aug build** — so the panel does not
+yet carry the *Future state — the tool's role* or *who decides* columns, and the 11 IDs the build
+added are absent. Regenerate it from the newer workbook before this goes in front of the team.
+
 ### ⚠️ Which sheet is "the SOC/ROC flow"
 
 **The team's SOC/ROC flow is `Detailed-Flow-Composite` — the five-column sheet — not `Flow-SOC-Full`.**
@@ -281,6 +319,8 @@ a *second* artifact and leaves the shared one stale, which is how Flow 3 ended u
 | `Flow-Authorization-Target-State` (3T) | https://claude.ai/code/artifact/1cc1f3f9-1135-45e3-bd0d-c5dd03211736 |
 | `Flow-DCS-Scheduler-Target-State` | https://claude.ai/code/artifact/012cd1d4-d29e-482b-9fde-e44857e8b8b7 |
 | `Flow-Recert-Discharge-Target-State` (5T) | https://claude.ai/code/artifact/4f47bc53-2d30-4f2d-a510-1b8bb272fe5f |
+| `flow-routine-visits-target-live` (hover proof, 2T) | https://claude.ai/code/artifact/dfa141e2-865f-4add-9866-f763c9b5f6e5 |
+| `flow-routine-visits-live` (hover proof, current state) | https://claude.ai/code/artifact/7edc53bb-f5cc-4f4c-bf78-d0dd62050043 |
 | `Detailed-Flow-Composite` (the SOC/ROC sheet) | https://claude.ai/code/artifact/e648db98-7ce3-4f5a-9a9a-aa98c559b107 |
 
 `Flow-Payer-Economics` has no recorded link yet — check `/artifacts`

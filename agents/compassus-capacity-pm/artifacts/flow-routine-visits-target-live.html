@@ -1,0 +1,424 @@
+<title>Routine visit scheduling — target state, live</title>
+
+<figure>
+<svg viewBox="0 0 2200 1680" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Routine visit scheduling in two phases. Phase one is a burst of scheduler work at admission: each discipline plots its own frequency, every submission generates its own assignment task, and the DCS approves each discipline plan of care — not approved, the visits are held. After the 485 the episode enters phase two, where the clinician manages their own week with no scheduler workflow at all. After the 485 every change arrives as a physician order — which may add a discipline evaluation, change frequency or reduce visits. The day before each visit the clinician confirms with the patient and then picks one of five dispositions in HCHB: accept, reschedule, reassign, miss or decline.">
+<defs><marker id="ar" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6.5" orient="auto-start-reverse"><polygon points="0,0 10,4 0,8" fill="#1B211E"/></marker></defs>
+<rect x="0" y="0" width="2200" height="1680" fill="#FBFBF8"/>
+<text x="50" y="58" class="eyebrow" text-anchor="start">COMPASSUS HOME HEALTH  ·  FLOW 2 — TARGET STATE  ·  v1.0</text>
+<text x="50" y="100" class="title" text-anchor="start">Routine Visit Scheduling</text>
+<text x="50" y="128" class="deck" text-anchor="start">Read beside Flow-Routine-Visits — same blocks, same positions. A dashed, struck-through block is a step that no longer exists</text>
+<circle cx="1093" cy="72" r="13" fill="#792E2E"/>
+<text x="1114" y="78" class="leg" text-anchor="start">DCS</text>
+<circle cx="1192.2" cy="72" r="13" fill="#C6A01F"/>
+<text x="1213.2" y="78" class="leg" text-anchor="start">PCC / Scheduler</text>
+<circle cx="1392.2" cy="72" r="13" fill="#2E599D"/>
+<text x="1413.2" y="78" class="leg" text-anchor="start">Clinician</text>
+<circle cx="1541.8000000000002" cy="72" r="13" fill="#795CA7"/>
+<text x="1562.8000000000002" y="78" class="leg" text-anchor="start">HCHB</text>
+<circle cx="1649.4" cy="72" r="13" fill="#A6E22E"/>
+<text x="1670.4" y="78" class="leg" text-anchor="start">Capacity &amp; Scheduling Engine</text>
+<line x1="50" y1="150" x2="2150" y2="150" stroke="#C9CCC5" stroke-width="1.4"/>
+<rect x="320" y="185" width="1420" height="205" rx="10" fill="#E9E9E5"/>
+<text x="342" y="219" class="band" text-anchor="start">PHASE 1  ·  FREQUENCY PLOTTING &amp; INITIAL ASSIGNMENT — the burst</text>
+<rect x="350" y="245" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="475.0" y="277.0" class="bt" style="fill:#fff" text-anchor="middle">Evaluating clinician</text>
+<text x="475.0" y="296.0" class="bt" style="fill:#fff" text-anchor="middle">plots own discipline</text>
+<text x="475.0" y="315.0" class="bt" style="fill:#fff" text-anchor="middle">frequency</text>
+<path d="M 356 245 L 594 245 A 6 6 0 0 1 600 251 L 600 258 L 350 258 L 350 251 A 6 6 0 0 1 356 245 Z" fill="#A6E22E"/>
+<rect x="449.5" y="231" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="520.75" y="247" class="bdg" text-anchor="middle" fill="#2E599D">× N disciplines</text>
+<rect x="358" y="231" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="370.15" y="246" class="bdg" text-anchor="middle" fill="#5A6560">1</text>
+<rect x="628" y="245" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="753.0" y="277.0" class="bt" style="fill:#fff" text-anchor="middle">RN also plots aide</text>
+<text x="753.0" y="296.0" class="bt" style="fill:#fff" text-anchor="middle">frequency + MSW / ST</text>
+<text x="753.0" y="315.0" class="bt" style="fill:#fff" text-anchor="middle">initial eval</text>
+<rect x="636" y="231" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="648.15" y="246" class="bdg" text-anchor="middle" fill="#5A6560">2</text>
+<rect x="906" y="245" width="250" height="90" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="1031.0" y="279.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Each submission</text>
+<line x1="978.5" y1="274.0" x2="1083.5" y2="274.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1031.0" y="295.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">generates its own</text>
+<line x1="971.5" y1="290.0" x2="1090.5" y2="290.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1031.0" y="311.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">assignment task</text>
+<line x1="978.5" y1="306.0" x2="1083.5" y2="306.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<rect x="914" y="231" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="926.15" y="246" class="bdg" text-anchor="middle" fill="#5A6560">3</text>
+<rect x="1184" y="245" width="250" height="90" rx="5" fill="#792E2E"/>
+<text x="1309.0" y="286.5" class="bt" style="fill:#fff" text-anchor="middle">DCS reviews &amp;</text>
+<text x="1309.0" y="305.5" class="bt" style="fill:#fff" text-anchor="middle">approves the POC</text>
+<rect x="1283.5" y="231" width="142.5" height="23" rx="11.5" fill="#FFFFFF" stroke="#792E2E" stroke-width="1.8"/>
+<text x="1354.75" y="247" class="bdg" text-anchor="middle" fill="#792E2E">× N disciplines</text>
+<rect x="1192" y="231" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1204.15" y="246" class="bdg" text-anchor="middle" fill="#5A6560">4</text>
+<rect x="1462" y="245" width="250" height="90" rx="5" fill="#A6E22E"/>
+<path d="M 1660 245 L 1706 245 A 6 6 0 0 1 1712 251 L 1712 329 A 6 6 0 0 1 1706 335 L 1660 335 Z" fill="#C6A01F"/>
+<text x="1561.0" y="286.5" class="bt" style="fill:#1B211E" text-anchor="middle">Scheduler assigns</text>
+<text x="1561.0" y="305.5" class="bt" style="fill:#1B211E" text-anchor="middle">visits to care team</text>
+<rect x="1636.2" y="231" width="67.80000000000001" height="23" rx="11.5" fill="#FFFFFF" stroke="#C6A01F" stroke-width="1.8"/>
+<text x="1670.1" y="247" class="bdg" text-anchor="middle" fill="#C6A01F">ASSIST</text>
+<rect x="1470" y="231" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1482.15" y="246" class="bdg" text-anchor="middle" fill="#5A6560">5</text>
+<line x1="600" y1="290.0" x2="622" y2="290.0" class="ln" marker-end="url(#ar)"/>
+<line x1="1434" y1="290.0" x2="1456" y2="290.0" class="ln" marker-end="url(#ar)"/>
+<path d="M 878 290.0 L 890 290.0 L 890 351 L 1172 351 L 1172 290.0" fill="none" class="ln"/>
+<line x1="1172" y1="290.0" x2="1178" y2="290.0" class="ln" marker-end="url(#ar)"/>
+<rect x="50" y="251.0" width="250" height="78" rx="26" fill="#FFFFFF" stroke="#1B211E" stroke-width="1.8"/>
+<text x="175.0" y="286.5" class="ct" text-anchor="middle" fill="#1B211E">Admission</text>
+<text x="175.0" y="303.5" class="ct" text-anchor="middle" fill="#1B211E">SOC or eval visit</text>
+<line x1="300" y1="290.0" x2="344" y2="290.0" class="ln" marker-end="url(#ar)"/>
+<text x="50" y="237.0" class="trg" text-anchor="start">TRIGGER</text>
+<text x="350" y="381" class="note" text-anchor="start">RN at the SOC; PT and OT at their own evals, 1–2 days later</text>
+<text x="1309.0" y="381" class="note" text-anchor="middle">one approval per discipline; not approved → visits held</text>
+<line x1="320" y1="462" x2="336" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
+<line x1="844" y1="462" x2="2018" y2="462" stroke="#1B211E" stroke-width="2.5" stroke-dasharray="14 7"/>
+<rect x="350" y="442" width="480" height="40" rx="20" fill="#FBFBF8" stroke="#1B211E" stroke-width="2"/>
+<text x="590" y="468" class="boundary" text-anchor="middle">485 SUBMITTED — changes come by physician order</text>
+<text x="590" y="500" class="note" text-anchor="middle">a physician order may add a discipline evaluation, change the frequency, or reduce the visits</text>
+<text x="590" y="520" class="note" text-anchor="middle">every one routes through DCS approval and auth before reaching the scheduler</text>
+<rect x="320" y="546" width="1698" height="268" rx="10" fill="#E9E9E5"/>
+<text x="342" y="580" class="band" text-anchor="start">PHASE 2  ·  STEADY STATE — the clinician runs their own week</text>
+<text x="1996" y="580" class="bandhi" text-anchor="end">NO SCHEDULER WORKFLOW</text>
+<rect x="350" y="606" width="250" height="90" rx="5" fill="#A6E22E"/>
+<text x="475.0" y="638.0" class="bt" style="fill:#1B211E" text-anchor="middle">Evaluate own</text>
+<text x="475.0" y="657.0" class="bt" style="fill:#1B211E" text-anchor="middle">capacity for</text>
+<text x="475.0" y="676.0" class="bt" style="fill:#1B211E" text-anchor="middle">the week</text>
+<rect x="358" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="370.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">1</text>
+<text x="356" y="722" class="sub">·  Points already committed</text>
+<text x="356" y="739" class="sub">·  Days off · PTO · on-call</text>
+<text x="356" y="756" class="sub">·  Documentation still owed</text>
+<rect x="628" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="753.0" y="638.0" class="bt" style="fill:#fff" text-anchor="middle">Prioritise clinical</text>
+<text x="753.0" y="657.0" class="bt" style="fill:#fff" text-anchor="middle">need across</text>
+<text x="753.0" y="676.0" class="bt" style="fill:#fff" text-anchor="middle">the caseload</text>
+<path d="M 634 606 L 872 606 A 6 6 0 0 1 878 612 L 878 619 L 628 619 L 628 612 A 6 6 0 0 1 634 606 Z" fill="#A6E22E"/>
+<rect x="636" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="648.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">2</text>
+<text x="634" y="722" class="sub">·  Who is unstable</text>
+<text x="634" y="739" class="sub">·  Wound · IV · catheter due</text>
+<text x="634" y="756" class="sub">·  Labs due</text>
+<text x="634" y="773" class="sub">·  Who can safely wait</text>
+<line x1="600" y1="651.0" x2="622" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="906" y="606" width="250" height="90" rx="5" fill="#A6E22E"/>
+<text x="1031.0" y="647.5" class="bt" style="fill:#1B211E" text-anchor="middle">Group visits</text>
+<text x="1031.0" y="666.5" class="bt" style="fill:#1B211E" text-anchor="middle">geographically</text>
+<rect x="914" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="926.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">3</text>
+<text x="912" y="722" class="sub">·  Who sits near whom</text>
+<text x="912" y="739" class="sub">·  Drive time, not distance</text>
+<text x="912" y="756" class="sub">·  Bridges · rivers · crossings</text>
+<text x="912" y="773" class="sub">·  Where the day starts</text>
+<line x1="878" y1="651.0" x2="900" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1184" y="606" width="250" height="90" rx="5" fill="#2E599D"/>
+<text x="1309.0" y="647.5" class="bt" style="fill:#fff" text-anchor="middle">Test against hard</text>
+<text x="1309.0" y="666.5" class="bt" style="fill:#fff" text-anchor="middle">constraints</text>
+<path d="M 1190 606 L 1428 606 A 6 6 0 0 1 1434 612 L 1434 619 L 1184 619 L 1184 612 A 6 6 0 0 1 1190 606 Z" fill="#A6E22E"/>
+<rect x="1192" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1204.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">4</text>
+<text x="1190" y="722" class="sub">·  Wound care timing</text>
+<text x="1190" y="739" class="sub">·  Catheter and IV schedules</text>
+<text x="1190" y="756" class="sub">·  Caregiver must be present</text>
+<text x="1190" y="773" class="sub">·  Dialysis · MD appointments</text>
+<line x1="1156" y1="651.0" x2="1178" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1462" y="606" width="250" height="90" rx="5" fill="#A6E22E"/>
+<path d="M 1660 606 L 1706 606 A 6 6 0 0 1 1712 612 L 1712 690 A 6 6 0 0 1 1706 696 L 1660 696 Z" fill="#2E599D"/>
+<text x="1561.0" y="647.5" class="bt" style="fill:#1B211E" text-anchor="middle">Confirmation — clinician</text>
+<text x="1561.0" y="666.5" class="bt" style="fill:#1B211E" text-anchor="middle">directs, engine calls</text>
+<rect x="1528.3" y="592" width="175.70000000000002" height="23" rx="11.5" fill="#FFFFFF" stroke="#2E599D" stroke-width="1.8"/>
+<text x="1616.15" y="608" class="bdg" text-anchor="middle" fill="#2E599D">CLINICIAN-TRIGGERED</text>
+<rect x="1470" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1482.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">5</text>
+<text x="1468" y="722" class="sub">·  “Can you come later?”</text>
+<text x="1468" y="739" class="sub">·  “Not Mondays”</text>
+<text x="1468" y="756" class="sub">·  Patient not home</text>
+<text x="1468" y="773" class="sub">·  → see the panel below</text>
+<line x1="1434" y1="651.0" x2="1456" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<rect x="1740" y="606" width="250" height="90" rx="5" fill="#A6E22E"/>
+<text x="1865.0" y="647.5" class="bt" style="fill:#1B211E" text-anchor="middle">Route — HCHB suggests,</text>
+<text x="1865.0" y="666.5" class="bt" style="fill:#1B211E" text-anchor="middle">clinician adjusts</text>
+<rect x="1748" y="592" width="24.3" height="22" rx="5" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.3"/>
+<text x="1760.15" y="607" class="bdg" text-anchor="middle" fill="#5A6560">6</text>
+<text x="1746" y="722" class="sub">·  The suggested route</text>
+<text x="1746" y="739" class="sub">·  Patient time windows</text>
+<text x="1746" y="756" class="sub">·  Traffic and time of day</text>
+<text x="1746" y="773" class="sub">·  Where the day must end</text>
+<line x1="1712" y1="651.0" x2="1734" y2="651.0" class="ln" marker-end="url(#ar)"/>
+<text x="342" y="800" class="note" text-anchor="start">what the clinician is working around at each step</text>
+<rect x="350" y="860" width="1450" height="152" rx="10" fill="none" stroke="#C9CCC5" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="376" y="896" class="pnl" text-anchor="start">THE DAY-BEFORE NEGOTIATION — what the clinician has to hold</text>
+<text x="394" y="932" class="colh" text-anchor="start">HARD  —  accept it and build the day around it</text>
+<text x="394" y="956" class="sub">·  Dialysis days and times</text>
+<text x="394" y="973" class="sub">·  MD and specialist appointments</text>
+<text x="394" y="990" class="sub">·  Caregiver's working hours</text>
+<text x="394" y="1007" class="sub">·  Patient genuinely not home</text>
+<line x1="1050" y1="914" x2="1050" y2="998" stroke="#2E599D" stroke-width="3"/>
+<text x="1068" y="932" class="colhb" text-anchor="start">SOFT  —  negotiable, and worth holding the line on</text>
+<text x="1068" y="956" class="sub">·  “Can you come after lunch?”</text>
+<text x="1068" y="973" class="sub">·  “Not first thing”  ·  “Not Mondays”</text>
+<text x="1068" y="990" class="sub">·  A preferred time with no reason behind it</text>
+<line x1="376" y1="914" x2="376" y2="998" stroke="#1B211E" stroke-width="3"/>
+<text x="350" y="1048" class="hi" text-anchor="start">The first visit at 8 or 9am is the single largest lever on an individual clinician's capacity.</text>
+<text x="350" y="1070" class="note" text-anchor="start">Newer clinicians let the patient set the time, become over-accommodating, and push the cost onto the rest of the team.</text>
+<rect x="320" y="1124" width="1420" height="246" rx="10" fill="#E9E9E5"/>
+<text x="342" y="1158" class="band" text-anchor="start">THE DAY BEFORE  ·  THE CLINICIAN'S FIVE DISPOSITIONS</text>
+<text x="1718" y="1158" class="bandhi" text-anchor="end">SELECTED IN HCHB</text>
+<text x="342" y="1182" class="note" text-anchor="start">chosen the day prior, straight after the confirmation call — not at the door on the day of the visit</text>
+<rect x="350" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
+<text x="475.0" y="1235.25" class="bt s" style="fill:#fff" text-anchor="middle">Accept</text>
+<text x="475.0" y="1250.75" class="bt s" style="fill:#fff" text-anchor="middle">visit delivered as planned</text>
+<text x="475.0" y="1302" class="hi" text-anchor="middle">the most common disposition</text>
+<rect x="628" y="1200" width="250" height="76" rx="5" fill="#2E599D"/>
+<text x="753.0" y="1235.25" class="bt s" style="fill:#fff" text-anchor="middle">Reschedule</text>
+<text x="753.0" y="1250.75" class="bt s" style="fill:#fff" text-anchor="middle">within the week</text>
+<text x="753.0" y="1302" class="hi" text-anchor="middle">no scheduler workflow if rapid</text>
+<text x="753.0" y="1320" class="hi" text-anchor="middle">reschedule is turned on in HCHB</text>
+<rect x="906" y="1200" width="250" height="76" rx="5" fill="#C6A01F"/>
+<text x="1031.0" y="1227.5" class="bt s" style="fill:#fff" text-anchor="middle">Reassign</text>
+<text x="1031.0" y="1243.0" class="bt s" style="fill:#fff" text-anchor="middle">back to the scheduler</text>
+<text x="1031.0" y="1258.5" class="bt s" style="fill:#fff" text-anchor="middle">WITH a plan</text>
+<text x="1031.0" y="1302" class="note" text-anchor="middle">the clinician recommends</text>
+<text x="1031.0" y="1320" class="note" text-anchor="middle">who should take it</text>
+<rect x="1184" y="1200" width="250" height="76" rx="5" fill="#792E2E"/>
+<text x="1309.0" y="1235.25" class="bt s" style="fill:#fff" text-anchor="middle">Miss</text>
+<text x="1309.0" y="1250.75" class="bt s" style="fill:#fff" text-anchor="middle">→ compliance chain</text>
+<text x="1309.0" y="1302" class="note" text-anchor="middle">documentation and</text>
+<text x="1309.0" y="1320" class="note" text-anchor="middle">compliance chain follow</text>
+<rect x="1462" y="1200" width="250" height="76" rx="5" fill="#C6A01F"/>
+<text x="1587.0" y="1227.5" class="bt s" style="fill:#fff" text-anchor="middle">Decline</text>
+<text x="1587.0" y="1243.0" class="bt s" style="fill:#fff" text-anchor="middle">back to the scheduler</text>
+<text x="1587.0" y="1258.5" class="bt s" style="fill:#fff" text-anchor="middle">WITHOUT a plan</text>
+<text x="1587.0" y="1302" class="note" text-anchor="middle">nothing recommended —</text>
+<text x="1587.0" y="1320" class="note" text-anchor="middle">the branch manages placement</text>
+<path d="M 1990 651.0 L 2060 651.0 L 2060 1098 L 290 1098 L 290 1238" fill="none" class="ln"/>
+<line x1="290" y1="1238" x2="344" y2="1238" class="ln" marker-end="url(#ar)"/>
+<text x="350" y="1354" class="hi" text-anchor="start">Reassign and Decline are both clinician selections in HCHB, and both return the visit to the scheduler — the difference is whether a recommendation comes with it.</text>
+<text x="50" y="1446" class="trg" text-anchor="start">BOUNDARIES</text>
+<rect x="350" y="1424" width="252.39999999999998" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="476.2" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">OASIS visits do not move</text>
+<rect x="622.4" y="1424" width="321.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="783.0" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Medicare week is Sunday–Saturday</text>
+<rect x="963.5999999999999" y="1424" width="372.8" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="1150.0" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Inside the 60-day certification period</text>
+<rect x="1356.3999999999999" y="1424" width="278.2" height="42" rx="21.0" fill="#FFFFFF" stroke="#5A6560" stroke-width="1.8"/>
+<text x="1495.4999999999998" y="1450.0" class="ct" text-anchor="middle" fill="#5A6560">Auth still gates assignment</text>
+<text x="50" y="1532" class="trg" text-anchor="start">WHERE IT</text>
+<text x="50" y="1550" class="trg" text-anchor="start">BROKE</text>
+<rect x="350" y="1506" width="420" height="70" rx="5" fill="#792E2E"/>
+<text x="560.0" y="1538.25" class="bt s" style="fill:#fff" text-anchor="middle">RN cannot reassign to her own LPN</text>
+<text x="560.0" y="1553.75" class="bt s" style="fill:#fff" text-anchor="middle">an HCHB rule, not Medicare</text>
+<rect x="790" y="1506" width="420" height="70" rx="5" fill="#792E2E"/>
+<text x="1000.0" y="1538.25" class="bt s" style="fill:#fff" text-anchor="middle">Supervisor cannot see</text>
+<text x="1000.0" y="1553.75" class="bt s" style="fill:#fff" text-anchor="middle">the supervisee's schedule</text>
+<rect x="1230" y="1506" width="420" height="70" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="1440.0" y="1538.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">Day-before calls are</text>
+<line x1="1370.0" y1="1533.0" x2="1510.0" y2="1533.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1440.0" y="1554.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">unpaid evening work</text>
+<line x1="1373.5" y1="1549.0" x2="1506.5" y2="1549.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1440.0" y="1594" class="trg" text-anchor="middle">FIXED BY THE ENGINE</text>
+<rect x="1670" y="1506" width="420" height="70" rx="5" fill="#FBFBF8" stroke="#5A6560" stroke-width="1.7" stroke-dasharray="7 5" opacity=".8"/>
+<text x="1880.0" y="1538.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">The weekly logic is</text>
+<line x1="1813.5" y1="1533.0" x2="1946.5" y2="1533.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1880.0" y="1554.0" class="bt s" style="fill:#5A6560" text-anchor="middle" opacity=".85">undocumented and unassisted</text>
+<line x1="1785.5" y1="1549.0" x2="1974.5" y2="1549.0" stroke="#5A6560" stroke-width="1.2" opacity=".8"/>
+<text x="1880.0" y="1594" class="trg" text-anchor="middle">FIXED BY THE ENGINE</text>
+<line x1="50" y1="1608" x2="2150" y2="1608" stroke="#C9CCC5" stroke-width="1.4"/>
+<text x="50" y="1640" class="foot" text-anchor="start">TARGET STATE, PROPOSED · green = the capacity &amp; scheduling engine (dark text); purple = still inside HCHB · phase 1 is visualisation only (DE-03)</text>
+<text x="2150" y="1640" class="foot" text-anchor="end">Flow 2T · routine visits — target state</text>
+<g id="hits">
+<rect class="hit" data-i="0" x="350" y="245" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="1" x="628" y="245" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="2" x="906" y="245" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="3" x="1184" y="245" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="4" x="1462" y="245" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="5" x="350" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="6" x="628" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="7" x="906" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="8" x="1184" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="9" x="1462" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="10" x="1740" y="606" width="250" height="90" rx="5"/>
+<rect class="hit" data-i="11" x="350" y="1200" width="250" height="76" rx="5"/>
+<rect class="hit" data-i="12" x="628" y="1200" width="250" height="76" rx="5"/>
+<rect class="hit" data-i="13" x="906" y="1200" width="250" height="76" rx="5"/>
+<rect class="hit" data-i="14" x="1184" y="1200" width="250" height="76" rx="5"/>
+<rect class="hit" data-i="15" x="1462" y="1200" width="250" height="76" rx="5"/>
+<rect class="hit" data-i="16" x="350" y="1506" width="420" height="70" rx="5"/>
+<rect class="hit" data-i="17" x="790" y="1506" width="420" height="70" rx="5"/>
+<rect class="hit" data-i="18" x="1230" y="1506" width="420" height="70" rx="5"/>
+<rect class="hit" data-i="19" x="1670" y="1506" width="420" height="70" rx="5"/>
+</g>
+</svg>
+</figure>
+
+<style>
+:root{--paper:#F2F3EF;--rule:#D8DAD2;
+--shadow:0 1px 2px rgba(23,30,26,.05),0 12px 34px -22px rgba(23,30,26,.35);
+--body:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+--display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+--mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}}
+:root[data-theme="dark"]{--paper:#101412;--rule:#2C342E;
+--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -22px rgba(0,0,0,.85);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:var(--body);
+padding:clamp(10px,2vw,32px);-webkit-font-smoothing:antialiased}
+figure{margin:0 auto;max-width:1900px;border:1px solid var(--rule);border-radius:12px;
+box-shadow:var(--shadow);overflow-x:auto;background:#FBFBF8}
+svg{display:block;width:100%;min-width:1180px;height:auto}
+/* --- in-SVG type. units are points on the output sheet --- */
+.bt{font-family:var(--body);font-size:16px;font-weight:600;fill:#fff}
+.bt.s{font-size:13.5px}
+.dt{font-family:var(--body);font-size:15px;font-weight:600;fill:#1B211E}
+.ct{font-family:var(--body);font-size:15px;font-weight:600}
+.bdg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.ln{stroke:#1B211E;stroke-width:2}
+.lb{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.conn{font-family:var(--mono);font-size:13.5px;fill:#5A6560}
+.leg{font-family:var(--body);font-size:15.5px;font-weight:600;fill:#1B211E}
+.key{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;fill:#7C8781}
+.band{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#5A6560}
+.trg{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.16em;fill:#7C8781}
+.pnl{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#792E2E}
+.pnlA{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.09em;fill:#DF751D}
+.note{font-family:var(--body);font-size:14px;fill:#5A6560}
+.sub{font-family:var(--body);font-size:13.5px;fill:#5A6560}
+.hi{font-family:var(--body);font-size:15px;font-weight:600;fill:#C6A01F}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7C8781}
+.title{font-family:var(--display);font-size:34px;font-weight:600;fill:#1B211E}
+.deck{font-family:var(--body);font-size:16px;fill:#5A6560}
+.foot{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;fill:#7C8781}
+.boundary{font-family:var(--mono);font-size:13.5px;font-weight:700;letter-spacing:.08em;fill:#1B211E}
+.bandhi{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.12em;fill:#2E599D}
+.colh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#1B211E}
+.colhb{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#2E599D}
+.colhA{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.11em;fill:#DF751D}
+.vid{font-family:var(--mono);font-size:11.8px;letter-spacing:.06em;fill:#5A6560}
+.colt{font-family:var(--body);font-size:18px;font-weight:700}
+.tg{font-family:var(--body);font-size:14px;fill:#1B211E}
+.spine{font-family:var(--body);font-size:15px;font-weight:700;fill:#1B211E}
+@media print{@page{size:2200pt 1680pt;margin:0}
+body{background:#fff;padding:0}
+figure{max-width:none;border:0;border-radius:0;box-shadow:none;overflow:visible}
+svg{min-width:0;width:2200pt;height:1680pt}}
+</style>
+
+<aside id="vp" hidden>
+  <header><b id="vp-t"></b><button id="vp-x" aria-label="close">&times;</button></header>
+  <div id="vp-b"></div>
+  <footer id="vp-f"></footer>
+</aside>
+<p id="vp-hint">Hover any block to see the variables behind it &middot; click to pin
+&middot; <b>Esc</b> to clear. Nothing here is on the printed sheet.</p>
+
+<style>
+#vp-hint{max-width:1900px;margin:14px auto 0;font-family:var(--mono);font-size:12.5px;
+  color:#7C8781;letter-spacing:.03em}
+#vp-hint b{color:#5A6560}
+.hit{fill:transparent;cursor:pointer;pointer-events:all}
+.hit:hover,.hit.pin{fill:#A6E22E;fill-opacity:.20;stroke:#A6E22E;stroke-width:3.5}
+.hit.pin{stroke-dasharray:6 4}
+#vp{position:fixed;right:clamp(10px,2vw,26px);top:clamp(10px,2vw,26px);width:min(380px,92vw);
+  max-height:calc(100vh - 52px);overflow-y:auto;background:#FBFBF8;border:1px solid #C9CCC5;
+  border-radius:12px;box-shadow:0 18px 48px -20px rgba(23,30,26,.5);z-index:9;
+  font-family:var(--body);color:#1B211E}
+#vp[hidden]{display:none}
+#vp.left{right:auto;left:clamp(10px,2vw,26px)}
+#vp header{display:flex;gap:10px;align-items:flex-start;padding:14px 14px 10px;
+  border-bottom:1px solid #E9E9E5;position:sticky;top:0;background:#FBFBF8;border-radius:12px 12px 0 0}
+#vp header b{flex:1;font-size:14.5px;line-height:1.35}
+#vp-x{border:0;background:none;font-size:21px;line-height:1;color:#7C8781;cursor:pointer;padding:0 2px}
+#vp-b{padding:4px 14px 10px}
+.v{padding:12px 0;border-bottom:1px solid #EFEFEA}
+.v:last-child{border-bottom:0}
+.v .id{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;color:#5F8A12;font-weight:700}
+.v .nm{font-size:14.5px;font-weight:600;margin:3px 0 7px;line-height:1.35}
+.v .nt{font-size:13px;color:#5A6560;line-height:1.5;margin-top:7px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;padding:2.5px 7px;
+  border-radius:9px;border:1px solid #C9CCC5;color:#5A6560;white-space:nowrap}
+.tag.hard{border-color:#792E2E;color:#792E2E}
+.tag.gate{border-color:#DF751D;color:#DF751D}
+.tag.mvp{border-color:#5F8A12;color:#4A6D0E;background:#F4FBE6}
+.tag.lo{border-color:#792E2E;color:#792E2E}
+#vp footer{padding:10px 14px 13px;border-top:1px solid #E9E9E5;font-family:var(--mono);
+  font-size:11px;letter-spacing:.05em;color:#7C8781;line-height:1.6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #vp{background:#161B18;
+  border-color:#2C342E;color:#E8EBE7}
+  :root:not([data-theme="light"]) #vp header{background:#161B18;border-color:#2C342E}
+  :root:not([data-theme="light"]) .v{border-color:#232A25}
+  :root:not([data-theme="light"]) #vp footer{border-color:#2C342E}
+  :root:not([data-theme="light"]) .v .nt,:root:not([data-theme="light"]) .tag{color:#9AA69F}}
+@media print{#vp,#vp-hint,#hits{display:none}}
+</style>
+
+<script>
+const HOT = [{"x": 350, "y": 245, "w": 250, "h": 90, "v": ["S-01", "S-02", "S-03", "SH-02"], "t": "Evaluating clinician plots own discipline frequency", "k": "surf"}, {"x": 628, "y": 245, "w": 250, "h": 90, "v": ["S-01", "SH-03", "S-37"], "t": "RN also plots aide frequency + MSW / ST initial eval", "k": "man"}, {"x": 906, "y": 245, "w": 250, "h": 90, "v": ["S-01", "S-15"], "t": "Each submission generates its own assignment task", "k": "ghost"}, {"x": 1184, "y": 245, "w": 250, "h": 90, "v": ["S-01", "S-03", "S-36"], "t": "DCS reviews & approves the POC", "k": "man"}, {"x": 1462, "y": 245, "w": 250, "h": 90, "v": ["S-15", "S-16", "S-21", "S-22", "C-08", "SH-02"], "t": "Scheduler assigns visits to care team", "k": "assist"}, {"x": 350, "y": 606, "w": 250, "h": 90, "v": ["C-05", "C-06", "C-07", "SH-05", "SH-07", "SH-08", "C-12", "S-41"], "t": "Evaluate own capacity for the week", "k": "eng"}, {"x": 628, "y": 606, "w": 250, "h": 90, "v": ["S-31", "S-33", "S-03", "S-40", "S-42"], "t": "Prioritise clinical need across the caseload", "k": "surf"}, {"x": 906, "y": 606, "w": 250, "h": 90, "v": ["S-14", "S-17", "S-18", "C-02", "C-03", "C-04"], "t": "Group visits geographically", "k": "eng"}, {"x": 1184, "y": 606, "w": 250, "h": 90, "v": ["S-27", "S-28", "S-29", "S-30", "S-31", "S-32", "S-34"], "t": "Test against hard constraints", "k": "surf"}, {"x": 1462, "y": 606, "w": 250, "h": 90, "v": ["CO-01", "CO-02", "CO-06", "CO-05", "S-25", "S-26", "S-20"], "t": "Confirmation - clinician directs, engine calls", "k": "assist"}, {"x": 1740, "y": 606, "w": 250, "h": 90, "v": ["S-18", "S-19", "S-20", "S-10", "S-14", "S-06"], "t": "Route - HCHB suggests, clinician adjusts", "k": "eng"}, {"x": 350, "y": 1200, "w": 250, "h": 76, "v": ["CO-03"], "t": "Accept visit delivered as planned", "k": "block"}, {"x": 628, "y": 1200, "w": 250, "h": 76, "v": ["S-38", "S-03", "CO-07"], "t": "Reschedule within the week", "k": "block"}, {"x": 906, "y": 1200, "w": 250, "h": 76, "v": ["CO-09", "S-15", "S-21", "C-09"], "t": "Reassign back to the scheduler WITH a plan", "k": "block"}, {"x": 1184, "y": 1200, "w": 250, "h": 76, "v": ["S-38", "S-39", "CO-08"], "t": "Miss → compliance chain", "k": "block"}, {"x": 1462, "y": 1200, "w": 250, "h": 76, "v": ["CO-09", "S-15", "C-09"], "t": "Decline back to the scheduler WITHOUT a plan", "k": "block"}, {"x": 350, "y": 1506, "w": 420, "h": 70, "v": ["SH-03", "S-15", "S-37"], "t": "RN cannot reassign to her own LPN an HCHB rule, not Medicare", "k": "block"}, {"x": 790, "y": 1506, "w": 420, "h": 70, "v": ["S-37", "C-08"], "t": "Supervisor cannot see the supervisee's schedule", "k": "block"}, {"x": 1230, "y": 1506, "w": 420, "h": 70, "v": ["CO-01", "CO-06", "CO-12"], "t": "Day-before calls are unpaid evening work", "k": "ghost"}, {"x": 1670, "y": 1506, "w": 420, "h": 70, "v": ["S-41", "S-42", "S-12", "C-05"], "t": "The weekly logic is undocumented and unassisted", "k": "ghost"}], VARS = {"SH-01": {"layer": "Shared", "variable": "Clinician headcount", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Clear roster fact; safe to sync and read.", "sourced": "Branch", "current": "In-system", "sot": "Workday + HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Fixed point - legible supply fact; encoding it doesn't move the pattern.", "rollup": "SHD-A", "weight": "3", "gating": "Y", "conflict": "N"}, "SH-02": {"layer": "Shared", "variable": "Discipline", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Firm licensure fact, fully in the data.", "sourced": "Branch", "current": "In-system", "sot": "Workday + HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Fixed point - hard structural fact.", "rollup": "SHD-A", "weight": "3", "gating": "Y", "conflict": "N"}, "SH-03": {"layer": "Shared", "variable": "Role (assessing vs assistant)", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Derived directly from discipline.", "sourced": "Branch", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Fixed point - deterministic from discipline.", "rollup": "SHD-A", "weight": "3", "gating": "Y", "conflict": "N"}, "SH-04": {"layer": "Shared", "variable": "FTE / employment type", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Clear employment attribute.", "sourced": "Branch", "current": "In-system", "sot": "Workday", "measure": "Quantitative", "confidence": "High", "lens": "Fixed point - structural.", "rollup": "SHD-A", "weight": "3", "gating": "Y", "conflict": "Y"}, "SH-05": {"layer": "Shared", "variable": "Approved time off / availability", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Once entered, a firm blackout the system can honor.", "sourced": "Clinician", "current": "In-system", "sot": "Workday + HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Hard boundary; once in the field it's a clean edge automation can hold.", "rollup": "SHD-B", "weight": "3", "gating": "Y", "conflict": "N"}, "SH-06": {"layer": "Shared", "variable": "Territory / service area", "constraint": "Structural", "mvp": "Yes", "posture": "Assist", "notes": "Territory lines carry local knowledge; propose and confirm.  Territory zip code/CCT list to be connected as well as include pre-ordained backup options for coverage.  Visit assignment:  Human Confirm as final step.", "sourced": "Geography", "current": "Manual", "sot": "HCHB + Manual + Census", "measure": "Quantitative", "confidence": "Medium", "lens": "Zip lines look fixed but encode local knowledge; read and propose, don't redraw.", "rollup": "SHD-C", "weight": "3", "gating": "Y", "conflict": "Y"}, "SH-07": {"layer": "Shared", "variable": "Productivity points per visit type", "constraint": "Config", "mvp": "Yes", "posture": "Control", "notes": "Policy constant; simple lookup.", "sourced": "System", "current": "In-system", "sot": "Config", "measure": "Quantitative", "confidence": "High", "lens": "Config constant - a fixed point.", "rollup": "SHD-D", "weight": "3", "gating": "N", "conflict": "Y"}, "SH-08": {"layer": "Shared", "variable": "Productivity target & ceiling", "constraint": "Config", "mvp": "Yes", "posture": "Control", "notes": "Policy constant; simple lookup.", "sourced": "Branch", "current": "In-system", "sot": "HCHB + Config", "measure": "Quantitative", "confidence": "High", "lens": "Config constant - a fixed point.", "rollup": "SHD-E", "weight": "3", "gating": "N", "conflict": "Y"}, "SH-09": {"layer": "Shared", "variable": "Referral inflow / discharge outflow", "constraint": "Event", "mvp": "Yes", "posture": "Control", "notes": "Event detection is clear; the downstream action is scored separately.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Legible trigger; sensing is safe, the response is where judgment enters.", "rollup": "SHD-F", "weight": "3", "gating": "N", "conflict": "N"}, "C-01": {"layer": "Capacity", "variable": "Headcount by discipline & employment type", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Clear supply fact.", "sourced": "Branch", "current": "In-system", "sot": "Workday", "measure": "Quantitative", "confidence": "High", "lens": "Legible supply - a stable attractor.", "rollup": "CAP-A", "weight": "3", "gating": "Y", "conflict": "Y"}, "C-02": {"layer": "Capacity", "variable": "Branch coverage territory (county)", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Fixed coverage boundary.", "sourced": "Geography", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Fixed boundary.", "rollup": "CAP-B", "weight": "3", "gating": "Y", "conflict": "N"}, "C-03": {"layer": "Capacity", "variable": "Clinician territory assignment (zip)", "constraint": "Structural", "mvp": "Yes", "posture": "Assist", "notes": "Noted info above related to branch territories.  Clinician territoriies are to be maintained in system to facilitate scheduling and capacity management -- paired with a real-time census heatmap would allow for territory adjustments PRN or quarterly--huge effects on both capacity and scheduling", "sourced": "Geography", "current": "Manual", "sot": "HCHB + Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Reachability carries tacit routing knowledge; propose, let humans tune it.", "rollup": "CAP-B", "weight": "3", "gating": "Y", "conflict": "Y"}, "C-04": {"layer": "Capacity", "variable": "Census-tract granularity (under evaluation)", "constraint": "Config", "mvp": "Yes", "posture": "Assist", "notes": "A modeling choice, not a live control; evaluate deliberately.", "sourced": "Geography", "current": "In-system", "sot": "Census", "measure": "Quantitative", "confidence": "Medium", "lens": "Granularity choice reshapes both basins at once; decide deliberately, not by default.", "rollup": "CAP-B", "weight": "3", "gating": "N", "conflict": "Y"}, "C-05": {"layer": "Capacity", "variable": "Committed load / points scheduled", "constraint": "Derived", "mvp": "Yes", "posture": "Control", "notes": "Derived from booked visits.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Derived - reads the pattern, doesn't move it.", "rollup": "CAP-C", "weight": "3", "gating": "N", "conflict": "N"}, "C-12": {"layer": "Capacity", "variable": "On-call / weekend rotation load", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Clear from the rotation log.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Legible load.", "rollup": "CAP-C", "weight": "3", "gating": "Y", "conflict": "N"}, "C-06": {"layer": "Capacity", "variable": "Remaining capacity by day", "constraint": "Derived", "mvp": "Yes", "posture": "Control", "notes": "Direct derivation from the schedule.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Derived read of open room.", "rollup": "CAP-D", "weight": "3", "gating": "N", "conflict": "Y"}, "C-07": {"layer": "Capacity", "variable": "Week open capacity", "constraint": "Derived", "mvp": "Yes", "posture": "Control", "notes": "Direct derivation.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Derived.", "rollup": "CAP-D", "weight": "3", "gating": "N", "conflict": "N"}, "C-08": {"layer": "Capacity", "variable": "Assessing capacity by discipline", "constraint": "Derived", "mvp": "Yes", "posture": "Control", "notes": "Direct derivation, discipline-filtered.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Derived.", "rollup": "CAP-D", "weight": "3", "gating": "N", "conflict": "Y"}, "C-09": {"layer": "Capacity", "variable": "Per-diem / flex capacity", "constraint": "Structural", "mvp": "Yes", "posture": "Assist", "notes": "Availability is stated; actual engagement depends on the relationship.", "sourced": "Branch", "current": "Manual", "sot": "Manual + HCHB", "measure": "Quantitative", "confidence": "Medium", "lens": "Buffer size is legible; whether it flexes is relational - read, don't presume.", "rollup": "CAP-E", "weight": "3", "gating": "Y", "conflict": "N"}, "C-10": {"layer": "Capacity", "variable": "Specialty competency supply", "constraint": "Structural", "mvp": "Maybe", "posture": "Assist", "notes": "Competency is often informal, not fully credentialed in the data.", "sourced": "Clinician", "current": "Tacit", "sot": "Workday + Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Competency lives partly in reputation, not credentials; surface it.", "rollup": "CAP-F", "weight": "1", "gating": "N", "conflict": "N"}, "C-11": {"layer": "Capacity", "variable": "Orientation / ramp status", "constraint": "Structural", "mvp": "Maybe", "posture": "Assist", "notes": "Headcount is clear; the true ramp curve requires judgment.", "sourced": "Branch", "current": "In-system", "sot": "Workday", "measure": "Quantitative", "confidence": "Medium", "lens": "Ramp is a curve, not a switch - judgment, not a rule.", "rollup": "CAP-G", "weight": "1", "gating": "N", "conflict": "N"}, "C-13": {"layer": "Capacity", "variable": "Referral volume (out of scope)", "constraint": "Context", "mvp": "No", "posture": "Read", "notes": "Out of scope; More related to Commure", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "Low", "lens": "Held constant; out of scope by choice.", "rollup": "CAP-H", "weight": "0", "gating": "N", "conflict": "N"}, "S-01": {"layer": "Scheduling", "variable": "Plan-of-care orders / ordered frequency", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Orders are clear in HCHB.", "sourced": "Patient", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "The demand signal - legible.", "rollup": "SCH-A", "weight": "3", "gating": "Y", "conflict": "N"}, "S-02": {"layer": "Scheduling", "variable": "Visit type", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Clear order attribute.", "sourced": "Patient", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Legible.", "rollup": "SCH-A", "weight": "3", "gating": "Y", "conflict": "N"}, "S-03": {"layer": "Scheduling", "variable": "Ordered-frequency compliance window", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Rule-based date window; ideal to enforce and flag.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Hard, legible clock - safe to enforce.", "rollup": "SCH-B", "weight": "3", "gating": "Y", "conflict": "N"}, "S-35": {"layer": "Scheduling", "variable": "SOC timing window", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Regulatory clock, fully clear - the safest automation win.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Hard regulatory clock - the safest thing to automate.", "rollup": "SCH-B", "weight": "3", "gating": "Y", "conflict": "N"}, "S-36": {"layer": "Scheduling", "variable": "Recert / face-to-face window", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Regulatory window; enforce and flag.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Regulatory - enforce.", "rollup": "SCH-B", "weight": "3", "gating": "Y", "conflict": "N"}, "S-04": {"layer": "Scheduling", "variable": "Preferred working days", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Set pattern, but rotations and swaps are informal.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual + HCHB", "measure": "Qualitative", "confidence": "Medium", "lens": "Pattern with informal exceptions; read, propose.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-05": {"layer": "Scheduling", "variable": "Preferred start time", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable preference; confirm before acting.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Preference; capturable but personal - assist, don't fix.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-06": {"layer": "Scheduling", "variable": "Start-time flexibility", "constraint": "Soft", "mvp": "Maybe", "posture": "Read", "notes": "Depends on the clinician's willingness; a wrong assumption damages trust.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Sensitive dependence - a person's willingness; assuming it reshapes the relationship. Read only.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-07": {"layer": "Scheduling", "variable": "Lunch pattern/ Documentation Pattern", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable habit.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Personal habit - assist.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-08": {"layer": "Scheduling", "variable": "Mid-day documentation block", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable habit.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Personal habit - assist.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-09": {"layer": "Scheduling", "variable": "Split-shift / mid-day personal break", "constraint": "Soft", "mvp": "Maybe", "posture": "Read", "notes": "Personal daily routine that varies; hard to predict reliably.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "The clinician's own daily rhythm - a strange attractor; small control inputs distort it. Read only.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-10": {"layer": "Scheduling", "variable": "Preferred end time / hard stop", "constraint": "Hard/Soft", "mvp": "Yes", "posture": "Assist", "notes": "Firm once known, but knowing it depends on the clinician telling you.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Firm edge once known; the knowing is tacit.", "rollup": "SCH-C", "weight": "3", "gating": "N", "conflict": "N"}, "S-11": {"layer": "Scheduling", "variable": "Max consecutive visits / daily volume", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable ceiling; confirm.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Personal ceiling - assist.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "Y"}, "S-12": {"layer": "Scheduling", "variable": "Elasticity / willingness to flex", "constraint": "Soft", "mvp": "Maybe", "posture": "Read", "notes": "Relationship-based; automating it can damage the trust it depends on.  Role Expecation reinforcement and facilitate willingness to travel outside assigned territory", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Pure relational variable; the act of automating it changes what it measures. Read only.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-13": {"layer": "Scheduling", "variable": "Overtime / extra-visit willingness", "constraint": "Soft", "mvp": "Maybe", "posture": "Read", "notes": "Relationship- and pay-linked; surface it, do not assume.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Relational and pay-linked; surface, never presume.", "rollup": "SCH-C", "weight": "1", "gating": "N", "conflict": "N"}, "S-14": {"layer": "Scheduling", "variable": "Home base (start/end location)", "constraint": "Structural", "mvp": "Yes", "posture": "Control", "notes": "Clear location anchor.", "sourced": "Geography", "current": "Manual", "sot": "Manual + Routing", "measure": "Quantitative", "confidence": "High", "lens": "Legible anchor.", "rollup": "SCH-D", "weight": "3", "gating": "Y", "conflict": "N"}, "S-17": {"layer": "Scheduling", "variable": "Proximity to existing route", "constraint": "Soft", "mvp": "Maybe", "posture": "Control", "notes": "Geographic optimization; safe and reversible.", "sourced": "Geography", "current": "In-system", "sot": "Routing", "measure": "Quantitative", "confidence": "High", "lens": "Geometry - safe optimization; the efficiency here is real, not the attractor's slack.", "rollup": "SCH-D", "weight": "1", "gating": "N", "conflict": "Y"}, "S-18": {"layer": "Scheduling", "variable": "Optimized-route mileage", "constraint": "Derived", "mvp": "Yes", "posture": "Control", "notes": "Deterministic routing math.", "sourced": "Geography", "current": "In-system", "sot": "Routing", "measure": "Quantitative", "confidence": "High", "lens": "Deterministic.", "rollup": "SCH-D", "weight": "3", "gating": "N", "conflict": "N"}, "S-19": {"layer": "Scheduling", "variable": "Intra-day sequencing", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Clear, but pinned by fixed time constraints; propose a sequence.", "sourced": "Geography", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "Medium", "lens": "Legible skeleton pinned by tacit anchors; propose, let the human place the anchors.", "rollup": "SCH-D", "weight": "1", "gating": "N", "conflict": "N"}, "S-20": {"layer": "Scheduling", "variable": "Appointment window (time of day)", "constraint": "Hard/Soft", "mvp": "Yes", "posture": "Assist", "notes": "Enforceable once captured; capture is the weak point.", "sourced": "Geography", "current": "Manual", "sot": "HCHB + Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Enforceable once captured; capture is where reality leaks in.", "rollup": "SCH-D", "weight": "3", "gating": "N", "conflict": "N"}, "S-15": {"layer": "Scheduling", "variable": "Discipline / role match", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Firm licensure gate, fully clear. Assessing clinician vs paraprofessional; orientee considerations.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Hard gate - legible.", "rollup": "SCH-E", "weight": "3", "gating": "Y", "conflict": "N"}, "S-16": {"layer": "Scheduling", "variable": "Specialty competency match", "constraint": "Hard", "mvp": "Yes", "posture": "Assist", "notes": "Only as good as the competency data, which is often incomplete.", "sourced": "System", "current": "Manual", "sot": "Workday + Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Only as legible as the credential data - often it isn't.", "rollup": "SCH-E", "weight": "3", "gating": "Y", "conflict": "N"}, "S-33": {"layer": "Scheduling", "variable": "Acuity to discipline / skill", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Acuity-to-skill is clinical judgment; recommend, a person confirms.", "sourced": "System", "current": "Tacit", "sot": "HCHB + Manual", "measure": "Quantitative", "confidence": "Low", "lens": "Clinical judgment; recommend, the human owns it.", "rollup": "SCH-E", "weight": "3", "gating": "Y", "conflict": "N"}, "S-21": {"layer": "Scheduling", "variable": "Clinician restrictions", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Documented firm restriction; honor it.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "High", "lens": "Documented hard gate.", "rollup": "SCH-F", "weight": "3", "gating": "Y", "conflict": "N"}, "S-22": {"layer": "Scheduling", "variable": "Continuity of care", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Prior clinician is known; the relationship's value is informal.", "sourced": "Patient", "current": "In-system", "sot": "HCHB", "measure": "Qualitative", "confidence": "Medium", "lens": "The relationship is load-bearing but invisible in the data; protect it, don't score it away.", "rollup": "SCH-G", "weight": "1", "gating": "N", "conflict": "N"}, "S-23": {"layer": "Scheduling", "variable": "Gender preference", "constraint": "Hard/Soft", "mvp": "No", "posture": "Assist", "notes": "Sensitive; surface and confirm rather than auto-match.", "sourced": "Patient", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Sensitive; surface and confirm.", "rollup": "SCH-H", "weight": "0", "gating": "N", "conflict": "N"}, "S-24": {"layer": "Scheduling", "variable": "Language / cultural match", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable; confirm for teaching-critical visits.", "sourced": "Patient", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Read and confirm for teaching-critical visits.", "rollup": "SCH-H", "weight": "1", "gating": "N", "conflict": "N"}, "S-25": {"layer": "Scheduling", "variable": "Time-of-day refusal", "constraint": "Soft", "mvp": "Yes", "posture": "Assist", "notes": "Firm rule once captured, but a stale refusal causes a failed visit.", "sourced": "Patient", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Hard once captured, but a stale value fails the visit - the map isn't the territory.", "rollup": "SCH-I", "weight": "3", "gating": "N", "conflict": "N"}, "S-26": {"layer": "Scheduling", "variable": "Preferred visit window", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Soft window; optimize toward it, confirm.", "sourced": "Patient", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Soft - optimize toward, confirm.", "rollup": "SCH-I", "weight": "1", "gating": "N", "conflict": "N"}, "S-27": {"layer": "Scheduling", "variable": "Day-of-week constraint", "constraint": "Hard", "mvp": "Yes", "posture": "Assist", "notes": "Standing commitments are capturable but patient-reported.", "sourced": "Patient", "current": "Tacit", "sot": "Manual + HCHB", "measure": "Qualitative", "confidence": "Medium", "lens": "Standing constraint; patient-reported, so trust but verify.", "rollup": "SCH-I", "weight": "3", "gating": "Y", "conflict": "N"}, "S-28": {"layer": "Scheduling", "variable": "Caregiver-present requirement", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Firm requirement, but the input is informal and changing, with patient-safety impact.", "sourced": "Caregiver", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Danger quadrant - hard rule, fluctuating tacit input, patient harm. The clearest 'read, never control.'", "rollup": "SCH-J", "weight": "3", "gating": "Y", "conflict": "N"}, "S-29": {"layer": "Scheduling", "variable": "Cognitive / dementia constraint", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Cognition plus caregiver dependency; system surfaces, a person decides.", "sourced": "Caregiver", "current": "Tacit", "sot": "Manual + HCHB", "measure": "Qualitative", "confidence": "Low", "lens": "Danger quadrant - cognition plus caregiver dependency; automation must only surface.", "rollup": "SCH-J", "weight": "3", "gating": "Y", "conflict": "N"}, "S-30": {"layer": "Scheduling", "variable": "Caregiver schedule / fluctuating availability", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Two changing calendars, largely undocumented; needs a person.", "sourced": "Caregiver", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Two moving calendars, undocumented - the purest sensitive dependence in the system.", "rollup": "SCH-J", "weight": "3", "gating": "Y", "conflict": "N"}, "S-31": {"layer": "Scheduling", "variable": "Diagnosis-driven timing", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Clinical timing judgment with patient-safety impact; flag, do not decide.", "sourced": "Patient", "current": "Tacit", "sot": "HCHB + Manual", "measure": "Quantitative", "confidence": "Low", "lens": "Clinical judgment with patient harm; flag, never decide.", "rollup": "SCH-K", "weight": "3", "gating": "Y", "conflict": "N"}, "S-32": {"layer": "Scheduling", "variable": "Competing medical appointments", "constraint": "Hard", "mvp": "Yes", "posture": "Assist", "notes": "Capturable if reported, but often surfaces only in conversation.", "sourced": "Patient", "current": "Manual", "sot": "Manual + HCHB", "measure": "Quantitative", "confidence": "Medium", "lens": "Surfaces in conversation, not the record; read and confirm.", "rollup": "SCH-K", "weight": "3", "gating": "Y", "conflict": "N"}, "S-34": {"layer": "Scheduling", "variable": "Infection-control sequencing", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Partly rule-based; confirm for complex cases.", "sourced": "Patient", "current": "Manual", "sot": "Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Partly a rule, partly judgment; assist.", "rollup": "SCH-K", "weight": "1", "gating": "N", "conflict": "N"}, "S-37": {"layer": "Scheduling", "variable": "Supervisory visit dependency", "constraint": "Hard", "mvp": "Yes", "posture": "Control", "notes": "Rule-based cadence dependency; clear and enforceable.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Rule-based cadence; legible.", "rollup": "SCH-L", "weight": "3", "gating": "Y", "conflict": "N"}, "S-38": {"layer": "Scheduling", "variable": "Missed / unworked visit rescheduling", "constraint": "Hard", "mvp": "Yes", "posture": "Assist", "notes": "Detecting the miss is straightforward; choosing the reschedule pulls in every soft constraint.", "sourced": "System", "current": "In-system", "sot": "HCHB + Derived", "measure": "Quantitative", "confidence": "Medium", "lens": "Sensing the miss is legible; the reschedule pulls the whole basin back in - assist.", "rollup": "SCH-M", "weight": "3", "gating": "Y", "conflict": "N"}, "S-39": {"layer": "Scheduling", "variable": "Missed-visit documentation", "constraint": "Config", "mvp": "Yes", "posture": "Control", "notes": "Workflow and compliance prompt and tracking.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Quantitative", "confidence": "High", "lens": "Workflow - safe.", "rollup": "SCH-M", "weight": "3", "gating": "N", "conflict": "N"}, "S-40": {"layer": "Scheduling", "variable": "Front-loading", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Optimize toward the target, but forcing it disrupts clinician routines.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "Medium", "lens": "A target, not a law; forcing it flattens the clinician's rhythm into a fixed point.", "rollup": "SCH-N", "weight": "1", "gating": "N", "conflict": "Y"}, "S-41": {"layer": "Scheduling", "variable": "Pace vs. schedule", "constraint": "Derived", "mvp": "Maybe", "posture": "Control", "notes": "Derived metric; safe to surface.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "High", "lens": "Derived read.", "rollup": "SCH-N", "weight": "1", "gating": "N", "conflict": "N"}, "S-42": {"layer": "Scheduling", "variable": "Day-by-day balancing", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Optimizable, but it touches human routines and informal constraints.", "sourced": "System", "current": "In-system", "sot": "Derived", "measure": "Quantitative", "confidence": "Medium", "lens": "Optimizable, but it touches human routines - assist, don't dictate.", "rollup": "SCH-N", "weight": "1", "gating": "N", "conflict": "N"}, "CO-01": {"layer": "Coordination", "variable": "Day-before / same-day visit confirmation", "constraint": "Soft", "mvp": "Yes", "posture": "Assist", "notes": "Confirmation cuts failed visits; the call can surface changes, so prompt and let a person confirm.", "sourced": "Clinician", "current": "Manual", "sot": "Manual", "measure": "Quantitative", "confidence": "Medium", "lens": "Protects scheduled capacity; the human touch catches what a reminder can't - assist, don't fully automate.", "rollup": "CRD-A", "weight": "3", "gating": "N", "conflict": "N"}, "CO-02": {"layer": "Coordination", "variable": "Automated appointment reminders", "constraint": "Soft", "mvp": "Yes", "posture": "Control", "notes": "Rule-based reminder dispatch - a clean automation win.", "sourced": "System", "current": "In-system", "sot": "Telephony", "measure": "Quantitative", "confidence": "High", "lens": "Legible, low-risk - the reminder is deterministic; safe to control.", "rollup": "CRD-A", "weight": "3", "gating": "N", "conflict": "Y"}, "CO-03": {"layer": "Coordination", "variable": "En-route / on-my-way notification", "constraint": "Soft", "mvp": "Maybe", "posture": "Control", "notes": "Derived from the live route; safe to automate.", "sourced": "Clinician", "current": "In-system", "sot": "Routing", "measure": "Quantitative", "confidence": "High", "lens": "Deterministic from position and route - a clean control automation.", "rollup": "CRD-A", "weight": "1", "gating": "N", "conflict": "N"}, "CO-04": {"layer": "Coordination", "variable": "New-patient welcome call", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Automate the trigger; the call itself is human and relational.", "sourced": "System", "current": "In-system", "sot": "Telephony + HCHB", "measure": "Quantitative", "confidence": "Medium", "lens": "Automate the trigger, keep the human on the line - assist.", "rollup": "CRD-A", "weight": "1", "gating": "N", "conflict": "N"}, "CO-05": {"layer": "Coordination", "variable": "Communication channel & preference management", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Capturable preference; confirm it for reliability-critical messages.", "sourced": "System", "current": "Manual", "sot": "Manual + Config", "measure": "Quantitative", "confidence": "Medium", "lens": "A capturable channel preference - honor it, don't assume.", "rollup": "CRD-A", "weight": "1", "gating": "N", "conflict": "Y"}, "CO-06": {"layer": "Coordination", "variable": "Availability confirmation before booking", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Depends on fluctuating patient and caregiver windows; surface, a person owns it.", "sourced": "Patient", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Feeds off the caregiver sensitive-dependence variables - read, never presume.", "rollup": "CRD-B", "weight": "3", "gating": "Y", "conflict": "N"}, "CO-07": {"layer": "Coordination", "variable": "Reschedule coordination", "constraint": "Soft", "mvp": "Maybe", "posture": "Read", "notes": "Relational negotiation; the system can propose slots, a person owns the outcome.", "sourced": "Clinician", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Human negotiation around a moving constraint - read or assist at most.", "rollup": "CRD-B", "weight": "1", "gating": "N", "conflict": "N"}, "CO-08": {"layer": "Coordination", "variable": "Failed-visit / no-show follow-up & rebooking", "constraint": "Hard", "mvp": "Yes", "posture": "Assist", "notes": "Detecting the miss is clean; the rebooking pulls in every soft constraint.", "sourced": "Branch", "current": "Manual", "sot": "HCHB + Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Detection legible; recovery pulls the whole basin back in - assist.", "rollup": "CRD-B", "weight": "3", "gating": "Y", "conflict": "N"}, "CO-09": {"layer": "Coordination", "variable": "Call-out coverage coordination", "constraint": "Hard", "mvp": "Yes", "posture": "Read", "notes": "Coverage hinges on relational willingness; surface options, a person works it.", "sourced": "Branch", "current": "Tacit", "sot": "Manual", "measure": "Qualitative", "confidence": "Low", "lens": "Runs on the same relational elasticity as per-diem uptake - read/assist.", "rollup": "CRD-B", "weight": "3", "gating": "Y", "conflict": "N"}, "CO-10": {"layer": "Coordination", "variable": "Multi-discipline visit coordination", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Rule-informed but pinned by patient tolerance and clinician routes; propose.", "sourced": "System", "current": "Manual", "sot": "HCHB + Manual", "measure": "Qualitative", "confidence": "Medium", "lens": "Optimizable only within the limits human tolerance sets - assist.", "rollup": "CRD-C", "weight": "1", "gating": "N", "conflict": "N"}, "CO-11": {"layer": "Coordination", "variable": "Care-team / office coordination updates", "constraint": "Soft", "mvp": "Maybe", "posture": "Assist", "notes": "Logging and notification are automatable; what to escalate is human judgment.", "sourced": "System", "current": "In-system", "sot": "HCHB", "measure": "Qualitative", "confidence": "Medium", "lens": "Notification is safe; the escalation judgment is human - assist.", "rollup": "CRD-C", "weight": "1", "gating": "N", "conflict": "N"}, "CO-12": {"layer": "Coordination", "variable": "Coordination time load", "constraint": "Derived", "mvp": "Maybe", "posture": "Read", "notes": "Measure and surface it; the coordination work itself stays human.", "sourced": "Branch", "current": "Tacit", "sot": "Derived + Manual", "measure": "Quantitative", "confidence": "Low", "lens": "The capacity cost of coordination - read and measure, don't control the people doing it.", "rollup": "CRD-D", "weight": "1", "gating": "N", "conflict": "N"}};
+const vp = document.getElementById('vp'), vpT = document.getElementById('vp-t'),
+      vpB = document.getElementById('vp-b'), vpF = document.getElementById('vp-f'),
+      hits = document.getElementById('hits');
+let pinned = null;
+
+const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function tags(d){
+  const t = [];
+  if (d.constraint) t.push(`<span class="tag${/Hard/.test(d.constraint)?' hard':''}">${esc(d.constraint)}</span>`);
+  if (d.mvp === 'Yes') t.push('<span class="tag mvp">MVP</span>');
+  else if (d.mvp) t.push(`<span class="tag">MVP ${esc(d.mvp)}</span>`);
+  if (d.posture) t.push(`<span class="tag">${esc(d.posture)}</span>`);
+  if (d.gating === 'Y') t.push('<span class="tag gate">GATING</span>');
+  if (d.confidence) t.push(`<span class="tag${d.confidence==='Low'?' lo':''}">conf ${esc(d.confidence)}</span>`);
+  if (d.current) t.push(`<span class="tag">${esc(d.current)}</span>`);
+  return `<div class="tags">${t.join('')}</div>`;
+}
+
+function show(i){
+  const s = HOT[i];
+  vpT.textContent = s.t;
+  vpB.innerHTML = s.v.map(id => {
+    const d = VARS[id];
+    if (!d) return `<div class="v"><span class="id">${esc(id)}</span>
+      <div class="nt">not in the 13 Aug inventory — check the backlog</div></div>`;
+    return `<div class="v"><span class="id">${esc(id)} &middot; ${esc(d.layer)}</span>
+      <div class="nm">${esc(d.variable)}</div>${tags(d)}
+      ${d.notes ? `<div class="nt">${esc(d.notes)}</div>` : ''}
+      ${d.sot ? `<div class="nt"><b>Source of truth:</b> ${esc(d.sot)}${
+        d.sourced ? ` &middot; sourced by ${esc(d.sourced)}` : ''}</div>` : ''}</div>`;
+  }).join('');
+  const n = s.v.length;
+  vpF.textContent = `${n} variable${n===1?'':'s'} · 13 Aug workbook inventory`;
+  // keep the panel off the block being read
+  const r = document.querySelector(`.hit[data-i="${i}"]`).getBoundingClientRect();
+  vp.classList.toggle('left', r.left + r.width / 2 > window.innerWidth / 2);
+  vp.hidden = false;
+  hits.classList.add('on');
+}
+
+function clear(){
+  if (pinned !== null) return;
+  vp.hidden = true;
+  hits.classList.remove('on');
+}
+
+document.querySelectorAll('.hit').forEach(el => {
+  const i = +el.dataset.i;
+  el.addEventListener('mouseenter', () => { if (pinned === null) show(i); });
+  el.addEventListener('mouseleave', clear);
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.hit.pin').forEach(p => p.classList.remove('pin'));
+    if (pinned === i) { pinned = null; clear(); return; }
+    pinned = i; el.classList.add('pin'); show(i);
+  });
+});
+
+function unpin(){
+  pinned = null;
+  document.querySelectorAll('.hit.pin').forEach(p => p.classList.remove('pin'));
+  clear();
+}
+document.getElementById('vp-x').addEventListener('click', unpin);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
+document.addEventListener('click', e => { if (!vp.contains(e.target)) unpin(); });
+</script>
