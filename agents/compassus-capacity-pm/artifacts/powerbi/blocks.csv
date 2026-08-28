@@ -1,26 +1,120 @@
-﻿Flow,Block,Posture,Variables,X,Y,BubbleSize,LeftPct,TopPct,WidthPct,HeightPct
-Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,Automate,4,21.591,82.738,60.88,15.909,14.583,11.364,5.357
-Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,Automate,3,34.227,82.738,60.88,28.545,14.583,11.364,5.357
-Routine Visit Scheduling,Each submission generates its own assignment task,Out of MVP scope,0,46.864,82.738,60.88,41.182,14.583,11.364,5.357
-Routine Visit Scheduling,DCS reviews & approves the POC,Surface,2,59.5,82.738,60.88,53.818,14.583,11.364,5.357
-Routine Visit Scheduling,Scheduler assigns visits to care team,Automate,6,72.136,82.738,60.88,66.455,14.583,11.364,5.357
-Routine Visit Scheduling,Admission SOC or eval visit,Out of MVP scope,0,7.955,82.738,52.76,2.273,14.94,11.364,4.643
-Routine Visit Scheduling,Evaluate own capacity for the week,Automate,8,21.591,61.25,60.88,15.909,36.071,11.364,5.357
-Routine Visit Scheduling,Prioritise clinical need across the caseload,Surface,5,34.227,61.25,60.88,28.545,36.071,11.364,5.357
-Routine Visit Scheduling,Group visits geographically,Automate,6,46.864,61.25,60.88,41.182,36.071,11.364,5.357
-Routine Visit Scheduling,Test against hard constraints,Surface,7,59.5,61.25,60.88,53.818,36.071,11.364,5.357
-Routine Visit Scheduling,Confirm with the patient - day before,Assist,7,72.136,61.25,60.88,66.455,36.071,11.364,5.357
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",Assist,6,84.773,61.25,60.88,79.091,36.071,11.364,5.357
-Routine Visit Scheduling,Accept visit delivered as planned,Out of MVP scope,1,21.591,26.31,51.41,15.909,71.429,11.364,4.524
-Routine Visit Scheduling,Reschedule within the week,Assist,3,34.227,26.31,51.41,28.545,71.429,11.364,4.524
-Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,Surface,4,46.864,26.31,51.41,41.182,71.429,11.364,4.524
-Routine Visit Scheduling,Miss → compliance chain,Assist,3,59.5,26.31,51.41,53.818,71.429,11.364,4.524
-Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,Surface,3,72.136,26.31,51.41,66.455,71.429,11.364,4.524
-Routine Visit Scheduling,OASIS visits do not move,Out of MVP scope,0,21.645,13.988,28.68,15.909,84.762,11.473,2.5
-Routine Visit Scheduling,Medicare week is Sunday–Saturday,Out of MVP scope,0,35.591,13.988,36.5,28.291,84.762,14.6,2.5
-Routine Visit Scheduling,Inside the 60-day certification period,Out of MVP scope,0,52.273,13.988,42.36,43.8,84.762,16.945,2.5
-Routine Visit Scheduling,Auth still gates assignment,Out of MVP scope,0,67.977,13.988,31.61,61.655,84.762,12.645,2.5
-Routine Visit Scheduling,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",Out of MVP scope,0,25.455,8.274,79.55,15.909,89.643,19.091,4.167
-Routine Visit Scheduling,Supervisor cannot see the supervisee's schedule,Out of MVP scope,0,45.455,8.274,79.55,35.909,89.643,19.091,4.167
-Routine Visit Scheduling,Day-before calls are unpaid evening work,Out of MVP scope,0,65.455,8.274,79.55,55.909,89.643,19.091,4.167
-Routine Visit Scheduling,The weekly logic is undocumented and unassisted,Out of MVP scope,0,85.455,8.274,79.55,75.909,89.643,19.091,4.167
+﻿Flow,Block,Dashboard,MVP,Target,Variables,X,Y,BubbleSize,LeftPct,TopPct,WidthPct,HeightPct,CanvasW,CanvasH
+SOC / ROC,PCC completes clinician scheduling workflow,View,Automate,Automate,3,10.846,47.921,47.97,5.077,50.0,11.538,4.157,2600,1780
+SOC / ROC,Read open capacity - day · week · discipline · territory,View,Automate,Automate,6,27.923,47.921,47.97,22.154,50.0,11.538,4.157,2600,1780
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",View,Assist,Assist,6,52.231,47.921,47.97,46.462,50.0,11.538,4.157,2600,1780
+SOC / ROC,"Visit delivered - docu- mented, OASIS locked",View,View,Surface,2,87.154,47.921,47.97,81.385,50.0,11.538,4.157,2600,1780
+SOC / ROC,Welcome / readiness call by PCC,View,Automate,Automate,4,10.769,74.213,49.13,3.231,24.157,15.077,3.258,2600,1780
+SOC / ROC,PCC creates scheduling grid entry,Removed,Removed,Removed,2,10.769,65.787,49.13,3.231,32.584,15.077,3.258,2600,1780
+SOC / ROC,Priority flag to scheduling,View,Surface,Surface,3,10.769,28.034,49.13,3.231,70.337,15.077,3.258,2600,1780
+SOC / ROC,Compute committed load (points),View,Automate,Automate,3,30.385,74.213,49.13,22.846,24.157,15.077,3.258,2600,1780
+SOC / ROC,Assessing capacity by discipline,View,Automate,Automate,3,30.385,68.371,49.13,22.846,30.0,15.077,3.258,2600,1780
+SOC / ROC,"Pending-auth visits invisible - not on calendar, not counted",Removed,Removed,Removed,1,30.385,62.303,45.74,22.846,36.18,15.077,3.034,2600,1780
+SOC / ROC,Branch leadership review - reopen zip · adjust · defer,View,Assist,Assist,4,30.385,39.045,49.13,22.846,59.326,15.077,3.258,2600,1780
+SOC / ROC,Engage per-diem / float - SOCs or coverage visits,View,Surface,Surface,2,30.385,31.854,49.13,22.846,66.517,15.077,3.258,2600,1780
+SOC / ROC,Discipline / role match (gate),View,Automate,Automate,3,50.0,79.944,49.13,42.462,18.427,15.077,3.258,2600,1780
+SOC / ROC,Territory list - zip code reference,View,Assist,Assist,4,50.0,74.551,49.13,42.462,23.82,15.077,3.258,2600,1780
+SOC / ROC,Specialty competency match,View,Assist,Surface,2,50.0,69.157,49.13,42.462,29.213,15.077,3.258,2600,1780
+SOC / ROC,Continuity - prefer same clinician,View,View,Assist,1,50.0,63.764,49.13,42.462,34.607,15.077,3.258,2600,1780
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,View,Surface,Assist,7,50.0,58.371,49.13,42.462,40.0,15.077,3.258,2600,1780
+SOC / ROC,Front-load early visits (protect LUPA floor),View,View,Automate,3,50.0,36.011,49.13,42.462,62.36,15.077,3.258,2600,1780
+SOC / ROC,Resolve - reassign · resequence · escalate,View,Surface,Assist,3,50.0,30.169,49.13,42.462,68.202,15.077,3.258,2600,1780
+SOC / ROC,Clinician receives schedule,View,View,Assist,1,50.0,24.326,49.13,42.462,74.045,15.077,3.258,2600,1780
+SOC / ROC,Auth gate - checked per visit; no auth → the visit sits pending,View,Automate,Automate,1,50.0,18.258,45.74,42.462,80.225,15.077,3.034,2600,1780
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,View,Automate,Automate,5,69.615,71.966,49.13,62.077,26.404,15.077,3.258,2600,1780
+SOC / ROC,Patient confirms / negotiates,View,Surface,Surface,4,69.615,66.124,49.13,62.077,32.247,15.077,3.258,2600,1780
+SOC / ROC,Scheduler coordinates coverage - call · text · Teams - with FT or per-diem clinicians,View,Surface,Surface,3,69.615,27.135,55.9,62.077,71.011,15.077,3.708,2600,1780
+SOC / ROC,Scheduler reassigns to another clinician - or moves the visit to another day,View,Assist,Surface,3,69.615,20.955,55.9,62.077,77.191,15.077,3.708,2600,1780
+SOC / ROC,Visit in progress (EVV / clock-in),View,View,Surface,2,89.231,65.225,49.13,81.692,33.146,15.077,3.258,2600,1780
+SOC / ROC,Documentation pending,View,View,Surface,2,89.231,39.045,49.13,81.692,59.326,15.077,3.258,2600,1780
+SOC / ROC,Missed visit - clinician documents,View,Assist,Assist,2,89.231,32.079,49.13,81.692,66.292,15.077,3.258,2600,1780
+SOC / ROC,Scheduler workflow - notify MD within 48h,View,Automate,Automate,1,89.231,26.461,49.13,81.692,71.91,15.077,3.258,2600,1780
+SOC / ROC,Rebook within window · recover / front-load,View,Assist,Assist,4,89.231,18.483,49.13,81.692,79.888,15.077,3.258,2600,1780
+Full Episode,Intake receives the referral,View,Automate,Automate,1,19.388,84.924,46.62,14.286,12.792,10.204,4.569,2450,1970
+Full Episode,Auth verifies eligibility keys pending auth,View,Automate,Automate,1,30.735,84.924,46.62,25.633,12.792,10.204,4.569,2450,1970
+Full Episode,Intake gives final approval,Not mapped,View,Not mapped,0,42.082,84.924,46.62,36.98,12.792,10.204,4.569,2450,1970
+Full Episode,DCS reviews the referral,View,Surface,Surface,2,53.429,84.924,46.62,48.327,12.792,10.204,4.569,2450,1970
+Full Episode,Scheduler makes the welcome / intake call,View,Automate,Automate,4,64.776,84.924,46.62,59.673,12.792,10.204,4.569,2450,1970
+Full Episode,Scheduler assigns the SOC and discipline evals,View,Automate,Automate,3,76.122,84.924,46.62,71.02,12.792,10.204,4.569,2450,1970
+Full Episode,Clinicians perform SOC and evals,Not mapped,View,Not mapped,0,87.469,84.924,46.62,82.367,12.792,10.204,4.569,2450,1970
+Full Episode,Referral arrives hospital · MD · facility,Not mapped,View,Not mapped,0,7.143,84.924,40.4,2.041,13.096,10.204,3.959,2450,1970
+Full Episode,Each discipline plots its own frequency,View,Automate,Automate,3,19.388,70.914,46.62,14.286,26.802,10.204,4.569,2450,1970
+Full Episode,DCS reviews and approves the POC,View,Surface,Surface,2,30.735,70.914,46.62,25.633,26.802,10.204,4.569,2450,1970
+Full Episode,THE 485 MOMENT QA accepted  ·  POC locked 485 submitted  ·  orders to MD,View,Surface,Surface,2,47.755,70.914,98.46,36.98,26.802,21.551,4.569,2450,1970
+Full Episode,HCHB generates visits and assignment tasks,View,Automate,Automate,2,64.776,70.914,46.62,59.673,26.802,10.204,4.569,2450,1970
+Full Episode,Scheduler assigns all plotted visits - one pass,View,Assist,Assist,5,76.122,70.914,46.62,71.02,26.802,10.204,4.569,2450,1970
+Full Episode,Visits land on the clinician's calendar,Not mapped,View,Not mapped,0,87.469,70.914,46.62,82.367,26.802,10.204,4.569,2450,1970
+Full Episode,Evaluate own capacity for the week,View,Automate,Automate,6,19.388,56.904,46.62,14.286,40.812,10.204,4.569,2450,1970
+Full Episode,Prioritise clinical need across the caseload,View,Surface,Surface,3,30.735,56.904,46.62,25.633,40.812,10.204,4.569,2450,1970
+Full Episode,Group visits geographically,View,Automate,Automate,4,42.082,56.904,46.62,36.98,40.812,10.204,4.569,2450,1970
+Full Episode,Test against hard constraints,View,Surface,Surface,6,53.429,56.904,46.62,48.327,40.812,10.204,4.569,2450,1970
+Full Episode,Confirm with the patient - the day before,View,Automate,Automate,5,64.776,56.904,46.62,59.673,40.812,10.204,4.569,2450,1970
+Full Episode,"Route - HCHB suggests, clinician adjusts",View,Automate,Assist,4,76.122,56.904,46.62,71.02,40.812,10.204,4.569,2450,1970
+Full Episode,Accept,View,View,Automate,1,16.6,47.919,9.4,14.286,51.066,4.629,2.03,2450,1970
+Full Episode,Reschedule,View,Assist,Surface,2,35.18,47.919,12.35,32.139,51.066,6.082,2.03,2450,1970
+Full Episode,Reassign,View,Surface,Surface,2,41.469,47.919,10.87,38.792,51.066,5.355,2.03,2450,1970
+Full Episode,Miss,View,Assist,Assist,2,46.669,47.919,7.92,44.718,51.066,3.902,2.03,2450,1970
+Full Episode,Decline,View,Surface,Surface,2,51.688,47.919,10.14,49.192,51.066,4.992,2.03,2450,1970
+Full Episode,Recert window opens - last 5 days,View,Automate,Automate,1,19.388,39.036,46.62,14.286,58.68,10.204,4.569,2450,1970
+Full Episode,Recertifying disciplines set the next 60 days,View,Automate,Automate,3,30.735,39.036,46.62,25.633,58.68,10.204,4.569,2450,1970
+Full Episode,Scheduling workflow fires for the new period,View,Automate,Automate,2,42.082,39.036,46.62,36.98,58.68,10.204,4.569,2450,1970
+Full Episode,Or discharge - each discipline separately,Not mapped,View,Not mapped,0,53.429,39.036,46.62,48.327,58.68,10.204,4.569,2450,1970
+Full Episode,The last discipline out does the agency D/C OASIS,Not mapped,View,Not mapped,0,64.776,39.036,46.62,59.673,58.68,10.204,4.569,2450,1970
+Full Episode,Capacity returns to the branch,View,Automate,Automate,3,78.122,39.036,48.48,72.0,58.985,12.245,3.959,2450,1970
+Full Episode,Clinician documents a missed visit,View,Automate,Automate,1,19.388,26.447,46.62,14.286,71.269,10.204,4.569,2450,1970
+Full Episode,Scheduler notifies the MD within 48 hours,View,Automate,Automate,1,30.735,26.447,46.62,25.633,71.269,10.204,4.569,2450,1970
+Full Episode,Not in time → workflow to the DCS,View,Assist,Assist,2,42.082,26.447,46.62,36.98,71.269,10.204,4.569,2450,1970
+Full Episode,"Per diem / float pool - no territory, on purpose",View,Surface,Surface,2,60.735,26.447,98.46,49.959,71.269,21.551,4.569,2450,1970
+Full Episode,Branch leadership - the capacity decision,View,Assist,Assist,4,83.429,26.447,98.46,72.653,71.269,21.551,4.569,2450,1970
+Full Episode,Eight tasks for one decision the per-discipline explosion,Not mapped,View,Not mapped,0,24.082,7.36,69.62,14.286,90.863,19.592,3.553,2450,1970
+Full Episode,"Pending-auth visits are invisible not on a calendar, not counted",Not mapped,View,Not mapped,0,44.49,7.36,69.62,34.694,90.863,19.592,3.553,2450,1970
+Full Episode,The weekly logic is undocumented and entirely unassisted,Not mapped,View,Not mapped,0,64.898,7.36,69.62,55.102,90.863,19.592,3.553,2450,1970
+Full Episode,"Capacity is read, never modelled so the levers are pulled late",Not mapped,View,Not mapped,0,85.306,7.36,69.62,75.51,90.863,19.592,3.553,2450,1970
+DCS / Scheduler,Intake receives referral in Commure,View,Automate,Automate,1,21.591,81.975,63.13,15.909,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,"Auth team verifies eligibility, keys pending auth",View,Automate,Automate,1,34.227,81.975,63.13,28.545,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,Intake final approval,Not mapped,View,Not mapped,0,46.864,81.975,63.13,41.182,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,DCS reviews referral,View,Surface,Surface,2,59.5,81.975,63.13,53.818,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,Scheduler books SOC / ROC visit + discipline evals,View,Automate,Automate,3,72.136,81.975,63.13,66.455,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,Clinicians perform SOC / ROC + eval visits,Not mapped,View,Not mapped,0,84.773,81.975,63.13,79.091,15.247,11.364,5.556,2200,1620
+DCS / Scheduler,Referral arrives with initial orders,Not mapped,View,Not mapped,0,7.955,81.975,53.31,2.273,15.679,11.364,4.691,2200,1620
+DCS / Scheduler,Clinician submits discipline plan of care,View,Automate,Automate,3,21.591,58.827,63.13,15.909,38.395,11.364,5.556,2200,1620
+DCS / Scheduler,DCS reviews & approves,View,Surface,Surface,2,34.227,58.827,63.13,28.545,38.395,11.364,5.556,2200,1620
+DCS / Scheduler,Visits generate in HCHB,View,Automate,Automate,2,56.318,58.827,63.13,50.636,38.395,11.364,5.556,2200,1620
+DCS / Scheduler,Scheduler assigns to care team,View,Assist,Assist,5,78.409,58.827,63.13,72.727,38.395,11.364,5.556,2200,1620
+DCS / Scheduler,Visits on clinician calendar,Not mapped,View,Not mapped,0,91.045,58.827,63.13,85.364,38.395,11.364,5.556,2200,1620
+DCS / Scheduler,"Recertification OASIS recert visit, or non-OASIS recert eval",View,Automate,Automate,1,7.955,63.519,58.92,2.273,33.889,11.364,5.185,2200,1620
+DCS / Scheduler,"Physician order adds a discipline eval, or changes the visits ordered",View,Assist,Assist,2,7.955,54.136,58.92,2.273,43.272,11.364,5.185,2200,1620
+DCS / Scheduler,QA backlog visits compress,View,Surface,Surface,1,32.318,45.864,53.31,26.636,51.79,11.364,4.691,2200,1620
+DCS / Scheduler,Returned to clinician for correction - visits are held,View,Surface,Surface,1,45.273,45.864,53.31,39.591,51.79,11.364,4.691,2200,1620
+DCS / Scheduler,"Pending auth not on calendar, not counted",Removed,Removed,Removed,1,67.364,45.864,53.31,61.682,51.79,11.364,4.691,2200,1620
+DCS / Scheduler,LUPA floor · too few visits,View,Automate,Automate,2,37.227,35.185,42.59,29.727,63.395,15.0,2.84,2200,1620
+DCS / Scheduler,Utilisation ceiling · visits beyond need,View,Automate,Automate,2,55.0,35.185,51.63,45.909,63.395,18.182,2.84,2200,1620
+DCS / Scheduler,Clinician documents missed visit,View,Automate,Automate,1,21.591,20.988,63.13,15.909,76.235,11.364,5.556,2200,1620
+DCS / Scheduler,Scheduler workflow notify MD,View,Automate,Automate,1,34.227,20.988,63.13,28.545,76.235,11.364,5.556,2200,1620
+DCS / Scheduler,Documented in HCHB,View,Automate,Automate,1,56.318,20.988,63.13,50.636,76.235,11.364,5.556,2200,1620
+DCS / Scheduler,Missed visit,Not mapped,View,Not mapped,0,7.955,20.988,53.31,2.273,76.667,11.364,4.691,2200,1620
+DCS / Scheduler,DCS workflow 48h breach,View,Assist,Assist,2,45.273,7.531,53.31,39.591,90.123,11.364,4.691,2200,1620
+Routine Visits,Evaluating clinician plots own discipline frequency,View,Automate,Automate,4,21.591,82.738,60.88,15.909,14.583,11.364,5.357,2200,1680
+Routine Visits,RN also plots aide frequency + MSW / ST initial eval,View,Automate,Automate,3,34.227,82.738,60.88,28.545,14.583,11.364,5.357,2200,1680
+Routine Visits,Each submission generates its own assignment task,Removed,Removed,Removed,0,46.864,82.738,60.88,41.182,14.583,11.364,5.357,2200,1680
+Routine Visits,DCS reviews & approves the POC,View,Surface,Surface,2,59.5,82.738,60.88,53.818,14.583,11.364,5.357,2200,1680
+Routine Visits,Scheduler assigns visits to care team,View,Automate,Automate,6,72.136,82.738,60.88,66.455,14.583,11.364,5.357,2200,1680
+Routine Visits,Admission SOC or eval visit,Not mapped,View,Not mapped,0,7.955,82.738,52.76,2.273,14.94,11.364,4.643,2200,1680
+Routine Visits,Evaluate own capacity for the week,View,Automate,Automate,8,21.591,61.25,60.88,15.909,36.071,11.364,5.357,2200,1680
+Routine Visits,Prioritise clinical need across the caseload,View,Surface,Surface,5,34.227,61.25,60.88,28.545,36.071,11.364,5.357,2200,1680
+Routine Visits,Group visits geographically,View,Automate,Automate,6,46.864,61.25,60.88,41.182,36.071,11.364,5.357,2200,1680
+Routine Visits,Test against hard constraints,View,Surface,Surface,7,59.5,61.25,60.88,53.818,36.071,11.364,5.357,2200,1680
+Routine Visits,Confirm with the patient - day before,View,Assist,Assist,7,72.136,61.25,60.88,66.455,36.071,11.364,5.357,2200,1680
+Routine Visits,"Route - HCHB suggests, clinician adjusts",View,Assist,Assist,6,84.773,61.25,60.88,79.091,36.071,11.364,5.357,2200,1680
+Routine Visits,Accept visit delivered as planned,View,View,Automate,1,21.591,26.31,51.41,15.909,71.429,11.364,4.524,2200,1680
+Routine Visits,Reschedule within the week,View,Assist,Surface,3,34.227,26.31,51.41,28.545,71.429,11.364,4.524,2200,1680
+Routine Visits,Reassign back to the scheduler WITH a plan,View,Surface,Surface,4,46.864,26.31,51.41,41.182,71.429,11.364,4.524,2200,1680
+Routine Visits,Miss → compliance chain,View,Assist,Assist,3,59.5,26.31,51.41,53.818,71.429,11.364,4.524,2200,1680
+Routine Visits,Decline back to the scheduler WITHOUT a plan,View,Surface,Surface,3,72.136,26.31,51.41,66.455,71.429,11.364,4.524,2200,1680
+Routine Visits,OASIS visits do not move,Not mapped,View,Not mapped,0,21.645,13.988,28.68,15.909,84.762,11.473,2.5,2200,1680
+Routine Visits,Medicare week is Sunday–Saturday,Not mapped,View,Not mapped,0,35.591,13.988,36.5,28.291,84.762,14.6,2.5,2200,1680
+Routine Visits,Inside the 60-day certification period,Not mapped,View,Not mapped,0,52.273,13.988,42.36,43.8,84.762,16.945,2.5,2200,1680
+Routine Visits,Auth still gates assignment,Not mapped,View,Not mapped,0,67.977,13.988,31.61,61.655,84.762,12.645,2.5,2200,1680
+Routine Visits,"RN cannot reassign to her own LPN an HCHB rule, not Medicare",Not mapped,View,Not mapped,0,25.455,8.274,79.55,15.909,89.643,19.091,4.167,2200,1680
+Routine Visits,Supervisor cannot see the supervisee's schedule,Not mapped,View,Not mapped,0,45.455,8.274,79.55,35.909,89.643,19.091,4.167,2200,1680
+Routine Visits,Day-before calls are unpaid evening work,Not mapped,View,Not mapped,0,65.455,8.274,79.55,55.909,89.643,19.091,4.167,2200,1680
+Routine Visits,The weekly logic is undocumented and unassisted,Not mapped,View,Not mapped,0,85.455,8.274,79.55,75.909,89.643,19.091,4.167,2200,1680

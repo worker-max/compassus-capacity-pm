@@ -1,69 +1,274 @@
 ﻿Flow,Block,Id
-Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-01
-Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-02
-Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,S-03
-Routine Visit Scheduling,Evaluating clinician plots own discipline frequency,SH-02
-Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-01
-Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,SH-03
-Routine Visit Scheduling,RN also plots aide frequency + MSW / ST initial eval,S-37
-Routine Visit Scheduling,DCS reviews & approves the POC,S-49
-Routine Visit Scheduling,DCS reviews & approves the POC,S-44
-Routine Visit Scheduling,Scheduler assigns visits to care team,S-15
-Routine Visit Scheduling,Scheduler assigns visits to care team,S-16
-Routine Visit Scheduling,Scheduler assigns visits to care team,S-21
-Routine Visit Scheduling,Scheduler assigns visits to care team,S-22
-Routine Visit Scheduling,Scheduler assigns visits to care team,C-08
-Routine Visit Scheduling,Scheduler assigns visits to care team,SH-02
-Routine Visit Scheduling,Evaluate own capacity for the week,C-05
-Routine Visit Scheduling,Evaluate own capacity for the week,C-06
-Routine Visit Scheduling,Evaluate own capacity for the week,C-07
-Routine Visit Scheduling,Evaluate own capacity for the week,SH-05
-Routine Visit Scheduling,Evaluate own capacity for the week,SH-07
-Routine Visit Scheduling,Evaluate own capacity for the week,SH-08
-Routine Visit Scheduling,Evaluate own capacity for the week,C-12
-Routine Visit Scheduling,Evaluate own capacity for the week,S-41
-Routine Visit Scheduling,Prioritise clinical need across the caseload,S-31
-Routine Visit Scheduling,Prioritise clinical need across the caseload,S-33
-Routine Visit Scheduling,Prioritise clinical need across the caseload,S-03
-Routine Visit Scheduling,Prioritise clinical need across the caseload,S-40
-Routine Visit Scheduling,Prioritise clinical need across the caseload,S-42
-Routine Visit Scheduling,Group visits geographically,S-14
-Routine Visit Scheduling,Group visits geographically,S-17
-Routine Visit Scheduling,Group visits geographically,S-18
-Routine Visit Scheduling,Group visits geographically,C-02
-Routine Visit Scheduling,Group visits geographically,C-03
-Routine Visit Scheduling,Group visits geographically,C-04
-Routine Visit Scheduling,Test against hard constraints,S-27
-Routine Visit Scheduling,Test against hard constraints,S-28
-Routine Visit Scheduling,Test against hard constraints,S-29
-Routine Visit Scheduling,Test against hard constraints,S-30
-Routine Visit Scheduling,Test against hard constraints,S-31
-Routine Visit Scheduling,Test against hard constraints,S-32
-Routine Visit Scheduling,Test against hard constraints,S-34
-Routine Visit Scheduling,Confirm with the patient - day before,CO-01
-Routine Visit Scheduling,Confirm with the patient - day before,CO-02
-Routine Visit Scheduling,Confirm with the patient - day before,CO-06
-Routine Visit Scheduling,Confirm with the patient - day before,CO-05
-Routine Visit Scheduling,Confirm with the patient - day before,S-25
-Routine Visit Scheduling,Confirm with the patient - day before,S-26
-Routine Visit Scheduling,Confirm with the patient - day before,S-20
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-18
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-19
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-20
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-10
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-14
-Routine Visit Scheduling,"Route - HCHB suggests, clinician adjusts",S-06
-Routine Visit Scheduling,Accept visit delivered as planned,CO-03
-Routine Visit Scheduling,Reschedule within the week,S-38
-Routine Visit Scheduling,Reschedule within the week,S-03
-Routine Visit Scheduling,Reschedule within the week,CO-07
-Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,CO-09
-Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,S-15
-Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,S-21
-Routine Visit Scheduling,Reassign back to the scheduler WITH a plan,C-09
-Routine Visit Scheduling,Miss → compliance chain,S-38
-Routine Visit Scheduling,Miss → compliance chain,S-39
-Routine Visit Scheduling,Miss → compliance chain,CO-08
-Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,CO-09
-Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,S-15
-Routine Visit Scheduling,Decline back to the scheduler WITHOUT a plan,C-09
+SOC / ROC,PCC completes clinician scheduling workflow,S-01
+SOC / ROC,PCC completes clinician scheduling workflow,S-02
+SOC / ROC,PCC completes clinician scheduling workflow,S-35
+SOC / ROC,Read open capacity - day · week · discipline · territory,C-05
+SOC / ROC,Read open capacity - day · week · discipline · territory,C-06
+SOC / ROC,Read open capacity - day · week · discipline · territory,C-07
+SOC / ROC,Read open capacity - day · week · discipline · territory,C-08
+SOC / ROC,Read open capacity - day · week · discipline · territory,SH-05
+SOC / ROC,Read open capacity - day · week · discipline · territory,C-02
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",S-15
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",S-16
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",S-21
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",S-22
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",S-19
+SOC / ROC,"Assign visit - clinician, day, sequence - one pass",C-03
+SOC / ROC,"Visit delivered - docu- mented, OASIS locked",S-50
+SOC / ROC,"Visit delivered - docu- mented, OASIS locked",S-41
+SOC / ROC,Welcome / readiness call by PCC,CO-04
+SOC / ROC,Welcome / readiness call by PCC,CO-06
+SOC / ROC,Welcome / readiness call by PCC,CO-13
+SOC / ROC,Welcome / readiness call by PCC,CO-14
+SOC / ROC,PCC creates scheduling grid entry,C-05
+SOC / ROC,PCC creates scheduling grid entry,C-06
+SOC / ROC,Priority flag to scheduling,S-35
+SOC / ROC,Priority flag to scheduling,S-48
+SOC / ROC,Priority flag to scheduling,S-33
+SOC / ROC,Compute committed load (points),C-05
+SOC / ROC,Compute committed load (points),SH-07
+SOC / ROC,Compute committed load (points),SH-08
+SOC / ROC,Assessing capacity by discipline,C-08
+SOC / ROC,Assessing capacity by discipline,SH-02
+SOC / ROC,Assessing capacity by discipline,SH-03
+SOC / ROC,"Pending-auth visits invisible - not on calendar, not counted",S-43
+SOC / ROC,Branch leadership review - reopen zip · adjust · defer,C-02
+SOC / ROC,Branch leadership review - reopen zip · adjust · defer,C-14
+SOC / ROC,Branch leadership review - reopen zip · adjust · defer,SH-06
+SOC / ROC,Branch leadership review - reopen zip · adjust · defer,SH-09
+SOC / ROC,Engage per-diem / float - SOCs or coverage visits,C-09
+SOC / ROC,Engage per-diem / float - SOCs or coverage visits,C-12
+SOC / ROC,Discipline / role match (gate),S-15
+SOC / ROC,Discipline / role match (gate),SH-02
+SOC / ROC,Discipline / role match (gate),SH-03
+SOC / ROC,Territory list - zip code reference,C-03
+SOC / ROC,Territory list - zip code reference,C-04
+SOC / ROC,Territory list - zip code reference,C-14
+SOC / ROC,Territory list - zip code reference,SH-06
+SOC / ROC,Specialty competency match,S-16
+SOC / ROC,Specialty competency match,C-10
+SOC / ROC,Continuity - prefer same clinician,S-22
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-25
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-26
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-27
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-28
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-29
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-30
+SOC / ROC,Reads patient preferences - coordination note: caregiver · window · day-of-week,S-20
+SOC / ROC,Front-load early visits (protect LUPA floor),S-40
+SOC / ROC,Front-load early visits (protect LUPA floor),S-41
+SOC / ROC,Front-load early visits (protect LUPA floor),S-03
+SOC / ROC,Resolve - reassign · resequence · escalate,S-38
+SOC / ROC,Resolve - reassign · resequence · escalate,CO-09
+SOC / ROC,Resolve - reassign · resequence · escalate,S-19
+SOC / ROC,Clinician receives schedule,CO-11
+SOC / ROC,Auth gate - checked per visit; no auth → the visit sits pending,S-43
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,CO-01
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,CO-02
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,CO-05
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,CO-13
+SOC / ROC,Visit confirmation coordination (SMS / voice) - day before,CO-14
+SOC / ROC,Patient confirms / negotiates,CO-06
+SOC / ROC,Patient confirms / negotiates,CO-07
+SOC / ROC,Patient confirms / negotiates,S-25
+SOC / ROC,Patient confirms / negotiates,S-26
+SOC / ROC,Scheduler coordinates coverage - call · text · Teams - with FT or per-diem clinicians,CO-09
+SOC / ROC,Scheduler coordinates coverage - call · text · Teams - with FT or per-diem clinicians,C-09
+SOC / ROC,Scheduler coordinates coverage - call · text · Teams - with FT or per-diem clinicians,S-13
+SOC / ROC,Scheduler reassigns to another clinician - or moves the visit to another day,S-38
+SOC / ROC,Scheduler reassigns to another clinician - or moves the visit to another day,CO-07
+SOC / ROC,Scheduler reassigns to another clinician - or moves the visit to another day,S-15
+SOC / ROC,Visit in progress (EVV / clock-in),S-50
+SOC / ROC,Visit in progress (EVV / clock-in),CO-03
+SOC / ROC,Documentation pending,S-50
+SOC / ROC,Documentation pending,S-41
+SOC / ROC,Missed visit - clinician documents,S-39
+SOC / ROC,Missed visit - clinician documents,CO-08
+SOC / ROC,Scheduler workflow - notify MD within 48h,S-39
+SOC / ROC,Rebook within window · recover / front-load,S-38
+SOC / ROC,Rebook within window · recover / front-load,S-40
+SOC / ROC,Rebook within window · recover / front-load,S-03
+SOC / ROC,Rebook within window · recover / front-load,CO-08
+Full Episode,Intake receives the referral,SH-09
+Full Episode,Auth verifies eligibility keys pending auth,S-43
+Full Episode,DCS reviews the referral,S-33
+Full Episode,DCS reviews the referral,S-48
+Full Episode,Scheduler makes the welcome / intake call,CO-04
+Full Episode,Scheduler makes the welcome / intake call,CO-06
+Full Episode,Scheduler makes the welcome / intake call,CO-13
+Full Episode,Scheduler makes the welcome / intake call,CO-14
+Full Episode,Scheduler assigns the SOC and discipline evals,S-35
+Full Episode,Scheduler assigns the SOC and discipline evals,S-15
+Full Episode,Scheduler assigns the SOC and discipline evals,C-08
+Full Episode,Each discipline plots its own frequency,S-01
+Full Episode,Each discipline plots its own frequency,S-02
+Full Episode,Each discipline plots its own frequency,S-03
+Full Episode,DCS reviews and approves the POC,S-49
+Full Episode,DCS reviews and approves the POC,S-44
+Full Episode,THE 485 MOMENT QA accepted  ·  POC locked 485 submitted  ·  orders to MD,S-49
+Full Episode,THE 485 MOMENT QA accepted  ·  POC locked 485 submitted  ·  orders to MD,S-01
+Full Episode,HCHB generates visits and assignment tasks,S-01
+Full Episode,HCHB generates visits and assignment tasks,S-03
+Full Episode,Scheduler assigns all plotted visits - one pass,S-15
+Full Episode,Scheduler assigns all plotted visits - one pass,S-16
+Full Episode,Scheduler assigns all plotted visits - one pass,S-21
+Full Episode,Scheduler assigns all plotted visits - one pass,S-22
+Full Episode,Scheduler assigns all plotted visits - one pass,C-03
+Full Episode,Evaluate own capacity for the week,C-05
+Full Episode,Evaluate own capacity for the week,C-06
+Full Episode,Evaluate own capacity for the week,C-07
+Full Episode,Evaluate own capacity for the week,SH-05
+Full Episode,Evaluate own capacity for the week,SH-07
+Full Episode,Evaluate own capacity for the week,SH-08
+Full Episode,Prioritise clinical need across the caseload,S-33
+Full Episode,Prioritise clinical need across the caseload,S-31
+Full Episode,Prioritise clinical need across the caseload,S-48
+Full Episode,Group visits geographically,S-14
+Full Episode,Group visits geographically,S-17
+Full Episode,Group visits geographically,S-18
+Full Episode,Group visits geographically,C-03
+Full Episode,Test against hard constraints,S-27
+Full Episode,Test against hard constraints,S-28
+Full Episode,Test against hard constraints,S-29
+Full Episode,Test against hard constraints,S-30
+Full Episode,Test against hard constraints,S-31
+Full Episode,Test against hard constraints,S-32
+Full Episode,Confirm with the patient - the day before,CO-01
+Full Episode,Confirm with the patient - the day before,CO-02
+Full Episode,Confirm with the patient - the day before,CO-06
+Full Episode,Confirm with the patient - the day before,CO-13
+Full Episode,Confirm with the patient - the day before,CO-14
+Full Episode,"Route - HCHB suggests, clinician adjusts",S-18
+Full Episode,"Route - HCHB suggests, clinician adjusts",S-19
+Full Episode,"Route - HCHB suggests, clinician adjusts",S-20
+Full Episode,"Route - HCHB suggests, clinician adjusts",S-14
+Full Episode,Accept,CO-03
+Full Episode,Reschedule,S-38
+Full Episode,Reschedule,CO-07
+Full Episode,Reassign,CO-09
+Full Episode,Reassign,S-15
+Full Episode,Miss,S-39
+Full Episode,Miss,CO-08
+Full Episode,Decline,CO-09
+Full Episode,Decline,S-15
+Full Episode,Recert window opens - last 5 days,S-36
+Full Episode,Recertifying disciplines set the next 60 days,S-01
+Full Episode,Recertifying disciplines set the next 60 days,S-03
+Full Episode,Recertifying disciplines set the next 60 days,S-36
+Full Episode,Scheduling workflow fires for the new period,S-15
+Full Episode,Scheduling workflow fires for the new period,C-08
+Full Episode,Capacity returns to the branch,C-06
+Full Episode,Capacity returns to the branch,C-07
+Full Episode,Capacity returns to the branch,SH-09
+Full Episode,Clinician documents a missed visit,S-39
+Full Episode,Scheduler notifies the MD within 48 hours,S-39
+Full Episode,Not in time → workflow to the DCS,S-39
+Full Episode,Not in time → workflow to the DCS,CO-08
+Full Episode,"Per diem / float pool - no territory, on purpose",C-09
+Full Episode,"Per diem / float pool - no territory, on purpose",C-12
+Full Episode,Branch leadership - the capacity decision,C-02
+Full Episode,Branch leadership - the capacity decision,C-14
+Full Episode,Branch leadership - the capacity decision,SH-06
+Full Episode,Branch leadership - the capacity decision,SH-09
+DCS / Scheduler,Intake receives referral in Commure,SH-09
+DCS / Scheduler,"Auth team verifies eligibility, keys pending auth",S-43
+DCS / Scheduler,DCS reviews referral,S-33
+DCS / Scheduler,DCS reviews referral,S-48
+DCS / Scheduler,Scheduler books SOC / ROC visit + discipline evals,S-35
+DCS / Scheduler,Scheduler books SOC / ROC visit + discipline evals,S-15
+DCS / Scheduler,Scheduler books SOC / ROC visit + discipline evals,C-08
+DCS / Scheduler,Clinician submits discipline plan of care,S-01
+DCS / Scheduler,Clinician submits discipline plan of care,S-02
+DCS / Scheduler,Clinician submits discipline plan of care,S-03
+DCS / Scheduler,DCS reviews & approves,S-49
+DCS / Scheduler,DCS reviews & approves,S-44
+DCS / Scheduler,Visits generate in HCHB,S-01
+DCS / Scheduler,Visits generate in HCHB,S-03
+DCS / Scheduler,Scheduler assigns to care team,S-15
+DCS / Scheduler,Scheduler assigns to care team,S-16
+DCS / Scheduler,Scheduler assigns to care team,S-21
+DCS / Scheduler,Scheduler assigns to care team,S-22
+DCS / Scheduler,Scheduler assigns to care team,C-03
+DCS / Scheduler,"Recertification OASIS recert visit, or non-OASIS recert eval",S-36
+DCS / Scheduler,"Physician order adds a discipline eval, or changes the visits ordered",S-44
+DCS / Scheduler,"Physician order adds a discipline eval, or changes the visits ordered",S-01
+DCS / Scheduler,QA backlog visits compress,S-49
+DCS / Scheduler,Returned to clinician for correction - visits are held,S-49
+DCS / Scheduler,"Pending auth not on calendar, not counted",S-43
+DCS / Scheduler,LUPA floor · too few visits,S-41
+DCS / Scheduler,LUPA floor · too few visits,S-03
+DCS / Scheduler,Utilisation ceiling · visits beyond need,S-41
+DCS / Scheduler,Utilisation ceiling · visits beyond need,S-01
+DCS / Scheduler,Clinician documents missed visit,S-39
+DCS / Scheduler,Scheduler workflow notify MD,S-39
+DCS / Scheduler,Documented in HCHB,S-39
+DCS / Scheduler,DCS workflow 48h breach,S-39
+DCS / Scheduler,DCS workflow 48h breach,CO-08
+Routine Visits,Evaluating clinician plots own discipline frequency,S-01
+Routine Visits,Evaluating clinician plots own discipline frequency,S-02
+Routine Visits,Evaluating clinician plots own discipline frequency,S-03
+Routine Visits,Evaluating clinician plots own discipline frequency,SH-02
+Routine Visits,RN also plots aide frequency + MSW / ST initial eval,S-01
+Routine Visits,RN also plots aide frequency + MSW / ST initial eval,SH-03
+Routine Visits,RN also plots aide frequency + MSW / ST initial eval,S-37
+Routine Visits,DCS reviews & approves the POC,S-49
+Routine Visits,DCS reviews & approves the POC,S-44
+Routine Visits,Scheduler assigns visits to care team,S-15
+Routine Visits,Scheduler assigns visits to care team,S-16
+Routine Visits,Scheduler assigns visits to care team,S-21
+Routine Visits,Scheduler assigns visits to care team,S-22
+Routine Visits,Scheduler assigns visits to care team,C-08
+Routine Visits,Scheduler assigns visits to care team,SH-02
+Routine Visits,Evaluate own capacity for the week,C-05
+Routine Visits,Evaluate own capacity for the week,C-06
+Routine Visits,Evaluate own capacity for the week,C-07
+Routine Visits,Evaluate own capacity for the week,SH-05
+Routine Visits,Evaluate own capacity for the week,SH-07
+Routine Visits,Evaluate own capacity for the week,SH-08
+Routine Visits,Evaluate own capacity for the week,C-12
+Routine Visits,Evaluate own capacity for the week,S-41
+Routine Visits,Prioritise clinical need across the caseload,S-31
+Routine Visits,Prioritise clinical need across the caseload,S-33
+Routine Visits,Prioritise clinical need across the caseload,S-03
+Routine Visits,Prioritise clinical need across the caseload,S-40
+Routine Visits,Prioritise clinical need across the caseload,S-42
+Routine Visits,Group visits geographically,S-14
+Routine Visits,Group visits geographically,S-17
+Routine Visits,Group visits geographically,S-18
+Routine Visits,Group visits geographically,C-02
+Routine Visits,Group visits geographically,C-03
+Routine Visits,Group visits geographically,C-04
+Routine Visits,Test against hard constraints,S-27
+Routine Visits,Test against hard constraints,S-28
+Routine Visits,Test against hard constraints,S-29
+Routine Visits,Test against hard constraints,S-30
+Routine Visits,Test against hard constraints,S-31
+Routine Visits,Test against hard constraints,S-32
+Routine Visits,Test against hard constraints,S-34
+Routine Visits,Confirm with the patient - day before,CO-01
+Routine Visits,Confirm with the patient - day before,CO-02
+Routine Visits,Confirm with the patient - day before,CO-06
+Routine Visits,Confirm with the patient - day before,CO-05
+Routine Visits,Confirm with the patient - day before,S-25
+Routine Visits,Confirm with the patient - day before,S-26
+Routine Visits,Confirm with the patient - day before,S-20
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-18
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-19
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-20
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-10
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-14
+Routine Visits,"Route - HCHB suggests, clinician adjusts",S-06
+Routine Visits,Accept visit delivered as planned,CO-03
+Routine Visits,Reschedule within the week,S-38
+Routine Visits,Reschedule within the week,S-03
+Routine Visits,Reschedule within the week,CO-07
+Routine Visits,Reassign back to the scheduler WITH a plan,CO-09
+Routine Visits,Reassign back to the scheduler WITH a plan,S-15
+Routine Visits,Reassign back to the scheduler WITH a plan,S-21
+Routine Visits,Reassign back to the scheduler WITH a plan,C-09
+Routine Visits,Miss → compliance chain,S-38
+Routine Visits,Miss → compliance chain,S-39
+Routine Visits,Miss → compliance chain,CO-08
+Routine Visits,Decline back to the scheduler WITHOUT a plan,CO-09
+Routine Visits,Decline back to the scheduler WITHOUT a plan,S-15
+Routine Visits,Decline back to the scheduler WITHOUT a plan,C-09
