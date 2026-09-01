@@ -256,10 +256,10 @@ drv = [
      "The percentage more patients we start on service because a clinician's open slot gets filled instead of going to waste.",
      "A clinician's open start-of-care slot tomorrow either gets used or it disappears. It does not carry over to the next day. The faster we can answer yes or no, the more chances we have to fill it before it is gone.",
      "The only published figures available: 2 percent in hospitals, 4 to 15 percent in comparable field work"),
-    ("Fewer visits going unstaffed", 0.01, 0.02, 0.035,
+    ("More canceled slots refilled", 0.01, 0.02, 0.035,
      PCT,
      "The percentage-point improvement in how many approved, needed visits actually get covered. The industry staffs about 88 to 90 out of every 100.",
-     "When a patient cancels or a clinician calls out, the visit is often simply lost because nobody can quickly find who else could take it. On insurers who pay per visit, every one of those is money we had already earned the right to collect.",
+     "When a patient cancels late, the clinician is left with a gap. Today the branch often cannot find a comparable replacement fast enough for it to fit their day and their driving, so the slot is lost. On insurers who pay per visit, every recovered slot is a visit we get paid for.",
      "Published industry staffing rates of 88 to 90 percent"),
     ("Fewer short-visit Medicare periods", 0.005, 0.01, 0.02, PCT,
      "The reduction in how often a 30-day Medicare period ends below the visit count that triggers the lower payment.",
@@ -400,11 +400,11 @@ lev = [
      "We take on more patients without hiring, because we can see who has room and answer the hospital faster.",
      "A clinician's open slot for tomorrow is like an empty seat on tomorrow's flight. If it is not filled, it is gone, and it does not come back the next day. Today the answer to whether we can take a patient is slow, so slots expire while we are still working it out. Answering faster means fewer expire.",
      "Admissions per year, times the percentage increase, times the margin one admission leaves behind"),
-    ("Fewer approved visits going unstaffed",
+    ("Canceled visits replaced before the day is lost",
      f"=Inputs!$B${R['nonepi']}*Inputs!{{c}}{R['d_fill']}*Inputs!$B${R['m_vis']}",
-     "When a visit falls through, someone else picks it up quickly instead of it being lost.",
-     "This is a different group of people from the one above. Aides and assistants carry most of the weekly visits, and their work never produces an admission, so the two do not overlap. On insurers who pay per visit, a visit we could not staff is money we had already earned the right to collect and simply did not.",
-     "Non-Medicare visits, times the improvement in how many get staffed, times the margin per visit"),
+     "A patient cancels, usually the evening before or the same morning. Rescheduling that patient is handled on the call. What is left is a hole in the clinician's day, and we fill it with a comparable visit fast enough for it to still work.",
+     "The loss is not the canceled visit, which usually gets rescheduled during the call. The loss is the empty slot left behind. Filling it means knowing instantly who else is due, who is near enough, who is approved, and which visits are flexible enough to move. Sometimes the answer is pulling a visit forward from later in the week, trading a hole we cannot fill today for one we have days to fill. Two things to know: with most clinicians paid per visit, that lost slot is lost income for them, not just for us. And this gets harder as schedules tighten, which is what this system will do, so the replacement ability has to arrive with the optimization rather than after it.",
+     "Non-Medicare visits, times the improvement in slots recovered, times the margin per visit"),
     ("Fewer Medicare periods falling short on visits",
      f"=Inputs!$B${R['periods']}*Inputs!{{c}}{R['d_lupa']}*Inputs!$B${R['m_lupa']}",
      "We spot a 30-day period heading for too few visits while there is still time to put a clinically needed visit back.",
@@ -480,7 +480,7 @@ for name, what, why in future:
 vr += 1
 wsv.cell(row=vr, column=1, value="Two rules that stop us counting the same money twice").font = BOLD
 for t in ["The first two rows are different people. Nurses and therapists who admit patients are not the same group as the aides and assistants who carry the routine weekly visits, so both can improve at once without overlapping.",
-          "The second row only counts insurers who pay per visit. On traditional Medicare, once the minimum visit count is met, an extra visit brings in nothing, so filling more of them there would be cost without income."]:
+          "The second row only counts insurers who pay per visit. On traditional Medicare, once the minimum visit count is met, an extra visit brings in nothing, so refilling a slot there protects the clinician's income and our coverage, but does not add revenue."]:
     vr += 1
     c = wsv.cell(row=vr, column=1, value=t); c.font = PLAIN; c.alignment = TOP
     wsv.merge_cells(start_row=vr, start_column=1, end_row=vr, end_column=6)
