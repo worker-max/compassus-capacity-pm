@@ -1,591 +1,681 @@
 # -*- coding: utf-8 -*-
-"""Capacity & Scheduling business case model — live formulas, editable drivers."""
+"""Capacity & Scheduling business case model.
+
+Design rule: every line explains itself in the row. No manual, no cross-referencing,
+no term used that has not been explained where it is used.
+"""
 import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-BLUE = Font(name="Arial", size=10, color="0000FF")          # editable input
-BLACK = Font(name="Arial", size=10)                          # formula
-GREEN = Font(name="Arial", size=10, color="008000")          # cross-sheet link
+BLUE = Font(name="Arial", size=10, color="0000FF")
+BLACK = Font(name="Arial", size=10)
+GREEN = Font(name="Arial", size=10, color="008000")
 BOLD = Font(name="Arial", size=10, bold=True)
 H1 = Font(name="Arial", size=14, bold=True)
-H2 = Font(name="Arial", size=11, bold=True, color="FFFFFF")
+H2 = Font(name="Arial", size=10, bold=True, color="FFFFFF")
+PLAIN = Font(name="Arial", size=9, color="333333")
 NOTE = Font(name="Arial", size=9, italic=True, color="595959")
 HDRFILL = PatternFill("solid", fgColor="1F3864")
 FLAG = PatternFill("solid", fgColor="FFFF00")
 SUBFILL = PatternFill("solid", fgColor="D9E2F3")
-THIN = Border(bottom=Side(style="thin", color="BFBFBF"))
+GOOD = PatternFill("solid", fgColor="E2EFDA")
 
 CUR = '$#,##0;($#,##0);-'
-CUR2 = '$#,##0.0,,"M";($#,##0.0,,"M");-'
 PCT = '0.0%'
 NUM = '#,##0'
+TOP = Alignment(wrap_text=True, vertical="top")
 
 wb = openpyxl.Workbook()
+R = {}
 
 
-def hdr(ws, row, cols, labels):
-    for c, lab in zip(cols, labels):
-        cell = ws.cell(row=row, column=c, value=lab)
-        cell.font = H2
-        cell.fill = HDRFILL
-        cell.alignment = Alignment(horizontal="center", wrap_text=True)
+def head(ws, row, labels, widths=None):
+    for i, lab in enumerate(labels, start=1):
+        c = ws.cell(row=row, column=i, value=lab)
+        c.font = H2
+        c.fill = HDRFILL
+        c.alignment = Alignment(horizontal="left", wrap_text=True, vertical="center")
+    ws.row_dimensions[row].height = 30
 
 
-def section(ws, row, text, width=6):
+def band(ws, row, text, cols):
     c = ws.cell(row=row, column=1, value=text)
     c.font = BOLD
-    for i in range(1, width + 1):
+    for i in range(1, cols + 1):
         ws.cell(row=row, column=i).fill = SUBFILL
 
 
-# ────────────────────────────────────────────────────────────── README
-ws = wb.active
-ws.title = "README"
-ws.column_dimensions["A"].width = 22
-ws.column_dimensions["B"].width = 95
-ws["A1"] = "Capacity & Scheduling — Business Case Model"
-ws["A1"].font = H1
-rows = [
-    ("Purpose", "Size the initiative from editable drivers rather than from a fixed conclusion. Change any blue cell and every downstream number moves."),
-    ("", ""),
-    ("Color legend", "BLUE = an input you may edit.  BLACK = a formula, do not overwrite.  GREEN = a link to another sheet.  YELLOW FILL = unresolved or invented, must be replaced before external use."),
-    ("", ""),
-    ("Sheets", "Inputs — every driver, with source and confidence.  Levers — the seven value levers, min/mod/max.  Cost — three-year cost of ownership.  Summary — net position, payback, and the waterfall.  Baseline — what must be measured before any of this is committed."),
-    ("", ""),
-    ("Scenario", "Two independent selectors on Inputs: B60 sets the BENEFIT scenario, B63 sets the COST scenario. They are deliberately separate — an ambitious benefit case does not require an ambitious spend case, and the honest question is usually Mod benefit against Max cost. Levers always shows all three columns."),
-    ("", ""),
-    ("Conventions", "Where the 8.13 workbook has an assumption, this model uses it, so the two reconcile. Where it does not, the source is named on the Inputs sheet."),
-    ("", ""),
-    ("Two attribution rules", "1. Admissions and routine-visit throughput are SEPARATE pools — SOC-capable clinicians versus paraprofessionals — and are additive, not double counted.  2. Routine throughput is valued on the NON-EPISODIC book only. Above the LUPA floor an extra episodic visit earns nothing."),
-    ("", ""),
-    ("Health warning", "Three inputs are unresolved and are marked yellow: network admissions per year, episodic period count, and annual mileage spend. The admissions lever scales linearly with the first. Do not present externally until they are replaced with actuals."),
-]
-r = 3
-for a, b in rows:
-    ws.cell(row=r, column=1, value=a).font = BOLD
-    c = ws.cell(row=r, column=2, value=b)
-    c.font = BLACK
-    c.alignment = Alignment(wrap_text=True, vertical="top")
-    ws.row_dimensions[r].height = 30 if b else 8
-    r += 1
+def widths(ws, spec):
+    for col, w in spec.items():
+        ws.column_dimensions[col].width = w
 
-# ────────────────────────────────────────────────────────────── INPUTS
-ws = wb.create_sheet("Inputs")
-for col, w in zip("ABCDEF", (46, 16, 12, 40, 14, 30)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Inputs — every driver"
-ws["A1"].font = H1
-ws["A2"] = "Edit blue cells only. Yellow = unresolved, replace before external use."
-ws["A2"].font = NOTE
 
-section(ws, 4, "A.  ORGANIZATION AND SCALE")
-hdr(ws, 5, [1, 2, 3, 4, 5], ["Driver", "Value", "Unit", "Source", "Confidence"])
-org = [
-    ("Branches", 80, "count", "8.13 workbook, ROI tab", "Good"),
-    ("Field clinicians", 3000, "count", "Whiteboard session 13 Aug", "Good"),
-    ("Share of clinicians paid per visit", 0.70, "%", "Colin, 26 Aug", "Given"),
-    ("Schedulers today", 300, "count", "Whiteboard session 13 Aug", "Stated"),
-    ("Home health revenue", 549000000, "$", "Coding business case, upside panel", "Good"),
-    ("Medicare fee-for-service revenue", 260000000, "$", "Coding business case, VBP lever (HHVBP base)", "Good"),
-]
-r = 6
-for name, val, unit, src, conf in org:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    c = ws.cell(row=r, column=2, value=val); c.font = BLUE
-    c.number_format = PCT if unit == "%" else (CUR if unit == "$" else NUM)
-    ws.cell(row=r, column=3, value=unit).font = BLACK
-    ws.cell(row=r, column=4, value=src).font = NOTE
-    ws.cell(row=r, column=5, value=conf).font = NOTE
-    r += 1
-ws.cell(row=r, column=1, value="All other payer revenue").font = BLACK
-c = ws.cell(row=r, column=2, value="=B10-B11"); c.font = BLACK; c.number_format = CUR
-ws.cell(row=r, column=3, value="$").font = BLACK
-ws.cell(row=r, column=4, value="Derived").font = NOTE
-r += 1
-
-unresolved = [
-    ("Admissions per year, all branches (new starts of care)", 48000, "count",
-     "600/branch x 80 (workbook). UNRESOLVED: cannot carry $549M", "Weak"),
-    ("Medicare 30-day payment periods per year, all branches", 80000, "count",
-     "1,000/branch x 80 (workbook). Derived alternative is 128,000", "Weak"),
-    ("Total visits per year", 3000000, "count", "Estimate: 3,000 clinicians x ~1,000 visits", "Weak"),
-    ("Non-episodic visits per year", 1900000, "count", "Estimate from non-FFS revenue", "Weak"),
-]
-for name, val, unit, src, conf in unresolved:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    c = ws.cell(row=r, column=2, value=val); c.font = BLUE; c.number_format = NUM; c.fill = FLAG
-    ws.cell(row=r, column=3, value=unit).font = BLACK
-    ws.cell(row=r, column=4, value=src).font = NOTE
-    ws.cell(row=r, column=5, value=conf).font = NOTE
-    r += 1
-
-section(ws, 18, "B.  UNIT ECONOMICS")
-hdr(ws, 19, [1, 2, 3, 4, 5], ["Driver", "Value", "Unit", "Source", "Confidence"])
-econ = [
-    ("Margin per additional admission (revenue less variable cost)", 1200, "$", "8.13 workbook", "Workbook", False),
-    ("Revenue protected per avoided LUPA", 1400, "$", "8.13 workbook", "Workbook", False),
-    ("Contribution per non-episodic visit", 65, "$", "Derived: ~$150 revenue less per-visit pay and variable", "Modeled", False),
-    ("Loaded cost per scheduler", 60000, "$", "BLS home health scheduler $38,090 median x 1.43", "Good", False),
-    ("Replacement cost per clinician", 40000, "$", "8.13 workbook", "Workbook", False),
-    ("Clinician departures per branch per year (all causes)", 5, "count", "8.13 workbook", "Workbook", False),
-    ("Premium labor spend per branch per year (contract, per diem, overtime)", 120000, "$", "8.13 workbook", "Workbook", False),
-    ("Annual mileage spend, network", 16000000, "$", "INVENTED: 3,000 x 8,000 miles x $0.67. Replace", "Invented", True),
-]
-r = 20
-for name, val, unit, src, conf, flag in econ:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    c = ws.cell(row=r, column=2, value=val); c.font = BLUE
-    c.number_format = CUR if unit == "$" else NUM
-    if flag:
-        c.fill = FLAG
-    ws.cell(row=r, column=3, value=unit).font = BLACK
-    ws.cell(row=r, column=4, value=src).font = NOTE
-    ws.cell(row=r, column=5, value=conf).font = NOTE
-    r += 1
-
-section(ws, 30, "C.  SCENARIO DRIVERS")
-hdr(ws, 31, [1, 2, 3, 4, 5], ["Driver", "Min", "Mod", "Max", "Basis"])
-drivers = [
-    ("Increase in admissions", 0.02, 0.04, 0.07, PCT, "LeanTaaS 2% acute; field service 4-15%"),
-    ("Fill-rate percentage points recovered (non-episodic)", 0.01, 0.02, 0.035, PCT, "Industry fill rates 88-90%"),
-    ("LUPA reduction, points of periods", 0.005, 0.01, 0.02, PCT, "8.13 workbook scenario drivers"),
-    ("Scheduler FTE released", 27, 60, 90, NUM, "Vendor comparable 27-44; bottom-up build 90"),
-    ("Share of premium labor converted to planned coverage", 0.15, 0.30, 0.50, PCT, "8.13 workbook scenario drivers"),
-    ("Clinician turnover reduction", 0.05, 0.10, 0.20, PCT, "8.13 workbook; Bergman 9.2pp worst quartile"),
-    ("Travel and mileage reduction", 0.05, 0.08, 0.12, PCT, "Field service 5-15%; UPS ORION 8-10%"),
-]
-r = 32
-for name, lo, mo, hi, fmt, basis in drivers:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    for col, v in zip((2, 3, 4), (lo, mo, hi)):
-        c = ws.cell(row=r, column=col, value=v); c.font = BLUE; c.number_format = fmt
-    ws.cell(row=r, column=5, value=basis).font = NOTE
-    r += 1
-
-section(ws, 41, "D.  COST OF OWNERSHIP DRIVERS")
-hdr(ws, 42, [1, 2, 3, 4, 5], ["Driver", "Min", "Mod", "Max", "Basis"])
-costs = [
-    ("Implementation and integration (one-time)", 1000000, 3400000, 8000000),
-    ("Data readiness (one-time)", 500000, 1300000, 4000000),
-    ("Go-live productivity dip (one-time)", 400000, 1000000, 3000000),
-    ("Software license (per year)", 400000, 720000, 1500000),
-    ("Internal program labor (per year)", 1200000, 3300000, 7000000),
-    ("Change management (per year)", 350000, 830000, 2200000),
-    ("Run and support (per year)", 220000, 350000, 700000),
-]
-r = 43
-for name, lo, mo, hi in costs:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    for col, v in zip((2, 3, 4), (lo, mo, hi)):
-        c = ws.cell(row=r, column=col, value=v); c.font = BLUE; c.number_format = CUR
-    r += 1
-ws.cell(row=50, column=5, value="License is ~10% of total; internal labor ~42%").font = NOTE
-
-section(ws, 52, "E.  BENEFIT RAMP")
-hdr(ws, 53, [1, 2, 3, 4, 5], ["Driver", "Year 1", "Year 2", "Year 3", "Basis"])
-ws.cell(row=54, column=1, value="Share of steady-state benefit realized").font = BLACK
-for col, v in zip((2, 3, 4), (0.20, 0.60, 1.00)):
-    c = ws.cell(row=54, column=col, value=v); c.font = BLUE; c.number_format = PCT
-ws.cell(row=54, column=5, value="Phased rollout across ~80 branches").font = NOTE
-ws.cell(row=55, column=1, value="Outside-view benefit haircut").font = BLACK
-c = ws.cell(row=55, column=2, value=0.00); c.font = BLUE; c.number_format = PCT
-ws.cell(row=55, column=5, value="Set to 56% to apply the McKinsey-Oxford shortfall").font = NOTE
-
-section(ws, 58, "F.  SCENARIO SELECTOR")
-ws.cell(row=59, column=1, value="Scenario driving the Summary sheet").font = BOLD
-c = ws.cell(row=60, column=1, value="Selected scenario"); c.font = BLACK
-c = ws.cell(row=60, column=2, value="Mod"); c.font = BLUE
-c.fill = PatternFill("solid", fgColor="FFF2CC")
-dv = DataValidation(type="list", formula1='"Min,Mod,Max"', allow_blank=False)
-ws.add_data_validation(dv)
-dv.add(ws["B60"])
-ws.cell(row=61, column=1, value="Column index (1=Min, 2=Mod, 3=Max)").font = BLACK
-c = ws.cell(row=61, column=2, value='=MATCH(B60,{"Min","Mod","Max"},0)'); c.font = BLACK
-ws.cell(row=61, column=5, value="Used by INDEX on the Levers pick").font = NOTE
-
-c = ws.cell(row=63, column=1, value="Selected COST scenario"); c.font = BLACK
-c = ws.cell(row=63, column=2, value="Mod"); c.font = BLUE
-c.fill = PatternFill("solid", fgColor="FFF2CC")
-dv2 = DataValidation(type="list", formula1='"Min,Mod,Max"', allow_blank=False)
-ws.add_data_validation(dv2)
-dv2.add(ws["B63"])
-ws.cell(row=64, column=1, value="Cost column index").font = BLACK
-c = ws.cell(row=64, column=2, value='=MATCH(B63,{"Min","Mod","Max"},0)'); c.font = BLACK
-ws.cell(row=63, column=5, value="Set independently of the benefit scenario. An ambitious benefit case does not require an ambitious spend case").font = NOTE
-
-# ────────────────────────────────────────────────────────────── LEVERS
-ws = wb.create_sheet("Levers")
-for col, w in zip("ABCDEF", (44, 16, 16, 16, 52, 10)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Value levers — annual, at steady state"
-ws["A1"].font = H1
-ws["A2"] = "Gross of platform cost. Formulas reference Inputs; edit drivers there, not here."
-ws["A2"].font = NOTE
-hdr(ws, 4, [1, 2, 3, 4, 5], ["Lever", "Min", "Mod", "Max", "Formula in words"])
-
-levers = [
-    ("1  Speed to answer -> admissions (SOC-capable pool)",
-     "=Inputs!$B$13*Inputs!{c}32*Inputs!$B$20",
-     "Admissions x lift x contribution per admission"),
-    ("2  Routine throughput and fill rate (paraprofessional pool)",
-     "=Inputs!$B$16*Inputs!{c}33*Inputs!$B$22",
-     "Non-episodic visits x fill points x contribution per visit"),
-    ("3  LUPA as a scheduling gear",
-     "=Inputs!$B$14*Inputs!{c}34*Inputs!$B$21",
-     "Periods x reduction points x revenue protected"),
-    ("4  Scheduler capacity released",
-     "=Inputs!{c}35*Inputs!$B$23",
-     "FTE released x loaded cost"),
-    ("5  Premium and contract labor recovered",
-     "=Inputs!$B$6*Inputs!$B$26*Inputs!{c}36",
-     "Branches x premium pool x recovery rate"),
-    ("6  Clinician retention",
-     "=Inputs!$B$6*Inputs!$B$25*Inputs!{c}37*Inputs!$B$24",
-     "Branches x departures x reduction x replacement cost"),
-    ("7  Travel and mileage",
-     "=Inputs!$B$27*Inputs!{c}38",
-     "Mileage spend x reduction rate"),
-]
-r = 5
-for name, f, words in levers:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    for col, letter in zip((2, 3, 4), ("$B$", "$C$", "$D$")):
-        cell = ws.cell(row=r, column=col, value=f.replace("{c}", letter))
-        cell.font = GREEN
-        cell.number_format = CUR
-    ws.cell(row=r, column=5, value=words).font = NOTE
-    ws.cell(row=r, column=1).border = THIN
-    r += 1
-
-ws.cell(row=r, column=1, value="TOTAL, gross of platform cost").font = BOLD
-for col in (2, 3, 4):
-    cell = ws.cell(row=r, column=col,
-                   value=f"=SUM({get_column_letter(col)}5:{get_column_letter(col)}{r-1})")
-    cell.font = BOLD
-    cell.number_format = CUR
-TOTROW = r
-
-r += 2
-ws.cell(row=r, column=1, value="NOT YET VALUED — future-year case").font = BOLD
-r += 1
-ws.cell(row=r, column=1, value="8  Clinician attraction (recruiting advantage)").font = BLACK
-for col in (2, 3, 4):
-    c = ws.cell(row=r, column=col, value="Not yet valued"); c.font = NOTE
-ws.cell(row=r, column=5, value="Two mechanisms: the day-before confirmation burden moves off the clinician, and income becomes predictable. Both are recruiting arguments, not just retention ones").font = NOTE
-r += 1
-ws.cell(row=r, column=1, value="9  Hospice extension of the same instrument").font = BLACK
-for col in (2, 3, 4):
-    c = ws.cell(row=r, column=col, value="Not yet valued"); c.font = NOTE
-ws.cell(row=r, column=5, value="The 8.13 workbook states four hospice mechanics need rules added, not new products").font = NOTE
-r += 1
-ws.cell(row=r, column=1, value="10  Authorization write-offs avoided").font = BLACK
-for col in (2, 3, 4):
-    c = ws.cell(row=r, column=col, value="Unmeasured"); c.font = NOTE
-ws.cell(row=r, column=5, value="Visits delivered outside the payer backdating window. Could be immaterial or the largest single lever").font = NOTE
-
-r += 2
-ws.cell(row=r, column=1, value="Attribution notes").font = BOLD
-notes = [
-    "Levers 1 and 2 are separate capacity pools — SOC-capable clinicians and paraprofessionals — and are additive.",
-    "Lever 2 is valued on the non-episodic book only. Above the LUPA floor an extra episodic visit earns no revenue.",
-    "Lever 3 recovers only clinically indicated visits lost to operational failure. It never adds a visit to clear a threshold.",
-    "Lever 7 counts mileage reimbursement only. Under per-visit pay the saved drive time accrues to the clinician, and converts to capacity in lever 1.",
-    "Lever 4 excludes severance, which sits on the Cost sheet.",
-]
-for n in notes:
-    r += 1
-    ws.cell(row=r, column=1, value="- " + n).font = NOTE
-
-# ────────────────────────────────────────────────────────────── COST
-ws = wb.create_sheet("Cost")
-for col, w in zip("ABCDE", (44, 16, 16, 16, 16)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Cost of ownership — three years"
-ws["A1"].font = H1
-ws["A2"] = "Scenario follows the selector on Inputs B60."
-ws["A2"].font = NOTE
-hdr(ws, 4, [1, 2, 3, 4, 5], ["Cost line", "Year 1", "Year 2", "Year 3", "Three-year total"])
-
-cost_rows = [
-    ("Implementation and integration", 43, True),
-    ("Data readiness", 44, True),
-    ("Go-live productivity dip", 45, True),
-    ("Software license", 46, False),
-    ("Internal program labor", 47, False),
-    ("Change management", 48, False),
-    ("Run and support", 49, False),
-]
-r = 5
-for name, src, one_time in cost_rows:
-    ws.cell(row=r, column=1, value=name).font = BLACK
-    pick = f"INDEX(Inputs!$B${src}:$D${src},Inputs!$B$64)"
-    ws.cell(row=r, column=2, value=f"={pick}").font = GREEN
-    if one_time:
-        ws.cell(row=r, column=3, value=0).font = BLACK
-        ws.cell(row=r, column=4, value=0).font = BLACK
-    else:
-        ws.cell(row=r, column=3, value=f"={pick}").font = GREEN
-        ws.cell(row=r, column=4, value=f"={pick}").font = GREEN
-    ws.cell(row=r, column=5, value=f"=SUM(B{r}:D{r})").font = BLACK
-    for col in range(2, 6):
-        ws.cell(row=r, column=col).number_format = CUR
-    r += 1
-
-ws.cell(row=r, column=1, value="Severance on released scheduler roles").font = BLACK
-ws.cell(row=r, column=2, value=0).font = BLUE
-ws.cell(row=r, column=3, value="=INDEX(Inputs!$B$35:$D$35,Inputs!$B$61)*Inputs!$B$23*0.25").font = GREEN
-ws.cell(row=r, column=4, value=0).font = BLACK
-ws.cell(row=r, column=5, value=f"=SUM(B{r}:D{r})").font = BLACK
-for col in range(2, 6):
-    ws.cell(row=r, column=col).number_format = CUR
-ws.cell(row=r, column=6, value="Assumes 3 months per released role, in year 2").font = NOTE
-r += 1
-
-ws.cell(row=r, column=1, value="TOTAL COST").font = BOLD
-for col in range(2, 6):
-    cell = ws.cell(row=r, column=col,
-                   value=f"=SUM({get_column_letter(col)}5:{get_column_letter(col)}{r-1})")
-    cell.font = BOLD
-    cell.number_format = CUR
-COSTROW = r
-
-# ────────────────────────────────────────────────────────────── SUMMARY
+# ═══════════════════════════════════════════════════════════ SUMMARY (first tab)
 ws = wb.create_sheet("Summary")
-for col, w in zip("ABCDE", (44, 16, 16, 16, 16)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Summary — net position and payback"
+widths(ws, {"A": 46, "B": 15, "C": 15, "D": 15, "E": 15, "F": 62})
+ws["A1"] = "What this program is worth, and when"
 ws["A1"].font = H1
-ws["A2"] = '=CONCATENATE("Benefit scenario: ",Inputs!B60,"    |    Cost scenario: ",Inputs!B63)'
-ws["A2"].font = BOLD
+ws["A2"] = ("This page is the answer. Everything on it is calculated from the Inputs page. "
+            "To test a different assumption, change it there and this updates by itself.")
+ws["A2"].font = PLAIN
+ws["A2"].alignment = TOP
+ws["A3"] = '=CONCATENATE("Currently showing: ",Inputs!B75," value assumptions against ",Inputs!B77," program cost")'
+ws["A3"].font = BOLD
 
-hdr(ws, 4, [1, 2, 3, 4, 5], ["", "Year 1", "Year 2", "Year 3", "Three-year total"])
-ws.cell(row=5, column=1, value="Steady-state benefit, gross").font = BLACK
-for col in (2, 3, 4):
-    ws.cell(row=5, column=col,
-            value=f"=INDEX(Levers!$B${TOTROW}:$D${TOTROW},Inputs!$B$61)").font = GREEN
-    ws.cell(row=5, column=col).number_format = CUR
+head(ws, 5, ["", "Year 1", "Year 2", "Year 3", "Three years", "What this row is telling you"])
+srow = 6
+rows = [
+    ("Full annual value, once every branch is live", None,
+     "The yearly benefit after the program has finished rolling out to all branches. It is the same in each column because it is the finished-state number, not what we actually collect that year."),
+    ("How much of it we actually collect that year", None,
+     "Rollout takes time. A branch that has not gone live yet delivers nothing. This is the share of the finished-state number we expect to see in each year."),
+    ("Discount for programs falling short", None,
+     "Large technology programs typically deliver less than promised. Set this above zero on the Inputs page to see a deliberately cautious version of the same case."),
+    ("Value we expect to collect", None,
+     "The first row, reduced by the rollout share and by the shortfall discount. This is the honest expectation, not the promise."),
+    ("What the program costs us", None,
+     "Everything: software, putting it in, connecting it to our systems, our own people's time, training, and support. Software is the small part."),
+    ("Net, value minus cost", None,
+     "Negative means we are still paying it back. Positive means it has started returning more than it takes."),
+    ("Running total", None,
+     "The year the running total turns positive is the year the program has paid for itself."),
+]
+for label, _, plain in rows:
+    ws.cell(row=srow, column=1, value=label).font = BLACK
+    c = ws.cell(row=srow, column=6, value=plain)
+    c.font = PLAIN
+    c.alignment = TOP
+    ws.row_dimensions[srow].height = 34
+    srow += 1
 
-ws.cell(row=6, column=1, value="Ramp").font = BLACK
-for col, src in zip((2, 3, 4), ("B", "C", "D")):
-    ws.cell(row=6, column=col, value=f"=Inputs!${src}$54").font = GREEN
-    ws.cell(row=6, column=col).number_format = PCT
+R["s_full"], R["s_ramp"], R["s_hair"] = 6, 7, 8
+R["s_exp"], R["s_cost"], R["s_net"], R["s_cum"] = 9, 10, 11, 12
 
-ws.cell(row=7, column=1, value="Outside-view haircut").font = BLACK
-for col in (2, 3, 4):
-    ws.cell(row=7, column=col, value="=Inputs!$B$55").font = GREEN
-    ws.cell(row=7, column=col).number_format = PCT
+# ═══════════════════════════════════════════════════════════ INPUTS
+wsi = wb.create_sheet("Inputs")
+widths(wsi, {"A": 44, "B": 14, "C": 9, "D": 54, "E": 58, "F": 34, "G": 12})
+wsi["A1"] = "Every number this model uses, and where each one came from"
+wsi["A1"].font = H1
+wsi["A2"] = ("Blue numbers are yours to change. Black numbers work themselves out. "
+             "A yellow number means we do not have the real figure yet and this one is a placeholder.")
+wsi["A2"].font = PLAIN
+wsi["A2"].alignment = TOP
 
-ws.cell(row=8, column=1, value="Benefit realized").font = BOLD
-for col in (2, 3, 4):
-    L = get_column_letter(col)
-    ws.cell(row=8, column=col, value=f"={L}5*{L}6*(1-{L}7)").font = BOLD
-    ws.cell(row=8, column=col).number_format = CUR
-ws.cell(row=8, column=5, value="=SUM(B8:D8)").font = BOLD
-ws.cell(row=8, column=5).number_format = CUR
+COLS = ["Line item", "Value", "Unit", "What this is, in plain terms",
+        "Why it is here, and what it changes", "Where the number came from", "How sure we are"]
 
-ws.cell(row=9, column=1, value="Total cost").font = BLACK
-for col in (2, 3, 4, 5):
-    L = get_column_letter(col)
-    ws.cell(row=9, column=col, value=f"=Cost!{L}{COSTROW}").font = GREEN
-    ws.cell(row=9, column=col).number_format = CUR
+r = 4
+band(wsi, r, "HOW BIG WE ARE", 7); r += 1
+head(wsi, r, COLS); r += 1
 
-ws.cell(row=10, column=1, value="NET").font = BOLD
-for col in (2, 3, 4, 5):
-    L = get_column_letter(col)
-    ws.cell(row=10, column=col, value=f"={L}8-{L}9").font = BOLD
-    ws.cell(row=10, column=col).number_format = CUR
-
-ws.cell(row=11, column=1, value="Cumulative net").font = BLACK
-ws.cell(row=11, column=2, value="=B10").font = BLACK
-ws.cell(row=11, column=3, value="=B11+C10").font = BLACK
-ws.cell(row=11, column=4, value="=C11+D10").font = BLACK
-for col in (2, 3, 4):
-    ws.cell(row=11, column=col).number_format = CUR
-
-ws.cell(row=13, column=1, value="Three-year ROI").font = BOLD
-ws.cell(row=13, column=2, value="=IF(E9=0,0,E10/E9)").font = BOLD
-ws.cell(row=13, column=2).number_format = PCT
-ws.cell(row=14, column=1, value="Payback").font = BOLD
-ws.cell(row=14, column=2,
-        value='=IF(D11>0,IF(C11>0,IF(B11>0,"Year 1","Year 2"),"Year 3"),"Beyond year 3")').font = BOLD
-
-ws.cell(row=16, column=1, value="Steady-state annual benefit, by lever (selected scenario)").font = BOLD
-r = 17
-for i in range(7):
-    ws.cell(row=r, column=1, value=f"=Levers!A{5+i}").font = BLACK
-    ws.cell(row=r, column=2,
-            value=f"=INDEX(Levers!$B${5+i}:$D${5+i},Inputs!$B$61)").font = GREEN
-    ws.cell(row=r, column=2).number_format = CUR
+org = [
+    ("Branches", 80, "count",
+     "The number of home health locations in the company.",
+     "Almost every figure below is per-branch and multiplied up by this. If the branch count is wrong, the whole model is wrong by the same proportion.",
+     "The 8.13 workbook", "Good", False),
+    ("Field clinicians", 3000, "count",
+     "Nurses, therapists, and aides who see patients in the home.",
+     "Sets the size of the workforce levers, especially turnover and travel.",
+     "On-site session, 13 August", "Good", False),
+    ("Share of clinicians paid per visit", 0.70, "%",
+     "The portion paid for each visit they complete, rather than a salary or an hourly wage.",
+     "This is the single most important number in the model. When a clinician is paid per visit, we pay the same whether their day is efficient or not, so time saved does not become money saved. It becomes capacity, and capacity only becomes money if we fill it.",
+     "Colin, 26 August", "Given", False),
+    ("Schedulers today", 300, "count",
+     "People whose job is assigning visits to clinicians.",
+     "The starting point for the administrative savings lever.",
+     "On-site session, 13 August", "Stated, not counted", False),
+    ("Home health revenue", 549000000, "$",
+     "Total money the home health business brings in each year.",
+     "The base every percentage claim is measured against.",
+     "The coding business case", "Good", False),
+    ("Medicare fee-for-service revenue", 260000000, "$",
+     "The part of revenue that comes from traditional Medicare, where we are paid a fixed amount for a 30-day period rather than for each visit.",
+     "Splits the book in two, because the two halves respond in opposite ways. On this half, an extra visit costs money and earns nothing.",
+     "The coding business case", "Good", False),
+]
+for name, val, unit, plain, why, src, conf, flag in org:
+    wsi.cell(row=r, column=1, value=name).font = BLACK
+    c = wsi.cell(row=r, column=2, value=val); c.font = BLUE
+    c.number_format = PCT if unit == "%" else (CUR if unit == "$" else NUM)
+    wsi.cell(row=r, column=3, value=unit).font = BLACK
+    for col, txt in ((4, plain), (5, why)):
+        cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+    wsi.cell(row=r, column=6, value=src).font = NOTE
+    wsi.cell(row=r, column=7, value=conf).font = NOTE
+    wsi.row_dimensions[r].height = 56
     r += 1
-ws.cell(row=r, column=1, value="Total").font = BOLD
-ws.cell(row=r, column=2, value=f"=SUM(B17:B{r-1})").font = BOLD
-ws.cell(row=r, column=2).number_format = CUR
+
+R["branches"], R["clin"], R["pervisit"], R["sched"], R["rev"], R["ffs"] = 6, 7, 8, 9, 10, 11
+
+wsi.cell(row=r, column=1, value="All other payer revenue").font = BLACK
+c = wsi.cell(row=r, column=2, value=f"=B{R['rev']}-B{R['ffs']}"); c.font = BLACK; c.number_format = CUR
+wsi.cell(row=r, column=3, value="$").font = BLACK
+for col, txt in ((4, "Everything that is not traditional Medicare: Medicare Advantage, commercial insurance, and Medicaid."),
+                 (5, "On this half we are paid for each visit delivered, so an extra visit does earn money. That is why the two halves are modeled separately.")):
+    cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+wsi.cell(row=r, column=6, value="Calculated: total minus Medicare").font = NOTE
+wsi.row_dimensions[r].height = 42
+R["other"] = r
+r += 1
+
+unres = [
+    ("Admissions per year, all branches", 48000, "count",
+     "Every new patient started on service across the company in a year. Not a referral, and not a visit.",
+     "The growth lever is a percentage of this number, so it moves up and down with it directly. We have flagged it because the current figure does not fit our revenue: 48,000 admissions into $549 million implies about $11,400 of revenue per patient, and a home health episode is nearer $2,000 to $4,000.",
+     "600 per branch, times 80 branches, from the 8.13 workbook", "Needs checking"),
+    ("Medicare 30-day payment periods per year", 80000, "count",
+     "Traditional Medicare pays in 30-day blocks. A patient on service for two months creates two of them.",
+     "The visit-shortfall lever is a percentage of this number. A second reasonable calculation gives 128,000 instead of 80,000, and the two cannot both be right.",
+     "1,000 per branch, times 80 branches, from the 8.13 workbook", "Needs checking"),
+    ("Total visits per year", 3000000, "count",
+     "Every home visit made by every clinician in a year.",
+     "Background scale for the travel and throughput levers.",
+     "Estimated: 3,000 clinicians at roughly 1,000 visits each", "Estimate"),
+    ("Visits per year on non-Medicare payers", 1900000, "count",
+     "The share of those visits covered by insurers who pay per visit.",
+     "The staffing-gap lever only earns money on these visits, so this is its base.",
+     "Estimated from the non-Medicare share of revenue", "Estimate"),
+]
+for name, val, unit, plain, why, src, conf in unres:
+    wsi.cell(row=r, column=1, value=name).font = BLACK
+    c = wsi.cell(row=r, column=2, value=val); c.font = BLUE; c.number_format = NUM; c.fill = FLAG
+    wsi.cell(row=r, column=3, value=unit).font = BLACK
+    for col, txt in ((4, plain), (5, why)):
+        cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+    wsi.cell(row=r, column=6, value=src).font = NOTE
+    wsi.cell(row=r, column=7, value=conf).font = NOTE
+    wsi.row_dimensions[r].height = 70
+    r += 1
+R["adm"], R["periods"], R["visits"], R["nonepi"] = r - 4, r - 3, r - 2, r - 1
+
+r += 1
+band(wsi, r, "WHAT ONE OF EACH THING IS WORTH", 7); r += 1
+head(wsi, r, COLS); r += 1
+
+econ = [
+    ("Margin per additional admission", 1200, "$",
+     "What is left from one more admission after paying the costs that only happen because we took it: clinician visit pay, mileage, supplies. It is not the revenue, and it does not include rent or management, which we pay anyway.",
+     "Growth is only worth what it leaves behind after the cost of delivering it. Using revenue here instead would overstate the lever several times over.",
+     "The 8.13 workbook", "From the workbook"),
+    ("Revenue protected by preventing one short-visit period", 1400, "$",
+     "If a 30-day Medicare period ends with too few visits, Medicare stops paying the full period amount and pays a much smaller per-visit amount instead. This is what that costs us when it happens.",
+     "It is a cliff, not a slope. One visit either side of the line changes the payment for the whole period, which is why timing matters more than volume.",
+     "The 8.13 workbook", "From the workbook"),
+    ("Margin per visit on non-Medicare payers", 65, "$",
+     "What one more visit leaves behind on an insurer who pays per visit, after paying the clinician for it.",
+     "This is what a visit we failed to staff was worth. It only applies to the non-Medicare half of the book.",
+     "Calculated: roughly $150 collected, less visit pay and other direct costs", "Our estimate"),
+    ("Yearly cost of one scheduler", 60000, "$",
+     "Salary plus payroll taxes and benefits for one scheduling role.",
+     "Multiplied by the number of roles no longer needed. Using salary alone would understate it by about a third.",
+     "US Bureau of Labor Statistics median for this role, plus benefits", "Good"),
+    ("Cost to replace one clinician who leaves", 40000, "$",
+     "Recruiting, onboarding, orientation, and the productivity lost while a new hire gets up to speed.",
+     "Turns a reduction in people leaving into a dollar figure.",
+     "The 8.13 workbook", "From the workbook"),
+    ("Clinicians leaving per branch each year", 5, "count",
+     "How many clinicians resign or are replaced at a typical branch in a year.",
+     "Worth checking. Five per branch across 3,000 clinicians is about 13 percent a year, and published home health nursing turnover runs 25 to 28 percent. If we are closer to the published rate, this lever is worth roughly twice what the model shows.",
+     "The 8.13 workbook", "Worth checking"),
+    ("Premium labor spend per branch each year", 120000, "$",
+     "Money spent above our normal rate to get a visit covered: agency and contract clinicians, per diem staff at premium rates, overtime, and bonuses for picking up extra work. Contract staff are the most expensive form of it.",
+     "It is bought in a hurry today because nobody can see who has room in their week. Seeing it in advance turns an emergency purchase into a planned assignment by someone already on the payroll.",
+     "The 8.13 workbook", "From the workbook"),
+    ("Yearly mileage spend across the company", 16000000, "$",
+     "What we reimburse clinicians for driving between patients.",
+     "The travel lever is a percentage of this. The figure below is a placeholder we made up to show the shape of the calculation, and it must be replaced with the real number before anyone relies on it.",
+     "Placeholder: 3,000 clinicians, 8,000 miles each, at $0.67", "Made up, replace"),
+]
+for i, (name, val, unit, plain, why, src, conf) in enumerate(econ):
+    wsi.cell(row=r, column=1, value=name).font = BLACK
+    c = wsi.cell(row=r, column=2, value=val); c.font = BLUE
+    c.number_format = CUR if unit == "$" else NUM
+    if i == len(econ) - 1:
+        c.fill = FLAG
+    wsi.cell(row=r, column=3, value=unit).font = BLACK
+    for col, txt in ((4, plain), (5, why)):
+        cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+    wsi.cell(row=r, column=6, value=src).font = NOTE
+    wsi.cell(row=r, column=7, value=conf).font = NOTE
+    wsi.row_dimensions[r].height = 76
+    r += 1
+R["m_adm"], R["m_lupa"], R["m_vis"], R["c_sched"], R["c_repl"], R["dep"], R["prem"], R["mile"] = \
+    r - 8, r - 7, r - 6, r - 5, r - 4, r - 3, r - 2, r - 1
+
+r += 1
+band(wsi, r, "HOW MUCH BETTER WE THINK WE CAN GET", 7); r += 1
+head(wsi, r, ["Line item", "Low", "Middle", "High", "What this is, in plain terms",
+              "Why it is here, and what it changes", "Where the range came from"])
+r += 1
+
+drv = [
+    ("More admissions", 0.02, 0.04, 0.07, PCT,
+     "The percentage more patients we start on service because a clinician's open slot gets filled instead of going to waste.",
+     "A clinician's open start-of-care slot tomorrow either gets used or it disappears. It does not carry over to the next day. The faster we can answer yes or no, the more chances we have to fill it before it is gone.",
+     "The only published figures available: 2 percent in hospitals, 4 to 15 percent in comparable field work"),
+    ("Fewer visits going unstaffed", 0.01, 0.02, 0.035,
+     PCT,
+     "The percentage-point improvement in how many approved, needed visits actually get covered. The industry staffs about 88 to 90 out of every 100.",
+     "When a patient cancels or a clinician calls out, the visit is often simply lost because nobody can quickly find who else could take it. On insurers who pay per visit, every one of those is money we had already earned the right to collect.",
+     "Published industry staffing rates of 88 to 90 percent"),
+    ("Fewer short-visit Medicare periods", 0.005, 0.01, 0.02, PCT,
+     "The reduction in how often a 30-day Medicare period ends below the visit count that triggers the lower payment.",
+     "Most of these miss by a single visit, and often because a visit was missed or moved rather than because fewer visits were needed. Seeing it coming while there are still days left is what makes it fixable.",
+     "The 8.13 workbook's own low, middle and high figures"),
+    ("Scheduler roles no longer needed", 27, 60, 90, NUM,
+     "How many of the 300 scheduling roles the work no longer requires.",
+     "Deliberately below the 300-to-100 figure discussed on site. The best published example of this software elsewhere freed 10 roles across 18 to 30 branches, which scales to 27 to 44 for us. The high figure comes from counting the specific tasks that would go away.",
+     "A published customer example, plus a task-by-task count"),
+    ("Premium labor turned into planned coverage", 0.15, 0.30, 0.50, PCT,
+     "The share of agency, overtime and premium spend that could have been covered by someone already on the payroll, if we had seen it in time.",
+     "Not all of it is avoidable. Real gaps still need paid cover. Note that with most clinicians paid per visit, the saving is the difference between our rate and the agency rate, not the whole agency bill.",
+     "The 8.13 workbook's own low, middle and high figures"),
+    ("Fewer clinicians leaving", 0.05, 0.10, 0.20, PCT,
+     "The reduction in how many clinicians leave each year.",
+     "A study of 3,716 home health nurses found that those with the most unpredictable week-to-week visit counts were far more likely to quit, and that steadying it cut the chance of leaving by 9 percentage points. The effect only showed up in full-time staff, which the authors put down to income mattering most to people who depend on the job. With most of our clinicians paid per visit, an unpredictable schedule is an unpredictable paycheck.",
+     "The 8.13 workbook's figures, supported by the study above"),
+    ("Less driving", 0.05, 0.08, 0.12, PCT,
+     "The reduction in miles driven, by grouping each clinician's day sensibly and drawing territories around real drive times.",
+     "Vendors claim 20 to 40 percent. The best-funded delivery routing program in the world reached 8 to 10 percent after thirteen years, so we have used the realistic range instead.",
+     "Measured results from comparable field work"),
+]
+for name, lo, mo, hi, fmt, plain, why, src in drv:
+    wsi.cell(row=r, column=1, value=name).font = BLACK
+    for col, v in zip((2, 3, 4), (lo, mo, hi)):
+        c = wsi.cell(row=r, column=col, value=v); c.font = BLUE; c.number_format = fmt
+    for col, txt in ((5, plain), (6, why)):
+        cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+    wsi.cell(row=r, column=7, value=src).font = NOTE
+    wsi.cell(row=r, column=7).alignment = TOP
+    wsi.row_dimensions[r].height = 92
+    r += 1
+R["d_adm"], R["d_fill"], R["d_lupa"], R["d_sched"], R["d_prem"], R["d_turn"], R["d_mile"] = \
+    r - 7, r - 6, r - 5, r - 4, r - 3, r - 2, r - 1
+
+r += 1
+band(wsi, r, "WHAT THE PROGRAM COSTS", 7); r += 1
+head(wsi, r, ["Line item", "Low", "Middle", "High", "What this is, in plain terms",
+              "Why it is here, and what it changes", ""])
+r += 1
+costs = [
+    ("Putting it in and connecting it (one time)", 1000000, 3400000, 8000000,
+     "Configuring the software and building the connections to our existing patient record system.",
+     "Our patient record system has no ready-made way for outside software to connect to it, so this is built by hand. It is also the item most likely to run long, and delay costs us more than the fee does."),
+    ("Getting our data ready (one time)", 500000, 1300000, 4000000,
+     "Cleaning up and organizing the information the software needs before it can produce anything useful.",
+     "Scheduling software is only as good as the underlying information about who is qualified for what, who is available when, and what each insurer has approved. The most common cause of failure elsewhere is starting before this is right."),
+    ("Slower work while people learn it (one time)", 400000, 1000000, 3000000,
+     "The temporary dip in output while everyone adjusts.",
+     "Real and well documented, though the published evidence disagrees on size. One study found a lasting drop; another found a gain after six months. We have carried a range rather than pick a side."),
+    ("Software subscription (every year)", 400000, 720000, 1500000,
+     "The annual fee to the software company.",
+     "Worth knowing that this is about a tenth of the total. The fee is not where the money goes."),
+    ("Our own people's time (every year)", 1200000, 3300000, 7000000,
+     "Project managers, analysts, trainers, clinical leads, and branch champions working on this instead of their normal jobs.",
+     "The largest single cost, about four times the software fee. It is also the one most often left out of business cases, which is why programs come in over budget."),
+    ("Helping people through the change (every year)", 350000, 830000, 2200000,
+     "Training, coaching, communication, and support during and after rollout.",
+     "The earlier attempt at this failed here for exactly this reason. Programs that do this well meet their goals 88 percent of the time; programs that do it poorly, 13 percent. The first dollar spent here returns more than the last dollar spent on software."),
+    ("Keeping it running (every year)", 220000, 350000, 700000,
+     "Support, updates, and keeping insurer rules and Medicare reference tables current.",
+     "Insurer rules change when contracts are renegotiated, with no announcement. A rule that quietly goes stale produces confident wrong advice, which is worse than no advice."),
+]
+for name, lo, mo, hi, plain, why in costs:
+    wsi.cell(row=r, column=1, value=name).font = BLACK
+    for col, v in zip((2, 3, 4), (lo, mo, hi)):
+        c = wsi.cell(row=r, column=col, value=v); c.font = BLUE; c.number_format = CUR
+    for col, txt in ((5, plain), (6, why)):
+        cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+    wsi.row_dimensions[r].height = 68
+    r += 1
+R["k_impl"], R["k_data"], R["k_dip"], R["k_lic"], R["k_lab"], R["k_chg"], R["k_run"] = \
+    r - 7, r - 6, r - 5, r - 4, r - 3, r - 2, r - 1
+
+r += 1
+band(wsi, r, "TIMING AND CAUTION", 7); r += 1
+head(wsi, r, ["Line item", "Year 1", "Year 2", "Year 3", "What this is, in plain terms",
+              "Why it is here, and what it changes", ""])
+r += 1
+wsi.cell(row=r, column=1, value="Share of the full benefit we collect").font = BLACK
+for col, v in zip((2, 3, 4), (0.20, 0.60, 1.00)):
+    c = wsi.cell(row=r, column=col, value=v); c.font = BLUE; c.number_format = PCT
+for col, txt in ((5, "How much of the finished-state benefit we actually see each year while the rollout is still working through the branches."),
+                 (6, "A branch that has not gone live yet contributes nothing. Assuming full benefit from day one is the most common way these cases mislead.")):
+    cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+wsi.row_dimensions[r].height = 46
+R["ramp"] = r
+r += 1
+wsi.cell(row=r, column=1, value="Discount for falling short").font = BLACK
+c = wsi.cell(row=r, column=2, value=0.00); c.font = BLUE; c.number_format = PCT
+for col, txt in ((5, "A haircut applied to the whole benefit, to test how the case looks if we do not get everything we hope for."),
+                 (6, "Studies of more than 5,000 large technology projects found they delivered on average 56 percent less than predicted. Type 56% here to see that version of our own case.")):
+    cc = wsi.cell(row=r, column=col, value=txt); cc.font = PLAIN; cc.alignment = TOP
+wsi.row_dimensions[r].height = 46
+R["hair"] = r
 
 r += 2
-ws.cell(row=r, column=1, value="Read this before quoting a number").font = BOLD
-for n in [
-    "State the four attribution conventions with any figure: gross or incremental; which revenue base; how many levers; whether config-achievable value counts.",
-    "Set the outside-view haircut on Inputs B55 to 56% to see the McKinsey-Oxford expected case.",
-    "Three inputs are unresolved and marked yellow. The admissions lever scales linearly with network admissions.",
-]:
-    r += 1
-    ws.cell(row=r, column=1, value="- " + n).font = NOTE
+band(wsi, r, "WHICH VERSION TO SHOW", 7); r += 1
+wsi.cell(row=r, column=1, value="Value assumptions to use").font = BOLD
+c = wsi.cell(row=r, column=2, value="Middle"); c.font = BLUE; c.fill = GOOD
+dv = DataValidation(type="list", formula1='"Low,Middle,High"', allow_blank=False)
+wsi.add_data_validation(dv); dv.add(c)
+cc = wsi.cell(row=r, column=5, value="Pick Low, Middle or High. The Value page always shows all three side by side; this only changes what the front page displays.")
+cc.font = PLAIN; cc.alignment = TOP
+R["sel_ben"] = r
+r += 1
+wsi.cell(row=r, column=1, value="  (column number)").font = NOTE
+c = wsi.cell(row=r, column=2, value=f'=MATCH(B{R["sel_ben"]},{{"Low","Middle","High"}},0)'); c.font = BLACK
+R["idx_ben"] = r
+r += 1
+wsi.cell(row=r, column=1, value="Cost assumptions to use").font = BOLD
+c = wsi.cell(row=r, column=2, value="Middle"); c.font = BLUE; c.fill = GOOD
+dv2 = DataValidation(type="list", formula1='"Low,Middle,High"', allow_blank=False)
+wsi.add_data_validation(dv2); dv2.add(c)
+cc = wsi.cell(row=r, column=5, value="Set separately on purpose. Expecting a lot of value does not oblige us to spend a lot getting it, and the most useful question is usually middle value against high cost.")
+cc.font = PLAIN; cc.alignment = TOP
+R["sel_cost"] = r
+r += 1
+wsi.cell(row=r, column=1, value="  (column number)").font = NOTE
+c = wsi.cell(row=r, column=2, value=f'=MATCH(B{R["sel_cost"]},{{"Low","Middle","High"}},0)'); c.font = BLACK
+R["idx_cost"] = r
 
-# ────────────────────────────────────────────────────────────── BASELINE
-ws = wb.create_sheet("Baseline")
-for col, w in zip("ABCDEFG", (34, 40, 22, 26, 14, 40, 14)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Baseline measurement plan"
-ws["A1"].font = H1
-ws["A2"] = "Nothing in this model can be committed until these are measured. Ordered by which lever they gate."
-ws["A2"].font = NOTE
-hdr(ws, 4, [1, 2, 3, 4, 5, 6, 7],
-    ["KPI", "What it measures", "Gates which lever", "Source system", "Available today", "How to obtain", "Effort"])
+# ═══════════════════════════════════════════════════════════ VALUE
+wsv = wb.create_sheet("Value")
+widths(wsv, {"A": 40, "B": 14, "C": 14, "D": 14, "E": 56, "F": 60, "G": 42})
+wsv["A1"] = "Where the money comes from"
+wsv["A1"].font = H1
+wsv["A2"] = ("Seven ways this program produces money, each shown at a low, middle and high assumption. "
+             "Change the assumptions on the Inputs page and these move.")
+wsv["A2"].font = PLAIN
+head(wsv, 4, ["What produces the money", "Low", "Middle", "High",
+              "What is actually happening", "Why we believe it happens (cause and effect)",
+              "How the number is worked out"])
+
+lev = [
+    ("More patients started on service",
+     f"=Inputs!$B${R['adm']}*Inputs!{{c}}{R['d_adm']}*Inputs!$B${R['m_adm']}",
+     "We take on more patients without hiring, because we can see who has room and answer the hospital faster.",
+     "A clinician's open slot for tomorrow is like an empty seat on tomorrow's flight. If it is not filled, it is gone, and it does not come back the next day. Today the answer to whether we can take a patient is slow, so slots expire while we are still working it out. Answering faster means fewer expire.",
+     "Admissions per year, times the percentage increase, times the margin one admission leaves behind"),
+    ("Fewer approved visits going unstaffed",
+     f"=Inputs!$B${R['nonepi']}*Inputs!{{c}}{R['d_fill']}*Inputs!$B${R['m_vis']}",
+     "When a visit falls through, someone else picks it up quickly instead of it being lost.",
+     "This is a different group of people from the one above. Aides and assistants carry most of the weekly visits, and their work never produces an admission, so the two do not overlap. On insurers who pay per visit, a visit we could not staff is money we had already earned the right to collect and simply did not.",
+     "Non-Medicare visits, times the improvement in how many get staffed, times the margin per visit"),
+    ("Fewer Medicare periods falling short on visits",
+     f"=Inputs!$B${R['periods']}*Inputs!{{c}}{R['d_lupa']}*Inputs!$B${R['m_lupa']}",
+     "We spot a 30-day period heading for too few visits while there is still time to put a clinically needed visit back.",
+     "Medicare pays a fixed amount for a 30-day period, but only if a minimum number of visits happen. Miss it and the whole period reprices downward. Most misses are by one visit, and usually because a visit was missed or moved, not because fewer were needed. Today we find out afterwards. Seeing it coming is the whole difference. Note we would never add a visit a patient does not need to reach the number.",
+     "Medicare periods, times the reduction in short periods, times what one short period costs us"),
+    ("Fewer scheduling roles needed",
+     f"=Inputs!{{c}}{R['d_sched']}*Inputs!$B${R['c_sched']}",
+     "Assigning visits takes far fewer people once the repetitive parts happen by themselves.",
+     "Schedulers spend their day working a task list rather than making scheduling decisions, and the same patient generates a task for every discipline, twice over. Removing that work removes the need for the roles. Some of it should not exist at all, which means the software does not deserve credit for all of it.",
+     "Roles no longer needed, times the yearly cost of a role including benefits"),
+    ("Less premium labor",
+     f"=Inputs!$B${R['branches']}*Inputs!$B${R['prem']}*Inputs!{{c}}{R['d_prem']}",
+     "Fewer visits covered by agency staff, overtime, or bonus pay because we could not find anyone else in time.",
+     "When someone calls out at seven in the morning, nobody can see who has room, so the branch reaches for the most expensive option or loses the visit. Seeing available capacity turns an emergency purchase into a planned assignment.",
+     "Branches, times premium spend per branch, times the share we could have covered another way"),
+    ("Fewer clinicians leaving",
+     f"=Inputs!$B${R['branches']}*Inputs!$B${R['dep']}*Inputs!{{c}}{R['d_turn']}*Inputs!$B${R['c_repl']}",
+     "A steadier, more predictable week means fewer clinicians resign, and we spend less replacing them.",
+     "Most of our clinicians are paid per visit, so an unpredictable schedule is an unpredictable paycheck. A study of 3,716 home health nurses found the ones with the most erratic visit counts were markedly more likely to quit, and that steadying it cut the chance of leaving by 9 percentage points. It only held for full-time staff, which fits: it is people who depend on the income who leave over it.",
+     "Branches, times clinicians leaving per branch, times the reduction, times replacement cost"),
+    ("Less driving",
+     f"=Inputs!$B${R['mile']}*Inputs!{{c}}{R['d_mile']}",
+     "Clinicians drive fewer miles because their day is grouped sensibly and territories follow real drive times.",
+     "Territories today are drawn on maps by hand and rarely redrawn, and a day's visits are grouped by distance rather than by how long the drive actually takes. Note that with most clinicians paid per visit, the time saved belongs to them, not to us. What we save is the mileage we reimburse. The time they get back turns into capacity, which is counted in the first row, not here.",
+     "Yearly mileage spend, times the reduction"),
+]
+vr = 5
+for name, f, plain, why, how in lev:
+    wsv.cell(row=vr, column=1, value=name).font = BLACK
+    wsv.cell(row=vr, column=1).alignment = TOP
+    for col, letter in zip((2, 3, 4), ("$B$", "$C$", "$D$")):
+        c = wsv.cell(row=vr, column=col, value=f.replace("{c}", letter))
+        c.font = GREEN; c.number_format = CUR
+    for col, txt in ((5, plain), (6, why), (7, how)):
+        c = wsv.cell(row=vr, column=col, value=txt)
+        c.font = PLAIN if col < 7 else NOTE
+        c.alignment = TOP
+    wsv.row_dimensions[vr].height = 104
+    vr += 1
+
+wsv.cell(row=vr, column=1, value="TOTAL EACH YEAR, once fully rolled out").font = BOLD
+for col in (2, 3, 4):
+    L = get_column_letter(col)
+    c = wsv.cell(row=vr, column=col, value=f"=SUM({L}5:{L}{vr-1})")
+    c.font = BOLD; c.number_format = CUR
+c = wsv.cell(row=vr, column=5, value="This is the yearly figure after every branch is live. What we collect in year one and year two is less, and the front page shows that.")
+c.font = PLAIN; c.alignment = TOP
+R["v_total"] = vr
+
+vr += 2
+wsv.cell(row=vr, column=1, value="THINGS WE BELIEVE ARE REAL BUT HAVE NOT PUT A NUMBER ON").font = BOLD
+vr += 1
+future = [
+    ("Easier to recruit clinicians",
+     "Two reasons. Clinicians currently spend around half an hour every evening, unpaid, calling tomorrow's patients to confirm. That goes away. And a recruit who is quoted an expected income is far more likely to actually earn it when their week is protected and a canceled visit gets replaced.",
+     "Left without a number because we do not yet track how long a vacancy takes to fill, how often offers are accepted, or what a hire costs us. Those four measures are on the Baseline page."),
+    ("The same approach applied to hospice",
+     "The 8.13 workbook notes that hospice needs a few added rules rather than a different product.",
+     "Would roughly double what this is worth, at little extra cost. Left out until home health proves it."),
+    ("Visits we deliver and cannot bill",
+     "Insurers allow only a short window, often zero to five days, to backdate an approval. Care delivered outside it is written off.",
+     "Nobody counts this today. It could be immaterial or it could be the largest item on this page. It is the first thing worth measuring."),
+]
+for name, what, why in future:
+    wsv.cell(row=vr, column=1, value=name).font = BLACK
+    for col in (2, 3, 4):
+        c = wsv.cell(row=vr, column=col, value="not yet"); c.font = NOTE
+    for col, txt in ((5, what), (6, why)):
+        c = wsv.cell(row=vr, column=col, value=txt); c.font = PLAIN; c.alignment = TOP
+    wsv.row_dimensions[vr].height = 74
+    vr += 1
+
+vr += 1
+wsv.cell(row=vr, column=1, value="Two rules that stop us counting the same money twice").font = BOLD
+for t in ["The first two rows are different people. Nurses and therapists who admit patients are not the same group as the aides and assistants who carry the routine weekly visits, so both can improve at once without overlapping.",
+          "The second row only counts insurers who pay per visit. On traditional Medicare, once the minimum visit count is met, an extra visit brings in nothing, so filling more of them there would be cost without income."]:
+    vr += 1
+    c = wsv.cell(row=vr, column=1, value=t); c.font = PLAIN; c.alignment = TOP
+    wsv.merge_cells(start_row=vr, start_column=1, end_row=vr, end_column=6)
+    wsv.row_dimensions[vr].height = 30
+
+# ═══════════════════════════════════════════════════════════ COST
+wsc = wb.create_sheet("Cost")
+widths(wsc, {"A": 42, "B": 14, "C": 14, "D": 14, "E": 15, "F": 56, "G": 56})
+wsc["A1"] = "What it costs us, over three years"
+wsc["A1"].font = H1
+wsc["A2"] = "Follows the cost assumptions chosen on the Inputs page."
+wsc["A2"].font = PLAIN
+head(wsc, 4, ["Cost", "Year 1", "Year 2", "Year 3", "Three years",
+              "What this covers", "Why it is here"])
+
+cr = 5
+plan = [
+    (R["k_impl"], True, "Configuring the software and building connections to our patient record system.",
+     "Our record system has no ready-made connection method, so this is hand-built. Delay here costs more than the fee itself."),
+    (R["k_data"], True, "Cleaning and organizing the information the software depends on.",
+     "Scheduling software cannot work from information that is wrong about who is qualified, who is free, and what has been approved."),
+    (R["k_dip"], True, "The temporary dip in output while people learn the new way.",
+     "Well documented elsewhere, though studies disagree on how big and how long, so we carry a wide range."),
+    (R["k_lic"], False, "The yearly fee to the software company.",
+     "About a tenth of the total. Worth saying out loud, because the fee is what people negotiate and it is not where the money goes."),
+    (R["k_lab"], False, "Our own people working on this instead of their normal jobs.",
+     "The biggest cost, roughly four times the software fee, and the one most often missing from business cases."),
+    (R["k_chg"], False, "Training, coaching and support so people actually use it.",
+     "The previous attempt failed here for this reason. Done well, programs meet their goals 88 percent of the time; done poorly, 13 percent."),
+    (R["k_run"], False, "Support, updates, and keeping insurer and Medicare rules current.",
+     "Insurer rules change quietly when contracts renew. A stale rule gives confident wrong answers."),
+]
+for src, one_time, what, why in plan:
+    wsc.cell(row=cr, column=1, value=f"=Inputs!A{src}").font = BLACK
+    wsc.cell(row=cr, column=1).alignment = TOP
+    pick = f"INDEX(Inputs!$B${src}:$D${src},Inputs!$B${R['idx_cost']})"
+    wsc.cell(row=cr, column=2, value=f"={pick}").font = GREEN
+    for col in (3, 4):
+        wsc.cell(row=cr, column=col, value=0 if one_time else f"={pick}").font = (
+            BLACK if one_time else GREEN)
+    wsc.cell(row=cr, column=5, value=f"=SUM(B{cr}:D{cr})").font = BLACK
+    for col in range(2, 6):
+        wsc.cell(row=cr, column=col).number_format = CUR
+    for col, txt in ((6, what), (7, why)):
+        c = wsc.cell(row=cr, column=col, value=txt); c.font = PLAIN; c.alignment = TOP
+    wsc.row_dimensions[cr].height = 58
+    cr += 1
+
+wsc.cell(row=cr, column=1, value="Severance for scheduling roles that end").font = BLACK
+wsc.cell(row=cr, column=2, value=0).font = BLACK
+wsc.cell(row=cr, column=3,
+         value=f"=INDEX(Inputs!$B${R['d_sched']}:$D${R['d_sched']},Inputs!$B${R['idx_ben']})*Inputs!$B${R['c_sched']}*0.25").font = GREEN
+wsc.cell(row=cr, column=4, value=0).font = BLACK
+wsc.cell(row=cr, column=5, value=f"=SUM(B{cr}:D{cr})").font = BLACK
+for col in range(2, 6):
+    wsc.cell(row=cr, column=col).number_format = CUR
+for col, txt in ((6, "Three months of pay for each role that ends, assumed to fall in year two."),
+                 (7, "Left out of the earlier version. If we are counting the saving from roles ending, we have to count what ending them costs.")):
+    c = wsc.cell(row=cr, column=col, value=txt); c.font = PLAIN; c.alignment = TOP
+wsc.row_dimensions[cr].height = 44
+cr += 1
+
+wsc.cell(row=cr, column=1, value="TOTAL COST").font = BOLD
+for col in range(2, 6):
+    L = get_column_letter(col)
+    c = wsc.cell(row=cr, column=col, value=f"=SUM({L}5:{L}{cr-1})")
+    c.font = BOLD; c.number_format = CUR
+R["c_total"] = cr
+
+# ═══════════════════════════════════════════ fill Summary formulas
+for col in (2, 3, 4):
+    L = get_column_letter(col)
+    ws.cell(row=R["s_full"], column=col,
+            value=f"=INDEX(Value!$B${R['v_total']}:$D${R['v_total']},Inputs!$B${R['idx_ben']})").font = GREEN
+    ws.cell(row=R["s_ramp"], column=col, value=f"=Inputs!{L}{R['ramp']}").font = GREEN
+    ws.cell(row=R["s_hair"], column=col, value=f"=Inputs!$B${R['hair']}").font = GREEN
+    ws.cell(row=R["s_exp"], column=col,
+            value=f"={L}{R['s_full']}*{L}{R['s_ramp']}*(1-{L}{R['s_hair']})").font = BOLD
+    ws.cell(row=R["s_cost"], column=col, value=f"=Cost!{L}{R['c_total']}").font = GREEN
+    ws.cell(row=R["s_net"], column=col, value=f"={L}{R['s_exp']}-{L}{R['s_cost']}").font = BOLD
+    for rr in (R["s_full"], R["s_exp"], R["s_cost"], R["s_net"]):
+        ws.cell(row=rr, column=col).number_format = CUR
+    for rr in (R["s_ramp"], R["s_hair"]):
+        ws.cell(row=rr, column=col).number_format = PCT
+ws.cell(row=R["s_exp"], column=5, value=f"=SUM(B{R['s_exp']}:D{R['s_exp']})").font = BOLD
+ws.cell(row=R["s_cost"], column=5, value=f"=Cost!E{R['c_total']}").font = GREEN
+ws.cell(row=R["s_net"], column=5, value=f"=E{R['s_exp']}-E{R['s_cost']}").font = BOLD
+for rr in (R["s_exp"], R["s_cost"], R["s_net"]):
+    ws.cell(row=rr, column=5).number_format = CUR
+ws.cell(row=R["s_cum"], column=2, value=f"=B{R['s_net']}").font = BLACK
+ws.cell(row=R["s_cum"], column=3, value=f"=B{R['s_cum']}+C{R['s_net']}").font = BLACK
+ws.cell(row=R["s_cum"], column=4, value=f"=C{R['s_cum']}+D{R['s_net']}").font = BLACK
+for col in (2, 3, 4):
+    ws.cell(row=R["s_cum"], column=col).number_format = CUR
+
+sr = R["s_cum"] + 2
+ws.cell(row=sr, column=1, value="When it pays for itself").font = BOLD
+ws.cell(row=sr, column=2,
+        value=f'=IF(D{R["s_cum"]}>0,IF(C{R["s_cum"]}>0,IF(B{R["s_cum"]}>0,"Year 1","Year 2"),"Year 3"),"Later than year 3")').font = BOLD
+c = ws.cell(row=sr, column=6, value="The year the running total crosses from negative to positive.")
+c.font = PLAIN; c.alignment = TOP
+sr += 1
+ws.cell(row=sr, column=1, value="Return over three years").font = BOLD
+ws.cell(row=sr, column=2, value=f"=IF(E{R['s_cost']}=0,0,E{R['s_net']}/E{R['s_cost']})").font = BOLD
+ws.cell(row=sr, column=2).number_format = PCT
+c = ws.cell(row=sr, column=6, value="Net gain divided by what we spent. 25 percent means we got back a quarter more than we put in, over three years.")
+c.font = PLAIN; c.alignment = TOP
+
+sr += 2
+ws.cell(row=sr, column=1, value="Where the money comes from, on the version currently shown").font = BOLD
+sr += 1
+for i in range(7):
+    ws.cell(row=sr, column=1, value=f"=Value!A{5+i}").font = BLACK
+    ws.cell(row=sr, column=2,
+            value=f"=INDEX(Value!$B${5+i}:$D${5+i},Inputs!$B${R['idx_ben']})").font = GREEN
+    ws.cell(row=sr, column=2).number_format = CUR
+    ws.cell(row=sr, column=6, value=f"=Value!E{5+i}").font = PLAIN
+    ws.cell(row=sr, column=6).alignment = TOP
+    ws.row_dimensions[sr].height = 30
+    sr += 1
+ws.cell(row=sr, column=1, value="Total").font = BOLD
+ws.cell(row=sr, column=2, value=f"=SUM(B{sr-7}:B{sr-1})").font = BOLD
+ws.cell(row=sr, column=2).number_format = CUR
+
+sr += 2
+ws.cell(row=sr, column=1, value="Three things to know before quoting any of this").font = BOLD
+for t in ["Three figures on the Inputs page are highlighted yellow because we do not have the real number yet. The largest lever moves directly with the first of them.",
+          "This shows the whole benefit. If someone asks what we get that we could not get by simply configuring what we already own, that is a smaller number and a fair question.",
+          "Type 56% into the shortfall discount on the Inputs page to see how this looks if the program delivers what large technology programs typically deliver."]:
+    sr += 1
+    c = ws.cell(row=sr, column=1, value="- " + t); c.font = PLAIN; c.alignment = TOP
+    ws.merge_cells(start_row=sr, start_column=1, end_row=sr, end_column=6)
+    ws.row_dimensions[sr].height = 28
+
+# ═══════════════════════════════════════════════════════════ BASELINE
+wsb = wb.create_sheet("What we must measure")
+widths(wsb, {"A": 34, "B": 46, "C": 22, "D": 22, "E": 14, "F": 52, "G": 12})
+wsb["A1"] = "What we have to measure before any of these numbers can be trusted"
+wsb["A1"].font = H1
+wsb["A2"] = ("Every figure in this model is either measured, published, or assumed. This is the list that "
+             "turns the assumed ones into measured ones. Anything marked no in the fifth column does not exist today.")
+wsb["A2"].font = PLAIN
+wsb["A2"].alignment = TOP
+head(wsb, 4, ["What to measure", "What it tells us", "Which value it supports",
+              "Where it lives", "Do we have it", "How to get it", "Effort"])
 
 base = [
-    ("Network admissions per year", "The denominator for every growth claim", "Lever 1", "HCHB / Commure", "Yes",
-     "Count SOC and ROC episodes by branch, 12 months", "Low"),
-    ("Referral-to-SOC latency", "Hours from referral acceptance to SOC visit, median and tail", "Lever 1", "Commure + HCHB", "Partial",
-     "Timestamp pairs: referral accepted, auth cleared, intake approved, welcome call, SOC scheduled, SOC delivered", "Medium"),
-    ("Referral turn-down rate for capacity", "Clinically appropriate referrals declined for lack of capacity", "Lever 1", "Referral log", "No",
-     "Requires a turn-down reason code that does not exist today", "High"),
-    ("SOC slot utilization", "SOC-capable capacity offered versus filled, per week", "Lever 1", "HCHB scheduling", "No",
-     "Needs a definition of an SOC slot before it can be counted", "High"),
-    ("Visit fill rate", "Authorized and needed visits that go unstaffed, split episodic and non-episodic", "Lever 2", "HCHB", "Partial",
-     "Scheduled versus completed versus canceled, by payer class", "Medium"),
-    ("Visit mix by discipline", "RN vs LPN, PT vs PTA, OT vs COTA, aide share of routine visits", "Levers 2 and 5", "HCHB", "Yes",
-     "Visit counts by discipline code, 12 months", "Low"),
-    ("Cancellation and refusal rate", "Frequency, timing, reason, and who absorbs the cost", "Lever 2", "HCHB dispositions", "Partial",
-     "Disposition records; reason codes are captured for some dispositions but not decline", "Medium"),
-    ("Backfill latency", "Time from a cancellation to the slot being refilled or lost", "Lever 2", "HCHB", "No",
-     "Derived from disposition and reassignment timestamps", "Medium"),
-    ("LUPA rate and periods one visit short", "Share of periods below threshold, and how many missed by one", "Lever 3", "Billing / PDGM", "Partial",
-     "Claims by case-mix group against the CMS 432-row threshold file", "Medium"),
-    ("LUPA cause attribution", "Whether the shortfall was clinical or operational", "Lever 3", "HCHB + billing", "No",
-     "Join LUPA periods to missed, rescheduled and auth-held visits", "High"),
-    ("Scheduler task census", "Task volume and real handle time by task type", "Lever 4", "HCHB workflow records", "Yes",
-     "90 days of workflow items with open and close timestamps, grouped by type. This is a query, not a study", "Low"),
-    ("Premium, contract and overtime spend", "Baseline for the labor recovery lever", "Lever 5", "Payroll", "Yes",
-     "12 months by branch and discipline", "Low"),
-    ("Clinician turnover and tenure at separation", "Departures, first-year share, replacement cost", "Lever 6", "Workday", "Yes",
-     "Voluntary and involuntary, 24 months, with tenure", "Low"),
-    ("Schedule volatility", "Coefficient of variation of daily visit count, trailing 28 days, per clinician", "Lever 6", "HCHB", "No",
-     "Computable today from visit records. Validated predictor of quit risk", "Low"),
-    ("Income realization ratio", "Realized pay against quoted pay at 90 days, per new hire", "Lever 6", "Payroll + recruiting", "No",
-     "Join offer expectations to actual pay. Critical with 70% per-visit pay", "Medium"),
-    ("Mileage and drive time", "Miles and drive hours per visit, by branch", "Lever 7", "HCHB / expense", "Partial",
-     "Replaces the invented mileage figure on Inputs", "Medium"),
-    ("Authorization write-offs", "Visits delivered outside the payer backdating window", "Not yet a lever", "Billing", "No",
-     "The most under-instrumented dollar in the business. Could be immaterial or the largest single lever", "High"),
-    ("Authorization turnaround by payer", "Submission to response, by payer and product", "Not yet a lever", "Auth team", "No",
-     "Measurable from existing data. Nobody has measured it", "Medium"),
-    ("Pay model split", "Per visit, hourly, salaried, points, by branch", "Every margin lever", "Payroll", "Yes",
-     "Confirms the 70% figure and locates the exceptions", "Low"),
-    ("Time to fill by discipline", "Days from requisition to accepted offer", "Attraction case (future)", "Workday", "Yes",
-     "12 months by discipline and branch. Baseline for the recruiting argument", "Low"),
-    ("Offer acceptance rate", "Offers accepted as a share of offers made", "Attraction case (future)", "Workday", "Yes",
-     "With decline reasons where captured", "Low"),
-    ("Cost per hire", "Recruiting spend per accepted hire, by discipline", "Attraction case (future)", "Finance / HR", "Partial",
-     "Needed to value faster filling", "Medium"),
-    ("Exit reason codes", "Why leavers say they left, coded consistently", "Levers 6 and attraction", "Workday", "Partial",
-     "Distinguishes schedule and income causes from everything else", "Medium"),
-    ("Cost per period by case-mix group", "The denominator for the utilization ceiling", "Utilization work", "Finance", "No",
-     "Without it the ceiling stays directional", "High"),
+    ("Admissions per year", "How many new patients we start on service, company wide", "More patients started", "Patient record system", "Yes", "Count new starts by branch for twelve months", "Low"),
+    ("Time from referral to first visit", "How long a patient waits between us accepting them and being seen", "More patients started", "Intake and patient record systems", "Partly", "Timestamps at each handoff: accepted, insurance cleared, approved, called, scheduled, seen", "Medium"),
+    ("Referrals we turned down for lack of capacity", "How much business we are declining because we cannot staff it", "More patients started", "Referral log", "No", "Needs a reason code that does not exist today", "High"),
+    ("Open start-of-care slots offered against filled", "How much admitting capacity goes to waste", "More patients started", "Patient record system", "No", "Needs a shared definition of an open slot first", "High"),
+    ("Share of approved visits that get staffed", "How often an approved, needed visit never happens", "Fewer visits unstaffed", "Patient record system", "Partly", "Scheduled against completed against canceled, split by insurer type", "Medium"),
+    ("Who does which visits", "The split between nurses and aides, therapists and assistants", "Fewer visits unstaffed", "Patient record system", "Yes", "Visit counts by discipline for twelve months", "Low"),
+    ("Cancellations and refusals", "How often visits fall through, why, and who absorbs the cost", "Fewer visits unstaffed", "Patient record system", "Partly", "Reasons are captured for some outcomes but not for refusals", "Medium"),
+    ("How long a canceled visit takes to refill", "Whether a freed slot gets reused or lost", "Fewer visits unstaffed", "Patient record system", "No", "Derived from cancellation and reassignment timestamps", "Medium"),
+    ("How often Medicare periods fall short on visits", "Our real rate, and how many missed by only one visit", "Fewer short periods", "Billing", "Partly", "Claims compared against the Medicare threshold table", "Medium"),
+    ("Why those periods fell short", "Whether fewer visits were clinically right, or a visit was simply lost", "Fewer short periods", "Billing and patient record", "No", "Match short periods to missed and moved visits", "High"),
+    ("What schedulers actually do all day", "Task volumes and how long each really takes", "Fewer scheduling roles", "Patient record system", "Yes", "Ninety days of task records with start and finish times. This is a report, not a study", "Low"),
+    ("Agency, overtime and premium spend", "What we currently pay above our normal rate", "Less premium labor", "Payroll", "Yes", "Twelve months by branch and discipline", "Low"),
+    ("Who leaves, when, and how long they stayed", "Our real turnover and how much of it is first-year", "Fewer clinicians leaving", "HR system", "Yes", "Twenty-four months, with length of service at departure", "Low"),
+    ("How steady each clinician's week is", "How much their visit count swings week to week", "Fewer clinicians leaving", "Patient record system", "No", "Can be calculated today from visit records. It predicts who is likely to resign", "Low"),
+    ("Quoted pay against actual pay at ninety days", "Whether new hires earn what they were told they would", "Fewer clinicians leaving", "Payroll and recruiting", "No", "Compare the offer to the first three months of pay. Matters most because most clinicians are paid per visit", "Medium"),
+    ("Miles and drive time per visit", "What we actually spend on travel", "Less driving", "Patient record and expenses", "Partly", "Replaces the placeholder mileage figure on the Inputs page", "Medium"),
+    ("Care we deliver and cannot bill", "Visits given outside the window an insurer allows for approval", "Not yet counted", "Billing", "No", "Nobody counts this. It could be immaterial or the largest item in the case", "High"),
+    ("How long insurers take to approve", "Days from our request to their answer, by insurer", "Not yet counted", "Authorization team", "No", "Measurable from what we already have. Never measured", "Medium"),
+    ("How clinicians are paid", "The split between per visit, hourly and salary", "Every value item", "Payroll", "Yes", "Confirms the 70 percent figure and finds the exceptions", "Low"),
+    ("What a 30-day period costs us to deliver", "Our own cost, by patient type", "The visit-count work", "Finance", "No", "Without it we can describe the direction but not the size", "High"),
+    ("How long a vacancy takes to fill", "Days from opening a role to an accepted offer", "Easier recruiting (future)", "HR system", "Yes", "Twelve months by discipline and branch", "Low"),
+    ("How often offers are accepted", "Offers accepted as a share of offers made", "Easier recruiting (future)", "HR system", "Yes", "With reasons for declining where captured", "Low"),
+    ("What a hire costs us", "Recruiting spend per person hired", "Easier recruiting (future)", "Finance and HR", "Partly", "Needed to value filling roles faster", "Medium"),
+    ("Why people say they left", "Departure reasons, coded the same way each time", "Fewer leaving, easier recruiting", "HR system", "Partly", "Separates schedule and income causes from everything else", "Medium"),
 ]
-r = 5
+br = 5
 for row in base:
     for i, v in enumerate(row, start=1):
-        c = ws.cell(row=r, column=i, value=v)
-        c.font = BLACK if i != 6 else NOTE
-        c.alignment = Alignment(wrap_text=True, vertical="top")
+        c = wsb.cell(row=br, column=i, value=v)
+        c.font = PLAIN if i in (2, 6) else BLACK
+        c.alignment = TOP
         if i == 5 and v == "No":
             c.fill = FLAG
-    ws.row_dimensions[r].height = 28
-    r += 1
+    wsb.row_dimensions[br].height = 40
+    br += 1
 
-r += 1
-ws.cell(row=r, column=1, value="Sequencing").font = BOLD
-for n in [
-    "Everything marked Low effort is a query against systems we already own and can be delivered in two weeks.",
-    "The scheduler task census, pay model split, visit mix, turnover and premium spend together size five of the seven levers.",
-    "By the organization's own KPI table the initiative's core metric — quantified capacity and utilization — is not available today, along with 6 of 8 secondary indicators.",
-]:
-    r += 1
-    ws.cell(row=r, column=1, value="- " + n).font = NOTE
-
-
-# ────────────────────────────────────────────────────────────── DEFINITIONS
-ws = wb.create_sheet("Definitions")
-for col, w in zip("ABC", (46, 78, 34)):
-    ws.column_dimensions[col].width = w
-ws["A1"] = "Definitions — every term used in this model"
-ws["A1"].font = H1
-ws["A2"] = "If a term is not defined here it should not be in the model."
-ws["A2"].font = NOTE
-hdr(ws, 4, [1, 2, 3], ["Term", "What it means, in plain language", "Why it matters"])
-
-defs = [
-    ("Admissions per year, all branches",
-     "Every new patient started on service across all 80 branches in a year. A start of care, not a visit and not a referral. One admission generates an episode, which generates one or more payment periods.",
-     "It is the denominator for the growth lever. The current figure is unresolved and marked yellow."),
-    ("Margin per additional admission",
-     "The money left over from one more admission after paying the variable costs of delivering it: clinician visit pay, mileage, supplies. It is NOT revenue, and it excludes fixed overhead the branch pays anyway.",
-     "Growth is only worth what it contributes after variable cost. The workbook uses $1,200."),
-    ("Increase in admissions",
-     "The percentage more admissions we take because capacity is visible and the yes or no arrives faster. 4 percent on 48,000 admissions is about 1,900 more starts a year.",
-     "Requires referral supply to exist. We currently decline referrals for lack of capacity, so it does."),
-    ("Premium labor",
-     "Anything paid above the standard rate to get a visit covered: contract and agency clinicians, per diem or PRN at premium rates, overtime, and incentive pay for picking up extra visits. Contract employees are the most expensive tier of it.",
-     "It is bought reactively today because nobody can see who has room. Forward visibility converts reactive premium coverage into planned coverage."),
-    ("Share of premium labor converted",
-     "The portion of that premium spend that could have been covered by someone already on the payroll with room in their week, had we been able to see it in time.",
-     "Not all premium labor is avoidable. Genuine gaps still need contract cover."),
-    ("Fill rate",
-     "Of the visits that are authorized and clinically needed, the share that actually get staffed and delivered. Industry runs 88 to 90 percent.",
-     "The gap is revenue on the non-episodic book. Under episodic payment an unfilled routine visit above the floor costs almost nothing."),
-    ("Episodic payment",
-     "Traditional Medicare. A fixed, case-mix adjusted amount for a 30-day period regardless of how many visits are delivered above the floor.",
-     "Visits are cost, not revenue. About 47 percent of our book."),
-    ("Non-episodic payment",
-     "Managed care, commercial and Medicaid. Payment follows the delivered visit or unit, usually with prior authorization and often against an annual cap.",
-     "Visits are revenue. About 53 percent of our book."),
-    ("LUPA",
-     "Low Utilization Payment Adjustment. If a 30-day period falls below its case-mix group threshold, 2 to 5 visits, the entire period reprices to national per-visit amounts instead of the full period rate.",
-     "A cliff of roughly $1,400, not a gradient. Recovery is legitimate only where the visit was clinically indicated and lost to an operational failure."),
-    ("SOC-capable capacity",
-     "Clinicians qualified and available to admit a new patient, which is a smaller pool than clinicians available for routine visits.",
-     "It is the binding constraint on growth. A branch can have routine capacity and still be unable to admit."),
-    ("Paraprofessional pool",
-     "LPNs, PTAs, COTAs and aides, who carry the bulk of weekly routine visit volume.",
-     "A separate capacity pool from admissions. Their throughput never produces an admission, so the two levers are additive."),
-    ("Contribution per non-episodic visit",
-     "Revenue for one visit under a per-visit contract, less what we pay the clinician for it and other variable costs. Modeled at $65.",
-     "The value of each visit recovered through better fill rate."),
-    ("Steady state",
-     "The annual benefit once the program is fully deployed across all branches, before ramp. Year 3 in this model.",
-     "Year 1 and 2 are discounted by the ramp on the Inputs sheet."),
-    ("Outside-view haircut",
-     "A discount applied to the whole benefit case to reflect that large technology programs typically deliver materially less than predicted. Set it to 56 percent to see the published expected case.",
-     "Lets the expected case be shown next to the promised case rather than instead of it."),
-    ("Benefit scenario vs cost scenario",
-     "Two independent selectors. Benefit sets how ambitious the value assumptions are; cost sets how expensive the program is assumed to be.",
-     "An ambitious benefit case does not require an ambitious spend case. At maximum on both, the program is net negative."),
-]
-r = 5
-for term, meaning, why in defs:
-    ws.cell(row=r, column=1, value=term).font = BOLD
-    for col, v in ((2, meaning), (3, why)):
-        c = ws.cell(row=r, column=col, value=v)
-        c.font = BLACK if col == 2 else NOTE
-        c.alignment = Alignment(wrap_text=True, vertical="top")
-    ws.cell(row=r, column=1).alignment = Alignment(wrap_text=True, vertical="top")
-    ws.row_dimensions[r].height = 58
-    r += 1
+br += 1
+c = wsb.cell(row=br, column=1, value="The short version: five of these are marked low effort and already exist. Together they support five of the seven ways this program makes money, and all five are reports against systems we already own. That is a two-week request, not a project.")
+c.font = BOLD; c.alignment = TOP
+wsb.merge_cells(start_row=br, start_column=1, end_row=br, end_column=6)
+wsb.row_dimensions[br].height = 32
 
 for s in wb.worksheets:
     s.sheet_view.showGridLines = False
+    s.freeze_panes = "A5"
+
+if "Sheet" in wb.sheetnames:
+    del wb["Sheet"]
 
 out = r"C:\Users\chigh\flowbuild\Capacity-Scheduling-Business-Case-Model.xlsx"
 wb.save(out)
