@@ -79,13 +79,13 @@ renumbered.
 | `business-case-methodology.md` | **The narrative walkthrough.** Every factor in order, how each was sized, the five evidence tiers, the four attribution conventions, what was corrected and why, what we still do not know | Reading in before a decision. The document to hand someone who has to approve something |
 | `business-case-verdict.md` | **The adversarial business case and the recommendation.** Six independent analyses run against the initiative — affirmative, kill-it, outside view, alternatives, cost of ownership, numbers audit — with the attribution conventions stated, the gates, and the pre-committed kill criterion | **Start here for the business case.** The readout is built from this |
 | `business-case-analysis/` | The six analyses in full, as written, including the ones that argue against the initiative | Checking a claim in the verdict, or re-running the argument |
-| `business-case-register.md` | **Every financially-connected case tied to the initiative** — workforce and administrative cost, revenue capture, utilisation and margin, growth, quality-linked revenue, risk avoided and option value, with sizing formulas and the inputs needed to commit them | Building the business case. Start here |
-| `reimbursement-linked-variables.md` | The factors reimbursement adds to the logic, organised by where each binds — the payer spine, the authorisation object, capacity additions, derived fields and postures | Requirements and data-model work |
-| `authorization-and-capacity-forecasting.md` | How authorisation enters the capacity forecast: what is deterministic and ignored, what is genuinely unpredictable, and the three curves the forecast should emit | Forecasting design |
-| `Flow-Payer-Economics.pdf` | Payer economics against the schedule: the gate that is payer-dependent, the plan of care where payer limits are invisible, the five values one delivered visit can carry, the four meanings of one missed visit, and the new period as a new authorisation question | Explaining why the same operational event costs differently in every payer class |
+| `business-case-register.md` | **Every financially-connected case tied to the initiative** — workforce and administrative cost, revenue capture, utilization and margin, growth, quality-linked revenue, risk avoided and option value, with sizing formulas and the inputs needed to commit them | Building the business case. Start here |
+| `reimbursement-linked-variables.md` | The factors reimbursement adds to the logic, organized by where each binds — the payer spine, the authorization object, capacity additions, derived fields and postures | Requirements and data-model work |
+| `authorization-and-capacity-forecasting.md` | How authorization enters the capacity forecast: what is deterministic and ignored, what is genuinely unpredictable, and the three curves the forecast should emit | Forecasting design |
+| `Flow-Payer-Economics.pdf` | Payer economics against the schedule: the gate that is payer-dependent, the plan of care where payer limits are invisible, the five values one delivered visit can carry, the four meanings of one missed visit, and the new period as a new authorization question | Explaining why the same operational event costs differently in every payer class |
 | `flow-payer-economics.html` | Source. Regenerate with `_flow-payer-economics.gen.py` | Editing the payer economics sheet |
-| `payer-types-and-episode-economics.md` | Reference document: episodic vs non-episodic, managed vs unmanaged, the four ceilings, CY2026 amounts, the authorisation object, and where the Blues land | The payer reference. Pairs with the sheet |
-| `reimbursement-research/` | The sourced research corpus behind both: PDGM mechanics and rates, Medicare Advantage, commercial and Medicaid, utilisation and margin, cost and labour, authorisation operations, value-based and policy | Checking a figure, or its source |
+| `payer-types-and-episode-economics.md` | Reference document: episodic vs non-episodic, managed vs unmanaged, the four ceilings, CY2026 amounts, the authorization object, and where the Blues land | The payer reference. Pairs with the sheet |
+| `reimbursement-research/` | The sourced research corpus behind both: PDGM mechanics and rates, Medicare Advantage, commercial and Medicaid, utilization and margin, cost and labor, authorization operations, value-based and policy | Checking a figure, or its source |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
@@ -111,8 +111,8 @@ collision checklist. Do not re-derive the conventions by hand.
 HCHB `#795CA7` · DCS `#792E2E` · Clinician `#2E599D` · Per Diem/Float `#795933` · Patient `#4E8A5B`
 · Insurance & Auth `#DF751D` · Branch Leadership `#1A1A1A` with white text.
 
-**Colour = actor, and the person beats the system.** A workflow item in HCHB worked by a person
-carries the person's colour — purple appears only where HCHB acts by itself (generates tasks,
+**Color = actor, and the person beats the system.** A workflow item in HCHB worked by a person
+carries the person's color — purple appears only where HCHB acts by itself (generates tasks,
 applies rules, checks auth, suggests a route). Every sheet is current state; nothing on them is a
 proposal, and each footer says so.
 
