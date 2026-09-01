@@ -19,7 +19,7 @@ Every figure in the model is one of five kinds, and the model labels which:
 | Workbook | Taken from the 8.13 Compassus workbook, which is authoritative |
 | Published | From CMS, MedPAC, BLS, peer-reviewed research or a payer manual |
 | Derived | Calculated from the above, with the calculation shown |
-| Modelled | Built from reasonable inputs where no published figure exists |
+| Modeled | Built from reasonable inputs where no published figure exists |
 | Assumed | Chosen because a number was needed. Flagged in yellow |
 
 Nothing is presented as fact that is actually assumption. Three inputs are still marked yellow and
@@ -42,16 +42,16 @@ treats them as one.
 
 | Ceiling | What it is | Consequence if crossed |
 |---|---|---|
-| Permission | What the payer authorised | The visit is not billable |
+| Permission | What the payer authorized | The visit is not billable |
 | Floor | The LUPA threshold, 2 to 5 visits by group | The whole period reprices, a cliff near $1,400 |
 | Ceiling | Visits above the floor under episodic payment | They earn nothing |
 | Cap | The annual benefit limit on commercial and Medicaid | Care becomes unbillable mid-course |
 
-A visit can be authorised and uneconomic. A patient can be inside authorisation and out of benefit.
+A visit can be authorized and uneconomic. A patient can be inside authorization and out of benefit.
 
 **Roughly 47 percent of revenue is Medicare fee-for-service and 53 percent is everything else.** The
 scheduling system was built when the business was about 90 percent traditional Medicare, which is
-the one payer type that requires neither authorisation discipline nor visit-count discipline. That
+the one payer type that requires neither authorization discipline nor visit-count discipline. That
 gap is the initiative's core diagnosis, and it survived every attempt to knock it down.
 
 **Seventy percent of clinicians are paid per visit.** This single fact changes the sign of several
@@ -65,7 +65,7 @@ explicitly in section 4.
 ### 3.1 Demand conversion and perishable capacity
 
 Referral acceptance is improving through the intake system. What happens between acceptance and a
-started episode is where this initiative lives: eligibility, authorisation keying, intake approval,
+started episode is where this initiative lives: eligibility, authorization keying, intake approval,
 clinical review, the welcome call, and the booked visit.
 
 The governing idea is that **capacity is perishable inventory**. A clinician's start-of-care slot
@@ -86,12 +86,12 @@ A separate pool of people doing separate work. Paraprofessionals carry the bulk 
 volume, and their throughput has nothing to do with admissions capacity.
 
 The value here is fill rate. Industry fill rates run 88 to 90 percent, meaning roughly one visit in
-ten that is authorised and needed never gets staffed. Faster backfill of cancellations and refusals
+ten that is authorized and needed never gets staffed. Faster backfill of cancellations and refusals
 attacks that gap directly.
 
 Critically, this pays on the non-episodic book only. Under episodic payment an additional routine
 visit above the floor earns nothing, so throughput there converts into coverage without premium
-labour and into protection of the floor, not into revenue.
+labor and into protection of the floor, not into revenue.
 
 ### 3.3 Episode economics
 
@@ -105,45 +105,104 @@ cluster.
 
 The ceiling is invisible. Once above the floor, further visits are cost with no matching revenue
 until an outlier threshold that is rarely reached. The correct target is neither as many visits as
-authorised nor as few as possible. It is the clinically right number, above the floor and no higher
+authorized nor as few as possible. It is the clinically right number, above the floor and no higher
 than the period supports.
 
 ### 3.4 Administrative cost
 
 Three named sources of load: the start-of-care and recertification cycle, the per-discipline
-assignment burst, and authorisation chasing and exception recovery. Routine visits are excluded
+assignment burst, and authorization chasing and exception recovery. Routine visits are excluded
 because they are already clinician self-managed.
 
 Two cautions carried into the model. The loudest pain may not be the largest cost, since the daily
-authorisation notifications are frustrating but modest in hours unless handle time is high. And some
+authorization notifications are frustrating but modest in hours unless handle time is high. And some
 of this load should be deleted rather than automated, which means the platform cannot claim credit
 for it.
 
-### 3.5 Workforce
+### 3.5 Workforce: turnover, and the attraction case
 
-Under per-visit pay the agency has moved volume risk onto the clinician. A branch that cannot supply
-visits, or a clinician who cannot sustain productivity, produces an income shortfall rather than an
-agency cost. It returns months later as turnover.
+This section is set out in full because it is the lever most often asserted without a mechanism.
 
-The mechanism is the income realisation gap: quoted pay at hire against realised pay at ninety days.
-It is worst in year one, when ramp is slow, territory knowledge is absent, documentation is
-heaviest, and loyalty is lowest.
+**The structural fact.** Under per-visit pay the agency has moved volume risk onto the clinician. A
+branch that cannot supply visits, or a clinician who cannot sustain productivity, produces an income
+shortfall rather than an agency cost. It comes back months later as turnover, posted to a different
+account, with no visible link to the scheduling defect that caused it. With 70 percent of clinicians
+paid per visit, most of our scheduling failures are currently being paid for by clinicians.
 
-The best available evidence is a study of 3,716 nurses using payroll and visit-level data. Moving a
-full-time RN from the 75th to the 25th percentile of schedule volatility cut annual quit probability
-by 9.2 percentage points. The effect disappeared for part-time nurses, which the authors attribute
-to the mechanism being income stability for people who depend on the job. Volatility is defined as
-the coefficient of variation of daily visit count over a trailing 28 days, and is computable from
-data we already hold.
+**The mechanism.** The income realization gap: pay quoted at hire against pay actually realized at
+ninety days. Both inputs are outside the clinician's control. Visits per week depends on branch
+census, territory alignment, and whether authorization is holding work in a queue nobody can see.
+Effective hourly earnings depend on how much unpaid work sits around the visit: travel,
+documentation, the evening confirmation calls, and the drive to a canceled visit. It is worst in
+year one, when ramp is slow, territory knowledge is absent, documentation is heaviest, and loyalty
+is lowest.
 
-One honest limit: no study anywhere isolates scheduling optimisation as the cause of a measured
-turnover reduction. The evidence is strong but observational.
+**How the number is built.** Five steps, each traceable.
+
+| Step | Value | Source |
+|---|---|---|
+| Departures per branch per year | 5 | 8.13 workbook |
+| Departures across 80 branches | 400 | Derived |
+| Replacement cost per clinician | $40,000 | 8.13 workbook |
+| Annual cost of turnover at those figures | $16.0M | Derived |
+| Reduction assumed, min / mod / max | 5% / 10% / 20% | 8.13 workbook scenario drivers |
+| Value, min / mod / max | $0.8M / $1.6M / $3.2M | Derived |
+
+**A baseline check that matters.** 400 departures against roughly 3,000 clinicians is a 13 percent
+turnover rate. Published home health RN turnover runs 25 to 28 percent. Either we materially
+outperform the sector, or the workbook's departure assumption is low and this lever is understated
+by roughly half. Verifying it is a Workday query and it is on the Baseline sheet.
+
+**Why we believe scheduling moves turnover at all.** The best available evidence is a study of 3,716
+nurses at a large home health organization using payroll and visit-level data. Full-time RNs at the
+75th percentile of schedule volatility were 16 percent more likely to quit than average, and
+full-time LPNs 34 percent more likely. Moving a full-time RN from the 75th to the 25th percentile of
+volatility cut annual quit probability by 9.2 percentage points. Volatility was defined as the
+coefficient of variation of daily visit count over a trailing 28 days, which is computable from data
+we already hold.
+
+Two details make it more useful rather than less. The effect disappeared entirely for part-time
+nurses, and the authors attribute the mechanism to income and schedule stability mattering to people
+who depend on the job. And that is precisely our population: with 70 percent paid per visit,
+schedule volatility is income volatility.
+
+**A triangulation worth knowing.** If we targeted only the worst-scheduled quartile, roughly 500
+full-time clinicians, and achieved the study's full effect on that group alone, that is about 46
+fewer departures a year. The workbook's moderate assumption is 40. The two arrive at nearly the same
+place by different routes, which is the strongest support the moderate case has.
+
+**Honest limits.** The study is observational, single-organization, and pre-pandemic. No study
+anywhere isolates scheduling optimization as the cause of a measured turnover reduction. And the 5,
+10 and 20 percent reduction figures are the workbook's assumptions, not measurements.
+
+**The attraction case, for future years, deliberately not valued yet.**
+
+Retention and recruitment run on the same mechanism, and the recruitment half is currently invisible
+in the case. Two arguments will become available once the retention effect is measured:
+
+First, the day-before confirmation burden. Roughly 3,000 clinicians spend about 30 minutes a day,
+unpaid and in the evening, confirming tomorrow's visits. Moving that into the system returns
+something like two and a half hours of personal time a week to every clinician. That is a recruiting
+proposition, not only a retention one, and it speaks directly to why clinicians choose home health
+in the first place.
+
+Second, income predictability. A recruit is quoted expected earnings. Whether they realize it
+depends today on branch census, cancellation rates, and whether a canceled visit gets backfilled
+before the day is lost. A system that protects the clinician's booked week, and that replaces a
+canceled visit quickly rather than leaving a hole, converts a recruiting promise into something the
+branch can actually stand behind.
+
+It is left unvalued for now because we have no baseline for time to fill, offer acceptance rate, or
+cost per hire, and because no published study links scheduling technology to recruiting outcomes.
+The four measures needed to value it later are named on the Baseline sheet. This mirrors how the
+coding business case handled its own unpriced upside: name the lever, state the mechanism, and leave
+the number for when it can be earned.
 
 ### 3.6 Geography
 
-Travel is the largest unmeasured capacity leak, and it sits on the non-labour side of the payment,
+Travel is the largest unmeasured capacity leak, and it sits on the non-labor side of the payment,
 so it is never wage-index adjusted. Realistic reductions are 5 to 15 percent based on field-service
-evidence, where the best-funded route optimisation programme in the world reached 8 to 10 percent
+evidence, where the best-funded route optimization program in the world reached 8 to 10 percent
 over thirteen years. Vendor claims of 20 to 40 percent should be divided by two or three.
 
 A related factor nobody had noticed: the wage index applies to the patient's county, not the
@@ -175,7 +234,7 @@ proprietary data nobody publishes, and the vendor's partner marketplace opening 
 ### 4.1 Built adversarially, not advocated
 
 A first case was written, then six independent analyses were run against it: an affirmative case, a
-case built to kill the initiative, an outside view on what comparable programmes actually deliver, a
+case built to kill the initiative, an outside view on what comparable programs actually deliver, a
 search for cheaper alternatives, a full cost of ownership, and a forensic audit of the arithmetic.
 None was told what to conclude, and the affirmative analysis was instructed to treat the existing
 case as a claim to be tested rather than as evidence.
@@ -187,7 +246,7 @@ all corrected. Section 5 lists them.
 
 Where the 8.13 workbook has an assumption, the model uses it: contribution per admission,
 revenue protected per avoided LUPA, replacement cost per clinician, departures per branch, and the
-premium labour pool. This keeps the two models reconcilable rather than competing. Where the
+premium labor pool. This keeps the two models reconcilable rather than competing. Where the
 workbook has no assumption, the source is named on the Inputs sheet.
 
 ### 4.3 Four attribution conventions, stated openly
@@ -217,7 +276,7 @@ the pool where they actually land.
 Each lever was checked twice: does it behave the same under episodic and non-episodic payment, and
 does it survive a workforce paid per visit. Several did not.
 
-Route and efficiency optimisation does not create margin under per-visit pay, because the same
+Route and efficiency optimization does not create margin under per-visit pay, because the same
 amount is paid per visit either way. Reclaiming idle salaried capacity does not apply to 70 percent
 of the workforce. Rebook waste is smaller than it appears, and the missed-visit loss is roughly
 halved. These corrections made the case smaller, and they were kept.
@@ -231,7 +290,7 @@ only published lift figures available.
 
 ### 4.7 The outside view applied as a haircut
 
-Large technology programmes deliver materially less than predicted, and the modal outcome is that
+Large technology programs deliver materially less than predicted, and the modal outcome is that
 the case is never tested at all. The model carries a haircut input so the expected case can be shown
 next to the promised case rather than instead of it.
 
@@ -266,7 +325,7 @@ with the first.
 - **Episodic period count.** Two defensible derivations differ by 60 percent.
 - **Mileage spend.** The current figure is invented and must be replaced.
 
-Beyond those, the largest genuinely unknown quantity is authorisation write-offs: visits delivered
+Beyond those, the largest genuinely unknown quantity is authorization write-offs: visits delivered
 outside a payer's backdating window and written off. Nobody counts it. It could be immaterial or it
 could be the largest single lever in the case.
 
@@ -280,7 +339,7 @@ benefit case does not require an ambitious spend case. The Levers sheet always s
 columns. The Baseline sheet lists what must be measured before any figure is committed, with the
 source system and the effort for each.
 
-One result worth knowing before you start: at maximum benefit against maximum cost the programme is
+One result worth knowing before you start: at maximum benefit against maximum cost the program is
 net negative over three years, because cost scales faster than benefit. The leverage is in holding
 cost down while pushing benefit, and the two largest cost swings are internal choices rather than
 vendor pricing.
@@ -304,11 +363,11 @@ The first phase is therefore identical whichever way the platform decision event
 2. Configure what we already own, and switch on what is switched off.
 3. Delete workflow that should not exist, where it is genuinely configurable.
 4. Install standard work, starting with payer rules at plan-of-care creation.
-5. Staff the actual constraint, which is authorisation, rather than harvesting scheduler headcount
+5. Staff the actual constraint, which is authorization, rather than harvesting scheduler headcount
    while the bottleneck sits upstream.
 6. Price the incumbent system's own scheduling module as a costed comparator in the vendor
    evaluation, even if it loses on capability.
 
-Then decide, against evidence, with a kill criterion committed in advance: if authorisation
-write-offs and floor leakage come back small and the pay-model analysis holds, the margin programme
+Then decide, against evidence, with a kill criterion committed in advance: if authorization
+write-offs and floor leakage come back small and the pay-model analysis holds, the margin program
 does not proceed.
