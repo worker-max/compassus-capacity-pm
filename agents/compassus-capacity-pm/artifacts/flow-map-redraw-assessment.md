@@ -1087,3 +1087,48 @@ temp tree — build in an ordinary directory.
 **What this sheet is not.** It is current state, like the rest of the set. It shows what a payer
 does to the schedule today, including the parts nobody can see. Nothing on it is a proposal, and
 the margin figures are shown to make a consequence visible, never to argue for a visit.
+
+## 28. The episode scenario sheets — and the first target-state material, 2 Sep
+
+Three sheets from one generator: current state, target state, and both side by side. They follow a
+single referral from Friday afternoon to the close of the first payment period, and they exist
+because the business case levers read as eight separate initiatives when listed and as one problem
+when placed on a timeline.
+
+**The organising claim.** Four points where money leaves, and they are the same failure each time:
+a deadline nobody can see until it has passed. Two admitting slots expire before the patient is
+ready. The plan of care is written blind to the payer budget and the visit floor. A cancellation
+leaves a gap the branch cannot fill inside the day. The period closes below the floor with a
+reassessment window missed.
+
+**On the narrative.** These are representative composites assembled from patterns documented in the
+discovery and whiteboard sessions and from the operator's own account: the Sunday deferral pattern,
+hospital discharges slipping, the clinician who shifted visits to her assistant for an admission
+where nobody had confirmed the patient was home. They are **not** named cases and the footer says
+so. Presenting an invented specific as an audited fact would not survive the first executive who
+asks which branch.
+
+**The target-state sheet breaks the set's standing rule deliberately.** Every other sheet carries
+*nothing on this sheet is a proposal*. This one carries the opposite, in capitals, because it is the
+first proposal material in the repository and the two must never be confused. The rule was not
+relaxed; it was inverted and labelled.
+
+**What the target sheet deliberately does not claim.** The patient still defers to Monday. The
+system does not change patient behaviour, and a sheet implying otherwise would be dismissed by
+anyone who has run a branch. What changes is that the released Saturday and Sunday slots reach
+waiting admissions the same morning, instead of expiring.
+
+**Conventions.** Outcome states are white ovals with an ink outline, never actor-coloured — the
+terminal states in bands 3 and 4 were actor-coloured in the first draft, which wrongly implied HCHB
+was acting when a period reprices. The consequence chips are white with an ink outline and carry
+their headline in a non-actor accent, brick for loss and green for gain; the outlines stay neutral
+so they cannot be read as a new actor colour.
+
+**On the combined sheet.** 4300 x 1830, a ratio of 2.35, outside the 1.25 to 1.5 guidance. That was
+tested rather than assumed: at that width both states fit at full type size with no narrative
+removed. Reducing the canvas to a normal ratio would have required cutting a step from each band,
+which was the one thing the operator ruled out. The trade is aspect ratio, not legibility. Use the
+pair for reading and slides, the comparison for the wall.
+
+**Build note.** `assets/build.py` needs playwright and a Linux Chromium path; on Windows use
+`assets/build_win.py`, which drives installed Chrome and takes the same arguments.
