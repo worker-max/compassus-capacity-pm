@@ -1132,3 +1132,39 @@ pair for reading and slides, the comparison for the wall.
 
 **Build note.** `assets/build.py` needs playwright and a Linux Chromium path; on Windows use
 `assets/build_win.py`, which drives installed Chrome and takes the same arguments.
+
+## 29. The scenario set completed — four families, twelve sheets, 2 Sep
+
+The episode sheet demonstrated four of the nine value levers. Three more families were added so the
+set covers all nine, each family drawn current state, target state, and side by side.
+
+**Why four families rather than one longer sheet.** Each lever has a natural unit of time, and a
+sheet that mixes them stops being readable. Admission throughput and the episode deadlines live on
+*one patient's episode*. Assessment capacity, retention and travel live on *one clinician's week*.
+Administrative cost and premium labor live on *one branch's week*. The weekend effect needs
+*Friday to the following Friday*. Forcing all nine onto one timeline would have required the wrong
+unit of time for at least six of them.
+
+| Family | Unit of time | Levers |
+|---|---|---|
+| One referral, one episode | A patient's episode | 1, 3, 4, 5 |
+| One clinician's week | Monday to Friday, one nurse | 2, 3, 8, 9 |
+| One branch's week | Monday to Friday, one branch | 1, 2, 6, 7 |
+| The weekend cascade | Friday to the following Friday | 1, in depth |
+
+**Every sheet now carries a coverage strip** naming its levers. On a wall this tells a reader which
+sheet answers which question, and stops any single sheet being mistaken for the whole case.
+
+**A shared kit was extracted.** `_scenario_kit.py` holds the shell — masthead, legend, band loop,
+outcome chips, summary panel, coverage strip — and each family is content plus a call. Four copies
+of the drawing code would have drifted within a week.
+
+**What the target sheets deliberately refuse to claim.** The patient still defers to Monday on the
+episode sheet. The family still defers on the weekend sheet. The clinician still calls out on the
+branch sheet. No target sheet claims the system changes what patients or clinicians decide; each
+changes only what the branch can see and how quickly it can respond. A sheet claiming otherwise
+would be dismissed by anyone who has run a branch, and rightly.
+
+**On the branch sheet's fourth band.** It ends on "the week looks fine" — every number defensible,
+every loss invisible. That is the sharpest frame in the set for why measurement precedes any
+platform decision, and it is the honest reason the initiative cannot be sized today.

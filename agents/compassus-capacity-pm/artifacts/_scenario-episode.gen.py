@@ -149,7 +149,7 @@ if MODE in ("current", "target"):
     CUR = MODE == "current"
     bands = CUR_BANDS if CUR else TGT_BANDS
     accent = LOSS if CUR else SAVE
-    W, H = 2600, 1760
+    W, H = 2600, 1880
     begin(W, H, aria=("One referral followed through a single episode, "
                       + ("current state, showing four points at which money leaves the business."
                          if CUR else
@@ -177,9 +177,16 @@ if MODE in ("current", "target"):
         column_rule(x - 14, P + 54, P + 70, accent)
         lbl(x - 14, P + 92, head, cls="colh")
         sublist(x - 20, P + 122, cur_items if CUR else tgt_items)
-    chip(2060, P + 40, 470, 110,
-         ["Representative composite,", "assembled from documented", "branch patterns."] if CUR
-         else ["A proposal.", "Nothing on this sheet", "is current state."], INK)
+    add(f'<rect x="2060" y="{P + 20}" width="470" height="112" rx="8" fill="none" '
+        f'stroke="{RULE}" stroke-width="1.6" stroke-dasharray="7 5"/>')
+    lbl(2080, P + 48, "LEVERS ON THIS SHEET", cls="colh")
+    for k, (tag, nm) in enumerate([("L1", "Admission Throughput"),
+                                   ("L3", "Same-Day Schedule Recovery"),
+                                   ("L4", "Episode Payment Protection"),
+                                   ("L5", "Reassessment Window Compliance")]):
+        yy = P + 72 + k * 19
+        add(f'<text x="2080" y="{yy}" class="sub" style="fill:{accent};font-weight:700">{tag}</text>')
+        add(f'<text x="2118" y="{yy}" class="sub">{esc(nm)}</text>')
     footer(("Current state, August 2026.  A representative composite of documented branch patterns, "
             "not a single named case.  Nothing on this sheet is a proposal."
             if CUR else
@@ -189,7 +196,7 @@ if MODE in ("current", "target"):
 
 # ════════════════════════════════════════════════════════════════ combined
 else:
-    W, H = 4300, 1830
+    W, H = 4300, 1950
     begin(W, H, aria="One referral through one episode, current state and target state side by side.")
     masthead("COMPASSUS HOME HEALTH  ·  CURRENT STATE AND TARGET STATE",
              "One referral, one episode  —  today, and eighteen months on",
@@ -221,6 +228,15 @@ else:
             column_rule(x - 14, P + 50, P + 66, acc)
             lbl(x - 14, P + 88, head, cls="colh")
             sublist(x - 20, P + 116, items)
+    add(f'<rect x="320" y="{P + 200}" width="1858" height="70" rx="8" fill="none" '
+        f'stroke="{RULE}" stroke-width="1.6" stroke-dasharray="7 5"/>')
+    lbl(340, P + 228, "LEVERS ON THIS SHEET", cls="colh")
+    xx = 340
+    for tag, nm in [("L1", "Admission Throughput"), ("L3", "Same-Day Schedule Recovery"),
+                    ("L4", "Episode Payment Protection"), ("L5", "Reassessment Window Compliance")]:
+        add(f'<text x="{xx}" y="{P + 252}" class="sub" style="fill:{INK};font-weight:700">{tag}</text>')
+        add(f'<text x="{xx + 32}" y="{P + 252}" class="sub">{esc(nm)}</text>')
+        xx += 42 + 7 * len(nm)
     footer("Left: current state, a representative composite of documented branch patterns.   "
            "Right: TARGET STATE, A PROPOSAL, eighteen months after implementation.",
            "Compassus Home Health  ·  One referral, one episode")
