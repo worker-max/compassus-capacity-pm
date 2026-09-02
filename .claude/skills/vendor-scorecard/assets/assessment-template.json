@@ -1,0 +1,289 @@
+{
+  "vendor": "",
+  "completed_by": "",
+  "scored_by": "",
+  "scored_on": "",
+  "summary": "Two to four sentences: what this product is, who it is for, and the single thing that decides whether it fits Compassus.",
+  "hchb": {
+    "rung": 0,
+    "cite": "A1",
+    "sync_latency_addressed": false,
+    "note": "Quote the sentence the rung was picked from. Rungs: 25 / 20 / 12 / 6 / 2 / 0."
+  },
+  "footprint": {
+    "CAP-01": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-02": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-03": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-04": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-05": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-06": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-07": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-08": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-09": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-10": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "CAP-11": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-01": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-02": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-03": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-04": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-05": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-06": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-07": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-08": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-09": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-10": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-11": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-12": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-13": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "SCH-14": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-01": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-02": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-03": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-04": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-05": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-06": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-07": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-08": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-09": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-10": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-11": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-13": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-12": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-14": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-15": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    },
+    "ENG-16": {
+      "mark": "none",
+      "cite": "",
+      "quote": ""
+    }
+  },
+  "sophistication": {
+    "S1": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "S2": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "S3": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "S4": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "S5": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    }
+  },
+  "clinician": {
+    "D1": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "D2": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "D3": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    }
+  },
+  "partnership": {
+    "P1": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "P2": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "P3": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    },
+    "P4": {
+      "score": 0,
+      "cite": "",
+      "note": ""
+    }
+  },
+  "differentiators": [],
+  "flags": [],
+  "unknowns": []
+}

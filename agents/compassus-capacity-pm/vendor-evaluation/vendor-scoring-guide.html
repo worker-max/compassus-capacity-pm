@@ -1,0 +1,280 @@
+<style>
+@page{size:2000pt 1457pt;margin:0}
+*{box-sizing:border-box}
+:root{
+  --ink:#1B211E;--muted:#5A6560;--rule:#C9CCC5;--paper:#FBFBF8;--band:#E9E9E5;
+  --gold:#C6A01F;--maroon:#792E2E;
+  --body:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+body{margin:0;background:#F2F3EF}
+.sheet{width:2000px;height:1457px;background:var(--paper);color:var(--ink);
+  font-family:var(--body);padding:54px 62px 0;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased}
+
+/* masthead */
+.hd{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:1.5px solid var(--ink);padding-bottom:16px}
+.eyebrow{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.17em;
+  color:#7C8781;margin:0 0 9px;text-transform:uppercase}
+h1{font-family:var(--display);font-size:52px;font-weight:400;margin:0;letter-spacing:-.012em}
+.deck{font-size:16px;color:var(--muted);margin:0;max-width:660px;text-align:right;line-height:1.5}
+
+/* the one idea */
+.idea{display:flex;align-items:baseline;gap:22px;margin:22px 0 26px}
+.idea p{margin:0;font-family:var(--display);font-size:27px;color:var(--ink);letter-spacing:-.008em}
+.idea p b{color:var(--gold);font-weight:400;font-style:italic}
+.idea span{font-family:var(--mono);font-size:12.5px;letter-spacing:.09em;color:var(--muted);
+  border-left:1px solid var(--rule);padding-left:22px;line-height:1.55;max-width:520px}
+
+/* columns */
+.cols{display:grid;grid-template-columns:1.06fr 1fr .82fr;gap:44px;flex:1;min-height:0}
+.col{display:flex;flex-direction:column;gap:26px;min-height:0}
+.blk{display:flex;flex-direction:column;min-height:0}
+.grow{flex:1}
+.grow>ul{flex:1;display:flex;flex-direction:column;justify-content:space-around}
+.spread{justify-content:space-between}
+.bh{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.15em;
+  color:var(--muted);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline}
+.bh em{font-style:normal;font-family:var(--body);font-size:13px;letter-spacing:0;
+  color:#8B948E;text-transform:none}
+ul{list-style:none;margin:0;padding:0}
+
+/* five parts */
+.parts li{display:grid;grid-template-columns:26px 1fr 92px 40px;
+  grid-template-areas:"n l b p" ". s s s";align-items:center;
+  padding:11px 0;border-bottom:1px solid #E4E6E0;column-gap:12px}
+.parts li:last-child{border-bottom:0}
+.pn{grid-area:n;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--c)}
+.pl{grid-area:l;font-size:17px;font-weight:600;color:var(--c)}
+.pbar{grid-area:b;height:7px;background:#E4E6E0;display:block;border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--c);border-radius:4px}
+.pp{grid-area:p;font-family:var(--display);font-size:25px;text-align:right;color:var(--c)}
+.ps{grid-area:s;font-size:12.5px;color:var(--muted);padding-top:3px}
+.total{display:flex;justify-content:space-between;align-items:baseline;
+  border-top:1.5px solid var(--ink);margin-top:4px;padding-top:11px}
+.total b{font-family:var(--mono);font-size:12.5px;letter-spacing:.15em}
+.total span{font-family:var(--display);font-size:31px}
+
+/* hchb ladder */
+.hchb{background:#FBF6E4;border:1px solid #E8D9A4;border-left:4px solid var(--gold);
+  padding:17px 20px 17px;margin-top:2px}
+.hchb .bh{border-bottom-color:#E4D6A8;color:#8A7220}
+.rungs li{display:grid;grid-template-columns:38px 1fr;grid-template-areas:"p l" ". d";
+  padding:7px 0;border-bottom:1px solid #EEE6CC;column-gap:12px}
+.rungs li:last-child{border-bottom:0}
+.rungs li.top{background:rgba(198,160,31,.13);margin:0 -8px;padding:8px 8px 8px 8px;
+  grid-template-columns:46px 1fr}
+.rp{grid-area:p;font-family:var(--display);font-size:21px;color:#8A7220;text-align:right}
+.rl{grid-area:l;font-size:14.5px;font-weight:600}
+.rd{grid-area:d;font-size:12.5px;color:#7A7458;line-height:1.42;padding-top:2px}
+
+/* arenas */
+.arena{border-top:3px solid var(--a);padding-top:11px;margin-bottom:15px}
+.arena .kick{font-family:var(--mono);font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--a);margin:0 0 4px;opacity:.85}
+.arena h4{margin:0;font-size:18px;font-weight:600;color:var(--a)}
+.arena .cnt{margin:3px 0 8px;font-size:12.5px;color:var(--muted)}
+.arena .cnt b{color:var(--ink)}
+.grp li{font-size:13px;color:var(--muted);padding:2.5px 0;display:flex;gap:10px}
+.gn{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--a);
+  min-width:16px;text-align:right;padding-top:1px}
+
+/* marks */
+.marks{display:flex;gap:10px;margin-top:2px}
+.marks div{flex:1;border:1px solid var(--rule);padding:9px 11px;background:#fff}
+.marks b{display:block;font-size:14px;margin-bottom:3px}
+.marks span{font-size:11.5px;color:var(--muted);line-height:1.38;display:block}
+.marks em{font-family:var(--display);font-size:17px;color:var(--ink);font-style:normal;
+  float:right;margin-top:-2px}
+
+/* ladder items */
+.ib{margin-bottom:13px}
+.ih{margin:0 0 5px;font-size:14.5px;font-weight:600;display:flex;align-items:baseline;gap:8px}
+.ih span{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--muted)}
+.ih em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:11px;
+  letter-spacing:.05em;color:#8B948E}
+.ib ul li{font-size:12.5px;color:var(--muted);padding:2.5px 0 2.5px 22px;line-height:1.4}
+.ib ul li b{font-family:var(--mono);font-size:11.5px;color:var(--ink);
+  margin-left:-22px;margin-right:7px}
+.ib ul li span{color:#8B948E}
+
+/* evidence ladder */
+.lad li{display:grid;grid-template-columns:30px 1fr;grid-template-areas:"n l" ". d";
+  padding:7.5px 0;border-bottom:1px solid #E4E6E0;column-gap:10px}
+.lad li:last-child{border-bottom:0}
+.ln{grid-area:n;font-family:var(--display);font-size:22px;color:var(--muted)}
+.ll{grid-area:l;font-size:14.5px;font-weight:600}
+.ld{grid-area:d;font-size:12.5px;color:var(--muted);line-height:1.42;padding-top:1px}
+.lad li:last-child .ln,.lad li:last-child .ll{color:var(--ink)}
+
+/* bands */
+.bands li{display:grid;grid-template-columns:1fr 74px;grid-template-areas:"l r" "d d";
+  background:var(--b);padding:8px 12px;margin-bottom:5px;column-gap:8px}
+.bl{grid-area:l;font-size:14.5px;font-weight:600}
+.br{grid-area:r;font-family:var(--mono);font-size:12.5px;text-align:right;
+  color:var(--muted);padding-top:2px}
+.bd{grid-area:d;font-size:12px;color:var(--muted)}
+.cond{border:1px solid var(--maroon);border-left:4px solid var(--maroon);
+  padding:11px 14px;margin-top:9px;background:#FCF6F6}
+.cond b{font-size:13.5px;color:var(--maroon);display:block;margin-bottom:3px}
+.cond span{font-size:12.5px;color:#6E5A5A;line-height:1.45;display:block}
+
+/* not scored */
+.ns li{display:grid;grid-template-columns:24px 1fr;grid-template-areas:"i l" ". d";
+  padding:8px 0;border-bottom:1px solid #E4E6E0;column-gap:8px}
+.ns li:last-child{border-bottom:0}
+.ns i{grid-area:i;font-style:normal;font-size:14px}
+.ns b{grid-area:l;font-size:14.5px}
+.ns span{grid-area:d;font-size:12.5px;color:var(--muted);line-height:1.42;padding-top:2px}
+
+/* footer */
+.ft{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.06em;color:#8B948E;border-top:1px solid var(--rule);
+  margin-top:26px;padding:13px 0 0}
+.ft em{font-style:italic;font-family:var(--body);letter-spacing:0;font-size:12.5px}
+</style>
+
+<section class="sheet">
+  <header class="hd">
+    <div><p class="eyebrow">Compassus &middot; Home Health &middot; Vendor Evaluation</p>
+      <h1>The Scoring Guide</h1></div>
+    <p class="deck">Sixteen returned questionnaires, one shortlist. Five parts, one hundred points,
+      and three lists that carry what a number cannot.</p>
+  </header>
+
+  <div class="idea">
+    <p>Every part is <b>a percentage times a budget.</b></p>
+    <span>One exception, on purpose: HCHB integration is a checkbox ladder, not a judgement &mdash;
+      so the priority cannot drift.</span>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="blk">
+        <p class="bh">THE FIVE PARTS <em>100 points</em></p>
+        <ul class="parts"><li style="--c:#C6A01F"><span class="pn">1</span>
+             <span class="pl">HCHB Integration</span>
+             <span class="pbar"><i style="width:83%"></i></span>
+             <span class="pp">25</span>
+             <span class="ps">A1</span></li><li style="--c:#1B211E"><span class="pn">2</span>
+             <span class="pl">Scope Footprint</span>
+             <span class="pbar"><i style="width:100%"></i></span>
+             <span class="pp">30</span>
+             <span class="ps">Section B + C</span></li><li style="--c:#1B211E"><span class="pn">3</span>
+             <span class="pl">Sophistication</span>
+             <span class="pbar"><i style="width:67%"></i></span>
+             <span class="pp">20</span>
+             <span class="ps">Section C · A2 · A3</span></li><li style="--c:#1B211E"><span class="pn">4</span>
+             <span class="pl">Clinician &amp; Adoption</span>
+             <span class="pbar"><i style="width:33%"></i></span>
+             <span class="pp">10</span>
+             <span class="ps">Section D</span></li><li style="--c:#1B211E"><span class="pn">5</span>
+             <span class="pl">Partnership</span>
+             <span class="pbar"><i style="width:50%"></i></span>
+             <span class="pp">15</span>
+             <span class="ps">Section E</span></li></ul>
+        <div class="total"><b>TOTAL</b><span>100</span></div>
+      </div>
+      <div class="blk hchb grow">
+        <p class="bh">1 &nbsp;·&nbsp; THE HCHB LADDER <em>tick one, from A1</em></p>
+        <ul class="rungs"><li class="top"><span class="rp">25</span>
+             <span class="rl">Live, bi-directional, multi-customer</span><span class="rd">More than one customer, reads <em>and</em> writes, published API / HL7 / FHIR, dated.</span></li><li><span class="rp">20</span>
+             <span class="rl">Live, single customer or one-way</span><span class="rd">In production &mdash; but one customer only, or it reads without writing back.</span></li><li><span class="rp">12</span>
+             <span class="rl">Live via a partner or a brittle method</span><span class="rd">Third party, flat file, direct database, or screen automation.</span></li><li><span class="rp">6</span>
+             <span class="rl">In development, dated</span><span class="rd">Building, with a committed date in the answer.</span></li><li><span class="rp">2</span>
+             <span class="rl">Roadmap, undated</span><span class="rd">Named as intent. No date, no commitment.</span></li><li><span class="rp">0</span>
+             <span class="rl">None, and no path</span><span class="rd">No integration and no credible route to one.</span></li></ul>
+      </div>
+    </div>
+
+    <div class="col spread">
+      <div class="blk">
+        <p class="bh">2 &nbsp;·&nbsp; SCOPE FOOTPRINT <em>41 elements &middot; 30 points</em></p>
+        
+        <article class="arena" style="--a:#1F6F78">
+          <header><p class="kick">The envelope</p>
+            <h4>Capacity Management</h4>
+            <p class="cnt"><b>11</b> elements &nbsp;·&nbsp; <b>10</b> points</p></header>
+          <ul class="grp"><li><span class="gn">5</span>Workforce supply</li><li><span class="gn">3</span>Availability & reach</li><li><span class="gn">3</span>The capacity math</li></ul>
+        </article>
+        <article class="arena" style="--a:#2E599D">
+          <header><p class="kick">Filling the envelope</p>
+            <h4>Scheduling Engine</h4>
+            <p class="cnt"><b>14</b> elements &nbsp;·&nbsp; <b>10</b> points</p></header>
+          <ul class="grp"><li><span class="gn">4</span>Demand</li><li><span class="gn">5</span>Matching</li><li><span class="gn">3</span>Routing & the week</li><li><span class="gn">2</span>Exceptions</li></ul>
+        </article>
+        <article class="arena" style="--a:#4E8A5B">
+          <header><p class="kick">Making it happen</p>
+            <h4>Engagement</h4>
+            <p class="cnt"><b>16</b> elements &nbsp;·&nbsp; <b>10</b> points</p></header>
+          <ul class="grp"><li><span class="gn">2</span>How this should run</li><li><span class="gn">6</span>Before the visit</li><li><span class="gn">4</span>When plans change</li><li><span class="gn">1</span>Incentives & offers</li><li><span class="gn">3</span>Across the care team</li></ul>
+        </article>
+        <div class="marks">
+          <div><b>Covered <em>1.0</em></b><span>Does it today. Stated plainly, or walked through
+            in Section C.</span></div>
+          <div><b>Partial <em>0.5</em></b><span>Adjacent, configurable, by a partner, roadmapped
+            &mdash; or claimed with no detail.</span></div>
+          <div><b>&mdash; <em>0</em></b><span>Absent, out of scope, or done by a person in their
+            model.</span></div>
+        </div>
+      </div>
+      <div class="blk">
+        <p class="bh">3&ndash;5 &nbsp;·&nbsp; THE TWELVE ITEMS <em>each on the ladder</em></p>
+        <div class="ib"><p class="ih"><span>3</span>Sophistication
+              <em>20 pts &nbsp;·&nbsp; ladder &times; 5</em></p>
+            <ul><li><b>S1</b> Automation posture <span>How much runs without a person?</span></li><li><b>S2</b> Decision depth <span>Does it reason, or display?</span></li><li><b>S3</b> Readiness &amp; rules <span>Ordered, but not yet schedulable.</span></li><li><b>S4</b> Recovery <span>Found, offered, filled &mdash; how fast?</span></li><li><b>S5</b> Enterprise trust <span>Uptime, outage, commitment, scale.</span></li></ul>
+         </div><div class="ib"><p class="ih"><span>4</span>Clinician &amp; Adoption
+              <em>10 pts &nbsp;·&nbsp; ladder &times; 3</em></p>
+            <ul><li><b>D1</b> What the clinician decides <span>Change, approve, or locked.</span></li><li><b>D2</b> Decide or advise <span>And how far a customer can move it.</span></li><li><b>D3</b> Adoption evidence <span>Six months of it, or an assertion.</span></li></ul>
+         </div><div class="ib"><p class="ih"><span>5</span>Partnership
+              <em>15 pts &nbsp;·&nbsp; ladder &times; 4</em></p>
+            <ul><li><b>P1</b> Sharing in the value <span>Structure and terms, or enthusiasm.</span></li><li><b>P2</b> Deployment &amp; change <span>Including the resistance story.</span></li><li><b>P3</b> What we did not ask <span>Do they see it better than we asked?</span></li><li><b>P4</b> What they chose not to build <span>Product judgement and candour.</span></li></ul>
+         </div>
+      </div>
+    </div>
+
+    <div class="col spread">
+      <div class="blk">
+        <p class="bh">THE EVIDENCE LADDER <em>parts 3, 4 and 5</em></p>
+        <ul class="lad"><li><span class="ln">0</span><span class="ll">Not addressed</span>
+             <span class="ld">Skipped, or answered without answering.</span></li><li><span class="ln">1</span><span class="ll">Asserted</span>
+             <span class="ld">They say they do it. Nothing behind it.</span></li><li><span class="ln">2</span><span class="ll">Described</span>
+             <span class="ld">We can picture the feature.</span></li><li><span class="ln">3</span><span class="ll">Mechanism</span>
+             <span class="ld">We can picture <em>how it decides</em> &mdash; inputs, logic, configuration.</span></li><li><span class="ln">4</span><span class="ll">Proven</span>
+             <span class="ld">Mechanism <strong>plus</strong> evidence: numbers, a named customer, a period, a baseline.</span></li></ul>
+      </div>
+      <div class="blk">
+        <p class="bh">BANDS</p>
+        <ul class="bands"><li style="--b:#DDEBE0"><span class="bl">Advance</span>
+             <span class="br">80&ndash;100</span><span class="bd">Demo, references, deeper diligence.</span></li><li style="--b:#F0F1EC"><span class="bl">Consider</span>
+             <span class="br">65&ndash;79</span><span class="bd">Only if a differentiator justifies it.</span></li><li style="--b:#F0F1EC"><span class="bl">Hold</span>
+             <span class="br">50&ndash;64</span><span class="bd">Park unless the field thins.</span></li><li style="--b:#F5E3E3"><span class="bl">Decline</span>
+             <span class="br">&lt; 50</span><span class="bd">Close out with thanks.</span></li></ul>
+        <div class="cond"><b>Conditional &mdash; HCHB under 12</b>
+          <span>Any band, but advancing means naming what we accept: an integration to be built,
+            on their timeline, at our risk. Ties break on HCHB, then Scheduling.</span></div>
+      </div>
+      <div class="blk">
+        <p class="bh">NOT SCORED <em>and often decisive</em></p>
+        <ul class="ns">
+          <li><i>&#9733;</i><b>Differentiators</b><span>Three to five lines. Against the field
+            &mdash; and against our own thinking.</span></li>
+          <li><i>&#9873;</i><b>Flags</b><span>Red is a stop-check. Yellow is a watch. Carried
+            beside the score, never buried inside it.</span></li>
+          <li><i>?</i><b>Unknowns</b><span>What they did not answer. It scores zero, and it
+            becomes the demo agenda.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ft">
+    <p><em>This scores a questionnaire, not a product &mdash; it decides who gets a demo, and
+      nothing more.</em></p>
+    <p>RUBRIC v1.0 &nbsp;·&nbsp; 41 SPEC ELEMENTS, OVERVIEW TAB &nbsp;·&nbsp;
+      FORM_VERSION 2026-08-19</p>
+  </footer>
+</section>
