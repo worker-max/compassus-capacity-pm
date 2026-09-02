@@ -1,0 +1,404 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capacity and Scheduling — Review Draft</title><style>
+:root{--ink:#1a1a1a;--navy:#1F3864;--mute:#5f6672;--rule:#dfe3e8;--paper:#fff;
+--wash:#f6f8fa;--tag:#e8eef7;--warm:#fff8e6;--warmline:#e0b32e;--cond:#fdf0ef;--condline:#c0524a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--wash);color:var(--ink);
+font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 28px 96px}
+header{background:var(--navy);color:#fff;padding:44px 0 38px;margin-bottom:34px}
+header .wrap{padding-bottom:0}
+h1{margin:0 0 6px;font-size:34px;letter-spacing:-.4px}
+.sub{font-size:18px;opacity:.85;margin:0}
+.note{background:var(--warm);border-left:4px solid var(--warmline);padding:14px 18px;
+border-radius:0 6px 6px 0;margin:26px 0;font-size:15px}
+h2{font-size:24px;color:var(--navy);margin:52px 0 6px;padding-bottom:10px;
+border-bottom:2px solid var(--rule)}
+h2 .lead{font-size:15px;color:var(--mute);font-weight:400;display:block;margin-top:8px;border:0}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;
+padding:22px 26px;margin:18px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.lever-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tag{background:var(--tag);color:var(--navy);font-weight:700;font-size:12px;letter-spacing:.6px;
+padding:4px 9px;border-radius:5px;white-space:nowrap}
+h3{margin:0;font-size:20px;color:var(--navy)}
+.def{color:#3d4450;font-style:italic;margin:12px 0 4px;padding-left:14px;
+border-left:3px solid var(--tag)}
+ul{margin:14px 0 0;padding-left:0;list-style:none}
+li{display:flex;gap:12px;margin:0 0 11px;align-items:flex-start}
+li .n{color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums;min-width:38px;
+padding-top:3px;font-weight:600}
+li .t{flex:1}
+.connect .t{font-weight:600}
+.connect .n{color:var(--navy)}
+.condition .t{background:var(--cond);border-left:3px solid var(--condline);padding:9px 13px;
+border-radius:0 5px 5px 0}
+.condition .n{color:var(--condline)}
+.mini{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+color:var(--mute);margin:20px 0 8px}
+.future{background:#fbfbfc}.future h3{color:#4a5262}
+.new{background:#e6f4ea;color:#1e6b34;font-size:10px;font-weight:700;letter-spacing:.5px;
+padding:3px 7px;border-radius:4px;margin-left:6px;vertical-align:2px}
+footer{margin-top:56px;padding-top:22px;border-top:2px solid var(--rule);color:var(--mute);font-size:14px}
+.howto{background:#eef4ff;border:1px solid #cddcfa;border-radius:10px;padding:18px 22px;margin:26px 0}
+.howto strong{color:var(--navy)}
+@media print{body{background:#fff}
+header{background:#fff;color:var(--navy);padding:0 0 18px;border-bottom:3px solid var(--navy)}
+.card{break-inside:avoid;box-shadow:none}.howto{display:none}}
+</style></head><body>
+<header><div class="wrap"><h1>Capacity and Scheduling</h1>
+<p class="sub">Value levers and measurement requirements &middot; review draft, second pass</p>
+</div></header><div class="wrap">
+<div class="howto"><strong>Review draft, second pass.</strong> Items marked
+<span class="new">UPDATED</span> changed since your last read. Every item is numbered, so mark up
+precisely and the Word version will be rebuilt to match. Note the levers renumbered when
+Assessment Capacity Release was added as L2.</div>
+<div class="note">A discussion document. It contains no figures by design. The first section sets
+out how this program creates financial value. The second sets out what we would need to request in
+order to size each item and to track it once underway.</div>
+<h2>Why scheduling is a financial system<span class="lead">Five characteristics of this business
+determine how the levers behave. Worth establishing before the list, because several items below
+read as counterintuitive without them.</span></h2>
+<div class="card"><ul>
+<li><span class="n">F.1</span><span class="t">We are paid in two fundamentally different ways depending on the insurer, and the two respond in opposite directions to the same operational change. Traditional Medicare pays a fixed amount for a period of care regardless of how many visits we deliver above a minimum. Every other insurer pays for each visit delivered, but only with permission granted in advance.</span></li>
+<li><span class="n">F.2</span><span class="t">Most of our clinicians are paid for each visit they complete rather than by salary. This means efficiency gains do not automatically become savings. They become available capacity, and capacity only becomes money if we fill it.</span></li>
+<li><span class="n">F.3</span><span class="t">Clinician capacity is perishable. An open slot on tomorrow&#x27;s schedule is like an empty seat on tomorrow&#x27;s flight. If it is not filled, it is gone, and it does not carry forward.</span></li>
+<li><span class="n">F.4</span><span class="t">Several of the ways we currently lose money are deadline-driven and invisible until the deadline has already passed. By the time we can see them, nothing can be done.</span></li>
+<li><span class="n">F.5</span><span class="t">A branch is either capacity-constrained or demand-constrained, and the correct strategy is opposite in each case. Several levers below only create value in the first state, and would do harm in the second. The system has to know which state a branch is in.</span></li>
+</ul></div>
+<h2>Section one &nbsp;&middot;&nbsp; Value levers</h2>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L1</span><h3>Admission Throughput<span class="new">UPDATED</span></h3></div>
+  <p class="def">Starting more patients on service using the clinicians we already employ, by shortening the time it takes to confirm that an admission will actually happen.</p>
+  <ul>
+<li class="connect"><span class="n">L1.1</span><span class="t">The connection: earlier certainty about which admissions are real means capacity is redirected while the day can still be used, rather than discovered empty the following morning.</span></li>
+<li><span class="n">L1.2</span><span class="t">A clinician&#x27;s open slot for tomorrow does not carry over to the next day. If it is not filled, that capacity is permanently lost.</span></li>
+<li><span class="n">L1.3</span><span class="t">Standardized welcome calls, made as early in the day as possible rather than waiting for office staff to work through a queue, are the single largest source of early warning we have.</span></li>
+<li><span class="n">L1.4</span><span class="t">Two things routinely change between a referral being accepted and care beginning. Anticipated hospital discharges are delayed, and patients who agreed to a next-day visit when sales confirmed frequently defer once the branch calls.</span></li>
+<li><span class="n">L1.5</span><span class="t">Both are discovered at the welcome call. The earlier that call happens, the more of the day remains to redirect that capacity to another admission rather than losing it.</span></li>
+<li><span class="n">L1.6</span><span class="t">This pattern is most pronounced at weekends. Sunday in particular carries a high rate of patients canceling or refusing the start-of-care visit and deferring to Monday.</span></li>
+<li><span class="n">L1.7</span><span class="t">Weekend admission performance has a disproportionate effect on the following week. A productive Saturday and Sunday materially changes Monday&#x27;s available capacity and can determine whether a branch meets its admission goal for that week.</span></li>
+<li><span class="n">L1.8</span><span class="t">Our referral system is improving how many referrals we accept. This lever addresses what happens after acceptance and before care begins.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L2</span><h3>Assessment Capacity Release<span class="new">UPDATED</span></h3></div>
+  <p class="def">Freeing clinicians qualified to perform admissions, therapy evaluations, and other assessment visits from routine visit work, by shifting those routine visits to paraprofessional staff who have availability.</p>
+  <ul>
+<li class="connect"><span class="n">L2.1</span><span class="t">The connection: assessment-capable clinicians are the true constraint on admissions. Moving routine work off their schedules converts existing staff time into admission capacity without hiring.</span></li>
+<li><span class="n">L2.2</span><span class="t">Only licensed assessing clinicians can perform admissions, resumptions of care, recertifications, discharges, and therapy evaluations. A large share of routine visits can be performed by a paraprofessional.</span></li>
+<li><span class="n">L2.3</span><span class="t">When assessing clinicians spend their week on routine visits, the branch forfeits admission capacity it already has and is paying for.</span></li>
+<li class="condition"><span class="n">L2.4</span><span class="t">Important condition: this only creates value when a branch is at capacity and at risk of declining referrals. If referrals are limited and clinicians are short of visits, shifting work away from them reduces their income and damages retention. That situation calls for a different strategy entirely.</span></li>
+<li><span class="n">L2.5</span><span class="t">The system therefore has to know which state each branch is in before recommending any shift. Getting this wrong in a demand-constrained branch would be actively harmful.</span></li>
+<li><span class="n">L2.6</span><span class="t">It also requires knowing paraprofessional availability accurately, which today is not visible in one place.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L3</span><h3>Same-Day Schedule Recovery</h3></div>
+  <p class="def">Refilling a clinician&#x27;s open time with comparable work when a patient cancels late, rather than losing that portion of the day.</p>
+  <ul>
+<li class="connect"><span class="n">L3.1</span><span class="t">The connection: an infrastructure that can identify and offer a suitable replacement visit quickly turns a lost afternoon into a delivered, billable visit.</span></li>
+<li><span class="n">L3.2</span><span class="t">When a patient cancels, rescheduling that patient is normally handled during the cancellation call. That is not the issue.</span></li>
+<li><span class="n">L3.3</span><span class="t">The issue is the gap left in the clinician&#x27;s day. Filling it requires knowing immediately which other patients are due, which are geographically close, which have insurer approval in place, and which visits are flexible enough to move.</span></li>
+<li><span class="n">L3.4</span><span class="t">Occasionally the right answer is bringing a visit forward from later in the week, which exchanges a gap we cannot fill today for one we have several days to fill.</span></li>
+<li><span class="n">L3.5</span><span class="t">Because most clinicians are paid per visit, an unfilled gap is lost income for them rather than lost revenue for us. This connects directly to the retention lever below.</span></li>
+<li><span class="n">L3.6</span><span class="t">This becomes more difficult as scheduling becomes more efficient. A tightly planned week has less slack to absorb a cancellation, so this capability must accompany the optimization rather than follow it.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L4</span><h3>Episode Payment Protection<span class="new">UPDATED</span></h3></div>
+  <p class="def">Preventing periods of care from closing below the minimum visit count Medicare requires for full payment, known as a LUPA.</p>
+  <ul>
+<li class="connect"><span class="n">L4.1</span><span class="t">The connection: visibility into a period&#x27;s visit count while days remain converts an after-the-fact write-down into a correctable operational issue.</span></li>
+<li><span class="n">L4.2</span><span class="t">Medicare pays a fixed amount for a period of care, but only if a minimum number of visits occurs. Fall below it and the period is repriced to a much lower per-visit amount. This is the Low Utilization Payment Adjustment, or LUPA.</span></li>
+<li><span class="n">L4.3</span><span class="t">Most shortfalls are by a single visit, and typically because a visit was missed or moved rather than because fewer visits were clinically necessary.</span></li>
+<li><span class="n">L4.4</span><span class="t">We currently discover this after the period has closed, when no remedy exists.</span></li>
+<li><span class="n">L4.5</span><span class="t">This is a tracking and visibility problem rather than a clinical one.</span></li>
+<li><span class="n">L4.6</span><span class="t">An important boundary: we would never add a visit a patient does not require in order to avoid a LUPA. Federal auditors specifically examine that pattern, and the only appropriate recoveries are visits that were clinically indicated and lost operationally.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L5</span><h3>Reassessment Window Compliance</h3></div>
+  <p class="def">Ensuring therapy reassessment visits occur inside their required windows, so that visits already delivered remain billable.</p>
+  <ul>
+<li class="connect"><span class="n">L5.1</span><span class="t">The connection: holding every episode deadline in one place, surfaced with lead time, prevents care we have already paid to deliver from becoming unbillable.</span></li>
+<li><span class="n">L5.2</span><span class="t">Therapy requires reassessment visits at defined points in an episode. If the reassessment does not occur within its window, visits already delivered cannot be billed.</span></li>
+<li><span class="n">L5.3</span><span class="t">This is the most damaging category of loss on this list. The work was performed, the clinician was paid for it, and the revenue is forfeited.</span></li>
+<li><span class="n">L5.4</span><span class="t">It is currently tracked manually by schedulers, competing for attention with a high volume of other daily tasks.</span></li>
+<li><span class="n">L5.5</span><span class="t">Structurally it is the same problem as the LUPA threshold: a deadline attached to an episode that no one can see approaching, discovered only after it has passed. One mechanism addresses both.</span></li>
+<li><span class="n">L5.6</span><span class="t">A useful question for the discussion: do we currently report how often this occurs, or what it costs us annually?</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L6</span><h3>Scheduling Administration Cost</h3></div>
+  <p class="def">The number of staff required to assign visits, once the repetitive portion of that work no longer requires human handling.</p>
+  <ul>
+<li class="connect"><span class="n">L6.1</span><span class="t">The connection: removing task volume that exists only because the system generates it reduces the headcount required to process it.</span></li>
+<li><span class="n">L6.2</span><span class="t">Schedulers currently spend the majority of their time processing a task queue rather than making scheduling decisions.</span></li>
+<li><span class="n">L6.3</span><span class="t">A single patient generates a separate task for each clinical discipline involved, and again at approval.</span></li>
+<li><span class="n">L6.4</span><span class="t">The function should not be eliminated entirely. Urgency, local knowledge, and coverage relationships still require judgment.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L7</span><h3>Premium Labor Avoidance<span class="new">UPDATED</span></h3></div>
+  <p class="def">Reduced spend on contract clinicians, per diem staff, and incentive payments made to employed clinicians for absorbing additional visits at short notice.</p>
+  <ul>
+<li class="connect"><span class="n">L7.1</span><span class="t">The connection: visibility into who has available capacity converts a reactive premium purchase into a planned assignment using staff already on the payroll.</span></li>
+<li><span class="n">L7.2</span><span class="t">Premium labor here means any spend above our standard visit rate to get a visit covered: contract clinicians, per diem staff, and non-visit activity payments used to incentivize employed clinicians to take on extra work.</span></li>
+<li><span class="n">L7.3</span><span class="t">When a clinician calls out early in the morning, no one can see who has room, so the branch either buys the most expensive coverage available or loses the visit.</span></li>
+<li><span class="n">L7.4</span><span class="t">One caveat worth stating plainly. Because most clinicians are paid per visit, the saving is the differential between our standard visit rate and the contract or incentive rate, not the full amount paid. In an organization with salaried clinicians this lever would be considerably larger.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L8</span><h3>Clinician Retention<span class="new">UPDATED</span></h3></div>
+  <p class="def">Reduced voluntary turnover, and the replacement cost that accompanies it, through a more predictable schedule, a more predictable income, and earlier visibility of clinicians who are struggling.</p>
+  <ul>
+<li class="connect"><span class="n">L8.1</span><span class="t">The connection: a stable weekly schedule produces a stable paycheck, and leadership visibility of productivity identifies a struggling clinician early enough to intervene rather than replace.</span></li>
+<li><span class="n">L8.2</span><span class="t">Because most of our clinicians are paid per visit, schedule volatility is income volatility.</span></li>
+<li><span class="n">L8.3</span><span class="t">Published research on home health nurses found that those with the most erratic week-to-week visit counts were significantly more likely to resign, and that stabilizing the schedule measurably reduced that risk.</span></li>
+<li><span class="n">L8.4</span><span class="t">The effect appeared only among full-time staff, which is consistent with the mechanism being income dependence rather than preference.</span></li>
+<li><span class="n">L8.5</span><span class="t">Risk is not confined to the first ninety days. It recurs at the six month and one year marks, and each has a different character. A clinician who has survived ramp-up may still leave when the income never quite reaches what was represented.</span></li>
+<li><span class="n">L8.6</span><span class="t">Leadership visibility of productivity does two things at once. It supports accountability, and it surfaces the early signs of a clinician who is struggling. The second is the one that keeps people.</span></li>
+<li><span class="n">L8.7</span><span class="t">Built correctly, this data supports and engages clinicians rather than only monitoring them. That distinction determines whether the tool is accepted or resisted.</span></li>
+<li><span class="n">L8.8</span><span class="t">Automated next-day visit confirmation removes a taxing task performed unpaid, in the evening, that has nothing to do with patient care.</span></li>
+<li><span class="n">L8.9</span><span class="t">It also removes a task many clinicians find genuinely difficult. Confirming visits well requires negotiation, and not every excellent clinician has the interpersonal strategies to secure the appointment times that make their day work.</span></li>
+<li><span class="n">L8.10</span><span class="t">A system that can negotiate a reluctant patient into a nine o&#x27;clock appointment anchors that clinician&#x27;s entire day. The value of that, in both work-life balance and clinical efficiency, is difficult to overstate.</span></li>
+<li><span class="n">L8.11</span><span class="t">This is the same mechanism as L3, viewed from the clinician&#x27;s side. Every unfilled opening is income a clinician expected and did not receive.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">L9</span><h3>Travel and Territory Efficiency</h3></div>
+  <p class="def">Fewer miles driven per visit, through better daily sequencing and territories defined by actual drive times rather than map boundaries.</p>
+  <ul>
+<li class="connect"><span class="n">L9.1</span><span class="t">The connection: territories and daily routes built on real travel times reduce reimbursable mileage and return productive time to clinicians.</span></li>
+<li><span class="n">L9.2</span><span class="t">Territories are currently drawn manually and revised infrequently. A day&#x27;s visits are grouped by distance rather than by actual travel time.</span></li>
+<li><span class="n">L9.3</span><span class="t">One caveat that matters for the arithmetic. Because most clinicians are paid per visit, time saved in the car belongs to the clinician, not to the company. What we recover directly is reimbursed mileage.</span></li>
+<li><span class="n">L9.4</span><span class="t">The time returned to clinicians becomes available capacity, which is captured in L1 and L2. Counting it in both places would overstate the case.</span></li>
+  </ul>
+</div>
+<h2>Identified but not yet quantified<span class="lead">Each is credible and deliberately carries no figure, because the data required to value it does not exist today.</span></h2>
+<div class="card future">
+  <div class="lever-head"><span class="tag">U1</span><h3>Clinician Recruitment Advantage</h3></div>
+  <p class="def">A hiring proposition improved by removing unpaid administrative burden and by making quoted earnings achievable in practice.</p>
+  <ul>
+<li><span class="n">U1.1</span><span class="t">The evening confirmation burden is removed, which is a tangible difference a candidate understands immediately.</span></li>
+<li><span class="n">U1.2</span><span class="t">A candidate quoted an expected income is considerably more likely to achieve it when their schedule is protected and cancellations are replaced.</span></li>
+<li><span class="n">U1.3</span><span class="t">Left unquantified because we do not currently track time to fill a vacancy, offer acceptance rates, or cost per hire.</span></li>
+  </ul>
+</div>
+<div class="card future">
+  <div class="lever-head"><span class="tag">U2</span><h3>Hospice Line Extension</h3></div>
+  <p class="def">Applying the same capacity and scheduling capability to the hospice business.</p>
+  <ul>
+<li><span class="n">U2.1</span><span class="t">Our prior working session concluded that hospice requires additional rules rather than a separate system.</span></li>
+<li><span class="n">U2.2</span><span class="t">This would extend the return at limited incremental cost, and is deliberately excluded until home health demonstrates the result.</span></li>
+  </ul>
+</div>
+<div class="card future">
+  <div class="lever-head"><span class="tag">U3</span><h3>Authorization Timing Write-Offs</h3></div>
+  <p class="def">Care delivered outside the window an insurer permits for retroactive approval, which cannot be billed.</p>
+  <ul>
+<li><span class="n">U3.1</span><span class="t">Insurers allow only a short period in which an approval can be backdated. Care delivered outside that window is written off.</span></li>
+<li><span class="n">U3.2</span><span class="t">This is not currently measured anywhere. It could prove immaterial, or it could be the largest item on this list.</span></li>
+<li><span class="n">U3.3</span><span class="t">It is the first item worth measuring, precisely because we do not know which it is.</span></li>
+  </ul>
+</div>
+<h2>Section two &nbsp;&middot;&nbsp; Measurement requirements<span class="lead">Baseline data is required once, to establish current performance and size the opportunity. Ongoing data is what we would monitor thereafter to confirm the result. These are different requests: the first is a one-time extract, the second is a reporting commitment that needs an owner.</span></h2>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D1</span><h3>Admission Throughput<span class="new">UPDATED</span></h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D1.1</span><span class="t">New patient starts per year, by branch and by month.</span></li>
+<li><span class="n">D1.2</span><span class="t">Time stamps at each step between accepting a referral and delivering the first visit: referral accepted, insurance verified, intake approved, welcome call completed, visit scheduled, visit delivered.</span></li>
+<li><span class="n">D1.3</span><span class="t">Time of day the welcome call is completed, and how long after intake approval it occurs.</span></li>
+<li><span class="n">D1.4</span><span class="t">How often an accepted referral does not convert to an admission on the expected day, split by cause: hospital discharge delayed, patient or caregiver deferred, and all other reasons.</span></li>
+<li><span class="n">D1.5</span><span class="t">Admission activity by day of week, including Saturday and Sunday, for at least twelve months. Weekend performance is a baseline requirement for this initiative rather than a detail.</span></li>
+<li><span class="n">D1.6</span><span class="t">Start-of-care visits refused or deferred by day of week, with Sunday reported separately.</span></li>
+<li><span class="n">D1.7</span><span class="t">The relationship between weekend admission performance and the following week&#x27;s capacity and admission attainment.</span></li>
+<li><span class="n">D1.8</span><span class="t">Referrals declined, with reason, separating capacity-driven declines from all others.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D1.9</span><span class="t">Median and worst-case time from referral acceptance to first visit, weekly.</span></li>
+<li><span class="n">D1.10</span><span class="t">Welcome calls completed before a defined hour of the day, as a proportion of the total.</span></li>
+<li><span class="n">D1.11</span><span class="t">Same-day deferral and refusal rate, by day of week.</span></li>
+<li><span class="n">D1.12</span><span class="t">Weekend admission attainment, and its effect on the following week.</span></li>
+<li><span class="n">D1.13</span><span class="t">Referrals declined for capacity, weekly, by branch.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D2</span><h3>Assessment Capacity Release<span class="new">UPDATED</span></h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D2.1</span><span class="t">Visits by discipline and by visit type, separating assessment visits from routine visits.</span></li>
+<li><span class="n">D2.2</span><span class="t">Which clinicians are credentialed and available to perform assessment visits, by branch.</span></li>
+<li><span class="n">D2.3</span><span class="t">The proportion of assessing clinicians&#x27; weekly schedules occupied by routine visits that a paraprofessional could have performed.</span></li>
+<li><span class="n">D2.4</span><span class="t">Paraprofessional availability against routine visit demand, by branch and by week.</span></li>
+<li><span class="n">D2.5</span><span class="t">Whether each branch is capacity-constrained or demand-constrained, week by week, over at least twelve months. This determines whether the lever applies at all.</span></li>
+<li><span class="n">D2.6</span><span class="t">Branch-level referral volume against admission capacity, to establish how often each state occurs.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D2.7</span><span class="t">Share of assessment-capable clinician time spent on routine visits, weekly.</span></li>
+<li><span class="n">D2.8</span><span class="t">Paraprofessional utilization against available capacity.</span></li>
+<li><span class="n">D2.9</span><span class="t">Branch state indicator, capacity-constrained or demand-constrained, weekly.</span></li>
+<li><span class="n">D2.10</span><span class="t">Admissions accepted that would previously have been declined.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D3</span><h3>Same-Day Schedule Recovery</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D3.1</span><span class="t">Canceled and missed visits: volume, and how far in advance of the visit the cancellation occurred.</span></li>
+<li><span class="n">D3.2</span><span class="t">Cancellation reason, separating patient-initiated from clinician-initiated.</span></li>
+<li><span class="n">D3.3</span><span class="t">Of those cancellations, how many left a gap in the clinician&#x27;s day that was never filled. This is the actual loss, and it is not captured in any current report.</span></li>
+<li><span class="n">D3.4</span><span class="t">Where a gap was filled, elapsed time from cancellation to replacement assignment.</span></li>
+<li><span class="n">D3.5</span><span class="t">How often a visit is brought forward from later in the week to cover a gap, and whether the resulting later gap was then filled.</span></li>
+<li><span class="n">D3.6</span><span class="t">Which visit types are genuinely flexible on timing, defined by clinical leadership rather than inferred from the system.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D3.7</span><span class="t">Cancellations per week, and the proportion leaving an unfilled gap.</span></li>
+<li><span class="n">D3.8</span><span class="t">Average elapsed time from cancellation to replacement assignment.</span></li>
+<li><span class="n">D3.9</span><span class="t">Clinician capacity lost to cancellation, per branch, per week.</span></li>
+<li><span class="n">D3.10</span><span class="t">Visits moved forward to cover a gap, and how often this created a second unfilled gap.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D4</span><h3>Episode Payment Protection<span class="new">UPDATED</span></h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D4.1</span><span class="t">Frequency of periods closing below the LUPA threshold, by branch.</span></li>
+<li><span class="n">D4.2</span><span class="t">For those that fell short, the size of the shortfall in visits.</span></li>
+<li><span class="n">D4.3</span><span class="t">For shortfalls of a single visit, whether the visit was missed, moved, or held pending insurer approval.</span></li>
+<li><span class="n">D4.4</span><span class="t">Cost to deliver a period of care, so the loss can be stated as margin rather than revenue.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D4.5</span><span class="t">Open periods currently tracking below the threshold, with days remaining.</span></li>
+<li><span class="n">D4.6</span><span class="t">Periods closing short in the prior month, with cause coded.</span></li>
+<li><span class="n">D4.7</span><span class="t">Proportion of shortfalls that were preventable, meaning a clinically indicated visit was lost rather than not required.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D5</span><h3>Reassessment Window Compliance</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D5.1</span><span class="t">Therapy reassessments completed outside the required window, by branch and by discipline.</span></li>
+<li><span class="n">D5.2</span><span class="t">Value of visits written off as a result.</span></li>
+<li><span class="n">D5.3</span><span class="t">How far past the window the late reassessments typically fell, since one day late and three weeks late are materially different problems.</span></li>
+<li><span class="n">D5.4</span><span class="t">Whether the miss originated in scheduling, clinician availability, or documentation.</span></li>
+<li><span class="n">D5.5</span><span class="t">How reassessment deadlines are tracked today, and by whom.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D5.6</span><span class="t">Reassessments due within the next two weeks, with status.</span></li>
+<li><span class="n">D5.7</span><span class="t">Proportion completed inside the window, monthly.</span></li>
+<li><span class="n">D5.8</span><span class="t">Write-off value attributable to missed reassessment windows, monthly.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D6</span><h3>Scheduling Administration Cost</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D6.1</span><span class="t">Ninety days of scheduler task records with start and completion times, grouped by task type.</span></li>
+<li><span class="n">D6.2</span><span class="t">Current scheduling headcount by branch, with fully loaded cost per role.</span></li>
+<li><span class="n">D6.3</span><span class="t">Distribution of task volume across those staff, since averages conceal where the load actually sits.</span></li>
+<li><span class="n">D6.4</span><span class="t">Which task types are non-actionable, meaning they are opened and closed with no action taken.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D6.5</span><span class="t">Tasks per scheduler per day, and time per task type.</span></li>
+<li><span class="n">D6.6</span><span class="t">Proportion of tasks closed with no action taken.</span></li>
+<li><span class="n">D6.7</span><span class="t">Scheduling headcount relative to branch volume.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D7</span><h3>Premium Labor Avoidance<span class="new">UPDATED</span></h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D7.1</span><span class="t">Contract clinician, per diem, and non-visit activity incentive spend for the trailing twelve months, by branch and discipline.</span></li>
+<li><span class="n">D7.2</span><span class="t">The proportion of that spend committed with less than twenty-four hours notice, which is the reactive portion this lever addresses.</span></li>
+<li><span class="n">D7.3</span><span class="t">Rate differential between our standard visit rate and the contract or incentive rate for an equivalent visit.</span></li>
+<li><span class="n">D7.4</span><span class="t">Frequency of visits going uncovered entirely rather than being covered at premium rates.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D7.5</span><span class="t">Premium spend per branch, monthly, split between planned and reactive.</span></li>
+<li><span class="n">D7.6</span><span class="t">Visits covered at premium rates, weekly.</span></li>
+<li><span class="n">D7.7</span><span class="t">Visits uncovered, weekly.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D8</span><h3>Clinician Retention<span class="new">UPDATED</span></h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D8.1</span><span class="t">Departures over the trailing twenty-four months, with date and length of service.</span></li>
+<li><span class="n">D8.2</span><span class="t">Departures grouped by tenure band: under ninety days, ninety days to six months, six months to one year, and beyond one year.</span></li>
+<li><span class="n">D8.3</span><span class="t">Replacement cost per clinician, by discipline.</span></li>
+<li><span class="n">D8.4</span><span class="t">Weekly visit counts per clinician for the trailing twelve months, which allows schedule stability to be calculated per individual.</span></li>
+<li><span class="n">D8.5</span><span class="t">Income quoted at hire against income actually earned at ninety days, at six months, and at one year.</span></li>
+<li><span class="n">D8.6</span><span class="t">Time clinicians spend on next-day visit confirmation, and when in the day or evening it occurs.</span></li>
+<li><span class="n">D8.7</span><span class="t">Visit start times by clinician, to establish how often a day is anchored with an early first visit.</span></li>
+<li><span class="n">D8.8</span><span class="t">Stated reasons for leaving, coded consistently rather than captured in free text.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D8.9</span><span class="t">Turnover rate monthly, by discipline and by tenure band.</span></li>
+<li><span class="n">D8.10</span><span class="t">Week-to-week variability in visit counts per clinician, as an early indicator of resignation risk.</span></li>
+<li><span class="n">D8.11</span><span class="t">Clinicians whose earnings are tracking below the income quoted at hire, at each of the three tenure marks.</span></li>
+<li><span class="n">D8.12</span><span class="t">Productivity trend per clinician, surfaced to leadership as a support signal rather than only as an accountability measure.</span></li>
+  </ul>
+</div>
+<div class="card ">
+  <div class="lever-head"><span class="tag">D9</span><h3>Travel and Territory Efficiency</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D9.1</span><span class="t">Miles and drive time per visit, by branch and discipline.</span></li>
+<li><span class="n">D9.2</span><span class="t">Total mileage reimbursement paid over the trailing twelve months.</span></li>
+<li><span class="n">D9.3</span><span class="t">How territories are currently defined, and when each was last reviewed.</span></li>
+<li><span class="n">D9.4</span><span class="t">Visits delivered outside the assigned clinician&#x27;s normal territory.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D9.5</span><span class="t">Miles per visit, monthly, by branch.</span></li>
+<li><span class="n">D9.6</span><span class="t">Mileage reimbursement relative to visit volume.</span></li>
+<li><span class="n">D9.7</span><span class="t">Proportion of visits falling outside the assigned territory.</span></li>
+  </ul>
+</div>
+<div class="card future">
+  <div class="lever-head"><span class="tag">D10</span><h3>Clinician Recruitment Advantage</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D10.1</span><span class="t">Time to fill a vacancy, by discipline and branch.</span></li>
+<li><span class="n">D10.2</span><span class="t">Offer acceptance rate, with stated reasons where offers are declined.</span></li>
+<li><span class="n">D10.3</span><span class="t">Recruiting cost per hire.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D10.4</span><span class="t">Time to fill, monthly.</span></li>
+<li><span class="n">D10.5</span><span class="t">Offer acceptance rate, monthly.</span></li>
+  </ul>
+</div>
+<div class="card future">
+  <div class="lever-head"><span class="tag">D11</span><h3>Authorization Timing Write-Offs</h3></div>
+  <p class="mini">Baseline</p>
+  <ul>
+<li><span class="n">D11.1</span><span class="t">Visits delivered that could not be billed because approval arrived outside the permitted window.</span></li>
+<li><span class="n">D11.2</span><span class="t">Elapsed days from our approval request to the insurer&#x27;s response, by insurer.</span></li>
+<li><span class="n">D11.3</span><span class="t">Visits held unscheduled pending approval, at a point in time.</span></li>
+  </ul>
+  <p class="mini">Ongoing measurement</p>
+  <ul>
+<li><span class="n">D11.4</span><span class="t">Write-offs attributable to late approval, monthly.</span></li>
+<li><span class="n">D11.5</span><span class="t">Approval turnaround by insurer, monthly.</span></li>
+<li><span class="n">D11.6</span><span class="t">Visits held pending approval, weekly.</span></li>
+  </ul>
+</div>
+<h2>On the scale of this request</h2><div class="card"><ul>
+<li><span class="n">S.1</span><span class="t">Every figure in a business case is one of three things: measured, published, or assumed. At present too many of ours are assumed.</span></li>
+<li><span class="n">S.2</span><span class="t">This list is what converts the assumed figures into measured ones.</span></li>
+<li><span class="n">S.3</span><span class="t">The majority already exists within systems we own and can be produced as extracts. A smaller number, particularly around canceled visits, reassessment windows, and weekend admission patterns, is not captured anywhere today and would require new instrumentation.</span></li>
+<li><span class="n">S.4</span><span class="t">Those gaps are notable in themselves. They are the areas where we currently cannot see the loss we are attempting to address.</span></li>
+</ul></div>
+<footer>Review draft, second pass. No figures included by design. Mark up by item number and the Word version will be rebuilt to match.</footer></div></body></html>
