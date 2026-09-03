@@ -57,6 +57,40 @@ PART = ["0 — Not answered",
         "4 — Open to equity or a stake in what we build, and set up to build it with us"]
 FLAGS = ["OK", "Watch", "STOP-CHECK"]
 
+# The worked example on tab 1. Invented vendors; every score below is computed by the sheet's
+# own formulas, not typed in.
+EXAMPLES = [
+    {"vendor": "Arbor Health Logistics",
+     "hchb": "Live — established customer base",
+     "CAP": "4 — More than half", "SCH": "5 — Most of it", "ENG": "2 — Less than half",
+     "SOPH": "4 — Runs it", "CLIN": "3 — Good fit",
+     "PART": "3 — Ready to build to our needs as a design partner; ownership not addressed",
+     "A2": "OK", "A3": "Watch", "C6": "OK",
+     "notes": ["Only answer that shows a branch leader the envelope impact of a referral before "
+               "accepting it.",
+               "Impact figures come from one site.",
+               "Would they discuss a stake? Never mentioned it."]},
+    {"vendor": "Wayfinder Scheduling",
+     "hchb": "Live — small customer base",
+     "CAP": "2 — Less than half", "SCH": "3 — About half", "ENG": "1 — A corner of it",
+     "SOPH": "3 — Recommends it", "CLIN": "2 — Workable",
+     "PART": "2 — Will take our input, but they own the roadmap and the product",
+     "A2": "STOP-CHECK", "A3": "Watch", "C6": "OK",
+     "notes": ["Strong routing engine, almost nothing on the patient side.",
+               "One customer, references not offered.",
+               "What does the day-before confirmation round cost in staff hours at our scale?"]},
+    {"vendor": "Northlight Health",
+     "hchb": "In development — with a date",
+     "CAP": "3 — About half", "SCH": "4 — More than half", "ENG": "3 — About half",
+     "SOPH": "3 — Recommends it", "CLIN": "3 — Good fit",
+     "PART": "4 — Open to equity or a stake in what we build, and set up to build it with us",
+     "A2": "OK", "A3": "OK", "C6": "Watch",
+     "notes": ["Raised payer-mix-aware sequencing — not on our one-pager, probably should be.",
+               "Integration is a promise on their timeline, not ours.",
+               "What exactly is committed on the integration date, and by whom?"]},
+]
+
+
 thin = Side(style="thin", color=RULE)
 med = Side(style="medium", color=INK)
 BOX = Border(thin, thin, thin, thin)
@@ -84,6 +118,244 @@ def put(ws, cell, value, font=None, align=None, fillc=None, border=None, fmt=Non
     if fmt:
         c.number_format = fmt
     return c
+
+
+def build_scorecard(wb, title, tab_colour, deck, prefill=None):
+    """The scoring grid. Built once, used for the worked example and the blank sheet."""
+    last = VCOLS[-1]
+    ws = wb.create_sheet(title)
+    ws.sheet_view.showGridLines = False
+    ws.sheet_properties.tabColor = tab_colour
+    ws.column_dimensions["A"].width = 3
+    ws.column_dimensions["B"].width = 12
+    ws.column_dimensions["C"].width = 34
+    ws.column_dimensions["D"].width = 44
+    for cl in VCOLS:
+        ws.column_dimensions[cl].width = 13
+
+    put(ws, "B2", "COMPASSUS  ·  HOME HEALTH", F(9, True, MUTED))
+    ws.row_dimensions[3].height = 26
+    put(ws, "B3", "Vendor Scorecard — Fast", F(18, True, INK))
+    ws.merge_cells(f"B4:{last}4")
+    put(ws, "B4", deck, F(9, False, MUTED, italic=True), LEFT)
+
+    r = 6
+    ws.row_dimensions[r].height = 42
+    put(ws, f"B{r}", "VENDOR", F(9, True, MUTED), Alignment(horizontal="left", vertical="bottom"))
+    for i, cl in enumerate(VCOLS, 1):
+        put(ws, f"{cl}{r}", f"Vendor {i:02d}", F(10, True, INK),
+            Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
+            Border(bottom=med))
+    r += 2
+
+    def band_row(row, text, colour, height=21):
+        ws.row_dimensions[row].height = height
+        ws.merge_cells(f"B{row}:{last}{row}")
+        put(ws, f"B{row}", text, F(9, True, "FFFFFF"),
+            Alignment(horizontal="left", vertical="center", indent=1), colour)
+
+    band_row(r, "SCORE", INK)
+    r += 1
+    ws.row_dimensions[r].height = 26
+    put(ws, f"B{r}", "TOTAL", F(12, True, INK), LEFT)
+    put(ws, f"C{r}", "of 100", F(9, False, MUTED), LEFT)
+    TOTAL = r
+    r += 1
+    put(ws, f"B{r}", "Band", F(10, True, INK), LEFT)
+    put(ws, f"C{r}", "80 Advance · 65 Consider · 50 Hold", F(9, False, MUTED), LEFT)
+    BANDR = r
+    r += 1
+    put(ws, f"B{r}", "Flags", F(10, True, MAROON), LEFT)
+    put(ws, f"C{r}", "stop-checks raised, of three", F(9, False, MUTED), LEFT)
+    FLAGR = r
+    r += 2
+
+    marks, flags = {}, {}
+
+    def q_row(row, qid, label, detail, colour=INK, tint=PAPER, height=19):
+        ws.row_dimensions[row].height = height
+        put(ws, f"B{row}", qid, F(10, True, colour), CTR)
+        put(ws, f"C{row}", label, F(10, False, INK), LEFT)
+        put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT)
+        for cl in VCOLS:
+            put(ws, f"{cl}{row}", None, F(9), CTR, tint, BOX)
+
+    band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
+    r += 1
+    q_row(r, "A1", "Home Care Home Base integration",
+          "Pick one line  ·  20 points", GOLD, "FFFDF4", 24)
+    marks["A1"] = r
+    r += 1
+    q_row(r, "A2", "Customers, scale and references",
+          "Flag  ·  stop-check if one customer or no references", MAROON, "FDF7F7")
+    flags["A2"] = r
+    r += 1
+    q_row(r, "A3", "Measured impact",
+          "Flag  ·  watch if no baseline or period", MAROON, "FDF7F7")
+    flags["A3"] = r
+    r += 2
+
+    band_row(r, "B  ·  COVERAGE SELF-ASSESSMENT   —   how much of our scope they cover", INK)
+    r += 1
+    for aid, name, areas, colour in [
+        ("CAP", "Capacity", "Workforce supply · availability & reach · the capacity math", CAP),
+        ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
+        ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
+    ]:
+        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  12 points", colour)
+        marks[aid] = r
+        r += 1
+    r += 1
+
+    band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
+    r += 1
+    q_row(r, "Section C", "Sophistication",
+          "How much of the work it does  ·  0–4  ·  20 points", PURPLE, PAPER, 24)
+    marks["SOPH"] = r
+    r += 1
+    q_row(r, "C6", "When your product is down",
+          "Flag  ·  stop-check if no uptime figure or commitment", MAROON, "FDF7F7")
+    flags["C6"] = r
+    r += 2
+
+    band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
+    r += 1
+    q_row(r, "D1–D3", "Clinician fit", "Our read of fit  ·  0–4  ·  12 points",
+          INK, PAPER, 24)
+    marks["CLIN"] = r
+    r += 2
+
+    band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
+    r += 1
+    q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake  ·  0–4  ·  12 points",
+          INK, PAPER, 24)
+    marks["PART"] = r
+    r += 2
+
+    band_row(r, "NOTES   —   one line each.  This is what we go and ask.", MAROON)
+    r += 1
+    note_rows = []
+    for label, hint in [("What stands out", "against the field, or against our own thinking"),
+                        ("What worries me", "including anything flagged above"),
+                        ("What to go and ask", "the demo agenda")]:
+        note_rows.append(r)
+        ws.row_dimensions[r].height = 62
+        put(ws, f"B{r}", "", F(10))
+        put(ws, f"C{r}", label, F(10, True, MAROON), LEFT_T)
+        put(ws, f"D{r}", hint, F(9, False, MUTED, italic=True), LEFT_T)
+        for cl in VCOLS:
+            put(ws, f"{cl}{r}", None, F(9), LEFT_T, PAPER, BOX)
+        r += 1
+    LAST_ROW = r
+
+    # ── formulas ──
+    def num(cell):
+        return f"IFERROR(VALUE(LEFT({cell},1)),0)"
+
+    WEIGHTS = [("CAP", 5, 12), ("SCH", 5, 12), ("ENG", 5, 12),
+               ("SOPH", 4, 20), ("CLIN", 4, 12), ("PART", 4, 12)]
+    for cl in VCOLS:
+        hchb = f"IFERROR(VLOOKUP({cl}{marks['A1']},Lists!$B$2:$C$7,2,FALSE),0)"
+        pieces = [hchb]
+        for key, top, worth in WEIGHTS:
+            cell = f"{cl}{marks[key]}"
+            pieces.append(f"IFERROR(VALUE(LEFT({cell},1)),0)/{top}*{worth}")
+        # An untouched column stays blank rather than reporting 0.0 / Conditional — Decline.
+        started = f'{cl}{marks["A1"]}=""'
+        put(ws, f"{cl}{TOTAL}", f'=IF({started},"",' + "+".join(pieces) + ")",
+            F(14, True, INK), CTR, "FFFFFF",
+            Border(top=med, bottom=med, left=thin, right=thin), "0.0")
+        put(ws, f"{cl}{BANDR}",
+            f'=IF({started},"",IF({hchb}<12,"Conditional — ","")&'
+            f'IF({cl}{TOTAL}>=80,"Advance",IF({cl}{TOTAL}>=65,"Consider",'
+            f'IF({cl}{TOTAL}>=50,"Hold","Decline"))))',
+            F(9, True, MAROON), CTR, BAND, BOX)
+        stops = "+".join(f'IF({cl}{rr}="STOP-CHECK",1,0)' for rr in flags.values())
+        put(ws, f"{cl}{FLAGR}", f'=IF({started},"",{stops})',
+            F(10, True, MAROON), CTR, BAND, BOX, "0")
+
+    # ── validation ──
+    dvs = [
+        (DataValidation(type="list", formula1="=Lists!$B$2:$B$7", allow_blank=True,
+                        showDropDown=False, promptTitle="A1 — Home Care Home Base",
+                        prompt="Pick one line. Ambiguous? Take the lower one and say so in Notes."),
+         [marks["A1"]]),
+        (DataValidation(type="list", formula1="=Lists!$E$2:$E$7", allow_blank=True,
+                        showDropDown=False, promptTitle="Scope, 0–5",
+                        prompt="How much of this arena they cover. Most of it is the ceiling — our spec "
+                               "is original, so nobody covers all of it."),
+         [marks["CAP"], marks["SCH"], marks["ENG"]]),
+        (DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
+                        showDropDown=False, promptTitle="Sophistication, 0–4",
+                        prompt="1 shows it · 2 checks it · 3 recommends it · 4 runs it. Score what "
+                               "the product does, not how much they wrote about it."),
+         [marks["SOPH"]]),
+        (DataValidation(type="list", formula1="=Lists!$I$2:$I$6", allow_blank=True,
+                        showDropDown=False, promptTitle="Clinician fit, 0–4",
+                        prompt="Read D1 to D3 and give it your own read of fit. There is no "
+                               "checklist here on purpose."),
+         [marks["CLIN"]]),
+        (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
+                        showDropDown=False, promptTitle="Partnership, 0–4",
+                        prompt="Are they able and willing to build this with us, and open to us holding "
+                               "a stake in what a wider market might buy? A discount is a discount."),
+         [marks["PART"]]),
+        (DataValidation(type="list", formula1='"OK,Watch,STOP-CHECK"', allow_blank=True,
+                        showDropDown=False, promptTitle="Flag",
+                        prompt="A stop-check is resolved before advancing, not traded against points."),
+         list(flags.values())),
+    ]
+    for dv, rows_ in dvs:
+        ws.add_data_validation(dv)
+        for rr in rows_:
+            dv.add(f"{VCOLS[0]}{rr}:{last}{rr}")
+
+    # ── conditional formatting ──
+    ws.conditional_formatting.add(f"{VCOLS[0]}{TOTAL}:{last}{TOTAL}", ColorScaleRule(
+        start_type="num", start_value=40, start_color="F5E3E3",
+        mid_type="num", mid_value=65, mid_color="FBF3DD",
+        end_type="num", end_value=90, end_color="DDEBE0"))
+    ws.conditional_formatting.add(
+        f"{VCOLS[0]}{BANDR}:{last}{BANDR}",
+        FormulaRule(formula=[f'ISNUMBER(SEARCH("Conditional",{VCOLS[0]}{BANDR}))'],
+                    font=Font(bold=True, color="FFFFFF"),
+                    fill=PatternFill("solid", fgColor=MAROON)))
+    ws.conditional_formatting.add(
+        f"{VCOLS[0]}{FLAGR}:{last}{FLAGR}",
+        FormulaRule(formula=[f"{VCOLS[0]}{FLAGR}>0"], font=Font(bold=True, color="FFFFFF"),
+                    fill=PatternFill("solid", fgColor=MAROON)))
+    for rr in list(flags.values()):
+        ws.conditional_formatting.add(
+            f"{VCOLS[0]}{rr}:{last}{rr}",
+            FormulaRule(formula=[f'{VCOLS[0]}{rr}="STOP-CHECK"'],
+                        font=Font(bold=True, color="7A2020"),
+                        fill=PatternFill("solid", fgColor="F5D9D9")))
+    for key, hi in [("CAP", CAP), ("SCH", SCH), ("ENG", ENG)]:
+        rr = marks[key]
+        ws.conditional_formatting.add(f"{VCOLS[0]}{rr}:{last}{rr}", ColorScaleRule(
+            start_type="num", start_value=0, start_color="FFFFFF",
+            end_type="num", end_value=5, end_color=hi))
+
+    ws.freeze_panes = f"{VCOLS[0]}7"
+    ws.sheet_view.zoomScale = 90
+
+    # ── optional worked example ──
+    if prefill:
+        for i, v in enumerate(prefill):
+            cl = VCOLS[i]
+            put(ws, f"{cl}6", v["vendor"], F(10, True, INK),
+                Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
+                Border(bottom=med))
+            ws[f"{cl}{marks['A1']}"] = v["hchb"]
+            for key in ("CAP", "SCH", "ENG", "SOPH", "CLIN", "PART"):
+                ws[f"{cl}{marks[key]}"] = v[key]
+            for key in ("A2", "A3", "C6"):
+                ws[f"{cl}{flags[key]}"] = v[key]
+            for rr, text in zip(note_rows, v["notes"]):
+                ws[f"{cl}{rr}"] = text
+
+    return marks, flags, LAST_ROW
+
 
 
 def main():
@@ -240,218 +512,16 @@ def main():
     put(gs, f"B{gr + 1}", "Fast scorecard v2.0  ·  questionnaire form_version 2026-08-19",
         F(9, False, MUTED, italic=True))
 
-    # ══════════════════════════════════════════════════ 2 · SCORECARD
-    ws = wb.create_sheet("Scorecard")
-    ws.sheet_view.showGridLines = False
-    ws.sheet_properties.tabColor = INK
-    ws.column_dimensions["A"].width = 3
-    ws.column_dimensions["B"].width = 12
-    ws.column_dimensions["C"].width = 34
-    ws.column_dimensions["D"].width = 44
-    for cl in VCOLS:
-        ws.column_dimensions[cl].width = 13
-
-    put(ws, "B2", "COMPASSUS  ·  HOME HEALTH", F(9, True, MUTED))
-    ws.row_dimensions[3].height = 26
-    put(ws, "B3", "Vendor Scorecard — Fast", F(18, True, INK))
-    ws.merge_cells(f"B4:{last}4")
-    put(ws, "B4", "The rows are the questionnaire, in order. Seven take a mark; three raise a flag; "
-                  "the rest are notes. Grey cells are formulas.",
-        F(9, False, MUTED, italic=True), LEFT)
-
-    r = 6
-    ws.row_dimensions[r].height = 42
-    put(ws, f"B{r}", "VENDOR", F(9, True, MUTED), Alignment(horizontal="left", vertical="bottom"))
-    for i, cl in enumerate(VCOLS, 1):
-        put(ws, f"{cl}{r}", f"Vendor {i:02d}", F(10, True, INK),
-            Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
-            Border(bottom=med))
-    r += 2
-
-    def band_row(row, text, colour, height=21):
-        ws.row_dimensions[row].height = height
-        ws.merge_cells(f"B{row}:{last}{row}")
-        put(ws, f"B{row}", text, F(9, True, "FFFFFF"),
-            Alignment(horizontal="left", vertical="center", indent=1), colour)
-
-    band_row(r, "SCORE", INK)
-    r += 1
-    ws.row_dimensions[r].height = 26
-    put(ws, f"B{r}", "TOTAL", F(12, True, INK), LEFT)
-    put(ws, f"C{r}", "of 100", F(9, False, MUTED), LEFT)
-    TOTAL = r
-    r += 1
-    put(ws, f"B{r}", "Band", F(10, True, INK), LEFT)
-    put(ws, f"C{r}", "80 Advance · 65 Consider · 50 Hold", F(9, False, MUTED), LEFT)
-    BANDR = r
-    r += 1
-    put(ws, f"B{r}", "Flags", F(10, True, MAROON), LEFT)
-    put(ws, f"C{r}", "stop-checks raised, of three", F(9, False, MUTED), LEFT)
-    FLAGR = r
-    r += 2
-
-    marks, flags = {}, {}
-
-    def q_row(row, qid, label, detail, colour=INK, tint=PAPER, height=19):
-        ws.row_dimensions[row].height = height
-        put(ws, f"B{row}", qid, F(10, True, colour), CTR)
-        put(ws, f"C{row}", label, F(10, False, INK), LEFT)
-        put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT)
-        for cl in VCOLS:
-            put(ws, f"{cl}{row}", None, F(9), CTR, tint, BOX)
-
-    band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
-    r += 1
-    q_row(r, "A1", "Home Care Home Base integration",
-          "Pick one line  ·  20 points", GOLD, "FFFDF4", 24)
-    marks["A1"] = r
-    r += 1
-    q_row(r, "A2", "Customers, scale and references",
-          "Flag  ·  stop-check if one customer or no references", MAROON, "FDF7F7")
-    flags["A2"] = r
-    r += 1
-    q_row(r, "A3", "Measured impact",
-          "Flag  ·  watch if no baseline or period", MAROON, "FDF7F7")
-    flags["A3"] = r
-    r += 2
-
-    band_row(r, "B  ·  COVERAGE SELF-ASSESSMENT   —   how much of our scope they cover", INK)
-    r += 1
-    for aid, name, areas, colour in [
-        ("CAP", "Capacity", "Workforce supply · availability & reach · the capacity math", CAP),
-        ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
-        ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
-    ]:
-        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  12 points", colour)
-        marks[aid] = r
-        r += 1
-    r += 1
-
-    band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
-    r += 1
-    q_row(r, "Section C", "Sophistication",
-          "How much of the work it does  ·  0–4  ·  20 points", PURPLE, PAPER, 24)
-    marks["SOPH"] = r
-    r += 1
-    q_row(r, "C6", "When your product is down",
-          "Flag  ·  stop-check if no uptime figure or commitment", MAROON, "FDF7F7")
-    flags["C6"] = r
-    r += 2
-
-    band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
-    r += 1
-    q_row(r, "D1–D3", "Clinician fit", "Our read of fit  ·  0–4  ·  12 points",
-          INK, PAPER, 24)
-    marks["CLIN"] = r
-    r += 2
-
-    band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
-    r += 1
-    q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake  ·  0–4  ·  12 points",
-          INK, PAPER, 24)
-    marks["PART"] = r
-    r += 2
-
-    band_row(r, "NOTES   —   one line each.  This is what we go and ask.", MAROON)
-    r += 1
-    for label, hint in [("What stands out", "against the field, or against our own thinking"),
-                        ("What worries me", "including anything flagged above"),
-                        ("What to go and ask", "the demo agenda")]:
-        ws.row_dimensions[r].height = 62
-        put(ws, f"B{r}", "", F(10))
-        put(ws, f"C{r}", label, F(10, True, MAROON), LEFT_T)
-        put(ws, f"D{r}", hint, F(9, False, MUTED, italic=True), LEFT_T)
-        for cl in VCOLS:
-            put(ws, f"{cl}{r}", None, F(9), LEFT_T, PAPER, BOX)
-        r += 1
-    LAST_ROW = r
-
-    # ── formulas ──
-    def num(cell):
-        return f"IFERROR(VALUE(LEFT({cell},1)),0)"
-
-    WEIGHTS = [("CAP", 5, 12), ("SCH", 5, 12), ("ENG", 5, 12),
-               ("SOPH", 4, 20), ("CLIN", 4, 12), ("PART", 4, 12)]
-    for cl in VCOLS:
-        hchb = f"IFERROR(VLOOKUP({cl}{marks['A1']},Lists!$B$2:$C$7,2,FALSE),0)"
-        pieces = [hchb]
-        for key, top, worth in WEIGHTS:
-            cell = f"{cl}{marks[key]}"
-            pieces.append(f"IFERROR(VALUE(LEFT({cell},1)),0)/{top}*{worth}")
-        put(ws, f"{cl}{TOTAL}", "=" + "+".join(pieces), F(14, True, INK), CTR, "FFFFFF",
-            Border(top=med, bottom=med, left=thin, right=thin), "0.0")
-        put(ws, f"{cl}{BANDR}",
-            f'=IF({hchb}<12,"Conditional — ","")&'
-            f'IF({cl}{TOTAL}>=80,"Advance",IF({cl}{TOTAL}>=65,"Consider",'
-            f'IF({cl}{TOTAL}>=50,"Hold","Decline")))',
-            F(9, True, MAROON), CTR, BAND, BOX)
-        stops = "+".join(f'IF({cl}{rr}="STOP-CHECK",1,0)' for rr in flags.values())
-        put(ws, f"{cl}{FLAGR}", f"=({stops})", F(10, True, MAROON), CTR, BAND, BOX, "0")
-
-    # ── validation ──
-    dvs = [
-        (DataValidation(type="list", formula1="=Lists!$B$2:$B$7", allow_blank=True,
-                        showDropDown=False, promptTitle="A1 — Home Care Home Base",
-                        prompt="Pick one line. Ambiguous? Take the lower one and say so in Notes."),
-         [marks["A1"]]),
-        (DataValidation(type="list", formula1="=Lists!$E$2:$E$7", allow_blank=True,
-                        showDropDown=False, promptTitle="Scope, 0–5",
-                        prompt="How much of this arena they cover. Most of it is the ceiling — our spec "
-                               "is original, so nobody covers all of it."),
-         [marks["CAP"], marks["SCH"], marks["ENG"]]),
-        (DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
-                        showDropDown=False, promptTitle="Sophistication, 0–4",
-                        prompt="1 shows it · 2 checks it · 3 recommends it · 4 runs it. Score what "
-                               "the product does, not how much they wrote about it."),
-         [marks["SOPH"]]),
-        (DataValidation(type="list", formula1="=Lists!$I$2:$I$6", allow_blank=True,
-                        showDropDown=False, promptTitle="Clinician fit, 0–4",
-                        prompt="Read D1 to D3 and give it your own read of fit. There is no "
-                               "checklist here on purpose."),
-         [marks["CLIN"]]),
-        (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
-                        showDropDown=False, promptTitle="Partnership, 0–4",
-                        prompt="Are they able and willing to build this with us, and open to us holding "
-                               "a stake in what a wider market might buy? A discount is a discount."),
-         [marks["PART"]]),
-        (DataValidation(type="list", formula1='"OK,Watch,STOP-CHECK"', allow_blank=True,
-                        showDropDown=False, promptTitle="Flag",
-                        prompt="A stop-check is resolved before advancing, not traded against points."),
-         list(flags.values())),
-    ]
-    for dv, rows_ in dvs:
-        ws.add_data_validation(dv)
-        for rr in rows_:
-            dv.add(f"{VCOLS[0]}{rr}:{last}{rr}")
-
-    # ── conditional formatting ──
-    ws.conditional_formatting.add(f"{VCOLS[0]}{TOTAL}:{last}{TOTAL}", ColorScaleRule(
-        start_type="num", start_value=40, start_color="F5E3E3",
-        mid_type="num", mid_value=65, mid_color="FBF3DD",
-        end_type="num", end_value=90, end_color="DDEBE0"))
-    ws.conditional_formatting.add(
-        f"{VCOLS[0]}{BANDR}:{last}{BANDR}",
-        FormulaRule(formula=[f'ISNUMBER(SEARCH("Conditional",{VCOLS[0]}{BANDR}))'],
-                    font=Font(bold=True, color="FFFFFF"),
-                    fill=PatternFill("solid", fgColor=MAROON)))
-    ws.conditional_formatting.add(
-        f"{VCOLS[0]}{FLAGR}:{last}{FLAGR}",
-        FormulaRule(formula=[f"{VCOLS[0]}{FLAGR}>0"], font=Font(bold=True, color="FFFFFF"),
-                    fill=PatternFill("solid", fgColor=MAROON)))
-    for rr in list(flags.values()):
-        ws.conditional_formatting.add(
-            f"{VCOLS[0]}{rr}:{last}{rr}",
-            FormulaRule(formula=[f'{VCOLS[0]}{rr}="STOP-CHECK"'],
-                        font=Font(bold=True, color="7A2020"),
-                        fill=PatternFill("solid", fgColor="F5D9D9")))
-    for key, hi in [("CAP", CAP), ("SCH", SCH), ("ENG", ENG)]:
-        rr = marks[key]
-        ws.conditional_formatting.add(f"{VCOLS[0]}{rr}:{last}{rr}", ColorScaleRule(
-            start_type="num", start_value=0, start_color="FFFFFF",
-            end_type="num", end_value=5, end_color=hi))
-
-    ws.freeze_panes = f"{VCOLS[0]}7"
-    ws.sheet_view.zoomScale = 90
+    # ══════════════════════════════════════════════════ 2 · EXAMPLE, 3 · SCORECARD
+    build_scorecard(
+        wb, "Example", MAROON,
+        "A worked example. These three vendors are invented — the scores beside them are this "
+        "sheet's own formulas. Score on the Scorecard tab, not this one.",
+        prefill=EXAMPLES)
+    marks, flags, LAST_ROW = build_scorecard(
+        wb, "Scorecard", INK,
+        "The rows are the questionnaire, in order. Seven take a mark; three raise a flag; "
+        "the rest are notes. Grey cells are formulas.")
 
     # ══════════════════════════════════════════════════ 3 · LISTS
     ls = wb.create_sheet("Lists")
@@ -468,6 +538,7 @@ def main():
     for col in "BEGIK":
         ls.column_dimensions[col].width = 48
 
+    wb.move_sheet("Start Here", offset=2)
     wb.active = 0
     wb.save(OUT)
     print(f"wrote {OUT}")
