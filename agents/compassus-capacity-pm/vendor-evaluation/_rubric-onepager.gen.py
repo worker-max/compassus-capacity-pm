@@ -22,7 +22,7 @@ MARKS = [
     ("Section B", "Capacity", "12", CAP),
     ("Section B", "Scheduling", "12", SCH),
     ("Section B", "Engagement", "12", ENG),
-    ("C1&ndash;C5, C7", "Sophistication", "20", PURPLE),
+    ("Section C", "Sophistication", "20", PURPLE),
     ("D1&ndash;D3", "Clinician fit", "12", INK),
     ("E1&ndash;E4", "Partnership", "12", INK),
 ]
@@ -42,7 +42,7 @@ SCALES = [
         ("2", "Less than half"),
         ("1", "A corner of it"),
         ("0", "Nothing here")]),
-     ("Sophistication &nbsp;<em>C1&ndash;C5, C7</em>", PURPLE, [
+     ("Sophistication &nbsp;<em>Section C</em>", PURPLE, [
         ("4", "Runs it &mdash; decides across the whole picture"),
         ("3", "Recommends it &mdash; proposes; a person confirms"),
         ("2", "Checks it &mdash; applies rules, flags problems"),

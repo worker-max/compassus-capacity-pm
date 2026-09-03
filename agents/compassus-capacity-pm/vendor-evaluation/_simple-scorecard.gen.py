@@ -124,7 +124,7 @@ def main():
         ("row", "Section B", "Capacity — how much of it they cover", "12"),
         ("row", "Section B", "Scheduling — how much of it they cover", "12"),
         ("row", "Section B", "Engagement — how much of it they cover", "12"),
-        ("row", "C1–C5, C7", "Sophistication — how much of the work the product does", "20"),
+        ("row", "Section C", "Sophistication — how much of the work the product does", "20"),
         ("row", "D1–D3", "Clinician fit", "12"),
         ("row", "E1–E4", "Partnership", "12"),
         ("row", "", "TOTAL", "100"),
@@ -139,8 +139,12 @@ def main():
         ("gap", "", "", ""),
         ("band", "SECTION B  ·  SCOPE   —   one mark per arena, 0 to 5", "", ""),
         ("para", "", "", "Read the eleven areas each vendor rated themselves on, then give one mark per arena. "
-                         "Capacity has 3 areas, Scheduling 4, Engagement 4. Where Section C contradicts Section B, "
-                         "believe Section C."),
+                         "The areas in each arena are printed on the row, so the checklist is in front of you. Where "
+                         "Section C contradicts Section B, believe Section C."),
+        ("para", "", "", "The mark is your read of how much of that arena — as our one-pager describes it — the "
+                         "product reaches. It is not a count of areas: Capacity has 3 and the others 4, so counting "
+                         "would never divide cleanly, and an area covered thinly is not the same as one covered "
+                         "properly. Weigh breadth and depth together."),
         ("row", "5", "Most of it", ""),
         ("row", "4", "More than half", ""),
         ("row", "3", "About half", ""),
@@ -325,7 +329,7 @@ def main():
 
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
     r += 1
-    q_row(r, "C1–C5, C7", "Sophistication",
+    q_row(r, "Section C", "Sophistication",
           "How much of the work it does  ·  0–4  ·  20 points", PURPLE, PAPER, 24)
     marks["SOPH"] = r
     r += 1
