@@ -65,9 +65,11 @@ Read the whole return once without scoring. You are looking for three things a r
 Copy `assets/assessment-template.json` and fill it in. It is pre-populated with all 41 element ids
 in sheet order.
 
-**Part 1 — HCHB.** Set `hchb.rung` to one of `25 / 20 / 12 / 6 / 2 / 0`, quote the sentence you
-picked it from in `note`, and set `sync_latency_addressed` honestly — `false` caps the rung at 20,
-automatically. Ambiguous answer → take the lower rung and add a flag.
+**Part 1 — HCHB.** Set `hchb.rung` to one of `25 / 20 / 12 / 6 / 2 / 0` and quote the sentence you
+picked it from in `note`. Ambiguous answer → take the lower rung and add a flag. A1 also asks how
+they handle data changing on both sides; silence there does not change the rung, but it is a
+yellow flag — two systems that both believe they own the schedule is the failure mode that
+hurts most.
 
 **Part 2 — Footprint.** For each of the 41 elements set `mark` to `covered` / `partial` / `none`,
 plus a `cite` (question id) and a short `quote` in their words.
@@ -143,6 +145,8 @@ the full 41-element table with citations, the ladder items with your reasoning, 
 Entering it in the workbook is optional and manual: open
 `vendor-evaluation/Vendor-Scorecard.xlsx`, pick a vendor column, and set the dropdowns. The
 workbook's formulas and `score.py` are verified to agree exactly, so the numbers will match.
+The workbook's **Start Here** tab is the hand-out version of this rubric — point colleagues there,
+not at this file.
 
 ## 6 · Judgement
 

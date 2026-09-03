@@ -7,7 +7,6 @@
   "hchb": {
     "rung": 0,
     "cite": "A1",
-    "sync_latency_addressed": false,
     "note": "Quote the sentence the rung was picked from. Rungs: 25 / 20 / 12 / 6 / 2 / 0."
   },
   "footprint": {

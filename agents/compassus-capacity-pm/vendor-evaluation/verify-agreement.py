@@ -22,7 +22,8 @@ sys.path.insert(0, str(SKILL.resolve()))
 import score as engine                                             # noqa: E402
 
 WORKBOOK = HERE / "Vendor-Scorecard.xlsx"
-SUMMARY = {9: "hchb", 10: "footprint", 11: "sophistication", 12: "clinician", 13: "partnership"}
+SUMMARY = {"1 · HCHB": "hchb", "2 · Scope": "footprint", "3 · Soph": "sophistication",
+           "4 · Clin": "clinician", "5 · Part": "partnership"}
 LADDER_LABEL = {i: f"{i} — {n}" for i, n in enumerate(
     ["Not addressed", "Asserted", "Described", "Mechanism", "Proven"])}
 MARK_LABEL = {"covered": "Covered", "partial": "Partial", "none": "—"}
@@ -38,17 +39,23 @@ def fill(assessment, out):
             if ws[f"C{r}"].value in order}
     assert len(rows) == 41, f"found {len(rows)} element rows, expected 41"
 
+    # Locate every input row by its label, never by a hardcoded number — the layout moves.
+    def find(prefix):
+        for r in range(1, ws.max_row + 1):
+            v = ws[f"B{r}"].value
+            if isinstance(v, str) and v.startswith(prefix):
+                return r
+        raise AssertionError(f"no row starting with {prefix!r}")
+
     ws["D6"] = assessment["vendor"]
-    ws["D23"] = engine.HCHB_RUNGS[assessment["hchb"]["rung"]]
-    ws["D24"] = "Yes" if assessment["hchb"].get("sync_latency_addressed") else "No"
+    ws[f"D{find('Rung')}"] = engine.HCHB_RUNGS[assessment["hchb"]["rung"]]
     for eid, entry in assessment["footprint"].items():
         ws[f"D{rows[eid]}"] = MARK_LABEL[entry["mark"]]
-    for block, first in [("sophistication", 87), ("clinician", 94), ("partnership", 99)]:
-        keys = {"sophistication": ["S1", "S2", "S3", "S4", "S5"],
-                "clinician": ["D1", "D2", "D3"],
-                "partnership": ["P1", "P2", "P3", "P4"]}[block]
-        for offset, key in enumerate(keys):
-            ws[f"D{first + offset}"] = LADDER_LABEL[assessment[block][key]["score"]]
+    for block, keys in [("sophistication", ["S1", "S2", "S3", "S4", "S5"]),
+                        ("clinician", ["D1", "D2", "D3"]),
+                        ("partnership", ["P1", "P2", "P3", "P4"])]:
+        for key in keys:
+            ws[f"D{find(key + '   ')}"] = LADDER_LABEL[assessment[block][key]["score"]]
     wb.save(out)
 
 
@@ -58,11 +65,19 @@ def check(path):
     with tempfile.TemporaryDirectory() as tmp:
         filled = pathlib.Path(tmp) / "filled.xlsx"
         fill(assessment, filled)
+        ws = openpyxl.load_workbook(filled)["Score Entry"]
+        label_row = {}
+        for r in range(1, 40):
+            v = ws[f"B{r}"].value
+            if isinstance(v, str):
+                label_row[v.strip()] = r
         xl = ExcelCompiler(filename=str(filled))
-        sheet_total = engine.r1(float(xl.evaluate("'Score Entry'!D14")))
-        sheet_band = xl.evaluate("'Score Entry'!D15")
-        parts = {name: engine.r1(float(xl.evaluate(f"'Score Entry'!D{row}")))
-                 for row, name in SUMMARY.items()}
+        sheet_total = engine.r1(float(xl.evaluate(f"'Score Entry'!D{label_row['TOTAL']}")))
+        sheet_band = xl.evaluate(f"'Score Entry'!D{label_row['Band']}")
+        parts = {}
+        for prefix, name in SUMMARY.items():
+            row = next(r for lbl, r in label_row.items() if lbl.startswith(prefix))
+            parts[name] = engine.r1(float(xl.evaluate(f"'Score Entry'!D{row}")))
 
     ok = True
     print(f"\n{expected['vendor']}")

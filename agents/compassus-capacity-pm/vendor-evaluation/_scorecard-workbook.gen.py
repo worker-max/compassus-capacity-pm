@@ -178,10 +178,6 @@ def main():
     put(ws, f"B{r}", "Rung", F(10, True, INK), LEFT)
     put(ws, f"C{r}", "A1", F(9, False, MUTED), RIGHT)
     HCHB_PICK = r
-    r += 1
-    put(ws, f"B{r}", "Sync latency addressed?", F(10, False, INK), LEFT)
-    put(ws, f"C{r}", "caps at 20 if No", F(9, False, MUTED, italic=True), RIGHT)
-    HCHB_SYNC = r
     r += 2
 
     # ── part 2 · footprint ──
@@ -252,10 +248,8 @@ def main():
     for cl in VCOLS:
         # part 1
         put(ws, f"{cl}{HCHB_PICK}", None, F(9), CTR, PAPER, Border(*[thin] * 4))
-        put(ws, f"{cl}{HCHB_SYNC}", "Yes", F(9), CTR, PAPER, Border(*[thin] * 4))
         put(ws, f"{cl}{summary_rows['1']}",
-            f'=IFERROR(MIN(VLOOKUP({cl}{HCHB_PICK},{lookup},2,FALSE),'
-            f'IF({cl}{HCHB_SYNC}="No",20,25)),0)',
+            f'=IFERROR(VLOOKUP({cl}{HCHB_PICK},{lookup},2,FALSE),0)',
             F(10, True, GOLD), CTR, BAND, Border(*[thin] * 4), "0")
 
         # part 2 — element cells + arena maths
@@ -301,7 +295,6 @@ def main():
     dv_rung = DataValidation(type="list", formula1="=Lists!$B$2:$B$7", allow_blank=True,
                              showDropDown=False, promptTitle="HCHB rung",
                              prompt="Tick one rung from A1. If ambiguous, take the lower one and flag it.")
-    dv_yn = DataValidation(type="list", formula1='"Yes,No"', allow_blank=True, showDropDown=False)
     dv_mark = DataValidation(type="list", formula1='"Covered,Partial,—"', allow_blank=True,
                              showDropDown=False, promptTitle="Footprint mark",
                              prompt="Covered = does it today, cited.  Partial = adjacent, partner, "
@@ -309,10 +302,9 @@ def main():
     dv_lad = DataValidation(type="list", formula1="=Lists!$E$2:$E$6", allow_blank=True,
                             showDropDown=False, promptTitle="Evidence ladder",
                             prompt="0 not addressed · 1 asserted · 2 described · 3 mechanism · 4 proven")
-    for dv in (dv_rung, dv_yn, dv_mark, dv_lad):
+    for dv in (dv_rung, dv_mark, dv_lad):
         ws.add_data_validation(dv)
     dv_rung.add(span.format(HCHB_PICK, HCHB_PICK))
-    dv_yn.add(span.format(HCHB_SYNC, HCHB_SYNC))
     for rows in element_rows.values():
         for rr in rows:
             dv_mark.add(span.format(rr, rr))
@@ -340,79 +332,187 @@ def main():
     ws.freeze_panes = f"{VCOLS[0]}{VENDOR_ROW + 1}"
     ws.sheet_view.zoomScale = 90
 
-    # ══════════════════════════════════════════════════════ 2 · GUIDE
-    gs = wb.create_sheet("Guide")
+    # ══════════════════════════════════════════════════════ 2 · START HERE
+    gs = wb.create_sheet("Start Here")
     gs.sheet_view.showGridLines = False
+    gs.sheet_properties.tabColor = GOLD
     gs.column_dimensions["A"].width = 4
-    gs.column_dimensions["B"].width = 30
-    gs.column_dimensions["C"].width = 12
-    gs.column_dimensions["D"].width = 96
-    put(gs, "B2", "How to score", F(18, True, INK))
-    put(gs, "B3", "Every part is a percentage times a budget. Part 1 is the one exception — "
-                  "a checkbox ladder, so the leadership priority cannot drift.",
-        F(10, False, MUTED, italic=True))
-    gr = 5
+    gs.column_dimensions["B"].width = 34
+    gs.column_dimensions["C"].width = 13
+    gs.column_dimensions["D"].width = 104
+
+    gs.row_dimensions[2].height = 14
+    put(gs, "B2", "COMPASSUS  ·  HOME HEALTH", F(9, True, MUTED))
+    gs.row_dimensions[3].height = 32
+    put(gs, "B3", "Capacity & Scheduling — Vendor Scorecard", F(20, True, INK))
+    gs.merge_cells("B4:D4")
+    put(gs, "B4", "Everything you need to score a returned questionnaire is on this tab. "
+                  "Score on the next one.", F(10, False, MUTED, italic=True), LEFT)
+
+    #   kind, col B, col C, col D
     guide = [
-        ("band", "THE FIVE PARTS", "", ""),
+        ("gap", "", "", ""),
+        ("band", "WHY", "", ""),
+        ("para", "", "", "Sixteen vendors returned the questionnaire. We need a shortlist, and we need to be able "
+                         "to say out loud why each vendor is on it or off it. This sheet turns free-text answers into a "
+                         "number we can defend, a footprint against the scope we published, and three short lists that "
+                         "carry what a number cannot."),
+        ("para", "", "", "It scores a questionnaire, not a product. It decides who gets a demo — nothing more."),
+        ("gap", "", "", ""),
+
+        ("band", "WHAT WE SCORE", "", ""),
         ("hd", "Part", "Points", "Answered from"),
-        ("row", "1 · HCHB Integration", "25", "A1 — tick one rung. Ambiguous → take the lower rung and raise a flag. "
-                                              "An answer silent on sync latency caps at 20."),
-        ("row", "2 · Scope Footprint", "30", "Section B is the claim, Section C is the evidence. 41 elements, "
-                                             "10 points per arena. Cite or it is a Partial."),
-        ("row", "3 · Sophistication", "20", "C1–C7 plus A2/A3. Five dimensions on the evidence ladder."),
-        ("row", "4 · Clinician & Adoption", "10", "Section D. Adoption, more than algorithm quality, decides this."),
-        ("row", "5 · Partnership", "15", "Section E. An offer with structure is a 3–4; 'open to discussing' is a 1."),
+        ("row", "1 · HCHB Integration", "25", "A1. The one thing leadership named as a priority, so it is a checkbox "
+                                              "rather than a judgement — it cannot get watered down on vendor 12."),
+        ("row", "2 · Scope Footprint", "30", "Sections B and C, against the 41 things our one-pager asks for. "
+                                             "Reported as a percentage for capacity, scheduling and engagement separately."),
+        ("row", "3 · Sophistication", "20", "Section C plus A2/A3. Not how much they have — how good it is."),
+        ("row", "4 · Clinician & Adoption", "10", "Section D. Adoption, more than algorithm quality, decides whether "
+                                                  "this succeeds in the field."),
+        ("row", "5 · Partnership", "15", "Section E. Whether they will trade on the investment we are making."),
         ("row", "TOTAL", "100", ""),
         ("gap", "", "", ""),
-        ("band", "PART 1 — THE HCHB LADDER", "", ""),
-        ("row", "Live, bi-directional, multi-customer", "25", "In production with more than one customer, reads and writes, "
-                                                              "published API / HL7 / FHIR, with a go-live date."),
-        ("row", "Live, single customer or one-way", "20", "In production, but one customer only, or it reads without writing back."),
-        ("row", "Live via a partner or a brittle method", "12", "Third party, flat file, direct database, or screen automation."),
-        ("row", "In development, dated", "6", "Building, with a committed date in the answer."),
+
+        ("band", "HOW YOU SCORE IT", "", ""),
+        ("para", "", "", "Every part is a percentage times the points it is worth. You never do that maths — "
+                         "the sheet does. You pick from dropdowns; the score, the band and the three footprint "
+                         "percentages appear at the top of the vendor's column as you go."),
+        ("hd", "Step", "Time", "What you do"),
+        ("row", "Read it once", "10 min", "No scoring. Note what they lead with, where the language turns to marketing, "
+                                          "and anything they raised that we did not ask about."),
+        ("row", "1 · HCHB", "30 sec", "Pick one line from the ladder below. If the answer is ambiguous, take the "
+                                      "lower line and write a flag — never split the difference."),
+        ("row", "2 · Scope", "5 min", "41 rows: Covered, Partial, or —. Section B is their claim; Section C is the "
+                                      "evidence. Claim with no mechanism behind it = Partial."),
+        ("row", "3 · Sophistication", "2 min", "5 dropdowns, 0 to 4."),
+        ("row", "4 · Clinician", "1 min", "3 dropdowns, 0 to 4."),
+        ("row", "5 · Partnership", "1 min", "4 dropdowns, 0 to 4."),
+        ("row", "The three lists", "3 min", "Differentiators, flags, unknowns — the bottom three rows of the column."),
+        ("gap", "", "", ""),
+
+        ("band", "LEGEND  —  PART 1  ·  THE HCHB LADDER", "", ""),
+        ("row", "Live, bi-directional, multi-customer", "25", "In production with more than one customer today, reads "
+                                                              "AND writes HCHB, over a published API / HL7 / FHIR, with a go-live date."),
+        ("row", "Live, single customer or one-way", "20", "In production — but with one customer only, or it reads "
+                                                          "from HCHB without writing back."),
+        ("row", "Live via a partner or a brittle method", "12", "Delivered through a third party, or implemented by "
+                                                                "flat file, direct database access, or screen automation. Works today; carries risk."),
+        ("row", "In development, dated", "6", "Not live, but building, with a committed target date in the answer."),
         ("row", "Roadmap, undated", "2", "Named as intent. No date, no commitment."),
         ("row", "None, and no path", "0", "No integration and no credible route to one."),
         ("gap", "", "", ""),
-        ("band", "PART 2 — THE FOOTPRINT MARKS", "", ""),
-        ("row", "Covered", "1.0", "The product does this today — stated plainly, or evidenced in a Section C walkthrough."),
+
+        ("band", "LEGEND  —  PART 2  ·  THE FOOTPRINT MARKS", "", ""),
+        ("row", "Covered", "1.0", "The product does this today. Stated plainly, or evidenced in a Section C walkthrough."),
         ("row", "Partial", "0.5", "Adjacent, configurable-with-work, delivered by a partner, roadmapped with a date, "
-                                  "or claimed without any supporting detail."),
+                                  "or claimed with no supporting detail. \"Configurable\" and \"we have an open API\" are both Partial."),
         ("row", "—", "0", "Absent, explicitly out of scope, or done by a person in their model."),
         ("gap", "", "", ""),
-        ("band", "PARTS 3–5 — THE EVIDENCE LADDER", "", ""),
+
+        ("band", "LEGEND  —  PARTS 3, 4 AND 5  ·  THE EVIDENCE LADDER", "", ""),
+        ("para", "", "", "One scale for all twelve questions. It only asks: how far past \"we do that\" did they actually go?"),
         ("row", "0 — Not addressed", "", "Skipped, or answered without answering."),
         ("row", "1 — Asserted", "", "They say they do it. Nothing behind it."),
-        ("row", "2 — Described", "", "We can picture the feature."),
-        ("row", "3 — Mechanism", "", "We can picture how it decides — the inputs, the logic, the configuration."),
-        ("row", "4 — Proven", "", "Mechanism plus evidence: numbers, a named customer, a period, a baseline."),
+        ("row", "2 — Described", "", "We can picture the feature. Most answers land here."),
+        ("row", "3 — Mechanism", "", "We can picture HOW IT DECIDES — the inputs, the logic, what a customer can "
+                                     "configure. Usually means an engineer wrote the answer, not marketing."),
+        ("row", "4 — Proven", "", "Mechanism PLUS evidence: numbers, a named customer, a period, a baseline. "
+                                  "Rare, and it is your shortlist."),
+        ("para", "", "", "Torn between two levels? Take the lower one. The vendor gets to fix that at the demo."),
         ("gap", "", "", ""),
+
+        ("band", "LEGEND  —  THE TWELVE QUESTIONS", "", ""),
+        ("hd", "Item", "From", "What it asks"),
+        ("row", "S1 Automation posture", "C7 · B", "How much runs without a person touching it?"),
+        ("row", "S2 Decision depth", "C1 · C2 · C4", "Does it reason about capacity and assignment, or display them?"),
+        ("row", "S3 Readiness & rules", "C3", "What happens to a visit that is ordered but not yet schedulable?"),
+        ("row", "S4 Recovery", "C5", "Plan breaks — how the need is found, offered, filled, and what if nobody takes it."),
+        ("row", "S5 Enterprise trust", "C6 · A2 · A3", "Uptime, outage behaviour, contractual commitment, scale, proven results."),
+        ("row", "D1 What the clinician decides", "D1", "What they can change, what needs approval, what is locked."),
+        ("row", "D2 Decide or advise", "D2", "Where it was designed to sit, and how far a customer can move it."),
+        ("row", "D3 Adoption evidence", "D3", "How they measure it, six-month data, what a clinician sees about their own results."),
+        ("row", "P1 Sharing in the value", "E2", "Structure and terms, or enthusiasm. A discount is not a partnership."),
+        ("row", "P2 Deployment & change", "E3", "Approach, what they learned, and the resistance story with what they changed."),
+        ("row", "P3 What we did not ask", "E1", "Do they understand our problem better than our questions did?"),
+        ("row", "P4 What they chose not to build", "E4", "Product judgement and candour."),
+        ("gap", "", "", ""),
+
+        ("band", "WHAT THE SHEET WORKS OUT FOR YOU", "", ""),
+        ("row", "Footprint %", "per arena", "How many of our 41 elements they reach. Covered counts 1, Partial counts a half. "
+                                            "Capacity is 11 elements, Scheduling 14, Engagement 16 — each worth 10 points, so a vendor "
+                                            "who owns one arena cannot tie one who covers all three shallowly."),
+        ("row", "Part scores", "", "Your marks as a percentage of that part's maximum, times its points."),
+        ("row", "Total & Band", "", "The five parts added up, and where that lands."),
+        ("gap", "", "", ""),
+
         ("band", "BANDS", "", ""),
         ("row", "Advance", "80–100", "Demo, references, deeper diligence."),
-        ("row", "Consider", "65–79", "Advance only if a differentiator or a low-cost gap-closer justifies it."),
+        ("row", "Consider", "65–79", "Advance only if a differentiator or a cheap gap-closer justifies it."),
         ("row", "Hold", "50–64", "Park unless the field thins."),
         ("row", "Decline", "< 50", "Close out with thanks."),
-        ("row", "Conditional", "HCHB < 12", "Any band, but advancing means explicitly accepting an integration "
-                                            "to be built, on their timeline, at our risk. Ties break on HCHB, then Scheduling."),
+        ("row", "Conditional", "HCHB < 12", "Shown on any band. Advancing them means naming what we accept: an "
+                                            "integration still to be built, on their timeline, at our risk. Ties break on HCHB, then Scheduling."),
+        ("gap", "", "", ""),
+
+        ("band", "NOT SCORED  —  and it decides more conversations than the total does", "", ""),
+        ("row", "Differentiators", "3–5 lines", "What this vendor does that the others do not. Two kinds count: against "
+                                                "the field, and against our own thinking — something not on our one-pager that probably should be. "
+                                                "If it would appear on five vendors' lists, cut it."),
+        ("row", "Flags", "red / yellow", "RED, resolve before advancing: no HCHB path · no uptime figure or contractual "
+                                         "commitment (C6) · the system decides and the clinician cannot override (D1) · one customer or no "
+                                         "references (A2) · core scope from an unnamed third party.   YELLOW, note and move on: home health "
+                                         "a minority of their business · impact claimed with no baseline · marketing language where a "
+                                         "mechanism belongs · brittle integration method · silence on sync latency between HCHB and them."),
+        ("row", "Unknowns", "", "What you could not score because they did not answer. An unanswered question is a zero — "
+                                "never a charitable guess. Write each one as a question you would actually ask at the demo. This list "
+                                "becomes the demo agenda."),
+        ("gap", "", "", ""),
+
+        ("band", "FOUR RULES THAT KEEP IT HONEST", "", ""),
+        ("row", "1", "", "Section B is their claim. Section C is the evidence. A claim with no mechanism is a Partial."),
+        ("row", "2", "", "Cite or do not score. If you cannot point at the sentence, it is a Partial or a zero."),
+        ("row", "3", "", "An ambiguous HCHB answer takes the lower rung, plus a flag. Never average."),
+        ("row", "4", "", "Score the first three vendors twice, independently, then compare and argue. Write down what "
+                         "you decided — those become house rules and the other thirteen go faster for them."),
+        ("gap", "", "", ""),
+
+        ("band", "WHAT THIS CANNOT DO", "", ""),
+        ("para", "", "", "It rewards good writing — a strong product with a weak proposal will underscore, which is why "
+                         "the differentiators and unknowns sit next to the number. It cannot see price; commercials come after "
+                         "the shortlist so they do not colour the capability read. And 41 elements is our spec, not the market's: "
+                         "a vendor scoring low on footprint may have built a different, defensible product. Say so in their "
+                         "differentiator list."),
     ]
+
+    gr = 6
     for kind, a, b, c in guide:
         if kind == "gap":
+            gs.row_dimensions[gr].height = 10
             gr += 1
             continue
         if kind == "band":
-            gs.row_dimensions[gr].height = 20
+            gs.row_dimensions[gr].height = 22
             gs.merge_cells(f"B{gr}:D{gr}")
             put(gs, f"B{gr}", a, F(9, True, "FFFFFF"),
                 Alignment(horizontal="left", vertical="center", indent=1), INK)
+        elif kind == "para":
+            gs.merge_cells(f"B{gr}:D{gr}")
+            gs.row_dimensions[gr].height = 15 + 13 * (len(c) // 150)
+            put(gs, f"B{gr}", c, F(10, False, INK), LEFT_T)
         elif kind == "hd":
             put(gs, f"B{gr}", a, F(9, True, MUTED), LEFT, BAND)
             put(gs, f"C{gr}", b, F(9, True, MUTED), CTR, BAND)
             put(gs, f"D{gr}", c, F(9, True, MUTED), LEFT, BAND)
         else:
-            gs.row_dimensions[gr].height = 26
-            put(gs, f"B{gr}", a, F(10, a in ("TOTAL", "Conditional"), INK), LEFT)
-            put(gs, f"C{gr}", b, F(10, True, GOLD), CTR)
-            put(gs, f"D{gr}", c, F(9, False, MUTED), LEFT)
+            gs.row_dimensions[gr].height = max(24, 13 * (1 + len(c) // 115) + 10)
+            bold = a in ("TOTAL", "Conditional") or a.startswith(("Differentiators", "Flags", "Unknowns"))
+            put(gs, f"B{gr}", a, F(10, bold, INK), LEFT_T)
+            put(gs, f"C{gr}", b, F(10, True, GOLD), CTR, None, None)
+            put(gs, f"D{gr}", c, F(9, False, MUTED), LEFT_T)
         gr += 1
+
+    put(gs, f"B{gr + 1}", "Rubric v1.0  ·  41 spec elements from the questionnaire Overview tab  ·  "
+                          "form_version 2026-08-19", F(9, False, MUTED, italic=True))
 
     # ══════════════════════════════════════════════════════ 3 · LISTS
     ls = wb.create_sheet("Lists")
@@ -427,6 +527,8 @@ def main():
         ls[f"E{i}"] = label
     ls.column_dimensions["B"].width = 40
 
+    wb.move_sheet("Start Here", offset=-1)
+    wb.active = 0
     wb.save(OUT)
     print(f"wrote {OUT}")
     print(f"  Score Entry: rows 6–{LAST_ROW}, vendors {VCOLS[0]}–{VCOLS[-1]} ({N_VENDORS})")

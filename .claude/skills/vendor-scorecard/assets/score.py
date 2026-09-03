@@ -9,7 +9,8 @@ One implementation of the rubric in `vendor-evaluation/scoring-guide.md`. Everyt
     python3 score.py assess/acme.json -o Acme-Scorecard.md
     python3 score.py assess/*.json --roster roster.md    # comparison table across vendors
 
-Every part is a percentage times a budget. Part 1 is the one exception: a checkbox ladder.
+Every part is a percentage times the points it is worth. Part 1 is the one exception:
+a checkbox ladder.
 """
 
 import argparse
@@ -24,8 +25,8 @@ SPEC_PATH = os.path.join(HERE, "spec-elements.json")
 
 # ─── the rubric, as constants ────────────────────────────────────────────────
 
-BUDGETS = {"hchb": 25, "footprint": 30, "sophistication": 20, "clinician": 10, "partnership": 15}
-ARENA_BUDGET = 10  # each of the three arenas, inside the footprint's 30
+POINTS = {"hchb": 25, "footprint": 30, "sophistication": 20, "clinician": 10, "partnership": 15}
+ARENA_POINTS = 10  # each of the three arenas, inside the footprint's 30
 
 HCHB_RUNGS = {
     25: "Live, bi-directional, multi-customer",
@@ -93,8 +94,8 @@ def spec_index(spec):
 
 # ─── scoring ─────────────────────────────────────────────────────────────────
 
-def _ladder_part(block, items, budget, label):
-    """(sum ÷ max) × budget. Missing item = 0, and it is reported."""
+def _ladder_part(block, items, worth, label):
+    """(sum ÷ max) × the points this part is worth. Missing item = 0, and it is reported."""
     rows, total, missing = [], 0, []
     for key, (name, source) in items.items():
         entry = block.get(key) or {}
@@ -110,11 +111,11 @@ def _ladder_part(block, items, budget, label):
             "rung": LADDER[raw], "cite": entry.get("cite", ""), "note": entry.get("note", ""),
         })
     ceiling = len(items) * 4
-    exact = total / ceiling * budget
+    exact = total / ceiling * worth
     return {
         "rows": rows, "raw": total, "ceiling": ceiling,
         "pct": total / ceiling, "points": r1(exact), "points_exact": exact,
-        "budget": budget, "missing": missing,
+        "budget": worth, "missing": missing,
     }
 
 
@@ -152,7 +153,7 @@ def score_footprint(assessment, spec):
 
     for a in arenas.values():
         a["pct"] = a["value"] / a["count"] if a["count"] else 0.0
-        a["points_exact"] = a["pct"] * ARENA_BUDGET
+        a["points_exact"] = a["pct"] * ARENA_POINTS
         a["points"] = r1(a["points_exact"])
 
     total_value = sum(a["value"] for a in arenas.values())
@@ -163,7 +164,7 @@ def score_footprint(assessment, spec):
         "pct": total_value / total_count if total_count else 0.0,
         "points": r1(sum(a["points_exact"] for a in arenas.values())),
         "points_exact": sum(a["points_exact"] for a in arenas.values()),
-        "budget": BUDGETS["footprint"],
+        "budget": POINTS["footprint"],
     }
 
 
@@ -177,18 +178,14 @@ def score(assessment, spec=None):
     rung = int(rung)
     if rung not in HCHB_RUNGS:
         raise ValueError(f"hchb.rung {rung} is not a rung: {sorted(HCHB_RUNGS)}")
-    # Guide §1: an answer silent on sync latency caps the rung at 20.
-    capped = False
-    if rung > 20 and hchb.get("sync_latency_addressed") is False:
-        rung, capped = 20, True
 
     fp = score_footprint(assessment, spec)
     soph = _ladder_part(assessment.get("sophistication", {}), SOPH_ITEMS,
-                        BUDGETS["sophistication"], "sophistication")
+                        POINTS["sophistication"], "sophistication")
     clin = _ladder_part(assessment.get("clinician", {}), CLIN_ITEMS,
-                        BUDGETS["clinician"], "clinician")
+                        POINTS["clinician"], "clinician")
     part = _ladder_part(assessment.get("partnership", {}), PART_ITEMS,
-                        BUDGETS["partnership"], "partnership")
+                        POINTS["partnership"], "partnership")
 
     # Sum unrounded, round once — so the engine and the workbook cannot disagree.
     total = r1(rung + fp["points_exact"] + soph["points_exact"]
@@ -203,9 +200,8 @@ def score(assessment, spec=None):
         "completed_by": assessment.get("completed_by", ""),
         "summary": assessment.get("summary", ""),
         "hchb": {
-            "points": rung, "budget": BUDGETS["hchb"], "rung": HCHB_RUNGS[rung],
+            "points": rung, "budget": POINTS["hchb"], "rung": HCHB_RUNGS[rung],
             "cite": hchb.get("cite", "A1"), "note": hchb.get("note", ""),
-            "capped_for_sync_latency": capped,
         },
         "footprint": fp, "sophistication": soph, "clinician": clin, "partnership": part,
         "total": total, "band": band, "conditional": conditional,
@@ -243,7 +239,7 @@ def render(s):
         add(s["summary"])
         add("")
 
-    add("| Part | Score | Budget | |")
+    add("| Part | Score | Out of | |")
     add("|---|---:|---:|---|")
     for key, label in [("hchb", "1 · HCHB Integration"), ("footprint", "2 · Scope Footprint"),
                        ("sophistication", "3 · Sophistication"), ("clinician", "4 · Clinician & Adoption"),
@@ -262,7 +258,7 @@ def render(s):
     add("|---|---:|---:|---:|---:|---:|")
     for a in s["footprint"]["arenas"]:
         add(f"| {a['name']} | **{_pct(a['pct'])}** | {a['covered']} | {a['partial']} | "
-            f"{a['none']} | {a['points']} / {ARENA_BUDGET} |")
+            f"{a['none']} | {a['points']} / {ARENA_POINTS} |")
     add("")
 
     add("### Element detail")

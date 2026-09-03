@@ -7,7 +7,6 @@
   "hchb": {
     "rung": 25,
     "cite": "A1",
-    "sync_latency_addressed": true,
     "note": "Live since Mar 2024, four HCHB customers, published API both directions. Conflict resolution described: HCHB is authoritative for orders, Meridian for assignment."
   },
   "footprint": {

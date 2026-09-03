@@ -7,7 +7,7 @@ Scoring the returned vendor questionnaires (form_version 2026-08-19) · 16 vendo
 
 ## The one idea
 
-**Every part of the score is a percentage times a budget.**
+**Every part of the score is a percentage times the points it is worth.**
 
 That is the whole system. Score the items, take the percentage, multiply by the points that
 part is worth. Nothing is hidden, nothing needs a formula anyone has to trust blindly, and two
@@ -55,8 +55,8 @@ either duplicates that data or asks schedulers to work two systems — which is 
 initiative exists to remove.
 
 > **Scoring note — sync latency.** A1 asks how the vendor handles data changing on both sides.
-> An answer that ignores it caps the rung at **20**, even if everything else is there. Two
-> systems that both believe they own the schedule is the failure mode that hurts most.
+> An answer that ignores it does not change the rung — but raise a flag. Two systems that both
+> believe they own the schedule is the failure mode that hurts most.
 
 ---
 
@@ -78,14 +78,14 @@ footprint %  =  marks ÷ elements
 points       =  footprint % × 10
 ```
 
-| Arena | Elements | Budget |
+| Arena | Elements | Points |
 |---|---:|---:|
 | Capacity Management | 11 | 10 |
 | Scheduling Engine | 14 | 10 |
 | Engagement | 16 | 10 |
 | **Overall footprint** | **41** | **30** |
 
-Equal budgets, unequal element counts — on purpose. A vendor that covers all three arenas
+Equal pointss, unequal element counts — on purpose. A vendor that covers all three arenas
 shallowly and one that owns scheduling completely and ignores engagement should not be able to
 tie by accident. The three percentages get reported separately on every scorecard, because
 *which* arena a vendor covers is more useful to us than the total.

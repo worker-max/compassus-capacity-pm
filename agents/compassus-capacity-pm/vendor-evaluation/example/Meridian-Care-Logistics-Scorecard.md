@@ -4,7 +4,7 @@
 
 A scheduling-and-routing optimizer built for multi-site home health, with a live bi-directional HCHB integration and a strong week-level engine. Capacity is modelled as visit points against a productivity target, which matches how Compassus already reasons. Patient engagement is thin — reminders and confirmations exist, agentic outreach does not — and the clinician-facing model is advisory by design.
 
-| Part | Score | Budget | |
+| Part | Score | Out of | |
 |---|---:|---:|---|
 | 1 · HCHB Integration | **25** | 25 | `████████████████████` |
 | 2 · Scope Footprint | **23.4** | 30 | `████████████████····` |
