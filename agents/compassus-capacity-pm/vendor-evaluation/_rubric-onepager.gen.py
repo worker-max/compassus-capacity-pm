@@ -55,10 +55,10 @@ SCALES = [
         ("1", "Poor fit"),
         ("0", "Not answered")]),
      ("Partnership &nbsp;<em>E1&ndash;E4</em>", INK, [
-        ("4", "Specific terms and a change-management story"),
-        ("3", "One of the two"),
-        ("2", "Willing, no structure offered"),
-        ("1", "Standard commercial relationship"),
+        ("4", "Open to equity or a stake, and set up to build it with us"),
+        ("3", "Ready to build to our needs; ownership not addressed"),
+        ("2", "Will take our input; they own the roadmap"),
+        ("1", "A standard customer relationship"),
         ("0", "Not answered")])],
 ]
 
@@ -171,9 +171,10 @@ ul{{list-style:none;margin:0;padding:0}}
       <ul class="flags">{flags}</ul>
       <p class="fn">These three raise a flag rather than moving the score. A vendor can score well
         and still carry one. We resolve it before advancing rather than trading it against points.</p>
-      <p class="fn">Two scales are deliberately left undescribed. Clinician fit is our own read &mdash;
-        we know how our clinicians work and what they will accept. And most of it is the ceiling on scope,
-        because the spec is ours and original; nobody covers all of it.</p>
+      <p class="fn">Clinician fit is deliberately undescribed &mdash; it is our own read of what our
+        clinicians will accept. Most of it is the ceiling on scope, because the spec is ours and original.
+        And partnership runs from vendor to co-owner: what we want is a company able to build this with us,
+        and open to us holding a stake in what a wider market might buy.</p>
     </div>
     <div><ul class="bands">{bands}</ul>
       <p class="fn">A vendor whose Home Care Home Base integration is not yet live shows as

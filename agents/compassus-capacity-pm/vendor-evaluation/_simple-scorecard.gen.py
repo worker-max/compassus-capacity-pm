@@ -48,11 +48,13 @@ SOPH = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
 # Deliberately undescribed. This is our read of fit, not a checklist to satisfy.
 CLIN = ["0 — Not answered", "1 — Poor fit", "2 — Workable",
         "3 — Good fit", "4 — Strong fit"]
-PART = ["0 — Didn't answer",
-        "1 — Standard commercial relationship only",
-        "2 — Willing, but no structure offered",
-        "3 — Specific terms, or a real change-management story",
-        "4 — Specific terms and a real change-management story"]
+# The ladder runs vendor -> co-developer -> co-owner. What we want is a company able to
+# build this with us, and open to us holding a stake in what a wider market might buy.
+PART = ["0 — Not answered",
+        "1 — A standard customer relationship — we buy what already exists",
+        "2 — Will take our input, but they own the roadmap and the product",
+        "3 — Ready to build to our needs as a design partner; ownership not addressed",
+        "4 — Open to equity or a stake in what we build, and set up to build it with us"]
 FLAGS = ["OK", "Watch", "STOP-CHECK"]
 
 thin = Side(style="thin", color=RULE)
@@ -178,13 +180,16 @@ def main():
         ("gap", "", "", ""),
 
         ("band", "SECTION E  ·  PARTNERSHIP   —   one mark, 0 to 4", "", ""),
-        ("row", "4", "Specific terms and a real change-management story", ""),
-        ("row", "3", "One of the two", ""),
-        ("row", "2", "Willing, but no structure offered", ""),
-        ("row", "1", "Standard commercial relationship only", ""),
-        ("row", "0", "Didn't answer", ""),
-        ("para", "", "", "Specific terms means design-partner pricing, co-development, roadmap governance, or a "
-                         "revenue or equity share. A discount is a discount."),
+        ("para", "", "", "What we are looking for is a company with the willingness and the environment to build "
+                         "this with us around our needs — and open to us holding equity, so that a product for the "
+                         "general market becomes a real possibility. The rungs run from vendor to co-owner."),
+        ("row", "4", "Open to equity or a stake in what we build, and set up to build it with us", ""),
+        ("row", "3", "Ready to build to our needs as a design partner; ownership not addressed", ""),
+        ("row", "2", "Will take our input, but they own the roadmap and the product", ""),
+        ("row", "1", "A standard customer relationship — we buy what already exists", ""),
+        ("row", "0", "Not answered", ""),
+        ("para", "", "", "Read all four E answers, not only E2. A vendor who never mentions ownership but describes "
+                         "a real co-development practice is a 3, and worth the conversation. A discount is a discount."),
         ("gap", "", "", ""),
 
         ("band", "THE THREE QUESTIONS THAT RAISE A FLAG INSTEAD", "", ""),
@@ -338,7 +343,7 @@ def main():
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
-    q_row(r, "E1–E4", "Partnership", "Terms offered, and the change-management story  ·  0–4  ·  12 points",
+    q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake  ·  0–4  ·  12 points",
           INK, PAPER, 24)
     marks["PART"] = r
     r += 2
@@ -402,8 +407,8 @@ def main():
          [marks["CLIN"]]),
         (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
                         showDropDown=False, promptTitle="Partnership, 0–4",
-                        prompt="Specific terms means design-partner pricing, co-development, roadmap "
-                               "governance or a revenue share. A discount is a discount."),
+                        prompt="Are they able and willing to build this with us, and open to us holding "
+                               "a stake in what a wider market might buy? A discount is a discount."),
          [marks["PART"]]),
         (DataValidation(type="list", formula1='"OK,Watch,STOP-CHECK"', allow_blank=True,
                         showDropDown=False, promptTitle="Flag",
