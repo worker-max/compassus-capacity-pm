@@ -103,7 +103,7 @@ def main():
     put(gs, "B3", "Vendor Scorecard — Fast", F(20, True, INK))
     gs.merge_cells("B4:D4")
     put(gs, "B4", "The questionnaire is the rubric. Read the return top to bottom and fill the "
-                  "sheet top to bottom. Seven marks a vendor, about two minutes.",
+                  "sheet top to bottom. Seven marks a vendor.",
         F(10, False, MUTED, italic=True), LEFT)
 
     rows = [

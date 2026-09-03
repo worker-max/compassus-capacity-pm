@@ -28,38 +28,38 @@ MARKS = [
 ]
 
 SCALES = [
-    [("Home Care Home Base &nbsp;<em>A1</em>", GOLD, [
+    ("Home Care Home Base &nbsp;<em>A1</em>", GOLD, [
         ("20", "Live, established customer base"),
         ("16", "Live, small customer base"),
         ("12", "Live through a partner"),
         ("6", "In development, with a date"),
         ("2", "On the roadmap, no date"),
-        ("0", "None, and no path")])],
-    [("Scope &nbsp;<em>Section B</em>", CAP, [
+        ("0", "None, and no path")]),
+    ("Scope &nbsp;<em>Section B</em>", CAP, [
         ("5", "Most of it"),
         ("4", "More than half"),
         ("3", "About half"),
         ("2", "Less than half"),
         ("1", "A corner of it"),
         ("0", "Nothing here")]),
-     ("Sophistication &nbsp;<em>Section C</em>", PURPLE, [
+    ("Sophistication &nbsp;<em>Section C</em>", PURPLE, [
         ("4", "Runs it &mdash; decides across the whole picture"),
         ("3", "Recommends it &mdash; proposes; a person confirms"),
         ("2", "Checks it &mdash; applies rules, flags problems"),
         ("1", "Shows it &mdash; surfaces the information only"),
-        ("0", "Not addressed")])],
-    [("Clinician fit &nbsp;<em>D1&ndash;D3</em>", INK, [
+        ("0", "Not addressed")]),
+    ("Clinician fit &nbsp;<em>D1&ndash;D3</em>", INK, [
         ("4", "Strong fit"),
         ("3", "Good fit"),
         ("2", "Workable"),
         ("1", "Poor fit"),
         ("0", "Not answered")]),
-     ("Partnership &nbsp;<em>E1&ndash;E4</em>", INK, [
+    ("Partnership &nbsp;<em>E1&ndash;E4</em>", INK, [
         ("4", "Open to equity or a stake, and set up to build it with us"),
         ("3", "Ready to build to our needs; ownership not addressed"),
         ("2", "Will take our input; they own the roadmap"),
         ("1", "A standard customer relationship"),
-        ("0", "Not answered")])],
+        ("0", "Not answered")]),
 ]
 
 FLAGS = [("A2", "Customers, scale and references"),
@@ -77,14 +77,11 @@ def build():
         for q, name, pts, col in MARKS)
 
     cols = ""
-    for column in SCALES:
-        inner = ""
-        for title, col, rungs in column:
-            rows = "".join(f'<li><span class="n">{n}</span><span class="d">{d}</span></li>'
-                           for n, d in rungs)
-            inner += (f'<div class="scale" style="--c:{col}">'
-                      f'<p class="st">{title}</p><ul>{rows}</ul></div>')
-        cols += f'<div class="scol">{inner}</div>'
+    for title, col, rungs in SCALES:
+        rows = "".join(f'<li><span class="n">{n}</span><span class="d">{d}</span></li>'
+                       for n, d in rungs)
+        cols += (f'<div class="scale" style="--c:{col}">'
+                 f'<p class="st">{title}</p><ul>{rows}</ul></div>')
 
     flags = "".join(f'<li><span class="fq">{q}</span>{name}</li>' for q, name in FLAGS)
     bands = "".join(f'<li><span class="bn">{rng}</span><span class="bl">{lbl}</span></li>'
@@ -125,8 +122,8 @@ ul{{list-style:none;margin:0;padding:0}}
 .tot b{{grid-column:2;font-size:20px}}
 .tot span{{grid-column:3;font-family:var(--display);font-size:29px;text-align:right}}
 
-.scales{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}}
-.scol{{display:flex;flex-direction:column;gap:30px}}
+.scales{{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 40px;
+  align-items:start}}
 .st{{font-size:16px;font-weight:600;color:var(--c);margin:0 0 9px;padding-bottom:7px;
   border-bottom:2px solid var(--c)}}
 .st em{{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted);
@@ -155,7 +152,7 @@ ul{{list-style:none;margin:0;padding:0}}
     <p class="eyebrow">Compassus Home Health &middot; Capacity &amp; Scheduling</p>
     <h1>Vendor Scorecard</h1>
     <p class="deck">How we score each returned questionnaire. The rows are the questionnaire's own
-      questions, in the order they appear on it. Seven marks a vendor, about two minutes each.</p>
+      questions, in the order they appear on it. Seven marks a vendor.</p>
   </header>
 
   <h2>What we score</h2>
