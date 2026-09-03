@@ -171,10 +171,8 @@ ul{{list-style:none;margin:0;padding:0}}
       <ul class="flags">{flags}</ul>
       <p class="fn">These three raise a flag rather than moving the score. A vendor can score well
         and still carry one. We resolve it before advancing rather than trading it against points.</p>
-      <p class="fn">Clinician fit is deliberately undescribed &mdash; it is our own read of what our
-        clinicians will accept. Most of it is the ceiling on scope, because the spec is ours and original.
-        And partnership runs from vendor to co-owner: what we want is a company able to build this with us,
-        and open to us holding a stake in what a wider market might buy.</p>
+      <p class="fn">Clinician fit is deliberately undescribed. It is our own read of what our
+        clinicians will accept.</p>
     </div>
     <div><ul class="bands">{bands}</ul>
       <p class="fn">A vendor whose Home Care Home Base integration is not yet live shows as
