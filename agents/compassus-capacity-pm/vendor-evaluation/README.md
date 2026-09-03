@@ -54,10 +54,11 @@ read them and put what matters in Notes.
 
 | Path | What it is |
 |---|---|
+| [`Vendor-Scoring-Options.pdf`](./Vendor-Scoring-Options.pdf) | One portrait page for leadership — option one and option two, process and rationale each. Not a working document. |
 | [`example/`](./example/) | A fully worked scorecard, so the shape is obvious before the first real return arrives. |
 | [`verify-agreement.py`](./verify-agreement.py) | Proves the workbook and the scoring engine compute the same score. |
 | [`scoring-guide.md`](./scoring-guide.md) | The rubric in prose — what the `/vendor-scorecard` skill scores against. Not a hand-out; the workbook's first tab is. |
-| `_scorecard-workbook.gen.py` · `_simple-scorecard.gen.py` | The generators. Regenerate rather than hand-edit — a hand edit is lost on the next run. |
+| `_scorecard-workbook.gen.py` · `_simple-scorecard.gen.py` · `_options-onepager.gen.py` | The generators. Regenerate rather than hand-edit — a hand edit is lost on the next run. |
 
 The 41 spec elements live in
 [`.claude/skills/vendor-scorecard/assets/spec-elements.json`](../../../.claude/skills/vendor-scorecard/assets/spec-elements.json),
