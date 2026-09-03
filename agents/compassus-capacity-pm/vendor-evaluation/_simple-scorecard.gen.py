@@ -41,9 +41,28 @@ HCHB_RUNGS = [
     ("On the roadmap — no date", 2),
     ("None, and no path to one", 0),
 ]
-# "Most of it" is the ceiling: the spec is ours and original, so nobody covers all of it.
-SCOPE = ["0 — Nothing here", "1 — A corner of it", "2 — Less than half",
-         "3 — About half", "4 — More than half", "5 — Most of it"]
+# Three marks per arena, each worth its own face value in points: 3 x 4 = 12 an arena, and
+# nothing to convert. "Most of it" is the ceiling — the spec is ours and original.
+SCOPE = ["0 — Nothing here", "1 — A corner of it", "2 — About half",
+         "3 — More than half", "4 — Most of it"]
+
+# Capacity's three areas map one to one. Scheduling and Engagement have four apiece, so the
+# two that belong together are paired rather than inventing a split the one-pager cannot carry.
+ARENAS = [
+    ("CAP", "Capacity", CAP, [
+        ("CAP1", "Workforce supply", "Roster, disciplines, roles, competencies, ramp, float pool"),
+        ("CAP2", "Availability & reach", "Availability and time off, territory, drive-time reachability"),
+        ("CAP3", "The capacity math", "Visit weighting, targets and ceilings, committed load vs. open room")]),
+    ("SCH", "Scheduling", SCH, [
+        ("SCH1", "Demand & matching", "Ordered visits, authorization, readiness — and who fits them"),
+        ("SCH2", "Routing & the week", "Routing, sequencing, front-loading, week balancing"),
+        ("SCH3", "Exceptions", "Missed visits, call-outs, reassignment, coverage, rebooking")]),
+    ("ENG", "Engagement", ENG, [
+        ("ENG1", "Before the visit", "Welcome call, availability capture, reminders, confirmation, en-route"),
+        ("ENG2", "When plans change", "Reschedule, coverage outreach, urgent same-day needs, incentives"),
+        ("ENG3", "Across the care team", "Multi-discipline coordination, clinician and office updates")]),
+]
+SCOPE_KEYS = [k for _, _, _, areas in ARENAS for k, _, _ in areas]
 SOPH = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
         "3 — Recommends it", "4 — Runs it"]
 # Deliberately undescribed. This is our read of fit, not a checklist to satisfy.
@@ -63,7 +82,9 @@ FLAGS = ["OK", "Watch", "STOP-CHECK"]
 EXAMPLES = [
     {"vendor": "Arbor Health Logistics",
      "hchb": "Live — established customer base",
-     "CAP": "4 — More than half", "SCH": "5 — Most of it", "ENG": "2 — Less than half",
+     "CAP1": "4 — Most of it", "CAP2": "3 — More than half", "CAP3": "4 — Most of it",
+     "SCH1": "4 — Most of it", "SCH2": "4 — Most of it", "SCH3": "3 — More than half",
+     "ENG1": "2 — About half", "ENG2": "2 — About half", "ENG3": "1 — A corner of it",
      "SOPH": "4 — Runs it", "CLIN": "3 — Good fit",
      "PART": "3 — Ready to build to our needs as a design partner; ownership not addressed",
      "A2": "OK", "A3": "Watch", "C6": "OK",
@@ -73,7 +94,9 @@ EXAMPLES = [
                "Would they discuss a stake? Never mentioned it."]},
     {"vendor": "Wayfinder Scheduling",
      "hchb": "Live — small customer base",
-     "CAP": "2 — Less than half", "SCH": "3 — About half", "ENG": "1 — A corner of it",
+     "CAP1": "2 — About half", "CAP2": "1 — A corner of it", "CAP3": "1 — A corner of it",
+     "SCH1": "3 — More than half", "SCH2": "4 — Most of it", "SCH3": "2 — About half",
+     "ENG1": "1 — A corner of it", "ENG2": "1 — A corner of it", "ENG3": "0 — Nothing here",
      "SOPH": "3 — Recommends it", "CLIN": "2 — Workable",
      "PART": "2 — Will take our input, but they own the roadmap and the product",
      "A2": "STOP-CHECK", "A3": "Watch", "C6": "OK",
@@ -82,7 +105,9 @@ EXAMPLES = [
                "What does the day-before confirmation round cost in staff hours at our scale?"]},
     {"vendor": "Northlight Health",
      "hchb": "In development — with a date",
-     "CAP": "3 — About half", "SCH": "4 — More than half", "ENG": "3 — About half",
+     "CAP1": "2 — About half", "CAP2": "2 — About half", "CAP3": "3 — More than half",
+     "SCH1": "3 — More than half", "SCH2": "3 — More than half", "SCH3": "3 — More than half",
+     "ENG1": "3 — More than half", "ENG2": "4 — Most of it", "ENG3": "2 — About half",
      "SOPH": "3 — Recommends it", "CLIN": "3 — Good fit",
      "PART": "4 — Open to equity or a stake in what we build, and set up to build it with us",
      "A2": "OK", "A3": "OK", "C6": "Watch",
@@ -203,14 +228,17 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
 
     band_row(r, "B  ·  COVERAGE SELF-ASSESSMENT   —   how much of our scope they cover", INK)
     r += 1
-    for aid, name, areas, colour in [
-        ("CAP", "Capacity", "Workforce supply · availability & reach · the capacity math", CAP),
-        ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
-        ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
-    ]:
-        q_row(r, "Section B", name, areas, colour, height=30, points=12)
-        marks[aid] = r
+    for aid, arena_name, colour, areas in ARENAS:
+        ws.row_dimensions[r].height = 17
+        ws.merge_cells(f"B{r}:{last}{r}")
+        put(ws, f"B{r}", f"{arena_name.upper()}   —   three marks, 12 points",
+            F(9, True, "FFFFFF"),
+            Alignment(horizontal="left", vertical="center", indent=1), colour)
         r += 1
+        for key, label, detail in areas:
+            q_row(r, "Section B", label, detail, colour, height=22, points=4)
+            marks[key] = r
+            r += 1
     r += 1
 
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
@@ -259,8 +287,8 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
     def num(cell):
         return f"IFERROR(VALUE(LEFT({cell},1)),0)"
 
-    WEIGHTS = [("CAP", 5, 12), ("SCH", 5, 12), ("ENG", 5, 12),
-               ("SOPH", 4, 20), ("CLIN", 4, 12), ("PART", 4, 12)]
+    WEIGHTS = ([(k, 4, 4) for k in SCOPE_KEYS]
+               + [("SOPH", 4, 20), ("CLIN", 4, 12), ("PART", 4, 12)])
     for cl in VCOLS:
         hchb = f"IFERROR(VLOOKUP({cl}{marks['A1']},Lists!$B$2:$C$7,2,FALSE),0)"
         pieces = [hchb]
@@ -288,10 +316,10 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
                         prompt="Pick one line. Ambiguous? Take the lower one and say so in Notes."),
          [marks["A1"]]),
         (DataValidation(type="list", formula1="=Scope_List", allow_blank=True,
-                        showDropDown=False, promptTitle="Scope, 0–5",
-                        prompt="How much of this arena they cover. Most of it is the ceiling — our spec "
-                               "is original, so nobody covers all of it."),
-         [marks["CAP"], marks["SCH"], marks["ENG"]]),
+                        showDropDown=False, promptTitle="Scope, 0–4",
+                        prompt="How much of this area they cover. The mark is the points: a 3 adds 3. "
+                               "Most of it is the ceiling — our spec is original."),
+         [marks[k] for k in SCOPE_KEYS]),
         (DataValidation(type="list", formula1="=Soph_List", allow_blank=True,
                         showDropDown=False, promptTitle="Sophistication, 0–4",
                         prompt="1 shows it · 2 checks it · 3 recommends it · 4 runs it. Score what "
@@ -337,11 +365,12 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
             FormulaRule(formula=[f'{VCOLS[0]}{rr}="STOP-CHECK"'],
                         font=Font(bold=True, color="7A2020"),
                         fill=PatternFill("solid", fgColor="F5D9D9")))
-    for key, hi in [("CAP", CAP), ("SCH", SCH), ("ENG", ENG)]:
-        rr = marks[key]
-        ws.conditional_formatting.add(f"{VCOLS[0]}{rr}:{last}{rr}", ColorScaleRule(
-            start_type="num", start_value=0, start_color="FFFFFF",
-            end_type="num", end_value=5, end_color=hi))
+    for aid, _, hi, areas in ARENAS:
+        for key, _, _ in areas:
+            rr = marks[key]
+            ws.conditional_formatting.add(f"{VCOLS[0]}{rr}:{last}{rr}", ColorScaleRule(
+                start_type="num", start_value=0, start_color="FFFFFF",
+                end_type="num", end_value=4, end_color=hi))
 
     ws.freeze_panes = f"{VCOLS[0]}7"
     ws.sheet_view.zoomScale = 90
@@ -354,7 +383,7 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
                 Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
                 Border(bottom=med))
             ws[f"{cl}{marks['A1']}"] = v["hchb"]
-            for key in ("CAP", "SCH", "ENG", "SOPH", "CLIN", "PART"):
+            for key in SCOPE_KEYS + ["SOPH", "CLIN", "PART"]:
                 ws[f"{cl}{marks[key]}"] = v[key]
             for key in ("A2", "A3", "C6"):
                 ws[f"{cl}{flags[key]}"] = v[key]
@@ -400,9 +429,9 @@ def main():
         ("band", "THE SEVEN MARKS", "", ""),
         ("hd", "Question", "Mark", "Points"),
         ("row", "A1", "Home Care Home Base integration", "20"),
-        ("row", "Section B", "Capacity — how much of it they cover", "12"),
-        ("row", "Section B", "Scheduling — how much of it they cover", "12"),
-        ("row", "Section B", "Engagement — how much of it they cover", "12"),
+        ("row", "Section B", "Capacity — three marks of 0–4", "12"),
+        ("row", "Section B", "Scheduling — three marks of 0–4", "12"),
+        ("row", "Section B", "Engagement — three marks of 0–4", "12"),
         ("row", "Section C", "Sophistication — how much of the work the product does", "20"),
         ("row", "D1–D3", "Clinician fit", "12"),
         ("row", "E1–E4", "Partnership", "12"),
@@ -416,18 +445,18 @@ def main():
     rows += [("row", str(p), lbl, "") for lbl, p in HCHB_RUNGS]
     rows += [
         ("gap", "", "", ""),
-        ("band", "SECTION B  ·  SCOPE   —   one mark per arena, 0 to 5", "", ""),
-        ("para", "", "", "Read the eleven areas each vendor rated themselves on, then give one mark per arena. "
-                         "The areas in each arena are printed on the row, so the checklist is in front of you. Where "
-                         "Section C contradicts Section B, believe Section C."),
-        ("para", "", "", "The mark is your read of how much of that arena — as our one-pager describes it — the "
-                         "product reaches. It is not a count of areas: Capacity has 3 and the others 4, so counting "
-                         "would never divide cleanly, and an area covered thinly is not the same as one covered "
-                         "properly. Weigh breadth and depth together."),
-        ("row", "5", "Most of it", ""),
-        ("row", "4", "More than half", ""),
-        ("row", "3", "About half", ""),
-        ("row", "2", "Less than half", ""),
+        ("band", "SECTION B  ·  SCOPE   —   three marks per arena, 0 to 4", "", ""),
+        ("para", "", "", "Each row names the area and what sits inside it, so the checklist is in front of you. "
+                         "Where Section C contradicts Section B, believe Section C."),
+        ("para", "", "", "The mark is the points. A 3 adds 3, a 0 adds nothing — there is no conversion to "
+                         "follow. Three marks of 0 to 4 give each arena 12 points, so Capacity, Scheduling and "
+                         "Engagement carry exactly the same weight."),
+        ("para", "", "", "Capacity's three areas map one to one. Scheduling and Engagement have four apiece, so "
+                         "the two that belong together are paired — demand with matching, and plan changes with the "
+                         "incentives used to fill them — rather than inventing a split the one-pager cannot carry."),
+        ("row", "4", "Most of it", ""),
+        ("row", "3", "More than half", ""),
+        ("row", "2", "About half", ""),
         ("row", "1", "A corner of it", ""),
         ("row", "0", "Nothing here", ""),
         ("para", "", "", "Most of it is the ceiling on purpose. The scope on our one-pager is original and these "

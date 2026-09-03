@@ -35,11 +35,10 @@ SCALES = [
         ("6", "In development, with a date"),
         ("2", "On the roadmap, no date"),
         ("0", "None, and no path")]),
-    ("Scope &nbsp;<em>Section B</em>", CAP, [
-        ("5", "Most of it"),
-        ("4", "More than half"),
-        ("3", "About half"),
-        ("2", "Less than half"),
+    ("Scope &nbsp;<em>Section B &middot; three marks per arena</em>", CAP, [
+        ("4", "Most of it"),
+        ("3", "More than half"),
+        ("2", "About half"),
         ("1", "A corner of it"),
         ("0", "Nothing here")]),
     ("Sophistication &nbsp;<em>Section C</em>", PURPLE, [
@@ -152,7 +151,7 @@ ul{{list-style:none;margin:0;padding:0}}
     <p class="eyebrow">Compassus Home Health &middot; Capacity &amp; Scheduling</p>
     <h1>Vendor Scorecard</h1>
     <p class="deck">How we score each returned questionnaire. The rows are the questionnaire's own
-      questions, in the order they appear on it. Seven marks a vendor.</p>
+      questions, in the order they appear on it.</p>
   </header>
 
   <h2>What we score</h2>
@@ -173,7 +172,9 @@ ul{{list-style:none;margin:0;padding:0}}
     </div>
     <div><ul class="bands">{bands}</ul>
       <p class="fn">A vendor whose Home Care Home Base integration is not yet live shows as
-        Conditional whatever the total.</p></div>
+        Conditional whatever the total.</p>
+      <p class="fn">On scope the mark is the points. Three marks of 0&ndash;4 give each arena 12,
+        so all three carry the same weight.</p></div>
   </div>
 
 </section>'''
