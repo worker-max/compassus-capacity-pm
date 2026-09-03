@@ -33,24 +33,21 @@ FIRST_COL = 5                                     # column E
 VCOLS = [get_column_letter(c) for c in range(FIRST_COL, FIRST_COL + N_VENDORS)]
 
 HCHB_RUNGS = [
-    ("Live — reads and writes, several customers", 25),
-    ("Live — one customer, or one-way only", 20),
-    ("Live — via a partner, flat file or screen scraping", 12),
+    ("Live — established customer base", 20),
+    ("Live — small customer base", 16),
+    ("Live — through a partner", 12),
     ("In development — with a date", 6),
-    ("Roadmap — no date", 2),
+    ("On the roadmap — no date", 2),
     ("None, and no path to one", 0),
 ]
-SCOPE = ["0 — Nothing here", "1 — Touches one corner", "2 — Covers a few pieces",
-         "3 — Covers about half", "4 — Covers most of it",
-         "5 — Covers essentially all of it"]
+# "Most of it" is the ceiling: the spec is ours and original, so nobody covers all of it.
+SCOPE = ["0 — Nothing here", "1 — A corner of it", "2 — Less than half",
+         "3 — About half", "4 — More than half", "5 — Most of it"]
 SOPH = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
         "3 — Recommends it", "4 — Runs it"]
-# One axis only: how much say the clinician has over their own schedule.
-CLIN = ["0 — Not answered",
-        "1 — The schedule is set for them, with no way to change it",
-        "2 — They can raise it; someone else makes the change",
-        "3 — They can decline or change an assignment themselves",
-        "4 — They can shape their own schedule, and the product learns from it"]
+# Deliberately undescribed. This is our read of fit, not a checklist to satisfy.
+CLIN = ["0 — Not answered", "1 — Poor fit", "2 — Workable",
+        "3 — Good fit", "4 — Strong fit"]
 PART = ["0 — Didn't answer",
         "1 — Standard commercial relationship only",
         "2 — Willing, but no structure offered",
@@ -121,17 +118,19 @@ def main():
 
         ("band", "THE SEVEN MARKS", "", ""),
         ("hd", "Question", "Mark", "Points"),
-        ("row", "A1", "Home Care Home Base integration", "25"),
-        ("row", "Section B", "Capacity — how much of it they cover", "10"),
-        ("row", "Section B", "Scheduling — how much of it they cover", "10"),
-        ("row", "Section B", "Engagement — how much of it they cover", "10"),
+        ("row", "A1", "Home Care Home Base integration", "20"),
+        ("row", "Section B", "Capacity — how much of it they cover", "12"),
+        ("row", "Section B", "Scheduling — how much of it they cover", "12"),
+        ("row", "Section B", "Engagement — how much of it they cover", "12"),
         ("row", "C1–C5, C7", "Sophistication — how much of the work the product does", "20"),
-        ("row", "D1–D3", "Clinician fit", "10"),
-        ("row", "E1–E4", "Partnership", "15"),
+        ("row", "D1–D3", "Clinician fit", "12"),
+        ("row", "E1–E4", "Partnership", "12"),
         ("row", "", "TOTAL", "100"),
         ("gap", "", "", ""),
 
         ("band", "A1  ·  HOME CARE HOME BASE   —   pick one line", "", ""),
+        ("para", "", "", "Three of the six rungs are live integrations, because live through a partner is still "
+                         "live. Anything not yet live shows as Conditional on the score, whatever the total."),
     ]
     rows += [("row", str(p), lbl, "") for lbl, p in HCHB_RUNGS]
     rows += [
@@ -140,15 +139,15 @@ def main():
         ("para", "", "", "Read the eleven areas each vendor rated themselves on, then give one mark per arena. "
                          "Capacity has 3 areas, Scheduling 4, Engagement 4. Where Section C contradicts Section B, "
                          "believe Section C."),
-        ("row", "5", "Covers essentially all of it", ""),
-        ("row", "4", "Covers most of it", ""),
-        ("row", "3", "Covers about half", ""),
-        ("row", "2", "Covers a few pieces", ""),
-        ("row", "1", "Touches one corner", ""),
+        ("row", "5", "Most of it", ""),
+        ("row", "4", "More than half", ""),
+        ("row", "3", "About half", ""),
+        ("row", "2", "Less than half", ""),
+        ("row", "1", "A corner of it", ""),
         ("row", "0", "Nothing here", ""),
-        ("para", "", "", "Six rungs because most of these are point solutions, not suites. Expect the field to "
-                         "land between 1 and 3, and expect 4 and 5 to go unused — that lower spread is the useful "
-                         "part, and it is a finding in itself if nobody reaches half of an arena."),
+        ("para", "", "", "Most of it is the ceiling on purpose. The scope on our one-pager is original and these "
+                         "are point solutions, so nobody will cover all of it — a rung for that would sit unused and "
+                         "squeeze everyone else into the bottom half of the scale. All six rungs here are live."),
         ("gap", "", "", ""),
 
         ("band", "SECTION C  ·  SOPHISTICATION   —   one mark, 0 to 4", "", ""),
@@ -166,19 +165,16 @@ def main():
         ("gap", "", "", ""),
 
         ("band", "SECTION D  ·  CLINICIAN FIT   —   one mark, 0 to 4", "", ""),
-        ("para", "", "", "One question only: how much say does the clinician have over their own schedule? "
-                         "Many clinicians come to home health for the control it gives them over their week, so "
-                         "this is the adoption risk."),
-        ("row", "4", "They can shape their own schedule, and the product learns from it", ""),
-        ("row", "3", "They can decline or change an assignment themselves", ""),
-        ("row", "2", "They can raise it; someone else makes the change", ""),
-        ("row", "1", "The schedule is set for them, with no way to change it", ""),
+        ("row", "4", "Strong fit", ""),
+        ("row", "3", "Good fit", ""),
+        ("row", "2", "Workable", ""),
+        ("row", "1", "Poor fit", ""),
         ("row", "0", "Not answered", ""),
-        ("para", "", "", "This runs opposite to Sophistication on purpose. A product that decides everything "
-                         "scores 4 there and 1 here — and that is the real trade in this purchase, not a "
-                         "contradiction. A vendor strong on both has solved something hard."),
-        ("para", "", "", "Whether they showed adoption data is not on this scale. It is a note, not a score — a "
-                         "product can be well designed for clinicians and simply be young."),
+        ("para", "", "", "No descriptions here on purpose. Read D1 to D3 and give it your own read. We know how "
+                         "our clinicians work and what they will accept; a rubric that spelled out what earns a 4 "
+                         "would only substitute a guess for that."),
+        ("para", "", "", "Say why in the Notes, though — that one line is what a colleague reads when they score "
+                         "the same vendor differently."),
         ("gap", "", "", ""),
 
         ("band", "SECTION E  ·  PARTNERSHIP   —   one mark, 0 to 4", "", ""),
@@ -205,8 +201,8 @@ def main():
         ("row", "65–79", "Consider — only if something specific justifies it", ""),
         ("row", "50–64", "Hold — park unless the field thins", ""),
         ("row", "< 50", "Decline — close out with thanks", ""),
-        ("row", "Conditional", "Shown whenever A1 scores under 12. Advancing means accepting an integration still "
-                               "to be built, on their timeline, at our risk.", ""),
+        ("row", "Conditional", "Shown whenever the integration is not yet live. Advancing means accepting an "
+                               "integration still to be built, on their timeline, at our risk.", ""),
     ]
 
     gr = 6
@@ -298,7 +294,7 @@ def main():
     band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
     r += 1
     q_row(r, "A1", "Home Care Home Base integration",
-          "Pick one line  ·  25 points", GOLD, "FFFDF4", 24)
+          "Pick one line  ·  20 points", GOLD, "FFFDF4", 24)
     marks["A1"] = r
     r += 1
     q_row(r, "A2", "Customers, scale and references",
@@ -317,7 +313,7 @@ def main():
         ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
         ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
     ]:
-        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  10 points", colour)
+        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  12 points", colour)
         marks[aid] = r
         r += 1
     r += 1
@@ -335,14 +331,14 @@ def main():
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
-    q_row(r, "D1–D3", "Clinician fit", "How much say the clinician has  ·  0–4  ·  10 points",
+    q_row(r, "D1–D3", "Clinician fit", "Our read of fit  ·  0–4  ·  12 points",
           INK, PAPER, 24)
     marks["CLIN"] = r
     r += 2
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
-    q_row(r, "E1–E4", "Partnership", "Terms offered, and the change-management story  ·  0–4  ·  15 points",
+    q_row(r, "E1–E4", "Partnership", "Terms offered, and the change-management story  ·  0–4  ·  12 points",
           INK, PAPER, 24)
     marks["PART"] = r
     r += 2
@@ -365,8 +361,8 @@ def main():
     def num(cell):
         return f"IFERROR(VALUE(LEFT({cell},1)),0)"
 
-    WEIGHTS = [("CAP", 5, 10), ("SCH", 5, 10), ("ENG", 5, 10),
-               ("SOPH", 4, 20), ("CLIN", 4, 10), ("PART", 4, 15)]
+    WEIGHTS = [("CAP", 5, 12), ("SCH", 5, 12), ("ENG", 5, 12),
+               ("SOPH", 4, 20), ("CLIN", 4, 12), ("PART", 4, 12)]
     for cl in VCOLS:
         hchb = f"IFERROR(VLOOKUP({cl}{marks['A1']},Lists!$B$2:$C$7,2,FALSE),0)"
         pieces = [hchb]
@@ -391,8 +387,8 @@ def main():
          [marks["A1"]]),
         (DataValidation(type="list", formula1="=Lists!$E$2:$E$7", allow_blank=True,
                         showDropDown=False, promptTitle="Scope, 0–5",
-                        prompt="How much of this arena they cover. Most point solutions land "
-                               "between 1 and 3 — that spread is the useful part."),
+                        prompt="How much of this arena they cover. Most of it is the ceiling — our spec "
+                               "is original, so nobody covers all of it."),
          [marks["CAP"], marks["SCH"], marks["ENG"]]),
         (DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
                         showDropDown=False, promptTitle="Sophistication, 0–4",
@@ -401,8 +397,8 @@ def main():
          [marks["SOPH"]]),
         (DataValidation(type="list", formula1="=Lists!$I$2:$I$6", allow_blank=True,
                         showDropDown=False, promptTitle="Clinician fit, 0–4",
-                        prompt="How much say does the clinician have over their own schedule? "
-                               "This runs opposite to Sophistication on purpose."),
+                        prompt="Read D1 to D3 and give it your own read of fit. There is no "
+                               "checklist here on purpose."),
          [marks["CLIN"]]),
         (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
                         showDropDown=False, promptTitle="Partnership, 0–4",

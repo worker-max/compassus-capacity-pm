@@ -18,29 +18,29 @@ CAP, SCH, ENG = "#1F6F78", "#2E599D", "#4E8A5B"
 GOLD, MAROON, PURPLE = "#C6A01F", "#792E2E", "#795CA7"
 
 MARKS = [
-    ("A1", "Home Care Home Base integration", "25", GOLD),
-    ("Section B", "Capacity", "10", CAP),
-    ("Section B", "Scheduling", "10", SCH),
-    ("Section B", "Engagement", "10", ENG),
+    ("A1", "Home Care Home Base integration", "20", GOLD),
+    ("Section B", "Capacity", "12", CAP),
+    ("Section B", "Scheduling", "12", SCH),
+    ("Section B", "Engagement", "12", ENG),
     ("C1&ndash;C5, C7", "Sophistication", "20", PURPLE),
-    ("D1&ndash;D3", "Clinician fit", "10", INK),
-    ("E1&ndash;E4", "Partnership", "15", INK),
+    ("D1&ndash;D3", "Clinician fit", "12", INK),
+    ("E1&ndash;E4", "Partnership", "12", INK),
 ]
 
 SCALES = [
     [("Home Care Home Base &nbsp;<em>A1</em>", GOLD, [
-        ("25", "Live, reads and writes, several customers"),
-        ("20", "Live, one customer or one-way"),
-        ("12", "Live via a partner, flat file or screen scraping"),
+        ("20", "Live, established customer base"),
+        ("16", "Live, small customer base"),
+        ("12", "Live through a partner"),
         ("6", "In development, with a date"),
-        ("2", "Roadmap, no date"),
+        ("2", "On the roadmap, no date"),
         ("0", "None, and no path")])],
     [("Scope &nbsp;<em>Section B</em>", CAP, [
-        ("5", "Covers essentially all of it"),
-        ("4", "Covers most of it"),
-        ("3", "Covers about half"),
-        ("2", "Covers a few pieces"),
-        ("1", "Touches one corner"),
+        ("5", "Most of it"),
+        ("4", "More than half"),
+        ("3", "About half"),
+        ("2", "Less than half"),
+        ("1", "A corner of it"),
         ("0", "Nothing here")]),
      ("Sophistication &nbsp;<em>C1&ndash;C5, C7</em>", PURPLE, [
         ("4", "Runs it &mdash; decides across the whole picture"),
@@ -49,10 +49,10 @@ SCALES = [
         ("1", "Shows it &mdash; surfaces the information only"),
         ("0", "Not addressed")])],
     [("Clinician fit &nbsp;<em>D1&ndash;D3</em>", INK, [
-        ("4", "Can shape their own schedule, and the product learns from it"),
-        ("3", "Can decline or change an assignment themselves"),
-        ("2", "Can raise it; someone else makes the change"),
-        ("1", "The schedule is set for them, no way to change it"),
+        ("4", "Strong fit"),
+        ("3", "Good fit"),
+        ("2", "Workable"),
+        ("1", "Poor fit"),
         ("0", "Not answered")]),
      ("Partnership &nbsp;<em>E1&ndash;E4</em>", INK, [
         ("4", "Specific terms and a change-management story"),
@@ -171,12 +171,13 @@ ul{{list-style:none;margin:0;padding:0}}
       <ul class="flags">{flags}</ul>
       <p class="fn">These three raise a flag rather than moving the score. A vendor can score well
         and still carry one. We resolve it before advancing rather than trading it against points.</p>
-      <p class="fn">Sophistication and clinician fit pull in opposite directions on purpose: a product
-        that decides everything scores high on one and low on the other. That is the real trade in this
-        purchase. A vendor strong on both has solved something hard.</p>
+      <p class="fn">Two scales are deliberately left undescribed. Clinician fit is our own read &mdash;
+        we know how our clinicians work and what they will accept. And most of it is the ceiling on scope,
+        because the spec is ours and original; nobody covers all of it.</p>
     </div>
     <div><ul class="bands">{bands}</ul>
-      <p class="fn">Under 12 on Home Care Home Base shows as Conditional whatever the total.</p></div>
+      <p class="fn">A vendor whose Home Care Home Base integration is not yet live shows as
+        Conditional whatever the total.</p></div>
   </div>
 
 </section>'''
