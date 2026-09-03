@@ -36,10 +36,12 @@ SCALES = [
         ("2", "Roadmap, no date"),
         ("0", "None, and no path")])],
     [("Scope &nbsp;<em>Section B</em>", CAP, [
-        ("3", "Covers essentially all of it"),
-        ("2", "Covers most of it"),
-        ("1", "Covers some of it"),
-        ("0", "Little or none")]),
+        ("5", "Covers essentially all of it"),
+        ("4", "Covers most of it"),
+        ("3", "Covers about half"),
+        ("2", "Covers a few pieces"),
+        ("1", "Touches one corner"),
+        ("0", "Nothing here")]),
      ("Sophistication &nbsp;<em>C1&ndash;C5, C7</em>", PURPLE, [
         ("4", "Runs it &mdash; decides across the whole picture"),
         ("3", "Recommends it &mdash; proposes; a person confirms"),
@@ -47,10 +49,10 @@ SCALES = [
         ("1", "Shows it &mdash; surfaces the information only"),
         ("0", "Not addressed")])],
     [("Clinician fit &nbsp;<em>D1&ndash;D3</em>", INK, [
-        ("4", "Clinician keeps real control, adoption shown with data"),
-        ("3", "Clinician keeps real control, adoption claimed"),
-        ("2", "System decides, clinician can override"),
-        ("1", "System decides, clinician cannot override"),
+        ("4", "Can shape their own schedule, and the product learns from it"),
+        ("3", "Can decline or change an assignment themselves"),
+        ("2", "Can raise it; someone else makes the change"),
+        ("1", "The schedule is set for them, no way to change it"),
         ("0", "Not answered")]),
      ("Partnership &nbsp;<em>E1&ndash;E4</em>", INK, [
         ("4", "Specific terms and a change-management story"),
@@ -169,6 +171,9 @@ ul{{list-style:none;margin:0;padding:0}}
       <ul class="flags">{flags}</ul>
       <p class="fn">These three raise a flag rather than moving the score. A vendor can score well
         and still carry one. We resolve it before advancing rather than trading it against points.</p>
+      <p class="fn">Sophistication and clinician fit pull in opposite directions on purpose: a product
+        that decides everything scores high on one and low on the other. That is the real trade in this
+        purchase. A vendor strong on both has solved something hard.</p>
     </div>
     <div><ul class="bands">{bands}</ul>
       <p class="fn">Under 12 on Home Care Home Base shows as Conditional whatever the total.</p></div>

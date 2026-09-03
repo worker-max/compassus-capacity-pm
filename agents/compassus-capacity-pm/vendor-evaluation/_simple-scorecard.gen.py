@@ -40,15 +40,17 @@ HCHB_RUNGS = [
     ("Roadmap — no date", 2),
     ("None, and no path to one", 0),
 ]
-SCOPE = ["0 — Little or none", "1 — Covers some of it",
-         "2 — Covers most of it", "3 — Covers essentially all of it"]
+SCOPE = ["0 — Nothing here", "1 — Touches one corner", "2 — Covers a few pieces",
+         "3 — Covers about half", "4 — Covers most of it",
+         "5 — Covers essentially all of it"]
 SOPH = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
         "3 — Recommends it", "4 — Runs it"]
-CLIN = ["0 — Didn't answer",
-        "1 — System decides, clinician cannot override",
-        "2 — System decides, clinician can override",
-        "3 — Clinician keeps real control; adoption claimed",
-        "4 — Clinician keeps real control; adoption shown with data"]
+# One axis only: how much say the clinician has over their own schedule.
+CLIN = ["0 — Not answered",
+        "1 — The schedule is set for them, with no way to change it",
+        "2 — They can raise it; someone else makes the change",
+        "3 — They can decline or change an assignment themselves",
+        "4 — They can shape their own schedule, and the product learns from it"]
 PART = ["0 — Didn't answer",
         "1 — Standard commercial relationship only",
         "2 — Willing, but no structure offered",
@@ -134,14 +136,19 @@ def main():
     rows += [("row", str(p), lbl, "") for lbl, p in HCHB_RUNGS]
     rows += [
         ("gap", "", "", ""),
-        ("band", "SECTION B  ·  SCOPE   —   one mark per arena, 0 to 3", "", ""),
+        ("band", "SECTION B  ·  SCOPE   —   one mark per arena, 0 to 5", "", ""),
         ("para", "", "", "Read the eleven areas each vendor rated themselves on, then give one mark per arena. "
-                         "Capacity has 3 areas, Scheduling 4, Engagement 4 — so counting their yeses gets you most "
-                         "of the way there. Where Section C contradicts Section B, believe Section C."),
-        ("row", "3", "Covers essentially all of it", ""),
-        ("row", "2", "Covers most of it", ""),
-        ("row", "1", "Covers some of it", ""),
-        ("row", "0", "Little or none", ""),
+                         "Capacity has 3 areas, Scheduling 4, Engagement 4. Where Section C contradicts Section B, "
+                         "believe Section C."),
+        ("row", "5", "Covers essentially all of it", ""),
+        ("row", "4", "Covers most of it", ""),
+        ("row", "3", "Covers about half", ""),
+        ("row", "2", "Covers a few pieces", ""),
+        ("row", "1", "Touches one corner", ""),
+        ("row", "0", "Nothing here", ""),
+        ("para", "", "", "Six rungs because most of these are point solutions, not suites. Expect the field to "
+                         "land between 1 and 3, and expect 4 and 5 to go unused — that lower spread is the useful "
+                         "part, and it is a finding in itself if nobody reaches half of an arena."),
         ("gap", "", "", ""),
 
         ("band", "SECTION C  ·  SOPHISTICATION   —   one mark, 0 to 4", "", ""),
@@ -159,11 +166,19 @@ def main():
         ("gap", "", "", ""),
 
         ("band", "SECTION D  ·  CLINICIAN FIT   —   one mark, 0 to 4", "", ""),
-        ("row", "4", "Clinician keeps real control, and they showed adoption data", ""),
-        ("row", "3", "Clinician keeps real control; adoption claimed but not shown", ""),
-        ("row", "2", "System decides, clinician can override", ""),
-        ("row", "1", "System decides, clinician cannot override", ""),
-        ("row", "0", "Didn't answer", ""),
+        ("para", "", "", "One question only: how much say does the clinician have over their own schedule? "
+                         "Many clinicians come to home health for the control it gives them over their week, so "
+                         "this is the adoption risk."),
+        ("row", "4", "They can shape their own schedule, and the product learns from it", ""),
+        ("row", "3", "They can decline or change an assignment themselves", ""),
+        ("row", "2", "They can raise it; someone else makes the change", ""),
+        ("row", "1", "The schedule is set for them, with no way to change it", ""),
+        ("row", "0", "Not answered", ""),
+        ("para", "", "", "This runs opposite to Sophistication on purpose. A product that decides everything "
+                         "scores 4 there and 1 here — and that is the real trade in this purchase, not a "
+                         "contradiction. A vendor strong on both has solved something hard."),
+        ("para", "", "", "Whether they showed adoption data is not on this scale. It is a note, not a score — a "
+                         "product can be well designed for clinicians and simply be young."),
         ("gap", "", "", ""),
 
         ("band", "SECTION E  ·  PARTNERSHIP   —   one mark, 0 to 4", "", ""),
@@ -302,7 +317,7 @@ def main():
         ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
         ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
     ]:
-        q_row(r, "Section B", name, f"{areas}  ·  0–3  ·  10 points", colour)
+        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  10 points", colour)
         marks[aid] = r
         r += 1
     r += 1
@@ -320,7 +335,7 @@ def main():
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
-    q_row(r, "D1–D3", "Clinician fit", "Control, and whether adoption is shown  ·  0–4  ·  10 points",
+    q_row(r, "D1–D3", "Clinician fit", "How much say the clinician has  ·  0–4  ·  10 points",
           INK, PAPER, 24)
     marks["CLIN"] = r
     r += 2
@@ -350,7 +365,7 @@ def main():
     def num(cell):
         return f"IFERROR(VALUE(LEFT({cell},1)),0)"
 
-    WEIGHTS = [("CAP", 3, 10), ("SCH", 3, 10), ("ENG", 3, 10),
+    WEIGHTS = [("CAP", 5, 10), ("SCH", 5, 10), ("ENG", 5, 10),
                ("SOPH", 4, 20), ("CLIN", 4, 10), ("PART", 4, 15)]
     for cl in VCOLS:
         hchb = f"IFERROR(VLOOKUP({cl}{marks['A1']},Lists!$B$2:$C$7,2,FALSE),0)"
@@ -374,10 +389,10 @@ def main():
                         showDropDown=False, promptTitle="A1 — Home Care Home Base",
                         prompt="Pick one line. Ambiguous? Take the lower one and say so in Notes."),
          [marks["A1"]]),
-        (DataValidation(type="list", formula1="=Lists!$E$2:$E$5", allow_blank=True,
-                        showDropDown=False, promptTitle="Scope, 0–3",
-                        prompt="How much of this arena they cover. Counting their Section B yeses "
-                               "gets you most of the way there."),
+        (DataValidation(type="list", formula1="=Lists!$E$2:$E$7", allow_blank=True,
+                        showDropDown=False, promptTitle="Scope, 0–5",
+                        prompt="How much of this arena they cover. Most point solutions land "
+                               "between 1 and 3 — that spread is the useful part."),
          [marks["CAP"], marks["SCH"], marks["ENG"]]),
         (DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
                         showDropDown=False, promptTitle="Sophistication, 0–4",
@@ -386,7 +401,8 @@ def main():
          [marks["SOPH"]]),
         (DataValidation(type="list", formula1="=Lists!$I$2:$I$6", allow_blank=True,
                         showDropDown=False, promptTitle="Clinician fit, 0–4",
-                        prompt="Does the clinician keep real control, and did they show adoption data?"),
+                        prompt="How much say does the clinician have over their own schedule? "
+                               "This runs opposite to Sophistication on purpose."),
          [marks["CLIN"]]),
         (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
                         showDropDown=False, promptTitle="Partnership, 0–4",
@@ -427,7 +443,7 @@ def main():
         rr = marks[key]
         ws.conditional_formatting.add(f"{VCOLS[0]}{rr}:{last}{rr}", ColorScaleRule(
             start_type="num", start_value=0, start_color="FFFFFF",
-            end_type="num", end_value=3, end_color=hi))
+            end_type="num", end_value=5, end_color=hi))
 
     ws.freeze_panes = f"{VCOLS[0]}7"
     ws.sheet_view.zoomScale = 90
