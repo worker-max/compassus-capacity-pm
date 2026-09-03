@@ -16,6 +16,7 @@ import os
 import sys
 
 from openpyxl import Workbook
+from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.formatting.rule import ColorScaleRule, FormulaRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
@@ -29,7 +30,7 @@ CAP, SCH, ENG = "1F6F78", "2E599D", "4E8A5B"
 GOLD, MAROON, PURPLE = "C6A01F", "792E2E", "795CA7"
 
 N_VENDORS = 16
-FIRST_COL = 5                                     # column E
+FIRST_COL = 6                                     # column F — E holds the points
 VCOLS = [get_column_letter(c) for c in range(FIRST_COL, FIRST_COL + N_VENDORS)]
 
 HCHB_RUNGS = [
@@ -128,8 +129,9 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
     ws.sheet_properties.tabColor = tab_colour
     ws.column_dimensions["A"].width = 3
     ws.column_dimensions["B"].width = 12
-    ws.column_dimensions["C"].width = 34
-    ws.column_dimensions["D"].width = 44
+    ws.column_dimensions["C"].width = 32
+    ws.column_dimensions["D"].width = 46
+    ws.column_dimensions["E"].width = 8
     for cl in VCOLS:
         ws.column_dimensions[cl].width = 13
 
@@ -142,6 +144,8 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
     r = 6
     ws.row_dimensions[r].height = 42
     put(ws, f"B{r}", "VENDOR", F(9, True, MUTED), Alignment(horizontal="left", vertical="bottom"))
+    put(ws, f"E{r}", "PTS", F(9, True, MUTED),
+        Alignment(horizontal="center", vertical="bottom"))
     for i, cl in enumerate(VCOLS, 1):
         put(ws, f"{cl}{r}", f"Vendor {i:02d}", F(10, True, INK),
             Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
@@ -172,26 +176,28 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
 
     marks, flags = {}, {}
 
-    def q_row(row, qid, label, detail, colour=INK, tint=PAPER, height=19):
+    def q_row(row, qid, label, detail, colour=INK, tint=PAPER, height=19, points=None):
         ws.row_dimensions[row].height = height
         put(ws, f"B{row}", qid, F(10, True, colour), CTR)
         put(ws, f"C{row}", label, F(10, False, INK), LEFT)
         put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT)
+        put(ws, f"E{row}", points if points is not None else "—",
+            F(10, points is not None, colour if points is not None else MUTED), CTR)
         for cl in VCOLS:
             put(ws, f"{cl}{row}", None, F(9), CTR, tint, BOX)
 
     band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
     r += 1
     q_row(r, "A1", "Home Care Home Base integration",
-          "Pick one line  ·  20 points", GOLD, "FFFDF4", 24)
+          "Pick the line that matches their answer", GOLD, "FFFDF4", 24, points=20)
     marks["A1"] = r
     r += 1
     q_row(r, "A2", "Customers, scale and references",
-          "Flag  ·  stop-check if one customer or no references", MAROON, "FDF7F7")
+          "Stop-check if one customer, or no references offered", MAROON, "FDF7F7")
     flags["A2"] = r
     r += 1
     q_row(r, "A3", "Measured impact",
-          "Flag  ·  watch if no baseline or period", MAROON, "FDF7F7")
+          "Watch if claimed with no baseline or period", MAROON, "FDF7F7")
     flags["A3"] = r
     r += 2
 
@@ -202,7 +208,7 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
         ("SCH", "Scheduling", "Demand · matching · routing & the week · exceptions", SCH),
         ("ENG", "Engagement", "Before the visit · when plans change · incentives · care team", ENG),
     ]:
-        q_row(r, "Section B", name, f"{areas}  ·  0–5  ·  12 points", colour)
+        q_row(r, "Section B", name, areas, colour, height=30, points=12)
         marks[aid] = r
         r += 1
     r += 1
@@ -210,25 +216,25 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
     r += 1
     q_row(r, "Section C", "Sophistication",
-          "How much of the work it does  ·  0–4  ·  20 points", PURPLE, PAPER, 24)
+          "How much of the work the product does", PURPLE, PAPER, 24, points=20)
     marks["SOPH"] = r
     r += 1
     q_row(r, "C6", "When your product is down",
-          "Flag  ·  stop-check if no uptime figure or commitment", MAROON, "FDF7F7")
+          "Stop-check if no uptime figure or contractual commitment", MAROON, "FDF7F7")
     flags["C6"] = r
     r += 2
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
-    q_row(r, "D1–D3", "Clinician fit", "Our read of fit  ·  0–4  ·  12 points",
-          INK, PAPER, 24)
+    q_row(r, "D1–D3", "Clinician fit", "Our own read of fit — no checklist, on purpose",
+          INK, PAPER, 24, points=12)
     marks["CLIN"] = r
     r += 2
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
-    q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake  ·  0–4  ·  12 points",
-          INK, PAPER, 24)
+    q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake",
+          INK, PAPER, 24, points=12)
     marks["PART"] = r
     r += 2
 
@@ -243,6 +249,7 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
         put(ws, f"B{r}", "", F(10))
         put(ws, f"C{r}", label, F(10, True, MAROON), LEFT_T)
         put(ws, f"D{r}", hint, F(9, False, MUTED, italic=True), LEFT_T)
+        put(ws, f"E{r}", "—", F(10, False, MUTED), CTR)
         for cl in VCOLS:
             put(ws, f"{cl}{r}", None, F(9), LEFT_T, PAPER, BOX)
         r += 1
@@ -276,26 +283,26 @@ def build_scorecard(wb, title, tab_colour, deck, prefill=None):
 
     # ── validation ──
     dvs = [
-        (DataValidation(type="list", formula1="=Lists!$B$2:$B$7", allow_blank=True,
+        (DataValidation(type="list", formula1="=HCHB_List", allow_blank=True,
                         showDropDown=False, promptTitle="A1 — Home Care Home Base",
                         prompt="Pick one line. Ambiguous? Take the lower one and say so in Notes."),
          [marks["A1"]]),
-        (DataValidation(type="list", formula1="=Lists!$E$2:$E$7", allow_blank=True,
+        (DataValidation(type="list", formula1="=Scope_List", allow_blank=True,
                         showDropDown=False, promptTitle="Scope, 0–5",
                         prompt="How much of this arena they cover. Most of it is the ceiling — our spec "
                                "is original, so nobody covers all of it."),
          [marks["CAP"], marks["SCH"], marks["ENG"]]),
-        (DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
+        (DataValidation(type="list", formula1="=Soph_List", allow_blank=True,
                         showDropDown=False, promptTitle="Sophistication, 0–4",
                         prompt="1 shows it · 2 checks it · 3 recommends it · 4 runs it. Score what "
                                "the product does, not how much they wrote about it."),
          [marks["SOPH"]]),
-        (DataValidation(type="list", formula1="=Lists!$I$2:$I$6", allow_blank=True,
+        (DataValidation(type="list", formula1="=Clin_List", allow_blank=True,
                         showDropDown=False, promptTitle="Clinician fit, 0–4",
                         prompt="Read D1 to D3 and give it your own read of fit. There is no "
                                "checklist here on purpose."),
          [marks["CLIN"]]),
-        (DataValidation(type="list", formula1="=Lists!$K$2:$K$6", allow_blank=True,
+        (DataValidation(type="list", formula1="=Part_List", allow_blank=True,
                         showDropDown=False, promptTitle="Partnership, 0–4",
                         prompt="Are they able and willing to build this with us, and open to us holding "
                                "a stake in what a wider market might buy? A discount is a discount."),
@@ -537,6 +544,14 @@ def main():
             ls[f"{col}{i}"] = label
     for col in "BEGIK":
         ls.column_dimensions[col].width = 48
+
+    # Cross-sheet dropdowns only work in Excel through defined names.
+    for nm, ref in [("HCHB_List", f"Lists!$B$2:$B${1 + len(HCHB_RUNGS)}"),
+                    ("Scope_List", f"Lists!$E$2:$E${1 + len(SCOPE)}"),
+                    ("Soph_List", f"Lists!$G$2:$G${1 + len(SOPH)}"),
+                    ("Clin_List", f"Lists!$I$2:$I${1 + len(CLIN)}"),
+                    ("Part_List", f"Lists!$K$2:$K${1 + len(PART)}")]:
+        wb.defined_names.add(DefinedName(nm, attr_text=ref))
 
     wb.move_sheet("Start Here", offset=2)
     wb.active = 0
