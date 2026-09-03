@@ -92,12 +92,14 @@ tie by accident. The three percentages get reported separately on every scorecar
 
 **Rules that keep this honest:**
 
-1. **Section B is their claim; Section C is the evidence.** Where B says "Yes — automated end to
-   end" and no Section C answer describes the mechanism, mark **Partial**. Self-assessment
-   inflates; walkthroughs do not.
-2. **Cite or don't score.** Every *Covered* mark names the question it came from. A mark with no
-   citation is a **Partial**.
-3. **"Configurable" is not "covered."** Neither is an open API. Both are Partial.
+1. **A vendor's own Section B answer is enough to mark Covered.** They were given a dropdown and
+   a small notes box, not room for an essay. Do not demote a plain claim for lacking
+   elaboration — that penalises the form, not the product. Note the follow-up question instead.
+2. **Section C overrides Section B only where the two contradict.** If C describes something
+   narrower than B claimed, believe C and say why.
+3. **"Configurable" is not "covered."** Neither is an open API, a dated roadmap item, or an area
+   marked in-scope that they did not claim to have. Those are Partial because the answer itself
+   says so.
 4. **A partner delivering it is Partial**, and gets a flag naming the partner.
 5. **ENG-01 and ENG-02** (agentic outreach; staff able to take the conversation back) have no
    Section B area of their own. Score them from **C7** and **D1**.
@@ -106,44 +108,70 @@ tie by accident. The three percentages get reported separately on every scorecar
 
 ## 3 · Sophistication — 20 points
 
-How good is the product, as distinct from how much of it there is. Five dimensions, each on the
-**evidence ladder**:
+**How much of the work the product actually does.** Part 2 counts *what* a vendor has;
+this measures *how advanced it is*.
 
-### The evidence ladder (0–4) — used in parts 3, 4 and 5
+This is the category leadership asked for by name, and it is the one that separates two vendors
+who both tick the same boxes — one that shows a scheduler a number, and one that works out the
+answer and acts on it.
+
+### The capability scale (0–4)
+
+The same **Read / Assist / Control** language already in the primary workbook's Functional
+Scorecard, on five rungs.
 
 | | | |
 |---:|---|---|
-| **0** | Not addressed | The question was skipped, or answered without answering. |
-| **1** | Asserted | They say they do it. Nothing behind it. |
-| **2** | Described | We can picture the feature. |
-| **3** | Mechanism | We can picture *how it decides* — the inputs, the logic, the configuration. |
-| **4** | Proven | Mechanism **plus** evidence: numbers, a named customer, a period, a baseline. |
+| **0** | Not addressed | They do not do this, or did not say. |
+| **1** | **Shows it** | Surfaces the information. A person does all the work. *(Read)* |
+| **2** | **Checks it** | Applies rules and flags problems. A person still works it. |
+| **3** | **Recommends it** | Works out the answer and proposes it. A person confirms. *(Assist)* |
+| **4** | **Runs it** | Decides across the whole picture, and re-decides when things change. *(Control)* |
 
-### The five dimensions
+> **Score the product, not the write-up.** A three-sentence answer saying the engine optimises
+> across drive time, continuity and capacity together is a **4**. We deliberately do not reward
+> a vendor for explaining their internals at length, or punish one for brevity: the questionnaire
+> did not give room for it, and *"how does that work?"* is a demo question, not a scoring penalty.
+> If a claim seems thin, mark what they claimed and put the follow-up on the unknowns list.
 
-| # | Dimension | The question behind it | From |
+### The five questions
+
+| # | Item | From | Asks |
 |---|---|---|---|
-| S1 | **Automation posture** | How much runs without a person touching it? | B *How it's done* column, C7 |
-| S2 | **Decision depth** | Does it *reason* about capacity and assignment, or display them? | C1, C2, C4 |
-| S3 | **Readiness & rules** | Does it understand a visit that is ordered but not yet schedulable? | C3 |
-| S4 | **Recovery** | When the plan breaks — how the need is found, offered, filled, and what happens when nobody takes it. | C5 |
-| S5 | **Enterprise trust** | Uptime, outage behaviour, contractual commitment, scale, measured impact. | C6, A2, A3 |
+| S1 | **Capacity** | C1 | How much does it do to work out what a branch can take on? |
+| S2 | **Assignment** | C2 | How much does it do to decide which clinician takes a visit? |
+| S3 | **The week** | C4 | How much does it do across a week or an episode, not just a day? |
+| S4 | **Readiness** | C3 | How much does it do with a visit ordered but not yet schedulable? |
+| S5 | **Recovery** | C5 | How much does it do when the plan breaks? |
 
 ```
 points = (S1+S2+S3+S4+S5) ÷ 20 × 20
 ```
 
-> **Where sophistication actually shows up.** In C1 and C5. A vendor who can tell a branch
-> leader what accepting a referral does to next week's envelope, and who can name the minutes
-> between a call-out and a filled visit, is a different class of product from one who reports
-> both after the fact. Score C1 and C5 slowly.
+> **A 4 is not automatically what we want.** Where we set an *Assist* boundary, a product that
+> decides on its own is a risk to note — the same overreach idea the Functional Scorecard already
+> uses. Score the capability honestly; raise the overreach as a flag.
 
----
+### Three questions that deliberately do not reach the score
+
+**A2** (customers and scale), **A3** (measured impact) and **C6** (what happens when they are
+down) raise **flags** instead of losing points. A vendor with no continuity commitment should be
+stopped and asked, not quietly docked four points — and a vendor whose impact numbers have no
+baseline needs a conversation, not an arithmetic penalty.
 
 ## 4 · Clinician & Adoption — 10 points
 
 The questionnaire says it outright: adoption, more than algorithm quality, decides whether this
-succeeds. Three items on the same 0–4 ladder.
+succeeds. Three items, on the **fit scale** — clinician and partnership are not capability
+questions.
+
+| | | |
+|---:|---|---|
+| **0** | Not addressed | Skipped, or answered without answering. |
+| **1** | Poor fit | What they described works against how we need to operate. |
+| **2** | Workable | We could live with it. |
+| **3** | Good fit | Matches how we want to work. |
+| **4** | Strong fit, proven elsewhere | Matches, and they have done it with a customer already. |
 
 | # | Item | From |
 |---|---|---|
@@ -165,6 +193,8 @@ takes a red flag — regardless of how elegant the algorithm is.
 Compassus is bringing a dedicated optimization team, SME time, design partnership, an enterprise
 deployment and co-marketing. This part measures whether the vendor is set up to trade on that.
 
+Same fit scale.
+
 | # | Item | From |
 |---|---|---|
 | P1 | **Sharing in the value** — a concrete proposal, not enthusiasm | E2 |
@@ -179,7 +209,7 @@ points = (P1+P2+P3+P4) ÷ 16 × 15
 > **E2 is the one to read closely.** A vendor offering design-partner pricing, a co-development
 > lane, equity or revenue share, or roadmap governance is proposing a partnership. A vendor
 > offering a discount is proposing a discount. Both are legitimate; only one is what we asked
-> for. Score to the ladder: an offer with structure and terms is a 3–4, "we're open to
+> for. An offer with structure and terms is a 3–4; "we're open to
 > discussing" is a 1.
 
 ---
@@ -269,9 +299,10 @@ mark, so its scoring is auditable line by line.
 - **This scores a questionnaire, not a product.** It measures how well a vendor described
   themselves against our spec. Nothing here survives contact with a demo, a reference call or a
   sandbox — it is designed to pick *who gets those*, and nothing more.
-- **It rewards good writing.** A strong product with a weak proposal will underscore. That is
-  why differentiators and unknowns sit next to the number: the sheet is a conversation starter,
-  not a verdict.
+- **It still rewards a clear answer over a vague one.** We have removed the places where length
+  was rewarded — sophistication scores the product, and a plain Section B claim is enough for
+  scope — but a vendor who answers a question ambiguously will score lower than one who answers
+  it plainly. That is why the unknowns list sits next to the number: it names what to go and ask.
 - **It cannot see price.** Deliberately. Commercials enter after the shortlist, so they do not
   colour the capability read.
 - **41 elements is our spec, not the market's.** A vendor scoring low on footprint may simply

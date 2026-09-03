@@ -84,23 +84,43 @@ and any claim with no supporting detail.
 
 `ENG-01` and `ENG-02` have no Section B area — score them from **C7** and **D1**.
 
-**Parts 3–5 — the evidence ladder.** Twelve items, each `0–4`:
+**Part 3 — Sophistication.** Five items, each `0–4`, on the **capability scale**. This measures
+how much of the work the product does. It does **not** measure how thoroughly the vendor narrated
+it — a three-sentence answer describing an optimizer scores 4.
 
-| | |
-|---:|---|
-| 0 | Not addressed — skipped, or answered without answering |
-| 1 | Asserted — they say they do it, nothing behind it |
-| 2 | Described — we can picture the feature |
-| 3 | Mechanism — we can picture *how it decides*: inputs, logic, configuration |
-| 4 | Proven — mechanism **plus** evidence: numbers, a named customer, a period, a baseline |
+| | | |
+|---:|---|---|
+| 0 | Not addressed | They do not do this, or did not say. |
+| 1 | **Shows it** | Surfaces the information. A person does all the work. *(Read)* |
+| 2 | **Checks it** | Applies rules and flags problems. A person still works it. |
+| 3 | **Recommends it** | Works out the answer and proposes it. A person confirms. *(Assist)* |
+| 4 | **Runs it** | Decides across the whole picture, and re-decides when things change. *(Control)* |
 
-The gap between 2 and 3 is the one that matters, and it is where most of the discrimination in this
-rubric lives. "We optimise routes" is a 2. "We minimise drive time subject to compliance windows
-and continuity weights, all of which are configurable per branch" is a 3. The same sentence with
-*"cut mileage 14% across 22 branches over nine months against a pre-deployment baseline"* is a 4.
+This is the Read / Assist / Control language already in the primary workbook's Functional
+Scorecard, on five rungs.
+
+| Item | From | Asks |
+|---|---|---|
+| S1 Capacity | C1 | How much does it do to work out what a branch can take on? |
+| S2 Assignment | C2 | How much does it do to decide which clinician takes a visit? |
+| S3 The week | C4 | How much does it do across a week or episode, not just a day? |
+| S4 Readiness | C3 | How much does it do with a visit ordered but not yet schedulable? |
+| S5 Recovery | C5 | How much does it do when the plan breaks? |
+
+> **A 4 is not automatically good.** Where Compassus set an Assist boundary, a product that
+> decides on its own is an overreach to flag, not a bonus. Same idea as the Functional
+> Scorecard's OVERREACH notes. Score the capability honestly and raise the flag separately.
+
+**Parts 4 and 5 — fit.** Seven items, each `0–4`. Clinician and partnership are not capability
+questions, so they use a fit scale: `0` not addressed · `1` poor fit · `2` workable · `3` good
+fit · `4` strong fit, and they have done it with a customer already.
 
 Put your reasoning in each item's `note` — one sentence. That note is what a colleague reads when
 they disagree with you, so make it the *reason*, not a restatement of the score.
+
+**A2, A3 and C6 do not reach the score.** Customers and scale, measured impact, and what happens
+when they are down all raise **flags** instead. A vendor with no continuity commitment should be
+stopped and asked, not quietly docked a few points.
 
 ## 4 · The three unscored lists
 
@@ -156,7 +176,9 @@ not at this file.
 - **A low footprint is not automatically a loss.** A vendor may have built a different, defensible
   product. That belongs in the differentiator list, and it is exactly the observation the operator
   cannot get from a number.
-- **Never invent a citation.** If you cannot find the sentence, the mark is a partial or a zero.
+- **Never invent a citation.** But absence of elaboration is not absence of capability: if they
+  claimed it plainly, mark it and move on. Brevity is not a defect — put the follow-up question
+  on the unknowns list instead.
 - **Two vendors, same score, different shape** — say which arena each owns. That is the useful
   sentence, not the tie.
 - **Flag what surprised you**, including things the rubric has no column for. The rubric is v1.0

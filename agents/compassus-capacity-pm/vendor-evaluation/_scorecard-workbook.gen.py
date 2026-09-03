@@ -42,14 +42,17 @@ HCHB_RUNGS = [
     ("Roadmap, undated", 2),
     ("None, and no path", 0),
 ]
-LADDER = ["0 — Not addressed", "1 — Asserted", "2 — Described", "3 — Mechanism", "4 — Proven"]
+CAPABILITY = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
+              "3 — Recommends it", "4 — Runs it"]
+FIT = ["0 — Not addressed", "1 — Poor fit", "2 — Workable", "3 — Good fit",
+       "4 — Strong fit, proven elsewhere"]
 MARKS = ["Covered", "Partial", "—"]
 
-SOPH = [("S1", "Automation posture", "B how-it's-done · C7"),
-        ("S2", "Decision depth", "C1 · C2 · C4"),
-        ("S3", "Readiness & rules", "C3"),
-        ("S4", "Recovery", "C5"),
-        ("S5", "Enterprise trust", "C6 · A2 · A3")]
+SOPH = [("S1", "Capacity", "C1"),
+        ("S2", "Assignment", "C2"),
+        ("S3", "The week", "C4"),
+        ("S4", "Readiness", "C3"),
+        ("S5", "Recovery", "C5")]
 CLIN = [("D1", "What the clinician decides", "D1"),
         ("D2", "Decide or advise", "D2"),
         ("D3", "Adoption evidence", "D3")]
@@ -211,9 +214,9 @@ def main():
     # ── parts 3-5 · the ladder ──
     ladder_rows = {}
     for title, items, budget, key in [
-        ("3  ·  SOPHISTICATION   —   20 points   ·   evidence ladder 0–4", SOPH, 20, "3"),
-        ("4  ·  CLINICIAN & ADOPTION   —   10 points   ·   evidence ladder 0–4", CLIN, 10, "4"),
-        ("5  ·  PARTNERSHIP   —   15 points   ·   evidence ladder 0–4", PART, 15, "5"),
+        ("3  ·  SOPHISTICATION   —   20 points   ·   how much the product does, 0–4", SOPH, 20, "3"),
+        ("4  ·  CLINICIAN & ADOPTION   —   10 points   ·   fit, 0–4", CLIN, 10, "4"),
+        ("5  ·  PARTNERSHIP   —   15 points   ·   fit, 0–4", PART, 15, "5"),
     ]:
         band_row(ws, r, title, INK)
         r += 1
@@ -299,18 +302,23 @@ def main():
                              showDropDown=False, promptTitle="Footprint mark",
                              prompt="Covered = does it today, cited.  Partial = adjacent, partner, "
                                     "roadmapped, or claimed with no detail.  — = not covered.")
-    dv_lad = DataValidation(type="list", formula1="=Lists!$E$2:$E$6", allow_blank=True,
-                            showDropDown=False, promptTitle="Evidence ladder",
-                            prompt="0 not addressed · 1 asserted · 2 described · 3 mechanism · 4 proven")
-    for dv in (dv_rung, dv_mark, dv_lad):
+    dv_cap = DataValidation(type="list", formula1="=Lists!$E$2:$E$6", allow_blank=True,
+                            showDropDown=False, promptTitle="How much does it do?",
+                            prompt="1 shows it · 2 checks it · 3 recommends it · 4 runs it. "
+                                   "Score what the product does, not how much they wrote about it.")
+    dv_fit = DataValidation(type="list", formula1="=Lists!$G$2:$G$6", allow_blank=True,
+                            showDropDown=False, promptTitle="Fit",
+                            prompt="1 poor fit · 2 workable · 3 good fit · 4 strong fit, proven elsewhere")
+    for dv in (dv_rung, dv_mark, dv_cap, dv_fit):
         ws.add_data_validation(dv)
     dv_rung.add(span.format(HCHB_PICK, HCHB_PICK))
     for rows in element_rows.values():
         for rr in rows:
             dv_mark.add(span.format(rr, rr))
-    for rows in ladder_rows.values():
+    for key, rows in ladder_rows.items():
+        dv = dv_cap if key == "3" else dv_fit
         for rr in rows:
-            dv_lad.add(span.format(rr, rr))
+            dv.add(span.format(rr, rr))
 
     # ══ conditional formatting ══
     rng = f"{VCOLS[0]}{TOTAL_ROW}:{VCOLS[-1]}{TOTAL_ROW}"
@@ -409,32 +417,28 @@ def main():
         ("row", "—", "0", "Absent, explicitly out of scope, or done by a person in their model."),
         ("gap", "", "", ""),
 
-        ("band", "LEGEND  —  PARTS 3, 4 AND 5  ·  THE EVIDENCE LADDER", "", ""),
-        ("para", "", "", "One scale for all twelve questions. It only asks: how far past \"we do that\" did they actually go?"),
-        ("row", "0 — Not addressed", "", "Skipped, or answered without answering."),
-        ("row", "1 — Asserted", "", "They say they do it. Nothing behind it."),
-        ("row", "2 — Described", "", "We can picture the feature. Most answers land here."),
-        ("row", "3 — Mechanism", "", "We can picture HOW IT DECIDES — the inputs, the logic, what a customer can "
-                                     "configure. Usually means an engineer wrote the answer, not marketing."),
-        ("row", "4 — Proven", "", "Mechanism PLUS evidence: numbers, a named customer, a period, a baseline. "
-                                  "Rare, and it is your shortlist."),
-        ("para", "", "", "Torn between two levels? Take the lower one. The vendor gets to fix that at the demo."),
+        ("band", "LEGEND  —  PART 3  ·  SOPHISTICATION", "", ""),
+        ("para", "", "", "Sophistication asks how much of the work the product actually does. Score what it "
+                         "does — not how much space the vendor spent describing it. A three-sentence answer that says "
+                         "the engine optimises across drive time, continuity and capacity together is a 4. If you want "
+                         "to know how it does that, it is a demo question, not a scoring penalty."),
+        ("para", "", "", "This is the Read / Assist / Control language already in our workbook, on five rungs."),
+        ("row", "0 — Not addressed", "", "They do not do this, or did not say."),
+        ("row", "1 — Shows it", "", "Surfaces the information. A person does all the work. (Read)"),
+        ("row", "2 — Checks it", "", "Applies rules and flags problems. A person still works it."),
+        ("row", "3 — Recommends it", "", "Works out the answer and proposes it. A person confirms. (Assist)"),
+        ("row", "4 — Runs it", "", "Decides across the whole picture, and re-decides when things change. (Control)"),
+        ("para", "", "", "A 4 is not automatically what we want. Where we said Assist, a product that decides on "
+                         "its own is a risk to note, not a bonus — the same overreach idea as the functional scorecard."),
         ("gap", "", "", ""),
 
-        ("band", "LEGEND  —  THE TWELVE QUESTIONS", "", ""),
-        ("hd", "Item", "From", "What it asks"),
-        ("row", "S1 Automation posture", "C7 · B", "How much runs without a person touching it?"),
-        ("row", "S2 Decision depth", "C1 · C2 · C4", "Does it reason about capacity and assignment, or display them?"),
-        ("row", "S3 Readiness & rules", "C3", "What happens to a visit that is ordered but not yet schedulable?"),
-        ("row", "S4 Recovery", "C5", "Plan breaks — how the need is found, offered, filled, and what if nobody takes it."),
-        ("row", "S5 Enterprise trust", "C6 · A2 · A3", "Uptime, outage behaviour, contractual commitment, scale, proven results."),
-        ("row", "D1 What the clinician decides", "D1", "What they can change, what needs approval, what is locked."),
-        ("row", "D2 Decide or advise", "D2", "Where it was designed to sit, and how far a customer can move it."),
-        ("row", "D3 Adoption evidence", "D3", "How they measure it, six-month data, what a clinician sees about their own results."),
-        ("row", "P1 Sharing in the value", "E2", "Structure and terms, or enthusiasm. A discount is not a partnership."),
-        ("row", "P2 Deployment & change", "E3", "Approach, what they learned, and the resistance story with what they changed."),
-        ("row", "P3 What we did not ask", "E1", "Do they understand our problem better than our questions did?"),
-        ("row", "P4 What they chose not to build", "E4", "Product judgement and candour."),
+        ("band", "LEGEND  —  PARTS 4 AND 5  ·  FIT", "", ""),
+        ("para", "", "", "Clinician and partnership are not capability questions, so they use a fit scale instead."),
+        ("row", "0 — Not addressed", "", "Skipped, or answered without answering."),
+        ("row", "1 — Poor fit", "", "What they described works against how we need to operate."),
+        ("row", "2 — Workable", "", "We could live with it."),
+        ("row", "3 — Good fit", "", "Matches how we want to work."),
+        ("row", "4 — Strong fit, proven elsewhere", "", "Matches, and they have done it with a customer already."),
         ("gap", "", "", ""),
 
         ("band", "WHAT THE SHEET WORKS OUT FOR YOU", "", ""),
@@ -458,6 +462,9 @@ def main():
         ("row", "Differentiators", "3–5 lines", "What this vendor does that the others do not. Two kinds count: against "
                                                 "the field, and against our own thinking — something not on our one-pager that probably should be. "
                                                 "If it would appear on five vendors' lists, cut it."),
+        ("para", "", "", "Three questions deliberately do not reach the score: A2 customers and scale, A3 measured "
+                         "impact, and C6 what happens when they are down. A vendor with no continuity commitment should "
+                         "be stopped and asked, not quietly docked a few points — so those three raise flags instead."),
         ("row", "Flags", "red / yellow", "RED, resolve before advancing: no HCHB path · no uptime figure or contractual "
                                          "commitment (C6) · the system decides and the clinician cannot override (D1) · one customer or no "
                                          "references (A2) · core scope from an unnamed third party.   YELLOW, note and move on: home health "
@@ -522,9 +529,12 @@ def main():
     put(ls, "C1", "Points", F(9, True, MUTED))
     for i, (label, pts) in enumerate(HCHB_RUNGS, start=2):
         ls[f"B{i}"], ls[f"C{i}"] = label, pts
-    put(ls, "E1", "Ladder", F(9, True, MUTED))
-    for i, label in enumerate(LADDER, start=2):
+    put(ls, "E1", "Capability", F(9, True, MUTED))
+    for i, label in enumerate(CAPABILITY, start=2):
         ls[f"E{i}"] = label
+    put(ls, "G1", "Fit", F(9, True, MUTED))
+    for i, label in enumerate(FIT, start=2):
+        ls[f"G{i}"] = label
     ls.column_dimensions["B"].width = 40
 
     wb.move_sheet("Start Here", offset=-1)

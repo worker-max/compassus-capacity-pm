@@ -218,29 +218,29 @@
   },
   "sophistication": {
     "S1": {
-      "score": 3,
-      "cite": "B / C7",
-      "note": "Scheduling is automated with a person approving; all patient outreach is staff-initiated."
+      "score": 4,
+      "cite": "C1",
+      "note": "Optimiser decides against the envelope and shows a branch leader the impact of accepting a referral before they accept it."
     },
     "S2": {
       "score": 4,
-      "cite": "C1, C2",
-      "note": "Constraint solver with named weights. Answers the referral question directly: shows the envelope impact before accepting."
+      "cite": "C2",
+      "note": "Engine assigns across competency, capacity, continuity and drive time together."
     },
     "S3": {
       "score": 3,
-      "cite": "C3",
-      "note": "Held state with reason codes and auto-release on auth. Mechanism clear, no evidence offered."
+      "cite": "C4",
+      "note": "Plans and rebalances the week against plan-of-care pace; a scheduler confirms."
     },
     "S4": {
-      "score": 4,
-      "cite": "C5",
-      "note": "Ranked offer within 4 minutes median, escalation to per-diem, then to the DCS worklist. Figures over 12 months, named customer."
+      "score": 3,
+      "cite": "C3",
+      "note": "Held state with reason codes, auto-releases on auth, then proposes a slot."
     },
     "S5": {
-      "score": 3,
-      "cite": "C6, A2, A3",
-      "note": "99.95% over 12 months, read-only failover, 99.9% contractual. Impact claimed with a baseline but a single site."
+      "score": 4,
+      "cite": "C5",
+      "note": "Call-out triggers a ranked offer automatically, escalates to per-diem, then to the DCS worklist."
     }
   },
   "clinician": {

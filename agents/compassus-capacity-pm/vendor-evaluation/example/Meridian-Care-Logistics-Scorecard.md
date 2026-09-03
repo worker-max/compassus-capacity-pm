@@ -1,6 +1,6 @@
 # Meridian Care Logistics — Vendor Scorecard
 
-**84.2 / 100 · Advance**
+**85.2 / 100 · Advance**
 
 A scheduling-and-routing optimizer built for multi-site home health, with a live bi-directional HCHB integration and a strong week-level engine. Capacity is modelled as visit points against a productivity target, which matches how Compassus already reasons. Patient engagement is thin — reminders and confirmations exist, agentic outreach does not — and the clinician-facing model is advisory by design.
 
@@ -8,10 +8,10 @@ A scheduling-and-routing optimizer built for multi-site home health, with a live
 |---|---:|---:|---|
 | 1 · HCHB Integration | **25** | 25 | `████████████████████` |
 | 2 · Scope Footprint | **23.4** | 30 | `████████████████····` |
-| 3 · Sophistication | **17.0** | 20 | `█████████████████···` |
+| 3 · Sophistication | **18.0** | 20 | `██████████████████··` |
 | 4 · Clinician & Adoption | **7.5** | 10 | `███████████████·····` |
 | 5 · Partnership | **11.3** | 15 | `███████████████·····` |
-| **Total** | **84.2** | **100** | |
+| **Total** | **85.2** | **100** | |
 
 ## Footprint against the Compassus spec
 
@@ -127,32 +127,32 @@ A scheduling-and-routing optimizer built for multi-site home health, with a live
 | ● | **ENG-15** Care-team and office coordination updates | B11 — *office and care-team updates in-product* |
 | ● | **ENG-16** A clinician view of their own schedule and their own results — the case for the change, made to the person it lands on | D3 — *clinician sees own schedule, points and mileage* |
 
-## Sophistication — 17.0 / 20
+## Sophistication — 18.0 / 20
 
-| | Item | Ladder | Source | Reading |
+| | Item | Does | Source | Reading |
 |---|---|---|---|---|
-| 3 | **Automation posture** | Mechanism | B / C7 | Scheduling is automated with a person approving; all patient outreach is staff-initiated. |
-| 4 | **Decision depth** | Proven | C1, C2 | Constraint solver with named weights. Answers the referral question directly: shows the envelope impact before accepting. |
-| 3 | **Readiness & rules** | Mechanism | C3 | Held state with reason codes and auto-release on auth. Mechanism clear, no evidence offered. |
-| 4 | **Recovery** | Proven | C5 | Ranked offer within 4 minutes median, escalation to per-diem, then to the DCS worklist. Figures over 12 months, named customer. |
-| 3 | **Enterprise trust** | Mechanism | C6, A2, A3 | 99.95% over 12 months, read-only failover, 99.9% contractual. Impact claimed with a baseline but a single site. |
+| 4 | **Capacity** | Runs it | C1 | Optimiser decides against the envelope and shows a branch leader the impact of accepting a referral before they accept it. |
+| 4 | **Assignment** | Runs it | C2 | Engine assigns across competency, capacity, continuity and drive time together. |
+| 3 | **The week** | Recommends it | C4 | Plans and rebalances the week against plan-of-care pace; a scheduler confirms. |
+| 3 | **Readiness** | Recommends it | C3 | Held state with reason codes, auto-releases on auth, then proposes a slot. |
+| 4 | **Recovery** | Runs it | C5 | Call-out triggers a ranked offer automatically, escalates to per-diem, then to the DCS worklist. |
 
 ## Clinician & Adoption — 7.5 / 10
 
-| | Item | Ladder | Source | Reading |
+| | Item | Fit | Source | Reading |
 |---|---|---|---|---|
-| 3 | **What the clinician decides** | Mechanism | D1 | Clinician can decline and reorder their own day; cannot change assignment. Declines feed a preference weight. |
-| 4 | **Decide or advise** | Proven | D2 | Designed to advise; decide mode is a per-branch configuration with a documented migration path. |
-| 2 | **Adoption evidence** | Described | D3 | Adoption defined as weekly active use. No six-month curve supplied. |
+| 3 | **What the clinician decides** | Good fit | D1 | Clinician can decline and reorder their own day; cannot change assignment. Declines feed a preference weight. |
+| 4 | **Decide or advise** | Strong fit, proven elsewhere | D2 | Designed to advise; decide mode is a per-branch configuration with a documented migration path. |
+| 2 | **Adoption evidence** | Workable | D3 | Adoption defined as weekly active use. No six-month curve supplied. |
 
 ## Partnership — 11.3 / 15
 
-| | Item | Ladder | Source | Reading |
+| | Item | Fit | Source | Reading |
 |---|---|---|---|---|
-| 2 | **Sharing in the value** | Described | E2 | Open to design-partner pricing and a joint roadmap. No structure or terms proposed. |
-| 4 | **Deployment & change management** | Proven | E3 | Three named deployments, a resistance story, and a change they made because of it — moved from decide to advise. |
-| 3 | **What we did not ask** | Mechanism | E1 | Raised payer-mix-aware sequencing, which is not on our one-pager. |
-| 3 | **What they chose not to build** | Mechanism | E4 | Chose not to build patient-facing voice; says the EMR should own the record of contact. |
+| 2 | **Sharing in the value** | Workable | E2 | Open to design-partner pricing and a joint roadmap. No structure or terms proposed. |
+| 4 | **Deployment & change management** | Strong fit, proven elsewhere | E3 | Three named deployments, a resistance story, and a change they made because of it — moved from decide to advise. |
+| 3 | **What we did not ask** | Good fit | E1 | Raised payer-mix-aware sequencing, which is not on our one-pager. |
+| 3 | **What they chose not to build** | Good fit | E4 | Chose not to build patient-facing voice; says the EMR should own the record of contact. |
 
 ## ⭐ Differentiators
 

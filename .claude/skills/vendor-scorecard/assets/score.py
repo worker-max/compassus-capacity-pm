@@ -40,20 +40,34 @@ HCHB_FLOOR = 12  # below this → Conditional band regardless of total
 
 MARKS = {"covered": 1.0, "partial": 0.5, "none": 0.0}
 
-LADDER = {
+# Sophistication is scored on how much the product actually DOES — not on how thoroughly the
+# vendor narrated it. A short answer describing an optimizer still scores 4. This is the
+# Read / Assist / Control language already in the primary workbook, extended to five rungs.
+CAPABILITY = {
     0: "Not addressed",
-    1: "Asserted",
-    2: "Described",
-    3: "Mechanism",
-    4: "Proven",
+    1: "Shows it",
+    2: "Checks it",
+    3: "Recommends it",
+    4: "Runs it",
 }
 
+# Clinician fit and partnership are not capability questions — they are fit questions.
+FIT = {
+    0: "Not addressed",
+    1: "Poor fit",
+    2: "Workable",
+    3: "Good fit",
+    4: "Strong fit, proven elsewhere",
+}
+
+LADDER = CAPABILITY  # back-compat for anything reading the old name
+
 SOPH_ITEMS = {
-    "S1": ("Automation posture", "B how-it's-done, C7"),
-    "S2": ("Decision depth", "C1, C2, C4"),
-    "S3": ("Readiness & rules", "C3"),
-    "S4": ("Recovery", "C5"),
-    "S5": ("Enterprise trust", "C6, A2, A3"),
+    "S1": ("Capacity", "C1"),
+    "S2": ("Assignment", "C2"),
+    "S3": ("The week", "C4"),
+    "S4": ("Readiness", "C3"),
+    "S5": ("Recovery", "C5"),
 }
 CLIN_ITEMS = {
     "D1": ("What the clinician decides", "D1"),
@@ -94,7 +108,7 @@ def spec_index(spec):
 
 # ─── scoring ─────────────────────────────────────────────────────────────────
 
-def _ladder_part(block, items, worth, label):
+def _ladder_part(block, items, worth, label, scale=CAPABILITY):
     """(sum ÷ max) × the points this part is worth. Missing item = 0, and it is reported."""
     rows, total, missing = [], 0, []
     for key, (name, source) in items.items():
@@ -108,7 +122,7 @@ def _ladder_part(block, items, worth, label):
         total += raw
         rows.append({
             "key": key, "name": name, "source": source, "score": raw,
-            "rung": LADDER[raw], "cite": entry.get("cite", ""), "note": entry.get("note", ""),
+            "rung": scale[raw], "cite": entry.get("cite", ""), "note": entry.get("note", ""),
         })
     ceiling = len(items) * 4
     exact = total / ceiling * worth
@@ -138,10 +152,11 @@ def score_footprint(assessment, spec):
         if mark not in MARKS:
             raise ValueError(f"{eid}: mark '{mark}' is not covered / partial / none")
         cite = (entry.get("cite") or "").strip()
-        # Rule 2 of the guide: cite or don't score. An uncited 'covered' falls to partial.
-        demoted = mark == "covered" and not cite
-        if demoted:
-            mark = "partial"
+        # A vendor's own Section B answer is enough to mark Covered. We do not demote a claim
+        # for lacking elaboration — the questionnaire did not give room for it, and "how does
+        # that work?" is a demo question, not a scoring penalty. Section C only ever overrides
+        # when it contradicts Section B, and that is a judgement the scorer makes directly.
+        demoted = False
         a = arenas[aid]
         a["value"] += MARKS[mark]
         a["count"] += 1
@@ -183,9 +198,9 @@ def score(assessment, spec=None):
     soph = _ladder_part(assessment.get("sophistication", {}), SOPH_ITEMS,
                         POINTS["sophistication"], "sophistication")
     clin = _ladder_part(assessment.get("clinician", {}), CLIN_ITEMS,
-                        POINTS["clinician"], "clinician")
+                        POINTS["clinician"], "clinician", FIT)
     part = _ladder_part(assessment.get("partnership", {}), PART_ITEMS,
-                        POINTS["partnership"], "partnership")
+                        POINTS["partnership"], "partnership", FIT)
 
     # Sum unrounded, round once — so the engine and the workbook cannot disagree.
     total = r1(rung + fp["points_exact"] + soph["points_exact"]
@@ -276,17 +291,16 @@ def render(s):
         note = el["cite"]
         if el["quote"]:
             note = f"{note} — *{el['quote']}*" if note else f"*{el['quote']}*"
-        if el["demoted"]:
-            note += "  ⚠︎ uncited claim, demoted to partial"
         add(f"| {sym[el['mark']]} | **{el['id']}** {el['text']} | {note or '—'} |")
     add("")
 
-    for key, title in [("sophistication", "Sophistication"), ("clinician", "Clinician & Adoption"),
-                       ("partnership", "Partnership")]:
+    for key, title, scale in [("sophistication", "Sophistication", "Does"),
+                              ("clinician", "Clinician & Adoption", "Fit"),
+                              ("partnership", "Partnership", "Fit")]:
         blk = s[key]
         add(f"## {title} — {blk['points']} / {blk['budget']}")
         add("")
-        add("| | Item | Ladder | Source | Reading |")
+        add(f"| | Item | {scale} | Source | Reading |")
         add("|---|---|---|---|---|")
         for r in blk["rows"]:
             add(f"| {r['score']} | **{r['name']}** | {r['rung']} | {r['cite'] or r['source']} | "

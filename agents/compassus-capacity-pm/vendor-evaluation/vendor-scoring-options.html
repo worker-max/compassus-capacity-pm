@@ -18,8 +18,8 @@ body{margin:0;background:#F2F3EF}
 h1{font-family:var(--display);font-size:52px;font-weight:400;margin:0;letter-spacing:-.014em}
 .deck{font-size:18px;color:var(--muted);margin:14px 0 0;line-height:1.5;max-width:900px}
 
-.opt{display:flex;gap:38px;padding:32px 0 0}
-.opt + .opt{border-top:1px solid var(--rule);margin-top:30px}
+.opt{display:flex;gap:38px;padding:26px 0 0}
+.opt + .opt{border-top:1px solid var(--rule);margin-top:24px}
 .num{font-family:var(--display);font-size:88px;line-height:.78;color:var(--rule);
   min-width:96px;letter-spacing:-.03em}
 .body{flex:1;min-width:0}
@@ -32,7 +32,7 @@ h1{font-family:var(--display);font-size:52px;font-weight:400;margin:0;letter-spa
 
 ul{list-style:none;margin:20px 0 0;padding:0}
 .parts li{display:grid;grid-template-columns:64px 1fr;grid-template-areas:"t l" ". d";
-  column-gap:22px;padding:10px 0;border-bottom:1px solid #E6E8E2}
+  column-gap:22px;padding:9px 0;border-bottom:1px solid #E6E8E2}
 .parts li:last-child{border-bottom:0}
 .pt{grid-area:t;font-family:var(--display);font-size:32px;color:var(--c);text-align:right;
   line-height:1}
@@ -45,9 +45,9 @@ ul{list-style:none;margin:20px 0 0;padding:0}
 .sl{font-size:18px;font-weight:600}
 .sd{font-size:16px;color:var(--muted);line-height:1.5}
 
-.why{margin:22px 0 0;padding:18px 26px;border-left:3px solid var(--gold);background:#FBF7E9}
-.why p{margin:0;font-size:17px;line-height:1.58;color:#453F2E}
-.why p + p{margin-top:12px}
+.why{margin:18px 0 0;padding:16px 24px;border-left:3px solid var(--gold);background:#FBF7E9}
+.why p{margin:0;font-size:16.5px;line-height:1.52;color:#453F2E}
+.why p + p{margin-top:10px}
 .why b{font-weight:600;color:var(--ink)}
 </style>
 
@@ -70,19 +70,20 @@ ul{list-style:none;margin:20px 0 0;padding:0}
       <ul class="parts"><li style="--c:#C6A01F"><span class="pt">25</span>
               <span class="pl">Home Care Home Base integration</span><span class="pd">Do they already connect to the system our plans of care, orders and visits live in? Ticked from a list of six, not judged.</span></li><li style="--c:#1B211E"><span class="pt">30</span>
               <span class="pl">Scope coverage</span><span class="pd">How much of the scope we published they actually cover — reported separately for capacity, scheduling and engagement.</span></li><li style="--c:#1B211E"><span class="pt">20</span>
-              <span class="pl">Product quality</span><span class="pd">Whether they explained how the product decides, or only that it exists.</span></li><li style="--c:#1B211E"><span class="pt">10</span>
+              <span class="pl">Sophistication</span><span class="pd">How much of the work the product does: shows it, checks it, recommends it, or runs it.</span></li><li style="--c:#1B211E"><span class="pt">10</span>
               <span class="pl">Clinician fit</span><span class="pd">What the clinician still controls, and whether adoption is proven rather than promised.</span></li><li style="--c:#1B211E"><span class="pt">15</span>
               <span class="pl">Partnership</span><span class="pd">Whether they will trade on the investment we are making.</span></li></ul>
       <div class="why">
         <p>Home Care Home Base is a quarter of the score and a <b>tick box rather than a
-          judgement</b>, so the priority cannot get quietly watered down as we work through
-          sixteen vendors.</p>
-        <p>Scope is measured against the one-pager we published, so each vendor is compared to
-          <b>what we asked for</b> rather than to one another's marketing. Everywhere else, the
-          score rewards a vendor who showed us how their product decides over one who simply
-          says it does.</p>
-        <p>What comes out is a number we can defend line by line, plus three short lists for
-          each vendor: what makes them different, what worries us, and what they did not answer.</p>
+          judgement</b>, so the priority cannot get watered down as we work through sixteen
+          vendors. Scope is measured against the one-pager we published, so each vendor is
+          compared to <b>what we asked for</b> rather than to one another's marketing.</p>
+        <p>Sophistication uses the <b>read, assist, control</b> language already in our workbook.
+          It separates a product that shows a scheduler a number from one that works out the
+          answer and acts on it. We score what the product does, not how much the vendor wrote
+          about it &mdash; how something works is a question for the demo.</p>
+        <p>Out of it comes a number we can defend line by line, and three short lists for each
+          vendor: what makes them different, what worries us, and what to go and ask.</p>
       </div>
     </div>
   </div>
@@ -94,11 +95,13 @@ ul{list-style:none;margin:20px 0 0;padding:0}
         <span class="time">ABOUT 3 MINUTES A VENDOR</span></div>
       <p class="lead">The same judgement at a coarser grain &mdash; twelve rows a vendor
         instead of fifty.</p>
-      <ul class="steps"><li><span class="sl">Home Care Home Base</span><span class="sd">Picked from the same list of six.</span></li><li><span class="sl">Eleven areas</span><span class="sd">The ones each vendor already rated themselves on in the questionnaire.</span></li><li><span class="sl">Two marks each</span><span class="sd">What they have, and how good it is out of a hundred.</span></li><li><span class="sl">It adds up</span><span class="sd">A coverage percentage and a rating for capacity, scheduling and engagement.</span></li></ul>
+      <ul class="steps"><li><span class="sl">Home Care Home Base</span><span class="sd">Picked from the same list of six.</span></li><li><span class="sl">Eleven areas</span><span class="sd">The ones each vendor already rated themselves on in the questionnaire.</span></li><li><span class="sl">Two marks each</span><span class="sd">What they have, and how much of the work it does, out of a hundred.</span></li><li><span class="sl">It adds up</span><span class="sd">A coverage percentage and a rating for capacity, scheduling and engagement.</span></li></ul>
       <div class="why">
         <p>It follows the functional scorecard already in our workbook, so it <b>reads like
           something the team has seen before</b>. Most of it is transcription rather than
           judgement: what a vendor has comes straight from their own answer.</p>
+        <p>Sophistication is still here &mdash; it is the rating out of a hundred, on the same
+          read, assist, control idea, just given once per area instead of five times.</p>
         <p>This is the fast read across the field. What it cannot do is separate two vendors
           who both cover an area but do it very differently, and it carries no partnership or
           clinician score at all &mdash; so <b>where the shortlist is close, option one is the

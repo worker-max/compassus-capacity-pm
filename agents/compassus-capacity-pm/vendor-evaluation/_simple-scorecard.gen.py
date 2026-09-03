@@ -70,11 +70,12 @@ AREAS = [
         ("11", "Across the care team", "Multi-discipline coordination, clinician and office updates")]),
 ]
 
+# Rated on how much the product does — not on how thoroughly the vendor described it.
 RATING_BANDS = [
-    ("90–100", "Proven at scale", "They gave us numbers — a named customer, a period, a baseline."),
-    ("70–89", "Mechanism explained", "We can see how it decides, not just that it exists."),
-    ("50–69", "Described", "We can picture the feature. Most answers land here."),
-    ("25–49", "Asserted", "They say they do it. Nothing behind it."),
+    ("90–100", "Runs it", "Decides across the whole picture, and re-decides when things change."),
+    ("70–89", "Recommends it", "Works out the answer and proposes it. A person confirms."),
+    ("50–69", "Checks it", "Applies rules and flags problems. A person still does the work."),
+    ("25–49", "Shows it", "Surfaces the information. A person does everything."),
     ("1–24", "Barely touches it", "Adjacent, or a fragment of what we asked for."),
     ("blank", "Not available", "Leave the rating empty. Status carries it."),
 ]
@@ -147,11 +148,13 @@ def main():
         ("band", "THE TWO MARKS", "", ""),
         ("row", "Status", "grid 1", "WHAT THEY HAVE. Copy it from their own Section B answer — it uses the same "
                                     "words. Where Section C contradicts Section B, believe Section C."),
-        ("row", "Rating  0–100", "grid 2", "HOW GOOD IT IS, from what they wrote. Leave it blank where the status "
-                                           "is Not available."),
+        ("row", "Rating  0–100", "grid 2", "HOW MUCH OF THE WORK IT DOES. Rate the product, not the write-up — a "
+                                           "short answer describing an optimiser still rates high. Blank where the status is Not available."),
         ("row", "Notes", "grid 3", "One line. What decides this vendor, or what you could not tell."),
         ("gap", "", "", ""),
         ("band", "RATING — WHAT THE NUMBERS MEAN", "", ""),
+        ("para", "", "", "The same Read / Assist / Control idea as the functional scorecard. If you want to know "
+                         "how a product does something, that is a demo question — not a reason to mark it down."),
     ]
     rows += [("row", lo, hi, d) for lo, hi, d in RATING_BANDS]
     rows += [
@@ -176,7 +179,7 @@ def main():
         ("gap", "", "", ""),
         ("band", "WHAT THIS CANNOT DO", "", ""),
         ("para", "", "", "It cannot separate two vendors who both cover an area but do it very differently — that is "
-                         "exactly what the full scorecard's 41 elements and evidence ladder are for. It has no partnership "
+                         "exactly what the full scorecard's 41 elements and five sophistication questions are for. It has no partnership "
                          "or clinician-adoption score, so Section D and Section E do not reach the number at all; read them "
                          "and put what matters in Notes. And like the full sheet, it scores a questionnaire, not a product."),
     ]
@@ -279,8 +282,8 @@ def main():
     r += 1
 
     # ── grid 2 · rating ──
-    band(ws, r, "2  ·  RATING   —   how good it is, 0–100.  Blank where the status is Not available.",
-         INK, last)
+    band(ws, r, "2  ·  RATING   —   how much of the work it does, 0–100.  "
+                "Blank where the status is Not available.", INK, last)
     r += 1
     rating_rows, arena_rating = {}, {}
     for aid, aname, colour, areas in AREAS:
@@ -293,7 +296,7 @@ def main():
         for num, name, desc in areas:
             ws.row_dimensions[r].height = 17
             put(ws, f"B{r}", f"{num}   {name}", F(10, False, INK), LEFT)
-            put(ws, f"C{r}", "90+ proven · 70+ mechanism · 50+ described · 25+ asserted",
+            put(ws, f"C{r}", "90+ runs it · 70+ recommends · 50+ checks · 25+ shows it",
                 F(9, False, MUTED), RIGHT)
             for cl in VCOLS:
                 put(ws, f"{cl}{r}", None, F(9), CTR, PAPER, BORDER, "0")
@@ -347,8 +350,9 @@ def main():
                            prompt="What they have. Their own Section B wording. Section C wins where they differ.")
     dv_rt = DataValidation(type="whole", operator="between", formula1=0, formula2=100,
                            allow_blank=True, promptTitle="Rating 0–100",
-                           prompt="90+ proven with numbers · 70+ mechanism explained · 50+ described "
-                                  "· 25+ asserted · blank if not available.",
+                           prompt="90+ runs it · 70+ recommends it · 50+ checks it · 25+ shows it "
+                                  "· blank if not available. Rate what the product does, not how much "
+                                  "they wrote about it.",
                            error="Ratings run 0 to 100. Leave it blank if the area is not available.")
     for dv in (dv_hchb, dv_st, dv_rt):
         ws.add_data_validation(dv)
