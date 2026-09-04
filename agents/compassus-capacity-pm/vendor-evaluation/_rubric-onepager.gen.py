@@ -59,6 +59,12 @@ SCALES = [
         ("2", "Will take our input; they own the roadmap"),
         ("1", "A standard customer relationship"),
         ("0", "Not answered")]),
+    ("Intangibles &nbsp;<em>no points</em>", "#44566B", [
+        ("&#9679;", "Home health fluency &mdash; do they know this business"),
+        ("&#9679;", "Candor &mdash; did they own a gap anywhere"),
+        ("&#9679;", "Who wrote this &mdash; builder or brochure"),
+        ("&#9679;", "Durability &mdash; here in three years"),
+        ("&#9679;", "The room test &mdash; after the demo, not before")]),
 ]
 
 FLAGS = [("A2", "Customers, scale and references"),
@@ -106,7 +112,7 @@ h1{{font-family:var(--display);font-size:52px;font-weight:400;margin:0;letter-sp
 .deck{{font-size:18px;color:var(--muted);margin:15px 0 0;line-height:1.5;max-width:820px}}
 
 h2{{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.15em;
-  color:var(--muted);text-transform:uppercase;margin:44px 0 16px;padding-bottom:9px;
+  color:var(--muted);text-transform:uppercase;margin:34px 0 14px;padding-bottom:9px;
   border-bottom:1px solid var(--rule)}}
 ul{{list-style:none;margin:0;padding:0}}
 
@@ -121,13 +127,13 @@ ul{{list-style:none;margin:0;padding:0}}
 .tot b{{grid-column:2;font-size:20px}}
 .tot span{{grid-column:3;font-family:var(--display);font-size:29px;text-align:right}}
 
-.scales{{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 40px;
+.scales{{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 36px;
   align-items:start}}
 .st{{font-size:16px;font-weight:600;color:var(--c);margin:0 0 9px;padding-bottom:7px;
   border-bottom:2px solid var(--c)}}
 .st em{{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--muted);
   letter-spacing:.04em}}
-.scale li{{display:grid;grid-template-columns:24px 1fr;column-gap:11px;padding:5px 0}}
+.scale li{{display:grid;grid-template-columns:24px 1fr;column-gap:11px;padding:4px 0}}
 .n{{font-family:var(--display);font-size:18px;color:var(--c);text-align:right;line-height:1.25}}
 .d{{font-size:14.5px;color:var(--muted);line-height:1.4}}
 
@@ -154,7 +160,7 @@ ul{{list-style:none;margin:0;padding:0}}
       questions, in the order they appear on it.</p>
   </header>
 
-  <h2>What we score</h2>
+  <h2>What we score &nbsp;·&nbsp; weights are adjustable</h2>
   <ul class="marks">{marks}</ul>
   <div class="tot"><b>Total</b><span>100</span></div>
 
@@ -167,6 +173,9 @@ ul{{list-style:none;margin:0;padding:0}}
       <ul class="flags">{flags}</ul>
       <p class="fn">These three raise a flag rather than moving the score. A vendor can score well
         and still carry one. We resolve it before advancing rather than trading it against points.</p>
+      <p class="fn">Intangibles are marked Strong, Neutral or Concern with the reason and initials
+        beside them. They carry no points and are allowed to disagree with the score &mdash; if they
+        never do, they are not doing anything.</p>
       <p class="fn">Clinician fit is deliberately undescribed. It is our own read of what our
         clinicians will accept.</p>
     </div>
