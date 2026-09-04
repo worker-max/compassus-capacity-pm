@@ -20,13 +20,20 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.worksheet.properties import PageSetupProperties
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "Vendor-Scorecard.xlsx")
 
 INK, MUTED, RULE, PAPER, BAND = "1B211E", "5A6560", "C9CCC5", "FBFBF8", "E9E9E5"
 CAP, SCH, ENG = "1F6F78", "2E599D", "4E8A5B"
-GOLD, MAROON, PURPLE, SLATE = "C6A01F", "792E2E", "795CA7", "44566B"
+GOLD, MAROON, PURPLE, SLATE = "9A7B15", "792E2E", "6B4E96", "44566B"
+GRADE_RAMP = "3F7A50"          # one ramp for every section grade — magnitude, not identity
+ALARM, ALARM_TXT = "E8B4B4", "6E1F1F"
+GOOD, GOOD_TXT = "BFDCC6", "24512F"
+WATCHF, WATCH_TXT = "F0DCA8", "6B5410"
+BAND_A, BAND_B = "FBFBF8", "F1F2ED"   # alternating group bands
+LANE = "8E9891"                       # the rule between one vendor and the next
 
 N_VENDORS = 16
 FIRST_COL = 6                       # F. Each vendor takes two columns: mark, then notes.
@@ -48,11 +55,12 @@ SOPH = ["0 — Not addressed", "1 — Shows it", "2 — Checks it",
         "3 — Recommends it", "4 — Runs it"]
 CLIN = ["0 — Not answered", "1 — Poor fit", "2 — Workable",
         "3 — Good fit", "4 — Strong fit"]
+# Kept short enough to read once picked — the full wording is on Start Here and the one-pager.
 PART = ["0 — Not answered",
-        "1 — A standard customer relationship — we buy what already exists",
-        "2 — Will take our input, but they own the roadmap and the product",
-        "3 — Ready to build to our needs as a design partner; ownership not addressed",
-        "4 — Open to equity or a stake in what we build, and set up to build it with us"]
+        "1 — Standard customer relationship",
+        "2 — Takes our input; they own the roadmap",
+        "3 — Builds to our needs; ownership unaddressed",
+        "4 — Open to equity, and set up to build with us"]
 FEEL = ["Strong", "Neutral", "Concern"]
 
 ARENAS = [
@@ -125,21 +133,25 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws = wb.create_sheet(title)
     ws.sheet_view.showGridLines = False
     ws.sheet_properties.tabColor = tab_colour
-    for col, w in [("A", 3), ("B", 12), ("C", 30), ("D", 44), ("E", 7)]:
+    for col, w in [("A", 3), ("B", 9), ("C", 28), ("D", 36), ("E", 6)]:
         ws.column_dimensions[col].width = w
     for sc, nc in zip(SCORE_COLS, NOTE_COLS):
-        ws.column_dimensions[sc].width = 15
+        ws.column_dimensions[sc].width = 17
         ws.column_dimensions[nc].width = 46
 
-    put(ws, "B2", "COMPASSUS  ·  HOME HEALTH", F(9, True, MUTED))
-    ws.row_dimensions[3].height = 26
-    put(ws, "B3", "Vendor Scorecard", F(18, True, INK))
-    ws.merge_cells(f"B4:{LAST_COL}4")
-    put(ws, "B4", deck, F(9, False, MUTED, italic=True), LEFT)
+    ws.row_dimensions[2].height = 22
+    put(ws, "B2", "Vendor Scorecard", F(15, True, INK))
+    put(ws, "C2", "COMPASSUS  ·  CAPACITY & SCHEDULING", F(9, True, MUTED),
+        Alignment(horizontal="left", vertical="center"))
+    ws.merge_cells(f"B3:{LAST_COL}3")
+    put(ws, "B3", deck, F(9, False, MUTED, italic=True), LEFT)
 
-    r = 6
-    ws.row_dimensions[r].height = 40
-    put(ws, f"B{r}", "VENDOR", F(9, True, MUTED), Alignment(horizontal="left", vertical="bottom"))
+    r = 5
+    ws.row_dimensions[r].height = 34
+    HDR = Alignment(horizontal="left", vertical="bottom")
+    put(ws, f"B{r}", "Q", F(9, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
+    put(ws, f"C{r}", "CRITERION", F(9, True, MUTED), HDR)
+    put(ws, f"D{r}", "WHAT IT COVERS", F(9, True, MUTED), HDR)
     put(ws, f"E{r}", "WT", F(9, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
     for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS), 1):
         ws.merge_cells(f"{sc}{r}:{nc}{r}")
@@ -161,36 +173,42 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         put(ws, f"B{row}", text, F(9, True, "FFFFFF"),
             Alignment(horizontal="left", vertical="center", indent=1), colour)
 
-    def q_row(row, qid, label, detail, colour=INK, tint=PAPER, height=22, weight=None):
+    LANE_BORDER = Border(left=Side(style="medium", color=LANE), right=thin,
+                         top=thin, bottom=thin)
+
+    def q_row(row, qid, label, detail, colour=INK, tint=BAND_A, height=24, weight=None):
         ws.row_dimensions[row].height = height
-        put(ws, f"B{row}", qid, F(10, True, colour), CTR)
-        put(ws, f"C{row}", label, F(10, False, INK), LEFT)
-        put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT)
-        put(ws, f"E{row}", f"='Start Here'!$C${wrows[weight]}" if weight else "—",
-            F(10, bool(weight), colour if weight else MUTED), CTR, None, None,
-            "0" if weight else None)
+        put(ws, f"B{row}", qid, F(9, False, MUTED), CTR, tint)
+        put(ws, f"C{row}", label, F(11, True, INK), LEFT, tint)
+        put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT, tint)
+        if weight:
+            put(ws, f"E{row}", f"='Start Here'!$C${wrows[weight]}",
+                F(11, True, colour), CTR, tint, None, "0")
+        else:
+            put(ws, f"E{row}", None, F(10), CTR, tint)
         for sc, nc in zip(SCORE_COLS, NOTE_COLS):
-            put(ws, f"{sc}{row}", None, F(9), CTR, tint, BOX)
+            put(ws, f"{sc}{row}", None, F(10), CTR, tint, LANE_BORDER)
             put(ws, f"{nc}{row}", None, F(9), LEFT_T, tint, BOX)
 
-    # ── summary ──
-    band_row(r, "SCORE   —   section grades are the product; the total is a sort key", INK)
-    r += 1
-    ws.row_dimensions[r].height = 26
+    # ── summary, kept above the freeze line so a total is visible while entering one ──
+    ws.row_dimensions[r].height = 24
     put(ws, f"B{r}", "TOTAL", F(12, True, INK), LEFT)
-    put(ws, f"C{r}", "weighted, out of 100", F(9, False, MUTED), LEFT)
+    put(ws, f"C{r}", "weighted, of 100", F(9, False, MUTED), LEFT)
     TOTAL = r
     r += 1
+    ws.row_dimensions[r].height = 18
     put(ws, f"B{r}", "Band", F(10, True, INK), LEFT)
     put(ws, f"C{r}", "80 Advance · 65 Consider · 50 Hold", F(9, False, MUTED), LEFT)
     BANDR = r
     r += 1
-    put(ws, f"B{r}", "Flags", F(10, True, MAROON), LEFT)
-    put(ws, f"C{r}", "stop-checks raised, of three", F(9, False, MUTED), LEFT)
+    ws.row_dimensions[r].height = 18
+    put(ws, f"B{r}", "Stop-checks", F(10, True, MAROON), LEFT)
+    put(ws, f"C{r}", "of three", F(9, False, MUTED), LEFT)
     FLAGR = r
+    FREEZE_AT = r + 1
     r += 2
 
-    band_row(r, "SECTION GRADES   —   each on its own scale, unweighted", SLATE, 19)
+    band_row(r, "SECTION GRADES   —   each on its own scale, unweighted", SLATE, 18)
     r += 1
     grade_rows = {}
     for key, name, colour in [("HCHB", "Home Care Home Base", GOLD), ("CAP", "Capacity", CAP),
@@ -208,15 +226,15 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
     r += 1
     q_row(r, "A1", "Home Care Home Base integration",
-          "Pick the line that matches their answer", GOLD, "FFFDF4", 26, "W_HCHB")
+          "Pick the line that matches their answer", GOLD, BAND_B, 30, "W_HCHB")
     marks["A1"] = r
     r += 1
     q_row(r, "A2", "Customers, scale and references",
-          "Stop-check if one customer, or no references offered", MAROON, "FDF7F7")
+          "Stop-check if one customer, or no references offered", MAROON, BAND_A)
     flags["A2"] = r
     r += 1
     q_row(r, "A3", "Measured impact",
-          "Watch if claimed with no baseline or period", MAROON, "FDF7F7")
+          "Watch if claimed with no baseline or period", MAROON, BAND_A)
     flags["A3"] = r
     r += 2
 
@@ -229,35 +247,40 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
             F(9, True, "FFFFFF"),
             Alignment(horizontal="left", vertical="center", indent=1), colour)
         r += 1
+        tint = BAND_A if aid in ("CAP", "ENG") else BAND_B
+        first_row = r
         for key, label, detail in areas:
-            q_row(r, "Section B", label, detail, colour, PAPER, 24,
+            q_row(r, "Section B", label, detail, colour, tint, 24,
                   "W_" + aid if key.endswith("1") else None)
             marks[key] = r
             r += 1
+        # one weight, visibly governing its three rows, instead of a number and two dashes
+        ws.merge_cells(f"E{first_row}:E{r - 1}")
+        ws[f"E{first_row}"].alignment = Alignment(horizontal="center", vertical="center")
     r += 1
 
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
     r += 1
     q_row(r, "Section C", "Sophistication", "How much of the work the product does",
-          PURPLE, PAPER, 26, "W_SOPH")
+          PURPLE, BAND_B, 26, "W_SOPH")
     marks["SOPH"] = r
     r += 1
     q_row(r, "C6", "When your product is down",
-          "Stop-check if no uptime figure or contractual commitment", MAROON, "FDF7F7")
+          "Stop-check if no uptime figure or contractual commitment", MAROON, BAND_A)
     flags["C6"] = r
     r += 2
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
     q_row(r, "D1–D3", "Clinician fit", "Our own read of fit — no checklist, on purpose",
-          INK, PAPER, 26, "W_CLIN")
+          INK, BAND_B, 26, "W_CLIN")
     marks["CLIN"] = r
     r += 2
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
     q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake",
-          INK, PAPER, 26, "W_PART")
+          INK, BAND_B, 40, "W_PART")
     marks["PART"] = r
     r += 2
 
@@ -273,7 +296,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     r += 1
     feels = {}
     for name, prompt in INTANGIBLES:
-        q_row(r, "Feel", name, prompt, SLATE, "F2F4F6", 30)
+        q_row(r, "Feel", name, prompt, SLATE, BAND_A, 28)
         feels[name] = r
         r += 1
     r += 1
@@ -348,7 +371,10 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
          "Felt, not measured. Put the reason and your initials in the notes column."),
     ]:
         dv = DataValidation(type="list", formula1=f1, allow_blank=True, showDropDown=False,
-                            promptTitle=title_, prompt=prompt_)
+                            promptTitle=title_, prompt=prompt_,
+                            showInputMessage=True, showErrorMessage=True, errorStyle="stop",
+                            errorTitle="Pick from the list",
+                            error="Use the dropdown. A typed value would silently score zero.")
         ws.add_data_validation(dv)
         for rr in rows_:
             for sc in SCORE_COLS:
@@ -360,26 +386,42 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         start_type="num", start_value=40, start_color="F5E3E3",
         mid_type="num", mid_value=65, mid_color="FBF3DD",
         end_type="num", end_value=90, end_color="DDEBE0"))
-    for key, colour in [("HCHB", GOLD), ("CAP", CAP), ("SCH", SCH), ("ENG", ENG),
-                        ("SOPH", PURPLE), ("CLIN", SLATE), ("PART", SLATE)]:
-        rr = grade_rows[key]
+    for rr in grade_rows.values():
         ws.conditional_formatting.add(f"{first}{rr}:{last_sc}{rr}", ColorScaleRule(
             start_type="num", start_value=0, start_color="FFFFFF",
-            end_type="num", end_value=1, end_color=colour))
+            end_type="num", end_value=1, end_color=GRADE_RAMP))
+    ALARM_FONT, ALARM_FILL = Font(bold=True, color=ALARM_TXT), PatternFill("solid", fgColor=ALARM)
     for rr in list(flags.values()):
         ws.conditional_formatting.add(f"{first}{rr}:{last_sc}{rr}", FormulaRule(
-            formula=[f'{first}{rr}="STOP-CHECK"'], font=Font(bold=True, color="7A2020"),
-            fill=PatternFill("solid", fgColor="F5D9D9")))
+            formula=[f'{first}{rr}="STOP-CHECK"'], font=ALARM_FONT, fill=ALARM_FILL))
+        ws.conditional_formatting.add(f"{first}{rr}:{last_sc}{rr}", FormulaRule(
+            formula=[f'{first}{rr}="Watch"'], font=Font(bold=True, color=WATCH_TXT),
+            fill=PatternFill("solid", fgColor=WATCHF)))
     for rr in list(feels.values()):
         ws.conditional_formatting.add(f"{first}{rr}:{last_sc}{rr}", FormulaRule(
-            formula=[f'{first}{rr}="Concern"'], font=Font(bold=True, color="7A2020"),
-            fill=PatternFill("solid", fgColor="F5D9D9")))
+            formula=[f'{first}{rr}="Concern"'], font=ALARM_FONT, fill=ALARM_FILL))
         ws.conditional_formatting.add(f"{first}{rr}:{last_sc}{rr}", FormulaRule(
-            formula=[f'{first}{rr}="Strong"'], font=Font(bold=True, color="2E5637"),
-            fill=PatternFill("solid", fgColor="DDEBE0")))
+            formula=[f'{first}{rr}="Strong"'], font=Font(bold=True, color=GOOD_TXT),
+            fill=PatternFill("solid", fgColor=GOOD)))
+    ws.conditional_formatting.add(f"{first}{BANDR}:{last_sc}{BANDR}", FormulaRule(
+        formula=[f'ISNUMBER(SEARCH("Conditional",{first}{BANDR}))'],
+        font=Font(bold=True, color=WATCH_TXT), fill=PatternFill("solid", fgColor=WATCHF)))
 
-    ws.freeze_panes = f"{SCORE_COLS[0]}8"
-    ws.sheet_view.zoomScale = 85
+    ws.freeze_panes = f"{SCORE_COLS[0]}{FREEZE_AT}"
+    ws.sheet_view.zoomScale = 100
+
+    # Notes collapse into an outline group: 16 vendors legible for comparison, expanded to write.
+    for nc in NOTE_COLS:
+        ws.column_dimensions[nc].outlineLevel = 1
+        ws.column_dimensions[nc].hidden = True
+    ws.sheet_properties.outlinePr.summaryRight = True
+
+    ws.page_setup.orientation = "landscape"
+    ws.page_setup.fitToWidth = 1
+    ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr = PageSetupProperties(fitToPage=True)
+    ws.print_title_cols = "$B:$E"
+    ws.print_title_rows = f"$5:${FREEZE_AT - 1}"
 
     if prefill:
         for i, v in enumerate(prefill):
@@ -400,6 +442,10 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
                 ws[f"{nc}{marks[key] if key in marks else flags[key]}"] = note
             for rr, text in zip(note_rows, v["notes"]):
                 ws[f"{sc}{rr}"] = text
+        # Read-only, no password: one click on Review > Unprotect if anyone wants to play.
+        ws.protection.sheet = True
+        ws.protection.formatColumns = False
+        ws.protection.formatRows = False
     return LAST_ROW
 
 
@@ -631,7 +677,7 @@ EXAMPLES = [
      "SCH1": "4 — Most of it", "SCH2": "4 — Most of it", "SCH3": "3 — More than half",
      "ENG1": "2 — About half", "ENG2": "2 — About half", "ENG3": "1 — A corner of it",
      "SOPH": "4 — Runs it", "CLIN": "3 — Good fit",
-     "PART": "3 — Ready to build to our needs as a design partner; ownership not addressed",
+     "PART": "3 — Builds to our needs; ownership unaddressed",
      "A2": "OK", "A3": "Watch", "C6": "OK",
      "why": {"A1": "Live since Mar 2024, four HCHB customers, published API both ways. Says HCHB "
                    "is authoritative for orders, they own assignment. CLAIM: bi-directional. "
@@ -659,7 +705,7 @@ EXAMPLES = [
      "SCH1": "3 — More than half", "SCH2": "4 — Most of it", "SCH3": "2 — About half",
      "ENG1": "1 — A corner of it", "ENG2": "1 — A corner of it", "ENG3": "0 — Nothing here",
      "SOPH": "3 — Recommends it", "CLIN": "2 — Workable",
-     "PART": "2 — Will take our input, but they own the roadmap and the product",
+     "PART": "2 — Takes our input; they own the roadmap",
      "A2": "STOP-CHECK", "A3": "Watch", "C6": "OK",
      "why": {"A1": "One customer, live 8 months. CLAIM: full integration. EVIDENCE: describes a "
                    "nightly file drop. That is not the same thing — ask.",
@@ -681,7 +727,7 @@ EXAMPLES = [
      "SCH1": "3 — More than half", "SCH2": "3 — More than half", "SCH3": "3 — More than half",
      "ENG1": "3 — More than half", "ENG2": "4 — Most of it", "ENG3": "2 — About half",
      "SOPH": "3 — Recommends it", "CLIN": "3 — Good fit",
-     "PART": "4 — Open to equity or a stake in what we build, and set up to build it with us",
+     "PART": "4 — Open to equity, and set up to build with us",
      "A2": "OK", "A3": "OK", "C6": "Watch",
      "why": {"A1": "Not live. Q2 2027 target, named an engineer and a scope. CLAIM is modest and "
                    "EVIDENCE matches it — the most honest A1 we have had.",
@@ -742,7 +788,9 @@ def main():
         wb.defined_names.add(DefinedName(nm, attr_text=ref))
 
     wb.move_sheet("Start Here", offset=2)
-    wb.active = 0
+    for sh in wb.worksheets:
+        sh.sheet_view.tabSelected = (sh.title == "Scorecard")
+    wb.active = wb["Scorecard"]
     wb.save(OUT)
     print(f"wrote {OUT}")
     print(f"  tabs: {wb.sheetnames}")
