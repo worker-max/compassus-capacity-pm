@@ -40,6 +40,7 @@ FIRST_COL = 6                       # F. Each vendor takes two columns: mark, th
 SCORE_COLS = [get_column_letter(FIRST_COL + i * 2) for i in range(N_VENDORS)]
 NOTE_COLS = [get_column_letter(FIRST_COL + i * 2 + 1) for i in range(N_VENDORS)]
 LAST_COL = NOTE_COLS[-1]
+VENDOR_ROW = 2                      # vendor names live here on both scoring tabs
 
 HCHB_RUNGS = [
     ("Live — established customer base", 20),
@@ -139,33 +140,29 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         ws.column_dimensions[sc].width = 17
         ws.column_dimensions[nc].width = 46
 
-    ws.row_dimensions[2].height = 22
-    put(ws, "B2", "Vendor Scorecard", F(15, True, INK))
-    put(ws, "C2", "COMPASSUS  ·  CAPACITY & SCHEDULING", F(9, True, MUTED),
+    r = 1
+    ws.row_dimensions[r].height = 22
+    put(ws, f"C{r}", "Vendor Scorecard", F(14, True, INK), Alignment(vertical="center"))
+    ws.merge_cells(f"D{r}:E{r}")
+    put(ws, f"D{r}", "COMPASSUS  ·  CAPACITY & SCHEDULING", F(8, True, MUTED),
         Alignment(horizontal="left", vertical="center"))
-    ws.merge_cells(f"B3:{LAST_COL}3")
-    put(ws, "B3", deck, F(9, False, MUTED, italic=True), LEFT)
+    ws.merge_cells(f"{SCORE_COLS[0]}{r}:{LAST_COL}{r}")
+    put(ws, f"{SCORE_COLS[0]}{r}", deck, F(9, False, MUTED, italic=True),
+        Alignment(horizontal="left", vertical="center", indent=1))
 
-    r = 5
-    ws.row_dimensions[r].height = 34
-    HDR = Alignment(horizontal="left", vertical="bottom")
-    put(ws, f"B{r}", "Q", F(9, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
-    put(ws, f"C{r}", "CRITERION", F(9, True, MUTED), HDR)
-    put(ws, f"D{r}", "WHAT IT COVERS", F(9, True, MUTED), HDR)
-    put(ws, f"E{r}", "WT", F(9, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
+    r = VENDOR_ROW
+    ws.row_dimensions[r].height = 20
+    BOT = Alignment(horizontal="left", vertical="bottom")
+    put(ws, f"B{r}", "Q", F(8, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
+    put(ws, f"C{r}", "CRITERION", F(8, True, MUTED), BOT)
+    put(ws, f"D{r}", "WHAT IT COVERS", F(8, True, MUTED), BOT)
+    put(ws, f"E{r}", "WT", F(8, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
     for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS), 1):
-        ws.merge_cells(f"{sc}{r}:{nc}{r}")
         put(ws, f"{sc}{r}", f"Vendor {i:02d}", F(10, True, INK),
-            Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
-            Border(bottom=med))
-    VENDOR_ROW = r
+            Alignment(horizontal="center", vertical="bottom"), PAPER, Border(bottom=med))
+        put(ws, f"{nc}{r}", "NOTES  ·  JUSTIFICATION  ·  CLAIM vs EVIDENCE", F(8, True, MUTED),
+            Alignment(horizontal="left", vertical="bottom", indent=1), PAPER, Border(bottom=med))
     r += 1
-    ws.row_dimensions[r].height = 15
-    for sc, nc in zip(SCORE_COLS, NOTE_COLS):
-        put(ws, f"{sc}{r}", "MARK", F(8, True, MUTED), CTR)
-        put(ws, f"{nc}{r}", "NOTES  ·  JUSTIFICATION  ·  CLAIM vs EVIDENCE",
-            F(8, True, MUTED), Alignment(horizontal="left", vertical="center", indent=1))
-    r += 2
 
     def band_row(row, text, colour, height=21):
         ws.row_dimensions[row].height = height
@@ -191,22 +188,24 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
             put(ws, f"{nc}{row}", None, F(9), LEFT_T, tint, BOX)
 
     # ── summary, kept above the freeze line so a total is visible while entering one ──
-    ws.row_dimensions[r].height = 24
-    put(ws, f"B{r}", "TOTAL", F(12, True, INK), LEFT)
-    put(ws, f"C{r}", "weighted, of 100", F(9, False, MUTED), LEFT)
+    ws.row_dimensions[r].height = 22
+    put(ws, f"C{r}", "TOTAL", F(12, True, INK), LEFT)
+    put(ws, f"D{r}", "weighted, of 100", F(9, False, MUTED), LEFT)
     TOTAL = r
     r += 1
-    ws.row_dimensions[r].height = 18
-    put(ws, f"B{r}", "Band", F(10, True, INK), LEFT)
-    put(ws, f"C{r}", "80 Advance · 65 Consider · 50 Hold", F(9, False, MUTED), LEFT)
+    ws.row_dimensions[r].height = 16
+    put(ws, f"C{r}", "Band", F(10, True, INK), LEFT)
+    put(ws, f"D{r}", "80 Advance  ·  65 Consider  ·  50 Hold", F(9, False, MUTED), LEFT)
     BANDR = r
     r += 1
-    ws.row_dimensions[r].height = 18
-    put(ws, f"B{r}", "Stop-checks", F(10, True, MAROON), LEFT)
-    put(ws, f"C{r}", "of three", F(9, False, MUTED), LEFT)
+    ws.row_dimensions[r].height = 16
+    put(ws, f"C{r}", "Stop-checks", F(10, True, MAROON), LEFT)
+    put(ws, f"D{r}", "of three", F(9, False, MUTED), LEFT)
     FLAGR = r
     FREEZE_AT = r + 1
-    r += 2
+    r += 1
+    ws.row_dimensions[r].height = 8
+    r += 1
 
     band_row(r, "SECTION GRADES   —   each on its own scale, unweighted", SLATE, 18)
     r += 1
@@ -216,7 +215,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
                               ("SOPH", "Sophistication", PURPLE), ("CLIN", "Clinician fit", INK),
                               ("PART", "Partnership", INK)]:
         ws.row_dimensions[r].height = 17
-        put(ws, f"B{r}", name, F(10, False, colour), LEFT)
+        put(ws, f"C{r}", name, F(10, False, colour), LEFT)
         grade_rows[key] = r
         r += 1
     r += 1
@@ -351,9 +350,6 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
             put(ws, f"{NOTE_COLS[SCORE_COLS.index(sc)]}{rr}", None, F(9), LEFT_T, BAND, BOX)
 
     # ══ validation ══
-    def span(rows_):
-        return " ".join(f"{sc}{rr}:{sc}{rr}" for rr in rows_ for sc in SCORE_COLS)
-
     for f1, rows_, title_, prompt_ in [
         ("=HCHB_List", [marks["A1"]], "A1 — Home Care Home Base",
          "Pick one line. Ambiguous? Take the lower one and say why in the notes."),
@@ -370,13 +366,13 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         ('"Strong,Neutral,Concern"', list(feels.values()), "Your read",
          "Felt, not measured. Put the reason and your initials in the notes column."),
     ]:
-        dv = DataValidation(type="list", formula1=f1, allow_blank=True, showDropDown=False,
-                            promptTitle=title_, prompt=prompt_,
-                            showInputMessage=True, showErrorMessage=True, errorStyle="stop",
-                            errorTitle="Pick from the list",
-                            error="Use the dropdown. A typed value would silently score zero.")
-        ws.add_data_validation(dv)
         for rr in rows_:
+            dv = DataValidation(type="list", formula1=f1, allow_blank=True, showDropDown=False,
+                                promptTitle=title_, prompt=prompt_,
+                                showInputMessage=True, showErrorMessage=True, errorStyle="stop",
+                                errorTitle="Pick from the list",
+                                error="Use the dropdown. A typed value would silently score zero.")
+            ws.add_data_validation(dv)
             for sc in SCORE_COLS:
                 dv.add(f"{sc}{rr}")
 
@@ -421,15 +417,12 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws.page_setup.fitToHeight = 0
     ws.sheet_properties.pageSetUpPr = PageSetupProperties(fitToPage=True)
     ws.print_title_cols = "$B:$E"
-    ws.print_title_rows = f"$5:${FREEZE_AT - 1}"
+    ws.print_title_rows = f"${VENDOR_ROW}:${FREEZE_AT - 1}"
 
     if prefill:
         for i, v in enumerate(prefill):
             sc, nc = SCORE_COLS[i], NOTE_COLS[i]
-            ws.merge_cells(f"{sc}{VENDOR_ROW}:{nc}{VENDOR_ROW}")
-            put(ws, f"{sc}{VENDOR_ROW}", v["vendor"], F(10, True, INK),
-                Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
-                Border(bottom=med))
+            ws[f"{sc}{VENDOR_ROW}"] = v["vendor"]
             for key in SCOPE_KEYS + ["SOPH", "CLIN", "PART"]:
                 ws[f"{sc}{marks[key]}"] = v[key]
             ws[f"{sc}{marks['A1']}"] = v["hchb"]
@@ -635,7 +628,7 @@ def build_questions(wb):
     for i, c in enumerate(vcols, 1):
         # The first sixteen names follow whatever is typed on the Scorecard header.
         if i <= N_VENDORS:
-            src = f"Scorecard!{SCORE_COLS[i - 1]}5"
+            src = f"Scorecard!{SCORE_COLS[i - 1]}{VENDOR_ROW}"
             name = f'=IF({src}="","Vendor {i:02d}",{src})'
         else:
             name = f"Vendor {i:02d}"
