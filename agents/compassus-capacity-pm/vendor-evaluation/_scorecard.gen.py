@@ -608,66 +608,72 @@ def build_start_here(wb):
 
 
 def build_questions(wb):
-    """A place to build the prove-it list, in questionnaire order, as returns come in."""
+    """Vendor-specific questions: every section holds three slots, one column per vendor."""
     qs = wb.create_sheet("Questions")
     qs.sheet_view.showGridLines = False
     qs.sheet_properties.tabColor = MAROON
     N = 20
-    vcols = [get_column_letter(5 + i) for i in range(N)]
-    for col, w in [("A", 3), ("B", 8), ("C", 74), ("D", 40)]:
+    vcols = [get_column_letter(4 + i) for i in range(N)]
+    for col, w in [("A", 3), ("B", 5), ("C", 3)]:
         qs.column_dimensions[col].width = w
     for c in vcols:
-        qs.column_dimensions[c].width = 15
+        qs.column_dimensions[c].width = 34
+    last = vcols[-1]
 
-    put(qs, "B2", "COMPASSUS  ·  HOME HEALTH", F(9, True, MUTED))
-    qs.row_dimensions[3].height = 26
-    put(qs, "B3", "Follow-up Questions", F(18, True, INK))
-    qs.merge_cells(f"B4:{vcols[-1]}4")
-    put(qs, "B4", "What we make them prove at the demo. Written as the returns come in, in the "
-                  "order the questionnaire asks — so a gap found while scoring lands next to the "
-                  "question that exposed it. Mark the vendors each one applies to.",
+    qs.row_dimensions[2].height = 22
+    put(qs, "B2", "Questions", F(15, True, INK))
+    put(qs, "D2", "COMPASSUS  ·  CAPACITY & SCHEDULING", F(9, True, MUTED),
+        Alignment(horizontal="left", vertical="center"))
+    qs.merge_cells(f"B3:{last}3")
+    put(qs, "B3", "What we make each vendor prove at the demo. Three per section, written as the "
+                  "return is scored, so a gap lands next to the question that exposed it.",
         F(9, False, MUTED, italic=True), LEFT)
 
-    r = 6
-    qs.row_dimensions[r].height = 40
-    put(qs, f"B{r}", "VENDOR", F(9, True, MUTED), Alignment(horizontal="left", vertical="bottom"))
+    r = 5
+    qs.row_dimensions[r].height = 34
+    put(qs, f"B{r}", "#", F(9, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
     for i, c in enumerate(vcols, 1):
-        put(qs, f"{c}{r}", f"Vendor {i:02d}", F(10, True, INK),
+        # The first sixteen names follow whatever is typed on the Scorecard header.
+        if i <= N_VENDORS:
+            src = f"Scorecard!{SCORE_COLS[i - 1]}5"
+            name = f'=IF({src}="","Vendor {i:02d}",{src})'
+        else:
+            name = f"Vendor {i:02d}"
+        put(qs, f"{c}{r}", name, F(10, True, INK),
             Alignment(horizontal="center", vertical="bottom", wrap_text=True), PAPER,
             Border(bottom=med))
+    HEAD = r
     r += 2
 
     SECTIONS = [
-        ("A  ·  COMPANY AND PRODUCT", "A1 integration · A2 scale and references · A3 measured impact", 6),
-        ("B  ·  COVERAGE SELF-ASSESSMENT", "Anything they claimed in scope that Section C did not support", 8),
+        ("A  ·  COMPANY AND PRODUCT", "A1 integration · A2 scale and references · A3 measured impact"),
+        ("B  ·  COVERAGE SELF-ASSESSMENT", "anything claimed in scope that Section C did not support"),
         ("C  ·  HOW YOUR PRODUCT WORKS", "C1 capacity · C2 assignment · C3 readiness · C4 the week · "
-                                         "C5 recovery · C6 downtime · C7 the patient", 10),
-        ("D  ·  THE CLINICIAN'S PLACE", "D1 what they decide · D2 decide or advise · D3 adoption", 6),
+                                         "C5 recovery · C6 downtime · C7 the patient"),
+        ("D  ·  THE CLINICIAN'S PLACE", "D1 what they decide · D2 decide or advise · D3 adoption"),
         ("E  ·  FIT AND PARTNERSHIP", "E1 what we did not ask · E2 sharing the value · "
-                                      "E3 change management · E4 what they chose not to build", 6),
-        ("INTANGIBLES", "Anything the feel section raised that a demo could settle", 6),
+                                      "E3 change management · E4 what they chose not to build"),
+        ("INTANGIBLES", "anything the feel section raised that a demo could settle"),
     ]
-    for title, hint, n in SECTIONS:
+    SLOT = Border(left=Side(style="medium", color=LANE), right=thin, top=thin, bottom=thin)
+    for title, hint in SECTIONS:
         qs.row_dimensions[r].height = 21
-        qs.merge_cells(f"B{r}:{vcols[-1]}{r}")
-        put(qs, f"B{r}", title, F(9, True, "FFFFFF"),
+        qs.merge_cells(f"B{r}:{last}{r}")
+        put(qs, f"B{r}", f"{title}      {hint}", F(9, True, "FFFFFF"),
             Alignment(horizontal="left", vertical="center", indent=1), INK)
         r += 1
-        qs.row_dimensions[r].height = 16
-        put(qs, f"C{r}", hint, F(9, False, MUTED, italic=True), LEFT)
-        put(qs, f"D{r}", "What would prove it", F(9, True, MUTED), LEFT)
-        r += 1
-        for _ in range(n):
-            qs.row_dimensions[r].height = 26
-            put(qs, f"B{r}", None, F(9, False, MUTED), CTR, PAPER, BOX)
-            put(qs, f"C{r}", None, F(10), LEFT_T, PAPER, BOX)
-            put(qs, f"D{r}", None, F(9, False, MUTED), LEFT_T, PAPER, BOX)
+        for n in (1, 2, 3):
+            qs.row_dimensions[r].height = 46
+            put(qs, f"B{r}", n, F(10, False, MUTED), CTR, BAND_B)
             for c in vcols:
-                put(qs, f"{c}{r}", None, F(9), CTR, PAPER, BOX)
+                put(qs, f"{c}{r}", None, F(10), LEFT_T, BAND_A, SLOT)
             r += 1
         r += 1
-    qs.freeze_panes = f"{vcols[0]}7"
-    qs.sheet_view.zoomScale = 90
+    qs.freeze_panes = f"{vcols[0]}{HEAD + 1}"
+    qs.sheet_view.zoomScale = 100
+    qs.page_setup.orientation = "landscape"
+    qs.print_title_cols = "$B:$C"
+    qs.print_title_rows = f"${HEAD}:${HEAD}"
     return r
 
 
@@ -795,7 +801,7 @@ def main():
     print(f"wrote {OUT}")
     print(f"  tabs: {wb.sheetnames}")
     print(f"  scorecard rows 6-{last} · {N_VENDORS} vendors x 2 columns (F-{LAST_COL})")
-    print(f"  questions tab: {qrows} rows, 20 vendor columns")
+    print(f"  questions tab: {qrows} rows, 6 sections x 3 slots, 20 vendor columns")
 
 
 if __name__ == "__main__":
