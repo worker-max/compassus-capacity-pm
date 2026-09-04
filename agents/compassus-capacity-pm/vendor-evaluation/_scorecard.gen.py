@@ -34,6 +34,8 @@ GOOD, GOOD_TXT = "BFDCC6", "24512F"
 WATCHF, WATCH_TXT = "F0DCA8", "6B5410"
 BAND_A, BAND_B = "FBFBF8", "F1F2ED"   # alternating group bands
 LANE = "8E9891"                       # the rule between one vendor and the next
+VEND_A, VEND_B = "FFFFFF", "EEF2F0"   # alternate vendors, so a pair of columns reads as one
+NOTE_W = 62
 
 N_VENDORS = 16
 KEY_COL = "F"                       # the scale for the row, in front of you while you mark
@@ -150,7 +152,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         ws.column_dimensions[col].width = w
     for sc, nc in zip(SCORE_COLS, NOTE_COLS):
         ws.column_dimensions[sc].width = 17
-        ws.column_dimensions[nc].width = 46
+        ws.column_dimensions[nc].width = NOTE_W
 
     r = 1
     ws.row_dimensions[r].height = 22
@@ -162,6 +164,9 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     put(ws, f"{SCORE_COLS[0]}{r}", deck, F(9, False, MUTED, italic=True),
         Alignment(horizontal="left", vertical="center", indent=1))
 
+    def vt(i):
+        return VEND_A if i % 2 == 0 else VEND_B
+
     r = VENDOR_ROW
     ws.row_dimensions[r].height = 20
     BOT = Alignment(horizontal="left", vertical="bottom")
@@ -172,9 +177,9 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     put(ws, f"{KEY_COL}{r}", "KEY  ·  how to mark this row", F(8, True, MUTED), BOT)
     for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS), 1):
         put(ws, f"{sc}{r}", f"Vendor {i:02d}", F(10, True, INK),
-            Alignment(horizontal="center", vertical="bottom"), PAPER, Border(bottom=med))
+            Alignment(horizontal="center", vertical="bottom"), vt(i - 1), Border(bottom=med))
         put(ws, f"{nc}{r}", "NOTES  ·  JUSTIFICATION  ·  CLAIM vs EVIDENCE", F(8, True, MUTED),
-            Alignment(horizontal="left", vertical="bottom", indent=1), PAPER, Border(bottom=med))
+            Alignment(horizontal="left", vertical="bottom", indent=1), vt(i - 1), Border(bottom=med))
     r += 1
 
     def band_row(row, text, colour, height=21):
@@ -197,9 +202,18 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
                 F(11, True, colour), CTR, tint, None, "0")
         else:
             put(ws, f"E{row}", None, F(10), CTR, tint)
-        for sc, nc in zip(SCORE_COLS, NOTE_COLS):
-            put(ws, f"{sc}{row}", None, F(10), CTR, tint, LANE_BORDER)
-            put(ws, f"{nc}{row}", None, F(9), LEFT_T, tint, BOX)
+        for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS)):
+            put(ws, f"{sc}{row}", None, F(10), CTR, vt(i), LANE_BORDER)
+            put(ws, f"{nc}{row}", None, F(9), LEFT_T, vt(i), BOX)
+
+    section_notes = {}
+
+    def merge_notes(key, r0, r1):
+        """One note cell per vendor for the whole section — room to write, not a slot per row."""
+        section_notes[key] = r0
+        if r1 > r0:
+            for nc in NOTE_COLS:
+                ws.merge_cells(f"{nc}{r0}:{nc}{r1}")
 
     # ── summary, kept above the freeze line so a total is visible while entering one ──
     ws.row_dimensions[r].height = 22
@@ -252,6 +266,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     q_row(r, "A3", "Measured impact",
           "Watch if claimed with no baseline or period", MAROON, BAND_A, 24, None, KEY_FLAG)
     flags["A3"] = r
+    merge_notes("A", marks["A1"], r)
     r += 2
 
     band_row(r, "B  ·  COVERAGE SELF-ASSESSMENT   —   how much of our scope they cover", INK)
@@ -273,31 +288,35 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         # one weight, visibly governing its three rows, instead of a number and two dashes
         ws.merge_cells(f"E{first_row}:E{r - 1}")
         ws[f"E{first_row}"].alignment = Alignment(horizontal="center", vertical="center")
+        merge_notes(aid, first_row, r - 1)
     r += 1
 
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
     r += 1
     q_row(r, "Section C", "Sophistication", "How much of the work the product does",
-          PURPLE, BAND_B, 30, "W_SOPH", KEY_SOPH)
+          PURPLE, BAND_B, 36, "W_SOPH", KEY_SOPH)
     marks["SOPH"] = r
     r += 1
     q_row(r, "C6", "When your product is down",
-          "Stop-check if no uptime figure or contractual commitment", MAROON, BAND_A, 24, None, KEY_FLAG)
+          "Stop-check if no uptime figure or contractual commitment", MAROON, BAND_A, 30, None, KEY_FLAG)
     flags["C6"] = r
+    merge_notes("C", marks["SOPH"], r)
     r += 2
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
     q_row(r, "D1–D3", "Clinician fit", "Our own read of fit — no checklist, on purpose",
-          INK, BAND_B, 26, "W_CLIN", KEY_CLIN)
+          INK, BAND_B, 52, "W_CLIN", KEY_CLIN)
     marks["CLIN"] = r
+    merge_notes("D", r, r)
     r += 2
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
     q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake",
-          INK, BAND_B, 44, "W_PART", KEY_PART)
+          INK, BAND_B, 52, "W_PART", KEY_PART)
     marks["PART"] = r
+    merge_notes("E", r, r)
     r += 2
 
     # ── intangibles: felt, not measured, and allowed to disagree with the score ──
@@ -307,7 +326,8 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws.row_dimensions[r].height = 26
     put(ws, f"B{r}", "    Fill these after the scored sections, and let them contradict the "
                      "number if that is what you see. Write the reason and your initials — in "
-                     "the working session someone will ask what specifically gave you that read.",
+                     "the working session someone will ask what specifically gave you that read. One note "
+                     "cell covers all five.",
         F(9, False, MUTED, italic=True), LEFT)
     r += 1
     feels = {}
@@ -315,6 +335,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         q_row(r, "Feel", name, prompt, SLATE, BAND_A, 28, None, KEY_FEEL)
         feels[name] = r
         r += 1
+    merge_notes("FEEL", feels[INTANGIBLES[0][0]], r - 1)
     r += 1
 
     band_row(r, "NOTES   —   one line each.  This is what we go and ask.", MAROON)
@@ -327,9 +348,9 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         put(ws, f"C{r}", label, F(10, True, MAROON), LEFT_T)
         put(ws, f"D{r}", hint, F(9, False, MUTED, italic=True), LEFT_T)
         put(ws, f"E{r}", "—", F(10, False, MUTED), CTR)
-        for sc, nc in zip(SCORE_COLS, NOTE_COLS):
+        for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS)):
+            put(ws, f"{sc}{r}", None, F(9), LEFT_T, vt(i), BOX)
             ws.merge_cells(f"{sc}{r}:{nc}{r}")
-            put(ws, f"{sc}{r}", None, F(9), LEFT_T, PAPER, BOX)
         note_rows.append(r)
         r += 1
     LAST_ROW = r
@@ -363,8 +384,13 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         stops = "+".join(f'IF({sc}{rr}="STOP-CHECK",1,0)' for rr in flags.values())
         put(ws, f"{sc}{FLAGR}", f'=IF({started},"",{stops})',
             F(10, True, MAROON), CTR, BAND, BOX, "0")
+        i = SCORE_COLS.index(sc)
+        nc = NOTE_COLS[i]
         for rr in [TOTAL, BANDR, FLAGR] + list(grade_rows.values()):
-            put(ws, f"{NOTE_COLS[SCORE_COLS.index(sc)]}{rr}", None, F(9), LEFT_T, BAND, BOX)
+            put(ws, f"{nc}{rr}", None, F(9), LEFT_T, vt(i), BOX)
+        ws.merge_cells(f"{nc}{TOTAL}:{nc}{FLAGR}")
+        g0, g1 = min(grade_rows.values()), max(grade_rows.values())
+        ws.merge_cells(f"{nc}{g0}:{nc}{g1}")
 
     # ══ validation ══
     for f1, rows_, title_, prompt_ in [
@@ -423,10 +449,8 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws.freeze_panes = f"{SCORE_COLS[0]}{FREEZE_AT}"
     ws.sheet_view.zoomScale = 100
 
-    # Notes collapse into an outline group: 16 vendors legible for comparison, expanded to write.
     for nc in NOTE_COLS:
-        ws.column_dimensions[nc].outlineLevel = 1
-        ws.column_dimensions[nc].hidden = True
+        ws.column_dimensions[nc].outlineLevel = 1   # foldable for a side-by-side read; open to write
     ws.column_dimensions[KEY_COL].outlineLevel = 1   # open by default; fold it once the scales are familiar
     ws.sheet_properties.outlinePr.summaryRight = True
 
@@ -446,11 +470,19 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
             ws[f"{sc}{marks['A1']}"] = v["hchb"]
             for key in ("A2", "A3", "C6"):
                 ws[f"{sc}{flags[key]}"] = v[key]
+            feel_notes = []
             for (name, _), val in zip(INTANGIBLES, v["feel"]):
                 ws[f"{sc}{feels[name]}"] = val[0]
-                ws[f"{nc}{feels[name]}"] = val[1]
+                if val[1]:
+                    feel_notes.append(f"{name}: {val[1]}")
+            ws[f"{nc}{section_notes['FEEL']}"] = "\n".join(feel_notes)
+            by_section = {}
             for key, note in v.get("why", {}).items():
-                ws[f"{nc}{marks[key] if key in marks else flags[key]}"] = note
+                sec = ("A" if key in ("A1", "A2", "A3") else "C" if key in ("SOPH", "C6")
+                       else "D" if key == "CLIN" else "E" if key == "PART" else key[:3])
+                by_section.setdefault(sec, []).append(f"{key}: {note}")
+            for sec, notes in by_section.items():
+                ws[f"{nc}{section_notes[sec]}"] = "\n".join(notes)
             for rr, text in zip(note_rows, v["notes"]):
                 ws[f"{sc}{rr}"] = text
         # Read-only, no password: one click on Review > Unprotect if anyone wants to play.
