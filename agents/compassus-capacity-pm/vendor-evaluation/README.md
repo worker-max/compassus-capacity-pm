@@ -3,6 +3,9 @@
 Scoring the returned **Capacity & Scheduling** vendor questionnaires — 16 vendors down to a
 shortlist, on evidence rather than impression.
 
+
+> **Handoff pack.** `handoff/` is a self-contained pack that makes a separate Claude an expert on the initiative, the questionnaire and the scorecard, so it can read returned questionnaires and surface red flags, intangible gold and demo questions. Start at `handoff/00-START-HERE.md`. `scoring-guide.md` and the `vendor-scorecard` skill describe the earlier v1.0 rubric; the workbook and the pack are v3.0.
+
 ## Two workbooks
 
 | | | |
