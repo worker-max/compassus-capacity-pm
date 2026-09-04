@@ -36,7 +36,8 @@ BAND_A, BAND_B = "FBFBF8", "F1F2ED"   # alternating group bands
 LANE = "8E9891"                       # the rule between one vendor and the next
 
 N_VENDORS = 16
-FIRST_COL = 6                       # F. Each vendor takes two columns: mark, then notes.
+KEY_COL = "F"                       # the scale for the row, in front of you while you mark
+FIRST_COL = 7                       # G. Each vendor takes two columns: mark, then notes.
 SCORE_COLS = [get_column_letter(FIRST_COL + i * 2) for i in range(N_VENDORS)]
 NOTE_COLS = [get_column_letter(FIRST_COL + i * 2 + 1) for i in range(N_VENDORS)]
 LAST_COL = NOTE_COLS[-1]
@@ -63,6 +64,17 @@ PART = ["0 — Not answered",
         "3 — Builds to our needs; ownership unaddressed",
         "4 — Open to equity, and set up to build with us"]
 FEEL = ["Strong", "Neutral", "Concern"]
+
+def _key(items):
+    return "   ·   ".join(items)
+
+KEY_HCHB = _key(f"{p}  {lbl.replace(' — ', ', ')}" for lbl, p in HCHB_RUNGS)
+KEY_SCOPE = _key(x.replace(" — ", "  ") for x in reversed(SCOPE))
+KEY_SOPH = _key(x.replace(" — ", "  ") for x in reversed(SOPH))
+KEY_CLIN = _key(x.replace(" — ", "  ") for x in reversed(CLIN))
+KEY_PART = _key(x.replace(" — ", "  ") for x in reversed(PART))
+KEY_FLAG = "OK   ·   Watch   ·   STOP-CHECK  — resolved before advancing, not traded against points"
+KEY_FEEL = "Strong   ·   Neutral   ·   Concern  — reason and initials in the notes"
 
 ARENAS = [
     ("CAP", "Capacity", CAP, [
@@ -134,7 +146,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws = wb.create_sheet(title)
     ws.sheet_view.showGridLines = False
     ws.sheet_properties.tabColor = tab_colour
-    for col, w in [("A", 3), ("B", 9), ("C", 28), ("D", 36), ("E", 6)]:
+    for col, w in [("A", 3), ("B", 9), ("C", 28), ("D", 36), ("E", 6), (KEY_COL, 44)]:
         ws.column_dimensions[col].width = w
     for sc, nc in zip(SCORE_COLS, NOTE_COLS):
         ws.column_dimensions[sc].width = 17
@@ -157,6 +169,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     put(ws, f"C{r}", "CRITERION", F(8, True, MUTED), BOT)
     put(ws, f"D{r}", "WHAT IT COVERS", F(8, True, MUTED), BOT)
     put(ws, f"E{r}", "WT", F(8, True, MUTED), Alignment(horizontal="center", vertical="bottom"))
+    put(ws, f"{KEY_COL}{r}", "KEY  ·  how to mark this row", F(8, True, MUTED), BOT)
     for i, (sc, nc) in enumerate(zip(SCORE_COLS, NOTE_COLS), 1):
         put(ws, f"{sc}{r}", f"Vendor {i:02d}", F(10, True, INK),
             Alignment(horizontal="center", vertical="bottom"), PAPER, Border(bottom=med))
@@ -173,8 +186,9 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     LANE_BORDER = Border(left=Side(style="medium", color=LANE), right=thin,
                          top=thin, bottom=thin)
 
-    def q_row(row, qid, label, detail, colour=INK, tint=BAND_A, height=24, weight=None):
+    def q_row(row, qid, label, detail, colour=INK, tint=BAND_A, height=24, weight=None, key=None):
         ws.row_dimensions[row].height = height
+        put(ws, f"{KEY_COL}{row}", key, F(8, False, MUTED), LEFT, tint)
         put(ws, f"B{row}", qid, F(9, False, MUTED), CTR, tint)
         put(ws, f"C{row}", label, F(11, True, INK), LEFT, tint)
         put(ws, f"D{row}", detail, F(9, False, MUTED), LEFT, tint)
@@ -191,6 +205,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws.row_dimensions[r].height = 22
     put(ws, f"C{r}", "TOTAL", F(12, True, INK), LEFT)
     put(ws, f"D{r}", "weighted, of 100", F(9, False, MUTED), LEFT)
+    put(ws, f"{KEY_COL}{r}", "each section grade × its weight, added up", F(8, False, MUTED), LEFT)
     TOTAL = r
     r += 1
     ws.row_dimensions[r].height = 16
@@ -201,6 +216,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     ws.row_dimensions[r].height = 16
     put(ws, f"C{r}", "Stop-checks", F(10, True, MAROON), LEFT)
     put(ws, f"D{r}", "of three", F(9, False, MUTED), LEFT)
+    put(ws, f"{KEY_COL}{r}", "A2, A3, C6 marked STOP-CHECK", F(8, False, MUTED), LEFT)
     FLAGR = r
     FREEZE_AT = r + 1
     r += 1
@@ -216,6 +232,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
                               ("PART", "Partnership", INK)]:
         ws.row_dimensions[r].height = 17
         put(ws, f"C{r}", name, F(10, False, colour), LEFT)
+        put(ws, f"{KEY_COL}{r}", "marks earned ÷ marks available", F(8, False, MUTED), LEFT)
         grade_rows[key] = r
         r += 1
     r += 1
@@ -225,15 +242,15 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     band_row(r, "A  ·  COMPANY AND PRODUCT", INK)
     r += 1
     q_row(r, "A1", "Home Care Home Base integration",
-          "Pick the line that matches their answer", GOLD, BAND_B, 30, "W_HCHB")
+          "Pick the line that matches their answer", GOLD, BAND_B, 40, "W_HCHB", KEY_HCHB)
     marks["A1"] = r
     r += 1
     q_row(r, "A2", "Customers, scale and references",
-          "Stop-check if one customer, or no references offered", MAROON, BAND_A)
+          "Stop-check if one customer, or no references offered", MAROON, BAND_A, 24, None, KEY_FLAG)
     flags["A2"] = r
     r += 1
     q_row(r, "A3", "Measured impact",
-          "Watch if claimed with no baseline or period", MAROON, BAND_A)
+          "Watch if claimed with no baseline or period", MAROON, BAND_A, 24, None, KEY_FLAG)
     flags["A3"] = r
     r += 2
 
@@ -249,8 +266,8 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
         tint = BAND_A if aid in ("CAP", "ENG") else BAND_B
         first_row = r
         for key, label, detail in areas:
-            q_row(r, "Section B", label, detail, colour, tint, 24,
-                  "W_" + aid if key.endswith("1") else None)
+            q_row(r, "Section B", label, detail, colour, tint, 26,
+                  "W_" + aid if key.endswith("1") else None, KEY_SCOPE)
             marks[key] = r
             r += 1
         # one weight, visibly governing its three rows, instead of a number and two dashes
@@ -261,25 +278,25 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     band_row(r, "C  ·  HOW YOUR PRODUCT WORKS", INK)
     r += 1
     q_row(r, "Section C", "Sophistication", "How much of the work the product does",
-          PURPLE, BAND_B, 26, "W_SOPH")
+          PURPLE, BAND_B, 30, "W_SOPH", KEY_SOPH)
     marks["SOPH"] = r
     r += 1
     q_row(r, "C6", "When your product is down",
-          "Stop-check if no uptime figure or contractual commitment", MAROON, BAND_A)
+          "Stop-check if no uptime figure or contractual commitment", MAROON, BAND_A, 24, None, KEY_FLAG)
     flags["C6"] = r
     r += 2
 
     band_row(r, "D  ·  THE CLINICIAN'S PLACE IN THE MODEL", INK)
     r += 1
     q_row(r, "D1–D3", "Clinician fit", "Our own read of fit — no checklist, on purpose",
-          INK, BAND_B, 26, "W_CLIN")
+          INK, BAND_B, 26, "W_CLIN", KEY_CLIN)
     marks["CLIN"] = r
     r += 2
 
     band_row(r, "E  ·  FIT AND PARTNERSHIP", INK)
     r += 1
     q_row(r, "E1–E4", "Partnership", "Willing to build it with us, and open to a stake",
-          INK, BAND_B, 40, "W_PART")
+          INK, BAND_B, 44, "W_PART", KEY_PART)
     marks["PART"] = r
     r += 2
 
@@ -295,7 +312,7 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     r += 1
     feels = {}
     for name, prompt in INTANGIBLES:
-        q_row(r, "Feel", name, prompt, SLATE, BAND_A, 28)
+        q_row(r, "Feel", name, prompt, SLATE, BAND_A, 28, None, KEY_FEEL)
         feels[name] = r
         r += 1
     r += 1
@@ -410,13 +427,14 @@ def build_scorecard(wb, title, tab_colour, deck, wrows, prefill=None):
     for nc in NOTE_COLS:
         ws.column_dimensions[nc].outlineLevel = 1
         ws.column_dimensions[nc].hidden = True
+    ws.column_dimensions[KEY_COL].outlineLevel = 1   # open by default; fold it once the scales are familiar
     ws.sheet_properties.outlinePr.summaryRight = True
 
     ws.page_setup.orientation = "landscape"
     ws.page_setup.fitToWidth = 1
     ws.page_setup.fitToHeight = 0
     ws.sheet_properties.pageSetUpPr = PageSetupProperties(fitToPage=True)
-    ws.print_title_cols = "$B:$E"
+    ws.print_title_cols = f"$B:${KEY_COL}"
     ws.print_title_rows = f"${VENDOR_ROW}:${FREEZE_AT - 1}"
 
     if prefill:
