@@ -41,6 +41,7 @@ straight into the scorecard's notes and Questions tab.
 | 09 | `09-CALIBRATION.md` | Three worked vendors in the team's own voice, the voice rules, and the house rules the PM will add |
 | — | `spec-elements.json` | The 41 spec elements, machine-readable |
 | — | `Compassus-Vendor-Questionnaire-blank.xlsx` | The blank form, for reference |
+| 10 | `10-VENDOR-RESEARCH-BRIEF.md` | For the session researching each vendor from public sources: rules, the dossier template, where to look |
 | — | `HOUSE-RULES.md` | The PM's corrections after the first three real vendors; outranks everything else |
 | — | `extract_return.py` | Turns a returned xlsx into a flat transcript; for whoever runs the extraction |
 
