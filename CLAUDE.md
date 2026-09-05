@@ -114,3 +114,9 @@ carries a source and a date; anything not found is written as *not found*, never
   (five-row frozen header, KEY column, notes open and merged per section, alternate-vendor tint,
   one validation per row after Google Sheets dropped a long list). Handoff pack built with three
   planning subagents and shipped as `Vendor-Highlights-Handoff.zip`. This file created.
+- **2026-09-05, research session 1.** Branch `claude/vendor-research-brief-review-tvi3au`
+  (fast-forwarded from the scoring branch; all vendor work lives here, none on `main`). Reviewed
+  `10-VENDOR-RESEARCH-BRIEF.md`; edits pending. Dossiers written for UnityAI and CareConnect, both
+  medium confidence because the session's network level blocked direct page reads; Default
+  environment since set to Full. Cross-vendor matrix agreed in principle, mock shown, not built.
+  Everything the next session needs is in `vendor-evaluation/research/00-SESSION-HANDOFF.md`.
