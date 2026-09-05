@@ -19,6 +19,46 @@ reading carefully.
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | 2019 · San Diego, California [7] [8] [9] |
+| Legal entity | CareStitch, Inc. [6] |
+| Ownership · raised · last round | **Bootstrapped — $0 raised.** $143K revenue in 2021, nothing since [9] |
+| Headcount · trend | **4** (Apr 2026) · 2 in 2021 [8] [9] |
+| Leadership from home health | **Yes — COO Shelley Ackerman, PT, DPT** [2] [6] |
+| Pivots or rebrands in 3 years | **None — the only vendor on the roster that has never repositioned** |
+| Home health share of business | All of it, since 2019 [10] [1] |
+| **PRODUCT** | |
+| HCHB evidence | *not found* |
+| Other EMRs named | WellSky — once, in a blog post, with no mechanism [11] |
+| Scheduling unit | A visit for a patient [1] |
+| Capacity | **The most on the roster, and still thin** — MAPS forecasts visit volume by region and shows under- and over-utilised areas; overtime exposure [2] [1] |
+| Scheduling | Real — assess, dispatch, assign; broadcast to eligible clinicians; drive-time optimisation [1] |
+| Engagement | Clinician-side only; no patient capability [3] |
+| Decide or advise | **Advise** — the scheduler dispatches, the clinician accepts what fits [1] [3] |
+| Clinician app | Android 3.12 · 25 ratings · ~3,500 lifetime installs · iOS 3.3 · 22 ratings [4] [5] |
+| **CUSTOMERS** | |
+| Named home health customers | **none named anywhere** |
+| Largest known deployment | *not found* — bounded by ~3,500 lifetime installs across all customers [4] |
+| Customer count | *not found* |
+| Impact figures with a baseline | **0 of 1** — “a 60% drop in missed visits”, no agency, period or baseline [11] |
+| Independent customer voice | App-store reviews only — one agency, nearly three years, “our agency's infrastructure” [4] [5] |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | HIPAA claimed; **nothing else found** [1] |
+| Uptime · SLA | *not found* |
+| Named dependencies | none visible |
+| Pricing signal | *not found*; $143K revenue in 2021 implies small agencies [1] [9] |
+| **THE READ** | |
+| Confidence | medium |
+| The one thing to check | Four employees. We would be larger than everything they have ever done. |
+
 ## One paragraph
 
 CareStitch is a seven-year-old, **bootstrapped, four-person** San Diego company that sells exactly

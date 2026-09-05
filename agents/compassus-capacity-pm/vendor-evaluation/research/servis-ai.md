@@ -17,6 +17,46 @@ or `freeagentcrm.com`. There is no collision with another company of this name.
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | 2016 · Campbell, California; development office Aguascalientes, Mexico [4] [3] |
+| Legal entity | servis.ai — **formerly FreeAgent CRM**, the same entity [1] [8] |
+| Ownership · raised · last round | Venture · ~$19–20.2M · **$12.6M, April 2021, Pelion; nothing since** [4] [7] |
+| Headcount · trend | *not found* |
+| Leadership from home health | *not found* — nobody from healthcare is named anywhere [3] |
+| Pivots or rebrands in 3 years | 1 — FreeAgent CRM → servis.ai, ~Nov 2024 [1] [8] |
+| Home health share of business | *not found* — one landing page among a dozen verticals [1] [9] |
+| **PRODUCT** | |
+| HCHB evidence | *not found* |
+| Other EMRs named | **none — not one EMR is named on any page** [2] [10] |
+| Scheduling unit | A field rep's visit on a route [10] |
+| Capacity | **Absent** — no envelope, target, discipline mix or forecast [10] |
+| Scheduling | Route optimisation, three algorithms; a human picks the rep and the date [10] |
+| Engagement | CRM outreach; no patient agent [2] |
+| Decide or advise | **Advise** — the human assigns, the engine routes [10] |
+| Clinician app | *not found* |
+| **CUSTOMERS** | |
+| Named home health customers | Revival Health, unsized. Mansfield Hall is not home health [2] |
+| Largest known deployment | *not found* |
+| Customer count | *not found* — none published at all |
+| Impact figures with a baseline | **0 of 4** [2] |
+| Independent customer voice | *not found* — reviews praise support, not a capability [9] |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | *not found* — a Head of Security & Compliance is named, no attestation is [1] [3] |
+| Uptime · SLA | *not found* |
+| Named dependencies | none visible |
+| Pricing signal | No public price; a free edition [1] |
+| **THE READ** | |
+| Confidence | medium |
+| The one thing to check | It is a CRM. No episode, discipline or authorization in the data model. |
+
 ## One paragraph
 
 servis.ai is a ten-year-old California software company, formerly FreeAgent CRM, that sells a

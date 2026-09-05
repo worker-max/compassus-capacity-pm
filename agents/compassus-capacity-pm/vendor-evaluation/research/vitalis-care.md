@@ -22,6 +22,46 @@ this company.
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | *not found* · **Jerusalem, Israel** [6] |
+| Legal entity | **VitalisCare Ltd.**, Divrei Khayim 14, Jerusalem [6] |
+| Ownership · raised · last round | *not found* — no round, investor, stage or valuation |
+| Headcount · trend | *not found* |
+| Leadership from home health | CEO from mathematics education; built “with HCHB operations experts” [4] [8] |
+| Pivots or rebrands in 3 years | none found |
+| Home health share of business | 0% — **hospice only** [1] [8] |
+| **PRODUCT** | |
+| HCHB evidence | **Claimed on their own pages, and the strongest on the roster** — “no double-entry”, an “Original HCHB schedule view”, a customer whose title is Director of HCHB operations. Still no published mechanism [1] [3] [10] |
+| Other EMRs named | none — HCHB is the only one [1] [3] |
+| Scheduling unit | A hospice visit in a benefit period [3] |
+| Capacity | Thin — visit adequacy, missed units, a transition prediction [1] [2] |
+| Scheduling | Real — weekly optimised schedules, Provider Matches [3] |
+| Engagement | Absent — no patient outreach |
+| Decide or advise | **Advise** — “approve, adjust, or decline with a click” [3] |
+| Clinician app | Sync360 and Guide described; **no app-store listing found** |
+| **CUSTOMERS** | |
+| Named home health customers | none — hospice only |
+| Largest known deployment | *not found* |
+| Customer count | 1 named — Moments Hospice [1] |
+| Impact figures with a baseline | **0 of ~7**, and two mileage figures contradict: 30% on the site, 55–65% from the CEO [1] [3] [8] |
+| Independent customer voice | *not found* — the other quotes are initialled [2] |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | HIPAA · SOC 2 Type II, claimed [1] |
+| Uptime · SLA | *not found* |
+| Named dependencies | AWS, Azure, Google Workspace, ClickUp, Streak, **the OpenAI API** [6] |
+| Pricing signal | By patient census size, per app [1] |
+| **THE READ** | |
+| Confidence | medium |
+| The one thing to check | Real HCHB integration, no visible corporate existence, contradicting figures. |
+
 ## One paragraph
 
 Vitalis Care is a small, privately held company, legally registered in Jerusalem and led from the

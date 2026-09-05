@@ -18,6 +18,46 @@ identity on the roster.
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | 2022 or 2023 — **sources disagree** · Reston, Virginia [8] [9] |
+| Legal entity | AutoMynd [8] |
+| Ownership · raised · last round | **Unfunded** — no round, investor or valuation [8] [9] |
+| Headcount · trend | 2–10 · nine named on the about page [8] [9] [2] |
+| Leadership from home health | **Yes — founder ran automation services at Bayada; two PTs, an OT and a home health RN on staff** [2] [7] |
+| Pivots or rebrands in 3 years | 1 — documentation co-pilot → full EMR [10] [11] |
+| Home health share of business | All of it, since founding [1] [3] |
+| **PRODUCT** | |
+| HCHB evidence | *not found*, and structurally unlikely — **they sell an EMR, so HCHB is a competitor** |
+| Other EMRs named | **WellSky** — OEM, embedded in WellSky Personal Care, 30 Apr 2026 [12] [13] |
+| Scheduling unit | A visit in an episode [4] |
+| Capacity | **Absent** — no envelope, target or forecast [1] [4] |
+| Scheduling | MyndShift — proximity, drive time, patient history, acuity, live availability [4] |
+| Engagement | Clinician-facing (Martha); Patient360 is a portal, not outreach [1] [4] |
+| Decide or advise | **Decide** — “autonomous”, “chosen automatically”, “0 manual assignments” [4] |
+| Clinician app | Implied; **no app-store listing found** |
+| **CUSTOMERS** | |
+| Named home health customers | Butte Home Health & Hospice, 150+ staff; Ohioans Home Healthcare, unsized [5] [6] |
+| Largest known deployment | Butte, about 150 staff [5] |
+| Customer count | 2 named [5] [6] |
+| Impact figures with a baseline | **1 of ~5 — the only one on the roster.** Three hours → about one hour per client, WellSky early adopters. No period or agency count [12] |
+| Independent customer voice | Tim Ashe, WellSky's Chief Clinical Officer [12] [13] |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | HIPAA · SOC 2 Type II with annual audits · AES-256 · TLS 1.2+ · RBAC — **the best documented on the roster** [15] |
+| Uptime · SLA | *not found* [15] |
+| Named dependencies | none named — **no LLM or speech provider disclosed**, for an ambient-AI product [15] |
+| Pricing signal | Three tiers published, no prices on them [14] |
+| **THE READ** | |
+| Confidence | medium |
+| The one thing to check | It would replace HCHB, and its scheduler is autonomous. |
+
 ## One paragraph
 
 AutoMynd is a three- or four-year-old, unfunded, sub-ten-person Virginia company building an

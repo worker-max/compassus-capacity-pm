@@ -20,6 +20,46 @@ The company writes its name **UnityAI**, one word. The questionnaire roster has 
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | 2023 · Nashville, Tennessee [3] [12] |
+| Legal entity | UnityAI, Inc. [22] |
+| Ownership · raised · last round | Venture · $15M total · Series A $8.5M, 4 Mar 2026, led by Third Prime [4] [12] |
+| Headcount · trend | ~23 · trend *not found* [18] [27] |
+| Leadership from home health | *not found* — three founders are HCA data scientists [3] [6] [27] |
+| Pivots or rebrands in 3 years | 2 — hospital bed flow → outpatient front office → staffing [3] [9] [10] |
+| Home health share of business | 0% — absent from every page and release [1] [29] |
+| **PRODUCT** | |
+| HCHB evidence | *not found* — no partner listing, press, customer or job posting [24] [25] |
+| Other EMRs named | none — always “the EMR”, never named [8] [10] [29] |
+| Scheduling unit | A clinic appointment slot [8] [10] |
+| Capacity | Partial — StaffOps matches shift supply to appointment demand [10] |
+| Scheduling | Clinic slotting; overbooks on no-show probability [1] [8] |
+| Engagement | Real — voice, SMS, email, chat; 300k patient interactions a month [8] [12] |
+| Decide or advise | **Decide** — the agents perform the work [8] [10] |
+| Clinician app | *not found* — no App Store or Google Play listing |
+| **CUSTOMERS** | |
+| Named home health customers | none |
+| Largest known deployment | An unnamed 300-plus-site outpatient provider [12] |
+| Customer count | 6 named · “350+ sites” claimed [12] [29] |
+| Impact figures with a baseline | **0 of ~14** [8] [9] [12] [13] [14] |
+| Independent customer voice | *not found* — no talk, panel or interview [13] [14] |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | HIPAA · SOC 2 Type II · ISO 27001 · TCPA [29] |
+| Uptime · SLA | *not found* — the Trust page 404s [31] |
+| Named dependencies | Vapi, the voice layer — named by Vapi, not by them [19] |
+| Pricing signal | *not found* — “contact them” [26] |
+| **THE READ** | |
+| Confidence | high |
+| The one thing to check | Six named customers, none in home-based care. |
+
 ## One paragraph
 
 UnityAI is a three-year-old Nashville company, founded in 2023 by three former HCA Healthcare data

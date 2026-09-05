@@ -27,6 +27,46 @@ domain before using this dossier.** If the domain is not careconnectmobile.com, 
 
 ---
 
+## At a glance
+
+The machine-readable face of this dossier. `_research-matrix.gen.py` reads these rows to
+build `Vendor-Research-Matrix.xlsx`; the prose below is the record. Bracketed numbers are
+source ids from the *Sources* list at the foot of this file. *Not found* is a finding.
+
+| Fact | Finding |
+|---|---|
+| **COMPANY** | |
+| Founded · HQ | 2017, entity filed 1 Dec 2017 · Port Washington, New York [14] [2] |
+| Legal entity | CareConnect, LLC — filed in NY as *Care Connect, LLC* [14] |
+| Ownership · raised · last round | Private · **no outside round found** · founder-chairman Bert Brodsky [2] [17] |
+| Headcount · trend | ~92 · trend *not found* [15] [16] |
+| Leadership from home health | Board only — Marki Flannery, former CEO of VNS Health [40] |
+| Pivots or rebrands in 3 years | 0 pivots; 3 product names in 7 years [4] [10] |
+| Home health share of business | No evidence of any skilled home health; the business is aide agencies [1] [13] |
+| **PRODUCT** | |
+| HCHB evidence | **Claimed on their own partners page** — no mechanism, no direction, no customer, no HCHB-side listing [39] [45] |
+| Other EMRs named | HHAeXchange, Sandata, AlayaCare, HCM, In My Team; ADP. Axxess removed [39] |
+| Scheduling unit | An hourly shift on a case [4] [5] |
+| Capacity | Partial — matching on availability, skills, travel, cost, compliance [1] [10] |
+| Scheduling | Real, for aide shifts; the caregiver self-selects [5] [10] |
+| Engagement | Caregiver-facing only — **no patient outreach at all** [10] [25] |
+| Decide or advise | **Advise** — coordinators retain oversight [5] [10] |
+| Clinician app | iOS 4.3 · ~1.7k ratings · Android 4.53 · ~2.4k ratings [42] [29] |
+| **CUSTOMERS** | |
+| Named home health customers | none in skilled home health |
+| Largest known deployment | Help at Home, 2019; current status *not found* [24] |
+| Customer count | *not found* — no caregiver or agency count published anywhere |
+| Impact figures with a baseline | **0 of ~6** [5] [9] [11] [36] |
+| Independent customer voice | *not found* |
+| **TRUST AND CONTINUITY** | |
+| Security attestation | *not found* — no SOC 2, HITRUST or ISO claim |
+| Uptime · SLA | *not found* |
+| Named dependencies | Santrax (Sandata EVV) for clock-in [42] |
+| Pricing signal | $129/month flat rate (Capterra); “performance-based” [32] [10] |
+| **THE READ** | |
+| Confidence | high |
+| The one thing to check | Their partners page claims an HCHB integration with no mechanism. |
+
 ## One paragraph
 
 CareConnect is an eight-year-old, privately held, New York company that sells a caregiver
