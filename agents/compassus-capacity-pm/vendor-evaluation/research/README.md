@@ -1,5 +1,17 @@
 # Vendor research dossiers
 
-One file per vendor, in the template from `../handoff/10-VENDOR-RESEARCH-BRIEF.md`. Public sources only; every fact dated and sourced; *not found* is written, never inferred.
+One file per vendor, in the template from `../handoff/10-VENDOR-RESEARCH-BRIEF.md`. Public sources
+only; every fact dated and sourced; *not found* is written, never inferred; a source behind a login
+or a paywall is written as **gated**, not as not found.
 
-Starting a new research session? Read `00-SESSION-HANDOFF.md` first. Slugs are the company's own spelling, lowercased and hyphenated: `unity-ai.md`, `care-connect.md`.
+Starting a new research session? Read `00-SESSION-HANDOFF.md` first, then `00-ROSTER.md`.
+
+**Never research a vendor that does not have a row in `00-ROSTER.md`.** The roster fixes the slug
+and pins the legal entity before anyone spends an hour on the wrong company.
+
+| File | What it is |
+|---|---|
+| `00-ROSTER.md` | The vendor list, the fixed slugs, the identity pins, and the names that are *not* these vendors |
+| `00-SESSION-HANDOFF.md` | State of play and the first job for the next session |
+| `<slug>.md` | One dossier per vendor |
+| `00-FIELD-NOTES.md` | Not written yet. The hand-back when all vendors are done — see brief §6 |

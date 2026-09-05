@@ -120,3 +120,14 @@ carries a source and a date; anything not found is written as *not found*, never
   medium confidence because the session's network level blocked direct page reads; Default
   environment since set to Full. Cross-vendor matrix agreed in principle, mock shown, not built.
   Everything the next session needs is in `vendor-evaluation/research/00-SESSION-HANDOFF.md`.
+- **2026-09-05, research session 2.** Branch `claude/vendor-list-bpmnil` (fast-forwarded from the
+  research branch). The PM named six vendors. Built `research/00-ROSTER.md` — fixed slugs, pinned
+  legal entities, and a *names that are not these vendors* section — which closes pending brief
+  edit 2. Second-read upgrade of `unity-ai.md` and `care-connect.md` done with direct page reads;
+  both raised to high. **One first-pass finding reversed: CareConnect's own partners page claims an
+  HCHB integration**, with no mechanism and no HCHB-side listing. The StatusGator outage record
+  attributed to CareConnect is settled as a different company (Corilus, Belgium). Four new dossiers:
+  `servis-ai.md` (a rebranded CRM with a healthcare landing page), `vitalis-care.md` (an Israeli
+  hospice overlay on HCHB), `auto-mynd.md` (an AI-first home health EMR that would replace HCHB;
+  WellSky OEM deal), `care-stitch.md` (bootstrapped, four employees, right-shaped product). Across
+  the roster, **one impact figure in about thirty carries a baseline**. Handoff rewritten.

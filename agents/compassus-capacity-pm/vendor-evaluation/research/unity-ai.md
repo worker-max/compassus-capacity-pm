@@ -1,6 +1,7 @@
 # UnityAI — research dossier
 
-Researched 2026-09-05 · sources retrieved 2026-09-05 · confidence: **medium**
+Researched 2026-09-05 · second research pass 2026-09-05 · sources retrieved 2026-09-05 ·
+confidence: **high**
 
 *Confidence note.* Company facts (founding, funding, leadership, pivot) are corroborated by six or more
 independent outlets and are high. Product and customer facts rest on the vendor's own releases as
@@ -9,6 +10,11 @@ policy blocked the vendor site, every trade outlet, HCHB's partner pages, the jo
 funding databases. Every fact below comes from search-engine indexing of those pages, which is why
 some retrieval dates are indexing dates and some quotes are short. A second pass with open access
 should re-read sources 1, 4, 8, 13 and 20 in full. Written before reading the vendor's return.
+
+*Second read, 2026-09-05.* The vendor site was opened directly. Nothing in the first pass was
+contradicted. Four facts were added and one was corrected; confidence is raised to **high** for
+company and product facts and stays medium only for customer impact figures, which remain the
+vendor's own. What changed is in *Second research pass* below.
 
 The company writes its name **UnityAI**, one word. The questionnaire roster has it as Unity AI.
 
@@ -76,6 +82,40 @@ Written 2026-09-05, before reading the return.
 
 *Second pass after reading the return: to be added below, dated.*
 
+## Second research pass — 2026-09-05, direct page reads
+
+The first pass could not open a page. This one read unityai.co directly. Six changes.
+
+1. **Four more customers are named on the home page**, alongside Tennessee Oncology and Peregrine:
+   **Planet DDS** (dental practice-management SaaS), **AmeriPro**, **Spero Health** and **Equality
+   Health**. Spero Health is confirmed independently: a national addiction-treatment provider,
+   **more than 60 locations**, live since May 2026. None is in home-based care. The customer list
+   is now six names and still zero home health. [29] · [30]
+2. **A third product name in twelve months.** The Spero deployment is branded **PatientOps**, after
+   the four agents (Sep 2025) and **StaffOps** (Apr 2026). The company renames its surface roughly
+   every six months. [30]
+3. **The team page names twenty-three people**, which corroborates the "22 employees" figure and
+   settles the roles the first pass could not find: **Cody Hall is CTO**, **Jason Parker is CPO**,
+   and **Daniel Goodman is Chief Commercial Officer** — the commercial officer recorded as *not
+   found*. Also **Mollie Fleury**, VP of Operations, **Matthew Powell**, Director of Product, and
+   **Peter James**, Director of Data Engineering. The page claims "151 Combined years inside
+   healthcare" across the team, which is about six and a half years each. **Still nobody from home
+   health, home care, hospice or field clinical operations.** [27]
+4. **Hiring has slowed.** The careers page now lists **one** open role — Operations, Nashville —
+   against the three to five roles indexed at the first pass, including the two integration
+   engineering roles. Read against a Series A closed six months ago, that is worth a question. [28]
+5. **The security claims are confirmed by direct read, not snippet**: "HIPAA Compliant", "SOC 2
+   Type II Attested", "ISO 27001 Certified", "TCPA Compliant". TCPA is new information and is the
+   right claim for a voice-outreach product. **But the Trust link on the company page returns 404**,
+   so there is no published control list, no subprocessor list, and still **no uptime figure and no
+   SLA**. Vapi is not named anywhere on their own site. [1] · [27] · [31]
+6. **No EMR is named anywhere on the site.** Confirmed by direct read of the home, company and
+   careers pages, not by absence in an index. The claim is always "integrates with electronic
+   medical records", unnamed. **RF-01 stands and is now well evidenced.**
+
+**What did not change.** No mention of home health, home care, hospice or post-acute anywhere on
+the site. No HCHB. No clinician app. No pricing. No litigation.
+
 ## Durability read — evidence only
 
 - Company age: three years. Two repositionings in that time, from hospital bed flow to outpatient front office to staffing.
@@ -102,6 +142,13 @@ For the demo or the reference call. One line each.
 10. What is your uptime over the last twelve months, and what does the contract commit to?
 11. What is your current runway, and what does the Series A fund?
 12. What is the largest workforce you serve today, in clinicians?
+
+Added on the second research pass, 2026-09-05:
+
+13. Your Trust page is a 404. Where is the control list, the subprocessor list and the SOC 2 report?
+14. You have shipped four agents, then StaffOps, then PatientOps in twelve months. Which of the three is the product, and what is a customer buying?
+15. You closed a Series A in March and you have one open role. What happened to the two integration engineering roles you were hiring for in the spring?
+16. Six named customers, none in home-based care. Which of the six is closest to our shape, and why?
 
 ## Not found
 
@@ -152,5 +199,16 @@ policy of the researching session. "Indexed" means the fact was read from the in
 24. hchb.com, "HCHB Partner Ecosystem" and "HCHB Recommended Partner Solutions". Indexed; no UnityAI entry surfaced.
 25. HomeCare Magazine, "Homecare Homebase, Element5 Collaborate With AI Integration", 2025; HCHB AI-tools releases, Sep 2025. Indexed, as negative evidence.
 26. AI Chief, "UnityAI Review – Cost, Use Cases & Alternatives", 2026 (no pricing; "contact them"). Indexed; low-quality aggregator, used only for the absence of pricing.
-27. Axios Pro, "UnityAI raises for AI agents for outpatient specialty", 4 Mar 2026. Gated; headline only.
-28. PitchBook, UnityAI company profile. Gated; not read.
+Added on the second research pass, 2026-09-05, all **read directly**:
+
+27. unityai.co/company. Team page, twenty-three people with titles; "151 Combined years inside healthcare". Read 2026-09-05.
+28. unityai.co/careers. One open role: Operations, Nashville. Read 2026-09-05.
+29. unityai.co home page. Customer logos: Tennessee Oncology, Peregrine, Planet DDS, AmeriPro, Spero Health, Equality Health. Verticals: radiology, oncology, behavioral health, dental, ambulatory surgery centers, outpatient clinics. Compliance: HIPAA, SOC 2 Type II, ISO 27001, TCPA. Read 2026-09-05.
+30. HIT Consultant, "Spero Health Partners with UnityAI to Deploy PatientOps Platform Across National Network", 20 May 2026; and unityai.co/blog, "UnityAI Partners with Spero Health…". Spero Health: national addiction-treatment provider, 60+ locations. Read 2026-09-05.
+31. unityai.co/trust. **HTTP 404** as of 2026-09-05, though the company page links to it. Negative evidence.
+
+Gated or unreadable:
+
+32. Axios Pro, "UnityAI raises for AI agents for outpatient specialty", 4 Mar 2026. Gated; headline only.
+33. PitchBook, UnityAI company profile. Gated; not read.
+34. hchb.com, "HCHB Recommended Partner Solutions" brochure PDF (2025.10, hosted on HubSpot). The brochure is a Figma export whose text layer will not extract and whose file exceeds the fetch limit; the HCHB-side partner list could not be read in this session. **Written as gated, not as not found.**
