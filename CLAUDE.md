@@ -77,10 +77,13 @@ Electronic Visit Verification. Do not invent these.
 ## Vendor research sessions
 
 A separate session will research each of the sixteen vendors from public sources. Read
-`handoff/00-START-HERE.md` and `handoff/01-INITIATIVE-BRIEF.md` first, then follow
-`handoff/10-VENDOR-RESEARCH-BRIEF.md`. Write one dossier per vendor to
-`agents/compassus-capacity-pm/vendor-evaluation/research/<vendor-slug>.md`, in the template the
-brief gives. The dossier exists to test what the vendor claimed on the form and to inform the
+`research/00-SESSION-HANDOFF.md` and `research/00-ROSTER.md` first — **no vendor is researched
+until it has a roster row with a pinned legal entity** — then `handoff/00-START-HERE.md`,
+`handoff/01-INITIATIVE-BRIEF.md` and `handoff/10-VENDOR-RESEARCH-BRIEF.md`. Write one dossier per
+vendor to `agents/compassus-capacity-pm/vendor-evaluation/research/<vendor-slug>.md`, in the
+template the brief gives, opening with the `## At a glance` block of twenty-six facts that
+`_research-matrix.gen.py` reads to build `Vendor-Research-Matrix.xlsx`, its HTML twin and
+`research/00-FIELD-NOTES.md`. Add a vendor, rebuild; never hand-edit an output. The dossier exists to test what the vendor claimed on the form and to inform the
 Durability intangible, the A2 scale flag and the A1 integration rung. It never scores. Every fact
 carries a source and a date; anything not found is written as *not found*, never inferred.
 
@@ -131,3 +134,9 @@ carries a source and a date; anything not found is written as *not found*, never
   hospice overlay on HCHB), `auto-mynd.md` (an AI-first home health EMR that would replace HCHB;
   WellSky OEM deal), `care-stitch.md` (bootstrapped, four employees, right-shaped product). Across
   the roster, **one impact figure in about thirty carries a baseline**. Handoff rewritten.
+  **Cross-vendor matrix built** after the PM confirmed the row set: every dossier gains an
+  `## At a glance` block of twenty-six facts in five bands, and `_research-matrix.gen.py` reads
+  them to write `Vendor-Research-Matrix.xlsx`, `Vendor-Research-Matrix.html`
+  (https://claude.ai/code/artifact/57ba5767-4d38-4077-b5ef-74ccdbb5ed93) and
+  `research/00-FIELD-NOTES.md`. 156 cells verified, **49 of them *not found***. The matrix has no
+  formulas, so it is verified cell-by-cell against the dossiers rather than with pycel.

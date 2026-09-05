@@ -108,23 +108,36 @@ What the second session learned that the brief still does not say:
 - **Say what the scheduling unit is**, in one cell, and say which of the three arenas the public
   material actually covers. The table in §3 above is built from those cells.
 
-## 6. The cross-vendor matrix (agreed, not built)
+## 6. The cross-vendor matrix — built
 
-Unchanged from the first handoff. The PM agreed the plan on 2026-09-05 and saw a mock:
-https://claude.ai/code/artifact/77f74f83-3084-449d-b165-837522928b1d
+The PM confirmed the row set on 2026-09-05 and it is built. Three outputs, one generator, so the
+workbook and the page cannot drift apart:
 
-- Each dossier gets a short structured header block, about twenty-four fields, above the prose.
-- `_research-matrix.gen.py` in `vendor-evaluation/` reads every `research/*.md`, writes
-  `Vendor-Research-Matrix.xlsx` (facts down, vendors across, same orientation as the scorecard;
-  source numbers in cell comments; *not found* tinted; fact column frozen) and
-  `research/00-FIELD-NOTES.md`.
-- Separate workbook, not a tab in `Vendor-Scorecard.xlsx`, because the scorecard is hand-filled and
-  regenerating it would wipe marks.
-- House rules apply: generator not hand edits, verify with pycel, house palette, no charts, plain.
+| File | What it is |
+|---|---|
+| `_research-matrix.gen.py` | Reads the `## At a glance` block out of every `research/*.md`. **Change a dossier and rebuild; never hand-edit an output** |
+| `Vendor-Research-Matrix.xlsx` | Facts down, vendors across, the same orientation as the scorecard. Fact column and header frozen, source numbers in cell comments, alternate vendors tinted, *not found* tinted |
+| `Vendor-Research-Matrix.html` | The same data as a page, house design, for reading rather than filling in. Published: https://claude.ai/code/artifact/57ba5767-4d38-4077-b5ef-74ccdbb5ed93 |
+| `research/00-FIELD-NOTES.md` | Brief §6 — one line per vendor, the commonplaces, where the field splits |
 
-**Do not build it until the PM confirms the row set.** When they do, retrofit all six existing
-dossiers with the header block first, then write the generator. The tables in §3 above are a good
-first cut at the rows: they are the cells that turned out to matter across six vendors.
+**The row set.** Twenty-six facts in five bands: company, product, customers, trust and continuity,
+the read. The labels in `BANDS` at the top of the generator are the contract with the dossiers —
+reword one there without rewording it in all six `## At a glance` blocks and the row silently drops.
+Each row also carries a `KEY` line saying why it is there, citing the red-flag id where one applies.
+
+**Adding a vendor.** Write the dossier with an `## At a glance` block using the same twenty-six
+labels, add the row to `00-ROSTER.md` (the matrix takes its column order from the numbered rows of
+the roster table), and rebuild. The generator warns about any label a dossier is missing.
+
+**Verification.** The build re-opens the saved workbook and checks every cell against the dossier it
+came from, that source numbers travelled into comments, and that no cell is blank. Note for the
+house rule: **there are no formulas in this workbook, so pycel has nothing to evaluate** — the check
+is cell-by-cell equality instead. Current build: 156 cells, 6 vendors × 26 facts, 49 gaps, 0 blank.
+
+The original mock, for reference: https://claude.ai/code/artifact/77f74f83-3084-449d-b165-837522928b1d
+
+It is a separate workbook, not a tab in `Vendor-Scorecard.xlsx`, because the scorecard is
+hand-filled and regenerating it would wipe the marks. Keep it that way.
 
 ## 7. Brief edits — one is done, six pending
 

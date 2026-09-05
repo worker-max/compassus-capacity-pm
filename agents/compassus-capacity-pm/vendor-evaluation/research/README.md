@@ -13,5 +13,5 @@ and pins the legal entity before anyone spends an hour on the wrong company.
 |---|---|
 | `00-ROSTER.md` | The vendor list, the fixed slugs, the identity pins, and the names that are *not* these vendors |
 | `00-SESSION-HANDOFF.md` | State of play and the first job for the next session |
-| `<slug>.md` | One dossier per vendor |
-| `00-FIELD-NOTES.md` | Not written yet. The hand-back when all vendors are done — see brief §6 |
+| `<slug>.md` | One dossier per vendor. Each opens with an `## At a glance` block of twenty-six facts, which `../_research-matrix.gen.py` reads to build the matrix |
+| `00-FIELD-NOTES.md` | **Generated.** One line per vendor, the commonplaces, where the field splits. Rebuild it; do not hand-edit |
