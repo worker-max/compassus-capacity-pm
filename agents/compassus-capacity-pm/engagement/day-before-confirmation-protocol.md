@@ -5,7 +5,7 @@
 > Scheduling Engine · **Patient Engagement**). Captured 24 Aug 2026 from the operator's own account of
 > how clinicians actually run this today, and how the assistant must behave for them to hand it over.
 >
-> **Status: OPEN — captures 1–2 of N.** This is a faithful record of what the operator specified plus the
+> **Status: OPEN — captures 1–7 of N.** This is a faithful record of what the operator specified plus the
 > ground truth it lands on. It is **not** yet a design, a schema, or a prompt. Nothing here is settled
 > that the operator has not settled. Open questions are collected in §8 rather than answered.
 >
@@ -327,10 +327,163 @@ Drawn from the constraint register and the automation postures, not invented her
 
 ---
 
+## 9. Captures 3–7 — the clinician's console, the batch, and the domain rules
+
+*Operator, 25 Aug, condensed. These are records of what was said, not designs.*
+
+### 9.1 Triggers and partial engagement
+
+The tool runs off **triggers and instructions the clinician provides**, including scheduling an engagement
+to run later. Typical moment: Tuesday early afternoon, once tomorrow's assignments have stabilised and the
+clinician can see everything they have to contend with. The clinician may engage **some or all** of the day —
+all five patients, or just the first two, or the first and the last. **The controls have to be dynamic enough
+to give that level of autonomy, matching what clinicians already do in real life.**
+
+### 9.2 The routing button and the end-of-day address
+
+An optimize action shows the day ordered on proximity alone — home base, patient-to-patient distance,
+nothing else. The clinician can add an **end-of-day address**: a saved one (a child's school) or a **one-time
+address for tomorrow only** (errands), so the routing reflects the day they are actually going to have.
+
+### 9.3 The arrival-window shadow
+
+Each visit is a block sized by visit type; behind it sits a **shadow** representing the arrival window.
+
+- Drag the **block** to place the visit — e.g. a mid-morning-optimal SOC moved onto the 2 PM marker.
+- Drag the **shadow** independently, in **15-minute increments**, to position the window around the visit:
+  1:00–2:00 · 1:15–2:15 · 1:30–2:30 · 1:45–2:45 · 2:00–3:00.
+- Dragging the shadow **flush to the visit time** (9:00–9:00, or 8:30–9:00, 8:45–9:15) is how a clinician
+  **overrides their own standing window rule for one visit** — used when they know they can hit an exact time.
+
+**Pin / anchor** fixes a visit to its time. An anchored visit is *the rock in the river* — everything else in
+the day is scheduled around it.
+
+### 9.4 The two anchors, and why they unlock the day
+
+The clinician anchors two visits first: **the first visit of the day**, and **the new SOC**. Both get confirmed
+before anything else is scheduled. The reason this works:
+
+- **The first visit is the hardest placement in the day** if it is before 10 AM. Most refusals sit in the 8
+  and 9 o'clock hours. So the system needs an **early-bird tag** — recognised or clinician-applied — because
+  that patient is the key that unlocks the rest.
+- **Prime treatment time is 10 AM – 3 PM.** Most patients will take a visit in it, absent an MD appointment or
+  another variable.
+- A **smaller** group dislikes late-day visits — smaller than the morning-averse group.
+
+While the first two engagements run, the clinician can go into a patient visit. They come out to a result.
+
+### 9.5 The flexibility dial and the batch
+
+Each remaining patient tile carries a **note field** and a **flexibility dial**: red/firm on the left, through
+medium, to high.
+
+- **Firm patients are contacted first in the batch** — lock the particular ones while there is still room to
+  move around them; leave the flexible ones for path-of-least-resistance placement.
+- **A red-marked patient requires a clinician context note** before the agent may work it.
+
+**Concurrency, settled for now:** the batch runs **one targeted confirmation at a time, sequentially**, until
+all confirm — because parallel outreach lets two patients confirm into the same slot. *Bookmarked as needing
+more direction.*
+
+**Mission:** do not push anyone off. When that fails — pull an alternative patient in, move the refusing
+patient to the next day, and have the assistant carry their time request forward and work the plan with the
+clinician **before** that day.
+
+### 9.6 Reporting back, and escalation
+
+The clinician gets outcomes they can act on: *text sent, no response* · *text sent, patient agreed* · *text
+sent, patient requesting 10 AM instead of 9 despite encouragement*. **Call recordings are listenable; text
+threads are readable.** Where the protocol escalates (e.g. no text reply after 30 minutes → voice call), the
+result names both steps.
+
+Escalation gives the clinician: reference points from every attempt · the power to swap in a patient from a
+**waitlist** · a view of what slots are actually open · the system pulling **wish-list coverage patients** that
+fit the gaps · help rearranging to make a different area realistic. Plus a channel from clinician to
+**scheduler, manager, or same-discipline teammates** who need support or can lend it.
+
+### 9.7 Per-patient engagement protocols
+
+Prefab options in a drop-down plus a custom option, mimicking the tricks of the trade clinicians have learned
+for getting a response. *An unanswered text and an unreturned voicemail hold up the entire scheduling process.*
+One protocol is the clinician's standard, modifiable per patient:
+
+- **Phone only** — patient does not consent to text, or says text is not optimal for them
+- **Text only**
+- **Combo** — text first; no response after a configurable interval → phone call with a voicemail; still
+  nothing after another interval → a further step, which may be **an alert to the clinician to try themselves**
+
+### 9.8 Domain rules for the scripts
+
+**Who performs the SOC.** Nursing referred in → **nursing must do the SOC** (Medicare); every other discipline
+enters afterwards as an **evaluation visit** (PT, OT, ST, MSW). Nursing not referred → **PT does it by default**.
+OT can, but rarely. Working rule: **therapy takes the SOC only when nursing is not on the case.**
+
+**The welcome call** precedes all of this — from the office or another AI assistant — to check the patient is
+home and available.
+
+**Visit lengths.** Routine 30–45 minutes. Assessment-heavy visits — admissions, discharges — a full hour to
+approaching two, depending on differential diagnosis and complexity. *(Dolores' calendar gives real observed
+durations: RN SOC 95 min, PT eval 70 min, MSW 69 min, LPN 42 min.)*
+
+**Over-scheduling is deliberate.** Clinicians function best carrying **more than their expected visits** for
+the week, because it is rare to have a week without two or three falling out to cancellation or hospital
+admission.
+
+**Arrival windows.** One hour is best practice. The goal is always the front of the range; the back half
+absorbs the preceding visit and traffic.
+
+### 9.9 The eight competing priorities on every visit
+
+From the Compassus deck: **regulatory timing** (SOC OASIS within 48 hrs of referral) · **prioritisation**
+(acuity, instability, diagnosis, rehospitalisation risk, regulatory urgency) · **geography** (cluster to cut
+drive time, manage fatigue, protect productivity) · **productivity** (visit count, complexity, travel and
+documentation burden balanced into a sustainable day) · **frequency** (spread across the episode, not
+compressed) · **care team** (work around the other disciplines' visits) · **MD orders** (wound care, protocols,
+labs) · **patient availability** (appointments, caregivers, routines, fatigue patterns, preferences).
+
+### 9.10 The agent behaviour rules
+
+These are recorded in full as addressable rules in [`logic/00-shared-agent-rules.md`](./logic/00-shared-agent-rules.md).
+The load-bearing ones, in the operator's own terms:
+
+- **Never promise a return call** unless the clinician gave that context.
+- **Never promise a specific clinician** for a future visit — they may have left or changed territories. Take
+  the name, tell them the office will be told.
+- **Not knowing is a safe place.** *"The assistant isn't always provided all of the information other than who
+  needs a visit and what clinician is scheduled — any questions can be answered by the clinician coming out."*
+- **Don't add to the confusion.** Early episode, the patient is newly home with new impairments and cannot tell
+  who anyone is. If they mention an earlier call, **name it** as the welcome call.
+- **Sequencing stop.** Scheduling a therapy evaluation → ask whether the nurse has been out. If not, confirm no
+  visit happened and none was scheduled by another clinician, say the message will be passed along and the
+  office will coordinate, and disengage.
+- **Disengage on doubt**, including adamant refusal of services: a message will be left for the clinician and
+  their doctor, and someone will follow up.
+- **Coverage visits.** *"I'm not sure why this other clinician is being scheduled, but it's likely your primary
+  clinician is unavailable and asked for support just for this one visit."* Continuity of care is why the visit
+  still matters.
+- **Why a window, not a time.** The clinician is coming to the home and has other patients; unpredictable
+  things happen travelling or inside a visit. The range is what lets the clinician recover and still reach
+  everyone.
+- **Pushback tactics on a critical window** — limited availability, honestly stated (the time was set aside
+  around other patients already in that area); and the forward promise (take this first visit at this time, and
+  everything after gets scheduled around what works for you and whoever needs to be there).
+
+### 9.11 The governing doctrine
+
+> **Pliable enough to meet patient requests, firm enough to protect the clinician — the assistant works on
+> behalf of the clinician who is servicing the patient.**
+
+The ultimate goal is that the clinician's day is as effective and efficient as possible and their **autonomy is
+maintained**. The tool follows the clinician's instructions, helps them strategise and optimise, and offloads
+the most inherently frustrating part of home health: the back-and-forth of scheduling tomorrow.
+
+---
+
 ## Provenance
 
 | | |
 |---|---|
-| **Operator input** | Colin Highland, 25 Aug 2026 — capture 1 (§2–§8) and capture 2 (§1.1–§1.3, the Wednesday-SOC example). More to come; the operator is still supplying material |
+| **Operator input** | Colin Highland, 25 Aug 2026 — captures 1–7. §2–§8 the first walkthrough, §1.1–§1.3 the confirmation-horizon argument, §9 the console mechanics, batch logic, domain rules and agent doctrine. More to come |
 | **Ground truth drawn on** | [`../knowledge/process-facts-2026-08.md`](../knowledge/process-facts-2026-08.md) · [`../knowledge/constraint-register.md`](../knowledge/constraint-register.md) · [`../knowledge/whiteboard-session-2026-08-13.md`](../knowledge/whiteboard-session-2026-08-13.md) (DE-01…DE-10) · [`../artifacts/flow-map-redraw-assessment.md`](../artifacts/flow-map-redraw-assessment.md) §16–17 · [`../artifacts/variable-backlog.md`](../artifacts/variable-backlog.md) · `Variable Inventory` tab of the 8.13 workbook |
-| **Not yet done** | Prompt/agent build (would live in the Aethergrid Prompt Factory, voice + SMS modalities); schema; UI spec; workbook rows for the new `E-` variables |
+| **Agent logic** | [`logic/`](./logic/) — shared rules, welcome call, SOC confirmation, evaluation confirmation, as addressable states |
+| **Not yet done** | Routine / assessment / recert / discharge scripts; prompt build in the Aethergrid Prompt Factory; schema; UI spec; workbook rows for the new `E-` variables |
