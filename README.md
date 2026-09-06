@@ -20,6 +20,7 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
 | [`agents/compassus-capacity-pm/initiative-playbook.md`](./agents/compassus-capacity-pm/initiative-playbook.md) | The phase-by-phase program the agent runs: Discover → Design → Pilot → Scale → Sustain. |
 | [`agents/compassus-capacity-pm/knowledge/`](./agents/compassus-capacity-pm/knowledge/) | **The empirical ground truth** — Compassus's own July-2026 discovery work (discovery session + capacity/scheduling analysis). The agent reasons from this first. |
 | [`agents/compassus-capacity-pm/artifacts/`](./agents/compassus-capacity-pm/artifacts/) | **The working artifacts** — the capacity / scheduling / engagement model, the variable inventory, the data index, and the source war-list. Start at its [README](./agents/compassus-capacity-pm/artifacts/README.md). |
+| [`agents/compassus-capacity-pm/engagement/`](./agents/compassus-capacity-pm/engagement/) | **The Patient Engagement module** (DE-02) — the day-before confirmation protocol the clinician hands to an assistant, and the variable map behind it. **Open work.** |
 | [`.claude/agents/compassus-capacity-pm.md`](./.claude/agents/compassus-capacity-pm.md) | A runnable Claude Code subagent — a tight standing prompt you can invoke directly for PM guidance. |
 
 ### How to use it
