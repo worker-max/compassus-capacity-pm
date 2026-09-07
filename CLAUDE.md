@@ -140,3 +140,21 @@ carries a source and a date; anything not found is written as *not found*, never
   (https://claude.ai/code/artifact/57ba5767-4d38-4077-b5ef-74ccdbb5ed93) and
   `research/00-FIELD-NOTES.md`. 156 cells verified, **49 of them *not found***. The matrix has no
   formulas, so it is verified cell-by-cell against the dossiers rather than with pycel.
+- **2026-09-07, research session 3.** Same branch. The PM named four more vendors. **One is a
+  spelling correction: *Axel Health* is `axle-health`** — Axle Health, Los Angeles, YC W21, $10M
+  Series A; the roster carries a stop condition if the return's email domain disagrees. Roster at
+  v2; ten of sixteen returns researched. New dossiers: `axle-health.md` (**the best HCHB evidence on
+  the roster, and it is a named customer's sentence, not the vendor's** — Jeff Henderson at
+  GrandCare, a real Medicare home health agency acquired by Pennant in Jul 2025; HCHB is
+  nevertheless absent from Axle's own integration logo row), `axis-care.md` (Waco TX, founded 2013,
+  two institutional investors in 26 months — **and Medicare is not on their payer list; no EMR in
+  their integrations marketplace**), `med-arrive.md` (**abandoned its paramedic field-provider
+  network in 2025** after ~$40.5M, rebuilt as a logistics platform with ChristianaCare, new CEO Mar
+  2026, bought the shuttered Inbound Health's assets, moved NY → CO; no customer and no human named
+  on the new site), `zeeva-connect.md` (**one page and a waitlist** — a marketplace selling *to
+  clinicians* across agencies at market rates; **no privacy policy, no terms**). Matrix rebuilt:
+  **260 cells, 79 gaps, 0 blank**. Impact figures with a baseline: **1 of ~40**. Two new
+  sales-language contradictions logged — AxisCare *recommends* vs its investor's *drives care
+  decisions*; Axle's *17%+* vs its own release's *up to 30%*. Method note added to the handoff:
+  **a 403 is not a gated source** — axiscare.com refuses a plain fetcher and serves a browser
+  user-agent.

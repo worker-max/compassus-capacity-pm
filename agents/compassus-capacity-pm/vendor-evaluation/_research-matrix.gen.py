@@ -317,7 +317,7 @@ def build(vendors: list[dict]) -> None:
 def field_notes(vendors: list[dict]) -> None:
     """Brief §6: one line per vendor, the disagreements, the commonplaces."""
     lines = [
-        "# Field notes — what six dossiers say together",
+        f"# Field notes — what the {len(vendors)} dossiers say together",
         "",
         f"**Generated** {dt.date.today():%Y-%m-%d} by `_research-matrix.gen.py` from "
         f"{len(vendors)} dossiers. Do not hand-edit; change a dossier and rebuild.",
