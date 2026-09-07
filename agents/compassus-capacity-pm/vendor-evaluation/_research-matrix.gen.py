@@ -27,8 +27,10 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
 
 HERE = pathlib.Path(__file__).resolve().parent
+BRAND = HERE.parents[2] / "brand"
 RESEARCH = HERE / "research"
 XLSX = HERE / "Vendor-Research-Matrix.xlsx"
 NOTES = RESEARCH / "00-FIELD-NOTES.md"
@@ -41,10 +43,23 @@ GAP = "FAF1F1"           # a *not found* cell: the gaps should show
 GAP_INK = "792E2E"       # house maroon, for the words in a gap cell
 FACE = "Aptos Narrow"
 
+LEFT = Alignment(horizontal="left", vertical="top", wrap_text=True)
+LEFT_MID = Alignment(horizontal="left", vertical="center", wrap_text=True)
+
 # ─── the row set ──────────────────────────────────────────────────────────────
 # These labels are the contract with the dossiers. Rewording one here without
 # rewording it in all six `## At a glance` blocks will drop the row.
 BANDS: list[tuple[str, list[str]]] = [
+    # The verdict rows come first. The PM reads this sheet instead of the ten
+    # dossiers, so what a dossier settles has to be legible here or it is lost.
+    ("The read", [
+        "The one thing to check",
+        "Ask them first",
+        "Would we be their largest customer",
+        "Red flags to test",
+        "Where their own sources disagree",
+        "Confidence",
+    ]),
     ("Company", [
         "Founded · HQ",
         "Legal entity",
@@ -77,10 +92,6 @@ BANDS: list[tuple[str, list[str]]] = [
         "Named dependencies",
         "Pricing signal",
     ]),
-    ("The read", [
-        "Confidence",
-        "The one thing to check",
-    ]),
 ]
 LABELS = [lab for _, labs in BANDS for lab in labs]
 
@@ -112,7 +123,13 @@ KEY = {
     "Pricing signal": "shape of the commercial model",
     "Confidence": "how much weight this column carries",
     "The one thing to check": "if you read one cell in this column, read this one",
+    "Ask them first": "the one question that would settle this vendor fastest",
+    "Would we be their largest customer": "A2, RF-16. The question the leader keeps asking",
+    "Red flags to test": "the catalogue ids the outside view already raises, with severity",
+    "Where their own sources disagree": "be skeptical of sales language — this is where to start",
 }
+
+READ_ROWS = {"The one thing to check", "Ask them first"}
 
 NOT_FOUND = re.compile(r"\bnot found\b|\bnone\b", re.I)
 SRC = re.compile(r"\s*\[(\d+)\]")
@@ -148,12 +165,25 @@ def parse_dossier(path: pathlib.Path) -> dict | None:
         sources = SRC.findall(value)
         fields[strip_md(label)] = (strip_md(SRC.sub("", value)), sources)
 
+    # The leader keeps a running follow-up list. It lived only inside the
+    # dossiers, which nobody reads, so it is carried onto the sheet.
+    questions: list[str] = []
+    qblock = re.search(r"## Questions the research raises\n(.*?)(?=\n## )", text, re.S)
+    if qblock:
+        for line in qblock.group(1).splitlines():
+            m = re.match(r"\s*\d+\.\s+(.*)", line)
+            if m:
+                questions.append(strip_md(m.group(1).strip()))
+            elif questions and line.startswith("   ") and line.strip():
+                questions[-1] += " " + strip_md(line.strip())
+
     researched = re.search(r"Researched (\d{4}-\d{2}-\d{2})", text)
     return {
         "slug": path.stem,
         "name": name.group(1) if name else path.stem,
         "researched": researched.group(1) if researched else "",
         "fields": fields,
+        "questions": questions,
     }
 
 
@@ -213,8 +243,6 @@ def build(vendors: list[dict]) -> None:
 
     thin = Side(style="thin", color=RULE)
     lane = Side(style="thin", color=LANE)
-    LEFT = Alignment(horizontal="left", vertical="top", wrap_text=True)
-    LEFT_MID = Alignment(horizontal="left", vertical="center", wrap_text=True)
 
     FACT_COL, KEY_COL = "B", "C"
     first = 4                                        # first vendor column index
@@ -240,16 +268,7 @@ def build(vendors: list[dict]) -> None:
         F(8, False, MUTED, italic=True), LEFT_MID)
     ws.row_dimensions[r].height = 14
 
-    r = 4
-    put(ws, f"{FACT_COL}{r}",
-        "One column per dossier, one row per fact the outside view can settle. Every cell is "
-        "copied from that dossier's At a glance block; its source numbers are in the cell "
-        "comment, and the dossier stays the record. Not found is a finding and is tinted so "
-        "the gaps show. Nothing here is a score.",
-        F(8, False, MUTED), LEFT)
-    ws.merge_cells(start_row=r, start_column=2, end_row=r,
-                   end_column=first + len(vendors) - 1)
-    ws.row_dimensions[r].height = 26
+    ws.row_dimensions[4].height = 6
 
     # Header
     hdr = 6
@@ -309,8 +328,59 @@ def build(vendors: list[dict]) -> None:
             row += 1
 
     ws.sheet_properties.tabColor = "1F6F78"
+
+    questions_tab(wb, vendors)
+
     wb.save(XLSX)
     return row_of
+
+
+def questions_tab(wb, vendors: list[dict]) -> None:
+    """The running follow-up list, one row per question, ready to sort and tick.
+
+    The leader asked for a standing follow-up-questions list. It existed, ten
+    times over, buried at the foot of ten dossiers. This is the same content
+    as one sheet: vendor, number, question, and a column to write the answer
+    in. Nothing here is scored and nothing here is generated by Claude beyond
+    the questions the dossiers already state.
+    """
+    qs = wb.create_sheet("Questions")
+    qs.sheet_view.showGridLines = False
+    qs.freeze_panes = "A4"
+    widths = {"A": 3, "B": 18, "C": 5, "D": 96, "E": 52, "F": 14}
+    for col, w in widths.items():
+        qs.column_dimensions[col].width = w
+
+    thin = Side(style="thin", color=RULE)
+    put(qs, "B2", "Follow-up questions", F(15, True, INK), LEFT_MID)
+    put(qs, "D2", "Every question the research raised, by vendor. Ask them; "
+                  "write the answer beside it.", F(9, False, MUTED), LEFT_MID)
+    for col, head in (("B", "VENDOR"), ("C", "#"), ("D", "QUESTION"),
+                      ("E", "ANSWER — fill in at the demo"), ("F", "STATUS")):
+        c = put(qs, f"{col}3", head, F(8, True, MUTED), LEFT_MID, BAND)
+        c.border = Border(bottom=Side(style="thin", color=INK))
+
+    row = 4
+    for i, v in enumerate(vendors):
+        tint = TINT_B if i % 2 else None
+        for n, q in enumerate(v["questions"], 1):
+            put(qs, f"B{row}", v["name"] if n == 1 else "",
+                F(10, True, INK), LEFT_MID, tint)
+            put(qs, f"C{row}", n, F(9, False, MUTED), LEFT_MID, tint)
+            put(qs, f"D{row}", q, F(9, False, INK), LEFT, tint)
+            put(qs, f"E{row}", "", F(9), LEFT, tint)
+            put(qs, f"F{row}", "", F(9), LEFT_MID, tint)
+            for col in "BCDEF":
+                qs[f"{col}{row}"].border = Border(bottom=thin)
+            qs.row_dimensions[row].height = max(26, 13 * (len(q) // 92 + 1))
+            row += 1
+
+    dv = DataValidation(type="list", formula1='"Open,Asked,Answered,Dropped"',
+                        allow_blank=True, showInputMessage=True,
+                        showErrorMessage=True)
+    qs.add_data_validation(dv)
+    dv.add(f"F4:F{row - 1}")
+    qs.sheet_properties.tabColor = "792E2E"
 
 
 # ─── the field notes ──────────────────────────────────────────────────────────
@@ -445,6 +515,8 @@ SPLITS = ["Scheduling unit", "Decide or advise", "HCHB evidence",
 
 CSS = """
 :root{
+  /* Compassus brand — see brand/BRAND.md. Navy and gold are sampled from the mark. */
+  --navy:#182752; --gold:#F0A91B;
   --paper:#FBFBF8; --ink:#1B211E; --muted:#5A6560; --rule:#C9CCC5;
   --band:#EFEFEA; --tint:#F5F5F1;
   --teal:#1F6F78; --blue:#2E599D; --green:#4E8A5B; --gold:#9A7B15;
@@ -453,6 +525,7 @@ CSS = """
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
+    --navy:#C3CEEA; --gold:#F0A91B;
     --paper:#141815; --ink:#E7E9E3; --muted:#98A29B; --rule:#2F3731;
     --band:#1D231F; --tint:#191E1B;
     --teal:#5FB3B8; --blue:#7FA3DB; --green:#8CBF97; --gold:#C9A845;
@@ -461,6 +534,7 @@ CSS = """
   }
 }
 :root[data-theme="dark"]{
+  --navy:#C3CEEA; --gold:#F0A91B;
   --paper:#141815; --ink:#E7E9E3; --muted:#98A29B; --rule:#2F3731;
   --band:#1D231F; --tint:#191E1B;
   --teal:#5FB3B8; --blue:#7FA3DB; --green:#8CBF97; --gold:#C9A845;
@@ -474,16 +548,40 @@ body{
   font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
 }
 /* Wide enough for the matrix to breathe; the prose keeps its own measure. */
-.wrap{max-width:1440px; margin:0 auto; padding:56px 32px 24px}
+.wrap{max-width:1440px; margin:0 auto; padding:44px 32px 24px}
 .eyebrow{
   font-family:"IBM Plex Mono","SF Mono",ui-monospace,monospace;
   font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
   color:var(--muted); margin:0 0 18px;
 }
+.masthead{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:28px; flex-wrap:wrap;
+  padding-bottom:16px; margin:0 0 4px;
+  border-bottom:2px solid var(--navy);
+}
+.masthead .mark{
+  width:150px; height:auto; order:2; align-self:center; flex:none;
+}
+/* The mark is never recoloured (brand/BRAND.md). On a dark ground it gets a
+   light plate instead, so the navy wordmark and the gold heart stay exact. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .masthead .mark{
+    background:#FFFFFF; padding:9px 13px; border-radius:7px; box-sizing:content-box;
+  }
+}
+:root[data-theme="dark"] .masthead .mark{
+  background:#FFFFFF; padding:9px 13px; border-radius:7px; box-sizing:content-box;
+}
 h1{
   font-family:"Source Serif 4","Iowan Old Style",Georgia,serif;
   font-weight:600; font-size:44px; line-height:1.08; letter-spacing:-.015em;
-  margin:0 0 16px; text-wrap:balance;
+  margin:0; text-wrap:balance; color:var(--navy); order:1;
+}
+/* the gold keyline: the one warm mark on a cool page */
+.masthead::after{
+  content:""; order:3; flex:0 0 100%; height:3px; background:var(--gold);
+  margin-bottom:-19px;
 }
 .lede{max-width:64ch; color:var(--muted); font-size:15px; margin:0 0 28px}
 .lede strong{color:var(--ink); font-weight:600}
@@ -512,7 +610,7 @@ h1{
 .tally .loud b{color:var(--gap-ink)}
 
 .frame{
-  margin:34px 0 8px; overflow-x:auto; overflow-y:visible;
+  margin:26px 0 8px; overflow-x:auto; overflow-y:visible;
   border-top:1px solid var(--rule);
 }
 table{border-collapse:separate; border-spacing:0; width:max-content; min-width:100%}
@@ -609,7 +707,8 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px
 
 @media (max-width:720px){
   .wrap{padding:36px 18px 20px}
-  h1{font-size:32px}
+  h1{font-size:28px}
+  .masthead .mark{width:112px}
   .split dl{grid-template-columns:1fr; gap:2px 0}
   .split dd{margin:0 0 12px; color:var(--muted)}
   th.fact,td.fact{width:170px; min-width:170px}
@@ -638,6 +737,7 @@ def cell_html(value: str, sources: list[str]) -> str:
 
 def build_html(vendors: list[dict]) -> pathlib.Path:
     """The same matrix as a page, for reading rather than filling in."""
+    LOGO_URI = (BRAND / "compassus-logo.datauri.txt").read_text().strip()
     gaps = sum(
         1
         for v in vendors
@@ -683,7 +783,7 @@ def build_html(vendors: list[dict]) -> pathlib.Path:
             if label in ARENA_ROW:
                 cls.append("arena")
                 style = f' style="--arena:{ARENA_ROW[label]}"'
-            if label == "The one thing to check":
+            if label in READ_ROWS:
                 cls.append("read")
             row = [f'<tr class="{" ".join(cls)}"{style}>',
                    f'<td class="fact"><span class="lab">{esc(label)}</span>'
@@ -719,20 +819,10 @@ family=Mulish:wght@400;600;700&\
 family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>{CSS}</style>
 <div class="wrap">
-  <p class="eyebrow">Compassus · Capacity &amp; Scheduling · The outside view</p>
-  <h1>Vendor Research Matrix</h1>
-  <p class="lede">One column per dossier, one row per fact the outside view can settle.
-  Every cell is copied from that dossier's <em>At a glance</em> block and carries its source
-  numbers; <strong>the dossier stays the record</strong>. <em>Not found</em> is a finding, and
-  it is tinted so the gaps show. <strong>Nothing here is a score.</strong></p>
-
-  <div class="tally">
-    <div><b>{len(vendors)}</b><span>Dossiers</span></div>
-    <div><b>{len(LABELS)}</b><span>Facts each</span></div>
-    <div class="loud"><b>{gaps} of {total}</b><span>Cells are a gap</span></div>
-    <div class="loud"><b>{figures}</b><span>Figures with a baseline</span></div>
-    <div><b>0</b><span>Verified HCHB integrations</span></div>
-  </div>
+  <header class="masthead">
+    <img class="mark" alt="Compassus" src="{LOGO_URI}">
+    <h1>Vendor Research Matrix</h1>
+  </header>
 
   <div class="frame">
     <table>
@@ -747,12 +837,6 @@ family=IBM+Plex+Mono:wght@400;500&display=swap">
     <span>[n] — source number in that vendor's dossier</span>
   </p>
 
-  <section class="splits">
-    <h2>Where the field splits</h2>
-    <p>Four rows carry most of the decision. Everything else either agrees across the field or
-    is missing across the field, and neither tells one vendor from another.</p>
-    {"".join(splits)}
-  </section>
 
   <footer>
     Generated {dt.date.today():%d %B %Y} by <code>_research-matrix.gen.py</code> from

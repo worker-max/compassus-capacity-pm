@@ -54,8 +54,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | none visible |
 | Pricing signal | No public price; a free edition [1] |
 | **THE READ** | |
-| Confidence | medium |
 | The one thing to check | It is a CRM. No episode, discipline or authorization in the data model. |
+| Ask them first | Show us where an episode, a discipline, an authorization and a visit frequency live in your data model. [10] |
+| Would we be their largest customer | ***not found*** — no customer count, seat count or site count is published anywhere at all [2] |
+| Red flags to test | **RF-16** home health is one landing page among a dozen verticals · **RF-19** ordered treated as schedulable; no authorization or readiness state exists · **RF-07 STOP-CHECK** · RF-05 [1] [10] |
+| Where their own sources disagree | **The landing page sells an “In-Home Healthcare Operations Platform”; the product documentation's objects are Rep, Customer and Route Planner** [1] [10] |
+| Confidence | medium |
 
 ## One paragraph
 

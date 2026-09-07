@@ -56,8 +56,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | none visible |
 | Pricing signal | *not found*; $143K revenue in 2021 implies small agencies [1] [9] |
 | **THE READ** | |
-| Confidence | medium |
 | The one thing to check | Four employees. We would be larger than everything they have ever done. |
+| Ask them first | We are about three thousand clinicians and there are four of you. Name one customer, and tell us what you would do differently at our size. [8] |
+| Would we be their largest customer | **Yes, overwhelmingly.** Everything they have ever run is bounded by about 3,500 lifetime app installs across all customers [4] [8] |
+| Red flags to test | **RF-06 STOP-CHECK** not one customer is named anywhere · **RF-16** we would be their largest by orders of magnitude · **RF-07 STOP-CHECK** · RF-05 [1] [4] |
+| Where their own sources disagree | *none found* — one impact figure and no counts to contradict. **But the site's testimonials are unreplaced template placeholders with fictional names** [1] |
+| Confidence | medium |
 
 ## One paragraph
 

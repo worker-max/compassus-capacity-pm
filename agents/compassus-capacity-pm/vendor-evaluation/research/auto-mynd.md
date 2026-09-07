@@ -55,8 +55,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | none named — **no LLM or speech provider disclosed**, for an ambient-AI product [15] |
 | Pricing signal | Three tiers published, no prices on them [14] |
 | **THE READ** | |
-| Confidence | medium |
 | The one thing to check | It would replace HCHB, and its scheduler is autonomous. |
+| Ask them first | You replace HCHB rather than integrate with it. If replacing the system of record is off the table, is there a product here for us at all? [1] [4] |
+| Would we be their largest customer | **Yes, by roughly twenty times.** Their largest known deployment is Butte, about 150 staff; Compassus is about three thousand clinicians [5] |
+| Red flags to test | **RF-10 STOP-CHECK** “autonomous”, “chosen automatically”, “0 manual assignments” · **RF-03 STOP-CHECK** no LLM or speech provider named, for an ambient-AI product · **RF-07 STOP-CHECK** · RF-14 [4] [15] |
+| Where their own sources disagree | *none found in their own material* — the published figures are consistent, and thin. Third-party databases disagree on the founding year [8] [9] |
+| Confidence | medium |
 
 ## One paragraph
 

@@ -55,8 +55,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | ***not found*** — “AI assistance” is claimed with no model, vendor or provider named [1] |
 | Pricing signal | **“Market-driven pay rates” paid to clinicians.** How the company earns is *not found* [1] |
 | **THE READ** | |
-| Confidence | low |
 | The one thing to check | It sells to our clinicians, not to us. Ask whether they are bidding for our nurses' hours. |
+| Ask them first | Are you selling us access to clinicians, or selling our clinicians access to everyone else's visits? [1] |
+| Would we be their largest customer | **Yes — we would be everything they have.** No customer, no headcount, no funding and no shipped product found; the only call to action is a waitlist [1] [2] |
+| Red flags to test | **RF-06 STOP-CHECK** pre-launch; no customer exists · **C6 STOP-CHECK** no privacy policy and no terms of service exist on a platform that would hold PHI, licences and payment data · **RF-03** “AI assistance” with no vendor named · **RF-07 STOP-CHECK** [1] |
+| Where their own sources disagree | *none found* — they publish almost nothing that could contradict anything else [1] |
+| Confidence | low |
 
 ---
 

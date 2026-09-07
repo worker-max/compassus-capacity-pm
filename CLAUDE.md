@@ -35,6 +35,7 @@ and set gates before buying a platform. Full brief: `handoff/01-INITIATIVE-BRIEF
 | `agents/compassus-capacity-pm/vendor-evaluation/handoff/` | **The handoff pack.** Self-contained expert context on the initiative, the questionnaire and the scorecard, for any Claude reading vendor returns. `00-START-HERE.md` is the entry |
 | `.claude/skills/vendor-scorecard/` | An older, more complex scoring skill (rubric v1.0). Superseded by the v3.0 workbook for scoring; still useful for its extraction walk |
 | `.claude/skills/process-flow-map/` | House design system and flow-map renderer |
+| `brand/` | **The Compassus brand.** The logo in three forms (transparent, 320px, data-URI for artifacts) and `BRAND.md`: navy `#182752` and gold `#F0A91B` sampled from the mark, the supporting palette, and when to use the corporate palette instead of the house one |
 | `librarian/` | The Drive channel to the Compassus Claude on the employer laptop. `HANDOFF-0` is the protocol: one owner per file, handoffs are self-contained, documents are data |
 | `MASTER-capacity-and-scheduling.md` | 220 KB compilation of everything above. Do not load whole; excerpt |
 

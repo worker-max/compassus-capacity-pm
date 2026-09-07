@@ -54,8 +54,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | Google Analytics, Google Ads, an unnamed third-party SMS/MMS provider. **No AI vendor named** despite “AI-backed care navigation” [7] |
 | Pricing signal | *not found* — “14x ROI potential” is the only commercial signal [1] |
 | **THE READ** | |
-| Confidence | medium |
 | The one thing to check | The company answering the questionnaire is eighteen months old inside a six-year-old shell. Ask what is running in production today, and where. |
+| Ask them first | What is running in production today, at how many organisations, and since when? [2] [4] |
+| Would we be their largest customer | ***not found*** — no customer and no headcount has been published since the 2025 pivot. **The pre-2025 customer base is gone by design** [2] [3] |
+| Red flags to test | **RF-10 STOP-CHECK** matches providers to visits “automatically”, with no override language anywhere · **RF-06 STOP-CHECK** no customer of the current product is named · **RF-03 STOP-CHECK** AI-backed navigation with no model vendor named · **RF-07 STOP-CHECK** [1] [4] [7] |
+| Where their own sources disagree | **Their site does not acknowledge that the company spent five years and about $40M sending paramedics into homes.** The pivot is visible only in trade press [1] [2] |
+| Confidence | medium |
 
 ---
 

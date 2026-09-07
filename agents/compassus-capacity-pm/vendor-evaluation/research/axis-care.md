@@ -54,8 +54,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | *not found* — “the world's leading cloud provider”, unnamed [2] |
 | Pricing signal | A pricing page exists; no figure retrieved. RCM sold as a managed service, so part of the model is a percentage of collections [1] |
 | **THE READ** | |
-| Confidence | high |
 | The one thing to check | Private Pay, Medicaid, VA. **Medicare is not on their payer list.** This is the wrong payer world. |
+| Ask them first | How many Medicare-certified home health agencies run on AxisCare today, and can we speak to one? [4] |
+| Would we be their largest customer | **No — the only vendor on the roster of which that is true.** Fifty states, seven countries, and their own top band is “Enterprise Agencies: 1,000+ Clients” [1] [4] |
+| Red flags to test | **RF-16** home *care*, not home health — Medicare is not on their payer list and no EMR is in their marketplace · **RF-21** *recommends* in their release, *drives care decisions* in their investor's · **RF-05** “care oversight by 280%” has no unit · **RF-07 STOP-CHECK** [1] [4] [6] |
+| Where their own sources disagree | **Their own Nov 2025 release says the scheduler *recommends*; their investor's Jun 2026 release says the platform “actively and intelligently drives … care decisions.”** Same product, seven months apart [4] [6] |
+| Confidence | high |
 
 ---
 

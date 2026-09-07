@@ -57,8 +57,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | Vapi, the voice layer — named by Vapi, not by them [19] |
 | Pricing signal | *not found* — “contact them” [26] |
 | **THE READ** | |
-| Confidence | high |
 | The one thing to check | Six named customers, none in home-based care. |
+| Ask them first | You have never had a home-based care customer. What in the product assumes a clinic, and what would have to change for a visit in an episode? [1] [29] |
+| Would we be their largest customer | **Not by size — but we would be their first in home-based care, ever.** Their largest is an unnamed 300-plus-site outpatient provider [12] [29] |
+| Red flags to test | **RF-07 STOP-CHECK** no uptime or SLA; the Trust page 404s · **RF-03 STOP-CHECK** the voice layer is Vapi, named by Vapi and not by them · **RF-16** 0% home health · RF-05 · RF-14 [19] [31] |
+| Where their own sources disagree | **RF-18** — “350+ sites” (Mar 2026), “about 120 sites of care” (Apr 2026) and “hundreds of care sites”, all live at once [12] [10] |
+| Confidence | high |
 
 ## One paragraph
 

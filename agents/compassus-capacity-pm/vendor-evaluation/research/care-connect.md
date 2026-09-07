@@ -64,8 +64,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | Santrax (Sandata EVV) for clock-in [42] |
 | Pricing signal | $129/month flat rate (Capterra); “performance-based” [32] [10] |
 | **THE READ** | |
-| Confidence | high |
 | The one thing to check | Their partners page claims an HCHB integration with no mechanism. |
+| Ask them first | Walk the HCHB integration live: what moves, in which direction, how often, and which customer has it in production today? [39] |
+| Would we be their largest customer | **Probably not** — Help at Home (2019) is far larger, if it is still live. No agency or caregiver count is published anywhere [24] |
+| Red flags to test | **RF-01** HCHB claimed with no mechanism, no direction and no HCHB-side listing · **RF-07 STOP-CHECK** no uptime, SLA or attestation of any kind · **RF-16** no skilled home health · RF-05 [39] [45] |
+| Where their own sources disagree | **Their partner list changed between our two research passes** — Axxess gone, HCHB added, with no date or changelog on either [39] |
+| Confidence | high |
 
 ## One paragraph
 

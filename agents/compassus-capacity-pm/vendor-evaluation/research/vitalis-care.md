@@ -59,8 +59,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | AWS, Azure, Google Workspace, ClickUp, Streak, **the OpenAI API** [6] |
 | Pricing signal | By patient census size, per app [1] |
 | **THE READ** | |
-| Confidence | medium |
 | The one thing to check | Real HCHB integration, no visible corporate existence, contradicting figures. |
+| Ask them first | Is the mileage saving 30% or 55–65%, at which agency, over what period? Then walk the HCHB write-back live. [1] [8] |
+| Would we be their largest customer | **Very likely yes.** One named customer, no census or branch count, and a sister company reported at about $1M annual revenue [1] [8] |
+| Red flags to test | **RF-18** two mileage figures that contradict each other · **RF-01** HCHB claimed, no published mechanism · **RF-16** hospice only, 0% home health · **RF-07 STOP-CHECK** [1] [3] [8] |
+| Where their own sources disagree | **RF-18** — mileage saved is **30% on their site** and **55–65% from their CEO on a podcast**. Same claim, twice the size [1] [8] |
+| Confidence | medium |
 
 ## One paragraph
 

@@ -56,8 +56,12 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Named dependencies | *not found* — “proprietary logistics algorithms”, “patent-pending logistics engine”; no cloud, model or API vendor named [6] [7] |
 | Pricing signal | **Savings-based** — “Axle's cost is based on your estimated savings — our team will conduct an ROI analysis for you and use that to determine the price”; a public ROI calculator [1] |
 | **THE READ** | |
-| Confidence | high |
 | The one thing to check | The HCHB sentence is a customer's, not theirs. Ask GrandCare, not Axle, what it does. |
+| Ask them first | Put us on a reference call with Jeff Henderson at GrandCare — and tell us why HCHB is not in your own integration row. [2] [5] |
+| Would we be their largest customer | **In home health, probably yes.** Cityblock is larger and is not a home health agency; no home health customer count is published [3] [7] |
+| Red flags to test | **RF-18** “17%+” on the site, “up to 30%” in their own funding release · **RF-01** HCHB appears in a testimonial and not in their integration row · **RF-07 STOP-CHECK** no attestation, no uptime, no SLA · **RF-08** capacity claimed as “predictive”, never shown [1] [2] [7] |
+| Where their own sources disagree | **RF-18** — clinician productivity rises **“17%+”** on their site and **“up to 30%”** in their own May 2025 funding release [1] [7] |
+| Confidence | high |
 
 ---
 
