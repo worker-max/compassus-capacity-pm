@@ -647,6 +647,17 @@ def build_html(vendors: list[dict]) -> pathlib.Path:
     )
     total = len(vendors) * len(LABELS)
 
+    # "N of ~M figures carry a baseline", summed off the dossiers rather than
+    # typed in, so the tally cannot go stale when a vendor is added.
+    with_base = seen = 0
+    for v in vendors:
+        m = re.search(r"(\d+)\s+of\s+~?(\d+)",
+                      v["fields"].get("Impact figures with a baseline", ("", []))[0])
+        if m:
+            with_base += int(m.group(1))
+            seen += int(m.group(2))
+    figures = f"{with_base} of ~{seen}"   # the per-vendor counts are already approximate
+
     head = ['<th class="fact">'
             '<span class="vmeta">Fact</span></th>']
     for i, v in enumerate(vendors):
@@ -719,7 +730,7 @@ family=IBM+Plex+Mono:wght@400;500&display=swap">
     <div><b>{len(vendors)}</b><span>Dossiers</span></div>
     <div><b>{len(LABELS)}</b><span>Facts each</span></div>
     <div class="loud"><b>{gaps} of {total}</b><span>Cells are a gap</span></div>
-    <div class="loud"><b>1 of ~30</b><span>Figures with a baseline</span></div>
+    <div class="loud"><b>{figures}</b><span>Figures with a baseline</span></div>
     <div><b>0</b><span>Verified HCHB integrations</span></div>
   </div>
 

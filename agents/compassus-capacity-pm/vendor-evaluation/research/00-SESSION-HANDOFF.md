@@ -80,7 +80,7 @@ walk-through will settle it.**
 | MedArrive | A visit dispatched from a discharge | Transitions, scheduling; capacity claimed | **Automatic** |
 | Zeeva | A visit a clinician chooses to take | A labour market, not one of the three | The clinician decides |
 
-**Impact figures that carry a period, baseline or site count: still 1, now of roughly 40.** The
+**Impact figures that carry a period, baseline or site count: still 1, now of 46.** The
 exception remains AutoMynd's WellSky figure. Axle's Cityblock case study is the closest new
 contender — it gives a period, *“the three months following its switch to Axle”* — and still no
 baseline. **Zeeva is the only vendor that has published no impact claim at all.**
@@ -136,7 +136,7 @@ What the second and third sessions learned that the brief still does not say:
   differs slightly from the public record, and the agency was acquired last year. **A testimonial is
   a lead, not a fact, until the person and the company are confirmed to exist.**
 - **Count the impact figures.** “N of M figures carry a period, baseline or site count” is still the
-  most useful single line for the leader. The roster stands at **1 of ~40**.
+  most useful single line for the leader. The roster stands at **1 of 46**.
 
 ## 6. The cross-vendor matrix — built, and rebuilt each session
 

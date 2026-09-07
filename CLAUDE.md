@@ -153,7 +153,7 @@ carries a source and a date; anything not found is written as *not found*, never
   2026, bought the shuttered Inbound Health's assets, moved NY → CO; no customer and no human named
   on the new site), `zeeva-connect.md` (**one page and a waitlist** — a marketplace selling *to
   clinicians* across agencies at market rates; **no privacy policy, no terms**). Matrix rebuilt:
-  **260 cells, 79 gaps, 0 blank**. Impact figures with a baseline: **1 of ~40**. Two new
+  **260 cells, 79 gaps, 0 blank**. Impact figures with a baseline: **1 of 46**. Two new
   sales-language contradictions logged — AxisCare *recommends* vs its investor's *drives care
   decisions*; Axle's *17%+* vs its own release's *up to 30%*. Method note added to the handoff:
   **a 403 is not a gated source** — axiscare.com refuses a plain fetcher and serves a browser
