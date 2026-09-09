@@ -30,9 +30,9 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | Fact | Finding |
 |---|---|
 | **COMPANY** | |
-| Founded · HQ | 2022 · **New York, NY** — their own terms set New York law and venue and their own release is datelined NEW YORK; aggregators say Princeton, NJ [5] [9] [13] |
+| Founded · HQ | 2022 · **Princeton, NJ — corrected 2026-09-09 from their own SEC filings**, 19 Kent Court, on both Form Ds signed by the CEO. Their terms set New York law and venue and the release is datelined New York [S1] [5] [9] |
 | Legal entity | **Arya for Work, Inc., a Delaware corporation** — *not* “Arya Health, Inc.”; the app runs at `aryaworks.com` [5] [4] [1] |
-| Ownership · raised · last round | **$25M total.** $18.2M Series A **29 Oct 2025**, led by ACME Capital with Ridge Ventures, Twelve Below and “executives from OpenAI”; $4M seed Sep 2024 led by Twelve Below [9] [8] |
+| Ownership · raised · last round | **$25.31M actually sold, per SEC Form D.** Series A **$18,079,306 sold** of $18,179,303 offered, first sale **18 Aug 2025** — 72 days before the 29 Oct announcement — 13 investors, ACME Capital led. Seed **$7,234,996 sold, 100% of offering, 17 investors**, first sale 10 May 2024 — **the announced “$4M seed” understated it by $3.23M**. Revenue range on both filings: “Decline to Disclose” [S1] [9] [8] |
 | Headcount · trend | **11–50, aggregator estimate — the company publishes no number.** Revenue “more than 6x in 2025” [13] [9] |
 | Leadership from home health | **One, and she was hired for it** — Melinda Phillips, former CEO of Thrive Skilled Pediatric Care, leads the “Care@Home Center of Excellence”. **Neither founder is from home health**: Kunal Sarda, CEO, was VP Customer Engagement at Smartling; Arunram Kalaiselvan, CTO [9] [13] |
 | Pivots or rebrands in 3 years | **Two shifts in 24 months, and the legal name still says the first one.** Sep 2024 they were “the most flexible workforce automation product on the market” for **Home Care, Hospice and SNF — home health was not on that list**; by 2026 Home Health leads the list and the framing is “AI agents for post-acute care administration”. The entity is still *Arya for Work, Inc.* [8] [3] [9] [5] |
@@ -239,6 +239,12 @@ postal address on any own-source page · any named EMR in Arya's own voice.
 - **PitchBook** company profile — paywalled; it is the source of the Princeton, NJ headquarters.
 
 ## Sources
+
+S1. **SEC EDGAR, Form D — Arya for Work, Inc., CIK 0002024148.** Accession
+    `0002024148-24-000001`, filed 24 May 2024 (seed) and `0001231919-25-000174`, filed 29 Aug 2025
+    (Series A). Retrieved 2026-09-09. Related persons: Kunal Sarda, Arunram Kalaiselvan, Byron Ling
+    (Twelve Below) on both; **Aike Ho (ACME Capital) added at the Series A**. No sales commissions or
+    finders' fees on either round.
 
 1. `aryahealth.ai` homepage — retrieved 2026-09-09
 2. `aryahealth.ai/security` — retrieved 2026-09-09

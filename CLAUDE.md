@@ -180,3 +180,21 @@ carries a source and a date; anything not found is written as *not found*, never
   Matrix rebuilt: **330 cells, 83 gaps, 0 blank**; Questions tab now **151**. Impact figures with a
   baseline: **2 of 53** — Arya's “~3,000 hrs/month per scheduler versus ~2,000” is only the second
   on the roster to state a before-value.
+
+- **2026-09-09, capital brief.** Same branch. The PM named the six vendors they expect to work with —
+  CareConnect, VitalisCare, CareStitch, Arya, Axle Health, MedArrive — and asked for a capital-raising
+  report. Built `_capital-brief.gen.py` → `Vendor-Capital-Brief.html`
+  (https://claude.ai/code/artifact/a2395931-1194-4a9b-9215-a9e8efc53402), Compassus palette and mark per
+  `brand/BRAND.md` because it goes to a Compassus audience. **Four SEC Form D filings were read in full and
+  three of them disagree with the company's own press release.** Arya's seed was **$7,234,996 sold**, not the
+  announced $4M; its Series A first sale was **18 Aug 2025, 72 days before the announcement**; its registered
+  address on both filings is **19 Kent Court, Princeton NJ — this corrects the roster's New York pin**.
+  MedArrive's Series A Form D shows **$32,843,775 sold to 41 investors** against **$25M announced**, its 2023
+  strategic round **sought $10M and sold $8M to one investor**, its SEC year of incorporation is **2018 not
+  2020**, and it has **filed nothing since 11 Apr 2023**. Board seats are legible in the related-person lists:
+  Aike Ho (ACME) joins Arya at the Series A; Lynne Chou O'Keefe (Define) leaves MedArrive between 2022 and
+  2023. **Axle Health has no EDGAR record of any kind** despite $14.4M raised, and was named by **LifeMD
+  (NASDAQ: LFMD) in a 15 Jul 2021 8-K**. Two decoys recorded and excluded: **CareConnectMD, Inc.**
+  (CIK 0001746369, Huntington Beach CA, five Form Ds) is not our CareConnect, and **VITALISCARE LTD**
+  (Companies House 15774638, 71–75 Shelton Street, renamed from SGR Financial Solutions, sole Swedish director
+  born 2001) is not our Vitalis Care. Verified capital across the six: **$80.56M, all of it in three of them**.

@@ -28,7 +28,7 @@ source ids from the *Sources* list at the foot of this file. *Not found* is a fi
 | **COMPANY** | |
 | Founded · HQ | 2020 · **Littleton, Colorado** — founded in New York; the Colorado address appears in a privacy policy updated 3 Mar 2026 [1] [7] |
 | Legal entity | MedArrive, Inc. [1] |
-| Ownership · raised · last round | **~$40.5M raised by Apr 2023** — $25M Series A Nov 2021; $8M strategic from Cobalt Ventures (BCBS Kansas City) 2023. **Nothing found since.** Investors: Kleiner Perkins, Section 32, Redesign Health, SCAN Health Plan, Cobalt, Define, 7wire [2] [7] [8] |
+| Ownership · raised · last round | **$40.84M sold, per SEC Form D.** Series A **$32,843,775 sold, 41 investors**, first sale 28 Jan 2022 — **$7.84M more than the $25M announced**. 2023 strategic: offered $10,000,000, **sold $8,000,000, $2,000,000 never filled, one investor** (Cobalt Ventures). Plus $4.5M launch capital Dec 2020. **Nothing filed with the SEC since 11 Apr 2023 — three years five months** [S1] [2] [7] [8] |
 | Headcount · trend | ***not found*** — no figure published since the pivot [2] [3] |
 | Leadership from home health | ***not found*** — CEO Ophir Lotan from Alto Pharmacy and TytoCare; no leadership page on the rebuilt site [2] [3] |
 | Pivots or rebrands in 3 years | **The largest on the roster.** 2025: “transitioned away from directly providing care” and launched a logistics platform with ChristianaCare. Mar 2026: bought the assets of a failed competitor and named a new CEO. **HQ state changed. Site rebuilt Aug 2026** [2] [3] [6] |
@@ -81,7 +81,7 @@ schedule and route the visit — and almost nothing about it can be verified fro
 
 | Fact | Finding | Source · date |
 |---|---|---|
-| Founded | 2020, New York, NY | Company databases [8] · retrieved 2026-09-07 |
+| Founded | Databases say 2020; **both SEC Form D filings give the year of incorporation as 2018**. New York, NY, 85 5th Ave 8th Floor | [S1] · Company databases [8] |
 | Headquarters, offices | **2679 W Main St, Suite 300-730, Littleton, CO 80120** — the only address the company publishes, in a privacy policy last updated **3 March 2026** | medarrive.com/privacy-policy [7] · 2026-09-07 |
 | Ownership and funding | **$25M Series A, November 2021** (Kleiner Perkins). **$8M strategic investment, 2023**, from **Cobalt Ventures**, a subsidiary of Blue Cross and Blue Shield of Kansas City, taking total raised to about **$40.5M as of April 2023**. **No round found since.** The about page lists Kleiner Perkins, Section 32, Redesign Health, SCAN Health Plan, Cobalt Ventures, Define Ventures and 7wire Ventures | PR Newswire / MobiHealthNews [8], Fierce Healthcare [8], medarrive.com/about [3] · 2021–2026 |
 | Headcount, and trend | ***not found.*** No figure is published, and none appears in the pivot coverage — a conspicuous silence for a company that once ran a national field network | [2] [3] |
@@ -188,6 +188,12 @@ price. A clinician-facing app. An uptime figure or SLA. Any named AI or model ve
 acknowledgement anywhere on the current site that the company used to send paramedics into homes.
 
 ## Sources
+
+S1. **SEC EDGAR, Form D — MedArrive Inc., CIK 0001901894.** Accession
+    `0001901894-22-000001`, filed 11 Feb 2022 (Series A) and `0001901894-23-000001`, filed 11 Apr 2023
+    (strategic). Retrieved 2026-09-09. Related persons 2022: Inna Plumb, **Lynne Chou O'Keefe**,
+    Annie Case, Dan Trigub, William Sullivan, Andy Harrison. 2023: the same minus O'Keefe, plus
+    **Agneta Breitenstein** — a board seat changed hands between the filings.
 
 1. MedArrive — home page, `https://www.medarrive.com/`. Retrieved 2026-09-07. Sitemap shows ten
    pages, all last modified between 18 and 31 August 2026.
