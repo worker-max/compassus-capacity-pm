@@ -159,3 +159,24 @@ carries a source and a date; anything not found is written as *not found*, never
   decisions*; Axle's *17%+* vs its own release's *up to 30%*. Method note added to the handoff:
   **a 403 is not a gated source** — axiscare.com refuses a plain fetcher and serves a browser
   user-agent.
+
+- **2026-09-09, research session 4.** Same branch. The PM named an eleventh vendor: **Arya**.
+  Pinned as **Arya Health**, `arya-health`, `aryahealth.ai` — **but the legal entity on both its
+  privacy policy and its terms of service is `Arya for Work, Inc.`, a Delaware corporation, and the
+  app is served from `aryaworks.com`**, so the roster's domain check accepts either. Not Arya Health
+  of Vancouver (Arya EHR), which several aggregators merge with it. Roster at v3; eleven of sixteen
+  returns researched. **The finding: Arya is the sharpest test yet of *a higher automation score can
+  be a worse fit*.** It is the best-funded vendor after AxisCare's investors ($25M; $18.2M Series A,
+  ACME Capital, Oct 2025) and its own marketing says the agent *“doesn't present a list of options
+  for a coordinator to choose from”* and *“makes and executes scheduling decisions rather than
+  presenting options”* — the exact inverse of our settled principle. No override language exists
+  anywhere. **RF-10 STOP-CHECK, and it is the sales pitch rather than an oversight.** Against that:
+  the scheduling unit is an hourly shift counted in hours per scheduler per month, capacity is
+  absent, PDGM/LUPA/episode/authorization appear nowhere, and the single named customer — **Connect
+  Pediatrics**, verified real, CEO Ezra Kuenzi verified real — is **pediatric private duty at 12
+  locations and 150+ clinicians, about a twentieth of us**. HCHB is named by one gated press
+  aggregator and **by nobody at Arya**; **Arya is absent from HCHB's Recommended Partner Solutions
+  page**. Its Sep 2024 seed release sold Home Care, Hospice and SNF and **omitted home health**.
+  Matrix rebuilt: **330 cells, 83 gaps, 0 blank**; Questions tab now **151**. Impact figures with a
+  baseline: **2 of 53** — Arya's “~3,000 hrs/month per scheduler versus ~2,000” is only the second
+  on the roster to state a before-value.

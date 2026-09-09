@@ -1,6 +1,6 @@
-# Field notes — what the 10 dossiers say together
+# Field notes — what the 11 dossiers say together
 
-**Generated** 2026-09-07 by `_research-matrix.gen.py` from 10 dossiers. Do not hand-edit; change a dossier and rebuild.
+**Generated** 2026-09-09 by `_research-matrix.gen.py` from 11 dossiers. Do not hand-edit; change a dossier and rebuild.
 
 The companion to `Vendor-Research-Matrix.xlsx`. The workbook is for looking across; this is for reading. Nothing here is a score.
 
@@ -20,6 +20,7 @@ The companion to `Vendor-Research-Matrix.xlsx`. The workbook is for looking acro
 | **AxisCare** | Private Pay, Medicaid, VA. Medicare is not on their payer list. This is the wrong payer world. |
 | **MedArrive** | The company answering the questionnaire is eighteen months old inside a six-year-old shell. Ask what is running in production today, and where. |
 | **Zeeva** | It sells to our clinicians, not to us. Ask whether they are bidding for our nurses' hours. |
+| **Arya Health** | They advertise that the agent decides and deliberately does not offer the coordinator options. That is the exact inverse of our settled principle that the tool recommends and the human accepts. |
 
 ## The commonplaces
 
@@ -45,6 +46,7 @@ Rows where the vendors give genuinely different answers. These are the rows that
 - AxisCare — An hourly shift on a client
 - MedArrive — A visit dispatched from a discharge or referral
 - Zeeva — A single visit a clinician chooses to accept, offered across multiple agencies
+- Arya Health — An hourly shift on a case — not a visit in an episode. Throughput is quoted as “~3,000 hrs/month” per scheduler
 
 **Decide or advise**
 
@@ -58,6 +60,7 @@ Rows where the vendors give genuinely different answers. These are the rows that
 - AxisCare — They say advise; their investor says decide — the product says “automatically identifies and recommends caregiver matches”; the LLR release says an AI-native platform that “actively and intelligently drives scheduling, compliance, and care decisions”
 - MedArrive — Decide — “MedArrive matches the right provider to the right visit automatically”. No override language found
 - Zeeva — Neither — the clinician decides. A marketplace, not an engine
+- Arya Health — Decide — explicitly, and sold as the point. “It doesn't present a list of options for a coordinator to choose from”; “The agent makes and executes scheduling decisions rather than presenting options”; “The agents don't wait to be triggered. They monitor conditions, take action, and push updates to the EMR on their own.” No override language found anywhere
 
 **HCHB evidence**
 
@@ -71,6 +74,7 @@ Rows where the vendors give genuinely different answers. These are the rows that
 - AxisCare — not found — an Integrations Marketplace exists; no EMR appears in it. The categories are billing, onboarding, CRM, payroll, training
 - MedArrive — not found — “fits seamlessly into your existing technology ecosystem”, no vendor named
 - Zeeva — not found
+- Arya Health — Weak, and it is not theirs. HCHB is named nowhere on Arya's own site — the homepage says only “EMR, ATS, HRIS” and the Series A release says “leading EMRs”. The one source naming HCHB is a press-aggregator page gated to both our fetchers. Arya is not on HCHB's Recommended Partner Solutions page [G1]
 
 **Home health share of business**
 
@@ -84,6 +88,7 @@ Rows where the vendors give genuinely different answers. These are the rows that
 - AxisCare — Home care, not home health — “Specializing in Private Pay, Medicaid, and VA Billing”. Medicare is not on the payer list. A “Skilled Care” module exists
 - MedArrive — All of it now, in a business eighteen months old. The first five years were a field-provider network of EMTs and paramedics, and that business is gone from the site entirely
 - Zeeva — All of it, by positioning — “home health visits” is the entire proposition
+- Arya Health — not established — Home Health is listed first of six settings, but the only named customer is pediatric private-duty nursing and the seed-round list omitted home health entirely
 
 **Impact figures with a baseline**
 
@@ -97,6 +102,7 @@ Rows where the vendors give genuinely different answers. These are the rows that
 - AxisCare — 0 of 1 — “AI-Powered Care Analytics Helps Heavenly Care Improve Care Oversight by 280%”. No baseline, no period, and no unit — “care oversight” is not a measurable quantity
 - MedArrive — 0 of 2 — “Teams using MedArrive complete 30% more visits with the same staff”; “14x ROI potential”. No period, no baseline, no site count, no customer
 - Zeeva — 0 of 0 — the only vendor on the roster that has published no impact claim at all
+- Arya Health — 1 of 7. Only “~3,000 hrs/month per scheduler” carries a before-value (“versus ~2,000”). Without one: 25% scheduler capacity · 50% time-to-first-staffing · 70% less administrative effort · 60% less human effort · 6x revenue · “25 cents of every dollar”
 
 ## How to read a column
 

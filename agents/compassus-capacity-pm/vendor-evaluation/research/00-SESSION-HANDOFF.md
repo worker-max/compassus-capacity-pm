@@ -1,6 +1,7 @@
 # Vendor research — session handoff
 
-**Written:** 2026-09-07, end of the third research session
+**Written:** 2026-09-07, end of the third research session · **updated 2026-09-09** when the PM
+added an eleventh vendor, Arya
 **For:** the next Claude session doing vendor research, and the PM
 **Branch:** `claude/vendor-list-bpmnil`. All vendor work is on this branch; none is on `main`.
 Check it out first; without it you have no brief, no pack, no roster, no dossiers, no CLAUDE.md.
@@ -9,8 +10,8 @@ Check it out first; without it you have no brief, no pack, no roster, no dossier
 
 ## 1. Where things stand
 
-**Ten dossiers are done, of sixteen returns.** `00-ROSTER.md` is the entry point and is now at
-version 2.
+**Eleven dossiers are done, of sixteen returns.** `00-ROSTER.md` is the entry point and is now at
+version 3.
 
 | Vendor | File | Confidence | One line |
 |---|---|---|---|
@@ -24,6 +25,7 @@ version 2.
 | **AxisCare** | `axis-care.md` | **high** | Waco TX, **founded 2013**, 51–200 staff, **two institutional investors in 26 months** (Frontier 2024, LLR Jun 2026); a full home **care** operating system — **and Medicare is not on their payer list** |
 | **MedArrive** | `med-arrive.md` | medium | Littleton CO (**was New York**); ~$40.5M raised to 2023; **abandoned its field-provider network in 2025**, rebuilt as a logistics platform with ChristianaCare, bought a dead competitor's assets and named a new CEO in March 2026 |
 | **Zeeva** | `zeeva-connect.md` | **low** | **One web page and a waitlist.** A marketplace selling *to clinicians*, offering visits across multiple agencies at market rates. No person, place, date, funding, customer or privacy policy published |
+| **Arya Health** | `arya-health.md` | **high** | New York, founded 2022, **$25M raised — $18.2M Series A Oct 2025 led by ACME**; one AI agent, eight skills; **it advertises that the agent decides and deliberately does not offer the coordinator options**; legal entity is still **Arya for Work, Inc.**; one named customer, pediatric private duty |
 
 The network is on **Full**; pages were read directly. Everything below assumes that.
 
@@ -60,7 +62,7 @@ The network is on **Full**; pages were read directly. Everything below assumes t
    scheduler from the middle. **It also has no privacy policy and no terms of service**, which is a
    STOP-CHECK shape on C6, not a Watch.
 
-## 3. The scorecard reads, across all ten
+## 3. The scorecard reads, across all eleven
 
 Still nobody has a live HCHB integration we can verify from outside. **Three now claim one**
 (CareConnect, Vitalis Care, and Axle Health via its customer), and Axle's is the only one attributed
@@ -79,9 +81,11 @@ walk-through will settle it.**
 | AxisCare | An hourly shift on a client | Scheduling, wrong payer world | **They say advise; their investor says decide** |
 | MedArrive | A visit dispatched from a discharge | Transitions, scheduling; capacity claimed | **Automatic** |
 | Zeeva | A visit a clinician chooses to take | A labour market, not one of the three | The clinician decides |
+| **Arya Health** | **An hourly shift on a case**, counted in hours per scheduler per month | Scheduling, autonomous; engagement staff-facing; **capacity absent** | **Decide — and they advertise it**: “It doesn't present a list of options for a coordinator to choose from” |
 
-**Impact figures that carry a period, baseline or site count: still 1, now of 46.** The
-exception remains AutoMynd's WellSky figure. Axle's Cityblock case study is the closest new
+**Impact figures that carry a period, baseline or site count: now 2, of 53.** AutoMynd's WellSky
+figure is joined by Arya's “~3,000 hrs/month per scheduler **versus ~2,000**” — the only two on the
+roster with a stated before-value. Axle's Cityblock case study is the closest new
 contender — it gives a period, *“the three months following its switch to Axle”* — and still no
 baseline. **Zeeva is the only vendor that has published no impact claim at all.**
 
@@ -91,7 +95,7 @@ Axle's site says productivity rises *“17%+”*; its funding release says *“u
 
 ## 4. First job for the next session
 
-1. **Confirm the roster.** Six of sixteen returns are still unresearched. Add each vendor to
+1. **Confirm the roster.** Five of sixteen returns are still unresearched. Add each vendor to
    `00-ROSTER.md` with a pinned entity **before** researching.
 2. **Settle the HCHB partner list.** HCHB's Recommended Partner brochure is a Figma-exported PDF
    with no text layer, hosted on HubSpot, over the fetch size limit. It is recorded as **gated** in
@@ -180,7 +184,7 @@ From the review of `10-VENDOR-RESEARCH-BRIEF.md` on 2026-09-05:
 4. A one-line rubric for high / medium / low confidence. **In practice:** high means primary pages
    read directly and corroborated by a second source; medium means the company's own claims read
    directly but uncorroborated; low means the company publishes almost nothing.
-5. Gated sources written as gated. **Now done in practice** in all ten dossiers — **and add the
+5. Gated sources written as gated. **Now done in practice** in all eleven dossiers — **and add the
    403-is-not-gated rule from §5 above.**
 6. A named owner for the field-notes hand-back.
 7. Small: table separator rows in the template, a written date and version stamp, a recency window

@@ -1,6 +1,6 @@
 # Vendor roster
 
-**Version 2 · 2026-09-07.** Ten vendors named by the PM; more to come.
+**Version 3 · 2026-09-09.** Eleven vendors named by the PM; more to come.
 
 This file fixes the slug and the identity of every vendor before anyone researches one. It exists
 because *Care Connect* matched five companies and cost a research session an hour. Nobody researches
@@ -31,6 +31,7 @@ inform a mark. If the domain does not match, stop and say so.
 | 8 | AxisCare | AxisCare | `axis-care` | axiscare.com | written · high |
 | 9 | MedArrive | MedArrive | `med-arrive` | medarrive.com | written · medium |
 | 10 | Zeeva Connect | Zeeva | `zeeva-connect` | zeevaconnect.com | written · low |
+| 11 | Arya | Arya (trading) / **Arya Health** | `arya-health` | aryahealth.ai | written · high |
 
 More to come. Add a row before researching, not after.
 
@@ -55,6 +56,7 @@ email domain is `axlehealth.com` before the dossier informs a mark.** If the ret
 | `axis-care` | AxisCare | 1105 Wooded Acres Dr, #300, Waco, TX 76710 | `axiscare.com` |
 | `med-arrive` | **MedArrive, Inc.** | 2679 W Main St, Suite 300-730, Littleton, CO 80120 — **moved from New York**, privacy policy updated 3 Mar 2026 | `medarrive.com` |
 | `zeeva-connect` | **Zeeva Connect, Inc.** — the only corporate fact the company publishes | *not found* — no address on the site, no registry record found | `zeevaconnect.com` |
+| `arya-health` | **Arya for Work, Inc., a Delaware corporation** — *not* “Arya Health, Inc.”; the name on both legal documents | *not found* — no postal address published. New York law and venue in their own terms; their Series A release is datelined New York. **Aggregators say Princeton, NJ — take New York** | `aryahealth.ai` **or** `aryaworks.com` — the app is served from the second and both are this company |
 
 ## Names that are not these vendors
 
@@ -91,6 +93,14 @@ Written down so nobody researches the wrong company twice.
   (India, fertility), not Zeeva Healthcare. The name is common and none of the others is this
   company. The only pin we have is the footer line *© Zeeva Connect, Inc.*
 
+- **Arya** — **not Arya Health of Vancouver**, whose product is *Arya EHR*, launched January 2020,
+  founded 2016 by Sam Gharbi, Richard Sztramko and Richard Vandegriend. **Several aggregators merge
+  the two**, so any pre-2022 founding date, any Canadian address and those three founder names
+  belong to the other company. Not Arya.ai (Mumbai, financial services AI). Not Arya by Leoforce
+  (recruiting software). Not Aria, Arria or Arrive Health. Searching *Arya* alone returns the Vancouver
+  EHR, an Indian fintech and a recruiting tool before it returns this company; search
+  *Arya Health post-acute* or *Arya for Work*.
+
 ## What each one is, in one line
 
 | Slug | In one line | Arena it actually plays in | Scheduling unit |
@@ -105,6 +115,7 @@ Written down so nobody researches the wrong company twice.
 | `axis-care` | A full home **care** operating system — scheduling, EVV, billing, RCM — for private pay, Medicaid and VA agencies | Scheduling, but in the wrong payer world | An hourly shift on a client |
 | `med-arrive` | A care-transitions and field-logistics platform, **rebuilt in 2025 out of a company that used to send paramedics into homes** | Scheduling and transitions; capacity claimed | A visit dispatched from a discharge |
 | `zeeva-connect` | A waitlist for a marketplace that lets clinicians pick up home health visits **across agencies** | None of ours — it is a labour market, not a scheduling tool | A single visit a clinician chooses to take |
+| `arya-health` | One AI agent with eight skills that does the post-acute back office — and **schedules without offering the coordinator a choice** | Scheduling, real and autonomous; engagement staff-facing; **capacity absent** | An hourly shift on a case, counted in hours per scheduler per month |
 
 ## The one thing to check on each
 
@@ -120,6 +131,7 @@ Written down so nobody researches the wrong company twice.
 | `axis-care` | They bill Private Pay, Medicaid and VA. **Medicare is not on the list.** This is home care, not home health. |
 | `med-arrive` | The company that answers the questionnaire is eighteen months old inside a six-year-old shell: new business model, new CEO, new state, new product, bought out of a failed competitor. |
 | `zeeva-connect` | It sells to our clinicians, not to us. A marketplace that pays market rates for visits across agencies is a competitor for our own nurses' hours. |
+| `arya-health` | **The best-funded vendor on the roster advertises that its agent decides and deliberately does not present the coordinator with options** — the exact inverse of our settled principle. Ask whether a scheduler can override. |
 
 ---
 
