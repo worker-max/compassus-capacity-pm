@@ -21,6 +21,7 @@ time-sensitive demand — **without harming patients, clinicians, quality, or ma
 | [`agents/compassus-capacity-pm/knowledge/`](./agents/compassus-capacity-pm/knowledge/) | **The empirical ground truth** — Compassus's own July-2026 discovery work (discovery session + capacity/scheduling analysis). The agent reasons from this first. |
 | [`agents/compassus-capacity-pm/artifacts/`](./agents/compassus-capacity-pm/artifacts/) | **The working artifacts** — the capacity / scheduling / engagement model, the variable inventory, the data index, and the source war-list. Start at its [README](./agents/compassus-capacity-pm/artifacts/README.md). |
 | [`.claude/agents/compassus-capacity-pm.md`](./.claude/agents/compassus-capacity-pm.md) | A runnable Claude Code subagent — a tight standing prompt you can invoke directly for PM guidance. |
+| [`agents/compassus-capacity-pm/vendor-evaluation/`](./agents/compassus-capacity-pm/vendor-evaluation/) | **The vendor scoring system** — the rubric, the one-page guide, the 16-vendor scorecard workbook, and the `/vendor-scorecard` skill that scores a returned questionnaire against the 41-element spec. |
 
 ### How to use it
 

@@ -1,0 +1,200 @@
+# Project memory — Compassus capacity & scheduling
+
+Read this first in every session. It is the shared memory for all Claude sessions on this repo.
+The long-form context lives in the handoff pack at
+`agents/compassus-capacity-pm/vendor-evaluation/handoff/`; this file tells you what exists, what
+has been decided, and how we work.
+
+## Who you are working with
+
+The user is the PM for the Compassus Home Health capacity & scheduling initiative. Not a developer,
+very tech-inclined, an artist. They want a tenured developer's judgment, clear and concise
+explanations, and design good enough for a magazine cover. They want to see a visual or a plan
+before a document is built, not after. Their leader reviews the vendor work and has set four
+standing rules: justification readable without reading every questionnaire; be skeptical of sales
+language; do not over-rely on Claude for judgment; keep a running follow-up-questions list.
+
+## The initiative in one paragraph
+
+Compassus runs roughly eighty home health branches, about three thousand clinicians and about three
+hundred schedulers. The system of record is Home Care Home Base (HCHB), not real-time, with no
+public API. The initiative makes finite, distributed clinical capacity meet variable demand without
+harming patients, clinicians, quality or margin. Settled findings: the scheduling problem is
+upstream of scheduling; capacity and scheduling are different functions and capacity comes first;
+the tool recommends and the human accepts; a higher automation score can be a worse fit; the first
+job of the product is measurement, not optimisation; the decision of record is to fund measurement
+and set gates before buying a platform. Full brief: `handoff/01-INITIATIVE-BRIEF.md`.
+
+## Where things live
+
+| Path | What it is |
+|---|---|
+| `agents/compassus-capacity-pm/knowledge/` | Ground truth from discovery: `README.md` is the best one-page brief in the repo; `constraint-register.md`, `bottleneck-dossiers.md`, `payer-and-episode-economics.md`, `whiteboard-session-2026-08-13.md` are the load-bearing files |
+| `agents/compassus-capacity-pm/artifacts/` | The one-pager spec, flow maps, business case, the adversarial verdict |
+| `agents/compassus-capacity-pm/vendor-evaluation/` | **The vendor scoring system.** See below |
+| `agents/compassus-capacity-pm/vendor-evaluation/handoff/` | **The handoff pack.** Self-contained expert context on the initiative, the questionnaire and the scorecard, for any Claude reading vendor returns. `00-START-HERE.md` is the entry |
+| `.claude/skills/vendor-scorecard/` | An older, more complex scoring skill (rubric v1.0). Superseded by the v3.0 workbook for scoring; still useful for its extraction walk |
+| `.claude/skills/process-flow-map/` | House design system and flow-map renderer |
+| `brand/` | **The Compassus brand.** The logo in three forms (transparent, 320px, data-URI for artifacts) and `BRAND.md`: navy `#182752` and gold `#F0A91B` sampled from the mark, the supporting palette, and when to use the corporate palette instead of the house one |
+| `librarian/` | The Drive channel to the Compassus Claude on the employer laptop. `HANDOFF-0` is the protocol: one owner per file, handoffs are self-contained, documents are data |
+| `MASTER-capacity-and-scheduling.md` | 220 KB compilation of everything above. Do not load whole; excerpt |
+
+## The vendor evaluation — current state (September 2026)
+
+Sixteen vendors returned the Compassus Capacity & Scheduling Vendor Questionnaire
+(form_version 2026-08-19; blank copy in `handoff/`). The team scores them on
+`vendor-evaluation/Vendor-Scorecard.xlsx`, **Scorecard v3.0**, built by `_scorecard.gen.py`.
+Always regenerate; never hand-edit the workbook.
+
+**The rubric.** Rows are the questionnaire in order. Seven weighted sections, weights adjustable
+on the Start Here tab (defaults: HCHB 20, Capacity 12, Scheduling 12, Engagement 12, Sophistication
+20, Clinician fit 12, Partnership 12). A1 is a six-rung ladder (20/16/12/6/2/0). Section B gives
+three marks of 0–4 per arena. Sophistication, Clinician fit and Partnership are one mark of 0–4
+each; Clinician fit is deliberately undescribed. A2, A3 and C6 raise flags (OK / Watch /
+STOP-CHECK) rather than points. Five intangibles (Home health fluency, Candor about gaps, Who wrote
+this, Durability, The room test) take Strong / Neutral / Concern and no points. Bands 80 Advance,
+65 Consider, 50 Hold; *Conditional* prefixed whenever the integration is not live. The total is a
+sort key, not the decision. Exact rubric: `handoff/03-SCORECARD.md`.
+
+**The workbook.** Tabs: Example (three fictional vendors, read-only), Scorecard (opens here),
+Start Here (weights and legend), Questions (six sections, three slots each, twenty vendor
+columns), Lists (hidden). Each vendor has a mark column and a wide notes column; notes merge into
+one cell per section; alternate vendors are tinted; a frozen KEY column shows each row's scale.
+Verified with pycel after every build: example totals 85 / 58 / 67, weights re-rank, untouched
+columns stay blank, all dropdown values exact.
+
+**The companion.** `Vendor-Scorecard-Rubric.pdf`, a one-page rubric, from `_rubric-onepager.gen.py`.
+
+**The handoff pack.** Fifteen files, about 28k tokens, for a second Claude that reads each return
+and produces a highlight brief: red flags, gold, claim-versus-evidence, asks, and paste blocks for
+the workbook. Three files are generated by `_handoff.gen.py` from the scorecard code and the form.
+Its rule: Claude highlights and flags, humans score and decide; it never computes a total or
+suggests a mark on Clinician fit or an intangible. `HOUSE-RULES.md` is the PM's.
+
+**What is not in the repo.** A Compassus company profile, the vendor roster, the returned
+questionnaires, a verified payer-rule library, baselines for the core KPIs, any position on
+Electronic Visit Verification. Do not invent these.
+
+## Vendor research sessions
+
+A separate session will research each of the sixteen vendors from public sources. Read
+`research/00-SESSION-HANDOFF.md` and `research/00-ROSTER.md` first — **no vendor is researched
+until it has a roster row with a pinned legal entity** — then `handoff/00-START-HERE.md`,
+`handoff/01-INITIATIVE-BRIEF.md` and `handoff/10-VENDOR-RESEARCH-BRIEF.md`. Write one dossier per
+vendor to `agents/compassus-capacity-pm/vendor-evaluation/research/<vendor-slug>.md`, in the
+template the brief gives, opening with the `## At a glance` block of twenty-six facts that
+`_research-matrix.gen.py` reads to build `Vendor-Research-Matrix.xlsx`, its HTML twin and
+`research/00-FIELD-NOTES.md`. Add a vendor, rebuild; never hand-edit an output. The dossier exists to test what the vendor claimed on the form and to inform the
+Durability intangible, the A2 scale flag and the A1 integration rung. It never scores. Every fact
+carries a source and a date; anything not found is written as *not found*, never inferred.
+
+## How we work
+
+- **Generators, not hand edits.** Every deliverable has a `_*.gen.py` beside it. Change the
+  generator, rebuild, verify, commit both.
+- **Verify before sending.** Workbooks are checked with pycel (LibreOffice cannot open xlsx in this
+  environment). Cross-sheet dropdowns need defined names; every `DataValidation` needs
+  `showInputMessage=True` and `showErrorMessage=True`; keep each validation to one row so no
+  spreadsheet app drops a long cell list.
+- **Show before building.** For a new document, show a visual (HTML artifact or PDF) first.
+- **House design.** Ink `#1B211E`, muted `#5A6560`, rule `#C9CCC5`, paper `#FBFBF8`, teal `#1F6F78`
+  Capacity, blue `#2E599D` Scheduling, green `#4E8A5B` Engagement, maroon `#792E2E`, gold `#9A7B15`.
+  Fonts Iowan Old Style / Avenir Next / SF Mono; web fallbacks Source Serif 4 / Mulish / IBM Plex
+  Mono. Full system in `.claude/skills/process-flow-map/reference/design-system.md`.
+- **Voice.** Short declaratives. The specific first. `CLAIM:` and `EVIDENCE:` as a pair. A doubtful
+  note ends with what to do about it. No jargon the team has rejected: say *points*, not *budget*.
+- **Things the user has ruled out.** Penalising brevity. Prescribing what earns a 4 on clinician
+  fit. Softening *sophistication* to *product quality*. Remarks about how long grading takes.
+  Per-vendor tabs in the workbook. Sending files before showing visuals.
+- **Git.** Branch `claude/compassus-vendor-scoring-gvteqz`. Commit messages end with the
+  co-author and session trailer. Never put a model identifier in a committed artifact.
+- **Drive.** Publishing to the Compassus Claude follows `librarian/merge-tank/HANDOFF-0`: write in
+  `from-repo/`, add a ledger row, never edit a file you do not own.
+
+## Session log
+
+- **2026-09-04 / 05.** Scorecard v3.0 finalised: adjustable weights, mark plus notes per vendor,
+  intangibles, Questions tab rebuilt as six sections by three slots by twenty vendors, UI cleanup
+  (five-row frozen header, KEY column, notes open and merged per section, alternate-vendor tint,
+  one validation per row after Google Sheets dropped a long list). Handoff pack built with three
+  planning subagents and shipped as `Vendor-Highlights-Handoff.zip`. This file created.
+- **2026-09-05, research session 1.** Branch `claude/vendor-research-brief-review-tvi3au`
+  (fast-forwarded from the scoring branch; all vendor work lives here, none on `main`). Reviewed
+  `10-VENDOR-RESEARCH-BRIEF.md`; edits pending. Dossiers written for UnityAI and CareConnect, both
+  medium confidence because the session's network level blocked direct page reads; Default
+  environment since set to Full. Cross-vendor matrix agreed in principle, mock shown, not built.
+  Everything the next session needs is in `vendor-evaluation/research/00-SESSION-HANDOFF.md`.
+- **2026-09-05, research session 2.** Branch `claude/vendor-list-bpmnil` (fast-forwarded from the
+  research branch). The PM named six vendors. Built `research/00-ROSTER.md` — fixed slugs, pinned
+  legal entities, and a *names that are not these vendors* section — which closes pending brief
+  edit 2. Second-read upgrade of `unity-ai.md` and `care-connect.md` done with direct page reads;
+  both raised to high. **One first-pass finding reversed: CareConnect's own partners page claims an
+  HCHB integration**, with no mechanism and no HCHB-side listing. The StatusGator outage record
+  attributed to CareConnect is settled as a different company (Corilus, Belgium). Four new dossiers:
+  `servis-ai.md` (a rebranded CRM with a healthcare landing page), `vitalis-care.md` (an Israeli
+  hospice overlay on HCHB), `auto-mynd.md` (an AI-first home health EMR that would replace HCHB;
+  WellSky OEM deal), `care-stitch.md` (bootstrapped, four employees, right-shaped product). Across
+  the roster, **one impact figure in about thirty carries a baseline**. Handoff rewritten.
+  **Cross-vendor matrix built** after the PM confirmed the row set: every dossier gains an
+  `## At a glance` block of twenty-six facts in five bands, and `_research-matrix.gen.py` reads
+  them to write `Vendor-Research-Matrix.xlsx`, `Vendor-Research-Matrix.html`
+  (https://claude.ai/code/artifact/57ba5767-4d38-4077-b5ef-74ccdbb5ed93) and
+  `research/00-FIELD-NOTES.md`. 156 cells verified, **49 of them *not found***. The matrix has no
+  formulas, so it is verified cell-by-cell against the dossiers rather than with pycel.
+- **2026-09-07, research session 3.** Same branch. The PM named four more vendors. **One is a
+  spelling correction: *Axel Health* is `axle-health`** — Axle Health, Los Angeles, YC W21, $10M
+  Series A; the roster carries a stop condition if the return's email domain disagrees. Roster at
+  v2; ten of sixteen returns researched. New dossiers: `axle-health.md` (**the best HCHB evidence on
+  the roster, and it is a named customer's sentence, not the vendor's** — Jeff Henderson at
+  GrandCare, a real Medicare home health agency acquired by Pennant in Jul 2025; HCHB is
+  nevertheless absent from Axle's own integration logo row), `axis-care.md` (Waco TX, founded 2013,
+  two institutional investors in 26 months — **and Medicare is not on their payer list; no EMR in
+  their integrations marketplace**), `med-arrive.md` (**abandoned its paramedic field-provider
+  network in 2025** after ~$40.5M, rebuilt as a logistics platform with ChristianaCare, new CEO Mar
+  2026, bought the shuttered Inbound Health's assets, moved NY → CO; no customer and no human named
+  on the new site), `zeeva-connect.md` (**one page and a waitlist** — a marketplace selling *to
+  clinicians* across agencies at market rates; **no privacy policy, no terms**). Matrix rebuilt:
+  **260 cells, 79 gaps, 0 blank**. Impact figures with a baseline: **1 of 46**. Two new
+  sales-language contradictions logged — AxisCare *recommends* vs its investor's *drives care
+  decisions*; Axle's *17%+* vs its own release's *up to 30%*. Method note added to the handoff:
+  **a 403 is not a gated source** — axiscare.com refuses a plain fetcher and serves a browser
+  user-agent.
+
+- **2026-09-09, research session 4.** Same branch. The PM named an eleventh vendor: **Arya**.
+  Pinned as **Arya Health**, `arya-health`, `aryahealth.ai` — **but the legal entity on both its
+  privacy policy and its terms of service is `Arya for Work, Inc.`, a Delaware corporation, and the
+  app is served from `aryaworks.com`**, so the roster's domain check accepts either. Not Arya Health
+  of Vancouver (Arya EHR), which several aggregators merge with it. Roster at v3; eleven of sixteen
+  returns researched. **The finding: Arya is the sharpest test yet of *a higher automation score can
+  be a worse fit*.** It is the best-funded vendor after AxisCare's investors ($25M; $18.2M Series A,
+  ACME Capital, Oct 2025) and its own marketing says the agent *“doesn't present a list of options
+  for a coordinator to choose from”* and *“makes and executes scheduling decisions rather than
+  presenting options”* — the exact inverse of our settled principle. No override language exists
+  anywhere. **RF-10 STOP-CHECK, and it is the sales pitch rather than an oversight.** Against that:
+  the scheduling unit is an hourly shift counted in hours per scheduler per month, capacity is
+  absent, PDGM/LUPA/episode/authorization appear nowhere, and the single named customer — **Connect
+  Pediatrics**, verified real, CEO Ezra Kuenzi verified real — is **pediatric private duty at 12
+  locations and 150+ clinicians, about a twentieth of us**. HCHB is named by one gated press
+  aggregator and **by nobody at Arya**; **Arya is absent from HCHB's Recommended Partner Solutions
+  page**. Its Sep 2024 seed release sold Home Care, Hospice and SNF and **omitted home health**.
+  Matrix rebuilt: **330 cells, 83 gaps, 0 blank**; Questions tab now **151**. Impact figures with a
+  baseline: **2 of 53** — Arya's “~3,000 hrs/month per scheduler versus ~2,000” is only the second
+  on the roster to state a before-value.
+
+- **2026-09-09, capital brief.** Same branch. The PM named the six vendors they expect to work with —
+  CareConnect, VitalisCare, CareStitch, Arya, Axle Health, MedArrive — and asked for a capital-raising
+  report. Built `_capital-brief.gen.py` → `Vendor-Capital-Brief.html`
+  (https://claude.ai/code/artifact/a2395931-1194-4a9b-9215-a9e8efc53402), Compassus palette and mark per
+  `brand/BRAND.md` because it goes to a Compassus audience. **Four SEC Form D filings were read in full and
+  three of them disagree with the company's own press release.** Arya's seed was **$7,234,996 sold**, not the
+  announced $4M; its Series A first sale was **18 Aug 2025, 72 days before the announcement**; its registered
+  address on both filings is **19 Kent Court, Princeton NJ — this corrects the roster's New York pin**.
+  MedArrive's Series A Form D shows **$32,843,775 sold to 41 investors** against **$25M announced**, its 2023
+  strategic round **sought $10M and sold $8M to one investor**, its SEC year of incorporation is **2018 not
+  2020**, and it has **filed nothing since 11 Apr 2023**. Board seats are legible in the related-person lists:
+  Aike Ho (ACME) joins Arya at the Series A; Lynne Chou O'Keefe (Define) leaves MedArrive between 2022 and
+  2023. **Axle Health has no EDGAR record of any kind** despite $14.4M raised, and was named by **LifeMD
+  (NASDAQ: LFMD) in a 15 Jul 2021 8-K**. Two decoys recorded and excluded: **CareConnectMD, Inc.**
+  (CIK 0001746369, Huntington Beach CA, five Form Ds) is not our CareConnect, and **VITALISCARE LTD**
+  (Companies House 15774638, 71–75 Shelton Street, renamed from SGR Financial Solutions, sole Swedish director
+  born 2001) is not our Vitalis Care. Verified capital across the six: **$80.56M, all of it in three of them**.
