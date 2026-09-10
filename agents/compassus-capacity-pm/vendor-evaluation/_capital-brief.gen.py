@@ -9,7 +9,7 @@ releases. Everything here carries a source; *not found* is written as not found.
 Compassus palette and the mark, per brand/BRAND.md — this one goes to a
 Compassus audience, so it wears the corporate identity rather than the house one.
 """
-import pathlib, html
+import html, pathlib, re
 
 HERE = pathlib.Path(__file__).resolve().parent
 BRAND = HERE.parents[2] / "brand"
@@ -217,6 +217,130 @@ SRC = [
      "labelled as estimates wherever they appear."),
 ]
 
+
+# ── the investor register ─────────────────────────────────────────────────
+# Only the three vendors with investors. Role is the thing that matters: a
+# studio, a lead, a follower and a payer strategic all behave differently when
+# a portfolio company needs a bridge. Board seats are taken from the Form D
+# related-person lists, which is the only dated, primary evidence of who sits
+# where.
+INVESTORS = [
+ ("MedArrive", "eight named backers · three of them payers or corporates",
+  "**Three of the eight are payers or corporate strategics.** This is a cap table assembled to sell "
+  "to health plans, not to provider organisations — which is consistent with a product that starts at "
+  "a discharge and bills a plan. It is the thing to hold in mind when they pitch us as a provider.",
+  [
+   ("Redesign Health", "Venture studio — built the company", "Launch · Series A",
+    "New York venture studio founded 2018 by Brett Shaheen (ex-Goldman, Carlyle, Lone Pine). Launches "
+    "five or six companies a year; 60+ built, $175M raised Dec 2024 to keep building. "
+    "**MedArrive's entity was created inside the studio — which is why the SEC incorporation year is 2018 "
+    "and the public launch is December 2020.**", "—"),
+   ("Section 32", "**Led the Series A**", "Series A",
+    "Deep-tech and healthcare fund founded by Bill Maris, who founded Google Ventures. "
+    "The $25M announcement names Section 32 as lead — not Kleiner Perkins, as is often repeated.",
+    "**Andy Harrison, Managing Partner — on both Form Ds**"),
+   ("Kleiner Perkins", "Seed lead, stayed through the A", "Seed · Series A",
+    "Menlo Park. One of the oldest and best-known venture firms in the United States.",
+    "**Annie Case — on both Form Ds**"),
+   ("Define Ventures", "Digital-health specialist", "Seed · Series A",
+    "Founded by Lynne Chou O'Keefe, previously a partner at Kleiner Perkins. Digital health only.",
+    "**Lynne Chou O'Keefe — on the 2022 Form D, absent from the 2023 one**"),
+   ("7wireVentures", "New money at the Series A", "Series A",
+    "Chicago digital-health firm founded by Glen Tullman and Lee Shapiro, who built Allscripts and Livongo. "
+    "Genuine operating pedigree in this sector.", "Alyssa Jaffee — board observer"),
+   ("Leaps by Bayer", "Corporate strategic", "Series A",
+    "The impact-investment arm of Bayer AG. Invests in breakthrough healthcare and agriculture, "
+    "not as a financial return vehicle first.", "—"),
+   ("SCAN Health Plan", "**Payer strategic**", "listed on their about page",
+    "A Medicare Advantage plan serving Los Angeles and Orange County. Also a named commercial partner — "
+    "MedArrive delivered COVID boosters to its homebound members in 2021. Investor and customer at once.",
+    "—"),
+   ("Cobalt Ventures", "**Payer strategic — led the 2023 round alone**", "2023 strategic",
+    "A wholly owned subsidiary of **Blue Cross and Blue Shield of Kansas City**. "
+    "The Form D for that round records exactly **one** investor, so Cobalt is that one — "
+    "$8,000,000 of a $10,000,000 offering.", "—"),
+  ]),
+ ("Arya Health", "six named backers, and two groups they will not name",
+  "**Not one home health operator and not one payer is on this cap table.** It is software money — two "
+  "seed funds, an enterprise-software fund and a generalist deep-tech fund. That is a coherent syndicate "
+  "for a company selling admin automation, and it is also why nobody around the table has pushed them to "
+  "model an episode. **The two unnamed groups are the thing to ask about.**",
+  [
+   ("ACME Capital", "**Led the $18.2M Series A**", "Series A",
+    "San Francisco, founded 2013. Fund III was $181M in 2019; the firm closed over $300M for its "
+    "latest funds in 2022. Generalist deep tech with a dedicated digital-health partner.",
+    "**Aike Ho, Partner — first appears on the 2025 Form D, not the 2024 one**"),
+   ("Twelve Below", "**Co-led the seed**", "Seed · Series A",
+    "New York, founded 2021. Pre-seed and seed only; healthcare and digital health are its largest "
+    "portfolio concentration. Three years old at the time it led.",
+    "**Byron Ling — on both Form Ds**"),
+   ("Ridge Ventures", "**Co-led the seed**", "Seed · Series A",
+    "San Francisco. $540M AUM across five funds; Ridge V closed at $180M in April 2023. "
+    "**An enterprise-software fund** — seed and early Series A, post-product and pre-product-market-fit. "
+    "Not a healthcare investor.", "—"),
+   ("Oceans", "Seed participant", "Seed",
+    "New York, founded 2018. Digital health among several sectors including climate, fintech and "
+    "marketplaces.", "—"),
+   ("Nebular", "Seed participant", "Seed",
+    "Fund I is **$30M** — a small fund. Nineteen core positions and five strategic positions.", "—"),
+   ("“Executives from OpenAI”", "**Unnamed individuals**", "Series A",
+    "The release says executives from OpenAI participated and names none of them. The Form D records "
+    "**13 investors** on the Series A and identifies only the related persons above.", "—"),
+   ("“Leading post-acute care providers”", "**Unnamed — ask who**", "Series A",
+    "The release says post-acute care providers invested. **If one of them operates home health, we should "
+    "know which**, because it may be a competitor of ours and it changes what we tell them in a demo.", "—"),
+  ]),
+ ("Axle Health", "six named backers — the strongest syndicate of the three",
+  "**The only one of the three with a healthcare-dedicated institutional lead at Series A**, and F-Prime "
+  "writes $5M–$30M cheques, which means Axle has a lead capable of funding a Series B without new money "
+  "at the table. Lightbank brings a founder who built Tempus. On syndicate quality alone this is the "
+  "safest of the three.",
+  [
+   ("F-Prime Capital", "**Led the $10M Series A**", "Series A",
+    "Cambridge, Massachusetts. **The venture arm of Fidelity Investments** — an independent subsidiary "
+    "with no outside investors, **$5.3B under management**, 370+ portfolio companies, cheques of "
+    "**$5M to $30M**. Formerly Fidelity Biosciences.", "—"),
+   ("Pear VC", "**Led the $4.2M seed**", "Seed · Series A",
+    "Menlo Park, founded 2013 by Pejman Nozad and Mar Hershenson. About **$800M AUM**; Fund IV closed "
+    "**$432M** in May 2023. Pre-seed and seed only, $250K–$5M. Seeded DoorDash, Gusto and Guardant Health.",
+    "—"),
+   ("Lightbank", "Series A participant", "Series A",
+    "Chicago, founded 2010 by **Eric Lefkofsky and Brad Keywell** — the Groupon founders; Lefkofsky also "
+    "founded **Tempus**, the precision-medicine company. About **$700M AUM**, cheques $250K–$5M.", "—"),
+   ("Y Combinator", "Accelerator — **Winter 2021**", "W21 · Series A",
+    "The standard YC deal, roughly $125K at that vintage. YC also participated in the Series A four years "
+    "later, which is a mild positive signal.", "—"),
+   ("TRAC VC  (TRAC AI)", "Seed participant", "Seed",
+    "San Francisco, founded 2019 by Fredrick Campbell and Joseph Aaron. A quantitative, data-driven seed "
+    "firm — it picks companies by model rather than by thesis.", "—"),
+   ("Pioneer Fund", "Alumni fund", "listed on their about page",
+    "A seed fund backed by **300+ Y Combinator alumni as LPs**, founded 2017. Effectively the YC network "
+    "investing in its own.", "—"),
+  ]),
+]
+
+def bold(s: str) -> str:
+    """The investor rows are written with **markdown emphasis** for readability in
+    this file; the page wants real tags."""
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s, flags=re.S)
+
+
+def investor_block(name, count, read, rows):
+    trs = "\n".join(
+      f'<tr><td class="firm">{bold(f)}</td><td class="role">{bold(r)}</td>'
+      f'<td class="rnd">{html.escape(rd)}</td><td class="who">{bold(w)}</td>'
+      f'<td class="seat">{bold(s)}</td></tr>' for f, r, rd, w, s in rows)
+    return f"""
+<article class="invgrp">
+  <header class="invh"><h3>{html.escape(name)}</h3><span>{html.escape(count)}</span></header>
+  <p class="invread">{bold(read)}</p>
+  <div class="tscroll"><table class="inv">
+    <thead><tr><th>Firm</th><th>Role</th><th>Round</th><th>Who they are</th><th>Board seat</th></tr></thead>
+    <tbody>{trs}</tbody>
+  </table></div>
+</article>"""
+
+
 MAX = max(v["raised"] for v in VENDORS if v["raised"])
 
 def bar(v):
@@ -269,6 +393,7 @@ def card(v):
   <p class="also">{v['also']}</p>
 </article>"""
 
+invsec = "\n".join(investor_block(*g) for g in INVESTORS)
 scale = "\n".join(
     f'<li><span class="sn">{html.escape(v["name"])}</span>{bar(v)}</li>' for v in VENDORS)
 cards = "\n".join(card(v) for v in VENDORS)
@@ -392,6 +517,30 @@ h2{{font-family:"Source Serif 4",Georgia,serif; font-size:27px; font-weight:600;
 .also{{margin:0; padding-top:14px; border-top:1px solid var(--rule); font-size:13.5px; color:var(--muted)}}
 .also b{{color:var(--ink); font-weight:600}}
 
+/* investor register */
+.invgrp{{background:var(--card); border:1px solid var(--rule); border-top:3px solid var(--gold);
+  padding:22px 24px 20px; display:flex; flex-direction:column; gap:13px; box-shadow:0 1px 2px var(--shadow)}}
+.invh{{display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap;
+  padding-bottom:10px; border-bottom:1px solid var(--rule)}}
+.invh h3{{font-family:"Source Serif 4",Georgia,serif; font-size:22px; font-weight:600; margin:0; color:var(--navy)}}
+.invh span{{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted)}}
+.invread{{margin:0; font-size:14px; line-height:1.55; max-width:78ch}}
+.invread b{{color:var(--navy)}}
+.tscroll{{overflow-x:auto}}
+table.inv{{border-collapse:collapse; width:100%; min-width:760px; font-size:13px}}
+table.inv th{{text-align:left; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:9.5px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:500;
+  padding:0 14px 8px 0; border-bottom:1px solid var(--rule-2); white-space:nowrap}}
+table.inv td{{padding:11px 14px 11px 0; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.5}}
+table.inv tr:last-child td{{border-bottom:0}}
+td.firm{{font-weight:700; color:var(--navy); white-space:nowrap; min-width:118px}}
+td.role{{min-width:132px; font-size:12.5px}}
+td.rnd{{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; color:var(--muted);
+  white-space:nowrap; min-width:96px}}
+td.who{{color:var(--ink); min-width:290px}}
+td.seat{{font-size:12px; color:var(--filed); min-width:150px}}
+
 /* concentration */
 .conc{{background:var(--band); border-left:3px solid var(--gold); padding:24px 26px;
   display:flex; flex-direction:column; gap:12px}}
@@ -446,6 +595,14 @@ footer code{{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5p
     figure comes from a document signed under penalty of perjury. <span class="prov press">announced</span>
     means it comes from the company.</p>
     {cards}
+  </section>
+
+  <section>
+    <h2>Who is behind the money</h2>
+    <p class="sub">Every named investor in the three funded vendors, with what kind of firm it is and what
+    round it came in at. Board seats are taken from the <b>Form D related-person lists</b> — the only dated,
+    primary evidence of who actually sits at the table.</p>
+    {invsec}
   </section>
 
   <section>
