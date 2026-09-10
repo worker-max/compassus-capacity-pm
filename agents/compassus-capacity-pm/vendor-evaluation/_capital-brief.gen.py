@@ -8,6 +8,12 @@ releases. Everything here carries a source; *not found* is written as not found.
 
 Compassus palette and the mark, per brand/BRAND.md — this one goes to a
 Compassus audience, so it wears the corporate identity rather than the house one.
+
+The PDF is the same file printed: the page carries a @media print block that
+forces the light palette, reflows the investor tables to the paper width and
+keeps each vendor card whole. Render it with:
+
+    python3 _capital-brief.gen.py && python3 _capital-brief.pdf.py
 """
 import html, pathlib, re
 
@@ -555,6 +561,60 @@ td.seat{{font-size:12px; color:var(--filed); min-width:150px}}
 .src p{{margin:0; font-size:12.5px; color:var(--muted); line-height:1.5}}
 footer{{border-top:1px solid var(--rule); padding-top:18px; color:var(--muted); font-size:12.5px; max-width:74ch}}
 footer code{{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px}}
+
+/* ── print ─────────────────────────────────────────────────────────────
+   The brief is handed to a leader on paper as often as on screen. Force the
+   light palette (a viewer's dark mode must not print as a black slab), let the
+   investor tables reflow to the page width, and keep each vendor whole. */
+@media print{{
+  :root{{
+    --navy:#182752; --gold:#F0A91B;
+    --paper:#FFFFFF; --card:#FFFFFF; --ink:#1F2430; --muted:#5C6470;
+    --rule:#D4D8DE; --rule-2:#B9BFC8; --band:#F0F2F5;
+    --filed:#0B6F63; --press:#5C6470; --gap:#9E2F2F; --bar:#182752;
+    --shadow:transparent;
+  }}
+  @page{{ size:Letter portrait; margin:14mm 13mm 16mm; }}
+  body{{background:#fff; font-size:10.2px; line-height:1.48}}
+  .wrap{{max-width:none; padding:0; gap:24px}}
+  h1{{font-size:30px}}
+  h2{{font-size:17px}}
+  .lede{{font-size:11.5px}}
+  .mast img{{width:112px; background:none; padding:0}}
+  .vendor,.invgrp{{
+    box-shadow:none; padding:14px 15px 12px; gap:11px;
+    break-inside:avoid; page-break-inside:avoid;
+  }}
+  .vendor{{border-top-width:2.5px}}
+  .invgrp{{border-top-width:2.5px}}
+  section{{break-inside:auto}}
+  h2{{break-after:avoid; page-break-after:avoid}}
+  .vh h3,.invh h3{{font-size:16px}}
+  .vh-fig b{{font-size:21px}}
+  .thesis{{font-size:12.5px}}
+  .find{{break-inside:avoid; page-break-inside:avoid}}
+  .find h4{{font-size:10.4px}}
+  .find p,.also,.invread{{font-size:9.8px}}
+  .finds{{grid-template-columns:1fr 1fr; gap:0 18px}}
+  .rounds li{{padding:7px 0}}
+  /* let the register fit the page instead of scrolling */
+  .tscroll{{overflow:visible}}
+  table.inv{{min-width:0; width:100%; font-size:9.4px; table-layout:fixed}}
+  table.inv th,table.inv td{{padding:6px 8px 6px 0; word-wrap:break-word; overflow-wrap:anywhere}}
+  table.inv tr{{break-inside:avoid; page-break-inside:avoid}}
+  td.firm{{min-width:0; width:13%}}
+  td.role{{min-width:0; width:15%; font-size:9.2px}}
+  td.rnd{{min-width:0; width:11%; font-size:8.6px}}
+  td.who{{min-width:0; width:44%}}
+  td.seat{{min-width:0; width:17%; font-size:8.8px}}
+  .scale li{{padding:7px 0}}
+  .conc{{break-inside:avoid; page-break-inside:avoid; padding:16px 18px}}
+  .conc .big{{font-size:14px}}
+  .srcs{{grid-template-columns:1fr 1fr}}
+  .src p{{font-size:9px}}
+  footer{{font-size:9px; break-inside:avoid}}
+  a{{color:inherit; text-decoration:none}}
+}}
 
 @media (max-width:640px){{
   .wrap{{padding-block:32px 24px; gap:40px}}
