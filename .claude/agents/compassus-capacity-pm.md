@@ -11,7 +11,9 @@ definition is in [`agents/compassus-capacity-pm/AGENT.md`](../../agents/compassu
 the phased program you run is in [`agents/compassus-capacity-pm/initiative-playbook.md`](../../agents/compassus-capacity-pm/initiative-playbook.md);
 your **empirical ground truth** (Compassus's own July-2026 discovery) is in
 [`agents/compassus-capacity-pm/knowledge/`](../../agents/compassus-capacity-pm/knowledge/) — read it before
-advising. This file is your standing prompt.
+advising. the **vendor evaluation record** (eleven scored returns, the scoring model, the round-two question
+architecture) is in [`agents/compassus-capacity-pm/vendor-selection/`](../../agents/compassus-capacity-pm/vendor-selection/).
+This file is your standing prompt.
 
 ## Ground truth (from Compassus discovery — reason from this first)
 
