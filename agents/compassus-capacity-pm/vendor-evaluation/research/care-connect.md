@@ -1,6 +1,6 @@
 # CareConnect — research dossier
 
-Researched 2026-09-05 · sources retrieved 2026-09-05 · confidence: **medium**
+Researched 2026-09-14 · sources retrieved 2026-09-14 · confidence: **medium**
 
 *Confidence note.* Company facts (registration, ownership, leadership, product timeline) come from
 the company's own press releases as carried by PR Newswire and trade press, and agree across a
@@ -46,7 +46,7 @@ Homebase.
 | Headcount, and trend | "Approximately 92 employees" as of June 2026 (LeadIQ / Caplight). Twelve-month trend **not found**; LinkedIn gated. | [15] · [16] |
 | Leadership | **Matthew McGinty**, CEO since 1 Aug 2023; previously Chief Revenue Officer at IntelyCare (nurse staffing marketplace), "20 years of cross-industry SaaS". **Andrew Packer**, joined Jan 2024 as Chief Growth Officer, now COO; previously IntelyCare commercial operations and GM. **Karibeth Nealon**, CFO since 14 Nov 2024; previously CFO/COO of Luminoso Technologies (AI text analytics). **Michael Appel**, GM/SVP Homecare since 7 Jan 2025; previously AlayaCare US home care market leader and corporate development. **Bert Brodsky**, Chairman, stepped down as CEO in 2023. **No CTO or head of product found by name.** No one found with skilled home health (Medicare-certified) operations or clinical background; the bench is sales, commercial operations and finance from staffing marketplaces and a home care EMR. | [2] · [3] · [20] · [21] · [22] |
 | Acquisitions, mergers, pivots, rebrands | No acquisitions. Same market throughout (home care aides). **Repositioned twice by name:** "caregiver management application" (2019) → "AI-powered Caregiver Workflow Optimization platform" (2023–24) → "Workforce Operating System" (2025), "Workforce Operating System 2.0" (26 Jan 2026). Product surface widened fast: ShiftMatch.AI (Jan 2024), Caregiver Choice (1 May 2024), Home Care Insights and ATS relaunch (10 Sep 2024), ATS open access (Nov 2024), Mobile Health medicals (Feb–Apr 2025), CareConnect Engage with CoachUp Care (2025), Caregiver Choice 2.0 and CareCommunity (Jan 2026), CareConsortium eLearning (13 Apr 2026), Cinematic Health (11 Jun 2026). | [4] · [5] · [6] · [7] · [8] · [9] · [10] · [11] · [12] |
-| Litigation, breaches, regulatory actions | **Not found.** Searches return only unrelated companies sharing the name. | search, 2026-09-05 |
+| Litigation, breaches, regulatory actions | **Not found.** Searches return only unrelated companies sharing the name. | search, 2026-09-14 |
 | Lines of business, and the share that is home health | One business: workforce software and services for **home care** (personal care aides, CDPAP, licensed home care agencies), heavily New York. Marketing since 2025 says "homecare, home health, and long-term care", and CareConsortium mentions "nurses, aides, and therapists". **Skilled home health share: no evidence of any.** No Medicare-certified agency named as a customer. | [1] · [11] · [13] |
 
 ## The product
@@ -56,26 +56,26 @@ Homebase.
 | What it does, in their words | "AI-powered Workforce Operating System [that] streamlines caregiver recruitment, engagement, and retention for home care organizations in one, end-to-end solution." ShiftMatch.AI "uses AI to understand Caregiver and Coordinator behavior, and can recommend which Caregivers are most likely to accept certain shifts"; identifies "the most compatible, lowest-cost caregivers for each case". Caregiver Choice lets caregivers "request shifts and build their schedules"; 2.0 adds "AI caregiver chatbots, care coordinator chat bots, auto-dialers". "Coordinators maintain full oversight with visibility into overtime, compliance risks, and scheduling control." The matching algorithm weighs "compliance, location, cost, availability, skills and travel time" (2019). WOS 2.0 claims the AI "can effectively predict completion of care plans and predict an agency's hiring needs well in advance". CareCommunity lets agencies "share idle caregiver or clinician capacity with another agency" for a fee. | [1] · [4] · [5] · [10] · [23] |
 | What it does, in a customer's words | **Not found.** No customer quote, talk or case study located. The only customer-side statements are two 2019–2020 releases issued by Sandata (a sister company) about Help at Home and Partners in Care. | [24] · [25] |
 | Capacity, scheduling, engagement — which arenas the public material covers | **Capacity:** partial and aide-shaped. Matching by availability, skills, travel, cost and compliance; overtime visibility; a hiring-need forecast claimed; a cross-agency pool for idle capacity. No evidence of a capacity envelope by discipline, productivity targets, or episode demand. **Scheduling:** real, for hourly aide shifts. Caregiver picks from offered shifts; coordinator oversees; auto-dialers and chatbots fill gaps. The unit is a shift on a case, not a visit in an episode. No evidence of visit assignment, reassignment, coverage escalation or route. **Engagement:** caregiver engagement, not patient. **No patient outreach, confirmation or intake found anywhere.** | [1] · [4] · [5] · [10] · [23] |
-| Evidence of an HCHB integration | **Not found.** Not on HCHB partner pages as indexed; no press naming both; no customer; no job posting. The partner page lists HHAeXchange, Sandata, AlayaCare, Axxess, ADP, Mobile Health, CareAcademy, myCNAjobs. | [13] · search, 2026-09-05 |
+| Evidence of an HCHB integration | **Not found.** Not on HCHB partner pages as indexed; no press naming both; no customer; no job posting. The partner page lists HHAeXchange, Sandata, AlayaCare, Axxess, ADP, Mobile Health, CareAcademy, myCNAjobs. | [13] · search, 2026-09-14 |
 | Other EMR integrations named | **Sandata** Agency Management (Aug 2019; single sign-on Mar 2023). **HHAeXchange** Partner Connect, listed in the *eLearning* category, integration described as SSO from the HHAeXchange app to the CareConnect app. **AlayaCare** partnership, mechanism and date not found. **Axxess** partnership announced 7 Jan 2025, mechanism not found; the one skilled-home-health EMR on the list. **ADP** Workforce Now (ATS, "Summer 2025"). Google Maps Platform via Woolpert (Oct 2019) for travel time. | [24] · [26] · [27] · [13] · [22] · [28] |
 | Agentic or automated outreach | **Real, aimed at caregivers:** chatbots for caregivers and coordinators, auto-dialers, SMS and push (WOS 2.0, Jan 2026; SafeCare SMS/push 2020). **Patient outreach: absent.** | [10] · [25] |
 | Clinician-facing app | **Exists.** Google Play `com.careconnectmobile.android`: 4.53 stars on about 2,400 ratings, about 95,000 downloads, about 1,200 in the last 30 days (AppBrain). iOS: two listings, *CareConnect for Caregivers* (id 1364337839) and *CareConnect Mobile* (id 1493146501), by "Care Connect, LLC"; reviews mixed, praise from home health aides, complaints of bugs and stuck trainings. Functions: request shifts, view schedule, set unavailability, directions, preferences, chat with coordinator, eLearning. | [29] · [30] · [31] |
 | Pricing signals | Capterra lists "$129 flat rate per month" starting price. WOS 2.0 release: "performance-based pricing to small and medium-sized agencies". CareConsortium: "50%+ cost savings" on eLearning. | [32] · [10] · [11] |
-| Security and continuity | **No SOC 2, HITRUST or ISO claim found.** No uptime figure or SLA found. A StatusGator page exists for "CareConnect" reporting "more than 31 outages" over eight months across "19 components"; **not confirmed to be this company** (the name is shared) and treated as unverified. | [33] · search, 2026-09-05 |
+| Security and continuity | **No SOC 2, HITRUST or ISO claim found.** No uptime figure or SLA found. A StatusGator page exists for "CareConnect" reporting "more than 31 outages" over eight months across "19 components"; **not confirmed to be this company** (the name is shared) and treated as unverified. | [33] · search, 2026-09-14 |
 
 ## The customers
 
 | Fact | Finding | Source · date |
 |---|---|---|
-| Named home health customers, with size | **None** in skilled home health. | search, 2026-09-05 |
+| Named home health customers, with size | **None** in skilled home health. | search, 2026-09-14 |
 | Named customers, any setting | **Help at Home** (enterprise agreement via Sandata, Aug 2019, "nationwide"; current status not found). **Partners in Care / VNSNY** (SafeCare COVID screening tool, Apr 2020; a division of a 13,600-employee organisation). **Royal Care** (a jobs page on CareConnect's site implies a customer; not confirmed). **1199SEIU** and the CareAcademy New York deal serving "the largest healthcare union in the country" (Aug 2025; a partnership, not a customer). **Pennsylvania Homecare Association**, **AHHC of NC/SC** (association partnerships, Jan 2025). | [24] · [25] · [34] · [35] · [22] |
 | Largest known deployment | Help at Home, 2019, if still live. No caregiver or agency count for the platform found anywhere. | [24] |
-| Customers lost or churned | **Not found.** | search, 2026-09-05 |
+| Customers lost or churned | **Not found.** | search, 2026-09-14 |
 | Case studies — what was measured, period, baseline | No case study with a named customer found. Figures, all without period, baseline or site count: "booking 40%+ more shifts" (also given as "20–40% more shifts"); coordinators save "25% or more of their time"; onboarding "up to 40% faster" with medicals; "50%+ cost savings" on eLearning; "80% growth in revenue" in 2023 (base not given). | [5] · [36] · [9] · [11] · [4] |
 
 ## What the outside view says about the questionnaire
 
-Written 2026-09-05, before reading the return.
+Written 2026-09-14, before reading the return.
 
 - **A1.** Expect no HCHB integration and expect the word *integrates* to be doing a lot of work. The public integrations are single sign-on into a caregiver app and partner listings whose mechanism is not published. **RF-01** if the return claims bi-directional or real-time anything; ask what data moves, which way, and how often. Axxess is the only skilled-home-health EMR they have touched.
 - **A2.** They almost certainly have many customers, but they are aide agencies, mostly New York Medicaid. **RF-16** on the first half: skilled home health is not their business. On the second half they may say we would not be their largest, and by headcount that could be true (Help at Home is large). The right question is not size but kind: name one Medicare-certified agency live today.
@@ -116,7 +116,7 @@ For the demo or the reference call. One line each.
 
 ## Not found
 
-Looked for and not found, so nobody looks again (as of 2026-09-05):
+Looked for and not found, so nobody looks again (as of 2026-09-14):
 
 - Any Medicare-certified home health agency as a customer.
 - Any pairing with Homecare Homebase or HCHB.
@@ -133,7 +133,7 @@ Looked for and not found, so nobody looks again (as of 2026-09-05):
 
 ## Sources
 
-All retrieved 2026-09-05 via search-engine indexing; direct page reads were blocked by the network
+All retrieved 2026-09-14 via search-engine indexing; direct page reads were blocked by the network
 policy of the researching session.
 
 1. careconnectmobile.com: home, for-organizations, for-caregivers, agency, partners, team, support. Vendor site. Indexed.

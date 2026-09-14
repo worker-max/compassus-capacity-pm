@@ -1,6 +1,6 @@
 # UnityAI — research dossier
 
-Researched 2026-09-05 · sources retrieved 2026-09-05 · confidence: **medium**
+Researched 2026-09-14 · sources retrieved 2026-09-14 · confidence: **medium**
 
 *Confidence note.* Company facts (founding, funding, leadership, pivot) are corroborated by six or more
 independent outlets and are high. Product and customer facts rest on the vendor's own releases as
@@ -37,7 +37,7 @@ Homebase.
 | Headcount, and trend | "22 total employees" (CB Insights snippet, undated). "20-person engineering team" (Vapi case study, June 2026). Twelve-month trend not found: LinkedIn is gated. Three to five open roles in Nashville: Senior Data Engineer – Integrations, Principal Engineer, Principal Data Engineer, "Build your role" (operations), Senior Full-stack Software Engineer. | [18] · [19] · [20] · [21] |
 | Leadership | **Dr Edmund Jackson**, co-founder and CEO: former chief data officer and chief data scientist, HCA Healthcare; PhD statistical signal processing, Cambridge; earlier career in London quantitative hedge funds; time at Whistler Capital Partners before founding. **Dr Jason Parker**, co-founder: former director of data science, HCA. **Cody Hall**, co-founder: former data scientist, HCA. **Nathan Watkins**, VP of Engineering. **Ryan Gilreath**, Principal Engineer. No one found with a home health, home care, hospice or Homecare Homebase background. No one found from clinical practice or field operations. No commercial officer (sales, customer success) found by name. | [3] · [6] · [7] · [15] · [16] |
 | Acquisitions, mergers, pivots, rebrands | No acquisitions found. **Two repositionings in three years:** (1) 2023–24: "care orchestration" for **hospital flow**, "bed management", "clinical playbooks", using "reinforcement learning AI and classical optimization" (seed release; NCN still describes the company as "AI-enabled clinical workflow and bed management applications in acute care settings"). (2) 2025: "shifted its focus to multi-site outpatient providers"; four voice agents launched 23 Sep 2025. (3) 27 Apr 2026: StaffOps staffing module. Company name unchanged throughout. | [3] · [8] · [9] · [10] · [23] |
-| Litigation, breaches, regulatory actions | **Not found.** Searches return only Unity Software Inc., an unrelated games company. | search, 2026-09-05 |
+| Litigation, breaches, regulatory actions | **Not found.** Searches return only Unity Software Inc., an unrelated games company. | search, 2026-09-14 |
 | Lines of business, share that is home health | One line: AI agents for healthcare operations. Verticals named on the site: oncology, behavioural health, dental, ambulatory surgery centres; press adds radiology, substance-abuse, primary care, "private equity-backed ambulatory networks with 100–200 clinics". **Home health share: zero found.** Not on the site's specialties, not in any release, not in any article. | [1] · [8] · [14] · [19] |
 
 ## The product
@@ -47,10 +47,10 @@ Homebase.
 | What it does, in their words | "Autonomous operations for healthcare." An "agentic AI workforce" that "performs real operational work". Four agents (Sep 2025): **Scheduling** ("integrates with electronic medical records to book and reschedule"), **Confirmation** (reminders and prep instructions), **Intake** (demographics, history, insurance; "verifying benefits and populating the EMR in advance"), **Follow-up** (post-visit outreach, next appointment). Runs "across phone, SMS, email, and chat in more than 90 languages". **StaffOps** (Apr 2026): "integrates directly with the EHR and human resources systems", gives managers "a real-time view of patient appointments, including cancellations and reschedules"; staff "can request shifts, release shifts they cannot work and submit PTO requests through a single interface"; agents handle "call-offs and coordinating shift changes in real time" by voice and SMS. Deployable "in under 30 days without new infrastructure". | [1] · [8] · [9] · [10] · [11] |
 | What it does, in a customer's words | Only one customer speaks publicly: Peregrine Health, whose release (14 Oct 2025) describes "Emma", a "virtual care navigator" built on UnityAI that automates "scheduling, referral management, follow-ups, and patient communication" for FQHC behavioural-health services. The release is co-issued and reads as vendor copy. **No conference talk, panel or independent customer interview found.** Tennessee Oncology is named by UnityAI; no statement from Tennessee Oncology found. | [13] · [14] |
 | Which of the three arenas the public material covers | **Engagement:** the core of the product. Patient-facing outreach, confirmation, rebooking, intake, follow-up, by voice. Strong and real. **Capacity:** partial, and clinic-shaped. StaffOps reads appointment demand and matches *shift* supply; the unit is a shift at a site, not a visit in a home or an episode. No evidence of availability windows, productivity targets, geography, discipline mix or a capacity envelope. **Scheduling:** appointment slotting for clinics, including "intelligently overbook based on no-show probability". No evidence of visit assignment, clinician self-plotting, reassignment, coverage escalation or route. **This is a clinic product.** | [1] · [8] · [10] · [19] |
-| Evidence of an HCHB integration | **Not found.** Not on HCHB's partner ecosystem or recommended-partner pages as indexed. No press naming both companies. No customer statement. No job posting mentioning HCHB. The two searches pairing "UnityAI" with "Homecare Homebase" return only HCHB's own AI tools and its Element5 partnership. | search, 2026-09-05 · [24] · [25] |
+| Evidence of an HCHB integration | **Not found.** Not on HCHB's partner ecosystem or recommended-partner pages as indexed. No press naming both companies. No customer statement. No job posting mentioning HCHB. The two searches pairing "UnityAI" with "Homecare Homebase" return only HCHB's own AI tools and its Element5 partnership. | search, 2026-09-14 · [24] · [25] |
 | Other EMR integrations named | **None named.** Every source says "integrates with the EHR/EMR" or "deep EMR integration" without naming a system. StaffOps also claims HR-system integration, unnamed. One open role is "Senior Data Engineer – Integrations". | [8] · [10] · [20] |
 | Agentic or automated patient outreach | **Real.** This is the product. Voice agents at scale; 150,000 (Fierce, Sep 2025), 200,000 (release, Sep 2025), "250,000+ monthly patient calls" (Vapi, Jun 2026), "over 300,000 patient interactions per month" (Series A, Mar 2026). **The voice layer runs on Vapi**, a third-party voice-AI platform: Vapi publishes UnityAI as a customer case study ("How 20 Engineers Built…", "grows revenue 5X with voice agents"). UnityAI's own material does not name Vapi. | [8] · [9] · [12] · [19] |
-| Clinician-facing app | **Not found** in the Apple App Store or Google Play. StaffOps is described as a self-service interface for staff; delivery channel appears to be web plus SMS and voice. One search snippet mentioned a Microsoft Store listing; not corroborated and treated as not found. | search, 2026-09-05 · [10] |
+| Clinician-facing app | **Not found** in the Apple App Store or Google Play. StaffOps is described as a self-service interface for staff; delivery channel appears to be web plus SMS and voice. One search snippet mentioned a Microsoft Store listing; not corroborated and treated as not found. | search, 2026-09-14 · [10] |
 | Pricing signals | **Not found.** No public pricing; "contact them" only. Vapi's case study describes UnityAI's revenue growing "5X", period not stated. | [19] · [26] |
 | Security and continuity | Site claims HIPAA compliant, **SOC 2 Type II** attested, **ISO 27001** certified. No uptime figure, no SLA, no status page found. Voice availability depends on Vapi's. | [1] (search snippet) |
 
@@ -58,15 +58,15 @@ Homebase.
 
 | Fact | Finding | Source · date |
 |---|---|---|
-| Named home health customers | **None.** | search, 2026-09-05 |
+| Named home health customers | **None.** | search, 2026-09-14 |
 | Named customers, any setting | **Tennessee Oncology** (large oncology group, Nashville). **Peregrine Health** (behavioural health for FQHCs; "exclusive partnership", Oct 2025). Unnamed: "a national outpatient provider with over 300 sites"; "national dental service organizations"; "value-based care providers"; "private equity-backed ambulatory networks with 100–200 clinics". | [12] · [13] · [14] · [19] |
 | Largest known deployment | The unnamed 300-plus-site outpatient provider. Site counts across releases: "350+ sites" (Mar 2026), "about 120 sites of care" on StaffOps (Apr 2026), "hundreds of care sites". | [12] · [10] |
-| Customers lost or churned | **Not found.** No hospital customer from the 2023–24 bed-flow era is named anywhere, which is consistent with none surviving the pivot, but that is inference and is not written as fact. | search, 2026-09-05 |
+| Customers lost or churned | **Not found.** No hospital customer from the 2023–24 bed-flow era is named anywhere, which is consistent with none surviving the pivot, but that is inference and is not written as fact. | search, 2026-09-14 |
 | Case studies: what was measured, over what period, with what baseline | Every figure is a percentage without period, baseline or method. **Platform-wide:** "90% of scheduling tasks without human staff involvement", "escalations under 6%", "25% increase in converted referrals", "65% workforce savings in supported operational areas", "2x higher patient reach rates". **Four agents (Sep 2025):** 25% more referral scheduling, 9% more completed appointments, 16% fewer no-shows. **300-site provider:** 26% scheduler productivity, 30% fewer no-shows. **Peregrine:** "90% reduction in workforce requirements for scheduling and referrals", "70% increase in scheduled visits", "15% reduction in no-shows". **Site:** "4.5x ROI, 25% more appointments, 29% scheduler productivity". The scheduler-productivity figure is 26% in one place and 29% in another. | [8] · [9] · [12] · [13] · [14] |
 
 ## What the outside view says about the questionnaire
 
-Written 2026-09-05, before reading the return.
+Written 2026-09-14, before reading the return.
 
 - **A1.** Expect no live HCHB integration. There is no public trace of HCHB, no named EMR of any kind, and the company's integration hiring is current. A rung of *Will build* or *API-based, not yet live* would match the record; anything higher needs a customer to confirm it. Watch for **RF-01** (integration claimed without mechanism) and for the voice layer being described as theirs when it is Vapi's (**RF-03**, core scope through an unnamed partner).
 - **A2.** Real customers exist, but in outpatient clinics. Compassus would be their **first home health customer**, and at roughly three thousand clinicians probably their largest by workforce, against a typical customer of 100 to 200 clinics. **RF-16** is the expected flag, on both halves: home health is a minority (in fact zero) of the business, and we would be their largest by a multiple. References, if offered, will be oncology, behavioural or dental.
@@ -105,7 +105,7 @@ For the demo or the reference call. One line each.
 
 ## Not found
 
-Looked for and not found, so nobody looks again (as of 2026-09-05):
+Looked for and not found, so nobody looks again (as of 2026-09-14):
 
 - Any mention of home health, home care, hospice, post-acute, in-home, skilled nursing or senior living in UnityAI's material or coverage.
 - Any pairing of UnityAI with Homecare Homebase or HCHB, on either company's pages or in press.
@@ -123,7 +123,7 @@ Looked for and not found, so nobody looks again (as of 2026-09-05):
 
 ## Sources
 
-All retrieved 2026-09-05 via search-engine indexing; direct page reads were blocked by the network
+All retrieved 2026-09-14 via search-engine indexing; direct page reads were blocked by the network
 policy of the researching session. "Indexed" means the fact was read from the indexed text of the page.
 
 1. unityai.co, home, solutions, specialties (oncology, behavioral-health), company, careers. Vendor site. Indexed.

@@ -1,6 +1,6 @@
 # Vendor research — session handoff
 
-**Written:** 2026-09-05, end of the first research session
+**Written:** 2026-09-14, end of the first research session
 **For:** the next Claude session doing vendor research, and the PM
 **Branch:** `claude/vendor-research-brief-review-tvi3au`. Nothing vendor-related is on `main`.
 Check this branch out first; without it you have no brief, no pack, no dossiers, no CLAUDE.md.
@@ -65,7 +65,7 @@ Things learned in the first session that the brief does not yet say:
 
 ## 4. The cross-vendor matrix (agreed, not built)
 
-The PM agreed the plan on 2026-09-05 and saw a mock:
+The PM agreed the plan on 2026-09-14 and saw a mock:
 https://claude.ai/code/artifact/77f74f83-3084-449d-b165-837522928b1d
 
 - Each dossier gets a short structured header block, about twenty-four fields, above the prose.
@@ -83,7 +83,7 @@ Do not build it until the PM confirms the row set. When they do, retrofit `unity
 
 ## 5. Brief edits still pending
 
-From the review of `10-VENDOR-RESEARCH-BRIEF.md` on 2026-09-05, not yet applied. The PM has seen
+From the review of `10-VENDOR-RESEARCH-BRIEF.md` on 2026-09-14, not yet applied. The PM has seen
 the list and not yet said which to take:
 
 1. Who reconciles dossier and highlight brief. The reading Claude is forbidden from using anything

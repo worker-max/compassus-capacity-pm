@@ -76,13 +76,68 @@ Electronic Visit Verification. Do not invent these.
 
 ## Vendor research sessions
 
-A separate session will research each of the sixteen vendors from public sources. Read
-`handoff/00-START-HERE.md` and `handoff/01-INITIATIVE-BRIEF.md` first, then follow
+A separate session researches each vendor from public sources; the PM expects about ten of the
+sixteen. Read `handoff/00-START-HERE.md` and `handoff/01-INITIATIVE-BRIEF.md` first, then follow
 `handoff/10-VENDOR-RESEARCH-BRIEF.md`. Write one dossier per vendor to
 `agents/compassus-capacity-pm/vendor-evaluation/research/<vendor-slug>.md`, in the template the
 brief gives. The dossier exists to test what the vendor claimed on the form and to inform the
 Durability intangible, the A2 scale flag and the A1 integration rung. It never scores. Every fact
 carries a source and a date; anything not found is written as *not found*, never inferred.
+**Before starting one, read `research/00-SESSION-HANDOFF.md`**: it carries the current state, the
+first job, and the starter prompt.
+
+**Dossiers so far** (both written 2026-09-14, before reading the return, medium confidence):
+
+| Vendor | Slug | The finding in one line |
+|---|---|---|
+| UnityAI | `unity-ai` | Nashville, 2023, ex-HCA data scientists; voice agents for outpatient clinics; $15M raised, ~22 staff; no home health anywhere, no HCHB trace, no EMR named, voice layer runs on Vapi; 0 of 14 impact figures carry a baseline |
+| CareConnect, LLC | `care-connect` | Port Washington NY, 2017, founded and chaired by Bert Brodsky (Sandata founder); aide-shift matching for home care agencies; privately held, ~92 staff; no skilled home health customer named, no HCHB trace, integrations are SSO and partner listings; leadership all commercial, no CTO named; no patient-facing capability |
+
+**Method, learned the hard way.**
+
+- **Identity first.** Vendor names collide. "Care Connect" matched five companies. Pin the legal
+  entity, site and address, write an *Identity* paragraph under the header, and ask the PM to
+  confirm against the return's contact email domain. Slug is the company's own spelling,
+  lowercased and hyphenated.
+- **Ownership explains the partner list.** Look for the founder's other companies before reading
+  a partnerships page. CareConnect's "strategic partners" were mostly sister companies.
+- **Cite red-flag ids in the outside-view section.** RF-01, RF-03, RF-05, RF-07, RF-12, RF-16 and
+  RF-18 have come up for both vendors. The catalogue is `handoff/07-RED-FLAGS.md`.
+- **Gated is not not-found.** LinkedIn, PitchBook, Crunchbase, Axios Pro and state registries
+  behind a search form are written as *gated*. Headcount trend and valuation usually stay open.
+- **Count the impact figures.** "N of M carry a period, baseline or site count" is the single most
+  useful line for the leader. Both vendors so far are 0 of N.
+- **Name the scheduling unit.** A visit in an episode, a shift on a case, or a clinic slot. Map
+  the product to the three arenas in one cell. Neither vendor so far is visit-based.
+- **Search snippets are a fallback, not the method.** The first session's cloud environment was on
+  the Trusted network level, which blocks vendor sites, trade press, HCHB partner pages, app
+  stores and job boards; every fact came from search-engine indexing and confidence was capped at
+  medium. The PM set the Default environment to **Full** on 2026-09-14. Sessions started after
+  that read pages directly. If a fetch returns `EGRESS_BLOCKED`, say so in the confidence note
+  rather than working around it. A running session does not pick up an environment change.
+- **Second read.** With the network open, the next session re-reads the primary sources listed in
+  each dossier's confidence note and raises it to high, adding a dated line saying what changed.
+
+**The cross-vendor matrix** (agreed 2026-09-14, mock shown, not built). Dossiers stay the source
+of truth. Each gets a structured header block of about twenty-four fields above the prose.
+`_research-matrix.gen.py` reads every `research/*.md` and writes `Vendor-Research-Matrix.xlsx`
+(facts down, vendors across, same orientation as the scorecard; source numbers in cell comments;
+*not found* tinted; fact column frozen; no charts) and `research/00-FIELD-NOTES.md`. It is a
+separate workbook, not a tab in the scorecard, because the scorecard is hand-filled and
+regenerating it would wipe marks. The PM has not yet confirmed the row set; do not build until
+they do. Mock: https://claude.ai/code/artifact/77f74f83-3084-449d-b165-837522928b1d.
+
+**Pending edits to `10-VENDOR-RESEARCH-BRIEF.md`** from the 2026-09-14 review, not yet applied and
+not yet chosen by the PM: (1) who reconciles dossier and highlight brief, since the reading Claude
+may use nothing outside the return and nobody is named to merge the two, proposed the PM into the
+Durability and Section A notes; (2) a vendor roster with fixed slugs; (3) red-flag ids in the
+watch-list; (4) a one-line confidence rubric; (5) gated written as gated; (6) a named owner for the
+field-notes hand-back; (7) table separator rows in the template, a date and version stamp, a
+recency window on press, a depth cap.
+
+**The two other CareConnects**, for the identity check: CareConnect Inc. (careconnectinc.com,
+Daniel Aroustamian, AI consultancy for adult day health centres) and Netsmart's CareConnect
+interoperability product. Neither is our vendor.
 
 ## How we work
 
@@ -102,8 +157,15 @@ carries a source and a date; anything not found is written as *not found*, never
 - **Things the user has ruled out.** Penalising brevity. Prescribing what earns a 4 on clinician
   fit. Softening *sophistication* to *product quality*. Remarks about how long grading takes.
   Per-vendor tabs in the workbook. Sending files before showing visuals.
-- **Git.** Branch `claude/compassus-vendor-scoring-gvteqz`. Commit messages end with the
-  co-author and session trailer. Never put a model identifier in a committed artifact.
+- **Git.** Current branch `claude/vendor-research-brief-review-tvi3au`, fast-forwarded from
+  `claude/compassus-vendor-scoring-gvteqz`; it holds everything vendor-related, this file
+  included, and **none of it is on `main`**. A new cloud session clones `main`, so check the branch
+  out first. Commit messages end with the co-author and session trailer. Never put a model
+  identifier in a committed artifact.
+- **Dates.** Take the date from the environment clock, never from the last commit. The first
+  research session dated two dossiers nine days early that way.
+- **Cloud environment.** Default is set to Full network access as of 2026-09-14. Research needs
+  it; the scorecard work does not care.
 - **Drive.** Publishing to the Compassus Claude follows `librarian/merge-tank/HANDOFF-0`: write in
   `from-repo/`, add a ledger row, never edit a file you do not own.
 
@@ -114,9 +176,10 @@ carries a source and a date; anything not found is written as *not found*, never
   (five-row frozen header, KEY column, notes open and merged per section, alternate-vendor tint,
   one validation per row after Google Sheets dropped a long list). Handoff pack built with three
   planning subagents and shipped as `Vendor-Highlights-Handoff.zip`. This file created.
-- **2026-09-05, research session 1.** Branch `claude/vendor-research-brief-review-tvi3au`
+- **2026-09-14, research session 1.** Branch `claude/vendor-research-brief-review-tvi3au`
   (fast-forwarded from the scoring branch; all vendor work lives here, none on `main`). Reviewed
-  `10-VENDOR-RESEARCH-BRIEF.md`; edits pending. Dossiers written for UnityAI and CareConnect, both
-  medium confidence because the session's network level blocked direct page reads; Default
-  environment since set to Full. Cross-vendor matrix agreed in principle, mock shown, not built.
+  `10-VENDOR-RESEARCH-BRIEF.md`; seven edits pending. Dossiers written for UnityAI and
+  CareConnect, both medium confidence because the session's network level blocked direct page
+  reads; Default environment since set to Full. Cross-vendor matrix agreed in principle, mock
+  shown, not built. Dossier dates corrected from 09-05 to 09-14 at the end of the session.
   Everything the next session needs is in `vendor-evaluation/research/00-SESSION-HANDOFF.md`.
