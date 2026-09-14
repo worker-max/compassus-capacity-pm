@@ -1,0 +1,144 @@
+{
+  "source": "Compassus Capacity & Scheduling Vendor Questionnaire — Overview tab (form_version 2026-08-19)",
+  "note": "The 41 elements Compassus specified on the one-pager. Footprint = how many of these a vendor covers.",
+  "arenas": [
+    {
+      "id": "CAP",
+      "name": "Capacity Management",
+      "kicker": "The envelope",
+      "definition": "How much work a branch can deliver, and how much room is left.",
+      "groups": [
+        {
+          "name": "Workforce supply",
+          "b_area": 1,
+          "elements": [
+            {"id": "CAP-01", "text": "Roster by discipline, role (assessing vs. assistant), FTE and employment type"},
+            {"id": "CAP-02", "text": "Start-of-care capable clinicians, measured as their own distinct capacity"},
+            {"id": "CAP-03", "text": "Specialty competencies, plus orientation and ramp status"},
+            {"id": "CAP-04", "text": "Per-diem and float pool"},
+            {"id": "CAP-05", "text": "On-call and weekend rotation load"}
+          ]
+        },
+        {
+          "name": "Availability & reach",
+          "b_area": 2,
+          "elements": [
+            {"id": "CAP-06", "text": "Approved time off and working availability"},
+            {"id": "CAP-07", "text": "Clinician territory assignment by zip, against branch coverage area"},
+            {"id": "CAP-08", "text": "Reachability from the clinician's home base, measured by drive time"}
+          ]
+        },
+        {
+          "name": "The capacity math",
+          "b_area": 3,
+          "elements": [
+            {"id": "CAP-09", "text": "Visit weighting — the point value per visit type, and the productivity target and ceiling it is measured against"},
+            {"id": "CAP-10", "text": "Committed load vs. open room, by day, week, discipline and territory"},
+            {"id": "CAP-11", "text": "Referral inflow and discharge outflow against the envelope"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SCH",
+      "name": "Scheduling Engine",
+      "kicker": "Filling the envelope",
+      "definition": "Which clinician, which day, which route.",
+      "groups": [
+        {
+          "name": "Demand",
+          "b_area": 4,
+          "elements": [
+            {"id": "SCH-01", "text": "Plan-of-care orders, ordered frequency and visit types, from the EMR (Home Care Home Base) and the intake platform"},
+            {"id": "SCH-02", "text": "Authorization status and payer rules attached to each visit"},
+            {"id": "SCH-03", "text": "Order, consent and readiness state — what is schedulable, not merely ordered"},
+            {"id": "SCH-04", "text": "The compliance window each visit has to fall inside"}
+          ]
+        },
+        {
+          "name": "Matching",
+          "b_area": 5,
+          "elements": [
+            {"id": "SCH-05", "text": "Discipline and role match, specialty competency, acuity to skill level"},
+            {"id": "SCH-06", "text": "Clinician working pattern, needs and restrictions"},
+            {"id": "SCH-07", "text": "Patient and caregiver needs, restrictions and availability, sourced from the patient"},
+            {"id": "SCH-08", "text": "Clinical timing — diagnosis-driven cadence, competing appointments, infection-control sequencing"},
+            {"id": "SCH-09", "text": "Continuity of care, and supervisory visit dependencies"}
+          ]
+        },
+        {
+          "name": "Routing & the week",
+          "b_area": 6,
+          "elements": [
+            {"id": "SCH-10", "text": "Home base start and end, route proximity, mileage"},
+            {"id": "SCH-11", "text": "Appointment time windows and intra-day sequencing"},
+            {"id": "SCH-12", "text": "Front-loading, pace against the plan of care, day-by-day balancing"}
+          ]
+        },
+        {
+          "name": "Exceptions",
+          "b_area": 7,
+          "elements": [
+            {"id": "SCH-13", "text": "Missed-visit management and tracking — and reducing the occurrence"},
+            {"id": "SCH-14", "text": "Reassignment, coverage, and rebooking inside the window"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ENG",
+      "name": "Engagement",
+      "kicker": "Making it happen",
+      "definition": "Turning a schedule into delivered visits — with patients, clinicians and the office.",
+      "groups": [
+        {
+          "name": "How this should run",
+          "b_area": null,
+          "note": "Platform posture. Not a B-area — evidence comes from C7, D1 and the HOW IT'S DONE column.",
+          "elements": [
+            {"id": "ENG-01", "text": "Outreach carried by the platform itself — agentic voice, text and email — rather than queued up for a coordinator to work"},
+            {"id": "ENG-02", "text": "Staff able to see it, intervene, override, and take any conversation back"}
+          ]
+        },
+        {
+          "name": "Before the visit",
+          "b_area": 8,
+          "elements": [
+            {"id": "ENG-03", "text": "New-patient welcome call"},
+            {"id": "ENG-04", "text": "Patient availability captured before the visit is booked"},
+            {"id": "ENG-05", "text": "Automated reminders and en-route notification"},
+            {"id": "ENG-06", "text": "The day-before confirmation round automated for every patient, every day"},
+            {"id": "ENG-07", "text": "The schedule staying pliable until that confirmation, so clinician and capacity changes can land before the patient is told"},
+            {"id": "ENG-08", "text": "Channel and communication-preference management"}
+          ]
+        },
+        {
+          "name": "When plans change",
+          "b_area": 9,
+          "elements": [
+            {"id": "ENG-09", "text": "Reschedule coordination with the patient"},
+            {"id": "ENG-10", "text": "Coverage coordination — matching potential clinicians to an open need, and reaching them directly"},
+            {"id": "ENG-11", "text": "Call-out coverage, and the urgent or prioritized needs that surface during the day"},
+            {"id": "ENG-13", "text": "Failed-visit and no-show follow-up and rebooking"}
+          ]
+        },
+        {
+          "name": "Incentives & offers",
+          "b_area": 10,
+          "elements": [
+            {"id": "ENG-12", "text": "Incentives or differentials attached to hard-to-fill visits, and offered to the clinicians who can take them"}
+          ]
+        },
+        {
+          "name": "Across the care team",
+          "b_area": 11,
+          "elements": [
+            {"id": "ENG-14", "text": "Multi-discipline visit coordination"},
+            {"id": "ENG-15", "text": "Care-team and office coordination updates"},
+            {"id": "ENG-16", "text": "A clinician view of their own schedule and their own results — the case for the change, made to the person it lands on"}
+          ]
+        }
+      ]
+    }
+  ]
+}
