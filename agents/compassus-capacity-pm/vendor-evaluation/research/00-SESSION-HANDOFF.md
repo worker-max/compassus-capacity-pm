@@ -1,7 +1,7 @@
 # Vendor research — session handoff
 
 **Written:** 2026-09-07, end of the third research session · **updated 2026-09-09** when the PM
-added an eleventh vendor, Arya
+added an eleventh vendor, Arya · **updated 2026-09-14** with the capital brief and its method
 **For:** the next Claude session doing vendor research, and the PM
 **Branch:** `claude/vendor-list-bpmnil`. All vendor work is on this branch; none is on `main`.
 Check it out first; without it you have no brief, no pack, no roster, no dossiers, no CLAUDE.md.
@@ -25,7 +25,7 @@ version 3.
 | **AxisCare** | `axis-care.md` | **high** | Waco TX, **founded 2013**, 51–200 staff, **two institutional investors in 26 months** (Frontier 2024, LLR Jun 2026); a full home **care** operating system — **and Medicare is not on their payer list** |
 | **MedArrive** | `med-arrive.md` | medium | Littleton CO (**was New York**); ~$40.5M raised to 2023; **abandoned its field-provider network in 2025**, rebuilt as a logistics platform with ChristianaCare, bought a dead competitor's assets and named a new CEO in March 2026 |
 | **Zeeva** | `zeeva-connect.md` | **low** | **One web page and a waitlist.** A marketplace selling *to clinicians*, offering visits across multiple agencies at market rates. No person, place, date, funding, customer or privacy policy published |
-| **Arya Health** | `arya-health.md` | **high** | New York, founded 2022, **$25M raised — $18.2M Series A Oct 2025 led by ACME**; one AI agent, eight skills; **it advertises that the agent decides and deliberately does not offer the coordinator options**; legal entity is still **Arya for Work, Inc.**; one named customer, pediatric private duty |
+| **Arya Health** | `arya-health.md` | **high** | **Princeton NJ** (19 Kent Court, per both SEC Form Ds — *not* New York, which earlier drafts said), founded 2022, **$25M raised — $18.2M Series A Oct 2025 led by ACME**; one AI agent, eight skills; **it advertises that the agent decides and deliberately does not offer the coordinator options**; legal entity is still **Arya for Work, Inc.**; one named customer, pediatric private duty |
 
 The network is on **Full**; pages were read directly. Everything below assumes that.
 
@@ -103,10 +103,13 @@ Axle's site says productivity rises *“17%+”*; its funding release says *“u
    Vitalis Care **and now Axle Health** appear on HCHB's own list. **This is still the
    highest-value single unread source across the whole roster, and it got more valuable this
    session.**
-3. Three other gated sources worth buying or borrowing: **Home Health Line (DecisionHealth)** on
-   AutoMynd, the **Israeli corporate registry** on VitalisCare Ltd., and **Home Health Care News**
-   (403s to direct fetch) on Axle Health.
-4. **One cheap, high-value check nobody has run:** search the Delaware and California registries for
+3. **Three capital threads, all cheap:** Axle Health's legal entity name (it unlocks their Form D),
+   the Israeli registry on VitalisCare Ltd., and which post-acute providers sit on Arya's cap table.
+   Method in §6b.
+4. Two other gated sources worth buying or borrowing: **Home Health Line (DecisionHealth)** on
+   AutoMynd and **Home Health Care News** (403s to direct fetch) on Axle Health. Also unread:
+   `yespress.io/arya-health`, mobihealthnews and PitchBook.
+5. **One cheap, high-value check nobody has run:** search the Delaware and California registries for
    **Zeeva Connect, Inc.** Nothing was located this session and the entity is recorded as unverified
    rather than nonexistent. A registry hit would give a founding date and an agent address, which is
    currently the entire company-facts picture.
@@ -140,7 +143,7 @@ What the second and third sessions learned that the brief still does not say:
   differs slightly from the public record, and the agency was acquired last year. **A testimonial is
   a lead, not a fact, until the person and the company are confirmed to exist.**
 - **Count the impact figures.** “N of M figures carry a period, baseline or site count” is still the
-  most useful single line for the leader. The roster stands at **1 of 46**.
+  most useful single line for the leader. The roster stands at **2 of 53**.
 
 ## 6. The cross-vendor matrix — built, and rebuilt each session
 
@@ -164,12 +167,64 @@ the roster table**), and rebuild. The generator warns about any label a dossier 
 **Verification.** The build re-opens the saved workbook and checks every cell against the dossier it
 came from, that source numbers travelled into comments, and that no cell is blank. Note for the
 house rule: **there are no formulas in this workbook, so pycel has nothing to evaluate** — the check
-is cell-by-cell equality instead. Current build: **260 cells, 10 vendors × 26 facts, 79 gaps, 0
-blank.** Gaps have risen from 31% to 30% of cells with four more vendors — the field is consistently
-this opaque.
+is cell-by-cell equality instead. Current build: **330 cells, 11 vendors × 30 labels, 83 gaps, 0
+blank**; the scorecard's Questions tab is now 151 rows. Gaps hold at roughly 30% of cells however
+many vendors are added — the field is consistently this opaque.
 
 It is a separate workbook, not a tab in `Vendor-Scorecard.xlsx`, because the scorecard is
 hand-filled and regenerating it would wipe the marks. Keep it that way.
+
+## 6b. The capital brief, and how to research a company's money
+
+Built 2026-09-09 for the six vendors the PM expects to work with — CareConnect, VitalisCare,
+CareStitch, Arya, Axle Health, MedArrive. `_capital-brief.gen.py` → `Vendor-Capital-Brief.html`;
+`_capital-brief.pdf.py` → a 12-page Letter PDF. Compassus palette and mark, not the house one,
+because the audience is Compassus. Regenerate; never hand-edit either output.
+
+**The method, in order.**
+
+1. **Go to the registry before the press.** A **SEC Form D** is filed under penalty of perjury; a
+   funding announcement is marketing. Four were read in full and **three disagree with the
+   company's own release**.
+2. **Read four fields nobody quotes.** `totalOfferingAmount` against `totalAmountSold` — sought
+   versus filled, and the gap is the story: MedArrive's 2023 round **sought $10M and sold $8M to one
+   investor**. `dateOfFirstSale` against the announcement: Arya's Series A first sale was **18 Aug
+   2025, 72 days before it was announced**. `yearOfInc` against the founding story: MedArrive's is
+   **2018, not 2020** — because the entity was created inside Redesign Health, a venture studio.
+   And the **related-person list, the only dated primary evidence of a board seat** — Aike Ho (ACME)
+   joins Arya at the Series A; Lynne Chou O'Keefe (Define) leaves MedArrive between 2022 and 2023.
+3. **Totals disagree with announcements in both directions.** Arya's seed was **$7,234,996 sold**
+   against $4M announced; MedArrive's Series A **$32,843,775 to 41 investors** against $25M
+   announced. Where they disagree, show both and prefer the filing.
+4. **The registered address on the filing beats the address on the website.** This is how Arya's
+   pin moved from New York to **19 Kent Court, Princeton NJ**.
+5. **Silence is a finding.** MedArrive has **filed nothing since 11 Apr 2023** — through abandoning
+   a business line, a rebuild, a CEO change, a state change and an acquisition. **Axle Health has no
+   EDGAR record of any kind** despite $14.4M raised; it surfaced instead in a **LifeMD (NASDAQ:
+   LFMD) 8-K of 15 Jul 2021**. Public-company filings name private vendors.
+6. **A registry excludes as often as it confirms.** A same-named entity is a decoy until address,
+   officers and filing history match. Two are recorded and excluded: **CareConnectMD, Inc.**
+   (CIK 0001746369, Huntington Beach CA) is not our CareConnect; **VITALISCARE LTD** (Companies
+   House 15774638, 71–75 Shelton Street, renamed from SGR Financial Solutions, sole Swedish director
+   born 2001) is not our Vitalis Care. Write the exclusion down — the next session will find the
+   same decoy.
+7. **Name every investor, not the lead only.** The register is where the shape of a company shows.
+   **Section 32 led MedArrive's Series A, not Kleiner Perkins** as is widely repeated — Kleiner led
+   the seed. **Three of MedArrive's eight backers are payers or strategics** (SCAN Health Plan, both
+   investor and customer; Cobalt Ventures of BCBS Kansas City; Leaps by Bayer) — a cap table
+   assembled to sell to health plans, not to providers, which fits a product starting at a
+   discharge. **Arya's has no home health operator and no payer**: Twelve Below and Ridge Ventures
+   co-led, and Ridge is an enterprise-software fund. **Axle's is the strongest of the three** and
+   the only healthcare-dedicated institutional lead at Series A — F-Prime, Fidelity's venture arm.
+
+**Verified capital across the six: $80.56M, all of it in three of them.**
+
+**Three threads left open.** Surface them only if the PM asks; none needs vendor contact, which
+remains forbidden. (a) **Axle Health's legal entity name** — it would locate their Form D in a
+minute. (b) The **Israeli Corporations Authority** record for VitalisCare Ltd. (c) Arya names two
+backer groups only as categories — *“executives from OpenAI”* and *“leading post-acute care
+providers”*. **If one of the latter operates home health we should know which**, and that is a
+question for a demo, not an email.
 
 ## 7. Brief edits — one done, six pending
 
@@ -193,6 +248,8 @@ From the review of `10-VENDOR-RESEARCH-BRIEF.md` on 2026-09-05:
 **New, from these sessions:** add to §4 of the brief, *where to look, in order* — the sitemap, the
 privacy policy, the product documentation, the raw HTML, **the investor's press release**, and
 **the verification of any named testimonial**.
+
+**Newer still:** the brief has no *company money* step at all. Add one — SEC EDGAR full-text and Form D, the national company registry, and a public-company filing search for the vendor's name — with the rule that **the registry outranks the press release** and that **a same-named entity is a decoy until its address and officers match**. The worked method is §6b above.
 
 ## 8. Starter prompt for the new session
 

@@ -33,6 +33,8 @@ and set gates before buying a platform. Full brief: `handoff/01-INITIATIVE-BRIEF
 | `agents/compassus-capacity-pm/artifacts/` | The one-pager spec, flow maps, business case, the adversarial verdict |
 | `agents/compassus-capacity-pm/vendor-evaluation/` | **The vendor scoring system.** See below |
 | `agents/compassus-capacity-pm/vendor-evaluation/handoff/` | **The handoff pack.** Self-contained expert context on the initiative, the questionnaire and the scorecard, for any Claude reading vendor returns. `00-START-HERE.md` is the entry |
+| `agents/compassus-capacity-pm/vendor-evaluation/research/` | **The vendor dossiers.** One per vendor from public sources, plus `00-ROSTER.md` (identity pins), `00-SESSION-HANDOFF.md` (what the next research session needs) and `00-FIELD-NOTES.md`. Feeds `Vendor-Research-Matrix.xlsx` and its HTML twin |
+| `agents/compassus-capacity-pm/vendor-evaluation/Vendor-Capital-Brief.*` | **The capital brief.** HTML and a 12-page Letter PDF on the six shortlisted vendors, built from SEC Form D filings. See below |
 | `.claude/skills/vendor-scorecard/` | An older, more complex scoring skill (rubric v1.0). Superseded by the v3.0 workbook for scoring; still useful for its extraction walk |
 | `.claude/skills/process-flow-map/` | House design system and flow-map renderer |
 | `brand/` | **The Compassus brand.** The logo in three forms (transparent, 320px, data-URI for artifacts) and `BRAND.md`: navy `#182752` and gold `#F0A91B` sampled from the mark, the supporting palette, and when to use the corporate palette instead of the house one |
@@ -88,6 +90,31 @@ template the brief gives, opening with the `## At a glance` block of twenty-six 
 Durability intangible, the A2 scale flag and the A1 integration rung. It never scores. Every fact
 carries a source and a date; anything not found is written as *not found*, never inferred.
 
+## The capital brief
+
+`Vendor-Capital-Brief.html` and `Vendor-Capital-Brief.pdf`, from `_capital-brief.gen.py` and
+`_capital-brief.pdf.py`. It covers **the six vendors the PM expects to work with** — CareConnect,
+VitalisCare, CareStitch, Arya, Axle Health, MedArrive — and answers how much each has raised, at
+what stage, from whom. It wears the **Compassus** palette and mark per `brand/BRAND.md`, not the
+house palette, because its audience is a Compassus audience. The PDF is the same page printed: the
+print styling lives in the page's own `@media print` block so screen and paper can never drift, and
+the script only drives the browser.
+
+**The spine is the SEC Form D, not the press release.** A Form D is filed under penalty of perjury.
+Four were read in full and **three disagree with the company's own announcement**. Verified capital
+across the six is **$80.56M, all of it in three of them**.
+
+**The investor register** names every backer with its role, the round it entered at, what kind of
+firm it is, and its board seat where a Form D related-person list evidences one. Three findings the
+totals alone did not show: **Section 32 led MedArrive's Series A, not Kleiner Perkins**, which is
+widely repeated — Kleiner led the seed and stayed; **three of MedArrive's eight backers are payers
+or corporate strategics** (SCAN Health Plan — investor and customer at once, Cobalt Ventures of Blue
+Cross Blue Shield Kansas City, Leaps by Bayer), a cap table assembled to sell to health plans rather
+than to providers, which fits a product that starts at a discharge; and **Arya's cap table contains
+no home health operator and no payer** — Twelve Below and Ridge Ventures co-led the seed and Ridge
+is an enterprise-software fund. **Redesign Health is a venture studio, not a fund**, which resolves
+why MedArrive's SEC incorporation year is 2018 while its public launch was December 2020.
+
 ## How we work
 
 - **Generators, not hand edits.** Every deliverable has a `_*.gen.py` beside it. Change the
@@ -106,8 +133,25 @@ carries a source and a date; anything not found is written as *not found*, never
 - **Things the user has ruled out.** Penalising brevity. Prescribing what earns a 4 on clinician
   fit. Softening *sophistication* to *product quality*. Remarks about how long grading takes.
   Per-vendor tabs in the workbook. Sending files before showing visuals.
-- **Git.** Branch `claude/compassus-vendor-scoring-gvteqz`. Commit messages end with the
-  co-author and session trailer. Never put a model identifier in a committed artifact.
+- **Company-capital research.** The registry is the primary source and the press release is a
+  claim. On EDGAR read `totalOfferingAmount` against `totalAmountSold` (sought versus filled),
+  `dateOfFirstSale` against the announcement date, `yearOfInc` against the founding story, and the
+  **related-person list, which is the only dated primary evidence of a board seat**. Where a filing
+  and a release disagree, show both and prefer the filing. Registries also *exclude*: a
+  same-named entity is a decoy until its address, officers and filing history match. Two are
+  recorded and excluded — **CareConnectMD, Inc.** (CIK 0001746369) and UK **VITALISCARE LTD**
+  (Companies House 15774638).
+- **Printing a page to PDF.** Keep the print rules in the page's own `@media print` block and let a
+  Playwright script drive the browser, so screen and paper cannot drift. Emulate
+  `color_scheme="light"` — a reader's dark mode must never print as a black slab — wait for the
+  webfonts, print background on. `pdftoppm` is not installed here, so verify layout by screenshotting
+  under `media="print"` at 816px and confirming `scrollWidth == clientWidth`.
+- **Git.** All vendor work lives on `claude/vendor-list-bpmnil`, fast-forwarded from the earlier
+  research branch, which came from `claude/compassus-vendor-scoring-gvteqz`. **None of it is on
+  `main`**; it is open as draft PR #1
+  (https://github.com/worker-max/compassus-capacity-pm/pull/1). The repo runs no CI. Commit
+  messages end with the co-author and session trailer. Never put a model identifier in a
+  committed artifact.
 - **Drive.** Publishing to the Compassus Claude follows `librarian/merge-tank/HANDOFF-0`: write in
   `from-repo/`, add a ledger row, never edit a file you do not own.
 
@@ -197,4 +241,21 @@ carries a source and a date; anything not found is written as *not found*, never
   (NASDAQ: LFMD) in a 15 Jul 2021 8-K**. Two decoys recorded and excluded: **CareConnectMD, Inc.**
   (CIK 0001746369, Huntington Beach CA, five Form Ds) is not our CareConnect, and **VITALISCARE LTD**
   (Companies House 15774638, 71–75 Shelton Street, renamed from SGR Financial Solutions, sole Swedish director
-  born 2001) is not our Vitalis Care. Verified capital across the six: **$80.56M, all of it in three of them**.
+  born 2001) is not our Vitalis Care. Verified capital across the six: **$80.56M, all of it in three of them**. The
+  PM then asked for a detailed investor list, so the brief gained an **investor register**: every
+  named backer with role, entry round, firm type and board seat. It corrected two things we had
+  wrong — **Section 32 led MedArrive's Series A** (Kleiner led the seed), and **Leaps by Bayer** had
+  been missed entirely. Finally printed to **`Vendor-Capital-Brief.pdf`, 12 pages Letter portrait**,
+  by `_capital-brief.pdf.py` driving Chromium against the page's own `@media print` block.
+
+- **2026-09-11 → 14, PR watch.** Same branch, no code changes. `claude/vendor-list-bpmnil` was opened
+  as **draft PR #1** — *Vendor research: roster v3, eleven dossiers, the matrix, the capital brief,
+  and the Compassus brand* — 39 commits, 64 files, at head `58fbcb9`. The session then held an hourly
+  self-scheduled check-in on it for three days. State has not moved: open, draft, `mergeable_state`
+  clean, **0 review threads, 0 status checks — the repo runs no CI**, base `main` at `163d84c` fully
+  merged in. Two operational facts worth keeping: **artifact wake subscriptions were refused**
+  (`relay_unavailable`) on both the matrix and the capital brief, so nothing is watching them and no
+  session should claim otherwise; and an unchanged PR is re-armed **silently** — no comment on the
+  PR, no message to the PM. **Five of sixteen returns are still unresearched and the PM has not named
+  them.** One offer is outstanding and unanswered: a landscape PDF of the *matrix*, which is a
+  different document from the capital brief. Do not build it unless asked.
