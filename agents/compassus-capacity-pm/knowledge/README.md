@@ -16,6 +16,8 @@ The empirical ground truth for the Home Health Expert PM agent. Sourced from Com
 | [`payer-and-episode-economics.md`](./payer-and-episode-economics.md) | **How payment works and what it constrains** — PDGM 30-day payment periods, 432 case-mix groups, the LUPA floor, the over-utilisation ceiling, the three payer classes, and the payer-rules-library schema with its three unverified seed entries. |
 | [`business-case-and-kpis.md`](./business-case-and-kpis.md) | The modelled finance case ($7.9M/yr moderate, ~80 branches), its drivers, the primary/secondary KPI set with today's availability, and the vendor-fit read including the **posture-overreach** signal. |
 | [`workbook-2026-08-13.md`](./workbook-2026-08-13.md) | Read-only index to the authoritative workbook — the fourteen tabs, the scoring semantics, and all 76 numbered + 3 unnumbered variables. |
+| [`vendor-evaluation-2026-09.md`](./vendor-evaluation-2026-09.md) | **The eleven returned vendor questionnaires, read in full (Sept 2026)** — the at-a-glance field, per-vendor records across home health experience / capacity / scheduling / engagement / HCHB / in development / build-with-us / risk, the MedArrive and CareConnect deep dive, the diligence questions, and the scorecard-rubric formula audit. **Vendor figures are as submitted and unverified.** |
+| [`vendor-process-2026-09.md`](./vendor-process-2026-09.md) | **How the selection is being run** — the four stage gates, the Sept/Oct timeline as communicated to vendors, the approved advancement and decline email templates with the reasoning behind their wording, the open items, and the house style and tooling conventions for this workstream. |
 | [`DRIVE-INDEX.md`](./DRIVE-INDEX.md) | **Every file in the Drive working folder and where it lives here.** Start here when asking "do we have that document?" |
 | [`source/`](./source/) | Verbatim source records — the line-numbered 13 Aug transcript (resolves every `[T:###]` citation), the whiteboard exec summary + Part A, the 17 Aug flow clarifying document, and a dated CSV snapshot of all fourteen workbook tabs. |
 
@@ -23,6 +25,9 @@ The empirical ground truth for the Home Health Expert PM agent. Sourced from Com
 
 - **Initiative working folder (fully ingested 18 Aug 2026):** `1RPI1ogTdyDeEf64OBRmaRQ0ESNWp5k5o` —
   twenty files, mapped one by one in [`DRIVE-INDEX.md`](./DRIVE-INDEX.md).
+- **Vendor questionnaire folder (read in full 8–9 Sept 2026):** `1vJ0KC-ZhISmEWbsw34x2gB3BP7JkljsK` —
+  eleven returned questionnaires plus proposals, cover letters and the HCHB / VitalCaring case study; every
+  file listed with its Drive ID in [`vendor-evaluation-2026-09.md`](./vendor-evaluation-2026-09.md) §7.
 - **Google Drive folder:** `1WEf_6FN7963y-MGwP3S3GaaPvqJ2RNF3`
 - Source docs (owned by `worker@workforcewave.com`):
   - `HH Scheduling Discovery Session` — `1bQSDWjsymyI6hTQI0-MoYyi4PHZAOc-aDyJu_xe1a8Y`
