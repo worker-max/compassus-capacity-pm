@@ -1,9 +1,11 @@
 # Project memory — Compassus capacity & scheduling
 
-Read this first in every session. It is the shared memory for all Claude sessions on this repo.
-The long-form context lives in the handoff pack at
-`agents/compassus-capacity-pm/vendor-evaluation/handoff/`; this file tells you what exists, what
-has been decided, and how we work.
+Read this first in every session. It is the short shared memory for all Claude sessions on this
+repo. The long memory, at full depth, is `agents/compassus-capacity-pm/memory/`: the complete
+session record with every decision and rejected alternative, the project-context inventory, the
+questionnaire and rubric deep-read, and the handoff-pack design rationale. The operational form of
+that knowledge is the handoff pack at `agents/compassus-capacity-pm/vendor-evaluation/handoff/`.
+Read `memory/README.md` before starting any vendor-related work.
 
 ## Who you are working with
 
@@ -32,6 +34,7 @@ and set gates before buying a platform. Full brief: `handoff/01-INITIATIVE-BRIEF
 | `agents/compassus-capacity-pm/knowledge/` | Ground truth from discovery: `README.md` is the best one-page brief in the repo; `constraint-register.md`, `bottleneck-dossiers.md`, `payer-and-episode-economics.md`, `whiteboard-session-2026-08-13.md` are the load-bearing files |
 | `agents/compassus-capacity-pm/artifacts/` | The one-pager spec, flow maps, business case, the adversarial verdict |
 | `agents/compassus-capacity-pm/vendor-evaluation/` | **The vendor scoring system.** See below |
+| `agents/compassus-capacity-pm/memory/` | **Long memory.** Full session record, project-context inventory, rubric deep-read, pack design rationale. Read its README before vendor work |
 | `agents/compassus-capacity-pm/vendor-evaluation/handoff/` | **The handoff pack.** Self-contained expert context on the initiative, the questionnaire and the scorecard, for any Claude reading vendor returns. `00-START-HERE.md` is the entry |
 | `.claude/skills/vendor-scorecard/` | An older, more complex scoring skill (rubric v1.0). Superseded by the v3.0 workbook for scoring; still useful for its extraction walk |
 | `.claude/skills/process-flow-map/` | House design system and flow-map renderer |
@@ -114,3 +117,9 @@ carries a source and a date; anything not found is written as *not found*, never
   (five-row frozen header, KEY column, notes open and merged per section, alternate-vendor tint,
   one validation per row after Google Sheets dropped a long list). Handoff pack built with three
   planning subagents and shipped as `Vendor-Highlights-Handoff.zip`. This file created.
+- **2026-09-14.** Long memory written to `agents/compassus-capacity-pm/memory/` at full depth:
+  the session record (thirty user requests in sequence, every decision with its rejected
+  alternatives, standing preferences, engineering lessons, verification procedure, open items),
+  the project-context inventory, the questionnaire and rubric deep-read, and the handoff-pack
+  design rationale. Vendor research brief added to the pack; `research/` folder created for the
+  dossiers. Next: a new session researches each of the sixteen vendors from public sources.
