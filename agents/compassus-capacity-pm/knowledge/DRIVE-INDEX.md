@@ -57,3 +57,26 @@ Scheduling · Coordination · Results — which is the plain-terms ancestor of t
 
 Twenty files: 7 knowledge documents, 9 flow sheets, 4 illustrative scenarios. **Everything either lives
 in this repo or is deliberately left in Drive as the authoritative upstream (the workbook).**
+
+---
+
+## A second Drive folder — the vendor questionnaires
+
+> **Drive folder:** `1vJ0KC-ZhISmEWbsw34x2gB3BP7JkljsK` — separate from the initiative working folder above.
+> Holds the eleven returned *Capacity & Scheduling Vendor Questionnaires* (form 2026-08-19), the vendor
+> proposals and cover letters, the HCHB Smart Scheduling collateral, and the scoring rubric. **Read in full
+> 8–9 Sept 2026.**
+
+Every file is listed with its Drive ID in [`vendor-evaluation-2026-09.md`](./vendor-evaluation-2026-09.md) §7.
+The distilled reads live in [`vendor-evaluation-2026-09.md`](./vendor-evaluation-2026-09.md) (what each vendor
+said and what it is worth) and [`vendor-process-2026-09.md`](./vendor-process-2026-09.md) (how the selection is
+being run).
+
+Two deliverables generated here were published back to that folder — `Compassus Capacity  Scheduling  Vendor
+Breakdown.docx` (`16cFgEXVzf10r4TXfJ36oDIVlsCSRqWar`) and `MedArrive vs CareConnect  Vendor Assessment.pdf`
+(`1_P1sp4nIc83ZL9wyS0mDQZGXGaawKaW_`). **The repo is upstream for both**; regenerate here, publish there.
+
+> **Caution.** `VendorScorecard Rubric 9.4 (1).xlsx` (`1FbLjujC0sgq92crIc3_f2ukt4qxxbZ4f`) was content-modified
+> **2026-09-04**, which predates several questionnaire returns, and carries marks for **Unity AI only.** It is
+> not the completed scorecard. The formula audit in the evaluation doc §6 must be re-run against the real one
+> when it surfaces.

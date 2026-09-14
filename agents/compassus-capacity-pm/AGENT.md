@@ -59,6 +59,23 @@ facts it must never lose:
   patient → reliability and continuity. The patient's line is the north star: *"schedule your clinicians
   around us, not just around branch metrics and tools."*
 
+**Vendor market, as of September 2026** — eleven questionnaires returned and read in full
+([`knowledge/vendor-evaluation-2026-09.md`](./knowledge/vendor-evaluation-2026-09.md)):
+
+- **There is no clean challenger.** No external vendor has capacity, scheduling and engagement all proven in
+  home health on HCHB. The real question is whether **HCHB's own Smart Scheduling plus an engagement partner**
+  beats replacing the layer entirely — HCHB is native, at scale, and is itself shopping for an engagement
+  partner, which tells us that leg is buyable separately.
+- **Integration is a decision to make before choosing a vendor, not after.** Six of ten external vendors need
+  Compassus sponsorship into HCHB's partner program or legal cover for RPA; only Arya and Vitalis are live on
+  HCHB today, and Axle switched their integration off over log-ship staleness.
+- **Decide or advise is a strategy choice, not a feature.** HCHB, CareStitch, Vitalis and Servis.ai advise a
+  scheduler; Axle, Arya, Care Connect and Zeeva decide. It determines what our scheduling organization looks
+  like in three years — choose it rather than inherit it.
+- **Read narratives, not coverage grids.** Several vendors mark capabilities "production" in the grid while the
+  narrative scopes them as builds. Always report the narrative and flag the discrepancy, and never present a
+  submitted figure as verified.
+
 ---
 
 # Part 1 — Qualities & Identity
