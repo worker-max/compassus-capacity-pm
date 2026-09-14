@@ -13,6 +13,8 @@ actually said, what the field as a whole failed to answer, and the questions bui
 | [`vendor-dossiers-2026-09.md`](./vendor-dossiers-2026-09.md) | **All eleven vendors, scored, with the evidence behind every mark.** Section grades, stop-check state, and the claim-versus-evidence read per arena. The six advancing are marked. |
 | [`round-2-question-sets.md`](./round-2-question-sets.md) | **The demo-round question architecture** — ten questions asked identically to all six, plus a unique set per vendor built from their own open items. Includes the call design and time budget. |
 | [`rubric-review-and-process-findings.md`](./rubric-review-and-process-findings.md) | What the rubric got right, the five structural gaps found on review, the field-wide blind spots no vendor answered, and the shortlist decisions the sheet could not explain on its own. |
+| [`HANDOFF.md`](./HANDOFF.md) | **Start here if you are a new session picking this up** — state, settled decisions, open work, traps, and how to regenerate the Word document. |
+| [`Vendor-Demo-Question-Guide.docx`](./Vendor-Demo-Question-Guide.docx) | **The call-ready Word document** — the common ten and all six vendor sets, with the rationale under every question. Generated from [`_question-guide/`](./_question-guide/). |
 
 ## State of the process, as of 2026-09-14
 
