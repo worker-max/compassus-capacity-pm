@@ -1,0 +1,417 @@
+<title>The Six Pillars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --paper-2:#E6E8E2; --ink:#101826; --ink-2:#3E4757; --rule:#C9CDC4;
+  --navy:#16263F; --navy-ink:#E9ECEF; --navy-dim:#9AA6B8;
+  --value:#2B7355; --cost:#A93C2A; --gold:#A8801F; --gate:#16263F;
+  --tint-value:#DCE8E0; --tint-gold:#EFE6CF; --tint-gate:#DDE2EA;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0E131C; --paper-2:#161D29; --ink:#E7EAEE; --ink-2:#A9B1BE; --rule:#2A3342;
+    --navy:#1A2A44; --navy-ink:#E9ECEF; --navy-dim:#8E9BB0;
+    --value:#5DB08A; --cost:#E0765F; --gold:#D6AE52; --gate:#A9BCDA;
+    --tint-value:#16291F; --tint-gold:#2A2414; --tint-gate:#1A2334;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0E131C; --paper-2:#161D29; --ink:#E7EAEE; --ink-2:#A9B1BE; --rule:#2A3342;
+  --navy:#1A2A44; --navy-ink:#E9ECEF; --navy-dim:#8E9BB0;
+  --value:#5DB08A; --cost:#E0765F; --gold:#D6AE52; --gate:#A9BCDA;
+  --tint-value:#16291F; --tint-gold:#2A2414; --tint-gate:#1A2334;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--serif);padding-inline:clamp(16px,4vw,56px);padding-block:40px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3,.label{font-family:var(--display);margin:0}
+.label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-stretch:100%}
+.mono{font-family:var(--mono);font-size:.82em}
+p{margin:0}
+
+/* masthead */
+.mast{display:grid;gap:20px;border-top:6px solid var(--ink);padding-top:18px}
+.mast-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;color:var(--ink-2)}
+.internal{color:var(--cost)}
+h1{font-size:clamp(52px,10vw,132px);line-height:.86;font-weight:850;font-stretch:62%;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance}
+h1 span{display:block;font-stretch:125%;font-weight:300;font-size:.34em;letter-spacing:.02em;line-height:1.1;margin-top:.35em;text-transform:none}
+.thesis{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:end}
+.thesis p{font-size:clamp(19px,2.1vw,24px);line-height:1.4;max-width:34ch}
+.thesis p em{font-style:italic}
+.figure{display:grid;gap:4px;border-left:1px solid var(--rule);padding-left:24px}
+.figure .big{font-family:var(--display);font-weight:800;font-stretch:75%;font-size:clamp(44px,6vw,72px);line-height:1;font-variant-numeric:tabular-nums}
+.figure small{color:var(--ink-2);font-size:14px;line-height:1.4}
+
+/* ceilings strip */
+.ceilings{display:grid;gap:14px}
+.ceil-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ceil{padding:16px 18px 18px;display:grid;gap:6px;align-content:start}
+.ceil + .ceil{border-left:1px solid var(--rule)}
+.ceil h3{font-size:22px;font-weight:700;font-stretch:80%;text-transform:uppercase;letter-spacing:.01em}
+.ceil p{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.ceil .conseq{color:var(--cost);font-family:var(--display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;color:var(--ink-2);font-size:14.5px}
+.facts b{font-family:var(--display);color:var(--ink);font-weight:700;font-stretch:85%;font-size:17px;margin-right:4px}
+
+/* section heads */
+.sh{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.sh h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:1}
+.sh p{color:var(--ink-2);font-size:15px;max-width:62ch;justify-self:end;text-align:right}
+
+/* pillars */
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--ink-2)}
+.tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.tag::before{content:"";width:10px;height:10px;background:currentColor}
+.t-gate{color:var(--gate)} .t-value{color:var(--value)} .t-gold{color:var(--gold)}
+.pillars{display:grid}
+.pillar{display:grid;grid-template-columns:88px minmax(0,1.05fr) minmax(0,1.25fr) minmax(0,1fr);gap:0 28px;padding:26px 0;border-bottom:1px solid var(--rule)}
+.num{font-family:var(--display);font-weight:200;font-stretch:62%;font-size:84px;line-height:.8;color:var(--ink-2)}
+.p-head{display:grid;gap:10px;align-content:start}
+.p-head h3{font-size:30px;font-weight:800;font-stretch:72%;text-transform:uppercase;line-height:.95}
+.p-head .why{font-size:15.5px;line-height:1.5}
+.p-head .book{font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+.prove{display:grid;gap:8px;align-content:start}
+.prove ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.prove li{padding-left:18px;position:relative;font-size:15px;line-height:1.45}
+.prove li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--ink)}
+.lock{display:grid;gap:12px;align-content:start}
+.q{background:var(--paper-2);padding:14px 16px 16px;display:grid;gap:6px}
+.q p{font-style:italic;font-size:16px;line-height:1.42}
+.metric{display:grid;gap:4px;font-size:14px;color:var(--ink-2)}
+.metric b{color:var(--ink);font-weight:600}
+.na{color:var(--cost);font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-left:6px}
+.pillar.is-gate .num{color:var(--gate)}
+.pillar.is-gate{background:linear-gradient(90deg,var(--tint-gate),transparent 70%);padding-left:14px;margin-left:-14px}
+
+/* upside */
+.upside{background:var(--navy);color:var(--navy-ink);padding:36px clamp(20px,4vw,44px) 40px;display:grid;gap:26px}
+.upside .sh{border-color:var(--navy-dim)}
+.upside .sh p{color:var(--navy-dim)}
+.up-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.up{display:grid;gap:8px;align-content:start;border-top:2px solid var(--gold);padding-top:14px}
+.up h3{font-size:20px;font-weight:700;font-stretch:80%;text-transform:uppercase;line-height:1.05}
+.up p{font-size:14.5px;line-height:1.5;color:var(--navy-ink);opacity:.88}
+.up .val{font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+
+/* qualifiers */
+.quals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.qual{padding:22px 24px 24px 0;display:grid;gap:8px;align-content:start;border-bottom:1px solid var(--rule)}
+.qual:not(:nth-child(3n+1)){padding-left:24px;border-left:1px solid var(--rule)}
+.qual h3{font-size:21px;font-weight:750;font-stretch:78%;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
+.qual h3 .k{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--ink-2);letter-spacing:0}
+.qual p{font-size:15px;line-height:1.5}
+.qual .ask{font-style:italic;color:var(--ink-2);font-size:14.5px}
+
+/* gaps + conventions */
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+.block{display:grid;gap:16px;align-content:start}
+.block h2{font-size:26px;font-weight:800;font-stretch:72%;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.block > p{color:var(--ink-2);font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-2);padding:0 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4}
+td:first-child{font-family:var(--display);font-weight:700;font-stretch:85%;white-space:nowrap}
+.tbl{overflow-x:auto}
+
+/* stance */
+.stance{border-top:6px solid var(--ink);padding-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:32px}
+.stance h2{font-size:clamp(26px,3vw,34px);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:1}
+.stance p{font-size:16px}
+.stance ol{margin:10px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
+.src{color:var(--ink-2);font-size:13px;line-height:1.5;border-top:1px solid var(--rule);padding-top:14px}
+
+@media (max-width:980px){
+  .pillar{grid-template-columns:64px minmax(0,1fr);gap:18px 20px}
+  .pillar .prove,.pillar .lock{grid-column:2}
+  .num{font-size:64px}
+  .up-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qual:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+  .qual:nth-child(2n){padding-left:24px;border-left:1px solid var(--rule)}
+  .ceil-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ceil:nth-child(3){border-left:0}
+  .ceil:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (max-width:680px){
+  body{padding-block:24px 48px}
+  .wrap{gap:44px}
+  .thesis,.pair,.stance{grid-template-columns:1fr}
+  .figure{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}
+  .sh{grid-template-columns:1fr}
+  .sh p{justify-self:start;text-align:left}
+  .pillar{grid-template-columns:1fr}
+  .pillar .prove,.pillar .lock{grid-column:1}
+  .pillar.is-gate{padding-left:12px;margin-left:-12px}
+  .up-grid,.quals,.ceil-grid{grid-template-columns:1fr}
+  .ceil + .ceil{border-left:0;border-top:1px solid var(--rule)}
+  .qual,.qual:nth-child(2n){padding-left:0;border-left:0}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="label">Compassus · Capacity &amp; Scheduling · Business case</span>
+    <span class="label internal">Internal — vendor prep, not for distribution</span>
+  </div>
+  <h1>The Six Pillars<span>Every vendor walks through the same six doors.</span></h1>
+  <div class="thesis">
+    <p>Capacity must be solved before scheduling. The first job is <em>not to optimise anything</em>: it is to make capacity measurable. Any vendor that can’t hold up each pillar below, on our data and under our payer mix, doesn’t make the shortlist.</p>
+    <div class="figure">
+      <span class="label">Finance case of record · Moderate</span>
+      <span class="big">$7.9M<span style="font-size:.4em;font-weight:500"> / yr</span></span>
+      <small>Range $4.0M–$14.3M across ~80 branches (8.13 workbook). Base three-year cost of ownership: $21.7M.</small>
+    </div>
+  </div>
+</header>
+
+<section class="ceilings" aria-labelledby="ceil-h">
+  <div class="sh">
+    <h2 id="ceil-h">The ground every pitch stands on</h2>
+    <p>Four independent ceilings act on every episode. A vendor built for a 90% traditional-Medicare world sees one.</p>
+  </div>
+  <div class="ceil-grid">
+    <div class="ceil"><span class="label">Permission</span><h3>Authorization</h3><p>What the payer approved in advance.</p><span class="conseq">Crossed → not billable</span></div>
+    <div class="ceil"><span class="label">Floor</span><h3>LUPA threshold</h3><p>2–5 visits by group, per 30-day period.</p><span class="conseq">Crossed → ~$1,400 cliff</span></div>
+    <div class="ceil"><span class="label">Ceiling</span><h3>Episodic ceiling</h3><p>Visits above the floor under episodic pay.</p><span class="conseq">Crossed → earns nothing</span></div>
+    <div class="ceil"><span class="label">Cap</span><h3>Benefit limit</h3><p>Annual limit on commercial and Medicaid.</p><span class="conseq">Crossed → unbillable mid-course</span></div>
+  </div>
+  <div class="facts">
+    <span><b>47 / 53</b>Medicare FFS vs. everything else, by revenue</span>
+    <span><b>70%</b>of clinicians paid per visit</span>
+    <span><b>~$549M</b>home health revenue · <b>~$260M</b> episodic</span>
+  </div>
+</section>
+
+<section aria-labelledby="pil-h" style="display:grid;gap:18px">
+  <div class="sh">
+    <h2 id="pil-h">The pillars</h2>
+    <p>In value-chain order: referral → capacity decision → schedule → visit → revenue. Each ends in the one question the vendor has to answer on the record.</p>
+  </div>
+  <div class="legend">
+    <span class="tag t-gate">Gate: must pass first</span>
+    <span class="tag t-value">Waterfall: hard, countable value</span>
+  </div>
+
+  <div class="pillars">
+
+    <article class="pillar is-gate">
+      <div class="num">I</div>
+      <div class="p-head">
+        <span class="tag t-gate">Gate · foundation</span>
+        <h3>Capacity Visibility</h3>
+        <p class="why">Capacity and scheduling are two functions forced through one spreadsheet, with no forward view. Work waiting on authorization doesn’t show up in any count.</p>
+        <p class="book">Waterfall: none directly. Every other pillar depends on it.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Computes maximum deliverable visits per week vs. delivered, by discipline and branch</li>
+          <li>Counts work held in pending authorization as real demand</li>
+          <li>Handles ramp: new clinicians aren’t counted at full capacity (gap <span class="mono">C-11</span>)</li>
+          <li>Keeps history, so it can trend, forecast and prove ROI</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“Show us next week’s capacity for one branch, by discipline, including work stuck in authorization. Use our data, not a demo tenant.”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>Quantified capacity &amp; utilisation</b><span class="na">Not available today</span></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">II</div>
+      <div class="p-head">
+        <span class="tag t-value">Waterfall</span>
+        <h3>Demand Conversion</h3>
+        <p class="why">Capacity is perishable: tomorrow’s start-of-care slot either fills or it’s gone. Authorization is the real bottleneck, and it sits upstream of the scheduler’s queue.</p>
+        <p class="book">Recovered admissions · $28.8K / branch (Moderate)</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Reserves start-of-care capacity so routine volume can’t eat it</li>
+          <li>Shows authorization turnaround by payer at the point of decision</li>
+          <li>Shortens the time from referral to a yes or no, so a declined slot can be refilled</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“Where does authorization live in your model, and how does one pending auth change tomorrow’s capacity?”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>Referral turn-down rate</b> (no capacity) <span class="na">Not available today</span></span><span><b>Time to SOC</b> vs. 48-hour standard</span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">III</div>
+      <div class="p-head">
+        <span class="tag t-value">Waterfall</span>
+        <h3>Payer &amp; Episode Integrity</h3>
+        <p class="why">Payer rules are written down days before they’re needed, but never reach the plan of care. 81.7% of appealed prior-auth denials are overturned: the information existed and wasn’t used.</p>
+        <p class="book">Avoided LUPAs · $14K / branch · plus auth write-offs (not yet measured)</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Enforces all four ceilings as separate tests, not one</li>
+          <li>Puts payer rules in front of the clinician when the plan of care is created</li>
+          <li>Flags patients one visit short of the floor, but only for clinically indicated visits</li>
+          <li>Never adds a visit just to clear the threshold. 21% of claims just above it were non-compliant</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“Walk one patient through all four ceilings. What does the scheduler see when authorization and the LUPA floor conflict?”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>LUPA rate &amp; leakage</b> · <b>auth write-offs</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">IV</div>
+      <div class="p-head">
+        <span class="tag t-value">Waterfall</span>
+        <h3>Delivery Throughput</h3>
+        <p class="why">Industry fill rates run 88–90%, so about one authorized visit in ten never gets staffed. This pays on the non-episodic book. Under episodic pay it protects coverage, not revenue.</p>
+        <p class="book">Reduced premium / contract labor · $36K / branch</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Fast backfill of cancellations and refusals</li>
+          <li>Paraprofessional pool planned apart from admissions capacity</li>
+          <li>Realistic travel claims: 5–15%. Divide a 20–40% claim by two or three</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“At your reference customer, what happened to visits per clinician per day compared with a branch that didn’t go live?”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>Missed / rescheduled rate</b> · <b>premium labor %</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">V</div>
+      <div class="p-head">
+        <span class="tag t-value">Waterfall · conditional</span>
+        <h3>Coordination Load</h3>
+        <p class="why">Three sources of load: the SOC and recert cycle, the per-discipline assignment burst, and chasing authorizations. The notification storm is a safety problem, not an annoyance.</p>
+        <p class="book">Admin hours, only for work that should exist. Deleted work isn’t platform credit.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Filters notifications to state changes only</li>
+          <li>Sizes the load from real handle times in HCHB workflow records</li>
+          <li>Tells us what to delete, not just what to automate</li>
+          <li>Covers coordination time (gap <span class="mono">CO-12</span>)</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“Which of our workflows would your product remove rather than speed up?”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>Hand-off latency</b> <span class="na">Not available today</span></span><span><b>Task census with handle time</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">VI</div>
+      <div class="p-head">
+        <span class="tag t-value">Waterfall</span>
+        <h3>Workforce Stability</h3>
+        <p class="why">With 70% paid per visit, an unstable schedule means unstable pay. In a study of 3,716 nurses, full-time RNs with the most volatile schedules (75th percentile) were 16% more likely to quit.</p>
+        <p class="book">Reduced turnover · $20K / branch · $1.6M network</p>
+      </div>
+      <div class="prove">
+        <span class="label">Vendor must prove</span>
+        <ul>
+          <li>Protects the clinician’s booked week, not just fills it</li>
+          <li>Measures volatility: variation in daily visit count over the trailing 28 days</li>
+          <li>Moves the ~30 minutes of unpaid evening confirmation calls into the system</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">The lock question</span><p>“How does your product make a clinician’s week less volatile, and how would we see that in 90 days of payroll?”</p></div>
+        <div class="metric"><span class="label">Scored by</span><span><b>Schedule volatility</b> <span class="na">Not available today</span></span><span><b>Turnover</b> · <b>income realised at 90 days</b></span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="upside" aria-labelledby="up-h">
+  <div class="sh">
+    <h2 id="up-h">The upside</h2>
+    <p>Not on the waterfall. It depends on behaviour or is hard to measure, so we name it and state the mechanism. Vendors don’t get to price it for us.</p>
+  </div>
+  <div class="up-grid">
+    <div class="up"><span class="label" style="color:var(--gold)">Quality</span><h3>Value-based revenue</h3><p>The VBP band is worth roughly one visit per period. Continuity, first-visit timeliness and targeted front-loading of PT move it.</p><span class="val">0.5% swing on ~$260M episodic</span></div>
+    <div class="up"><span class="label" style="color:var(--gold)">Workforce</span><h3>The attraction case</h3><p>About 2.5 hours a week back to every clinician, and pay a recruit can actually count on. That’s a hiring pitch.</p><span class="val">Not yet valued · 4 baselines named</span></div>
+    <div class="up"><span class="label" style="color:var(--gold)">Extension</span><h3>Hospice on the same tool</h3><p>Four hospice mechanics, starting with IDG scheduling, need new rules, not a new product.</p><span class="val">Option value</span></div>
+    <div class="up"><span class="label" style="color:var(--gold)">Asset</span><h3>Payer rules library</h3><p>Proprietary data nobody publishes. It gets more valuable every cycle the system runs.</p><span class="val">Option value · compounds</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="q-h" style="display:grid;gap:18px">
+  <div class="sh">
+    <h2 id="q-h">Pass / fail, every vendor</h2>
+    <p>These cut across all six pillars. Any one failure ends the conversation, whatever the pillar scores.</p>
+  </div>
+  <div class="quals">
+    <div class="qual"><h3>Posture <span class="k">DE-09</span></h3><p>It assists where we said a human decides. Smart Scheduling overreaches on 16 variables. That’s how the Alabama pilot failed.</p><p class="ask">“Which decisions does your product make without a human?”</p></div>
+    <div class="qual"><h3>Evidence</h3><p>Outcome metrics, not input metrics. “70% auto-scheduled” isn’t a result. No peer-reviewed study of any home health scheduling product exists.</p><p class="ask">“Show a controlled before-and-after, not one customer’s story.”</p></div>
+    <div class="qual"><h3>Integration</h3><p>HCHB has no public API: integration runs on HL7v2 and CCD over SFTP. Its read/write FHIR marketplace opens in 2027.</p><p class="ask">“Who carries the integration cost, and what changes in 2027?”</p></div>
+    <div class="qual"><h3>Total cost</h3><p>The license is about 10% of total cost. Internal labor is 42%. Implementation scales with branch count, not census.</p><p class="ask">“Price three years for 80 branches, trainer-days included.”</p></div>
+    <div class="qual"><h3>Data fidelity</h3><p>Accurate constraints and visit durations matter more than the algorithm. Heavy scheduler overrides in the first 60 days sour adoption.</p><p class="ask">“What happens when schedulers override you 40% of the time?”</p></div>
+    <div class="qual"><h3>Beyond HCHB</h3><p>Only value beyond what our HCHB products already do counts. Web + Smart Scheduling together cover 26 categories and leave 6 gaps.</p><p class="ask">“Which of our six gaps do you close?”</p></div>
+  </div>
+</section>
+
+<section class="pair">
+  <div class="block">
+    <h2>The six gaps: where a vendor can earn its place</h2>
+    <p>What HCHB Web + Smart Scheduling leave uncovered, from the 8.13 functional scorecard.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Category</th><th>Layer</th><th>What’s missing</th></tr></thead>
+      <tbody>
+        <tr><td>Ramp</td><td>Capacity</td><td>Orientation status <span class="mono">C-11</span></td></tr>
+        <tr><td>Context</td><td>Capacity</td><td>Referral volume, the demand side <span class="mono">C-13</span></td></tr>
+        <tr><td>Compliance</td><td>Scheduling</td><td>SOC / recert / face-to-face windows <span class="mono">S-35 S-36</span></td></tr>
+        <tr><td>Preference</td><td>Scheduling</td><td>Patient preference variables</td></tr>
+        <tr><td>Caregiver</td><td>Scheduling</td><td>Caregiver-present requirement and availability <span class="mono">S-28 S-30</span></td></tr>
+        <tr><td>Coord. cost</td><td>Coordination</td><td>Time spent keeping the schedule intact once the day starts <span class="mono">CO-12</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="block">
+    <h2>Any number they quote must state</h2>
+    <p>Vendor estimates can differ tenfold ($1.9M–$23M) on these four choices alone. Don’t accept a figure that doesn’t state them.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Convention</th><th>Choice A</th><th>Choice B</th></tr></thead>
+      <tbody>
+        <tr><td>Attribution</td><td>Gross benefit</td><td>Incremental to cheaper options</td></tr>
+        <tr><td>Revenue base</td><td>Episodic ~$260M</td><td>Whole book ~$549M</td></tr>
+        <tr><td>Lever count</td><td>Workbook’s 4</td><td>Expanded 15</td></tr>
+        <tr><td>Config value</td><td>Credited to platform</td><td>Deducted (15–28%)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<footer class="stance">
+  <div><span class="label">Where we stand, internally</span><h2 style="margin-top:8px">Measure first. Decide the platform on evidence.</h2></div>
+  <div>
+    <p>We’re funding a two-quarter phase to measure and configure. The platform decision comes at the gate. Vendors are being evaluated, not selected. Price HCHB Smart Scheduling as a costed comparator either way.</p>
+    <ol>
+      <li>Auth write-offs and LUPA leakage measured. If both come back small, the margin program stops.</li>
+      <li>Configuration and standard work capture their share first. The platform only has to justify the rest.</li>
+      <li>A baseline exists for Pillar I’s core metric.</li>
+      <li>Override behaviour and data hygiene are shown to be manageable in one branch.</li>
+    </ol>
+  </div>
+  <p class="src" style="grid-column:1/-1">Sources: 8.13 Capacity &amp; Scheduling Workbook (finance case of record); <span class="mono">business-case-methodology.md</span>; <span class="mono">business-case-verdict.md</span>; <span class="mono">knowledge/business-case-and-kpis.md</span>; house business-case format (Aug 2026). Dollar figures are modelled from editable assumptions, not guaranteed outcomes.</p>
+</footer>
+
+</div>
