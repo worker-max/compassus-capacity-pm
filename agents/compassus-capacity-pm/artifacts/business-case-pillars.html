@@ -61,9 +61,9 @@ h1 span{display:block;font-stretch:125%;font-weight:300;font-size:.34em;letter-s
 .facts b{font-family:var(--display);color:var(--ink);font-weight:700;font-stretch:85%;font-size:17px;margin-right:4px}
 
 /* section heads */
-.sh{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.sh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
 .sh h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:1}
-.sh p{color:var(--ink-2);font-size:15px;max-width:62ch;justify-self:end;text-align:right}
+.sh p{color:var(--ink-2);font-size:15px;max-width:48ch}
 
 /* pillars */
 .legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--ink-2)}
@@ -153,52 +153,77 @@ td:first-child{font-family:var(--display);font-weight:700;font-stretch:85%;white
   .ceil + .ceil{border-left:0;border-top:1px solid var(--rule)}
   .qual,.qual:nth-child(2n){padding-left:0;border-left:0}
 }
+
+
+/* volume chain */
+.chain{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.step{padding:16px 16px 18px;display:grid;gap:8px;align-content:start;position:relative}
+.step + .step{border-left:1px solid var(--rule)}
+.step h3{font-size:20px;font-weight:750;font-stretch:78%;text-transform:uppercase;line-height:1.05}
+.step p{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.leak{font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cost);line-height:1.35}
+.leak::before{content:"Lost here: ";color:var(--ink-2)}
+.step:last-child h3{color:var(--value)}
+.step:last-child .leak{color:var(--value)}
+.step:last-child .leak::before{content:""}
+.stat{display:flex;flex-wrap:wrap;gap:10px 40px;font-size:15px;color:var(--ink-2)}
+.stat b{font-family:var(--display);color:var(--ink);font-weight:800;font-stretch:80%;font-size:26px;margin-right:6px}
+.ask-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--ink)}
+.ask-list div{padding:14px 0;border-bottom:1px solid var(--rule);display:grid;gap:4px}
+.ask-list b{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:17px}
+.ask-list span{color:var(--ink-2);font-size:15px}
+@media (max-width:980px){
+  .chain{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .step:nth-child(4){border-left:0}
+  .step:nth-child(n+4){border-top:1px solid var(--rule)}
+}
+@media (max-width:680px){
+  .chain,.ask-list{grid-template-columns:1fr}
+  .step + .step{border-left:0;border-top:1px solid var(--rule)}
+}
 </style>
 
 <div class="wrap">
 
 <header class="mast">
   <div class="mast-top">
-    <span class="label">Compassus · Capacity &amp; Scheduling · Business case</span>
-    <span class="label internal">Internal — vendor prep, not for distribution</span>
+    <span class="label">Compassus · Home Health · Capacity &amp; Scheduling</span>
+    <span class="label">Partner conversation guide</span>
   </div>
-  <h1>The Six Pillars<span>Every vendor walks through the same six doors.</span></h1>
+  <h1>Where can this patient go?<span>Six things any scheduling partner has to help us do.</span></h1>
   <div class="thesis">
-    <p>Capacity must be solved before scheduling. The first job is <em>not to optimise anything</em>: it is to make capacity measurable. Any vendor that can’t hold up each pillar below, on our data and under our payer mix, doesn’t make the shortlist.</p>
+    <p>Every day, new patients are referred to us. Taking them depends on one answer: <em>who has room, where, and when?</em> Today that answer is slow and hard to see. So we turn some patients away, say yes too late, or say yes and then struggle to staff the visits. Anything we buy has to help us serve more patients, faster, with the team we already have.</p>
     <div class="figure">
-      <span class="label">Finance case of record · Moderate</span>
-      <span class="big">$7.9M<span style="font-size:.4em;font-weight:500"> / yr</span></span>
-      <small>Range $4.0M–$14.3M across ~80 branches (8.13 workbook). Base three-year cost of ownership: $21.7M.</small>
+      <span class="label">The standard we’re held to</span>
+      <span class="big">48 hrs</span>
+      <small>From referral to the first visit in the patient’s home. Across ~80 branches and ~3,000 clinicians.</small>
     </div>
   </div>
 </header>
 
-<section class="ceilings" aria-labelledby="ceil-h">
+<section style="display:grid;gap:18px" aria-labelledby="chain-h">
   <div class="sh">
-    <h2 id="ceil-h">The ground every pitch stands on</h2>
-    <p>Four independent ceilings act on every episode. A vendor built for a 90% traditional-Medicare world sees one.</p>
+    <h2 id="chain-h">How a patient reaches us, and where we lose them</h2>
+    <p>Each step is a place where volume either gets through or leaks out.</p>
   </div>
-  <div class="ceil-grid">
-    <div class="ceil"><span class="label">Permission</span><h3>Authorization</h3><p>What the payer approved in advance.</p><span class="conseq">Crossed → not billable</span></div>
-    <div class="ceil"><span class="label">Floor</span><h3>LUPA threshold</h3><p>2–5 visits by group, per 30-day period.</p><span class="conseq">Crossed → ~$1,400 cliff</span></div>
-    <div class="ceil"><span class="label">Ceiling</span><h3>Episodic ceiling</h3><p>Visits above the floor under episodic pay.</p><span class="conseq">Crossed → earns nothing</span></div>
-    <div class="ceil"><span class="label">Cap</span><h3>Benefit limit</h3><p>Annual limit on commercial and Medicaid.</p><span class="conseq">Crossed → unbillable mid-course</span></div>
+  <div class="chain">
+    <div class="step"><span class="label">1</span><h3>Referral arrives</h3><p>A hospital or physician sends us a patient.</p><span class="leak">We can’t see if there’s room</span></div>
+    <div class="step"><span class="label">2</span><h3>Is there room?</h3><p>The right type of clinician, in the right area, this week.</p><span class="leak">We turn them away, unsure</span></div>
+    <div class="step"><span class="label">3</span><h3>Insurer approves</h3><p>Many insurers must approve care before we start.</p><span class="leak">Waiting holds the slot</span></div>
+    <div class="step"><span class="label">4</span><h3>First visit</h3><p>Booked and seen, ideally within 48 hours.</p><span class="leak">Too slow, so they go elsewhere</span></div>
+    <div class="step"><span class="label">5</span><h3>Ongoing visits</h3><p>Weeks of visits, across nurses, therapists and aides.</p><span class="leak">Cancelled and never refilled</span></div>
+    <div class="step"><span class="label">6</span><h3>Discharge</h3><p>The patient finishes care.</p><span class="leak">Room opens for the next referral</span></div>
   </div>
-  <div class="facts">
-    <span><b>47 / 53</b>Medicare FFS vs. everything else, by revenue</span>
-    <span><b>70%</b>of clinicians paid per visit</span>
-    <span><b>~$549M</b>home health revenue · <b>~$260M</b> episodic</span>
+  <div class="stat">
+    <span><b>~1 in 10</b>approved home health visits never gets staffed (industry-wide)</span>
+    <span><b>70%</b>of our clinicians are paid per visit, so empty slots cost them too</span>
   </div>
 </section>
 
 <section aria-labelledby="pil-h" style="display:grid;gap:18px">
   <div class="sh">
-    <h2 id="pil-h">The pillars</h2>
-    <p>In value-chain order: referral → capacity decision → schedule → visit → revenue. Each ends in the one question the vendor has to answer on the record.</p>
-  </div>
-  <div class="legend">
-    <span class="tag t-gate">Gate: must pass first</span>
-    <span class="tag t-value">Waterfall: hard, countable value</span>
+    <h2 id="pil-h">The six pillars</h2>
+    <p>The first one comes before everything else. For each pillar: what we need, what to show us, and the question we’ll ask.</p>
   </div>
 
   <div class="pillars">
@@ -206,212 +231,158 @@ td:first-child{font-family:var(--display);font-weight:700;font-stretch:85%;white
     <article class="pillar is-gate">
       <div class="num">I</div>
       <div class="p-head">
-        <span class="tag t-gate">Gate · foundation</span>
-        <h3>Capacity Visibility</h3>
-        <p class="why">Capacity and scheduling are two functions forced through one spreadsheet, with no forward view. Work waiting on authorization doesn’t show up in any count.</p>
-        <p class="book">Waterfall: none directly. Every other pillar depends on it.</p>
+        <span class="tag t-gate">Comes first</span>
+        <h3>See our room</h3>
+        <p class="why">Know exactly how many more patients each branch can take, by type of clinician, this week and next. Today no one can answer that with confidence.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Computes maximum deliverable visits per week vs. delivered, by discipline and branch</li>
-          <li>Counts work held in pending authorization as real demand</li>
-          <li>Handles ramp: new clinicians aren’t counted at full capacity (gap <span class="mono">C-11</span>)</li>
-          <li>Keeps history, so it can trend, forecast and prove ROI</li>
+          <li>Open room by branch, area and type of clinician (nurse, therapist, aide)</li>
+          <li>Room that’s spoken for but waiting on insurer approval</li>
+          <li>New hires counted at the pace they can really carry, not full load</li>
+          <li>A forward view: next week, not just today</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“Show us next week’s capacity for one branch, by discipline, including work stuck in authorization. Use our data, not a demo tenant.”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>Quantified capacity &amp; utilisation</b><span class="na">Not available today</span></span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“Using our real data, show us how many new patients one branch could take next week, and which clinicians would see them.”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Visits we could deliver vs. visits we do</b></span></div>
       </div>
     </article>
 
     <article class="pillar">
       <div class="num">II</div>
       <div class="p-head">
-        <span class="tag t-value">Waterfall</span>
-        <h3>Demand Conversion</h3>
-        <p class="why">Capacity is perishable: tomorrow’s start-of-care slot either fills or it’s gone. Authorization is the real bottleneck, and it sits upstream of the scheduler’s queue.</p>
-        <p class="book">Recovered admissions · $28.8K / branch (Moderate)</p>
+        <span class="tag t-value">More patients</span>
+        <h3>Say yes faster</h3>
+        <p class="why">When a referral comes in, answer “where can this patient go, and when can we start?” in minutes, not hours. An open first-visit slot that isn’t filled today is gone for good.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Reserves start-of-care capacity so routine volume can’t eat it</li>
-          <li>Shows authorization turnaround by payer at the point of decision</li>
-          <li>Shortens the time from referral to a yes or no, so a declined slot can be refilled</li>
+          <li>Matches a new referral to a clinician with room, nearby, right away</li>
+          <li>Holds first-visit slots for new patients so routine visits don’t crowd them out</li>
+          <li>Offers a declined slot to the next patient quickly</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“Where does authorization live in your model, and how does one pending auth change tomorrow’s capacity?”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>Referral turn-down rate</b> (no capacity) <span class="na">Not available today</span></span><span><b>Time to SOC</b> vs. 48-hour standard</span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“A referral lands at 3pm on a Friday. Walk us through how your system gets that patient seen by Sunday.”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Referrals turned away for lack of room</b></span><span><b>Hours from referral to first visit</b></span></div>
       </div>
     </article>
 
     <article class="pillar">
       <div class="num">III</div>
       <div class="p-head">
-        <span class="tag t-value">Waterfall</span>
-        <h3>Payer &amp; Episode Integrity</h3>
-        <p class="why">Payer rules are written down days before they’re needed, but never reach the plan of care. 81.7% of appealed prior-auth denials are overturned: the information existed and wasn’t used.</p>
-        <p class="book">Avoided LUPAs · $14K / branch · plus auth write-offs (not yet measured)</p>
+        <span class="tag t-value">More patients</span>
+        <h3>Get insurance right the first time</h3>
+        <p class="why">Every insurer plays by different rules. Some approve visits in advance, some pay per care period, some cap visits per year. The rules exist, but they don’t reach the people planning care in time.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Enforces all four ceilings as separate tests, not one</li>
-          <li>Puts payer rules in front of the clinician when the plan of care is created</li>
-          <li>Flags patients one visit short of the floor, but only for clinically indicated visits</li>
-          <li>Never adds a visit just to clear the threshold. 21% of claims just above it were non-compliant</li>
+          <li>Each insurer’s rules visible when the care plan is built</li>
+          <li>Warnings before a visit falls outside what’s approved or covered</li>
+          <li>Where approvals are stuck, and with which insurer</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“Walk one patient through all four ceilings. What does the scheduler see when authorization and the LUPA floor conflict?”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>LUPA rate &amp; leakage</b> · <b>auth write-offs</b></span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“How does your system know what each insurer has approved, and what does the scheduler see when a visit isn’t covered?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Visits delivered but not paid</b> · <b>days waiting on approval</b></span></div>
       </div>
     </article>
 
     <article class="pillar">
       <div class="num">IV</div>
       <div class="p-head">
-        <span class="tag t-value">Waterfall</span>
-        <h3>Delivery Throughput</h3>
-        <p class="why">Industry fill rates run 88–90%, so about one authorized visit in ten never gets staffed. This pays on the non-episodic book. Under episodic pay it protects coverage, not revenue.</p>
-        <p class="book">Reduced premium / contract labor · $36K / branch</p>
+        <span class="tag t-value">More visits</span>
+        <h3>Fill every visit</h3>
+        <p class="why">Patients cancel, clinicians call out, plans change. Every visit we don’t refill is care the patient doesn’t get, and pay the clinician doesn’t earn.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Fast backfill of cancellations and refusals</li>
-          <li>Paraprofessional pool planned apart from admissions capacity</li>
-          <li>Realistic travel claims: 5–15%. Divide a 20–40% claim by two or three</li>
+          <li>Cancelled visits refilled the same day, automatically offered to nearby clinicians</li>
+          <li>Aide schedules handled on their own track, separate from new-patient visits</li>
+          <li>Honest drive-time savings: 5–15% is realistic; claims of 30%+ aren’t</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“At your reference customer, what happened to visits per clinician per day compared with a branch that didn’t go live?”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>Missed / rescheduled rate</b> · <b>premium labor %</b></span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“At a customer like us, how many more visits per clinician per day did they deliver, compared with branches that didn’t use it?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Missed and rescheduled visits</b> · <b>overtime and agency staff</b></span></div>
       </div>
     </article>
 
     <article class="pillar">
       <div class="num">V</div>
       <div class="p-head">
-        <span class="tag t-value">Waterfall · conditional</span>
-        <h3>Coordination Load</h3>
-        <p class="why">Three sources of load: the SOC and recert cycle, the per-discipline assignment burst, and chasing authorizations. The notification storm is a safety problem, not an annoyance.</p>
-        <p class="book">Admin hours, only for work that should exist. Deleted work isn’t platform credit.</p>
+        <span class="tag t-value">More time</span>
+        <h3>Less chasing</h3>
+        <p class="why">Our coordinators spend their day on phone calls, alerts and manual hand-offs just to keep the schedule standing. That time should go to taking on patients.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Filters notifications to state changes only</li>
-          <li>Sizes the load from real handle times in HCHB workflow records</li>
-          <li>Tells us what to delete, not just what to automate</li>
-          <li>Covers coordination time (gap <span class="mono">CO-12</span>)</li>
+          <li>Fewer, better alerts: only the ones that need action</li>
+          <li>Steps removed, not just done faster</li>
+          <li>Hand-offs between intake, scheduling and clinicians tracked in one place</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“Which of our workflows would your product remove rather than speed up?”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>Hand-off latency</b> <span class="na">Not available today</span></span><span><b>Task census with handle time</b></span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“Which of our daily tasks would your system eliminate entirely?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Hours from referral to each hand-off</b> · <b>coordinator time per new patient</b></span></div>
       </div>
     </article>
 
     <article class="pillar">
       <div class="num">VI</div>
       <div class="p-head">
-        <span class="tag t-value">Waterfall</span>
-        <h3>Workforce Stability</h3>
-        <p class="why">With 70% paid per visit, an unstable schedule means unstable pay. In a study of 3,716 nurses, full-time RNs with the most volatile schedules (75th percentile) were 16% more likely to quit.</p>
-        <p class="book">Reduced turnover · $20K / branch · $1.6M network</p>
+        <span class="tag t-value">More capacity, kept</span>
+        <h3>Steady weeks for clinicians</h3>
+        <p class="why">Most of our clinicians are paid per visit. An unpredictable week means unpredictable pay, and those clinicians leave. Every clinician we keep is room for more patients.</p>
       </div>
       <div class="prove">
-        <span class="label">Vendor must prove</span>
+        <span class="label">Show us</span>
         <ul>
-          <li>Protects the clinician’s booked week, not just fills it</li>
-          <li>Measures volatility: variation in daily visit count over the trailing 28 days</li>
-          <li>Moves the ~30 minutes of unpaid evening confirmation calls into the system</li>
+          <li>Keeps a clinician’s booked week full and predictable</li>
+          <li>Takes over the unpaid evening calls confirming tomorrow’s visits (~30 min a day)</li>
+          <li>Keeps patients with the same clinician wherever possible</li>
         </ul>
       </div>
       <div class="lock">
-        <div class="q"><span class="label">The lock question</span><p>“How does your product make a clinician’s week less volatile, and how would we see that in 90 days of payroll?”</p></div>
-        <div class="metric"><span class="label">Scored by</span><span><b>Schedule volatility</b> <span class="na">Not available today</span></span><span><b>Turnover</b> · <b>income realised at 90 days</b></span></div>
+        <div class="q"><span class="label">We’ll ask</span><p>“How does your system give a clinician a steadier week, and how would we see that in their pay after 90 days?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Week-to-week swing in visits</b> · <b>clinician turnover</b></span></div>
       </div>
     </article>
 
   </div>
 </section>
 
-<section class="upside" aria-labelledby="up-h">
-  <div class="sh">
-    <h2 id="up-h">The upside</h2>
-    <p>Not on the waterfall. It depends on behaviour or is hard to measure, so we name it and state the mechanism. Vendors don’t get to price it for us.</p>
-  </div>
-  <div class="up-grid">
-    <div class="up"><span class="label" style="color:var(--gold)">Quality</span><h3>Value-based revenue</h3><p>The VBP band is worth roughly one visit per period. Continuity, first-visit timeliness and targeted front-loading of PT move it.</p><span class="val">0.5% swing on ~$260M episodic</span></div>
-    <div class="up"><span class="label" style="color:var(--gold)">Workforce</span><h3>The attraction case</h3><p>About 2.5 hours a week back to every clinician, and pay a recruit can actually count on. That’s a hiring pitch.</p><span class="val">Not yet valued · 4 baselines named</span></div>
-    <div class="up"><span class="label" style="color:var(--gold)">Extension</span><h3>Hospice on the same tool</h3><p>Four hospice mechanics, starting with IDG scheduling, need new rules, not a new product.</p><span class="val">Option value</span></div>
-    <div class="up"><span class="label" style="color:var(--gold)">Asset</span><h3>Payer rules library</h3><p>Proprietary data nobody publishes. It gets more valuable every cycle the system runs.</p><span class="val">Option value · compounds</span></div>
-  </div>
-</section>
-
 <section aria-labelledby="q-h" style="display:grid;gap:18px">
   <div class="sh">
-    <h2 id="q-h">Pass / fail, every vendor</h2>
-    <p>These cut across all six pillars. Any one failure ends the conversation, whatever the pillar scores.</p>
+    <h2 id="q-h">What we expect from any partner</h2>
+    <p>These apply across all six pillars.</p>
   </div>
   <div class="quals">
-    <div class="qual"><h3>Posture <span class="k">DE-09</span></h3><p>It assists where we said a human decides. Smart Scheduling overreaches on 16 variables. That’s how the Alabama pilot failed.</p><p class="ask">“Which decisions does your product make without a human?”</p></div>
-    <div class="qual"><h3>Evidence</h3><p>Outcome metrics, not input metrics. “70% auto-scheduled” isn’t a result. No peer-reviewed study of any home health scheduling product exists.</p><p class="ask">“Show a controlled before-and-after, not one customer’s story.”</p></div>
-    <div class="qual"><h3>Integration</h3><p>HCHB has no public API: integration runs on HL7v2 and CCD over SFTP. Its read/write FHIR marketplace opens in 2027.</p><p class="ask">“Who carries the integration cost, and what changes in 2027?”</p></div>
-    <div class="qual"><h3>Total cost</h3><p>The license is about 10% of total cost. Internal labor is 42%. Implementation scales with branch count, not census.</p><p class="ask">“Price three years for 80 branches, trainer-days included.”</p></div>
-    <div class="qual"><h3>Data fidelity</h3><p>Accurate constraints and visit durations matter more than the algorithm. Heavy scheduler overrides in the first 60 days sour adoption.</p><p class="ask">“What happens when schedulers override you 40% of the time?”</p></div>
-    <div class="qual"><h3>Beyond HCHB</h3><p>Only value beyond what our HCHB products already do counts. Web + Smart Scheduling together cover 26 categories and leave 6 gaps.</p><p class="ask">“Which of our six gaps do you close?”</p></div>
+    <div class="qual"><h3>Our people decide</h3><p>The system recommends and our people make the call. We’ve tried tools that took the decision away, and they didn’t stick.</p><p class="ask">“Which decisions does your system make on its own?”</p></div>
+    <div class="qual"><h3>Results, not activity</h3><p>Show more patients served and more visits per clinician. “Percent of visits auto-scheduled” doesn’t tell us that.</p><p class="ask">“What changed for patients and clinicians at a customer like us?”</p></div>
+    <div class="qual"><h3>Works with what we have</h3><p>We run Homecare Homebase (HCHB). You need to show exactly how you connect to it, and who carries that work.</p><p class="ask">“How does data move between you and HCHB, and how often?”</p></div>
+    <div class="qual"><h3>Priced in full</h3><p>Three years, ~80 branches, including setup, training and connecting to our systems. Not just the license.</p><p class="ask">“What does year one cost us, all in?”</p></div>
+    <div class="qual"><h3>Real-world data</h3><p>Our data isn’t perfect, and schedulers will override the system early on. It has to cope with both.</p><p class="ask">“What happens in the first 60 days when schedulers ignore your suggestions?”</p></div>
+    <div class="qual"><h3>Adds something new</h3><p>We already own some scheduling tools. Show what you do that they don’t.</p><p class="ask">“What can you do that our current system can’t?”</p></div>
   </div>
 </section>
 
-<section class="pair">
-  <div class="block">
-    <h2>The six gaps: where a vendor can earn its place</h2>
-    <p>What HCHB Web + Smart Scheduling leave uncovered, from the 8.13 functional scorecard.</p>
-    <div class="tbl"><table>
-      <thead><tr><th>Category</th><th>Layer</th><th>What’s missing</th></tr></thead>
-      <tbody>
-        <tr><td>Ramp</td><td>Capacity</td><td>Orientation status <span class="mono">C-11</span></td></tr>
-        <tr><td>Context</td><td>Capacity</td><td>Referral volume, the demand side <span class="mono">C-13</span></td></tr>
-        <tr><td>Compliance</td><td>Scheduling</td><td>SOC / recert / face-to-face windows <span class="mono">S-35 S-36</span></td></tr>
-        <tr><td>Preference</td><td>Scheduling</td><td>Patient preference variables</td></tr>
-        <tr><td>Caregiver</td><td>Scheduling</td><td>Caregiver-present requirement and availability <span class="mono">S-28 S-30</span></td></tr>
-        <tr><td>Coord. cost</td><td>Coordination</td><td>Time spent keeping the schedule intact once the day starts <span class="mono">CO-12</span></td></tr>
-      </tbody>
-    </table></div>
-  </div>
-  <div class="block">
-    <h2>Any number they quote must state</h2>
-    <p>Vendor estimates can differ tenfold ($1.9M–$23M) on these four choices alone. Don’t accept a figure that doesn’t state them.</p>
-    <div class="tbl"><table>
-      <thead><tr><th>Convention</th><th>Choice A</th><th>Choice B</th></tr></thead>
-      <tbody>
-        <tr><td>Attribution</td><td>Gross benefit</td><td>Incremental to cheaper options</td></tr>
-        <tr><td>Revenue base</td><td>Episodic ~$260M</td><td>Whole book ~$549M</td></tr>
-        <tr><td>Lever count</td><td>Workbook’s 4</td><td>Expanded 15</td></tr>
-        <tr><td>Config value</td><td>Credited to platform</td><td>Deducted (15–28%)</td></tr>
-      </tbody>
-    </table></div>
+<section class="block" aria-labelledby="n-h">
+  <h2 id="n-h">When you quote us a number, tell us</h2>
+  <div class="ask-list">
+    <div><b>Compared with what?</b><span>Savings over our current tools, or over doing nothing at all.</span></div>
+    <div><b>Based on which patients?</b><span>Medicare only, or every insurer we work with.</span></div>
+    <div><b>From where?</b><span>A measured customer result, or a projection.</span></div>
+    <div><b>Over what time?</b><span>When value starts, and when it reaches full effect.</span></div>
   </div>
 </section>
 
-<footer class="stance">
-  <div><span class="label">Where we stand, internally</span><h2 style="margin-top:8px">Measure first. Decide the platform on evidence.</h2></div>
-  <div>
-    <p>We’re funding a two-quarter phase to measure and configure. The platform decision comes at the gate. Vendors are being evaluated, not selected. Price HCHB Smart Scheduling as a costed comparator either way.</p>
-    <ol>
-      <li>Auth write-offs and LUPA leakage measured. If both come back small, the margin program stops.</li>
-      <li>Configuration and standard work capture their share first. The platform only has to justify the rest.</li>
-      <li>A baseline exists for Pillar I’s core metric.</li>
-      <li>Override behaviour and data hygiene are shown to be manageable in one branch.</li>
-    </ol>
-  </div>
-  <p class="src" style="grid-column:1/-1">Sources: 8.13 Capacity &amp; Scheduling Workbook (finance case of record); <span class="mono">business-case-methodology.md</span>; <span class="mono">business-case-verdict.md</span>; <span class="mono">knowledge/business-case-and-kpis.md</span>; house business-case format (Aug 2026). Dollar figures are modelled from editable assumptions, not guaranteed outcomes.</p>
-</footer>
+<p class="src">Prepared by the Compassus capacity &amp; scheduling team. Industry figures are published benchmarks; our own figures are drawn from internal planning work.</p>
 
 </div>
