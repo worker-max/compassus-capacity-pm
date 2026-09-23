@@ -1,0 +1,388 @@
+<title>The Six Pillars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F1F2EE; --paper-2:#E6E8E2; --ink:#101826; --ink-2:#3E4757; --rule:#C9CDC4;
+  --navy:#16263F; --navy-ink:#E9ECEF; --navy-dim:#9AA6B8;
+  --value:#2B7355; --cost:#A93C2A; --gold:#A8801F; --gate:#16263F;
+  --tint-value:#DCE8E0; --tint-gold:#EFE6CF; --tint-gate:#DDE2EA;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0E131C; --paper-2:#161D29; --ink:#E7EAEE; --ink-2:#A9B1BE; --rule:#2A3342;
+    --navy:#1A2A44; --navy-ink:#E9ECEF; --navy-dim:#8E9BB0;
+    --value:#5DB08A; --cost:#E0765F; --gold:#D6AE52; --gate:#A9BCDA;
+    --tint-value:#16291F; --tint-gold:#2A2414; --tint-gate:#1A2334;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0E131C; --paper-2:#161D29; --ink:#E7EAEE; --ink-2:#A9B1BE; --rule:#2A3342;
+  --navy:#1A2A44; --navy-ink:#E9ECEF; --navy-dim:#8E9BB0;
+  --value:#5DB08A; --cost:#E0765F; --gold:#D6AE52; --gate:#A9BCDA;
+  --tint-value:#16291F; --tint-gold:#2A2414; --tint-gate:#1A2334;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--serif);padding-inline:clamp(16px,4vw,56px);padding-block:40px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3,.label{font-family:var(--display);margin:0}
+.label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-stretch:100%}
+.mono{font-family:var(--mono);font-size:.82em}
+p{margin:0}
+
+/* masthead */
+.mast{display:grid;gap:20px;border-top:6px solid var(--ink);padding-top:18px}
+.mast-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;color:var(--ink-2)}
+.internal{color:var(--cost)}
+h1{font-size:clamp(52px,10vw,132px);line-height:.86;font-weight:850;font-stretch:62%;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance}
+h1 span{display:block;font-stretch:125%;font-weight:300;font-size:.34em;letter-spacing:.02em;line-height:1.1;margin-top:.35em;text-transform:none}
+.thesis{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:end}
+.thesis p{font-size:clamp(19px,2.1vw,24px);line-height:1.4;max-width:34ch}
+.thesis p em{font-style:italic}
+.figure{display:grid;gap:4px;border-left:1px solid var(--rule);padding-left:24px}
+.figure .big{font-family:var(--display);font-weight:800;font-stretch:75%;font-size:clamp(44px,6vw,72px);line-height:1;font-variant-numeric:tabular-nums}
+.figure small{color:var(--ink-2);font-size:14px;line-height:1.4}
+
+/* ceilings strip */
+.ceilings{display:grid;gap:14px}
+.ceil-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ceil{padding:16px 18px 18px;display:grid;gap:6px;align-content:start}
+.ceil + .ceil{border-left:1px solid var(--rule)}
+.ceil h3{font-size:22px;font-weight:700;font-stretch:80%;text-transform:uppercase;letter-spacing:.01em}
+.ceil p{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.ceil .conseq{color:var(--cost);font-family:var(--display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;color:var(--ink-2);font-size:14.5px}
+.facts b{font-family:var(--display);color:var(--ink);font-weight:700;font-stretch:85%;font-size:17px;margin-right:4px}
+
+/* section heads */
+.sh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+.sh h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:1}
+.sh p{color:var(--ink-2);font-size:15px;max-width:48ch}
+
+/* pillars */
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--ink-2)}
+.tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.tag::before{content:"";width:10px;height:10px;background:currentColor}
+.t-gate{color:var(--gate)} .t-value{color:var(--value)} .t-gold{color:var(--gold)}
+.pillars{display:grid}
+.pillar{display:grid;grid-template-columns:88px minmax(0,1.05fr) minmax(0,1.25fr) minmax(0,1fr);gap:0 28px;padding:26px 0;border-bottom:1px solid var(--rule)}
+.num{font-family:var(--display);font-weight:200;font-stretch:62%;font-size:84px;line-height:.8;color:var(--ink-2)}
+.p-head{display:grid;gap:10px;align-content:start}
+.p-head h3{font-size:30px;font-weight:800;font-stretch:72%;text-transform:uppercase;line-height:.95}
+.p-head .why{font-size:15.5px;line-height:1.5}
+.p-head .book{font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+.prove{display:grid;gap:8px;align-content:start}
+.prove ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.prove li{padding-left:18px;position:relative;font-size:15px;line-height:1.45}
+.prove li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1px;background:var(--ink)}
+.lock{display:grid;gap:12px;align-content:start}
+.q{background:var(--paper-2);padding:14px 16px 16px;display:grid;gap:6px}
+.q p{font-style:italic;font-size:16px;line-height:1.42}
+.metric{display:grid;gap:4px;font-size:14px;color:var(--ink-2)}
+.metric b{color:var(--ink);font-weight:600}
+.na{color:var(--cost);font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-left:6px}
+.pillar.is-gate .num{color:var(--gate)}
+.pillar.is-gate{background:linear-gradient(90deg,var(--tint-gate),transparent 70%);padding-left:14px;margin-left:-14px}
+
+/* upside */
+.upside{background:var(--navy);color:var(--navy-ink);padding:36px clamp(20px,4vw,44px) 40px;display:grid;gap:26px}
+.upside .sh{border-color:var(--navy-dim)}
+.upside .sh p{color:var(--navy-dim)}
+.up-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.up{display:grid;gap:8px;align-content:start;border-top:2px solid var(--gold);padding-top:14px}
+.up h3{font-size:20px;font-weight:700;font-stretch:80%;text-transform:uppercase;line-height:1.05}
+.up p{font-size:14.5px;line-height:1.5;color:var(--navy-ink);opacity:.88}
+.up .val{font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+
+/* qualifiers */
+.quals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.qual{padding:22px 24px 24px 0;display:grid;gap:8px;align-content:start;border-bottom:1px solid var(--rule)}
+.qual:not(:nth-child(3n+1)){padding-left:24px;border-left:1px solid var(--rule)}
+.qual h3{font-size:21px;font-weight:750;font-stretch:78%;text-transform:uppercase;display:flex;gap:10px;align-items:baseline}
+.qual h3 .k{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--ink-2);letter-spacing:0}
+.qual p{font-size:15px;line-height:1.5}
+.qual .ask{font-style:italic;color:var(--ink-2);font-size:14.5px}
+
+/* gaps + conventions */
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+.block{display:grid;gap:16px;align-content:start}
+.block h2{font-size:26px;font-weight:800;font-stretch:72%;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.block > p{color:var(--ink-2);font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--ink-2);padding:0 12px 8px 0;border-bottom:1px solid var(--rule)}
+td{padding:10px 12px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.4}
+td:first-child{font-family:var(--display);font-weight:700;font-stretch:85%;white-space:nowrap}
+.tbl{overflow-x:auto}
+
+/* stance */
+.stance{border-top:6px solid var(--ink);padding-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:32px}
+.stance h2{font-size:clamp(26px,3vw,34px);font-weight:800;font-stretch:70%;text-transform:uppercase;line-height:1}
+.stance p{font-size:16px}
+.stance ol{margin:10px 0 0;padding-left:22px;display:grid;gap:6px;font-size:15px}
+.src{color:var(--ink-2);font-size:13px;line-height:1.5;border-top:1px solid var(--rule);padding-top:14px}
+
+@media (max-width:980px){
+  .pillar{grid-template-columns:64px minmax(0,1fr);gap:18px 20px}
+  .pillar .prove,.pillar .lock{grid-column:2}
+  .num{font-size:64px}
+  .up-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qual:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+  .qual:nth-child(2n){padding-left:24px;border-left:1px solid var(--rule)}
+  .ceil-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ceil:nth-child(3){border-left:0}
+  .ceil:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (max-width:680px){
+  body{padding-block:24px 48px}
+  .wrap{gap:44px}
+  .thesis,.pair,.stance{grid-template-columns:1fr}
+  .figure{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:16px}
+  .sh{grid-template-columns:1fr}
+  .sh p{justify-self:start;text-align:left}
+  .pillar{grid-template-columns:1fr}
+  .pillar .prove,.pillar .lock{grid-column:1}
+  .pillar.is-gate{padding-left:12px;margin-left:-12px}
+  .up-grid,.quals,.ceil-grid{grid-template-columns:1fr}
+  .ceil + .ceil{border-left:0;border-top:1px solid var(--rule)}
+  .qual,.qual:nth-child(2n){padding-left:0;border-left:0}
+}
+
+
+/* volume chain */
+.chain{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.step{padding:16px 16px 18px;display:grid;gap:8px;align-content:start;position:relative}
+.step + .step{border-left:1px solid var(--rule)}
+.step h3{font-size:20px;font-weight:750;font-stretch:78%;text-transform:uppercase;line-height:1.05}
+.step p{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.leak{font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cost);line-height:1.35}
+.leak::before{content:"Lost here: ";color:var(--ink-2)}
+.step:last-child h3{color:var(--value)}
+.step:last-child .leak{color:var(--value)}
+.step:last-child .leak::before{content:""}
+.stat{display:flex;flex-wrap:wrap;gap:10px 40px;font-size:15px;color:var(--ink-2)}
+.stat b{font-family:var(--display);color:var(--ink);font-weight:800;font-stretch:80%;font-size:26px;margin-right:6px}
+.ask-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;border-top:1px solid var(--ink)}
+.ask-list div{padding:14px 0;border-bottom:1px solid var(--rule);display:grid;gap:4px}
+.ask-list b{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:17px}
+.ask-list span{color:var(--ink-2);font-size:15px}
+@media (max-width:980px){
+  .chain{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .step:nth-child(4){border-left:0}
+  .step:nth-child(n+4){border-top:1px solid var(--rule)}
+}
+@media (max-width:680px){
+  .chain,.ask-list{grid-template-columns:1fr}
+  .step + .step{border-left:0;border-top:1px solid var(--rule)}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="label">Compassus · Home Health · Capacity &amp; Scheduling</span>
+    <span class="label">Partner conversation guide</span>
+  </div>
+  <h1>Where can this patient go?<span>Six things any scheduling partner has to help us do.</span></h1>
+  <div class="thesis">
+    <p>Every day, new patients are referred to us. Taking them depends on one answer: <em>who has room, where, and when?</em> Today that answer is slow and hard to see. So we turn some patients away, say yes too late, or say yes and then struggle to staff the visits. Anything we buy has to help us serve more patients, faster, with the team we already have.</p>
+    <div class="figure">
+      <span class="label">The standard we’re held to</span>
+      <span class="big">48 hrs</span>
+      <small>From referral to the first visit in the patient’s home. Across ~80 branches and ~3,000 clinicians.</small>
+    </div>
+  </div>
+</header>
+
+<section style="display:grid;gap:18px" aria-labelledby="chain-h">
+  <div class="sh">
+    <h2 id="chain-h">How a patient reaches us, and where we lose them</h2>
+    <p>Each step is a place where volume either gets through or leaks out.</p>
+  </div>
+  <div class="chain">
+    <div class="step"><span class="label">1</span><h3>Referral arrives</h3><p>A hospital or physician sends us a patient.</p><span class="leak">We can’t see if there’s room</span></div>
+    <div class="step"><span class="label">2</span><h3>Is there room?</h3><p>The right type of clinician, in the right area, this week.</p><span class="leak">We turn them away, unsure</span></div>
+    <div class="step"><span class="label">3</span><h3>Insurer approves</h3><p>Many insurers must approve care before we start.</p><span class="leak">Waiting holds the slot</span></div>
+    <div class="step"><span class="label">4</span><h3>First visit</h3><p>Booked and seen, ideally within 48 hours.</p><span class="leak">Too slow, so they go elsewhere</span></div>
+    <div class="step"><span class="label">5</span><h3>Ongoing visits</h3><p>Weeks of visits, across nurses, therapists and aides.</p><span class="leak">Cancelled and never refilled</span></div>
+    <div class="step"><span class="label">6</span><h3>Discharge</h3><p>The patient finishes care.</p><span class="leak">Room opens for the next referral</span></div>
+  </div>
+  <div class="stat">
+    <span><b>~1 in 10</b>approved home health visits never gets staffed (industry-wide)</span>
+    <span><b>70%</b>of our clinicians are paid per visit, so empty slots cost them too</span>
+  </div>
+</section>
+
+<section aria-labelledby="pil-h" style="display:grid;gap:18px">
+  <div class="sh">
+    <h2 id="pil-h">The six pillars</h2>
+    <p>The first one comes before everything else. For each pillar: what we need, what to show us, and the question we’ll ask.</p>
+  </div>
+
+  <div class="pillars">
+
+    <article class="pillar is-gate">
+      <div class="num">I</div>
+      <div class="p-head">
+        <span class="tag t-gate">Comes first</span>
+        <h3>See our room</h3>
+        <p class="why">Know exactly how many more patients each branch can take, by type of clinician, this week and next. Today no one can answer that with confidence.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Open room by branch, area and type of clinician (nurse, therapist, aide)</li>
+          <li>Room that’s spoken for but waiting on insurer approval</li>
+          <li>New hires counted at the pace they can really carry, not full load</li>
+          <li>A forward view: next week, not just today</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“Using our real data, show us how many new patients one branch could take next week, and which clinicians would see them.”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Visits we could deliver vs. visits we do</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">II</div>
+      <div class="p-head">
+        <span class="tag t-value">More patients</span>
+        <h3>Say yes faster</h3>
+        <p class="why">When a referral comes in, answer “where can this patient go, and when can we start?” in minutes, not hours. An open first-visit slot that isn’t filled today is gone for good.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Matches a new referral to a clinician with room, nearby, right away</li>
+          <li>Holds first-visit slots for new patients so routine visits don’t crowd them out</li>
+          <li>Offers a declined slot to the next patient quickly</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“A referral lands at 3pm on a Friday. Walk us through how your system gets that patient seen by Sunday.”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Referrals turned away for lack of room</b></span><span><b>Hours from referral to first visit</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">III</div>
+      <div class="p-head">
+        <span class="tag t-value">More patients</span>
+        <h3>Get insurance right the first time</h3>
+        <p class="why">Every insurer plays by different rules. Some approve visits in advance, some pay per care period, some cap visits per year. The rules exist, but they don’t reach the people planning care in time.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Each insurer’s rules visible when the care plan is built</li>
+          <li>Warnings before a visit falls outside what’s approved or covered</li>
+          <li>Where approvals are stuck, and with which insurer</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“How does your system know what each insurer has approved, and what does the scheduler see when a visit isn’t covered?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Visits delivered but not paid</b> · <b>days waiting on approval</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">IV</div>
+      <div class="p-head">
+        <span class="tag t-value">More visits</span>
+        <h3>Fill every visit</h3>
+        <p class="why">Patients cancel, clinicians call out, plans change. Every visit we don’t refill is care the patient doesn’t get, and pay the clinician doesn’t earn.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Cancelled visits refilled the same day, automatically offered to nearby clinicians</li>
+          <li>Aide schedules handled on their own track, separate from new-patient visits</li>
+          <li>Honest drive-time savings: 5–15% is realistic; claims of 30%+ aren’t</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“At a customer like us, how many more visits per clinician per day did they deliver, compared with branches that didn’t use it?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Missed and rescheduled visits</b> · <b>overtime and agency staff</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">V</div>
+      <div class="p-head">
+        <span class="tag t-value">More time</span>
+        <h3>Less chasing</h3>
+        <p class="why">Our coordinators spend their day on phone calls, alerts and manual hand-offs just to keep the schedule standing. That time should go to taking on patients.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Fewer, better alerts: only the ones that need action</li>
+          <li>Steps removed, not just done faster</li>
+          <li>Hand-offs between intake, scheduling and clinicians tracked in one place</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“Which of our daily tasks would your system eliminate entirely?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Hours from referral to each hand-off</b> · <b>coordinator time per new patient</b></span></div>
+      </div>
+    </article>
+
+    <article class="pillar">
+      <div class="num">VI</div>
+      <div class="p-head">
+        <span class="tag t-value">More capacity, kept</span>
+        <h3>Steady weeks for clinicians</h3>
+        <p class="why">Most of our clinicians are paid per visit. An unpredictable week means unpredictable pay, and those clinicians leave. Every clinician we keep is room for more patients.</p>
+      </div>
+      <div class="prove">
+        <span class="label">Show us</span>
+        <ul>
+          <li>Keeps a clinician’s booked week full and predictable</li>
+          <li>Takes over the unpaid evening calls confirming tomorrow’s visits (~30 min a day)</li>
+          <li>Keeps patients with the same clinician wherever possible</li>
+        </ul>
+      </div>
+      <div class="lock">
+        <div class="q"><span class="label">We’ll ask</span><p>“How does your system give a clinician a steadier week, and how would we see that in their pay after 90 days?”</p></div>
+        <div class="metric"><span class="label">We’ll measure</span><span><b>Week-to-week swing in visits</b> · <b>clinician turnover</b></span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section aria-labelledby="q-h" style="display:grid;gap:18px">
+  <div class="sh">
+    <h2 id="q-h">What we expect from any partner</h2>
+    <p>These apply across all six pillars.</p>
+  </div>
+  <div class="quals">
+    <div class="qual"><h3>Our people decide</h3><p>The system recommends and our people make the call. We’ve tried tools that took the decision away, and they didn’t stick.</p><p class="ask">“Which decisions does your system make on its own?”</p></div>
+    <div class="qual"><h3>Results, not activity</h3><p>Show more patients served and more visits per clinician. “Percent of visits auto-scheduled” doesn’t tell us that.</p><p class="ask">“What changed for patients and clinicians at a customer like us?”</p></div>
+    <div class="qual"><h3>Works with what we have</h3><p>We run Homecare Homebase (HCHB). You need to show exactly how you connect to it, and who carries that work.</p><p class="ask">“How does data move between you and HCHB, and how often?”</p></div>
+    <div class="qual"><h3>Priced in full</h3><p>Three years, ~80 branches, including setup, training and connecting to our systems. Not just the license.</p><p class="ask">“What does year one cost us, all in?”</p></div>
+    <div class="qual"><h3>Real-world data</h3><p>Our data isn’t perfect, and schedulers will override the system early on. It has to cope with both.</p><p class="ask">“What happens in the first 60 days when schedulers ignore your suggestions?”</p></div>
+    <div class="qual"><h3>Adds something new</h3><p>We already own some scheduling tools. Show what you do that they don’t.</p><p class="ask">“What can you do that our current system can’t?”</p></div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="n-h">
+  <h2 id="n-h">When you quote us a number, tell us</h2>
+  <div class="ask-list">
+    <div><b>Compared with what?</b><span>Savings over our current tools, or over doing nothing at all.</span></div>
+    <div><b>Based on which patients?</b><span>Medicare only, or every insurer we work with.</span></div>
+    <div><b>From where?</b><span>A measured customer result, or a projection.</span></div>
+    <div><b>Over what time?</b><span>When value starts, and when it reaches full effect.</span></div>
+  </div>
+</section>
+
+<p class="src">Prepared by the Compassus capacity &amp; scheduling team. Industry figures are published benchmarks; our own figures are drawn from internal planning work.</p>
+
+</div>
