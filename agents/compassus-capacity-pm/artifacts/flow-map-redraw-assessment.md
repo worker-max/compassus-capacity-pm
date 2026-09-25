@@ -1202,3 +1202,17 @@ integration) · opportunity.
 - **Band C carries the sheet's sharp point**: the day-of-week engine is live; the 3-hour HCHB feed
   is what blocks it for routine orders. New patients can bypass HCHB through the intake platform.
 - **Band E is the only exception flow in either overlay that was run live** in a demo.
+
+
+## Vendor overlay V3 — CareStitch (25 Sep 2026)
+
+Same grammar as V1 and V2. Badges: in CareStitch today · roadmap · beta (the read-only HCHB
+screen-automation integration) · opportunity.
+
+- **Band B carries the difference**: the system filters and the scheduler chooses. The only
+  vendor-coloured decision block is roadmap (the recommendation engine). The staffing request, the
+  standout workflow, gets its own panel on the right.
+- **Band C**: the episode stays in HCHB. No orders, auth or window enforcement, so most of the band
+  is the scheduler's colour or a beta/roadmap badge.
+- **Band A**: the accept/decline step is split between branch leadership and CareStitch, because the
+  leader reads the capacity grid by eye; there is no branch total.

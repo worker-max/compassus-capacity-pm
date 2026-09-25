@@ -98,6 +98,8 @@ renumbered.
 | `flow-vendor-vitaliscare.html` | Source for the above. Regenerate with `python3 _flow-vendor-vitaliscare.gen.py <out.svg>` then `build.py` | Editing the overlay |
 | `Flow-Vendor-Axle.pdf` | Vendor overlay V2: Axle Health placed on our episode as demoed 22 Sep 2026, every step badged (in Axle today · in development · paused · opportunity). Same vendor colour as V1 so the two overlays compare. **Not current state** | Vendor evaluation; comparing where each vendor automates |
 | `flow-vendor-axle.html` | Source for the above. Regenerate with `python3 _flow-vendor-axle.gen.py <out.svg>` then `build.py` | Editing the overlay |
+| `Flow-Vendor-CareStitch.pdf` | Vendor overlay V3: CareStitch placed on our episode as demoed 23 Sep 2026, every step badged (in CareStitch today · roadmap · beta · opportunity). Same vendor colour as V1 and V2. **Not current state** | Vendor evaluation; comparing where each vendor automates |
+| `flow-vendor-carestitch.html` | Source for the above. Regenerate with `python3 _flow-vendor-carestitch.gen.py <out.svg>` then `build.py` | Editing the overlay |
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 | `Source-Original-Swimlane-Detail.pdf` | **The original hand-built swimlane map**, before the redraw. Page 2 of a set; page 1 is *Home Health Intake Reset* | Checking what the composite was redrawn *from* |
