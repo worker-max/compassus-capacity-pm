@@ -6,6 +6,7 @@ Scorecard going in: **67 · Consider · no open stop-checks.**
 | File | What it is |
 |---|---|
 | `VitalisCare-Sync-Demo-Readout.pdf` | 19-page landscape PDF of the report for sharing (no author metadata) |
+| `VitalisCare-Home-Health-Gaps-One-Pager.pdf` | One page: every change Sync needs for home health across capacity, scheduling and engagement, sized build / customize / roadmap / as-is, plus the risks of a hospice vendor learning home health. Source: `home-health-gap-one-pager.html` |
 | `index.html` | Visual report: process flow with screens, question-by-question scoring, considerations, next steps |
 | `transcript.md` | Full machine transcript, timestamped (no speaker labels) |
 | `screens/HHMMSS.jpg` | 52 de-duplicated product and deck screens, named by time into the recording |
