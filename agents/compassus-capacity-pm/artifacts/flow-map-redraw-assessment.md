@@ -1187,3 +1187,18 @@ its footer says *not current state and not a recommendation* and its eyebrow say
 - **Unconfirmed placements**, to close with the operator: whether Sync's matching could run for the
   SOC/eval visit (drawn as an opportunity, not shown in the demo); whether the log-ship interval is
   3 h everywhere or varies by region.
+
+
+## Vendor overlay V2 — Axle Health (25 Sep 2026)
+
+Same grammar as V1 so the two overlays read side by side: the vendor system keeps the `#A33A6B`
+slot, a person working inside it keeps their own colour, and automation is a badge. The badge set
+changes to fit the vendor: in Axle today · in development · paused (built and switched off, the HCHB
+integration) · opportunity.
+
+- **Band A shows the difference from V1**: Axle sees capacity before the referral (utilization by
+  zip) and schedules visits still waiting on auth, flagged as not yet writable. The auth work itself
+  stays the auth team's and carries no badge.
+- **Band C carries the sheet's sharp point**: the day-of-week engine is live; the 3-hour HCHB feed
+  is what blocks it for routine orders. New patients can bypass HCHB through the intake platform.
+- **Band E is the only exception flow in either overlay that was run live** in a demo.
