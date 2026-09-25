@@ -1,0 +1,673 @@
+<title>VitalisCare Sync Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FBFBF8; --panel:#F3F3EF; --band:#E9E9E5; --ink:#1B211E; --mut:#5A6560; --rule:#C9CCC5;
+  --accent:#792E2E; --accent-soft:#F4E9E7; --plum:#5B1A34;
+  --ok:#3F7A4C; --ok-soft:#E4EFE5; --part:#9C7C12; --part-soft:#F5EFD8; --gap:#B85A12; --gap-soft:#F8E8DA; --na:#6B7470; --na-soft:#ECEDEA;
+  --shadow:0 1px 2px rgba(27,33,30,.06),0 8px 24px rgba(27,33,30,.06);
+  --display:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"Hanken Grotesk","Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,6vw,72px) 80px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,8vw,92px);line-height:.95;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.01em}
+h3{font-size:22px;line-height:1.2}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lede{font-family:var(--display);font-size:clamp(19px,2.2vw,23px);line-height:1.45;max-width:62ch;color:var(--ink)}
+.mut{color:var(--mut)}
+.ts{font-family:var(--mono);font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+section{margin-top:clamp(56px,9vw,104px)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;padding-top:18px;border-top:1px solid var(--ink)}
+.sec-head .eyebrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* masthead */
+.mast{display:grid;gap:28px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.meta div{background:var(--paper);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.meta b{font-weight:600}
+.meta .big{font-family:var(--display);font-size:30px;line-height:1}
+
+/* the read */
+.read{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.read ol{margin:0;padding:0;list-style:none;display:grid;gap:18px;counter-reset:r}
+.read li{display:grid;grid-template-columns:32px 1fr;gap:10px;counter-increment:r}
+.read li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:5px}
+.read li b{font-weight:600}
+.verdict{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);padding:24px;display:grid;gap:14px;align-content:start}
+.verdict h3{color:var(--accent)}
+@media (max-width:820px){.read{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{display:flex;width:100%;height:56px;border:1px solid var(--rule);background:var(--panel)}
+.tl span{position:relative;height:100%;border-right:1px solid var(--paper);display:block}
+.tl span:last-child{border-right:0}
+.tl-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px;margin-top:16px}
+.tl-legend div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:baseline;font-size:14px}
+.tl-legend i{width:12px;height:12px;display:block;transform:translateY(1px)}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+
+/* flow */
+.flow-wrap{overflow-x:auto;padding-bottom:6px}
+.flow{display:grid;grid-template-columns:repeat(8,minmax(128px,1fr));gap:0;min-width:1040px;position:relative}
+.stage{display:grid;grid-template-rows:auto auto 1fr auto;gap:8px;padding:16px 14px 16px;border-top:4px solid var(--c);background:var(--panel);margin-right:10px;position:relative;text-decoration:none;color:inherit}
+.stage:last-child{margin-right:0}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-10px;top:24px;border:5px solid transparent;border-left:7px solid var(--mut);transform:translateX(2px)}
+.stage:hover{background:var(--band)}
+.stage:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage .n{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.stage .t{font-family:var(--display);font-size:20px;line-height:1.1}
+.stage .d{font-size:13px;color:var(--mut);line-height:1.4}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;justify-self:start;line-height:1.4}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.c-live{color:var(--ok);background:var(--ok-soft)}
+.c-part{color:var(--part);background:var(--part-soft)}
+.c-gap{color:var(--gap);background:var(--gap-soft)}
+.c-na{color:var(--na);background:var(--na-soft)}
+.flow-note{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:13px;color:var(--mut)}
+.flow-note span{display:inline-flex;gap:8px;align-items:center}
+
+/* stage sections */
+.stage-sec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px);margin-top:56px;padding-top:24px;border-top:1px solid var(--rule)}
+.stage-sec:first-of-type{margin-top:0}
+.stage-sec .copy{display:grid;gap:18px;align-content:start}
+.stage-sec .copy h3{font-size:clamp(26px,3vw,32px)}
+.stage-sec .num{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kv{display:grid;gap:12px}
+.kv h4{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kv ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.kv ul li::marker{color:var(--rule)}
+.for-us{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:grid;gap:6px}
+.for-us h4{color:var(--accent)}
+.quote{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.4}
+.quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-top:6px}
+@media (max-width:900px){.stage-sec{grid-template-columns:1fr}}
+
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start}
+.gallery.one{grid-template-columns:1fr}
+.gallery figure{margin:0;display:grid;gap:6px}
+.gallery figure.wide{grid-column:1/-1}
+.shot{display:block;padding:0;border:1px solid var(--rule);background:#fff;cursor:zoom-in;box-shadow:var(--shadow);width:100%;line-height:0}
+.shot img{width:100%;height:auto;display:block}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+figcaption{font-size:13px;color:var(--mut);line-height:1.4;display:grid;grid-template-columns:auto 1fr;gap:8px}
+@media (max-width:560px){.gallery{grid-template-columns:1fr}}
+
+/* integration diagram */
+.pipe{display:grid;gap:14px}
+.lane{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:stretch}
+.lane>b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);padding-top:14px}
+.nodes{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.node{background:var(--panel);border:1px solid var(--rule);padding:10px 12px;font-size:14px;display:grid;gap:2px;min-width:0;flex:1}
+.node small{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.node.hchb{border-color:#795CA7;box-shadow:inset 3px 0 0 #795CA7}
+.node.sync{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.arr{display:flex;align-items:center;padding:0 6px;font-family:var(--mono);font-size:11px;color:var(--mut);text-align:center;flex-direction:column;justify-content:center;min-width:64px}
+.arr::after{content:"\2192";font-size:18px;color:var(--ink);line-height:1}
+.arr.hot{color:var(--gap)}
+.arr.hot::after{color:var(--gap)}
+@media (max-width:760px){.lane{grid-template-columns:1fr}.lane>b{padding-top:0}.nodes{flex-direction:column}.arr{flex-direction:row;gap:8px;padding:6px 0}.arr::after{content:"\2193"}}
+.callout{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--gap-soft);padding:18px 20px;margin-top:22px}
+.callout .big{font-family:var(--display);font-size:48px;line-height:.9;color:var(--gap)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:12px 12px 10px;border-bottom:1px solid var(--rule)}
+td{padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.q{width:28%}
+td.q b{display:block;font-weight:600;margin-bottom:2px}
+td.q .qn{font-family:var(--mono);font-size:11px;color:var(--mut)}
+td.st{width:128px}
+tbody tr:hover{background:var(--panel)}
+.tally{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 18px}
+.tally span{display:inline-flex;gap:8px;align-items:center;font-size:14px}
+.tally b{font-family:var(--display);font-size:24px;font-weight:500}
+.fit th:first-child,.fit td:first-child{width:18%}
+
+/* risks */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.risk{background:var(--paper);padding:20px;display:grid;gap:8px;align-content:start}
+.risk h3{font-size:20px}
+.risk .sev{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sev.h{color:var(--gap)} .sev.m{color:var(--part)} .sev.l{color:var(--ok)}
+.risk p{font-size:15px}
+
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(20px,4vw,48px)}
+.next ol,.next ul{margin:10px 0 0;padding-left:20px;display:grid;gap:10px}
+.who{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.people ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.people li{display:grid;grid-template-columns:1fr;gap:0}
+.people li span{color:var(--mut);font-size:13px}
+
+footer{margin-top:96px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--mut);display:grid;gap:6px}
+code{font-family:var(--mono);font-size:.88em}
+
+dialog{padding:0;border:0;background:transparent;max-width:min(96vw,1700px);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(12,14,13,.88)}
+.lb{display:grid;gap:10px}
+.lb img{width:100%;height:auto;max-height:84vh;object-fit:contain;background:#fff}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E7EAE4;font-size:14px}
+.lb-bar button{font:inherit;font-family:var(--mono);font-size:12px;background:transparent;color:#E7EAE4;border:1px solid rgba(231,234,228,.4);padding:6px 12px;cursor:pointer}
+.lb-bar button:hover{background:rgba(231,234,228,.12)}
+.lb-bar button:focus-visible{outline:2px solid #E7EAE4}
+.lb-cap{flex:1;min-width:0}
+@media (prefers-reduced-motion:no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.012)}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="eyebrow">Compassus · Home Health Capacity &amp; Scheduling · Vendor demo, round two</span>
+    <span class="eyebrow">Recorded 24 Sep 2026 · 2:00:32</span>
+  </div>
+  <h1>VitalisCare <em>Sync</em></h1>
+  <p class="lede">A strong hospice scheduling engine with live HCHB integration and a thoughtful stance on keeping schedulers in charge. Home health is almost entirely ahead of it: authorization, the episode and LUPA, therapy disciplines and patient communication are all still to be built, and the product was demoed on hospice data.</p>
+  <div class="meta">
+    <div><span class="eyebrow">Scorecard going in</span><span class="big">67</span><span class="mut">Consider · no open stop-checks</span></div>
+    <div><span class="eyebrow">Live footprint</span><span class="big">3 orgs</span><span class="mut">Sync fully live, ~6–7k patients. Largest client 3,500 ADC</span></div>
+    <div><span class="eyebrow">Guide questions</span><span class="big">5 / 18</span><span class="mut">answered in full; 7 partly; 6 unanswered or not asked</span></div>
+    <div><span class="eyebrow">Next touchpoint</span><span class="big">Oct 5</span><span class="mut">Week of the second virtual call. On-site summit week of Oct 19</span></div>
+  </div>
+</header>
+
+<section id="read">
+  <div class="sec-head"><div class="eyebrow"><span>The read</span><span>What to take from two hours</span></div><h2>Six things that matter</h2></div>
+  <div class="read">
+    <ol>
+      <li><div><b>It is a hospice product, and they said so.</b> “Our Sync tool has been developed primarily for hospice.” The demo used hospice disciplines (aide, social work, chaplain), hospice compliance alerts (face-to-face, RN supervisory gaps) and hospice CMS benchmarks. <span class="ts">0:23:57</span></div></li>
+      <li><div><b>Their own gap list is authorization and patient communication.</b> Compassus added LUPA and episode management, therapy productivity, territories and two-way patient scheduling. Vitalis calls each one “decision-tree logic” or “weeks, not months.” None of it exists yet. <span class="ts">1:21:32</span></div></li>
+      <li><div><b>HCHB freshness is the real constraint, and it is on our side.</b> Their typical client ships HCHB logs every ~10 minutes. Compassus ships every ~3 hours, which they called too stale for call-off recovery. Writes back through RPA take seconds to minutes. <span class="ts">0:46:46</span></div></li>
+      <li><div><b>Advise-not-decide is a principle, not a phase.</b> Every recommendation is accept-or-dismiss. Overrides require a reason, which feeds the model. This fits our Assist boundary and our clinician culture. <span class="ts">0:59:04</span></div></li>
+      <li><div><b>Exception handling is still a design, not a product.</b> The Call-Off Center, which makes the 3-hour lag survivable, is “in design, slated for release before the end of the year.” It was shown only as slides. <span class="ts">1:04:48</span></div></li>
+      <li><div><b>The clinician app is a GPS tracking app.</b> Sync360 monitors the workday, reroutes in real time and powers a performance review of reported versus tracked mileage. It is powerful for oversight and a real adoption question for tenured clinicians. <span class="ts">1:13:48</span></div></li>
+    </ol>
+    <aside class="verdict">
+      <span class="eyebrow">Suggested scorecard movement</span>
+      <h3>Hold at Consider. Do not advance on product, advance on partnership.</h3>
+      <p>The demo confirmed the scorecard’s central doubt instead of resolving it. What it added is a credible design-partner posture: a fast team, open to our workflow, and willing to put engineering against it. Advance to the on-site only if the second call produces dates and a scope for the home health build, plus a named plan for HCHB data cadence.</p>
+      <p class="mut">Architecture &amp; Continuity (security, uptime) was on their agenda and never presented. Treat it as open.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="sec-head"><div class="eyebrow"><span>Where the two hours went</span><span>Proportional to clock time</span></div><h2>The shape of the call</h2></div>
+  <div class="tl" role="img" aria-label="Timeline of the two-hour call by topic">
+    <span style="flex:1071;background:var(--band)" title="Intros 0:00–17:51"></span>
+    <span style="flex:582;background:#1F6F78" title="Setup and configuration 17:51–27:33"></span>
+    <span style="flex:319;background:#795933" title="Agenda and intake handoff 27:33–32:52"></span>
+    <span style="flex:698;background:#C6A01F" title="Care Provider Matches 32:52–44:30"></span>
+    <span style="flex:606;background:#795CA7" title="HCHB integration 44:30–54:36"></span>
+    <span style="flex:612;background:#2E599D" title="Schedule optimization 54:36–1:04:48"></span>
+    <span style="flex:540;background:#DF751D" title="Call-Off Center 1:04:48–1:13:48"></span>
+    <span style="flex:222;background:#4E8A5B" title="Clinician mobile 1:13:48–1:17:30"></span>
+    <span style="flex:840;background:#792E2E" title="Engagement, authorization and LUPA 1:17:30–1:31:30"></span>
+    <span style="flex:300;background:#9C4A5E" title="Home health adaptation 1:31:30–1:36:30"></span>
+    <span style="flex:486;background:#2E6F5E" title="Live map and territories 1:36:30–1:44:36"></span>
+    <span style="flex:348;background:#3A3F3C" title="Performance and tracking 1:44:36–1:50:24"></span>
+    <span style="flex:608;background:var(--rule)" title="Scale, HCHB workflows and close 1:50:24–2:00:54"></span>
+  </div>
+  <div class="tl-axis"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
+  <div class="tl-legend">
+    <div><i style="background:var(--band)"></i><span>Intros, both teams</span><span class="ts">0:00</span></div>
+    <div><i style="background:#1F6F78"></i><span>Setup and configuration</span><span class="ts">0:17:51</span></div>
+    <div><i style="background:#795933"></i><span>Agenda, Compassus intake handoff</span><span class="ts">0:27:33</span></div>
+    <div><i style="background:#C6A01F"></i><span>Care Provider Matches</span><span class="ts">0:32:52</span></div>
+    <div><i style="background:#795CA7"></i><span>HCHB integration</span><span class="ts">0:44:30</span></div>
+    <div><i style="background:#2E599D"></i><span>Schedule optimization</span><span class="ts">0:54:36</span></div>
+    <div><i style="background:#DF751D"></i><span>Call-Off Center (slides)</span><span class="ts">1:04:48</span></div>
+    <div><i style="background:#4E8A5B"></i><span>Clinician mobile (slides)</span><span class="ts">1:13:48</span></div>
+    <div><i style="background:#792E2E"></i><span>Engagement, auth, LUPA</span><span class="ts">1:17:30</span></div>
+    <div><i style="background:#9C4A5E"></i><span>Home health adaptation</span><span class="ts">1:31:30</span></div>
+    <div><i style="background:#2E6F5E"></i><span>Live map and territories</span><span class="ts">1:36:30</span></div>
+    <div><i style="background:#3A3F3C"></i><span>Performance and tracking</span><span class="ts">1:44:36</span></div>
+    <div><i style="background:var(--rule)"></i><span>Scale, HCHB workflows, close</span><span class="ts">1:50:24</span></div>
+  </div>
+  <p class="mut" style="margin-top:14px;font-size:14px">About 45 minutes was live software. The rest was slides and discussion, which is where most of the home health substance came out.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><div class="eyebrow"><span>Process flow</span><span>As Vitalis runs it today · click a stage</span></div><h2>From admitted patient to audited day</h2></div>
+  <p class="lede" style="margin-bottom:26px">Vitalis frames scheduling in three questions: <em>who</em> visits, <em>when</em>, and <em>by what route</em>. Sync picks up only after admission and authorization are complete, so everything upstream of stage 2 stays with Compassus and HCHB.</p>
+  <div class="flow-wrap">
+    <nav class="flow" aria-label="Process stages">
+      <a class="stage" href="#s0" style="--c:#1F6F78"><span class="n">00</span><span class="t">Configure</span><span class="d">Branch rules, discipline defaults, patient preferences, provider hours</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s1" style="--c:#795933"><span class="n">01</span><span class="t">Admit &amp; authorize</span><span class="d">Referral, intake, auth, visit plotting. Happens in HCHB and our intake platform</span><span class="chip c-na">Outside Sync</span></a>
+      <a class="stage" href="#s2" style="--c:#C6A01F"><span class="n">02</span><span class="t">Who</span><span class="d">Care Provider Matches, ranked per discipline</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s3" style="--c:#795CA7"><span class="n">03</span><span class="t">Write back</span><span class="d">RPA into HCHB; HCHB log ship back in</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s4" style="--c:#2E599D"><span class="n">04</span><span class="t">When</span><span class="d">Day-of-week optimization, accept or dismiss</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s5" style="--c:#DF751D"><span class="n">05</span><span class="t">Exceptions</span><span class="d">Call-Off Center, ranked same-day coverage</span><span class="chip c-part">In design · EOY</span></a>
+      <a class="stage" href="#s6" style="--c:#4E8A5B"><span class="n">06</span><span class="t">Day of</span><span class="d">Clinician mobile, GPS workday, live rerouting</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s7" style="--c:#3A3F3C"><span class="n">07</span><span class="t">Oversee</span><span class="d">Live map, performance review, SSVI predictor</span><span class="chip c-part">Partly live</span></a>
+    </nav>
+  </div>
+  <div class="flow-note">
+    <span><span class="chip c-live">Live</span> demonstrated in software</span>
+    <span><span class="chip c-part">In design</span> shown as slides or partly built</span>
+    <span><span class="chip c-gap">Not built</span> named as a gap</span>
+    <span><span class="chip c-na">Outside Sync</span> not their workflow</span>
+  </div>
+
+  <!-- S0 -->
+  <article class="stage-sec" id="s0">
+    <div class="copy">
+      <div class="num"><span>00 · Configure</span><span class="chip c-live">Live</span><span class="ts">0:17:51 – 0:27:00</span></div>
+      <h3>Rules set once per branch and discipline, then per person</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Patient preferences</b> as free text (language, days, hours, discipline). They can be entered by schedulers on the web or by clinicians in the app, and feed the algorithms.</li>
+          <li><b>Care provider profile:</b> weekly hours, weekends, long-term-assignment eligibility (to keep per diem or on-call staff out), date overrides and PTO.</li>
+          <li><b>Branch settings in the Account Portal:</b> distance bands (demo branch: close ≤ 23.9 mi, far &gt; 39.1 mi), daily visit quotas per discipline, RN-or-LPN substitution for SN orders, and matching scope (the patient’s branch, associated branches, any branch or a custom set).</li>
+          <li><b>New-worker ramp:</b> how long someone counts as new (default 2 weeks) and how fast their load ramps. Full-time and part-time hour definitions. Standard weekly schedule per discipline.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Colin asked whether new clinicians can be kept off specific visit types such as SOC. <b>Not today</b>; ramp is by productivity only. They offered to add it. <span class="ts">0:25:36</span></li>
+          <li>With 80+ branches, per-branch configuration is real implementation work. Ask who configures it and how long it takes.</li>
+          <li>The settings list is hospice-shaped: it includes music therapy, massage and Reiki, and no PT, OT or SLP defaults were shown.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/002322.jpg" alt="Account Portal branch settings with distance parameters and daily visit quotas"></button><figcaption><span class="ts">0:23:22</span><span>Branch settings: distance bands and daily visit quotas by discipline</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/001910.jpg" alt="Patient drawer, scheduling preferences tab"></button><figcaption><span class="ts">0:19:10</span><span>Patient scheduling preferences</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002004.jpg" alt="Care providers roster"></button><figcaption><span class="ts">0:20:04</span><span>Care provider roster: title, branch and team, work hours, target visits, eligibility</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002055.jpg" alt="Provider settings with working hours"></button><figcaption><span class="ts">0:20:55</span><span>Provider assignment eligibility and weekly hours</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002131.jpg" alt="Provider availability calendar"></button><figcaption><span class="ts">0:21:31</span><span>Date-specific hours and PTO</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002401.jpg" alt="SN order substitution and matching by branch"></button><figcaption><span class="ts">0:24:01</span><span>SN orders to RN or LPN; matching by branch</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002525.jpg" alt="Worker settings with new worker definition"></button><figcaption><span class="ts">0:25:25</span><span>New-worker definition, incompatible workers, full-time and part-time hours</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S1 -->
+  <article class="stage-sec" id="s1">
+    <div class="copy">
+      <div class="num"><span>01 · Admit &amp; authorize</span><span class="chip c-na">Outside Sync</span><span class="ts">0:27:55 – 0:32:28</span></div>
+      <h3>Sync starts where our referral work ends</h3>
+      <div class="kv">
+        <div><h4>What was said</h4><ul>
+          <li>Vitalis: “We start the scheduling process once the patient is fully admitted” and authorization is complete. Authorization is not a state Sync tracks.</li>
+          <li>Michael described the new Compassus referral and intake platform: marketers, intake, insurance and pre-SOC operators produce a complete, valid referral before it reaches HCHB. It carries addresses, disciplines, auths and visit plans as discrete data.</li>
+          <li>Michael’s idea is to divert that data to the scheduling tool while it is in transit to HCHB, and to use capacity insight in the accept or decline decision. Vitalis: “very interesting… definitely something we can entertain.”</li>
+          <li>Visits are plotted on the HCHB calendar by intake teams today. Sync optimizes after that. Plotting through write-back has been “explored but not implemented.” <span class="ts">1:52:39</span></li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Common question 1, the referral decision, has no product answer. The front door of our operating model sits outside Sync.</li>
+          <li>The intake-to-Sync feed is our idea, not their roadmap. If we want it, we will be specifying and co-funding it.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“We’re looking at this like two sides of a coin. First we solved referral management… now how can we use that information to feed capacity management and scheduling.”<cite>Michael Thompson, Compassus · 0:31:13</cite></p>
+    </div>
+    <div class="gallery one">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012134.jpg" alt="Slide: Adapting Sync for the home health workflow"></button><figcaption><span class="ts">1:21:34</span><span>Vitalis’s own framing: authorization at the start and patient communication at the end are the home health build. Everything in between is “in production.”</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S2 -->
+  <article class="stage-sec" id="s2">
+    <div class="copy">
+      <div class="num"><span>02 · Who</span><span class="chip c-live">Live</span><span class="ts">0:32:52 – 0:44:30</span></div>
+      <h3>Care Provider Matches: ranked long-term assignment per discipline</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>A newly admitted patient appears in a queue. Sync shows the top four providers for each discipline (the hospice default is aide, RN, social work and chaplain). It can be limited to disciplines with open orders.</li>
+          <li>There are two lenses. <b>Best Mapping</b> ranks on location and caseload geography first. <b>Smart Choice</b> balances location against capacity and productivity, and most customers use it.</li>
+          <li>Each card shows a productivity %, a <b>caseload-fit map</b> with service span in miles, compatibility chips (branch, team, language, prior encounter, same facility) and a short AI rationale.</li>
+          <li>An override requires a reason. That reason is both a feedback loop into the model and an audit trail for leadership.</li>
+          <li>Submit moves the patient to Pending while RPA writes the assignment to HCHB. Sync polls until the write is confirmed.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Territories:</b> Colin asked about ZIP-based territories. Sync uses teams and branches, not territories. If we don’t encode territories in HCHB, they would need to understand how we categorize them. <span class="ts">0:36:43</span></li>
+          <li><b>Clinician-facing reasoning:</b> Colin asked whether clinicians see the “why” behind an assignment outside their usual area. <b>Not built</b>; Vitalis liked the idea. <span class="ts">0:41:27</span></li>
+          <li>Productivity points can be shown against target, which Paige called “a really great touch.”</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/003252.jpg" alt="Care Provider Matches with four ranked aides and caseload maps"></button><figcaption><span class="ts">0:32:52</span><span>Care Provider Matches: Smart Choice, four ranked aides, each with a caseload map and compatibility chips</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003716.jpg" alt="Match cards with care compatibility"></button><figcaption><span class="ts">0:37:16</span><span>Compatibility chips: branch, team, Spanish-speaking, prior encounter, same facility</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003822.jpg" alt="Expanded caseload map"></button><figcaption><span class="ts">0:38:22</span><span>Caseload map expanded, service span 23.72 mi</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003955.jpg" alt="Custom care provider selection dialog"></button><figcaption><span class="ts">0:39:55</span><span>Override: custom provider selection requires a reason</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004134.jpg" alt="Patient header above matches"></button><figcaption><span class="ts">0:41:34</span><span>Patient context: SOC date, branch, address, language preference</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004325.jpg" alt="Next patient recommendations"></button><figcaption><span class="ts">0:43:25</span><span>Next patient. The submitted match writes back to HCHB</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004558.jpg" alt="Pending tab"></button><figcaption><span class="ts">0:45:58</span><span>Pending: still editable until the RPA write-back is confirmed</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S3 -->
+  <article class="stage-sec" id="s3">
+    <div class="copy">
+      <div class="num"><span>03 · Write back</span><span class="chip c-live">Live</span><span class="ts">0:44:30 – 0:54:36</span></div>
+      <h3>HCHB in by log shipping, out by RPA</h3>
+      <div class="kv">
+        <div><h4>How it works</h4><ul>
+          <li><b>Read:</b> the HCHB log ship arrives on SFTP, loads into a full database, and a subset of fewer than 100 of HCHB’s thousands of tables is refreshed every ~10 minutes. Very large clients run Vitalis’s subset script on their own side. One client streams from an HCHB database mirror.</li>
+          <li><b>Write:</b> RPA (software robots working HCHB’s screens), which Vitalis calls “very robust” and uses across products. Seconds to minutes per write.</li>
+          <li>Vitalis is in partnership talks with HCHB for 2027. Today they rely on log shipping.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Minimum cadence was not committed.</b> “It depends on what you expect.” One client is fine hourly; others say 10 minutes is too slow. Reassignment is where it bites.</li>
+          <li><b>Double entry is the failure mode.</b> Schedulers who don’t trust the lag redo the change in HCHB and create conflicts. That makes adoption discipline part of the integration design.</li>
+          <li>Compassus has cut HCHB refresh from 6 hours to 3 for another AI project and will explore going faster. A broader data modernization “probably solves all of our problems” but takes a while.</li>
+          <li>Not asked: what happens when HCHB changes a screen and the RPA breaks. Ask on the second call. The same fragility was flagged for Arya’s screen automation.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="pipe" aria-label="Data path between HCHB and Sync">
+      <div class="lane"><b>Read</b><div class="nodes">
+        <div class="node hchb"><span>HCHB</span><small>system of record</small></div>
+        <div class="arr hot">log ship<br>~3 h today</div>
+        <div class="node"><span>SFTP drop</span><small>full HCHB database</small></div>
+        <div class="arr">subset<br>every ~10 min</div>
+        <div class="node sync"><span>Sync</span><small>&lt;100 tables</small></div>
+      </div></div>
+      <div class="lane"><b>Write</b><div class="nodes">
+        <div class="node sync"><span>Sync</span><small>assignment, move, PTO</small></div>
+        <div class="arr">RPA<br>seconds–min</div>
+        <div class="node hchb"><span>HCHB</span><small>then confirmed on next read</small></div>
+      </div></div>
+      <div class="lane"><b>Bypass</b><div class="nodes">
+        <div class="node"><span>Call-off in Sync or its app</span><small>not in HCHB or PointCare</small></div>
+        <div class="arr">instant</div>
+        <div class="node sync"><span>Call-Off Center</span><small>recommend, then RPA</small></div>
+      </div></div>
+      <div class="callout"><span class="big">3 h</span><div><b>Compassus’s current HCHB log-ship interval.</b> A call-off entered in PointCare or HCHB reaches Sync up to three hours later, “too late to reschedule the visit.” The workaround is to trigger call-offs inside Sync, or have Sync listen to PointCare actions (they do this in other apps). Either way, schedulers and clinicians have to change where they act. <span class="ts">1:09:03</span></div></div>
+    </div>
+  </article>
+
+  <!-- S4 -->
+  <article class="stage-sec" id="s4">
+    <div class="copy">
+      <div class="num"><span>04 · When</span><span class="chip c-live">Live</span><span class="ts">0:54:36 – 1:04:42</span></div>
+      <h3>Schedule optimization, one suggestion at a time</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>A week grid per clinician flags visits that aren’t on their best day. For example, it moves Powell, Warren from Thursday to Wednesday because the provider is already at that facility that day. Each suggestion shows the reasons and that day’s caseload map.</li>
+          <li>Accept once or recurring, or decline. Manual drag-and-drop warns on out-of-window visits, expired licenses and same-day duplicates.</li>
+          <li>The provider panel shows the 30-day caseload map, visit frequency and certification alerts (yellow when expiring, red when expired).</li>
+          <li>The original HCHB schedule can be viewed side by side. There is also PTO entry, export for facility communication, and a Notification Center of compliance alerts (hospice: face-to-face and RN supervisory gaps).</li>
+          <li><b>Schedule Full</b> reshuffles a whole month for support staff. Vitalis prefers <b>small incremental shifts</b> that move caseload centroids over time.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Hospice frequencies are weekly or monthly. There was <b>no SOC window, recert window or LUPA threshold</b> in the logic shown. Compassus raised LUPA directly; Vitalis said it is “flagged… a gap.” Front-loading logic already exists and could be reused. <span class="ts">1:24:45</span></li>
+          <li>Home health compliance alerts (OASIS timepoints, recert, missed-visit risk) would all be new.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“Retaining that power balance with your schedulers making final decisions empowers them rather than paralyzes them.”<cite>Dina Yankelewitz, CEO · 0:59:04</cite></p>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/005913.jpg" alt="Sync optimization suggestion with map"></button><figcaption><span class="ts">0:59:13</span><span>Optimization suggestion: Thursday to Wednesday to consolidate visits at a facility. One-time or recurring; accept or decline</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005516.jpg" alt="Schedule Optimized for New Disciplines week view"></button><figcaption><span class="ts">0:55:16</span><span>AI Optimization Mode, week by clinician</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005601.jpg" alt="Provider caseload past 30 days"></button><figcaption><span class="ts">0:56:01</span><span>Provider caseload, past 30 days</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010143.jpg" alt="Manual schedule moves"></button><figcaption><span class="ts">1:01:43</span><span>Manual moves with conflict flags</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010246.jpg" alt="Input PTO on provider calendar"></button><figcaption><span class="ts">1:02:46</span><span>PTO entry greys out that day’s visits and routes them to the Call-Off Center</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010352.jpg" alt="Notification center with F2F alerts"></button><figcaption><span class="ts">1:03:52</span><span>Notification Center with hospice face-to-face alerts</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014328.jpg" alt="Fully optimized schedule"></button><figcaption><span class="ts">1:43:28</span><span>Schedule Full: monthly reshuffle for support staff</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S5 -->
+  <article class="stage-sec" id="s5">
+    <div class="copy">
+      <div class="num"><span>05 · Exceptions</span><span class="chip c-part">In design · EOY</span><span class="ts">1:04:48 – 1:13:48</span></div>
+      <h3>Call-Off Center: the piece that makes the lag survivable</h3>
+      <div class="kv">
+        <div><h4>As described</h4><ul>
+          <li>A queue ranked by urgency. It pulls visits from PTO, HCHB and PointCare declines or late statuses, and weighs visit windows and compliance (hospice HOPE visits, for example).</li>
+          <li>It recommends either rescheduling with the same provider or replacing them. Trade-offs are shown: productivity, drive time, overtime risk. It keeps the same replacement across a multi-day absence for continuity.</li>
+          <li>It writes back to HCHB and pushes the change to the clinician’s phone at once.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Their slides contradict each other.</b> The capacity slide marks Exceptions as “Live”; the roadmap slide says ranking and escalation “are still in development.” Believe the roadmap slide.</li>
+          <li>Common question 6, a Tuesday that goes wrong, was described but not run live. “What happens when nobody takes the visit” was not answered.</li>
+          <li>Compassus said it does not want a third-party call center (Vitalis’s term for the Call-Off Center) “right out of the gates” but wants all the functionality. Clarify what that means before the next call.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/011155.jpg" alt="Slide: Advanced Call-Off triage"></button><figcaption><span class="ts">1:11:55</span><span>Roadmap slide: Call-Off triage. Today, coverage options; next, must-cover-today separated from deferrable, with escalation</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010507.jpg" alt="Slide: Enterprise capacity roll-up"></button><figcaption><span class="ts">1:05:07</span><span>Roadmap: enterprise capacity roll-up. Today capacity is per clinician</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013428.jpg" alt="Slide: Capacity current state and home health requirements"></button><figcaption><span class="ts">1:34:28</span><span>Capacity for home health: Demand “needs building” (authorization and readiness states)</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S6 -->
+  <article class="stage-sec" id="s6">
+    <div class="copy">
+      <div class="num"><span>06 · Day of</span><span class="chip c-live">Live</span><span class="ts">1:13:48 – 1:17:30</span></div>
+      <h3>Clinician mobile (Sync360)</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The clinician starts, pauses and ends the workday; GPS monitors visit completion only while the workday is on.</li>
+          <li>Today’s visits come as a routed list with a map, and hand off to Google Maps or Waze. The route <b>recalculates in real time</b> as visits are added or removed.</li>
+          <li>Today, week or month views; patient details; adding patient preferences; notifications of schedule changes; setting their own working hours.</li>
+          <li>Time off comes from HR systems (iSolved integration live; Workday to be explored) so nothing is entered twice.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Clinicians would still document in PointCare, so this is a <b>second app</b> (VitalisCare question 8). Declining a visit from the app depends on the Call-Off Center.</li>
+          <li>Compassus’s north star is no work inside HCHB and one screen for schedulers and clinicians. Vitalis says no other organization has asked for that. “We’ve been begging for that.”</li>
+          <li>Colin pressed on day-before confirmations: 4–5pm calls and texts, replies at 9pm. The app has nothing for this yet. See the engagement row below.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/011443.jpg" alt="Clinician mobile today's visits with map"></button><figcaption><span class="ts">1:14:43</span><span>Today’s visits in route order with numbered map pins</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011507.jpg" alt="Patient list and calendar"></button><figcaption><span class="ts">1:15:07</span><span>Patient list and calendar views</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011516.jpg" alt="Add preferences in app"></button><figcaption><span class="ts">1:15:16</span><span>Patient preferences captured in the field</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011525.jpg" alt="Ad hoc visit notifications"></button><figcaption><span class="ts">1:15:25</span><span>Added or canceled visit notifications</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011546.jpg" alt="Working hours in app"></button><figcaption><span class="ts">1:15:46</span><span>Clinician sets their own working hours</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S7 -->
+  <article class="stage-sec" id="s7">
+    <div class="copy">
+      <div class="num"><span>07 · Oversee</span><span class="chip c-part">Partly live</span><span class="ts">1:36:30 – 1:50:24</span></div>
+      <h3>Live map, performance review and predictive benchmarks</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Live Map</b> (real data, names blurred): where every clinician is now, their progress through the day, the closest provider to a patient, untracked providers and tracking gaps.</li>
+          <li><b>Care Provider Performance:</b> visits per day, average start time, flags when a device is switched off, and a colour-coded triage. Each day can be reviewed for reported versus tracked mileage, time and duration mismatches, and route adherence on a map.</li>
+          <li><b>SSVI Predictor</b> (designed, not live) tracks CMS hospice service benchmarks.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Territories are the gap.</b> Colin wants a branch-director view of patient and provider caseload by territory that shifts with referral patterns, because territory is “the start of capacity.” The live map is day-of only. Vitalis: “it wouldn’t be hard to build.” <span class="ts">1:40:42</span></li>
+          <li>The tracking and discrepancy layer is framed as accountability. For tenured, salaried home health clinicians it needs deliberate change management and probably HR and legal review.</li>
+          <li>SSVI and the benchmarks are hospice measures. There is no HHVBP or OASIS outcomes equivalent.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/013813.jpg" alt="Live map with blurred provider names"></button><figcaption><span class="ts">1:38:13</span><span>Live Map, real data with names blurred: find the closest provider, untracked providers, tracking gaps</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014710.jpg" alt="Care providers performance table"></button><figcaption><span class="ts">1:47:10</span><span>Performance: visits per day, average start, device-off flags</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014843.jpg" alt="Performance review with route map"></button><figcaption><span class="ts">1:48:43</span><span>Day review: reported versus verified visits and route adherence</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013913.jpg" alt="Live map find provider"></button><figcaption><span class="ts">1:39:13</span><span>Find a provider’s current location and route progress</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/015155.jpg" alt="SSVI predictor design"></button><figcaption><span class="ts">1:51:55</span><span>SSVI Predictor, designed: hospice CMS benchmarks</span></figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="fit">
+  <div class="sec-head"><div class="eyebrow"><span>Home health fit</span><span>Their slide, plus what we raised</span></div><h2>What it would take to make this ours</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Area</th><th>Status for home health</th><th>What it takes (Vitalis)</th><th>What Compassus added in the room</th></tr></thead>
+      <tbody>
+        <tr><td><b>Authorization &amp; readiness</b></td><td><span class="chip c-gap">Needs building</span></td><td>Add authorization and readiness states. Today they only flag moves outside an auth window using HCHB data.</td><td>Framed as a compliance constraint, not auth automation: which patients can be scheduled before auth and which must wait. “A basic decision tree.” <span class="ts">1:23:33</span></td></tr>
+        <tr><td><b>Episode, LUPA &amp; recert</b></td><td><span class="chip c-gap">Needs building</span></td><td>Not on their slide. Front-loading logic exists.</td><td>Episodic payment and LUPA flags for over- and under-utilization against the plan of care. “That can blow up our P&amp;L really quickly.” <span class="ts">1:24:45</span></td></tr>
+        <tr><td><b>Therapy disciplines</b></td><td><span class="chip c-part">Customization</span></td><td>Productivity from HCHB points or visit count per discipline, prorated. “We don’t really deal with therapies in hospice.”</td><td>No PT, OT or SLP evaluation-driven frequency or sequencing discussed.</td></tr>
+        <tr><td><b>Workforce supply</b></td><td><span class="chip c-part">Needs setup</span></td><td>New-hire ramp-up, float pool, home health competencies.</td><td>Keep new hires off SOC visits for a period.</td></tr>
+        <tr><td><b>Availability, reach, routing</b></td><td><span class="chip c-part">Needs setup</span></td><td>Drive time is live; add realistic reach and week-level rules. Home, branch or horseshoe start points exist.</td><td>Territory-based assignment and a branch territory map.</td></tr>
+        <tr><td><b>Matching</b></td><td><span class="chip c-live">Works as-is</span></td><td>Discipline, credentials, geography and continuity all apply.</td><td>Clinician-facing explanation of why they got a patient.</td></tr>
+        <tr><td><b>Exceptions</b></td><td><span class="chip c-part">Needs setup</span></td><td>Same-day triage and prioritization in the Call-Off Center.</td><td>Home health visit windows and discipline priority for coverage.</td></tr>
+        <tr><td><b>Patient engagement</b></td><td><span class="chip c-gap">Needs building</span></td><td>Confirmations, reminders and en-route updates. Deprioritized in hospice over HIPAA and the caregiver relationship.</td><td>Two-way scheduling with patients. Clinicians spend 30–60 min a day on confirmations; 10,000 clinicians across Compassus. Even text-only that removes half of it is a large win. <span class="ts">1:26:12</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="gallery" style="margin-top:28px">
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/012813.jpg" alt="Slide: Engagement current state and home health requirements"></button><figcaption><span class="ts">1:28:13</span><span>Engagement: every home health column “needs building” except coordination across the care team</span></figcaption></figure>
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/013428.jpg" alt="Slide: Capacity current state and home health requirements"></button><figcaption><span class="ts">1:34:28</span><span>Capacity: “Live” today everywhere; needs setup or building for home health</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><div class="eyebrow"><span>Vendor Demo Question Guide</span><span>10 common · 8 VitalisCare-specific</span></div><h2>Question by question</h2></div>
+  <div class="tally">
+    <span><span class="chip c-live">Answered</span><b>5</b></span>
+    <span><span class="chip c-part">Partly</span><b>7</b></span>
+    <span><span class="chip c-gap">Not answered</span><b>3</b></span>
+    <span><span class="chip c-na">Not asked</span><b>3</b></span>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Status</th><th>What we heard</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td class="q"><span class="qn">Common 01</span><b>The referral decision</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>Sync starts after admission and auth. There is no referral-against-capacity check. Branch capacity roll-up is roadmap. The idea of feeding the Compassus intake platform into Sync came from Michael, not Vitalis.</td><td class="ts">0:28:42</td></tr>
+        <tr><td class="q"><span class="qn">Common 02</span><b>The episode, not the visit</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>No SOC or recert window or LUPA logic shown. Compassus raised LUPA; Vitalis acknowledged the gap and pointed to existing front-loading logic.</td><td class="ts">1:24:45</td></tr>
+        <tr><td class="q"><span class="qn">Common 03</span><b>HCHB freshness, with a number</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Read: log ship subset every ~10 min for typical clients. Write: RPA, seconds to minutes. At Compassus’s 3-hour ship it is too stale for call-offs. No minimum cadence committed.</td><td class="ts">0:46:46</td></tr>
+        <tr><td class="q"><span class="qn">Common 04</span><b>Advise versus decide</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Clear principle: the scheduler decides; every suggestion is accept or dismiss; overrides need a reason. No customer named who moved the line. HCHB task auto-clearing is “planned in the next few weeks.”</td><td class="ts">0:59:04</td></tr>
+        <tr><td class="q"><span class="qn">Common 05</span><b>The clinician says no</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Decline in the app will feed the Call-Off Center (future). Override reasons are learned. No 60-day model change was described, and there is no clinician-facing rationale.</td><td class="ts">1:15:08</td></tr>
+        <tr><td class="q"><span class="qn">Common 06</span><b>A Tuesday that goes wrong</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Described through Call-Off Center slides, not run live. “Nobody takes the visit” was not addressed.</td><td class="ts">1:05:33</td></tr>
+        <tr><td class="q"><span class="qn">Common 07</span><b>What you don’t do</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Volunteered gaps: authorization and patient communication. No dates given. They were upfront that they were “not selling futures.”</td><td class="ts">1:21:32</td></tr>
+        <tr><td class="q"><span class="qn">Common 08</span><b>What breaks at our size</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Largest client 3,500 ADC. Sync fully live at 3 organizations covering ~6–7k patients, plus one in beta. They said scale slows the data pipeline. Nothing said about what broke.</td><td class="ts">1:50:25</td></tr>
+        <tr><td class="q"><span class="qn">Common 09</span><b>The one number you’d stake it on</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>No measured result was presented.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Common 10</span><b>Where you’ll look worse</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>They volunteered it anyway: hospice-first, with a home health build ahead.</td><td class="ts">0:23:57</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 01</span><b>Home health versus hospice; demo a home health branch</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Primarily hospice. The demo was hospice data throughout.</td><td class="ts">0:23:57</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 02</span><b>Therapy disciplines</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>No therapy model today. Productivity by HCHB points or visit count per discipline; therapy would be customization.</td><td class="ts">1:33:55</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 03</span><b>Walk a 60-day Medicare episode</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>Not attempted. “Benefit periods, episodes” was mentioned as a terminology difference only.</td><td class="ts">1:35:49</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 04</span><b>Patient communication plan</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>None exists. It was mapped earlier and deprioritized in hospice (HIPAA, relationship risk). “Very within scope.” No date or cost.</td><td class="ts">1:29:00</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 05</span><b>Keeping not-ready visits off the schedule</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>They can’t, beyond flags on auth windows from HCHB data. Readiness is not a state. Intake plots visits in HCHB today.</td><td class="ts">1:22:52</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 06</span><b>Point-weighting and branch roll-up dates</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Points come from HCHB or visit count. Roll-up is “next.” “Weeks, not months,” with no dates or funding model.</td><td class="ts">1:20:51</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 07</span><b>Company size and funding</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Not covered. They said Sync is their largest investment of time and effort.</td><td class="ts">1:55:48</td></tr>
+        <tr><td class="q"><span class="qn">VitalisCare 08</span><b>Product set and what clinicians install</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Sync (scheduler web), Sync360 (clinician mobile and GPS tracking), Account Portal and SSVI Predictor. Clinicians would run Sync360 alongside PointCare.</td><td class="ts">1:13:48</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="sec-head"><div class="eyebrow"><span>Considerations</span><span>Ranked by how much they would change the decision</span></div><h2>What to weigh</h2></div>
+  <div class="grid3">
+    <div class="risk"><span class="sev h">High</span><h3>We would be the home health design partner</h3><p>Authorization, episode and LUPA, therapy and engagement all need building. The upside is influence and speed. The cost is that our team specifies it and our branches find the bugs.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>Data cadence is ours to fix</h3><p>The 3-hour HCHB log ship undermines same-day recovery. Options: a faster ship, a subset script on our side, a database mirror, the data modernization program, or their HCHB partnership in 2027.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>Exceptions are not shipped</h3><p>The Call-Off Center is the component that makes everything else work with lagged data. It is due before year end, and slides disagree on its status.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>RPA write-back fragility</h3><p>Robots working HCHB’s screens break when HCHB changes. We didn’t ask about detection, repair SLA or production incidents.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>GPS tracking and clinician trust</h3><p>Route adherence and mileage discrepancy reports are oversight tools. For salaried, tenured clinicians they are a change-management and HR question as much as a feature.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>HCHB still in the loop</h3><p>Visit plotting stays in HCHB with intake. Scheduler workflow tasks pile up unless auto-cleared (planned). This conflicts with our north star of no HCHB touch points.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Scale and durability unknown</h3><p>3 live organizations and ~6–7k patients against our footprint. Company size, funding and headcount were not covered. We would likely be their largest customer by a multiple.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Security and continuity unpresented</h3><p>Architecture &amp; Continuity was on their agenda and skipped for time. Uptime, SOC 2 and their HIPAA posture are open.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>Philosophy that fits us</h3><p>Advise-not-decide, reasons on every override, and incremental change over big reshuffles. That matches our Assist boundary and discovery findings on clinician adoption. The team was candid and quick.</p></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><div class="eyebrow"><span>Next steps</span><span>Committed in the room, then recommended</span></div><h2>What happens now</h2></div>
+  <div class="next">
+    <div>
+      <h3>Agreed on the call</h3>
+      <ol>
+        <li><span class="who">Vitalis</span><br>Send the PDF of the Sync–Compassus deck (45 slides; only about a quarter were shown).</li>
+        <li><span class="who">Compassus</span><br>Share the meeting recording with Vitalis (they asked, since Compassus owned the invite).</li>
+        <li><span class="who">Compassus</span><br>Send deep-dive topics ahead of a second virtual call, targeted for the week of Oct 5. Most of the Vitalis team is out until Oct 5.</li>
+        <li><span class="who">Compassus</span><br>Look at raising HCHB log-ship frequency beyond the current 3 hours.</li>
+        <li><span class="who">Compassus</span><br>Decide who comes to the on-site summit in Tennessee, week of Oct 19.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Recommended for the second call</h3>
+      <ul>
+        <li>Walk one Medicare episode end to end on home health data: SOC window, frequency, recert and LUPA flag. This is our shared scenario.</li>
+        <li>Written scope, sequence and dates for the home health build: authorization and readiness, episode and LUPA, therapy, engagement, territory map. Who funds it and what the design-partner terms are.</li>
+        <li>Their minimum HCHB cadence per feature, and the RPA break-and-repair story with a production incident.</li>
+        <li>Run the Tuesday call-off live, including when nobody takes the visit.</li>
+        <li>Architecture &amp; Continuity: uptime history and commitment, SOC 2, HIPAA posture.</li>
+        <li>Company size, funding, headcount, and our share of their revenue.</li>
+        <li>One measured result from a named client, with baseline and period.</li>
+        <li>Clinician-facing assignment rationale and day-before confirmation: prototype or date.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="sec-head"><div class="eyebrow"><span>In the room</span><span>From intros and meeting tiles</span></div><h2>Who was there</h2></div>
+  <div class="people">
+    <div><h3>Compassus</h3><ul>
+      <li>Michael Thompson<span>VP, Operational Excellence</span></li>
+      <li>Evan Kramer<span>Leads Innovation &amp; Operational Excellence</span></li>
+      <li>Colin Highland<span>Initiative lead · PT, ~25 years in home health</span></li>
+      <li>Paige Huffman<span>Senior Project Manager, Operational Excellence</span></li>
+    </ul></div>
+    <div><h3>VitalisCare</h3><ul>
+      <li>Dina Yankelewitz<span>CEO · led the demo</span></li>
+      <li>Bob Willix<span>VP Commercial Growth · RN</span></li>
+      <li>Chavi Bornstein<span>Head of Product</span></li>
+      <li>Shira Rubinstein<span>Product Owner, Sync · Call-Off Center</span></li>
+      <li>Faigy Stroh<span>Director of Customer Success</span></li>
+      <li>R. Feldman<span>Lead Architect, algorithms</span></li>
+      <li>Malka Hess<span>Data engineering · HCHB pipeline</span></li>
+      <li>Shayna Fishman<span>Sync360 · tracking and verification</span></li>
+      <li>Rachel Greenhut<span>Security, infrastructure, HIPAA and SOC</span></li>
+      <li>Esther<span>Development and technology operations</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<footer>
+  <span>Built from the Teams recording (2:00:32) with a machine transcript and 52 extracted screens. Speaker attribution is inferred from context where the transcript has no labels.</span>
+  <span>Repo: <code>agents/compassus-capacity-pm/vendor-demos/2026-09-24-vitaliscare/</code> holds <code>README.md</code> (summary), <code>transcript.md</code> and <code>screens/</code> (filenames are HHMMSS into the recording).</span>
+</footer>
+</div>
+
+<dialog id="lb" aria-label="Screenshot viewer">
+  <div class="lb">
+    <img id="lb-img" alt="">
+    <div class="lb-bar">
+      <button type="button" id="lb-prev" aria-label="Previous screenshot">← Prev</button>
+      <span class="lb-cap" id="lb-cap"></span>
+      <button type="button" id="lb-next" aria-label="Next screenshot">Next →</button>
+      <button type="button" id="lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  const shots=[...document.querySelectorAll('.shot')];
+  const dlg=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
+  let i=0;
+  function show(n){i=(n+shots.length)%shots.length;const s=shots[i],im=s.querySelector('img'),fc=s.parentElement.querySelector('figcaption');img.src=im.src;img.alt=im.alt;cap.textContent=fc?fc.textContent.replace(/\s+/g,' ').trim():''}
+  shots.forEach((s,n)=>s.addEventListener('click',()=>{show(n);if(!dlg.open)dlg.showModal()}));
+  document.getElementById('lb-prev').onclick=()=>show(i-1);
+  document.getElementById('lb-next').onclick=()=>show(i+1);
+  document.getElementById('lb-close').onclick=()=>dlg.close();
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+})();
+</script>
