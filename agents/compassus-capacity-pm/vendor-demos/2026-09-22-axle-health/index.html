@@ -1,0 +1,672 @@
+<title>Axle Health Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FBFBF8; --panel:#F3F3EF; --band:#E9E9E5; --ink:#1B211E; --mut:#5A6560; --rule:#C9CCC5;
+  --accent:#792E2E; --accent-soft:#F4E9E7; --plum:#5B1A34;
+  --ok:#3F7A4C; --ok-soft:#E4EFE5; --part:#9C7C12; --part-soft:#F5EFD8; --gap:#B85A12; --gap-soft:#F8E8DA; --na:#6B7470; --na-soft:#ECEDEA;
+  --shadow:0 1px 2px rgba(27,33,30,.06),0 8px 24px rgba(27,33,30,.06);
+  --display:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"Hanken Grotesk","Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,6vw,72px) 80px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,8vw,92px);line-height:.95;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.01em}
+h3{font-size:22px;line-height:1.2}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lede{font-family:var(--display);font-size:clamp(19px,2.2vw,23px);line-height:1.45;max-width:62ch;color:var(--ink)}
+.mut{color:var(--mut)}
+.ts{font-family:var(--mono);font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+section{margin-top:clamp(56px,9vw,104px)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;padding-top:18px;border-top:1px solid var(--ink)}
+.sec-head .eyebrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* masthead */
+.mast{display:grid;gap:28px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.meta div{background:var(--paper);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.meta b{font-weight:600}
+.meta .big{font-family:var(--display);font-size:30px;line-height:1}
+
+/* the read */
+.read{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.read ol{margin:0;padding:0;list-style:none;display:grid;gap:18px;counter-reset:r}
+.read li{display:grid;grid-template-columns:32px 1fr;gap:10px;counter-increment:r}
+.read li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:5px}
+.read li b{font-weight:600}
+.verdict{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);padding:24px;display:grid;gap:14px;align-content:start}
+.verdict h3{color:var(--accent)}
+@media (max-width:820px){.read{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{display:flex;width:100%;height:56px;border:1px solid var(--rule);background:var(--panel)}
+.tl span{position:relative;height:100%;border-right:1px solid var(--paper);display:block}
+.tl span:last-child{border-right:0}
+.tl-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px;margin-top:16px}
+.tl-legend div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:baseline;font-size:14px}
+.tl-legend i{width:12px;height:12px;display:block;transform:translateY(1px)}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+
+/* flow */
+.flow-wrap{overflow-x:auto;padding-bottom:6px}
+.flow{display:grid;grid-template-columns:repeat(8,minmax(128px,1fr));gap:0;min-width:1040px;position:relative}
+.stage{display:grid;grid-template-rows:auto auto 1fr auto;gap:8px;padding:16px 14px 16px;border-top:4px solid var(--c);background:var(--panel);margin-right:10px;position:relative;text-decoration:none;color:inherit}
+.stage:last-child{margin-right:0}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-10px;top:24px;border:5px solid transparent;border-left:7px solid var(--mut);transform:translateX(2px)}
+.stage:hover{background:var(--band)}
+.stage:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage .n{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.stage .t{font-family:var(--display);font-size:20px;line-height:1.1}
+.stage .d{font-size:13px;color:var(--mut);line-height:1.4}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;justify-self:start;line-height:1.4}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.c-live{color:var(--ok);background:var(--ok-soft)}
+.c-part{color:var(--part);background:var(--part-soft)}
+.c-gap{color:var(--gap);background:var(--gap-soft)}
+.c-na{color:var(--na);background:var(--na-soft)}
+.flow-note{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:13px;color:var(--mut)}
+.flow-note span{display:inline-flex;gap:8px;align-items:center}
+
+/* stage sections */
+.stage-sec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px);margin-top:56px;padding-top:24px;border-top:1px solid var(--rule)}
+.stage-sec:first-of-type{margin-top:0}
+.stage-sec .copy{display:grid;gap:18px;align-content:start}
+.stage-sec .copy h3{font-size:clamp(26px,3vw,32px)}
+.stage-sec .num{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kv{display:grid;gap:12px}
+.kv h4{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kv ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.kv ul li::marker{color:var(--rule)}
+.for-us{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:grid;gap:6px}
+.for-us h4{color:var(--accent)}
+.quote{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.4}
+.quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-top:6px}
+@media (max-width:900px){.stage-sec{grid-template-columns:1fr}}
+
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start}
+.gallery.one{grid-template-columns:1fr}
+.gallery figure{margin:0;display:grid;gap:6px}
+.gallery figure.wide{grid-column:1/-1}
+.shot{display:block;padding:0;border:1px solid var(--rule);background:#fff;cursor:zoom-in;box-shadow:var(--shadow);width:100%;line-height:0}
+.shot img{width:100%;height:auto;display:block}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+figcaption{font-size:13px;color:var(--mut);line-height:1.4;display:grid;grid-template-columns:auto 1fr;gap:8px}
+@media (max-width:560px){.gallery{grid-template-columns:1fr}}
+
+/* integration diagram */
+.pipe{display:grid;gap:14px}
+.lane{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:stretch}
+.lane>b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);padding-top:14px}
+.nodes{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.node{background:var(--panel);border:1px solid var(--rule);padding:10px 12px;font-size:14px;display:grid;gap:2px;min-width:0;flex:1}
+.node small{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.node.hchb{border-color:#795CA7;box-shadow:inset 3px 0 0 #795CA7}
+.node.sync{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.arr{display:flex;align-items:center;padding:0 6px;font-family:var(--mono);font-size:11px;color:var(--mut);text-align:center;flex-direction:column;justify-content:center;min-width:64px}
+.arr::after{content:"\2192";font-size:18px;color:var(--ink);line-height:1}
+.arr.hot{color:var(--gap)}
+.arr.hot::after{color:var(--gap)}
+@media (max-width:760px){.lane{grid-template-columns:1fr}.lane>b{padding-top:0}.nodes{flex-direction:column}.arr{flex-direction:row;gap:8px;padding:6px 0}.arr::after{content:"\2193"}}
+.callout{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--gap-soft);padding:18px 20px;margin-top:22px}
+.callout .big{font-family:var(--display);font-size:48px;line-height:.9;color:var(--gap)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:12px 12px 10px;border-bottom:1px solid var(--rule)}
+td{padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.q{width:28%}
+td.q b{display:block;font-weight:600;margin-bottom:2px}
+td.q .qn{font-family:var(--mono);font-size:11px;color:var(--mut)}
+td.st{width:128px}
+tbody tr:hover{background:var(--panel)}
+.tally{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 18px}
+.tally span{display:inline-flex;gap:8px;align-items:center;font-size:14px}
+.tally b{font-family:var(--display);font-size:24px;font-weight:500}
+.fit th:first-child,.fit td:first-child{width:18%}
+
+/* risks */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.risk{background:var(--paper);padding:20px;display:grid;gap:8px;align-content:start}
+.risk h3{font-size:20px}
+.risk .sev{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sev.h{color:var(--gap)} .sev.m{color:var(--part)} .sev.l{color:var(--ok)}
+.risk p{font-size:15px}
+
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(20px,4vw,48px)}
+.next ol,.next ul{margin:10px 0 0;padding-left:20px;display:grid;gap:10px}
+.who{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.people ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.people li{display:grid;grid-template-columns:1fr;gap:0}
+.people li span{color:var(--mut);font-size:13px}
+
+footer{margin-top:96px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--mut);display:grid;gap:6px}
+code{font-family:var(--mono);font-size:.88em}
+
+dialog{padding:0;border:0;background:transparent;max-width:min(96vw,1700px);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(12,14,13,.88)}
+.lb{display:grid;gap:10px}
+.lb img{width:100%;height:auto;max-height:84vh;object-fit:contain;background:#fff}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E7EAE4;font-size:14px}
+.lb-bar button{font:inherit;font-family:var(--mono);font-size:12px;background:transparent;color:#E7EAE4;border:1px solid rgba(231,234,228,.4);padding:6px 12px;cursor:pointer}
+.lb-bar button:hover{background:rgba(231,234,228,.12)}
+.lb-bar button:focus-visible{outline:2px solid #E7EAE4}
+.lb-cap{flex:1;min-width:0}
+@media (prefers-reduced-motion:no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.012)}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="eyebrow">Compassus · Home Health Capacity &amp; Scheduling · Vendor demo, round two</span>
+    <span class="eyebrow">Recorded 22 Sep 2026 · 2:01:00</span>
+  </div>
+  <h1>Axle <em>Health</em></h1>
+  <p class="lede">A home-health-native scheduling engine with the most complete workflow in the field: who, what day and what time, recovery from call-outs, zip-level capacity and patient texting are all live. Its one blocker is data. Axle switched off its HCHB integration because HCHB data arrives too late, and at Compassus it arrives every three hours.</p>
+  <div class="meta">
+    <div><span class="eyebrow">Scorecard going in</span><span class="big">63</span><span class="mut">Conditional · hold · no open stop-checks</span></div>
+    <div><span class="eyebrow">Live footprint</span><span class="big">~25 orgs</span><span class="mut">80% home health. Largest 11k ADC (from their return)</span></div>
+    <div><span class="eyebrow">Guide questions</span><span class="big">6 / 18</span><span class="mut">answered in full; 8 partly; 4 not asked</span></div>
+    <div><span class="eyebrow">Next touchpoint</span><span class="big">Oct 19</span><span class="mut">Week of the on-site summit. Pilot Q1 2027, full rollout by end of 2027</span></div>
+  </div>
+</header>
+
+<section id="read">
+  <div class="sec-head"><div class="eyebrow"><span>The read</span><span>What to take from two hours</span></div><h2>Six things that matter</h2></div>
+  <div class="read">
+    <ol>
+      <li><div><b>It speaks home health natively.</b> Fulfillment windows on every visit, the Medicare week, front-loading, visit spacing within an order, SOC-before-eval checks, points by service code and end-of-episode queues were all shown in software, not described. <span class="ts">0:52:06</span></div></li>
+      <li><div><b>The integration blocker is our data, not their code.</b> Axle needs new-patient data within ~10 minutes and won’t go live on a feed it can’t predict. HCHB’s fastest refresh is 15 minutes and flaky; Compassus runs every 3 hours. <span class="ts">0:19:11</span></div></li>
+      <li><div><b>Our intake platform changes the math.</b> Evan offered a real-time feed of patients and ordered disciplines from the Commure-built intake platform. Axle called it “great news.” Routine visit plotting still runs through HCHB, so the 3-hour cadence still bites there. <span class="ts">0:18:25</span></div></li>
+      <li><div><b>Call-out recovery was run live.</b> One clinician out sick, five visits, and a recommendation for each one: keep the date and change the clinician, or keep the clinician and change the date. Every factor behind it is visible, and it is submitted in seconds. <span class="ts">1:43:00</span></div></li>
+      <li><div><b>They won’t remove the human.</b> Designed to decide, then rebuilt to advise. Every customer keeps a person in the loop. Adam argued that fully automating the clinician relationship loses more capacity than it saves in headcount. <span class="ts">1:14:22</span></div></li>
+      <li><div><b>Patient engagement: confirm, don’t ask.</b> Two-way SMS, no patient app, replies route to the clinician. They deliberately send confirmations rather than questions, and collect only when patients are <i>not</i> available. Efficient, but it keeps the negotiation with the clinician. <span class="ts">0:41:38</span></div></li>
+    </ol>
+    <aside class="verdict">
+      <span class="eyebrow">Suggested scorecard movement</span>
+      <h3>Lift the hold and invite to the on-site, with the data plan as the condition.</h3>
+      <p>The product answered the fluency test that VitalisCare failed, live and in our vocabulary. The Conditional band was set on a zero for integration, and the demo showed that zero is a data-cadence problem Compassus already owns and is working on. Advance on a joint plan: a real-time intake feed for new patients, a target HCHB refresh for orders and frequencies, and a date to turn write-back on.</p>
+      <p class="mut">Partnership terms, company size and funding were not covered on the call. Their return offers referral credits and permanently discounted co-built features. Treat that as the opening position.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="sec-head"><div class="eyebrow"><span>Where the two hours went</span><span>Proportional to clock time</span></div><h2>The shape of the call</h2></div>
+  <div class="tl" role="img" aria-label="Timeline of the two-hour call by topic">
+    <span style="flex:270;background:var(--band)" title="Intros 0:00–4:30"></span>
+    <span style="flex:730;background:#1A1A1A" title="Scope, timeline and business case 4:30–16:40"></span>
+    <span style="flex:1060;background:#795CA7" title="HCHB integration 16:40–34:20"></span>
+    <span style="flex:334;background:#795933" title="Compassus workflow questions 34:20–39:54"></span>
+    <span style="flex:591;background:#9C4A5E" title="Deck 39:54–49:45"></span>
+    <span style="flex:375;background:#C6A01F" title="Home dashboard and work queues 49:45–56:00"></span>
+    <span style="flex:1330;background:#2E599D" title="Analytics, assignment algorithm, explainability 56:00–1:18:10"></span>
+    <span style="flex:410;background:#1F6F78" title="Capacity forecasting and intake 1:18:10–1:25:00"></span>
+    <span style="flex:1078;background:#4E8A5B" title="Setup, shifts and clinician adoption 1:25:00–1:42:58"></span>
+    <span style="flex:296;background:#DF751D" title="Call-out recovery 1:42:58–1:47:54"></span>
+    <span style="flex:268;background:#792E2E" title="Care team, dates and routes 1:47:54–1:52:22"></span>
+    <span style="flex:518;background:var(--rule)" title="Patient availability and close 1:52:22–2:01:00"></span>
+  </div>
+  <div class="tl-axis"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
+  <div class="tl-legend">
+    <div><i style="background:var(--band)"></i><span>Intros, both teams</span><span class="ts">0:00</span></div>
+    <div><i style="background:#1A1A1A"></i><span>Scope, timeline, business case</span><span class="ts">0:04:30</span></div>
+    <div><i style="background:#795CA7"></i><span>HCHB integration</span><span class="ts">0:16:40</span></div>
+    <div><i style="background:#795933"></i><span>Compassus workflow questions</span><span class="ts">0:34:20</span></div>
+    <div><i style="background:#9C4A5E"></i><span>Deck</span><span class="ts">0:39:54</span></div>
+    <div><i style="background:#C6A01F"></i><span>Dashboard and work queues</span><span class="ts">0:49:45</span></div>
+    <div><i style="background:#2E599D"></i><span>Analytics, assignment, explainability</span><span class="ts">0:56:00</span></div>
+    <div><i style="background:#1F6F78"></i><span>Capacity forecasting, intake</span><span class="ts">1:18:10</span></div>
+    <div><i style="background:#4E8A5B"></i><span>Setup, shifts, clinician adoption</span><span class="ts">1:25:00</span></div>
+    <div><i style="background:#DF751D"></i><span>Call-out recovery (live)</span><span class="ts">1:42:58</span></div>
+    <div><i style="background:#792E2E"></i><span>Care team, dates, routes (live)</span><span class="ts">1:47:54</span></div>
+    <div><i style="background:var(--rule)"></i><span>Patient availability, close</span><span class="ts">1:52:22</span></div>
+  </div>
+  <p class="mut" style="margin-top:14px;font-size:14px">Axle asked the questions for the first 40 minutes: our census, business case, HCHB cadence and who plots routine visits. Then about an hour of live product, much of it spent on a long discussion of explainability and clinician autonomy.</p>
+</section>
+
+<section id="context">
+  <div class="sec-head"><div class="eyebrow"><span>What Compassus told Axle</span><span>Worth keeping consistent across vendors</span></div><h2>Our numbers, as stated in the room</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Item</th><th>As stated</th><th>Who / when</th></tr></thead>
+      <tbody>
+        <tr><td><b>Home health census</b></td><td>24,000 ADC · 85 branches · 19–20 states · 4–5k clinicians (to confirm)</td><td class="ts">0:03:55</td></tr>
+        <tr><td><b>Schedulers</b></td><td>~330–340, home health and hospice combined, local to each branch. Headcount reduction and a central model are goals</td><td class="ts">0:14:22 · 0:34:31</td></tr>
+        <tr><td><b>Clinician pay</b></td><td>~80% paid per visit; some salaried, some hourly</td><td class="ts">0:19:17</td></tr>
+        <tr><td><b>Mileage</b></td><td>45 million miles a year at $0.60 a mile; a 10% cut is material</td><td class="ts">0:12:47</td></tr>
+        <tr><td><b>HCHB refresh</b></td><td>Every 3 hours (moved from 6 for another AI project). Data architecture work underway</td><td class="ts">0:18:25 · 0:30:44</td></tr>
+        <tr><td><b>Routine plotting</b></td><td>Clinician writes the frequency, a scheduler workflow in HCHB plots it, and the clinician phones patients for times</td><td class="ts">0:24:29</td></tr>
+        <tr><td><b>Timeline</b></td><td>On-site week of Oct 19 → pilot Q1 2027 for 60–90 days → rollout Q2 → complete by end of 2027</td><td class="ts">0:06:02</td></tr>
+        <tr><td><b>Not yet known</b></td><td>Missed-visit rate; exact clinician count; any branch incentives tied to LUPA or compliance (ad hoc today)</td><td class="ts">0:14:22 · 0:37:44</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><div class="eyebrow"><span>Process flow</span><span>As Axle runs it · click a stage</span></div><h2>Who, what day, what time, then recover</h2></div>
+  <p class="lede" style="margin-bottom:26px">Axle splits scheduling into three decisions, <em>which clinician</em>, <em>which day</em> and <em>what time</em>, and lets each organization choose who owns each one. Their default: the office picks the clinician, the office or the clinician picks the day, and the clinician picks the time. Capacity sits above the whole flow, and patient texts go out at the end.</p>
+  <div class="flow-wrap">
+    <nav class="flow" aria-label="Process stages">
+      <a class="stage" href="#s0" style="--c:#1F6F78"><span class="n">00</span><span class="t">Configure</span><span class="d">Services to HCHB codes, territories, shifts, your own assignment logic</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s1" style="--c:#795CA7"><span class="n">01</span><span class="t">Data in</span><span class="d">Intake feed or HCHB log ship; write-back by RPA</span><span class="chip c-gap">Paused for HCHB</span></a>
+      <a class="stage" href="#s2" style="--c:#C6A01F"><span class="n">02</span><span class="t">Work queues</span><span class="d">Every scheduling gap, cleared to zero daily</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s3" style="--c:#2E599D"><span class="n">03</span><span class="t">Which clinician</span><span class="d">Care team per discipline, all factors shown</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s4" style="--c:#792E2E"><span class="n">04</span><span class="t">Which day</span><span class="d">Bulk out inside fulfillment windows</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s5" style="--c:#4E8A5B"><span class="n">05</span><span class="t">What time</span><span class="d">Route optimizer, then patient texts</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s6" style="--c:#DF751D"><span class="n">06</span><span class="t">Recover</span><span class="d">Call-out: new clinician or new date</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s7" style="--c:#1A1A1A"><span class="n">07</span><span class="t">Capacity &amp; results</span><span class="d">Zip utilization, points, quality</span><span class="chip c-live">Live</span></a>
+    </nav>
+  </div>
+  <div class="flow-note">
+    <span><span class="chip c-live">Live</span> demonstrated in software</span>
+    <span><span class="chip c-part">Partly</span> shown in part or not shown live</span>
+    <span><span class="chip c-gap">Paused / not built</span> stated as off or missing</span>
+  </div>
+
+  <!-- S0 -->
+  <article class="stage-sec" id="s0">
+    <div class="copy">
+      <div class="num"><span>00 · Configure</span><span class="chip c-live">Live</span><span class="ts">0:56:00 – 1:03:29 · 1:25:00 – 1:29:36</span></div>
+      <h3>Your rules, inferred from your own people</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Assignment logic from a conjoint survey:</b> your staff choose between clinicians in sample scenarios, and Axle infers the logic you actually use. You then review it and tune it during the pilot.</li>
+          <li>They recommend <b>fewer than a dozen factors</b>, ideally six or seven, set up as a decision tree rather than weighted scores. That keeps every recommendation explainable.</li>
+          <li><b>Services</b> map one-to-one to HCHB service codes, each with a duration, priority, disciplines and licences.</li>
+          <li><b>Territories:</b> a soft default per team or per clinician. A clinician can still be scheduled outside it.</li>
+          <li><b>Shifts and blocks</b> with addresses and recurrence. The route optimizer plans around a mid-day appointment at its actual location. An “out sick” shift starts a call-out.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Workday integration isn’t built.</b> They reviewed the APIs and want to pull availability from there instead of asking clinicians to enter it twice. <span class="ts">1:26:33</span></li>
+          <li>Evan wants mandatory weekly availability from every clinician. Axle advised making it optional at first: it matters only where someone other than the clinician sets times. Evan’s point stands, and this is a design decision for us to make.</li>
+          <li>Productivity points by service code and targets by licence can be imported or kept in Axle.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“The algorithm needs to be explainable. You cannot have a true black box.”<cite>Adam Stansell, Axle · 1:01:21</cite></p>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/012840.jpg" alt="Create shift block dialog"></button><figcaption><span class="ts">1:28:40</span><span>Shift blocks for a clinician or a whole team, with an address and recurrence</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012537.jpg" alt="Services list"></button><figcaption><span class="ts">1:25:37</span><span>Services mapped to HCHB codes: duration, priority, disciplines, licences</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012555.jpg" alt="Territories"></button><figcaption><span class="ts">1:25:55</span><span>Territories by zip, with the clinicians who serve them</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012646.jpg" alt="Clinician schedules"></button><figcaption><span class="ts">1:26:46</span><span>Clinician schedules: working shifts by day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012746.jpg" alt="Edit shift"></button><figcaption><span class="ts">1:27:46</span><span>Shift settings: covered territories, start and end location, virtual or in-clinic</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S1 -->
+  <article class="stage-sec" id="s1">
+    <div class="copy">
+      <div class="num"><span>01 · Data in</span><span class="chip c-gap">Paused for HCHB</span><span class="ts">0:16:40 – 0:34:20</span></div>
+      <h3>The integration they built, and why it’s off</h3>
+      <div class="kv">
+        <div><h4>What they said</h4><ul>
+          <li>Read from the HCHB log ship: patients, service codes, clinicians, visits, frequencies and orders, auth and tasks. Write visits and tasks back by RPA, or by computer-use agents as those mature.</li>
+          <li><b>The bar:</b> a new SOC must reach Axle within about 10 minutes. HCHB’s fastest refresh is 15 minutes, and when a refresh runs slow HCHB simply skips that cycle. Their Epic customers get a reliable 15 minutes, which is tolerable because it is <i>predictable</i>.</li>
+          <li>They won’t go live on data they can’t time. HCHB’s move to Databricks is the long-term fix; Compassus warned that HCHB “still can’t get off Citrix.”</li>
+          <li>Suggested splitting the refresh by object: orders and frequencies fast, heavy documentation slow.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>New patients:</b> our intake platform (built with Commure, HL7 and APIs possible) can feed demographics and ordered disciplines in real time. That was enough for Axle to create the patient and episode and generate visits.</li>
+          <li><b>Routine visits still depend on HCHB.</b> Frequencies are written in the field and plotted by a scheduler workflow in HCHB, so at 3 hours Axle can’t recommend days for new orders promptly.</li>
+          <li>Compassus has cut refresh from 6 hours to 3 once already, and the data architecture work is the lever. Axle offered to think it through with us.</li>
+          <li>RPA is the only write path into HCHB. Compassus is comfortable with it across several initiatives.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“We won’t actually go live with somebody if we can’t give any data guarantee… we need to be able to tell them when they will be in Axle.”<cite>Adam Stansell, Axle · 0:20:01</cite></p>
+    </div>
+    <div class="gallery one">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004543.jpg" alt="Slide: bi-directional integration engine, current versus future state"></button><figcaption><span class="ts">0:45:43</span><span>Their model: Axle takes over after the order is authorized, sets who and when, notifies patients, and the EMR keeps documentation</span></figcaption></figure>
+    </div>
+    <div class="pipe" aria-label="Data path options" style="grid-column:1/-1">
+      <div class="lane"><b>New patient</b><div class="nodes">
+        <div class="node"><span>Intake platform</span><small>Commure build</small></div>
+        <div class="arr">API / HL7<br>real time</div>
+        <div class="node sync"><span>Axle</span><small>patient, episode, visits</small></div>
+      </div></div>
+      <div class="lane"><b>Routine orders</b><div class="nodes">
+        <div class="node hchb"><span>HCHB</span><small>frequency written</small></div>
+        <div class="arr hot">log ship<br>3 h today</div>
+        <div class="node sync"><span>Axle</span><small>needs ≤ ~15 min</small></div>
+      </div></div>
+      <div class="lane"><b>Write back</b><div class="nodes">
+        <div class="node sync"><span>Axle</span><small>assignment, date, time</small></div>
+        <div class="arr">RPA</div>
+        <div class="node hchb"><span>HCHB</span><small>visits, tasks</small></div>
+      </div></div>
+      <div class="callout"><span class="big">10 min</span><div><b>Axle’s threshold for new-patient data.</b> Compassus runs HCHB at 3 hours. The intake feed covers new patients; routine orders need a faster HCHB refresh, or order data taken from somewhere else, before day-of-week recommendations can work. <span class="ts">0:19:11</span></div></div>
+    </div>
+  </article>
+
+  <!-- S2 -->
+  <article class="stage-sec" id="s2">
+    <div class="copy">
+      <div class="num"><span>02 · Work queues</span><span class="chip c-live">Live</span><span class="ts">0:49:45 – 0:56:00</span></div>
+      <h3>The scheduler’s day starts at inbox zero</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>A home page of queues you can configure, each one a gap to close: incomplete care team, SOC, ROC, evals, urgent visits, patients needing scheduling, pending therapy re-evals, upcoming end of episode, visits scheduled before the SOC, conflicting discharge and recert visits, completed visits missing an order, active patients with no visits, missed visits.</li>
+          <li>A calendar live view alongside shows today’s visits by attention status.</li>
+          <li>Other roles get their own queues: clinical managers work missed visits, the office tracks transfers. Clinicians get a slimmer task list in the mobile app.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Several queues are home health compliance checks we raised with other vendors, built in here: eval before SOC, therapy re-eval, recert against discharge.</li>
+          <li>Evan asked about reporting on queue close-out by scheduler. The data is there, but a report wasn’t shown.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/005004.jpg" alt="Home dashboard with work queues"></button><figcaption><span class="ts">0:50:04</span><span>Home dashboard: 15 work queues and a calendar live view</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005413.jpg" alt="Customize dashboard"></button><figcaption><span class="ts">0:54:13</span><span>Choosing which queues each role sees</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005501.jpg" alt="Visits scheduled before SOC queue"></button><figcaption><span class="ts">0:55:01</span><span>“Visits scheduled before SOC” and missed-visit queues</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S3 -->
+  <article class="stage-sec" id="s3">
+    <div class="copy">
+      <div class="num"><span>03 · Which clinician</span><span class="chip c-live">Live</span><span class="ts">1:47:54 – 1:49:36</span></div>
+      <h3>A care team per discipline, with every factor shown</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>For a new patient, Axle recommends the care team, one per discipline (RN, PT, OT, HHA and so on), with the factors laid out as a colour-coded table: care-team match, team, territory, top of licence, capacity, employment type, distance, caseload.</li>
+          <li>It accounts for PTO and how full each clinician already is. It prefers top of licence (an OT over an OTA) and the less expensive licence where equivalent.</li>
+          <li>Care team first; then every visit inherits it unless someone overrides.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Clinician-facing rationale is deliberately limited.</b> Clinicians see the reasoning for decisions they own (day, time). Assignment reasoning goes to the scheduler or manager, to avoid “why me and not Evan?” disputes. That runs against Colin’s wish for clinicians to see why. <span class="ts">1:07:41</span></li>
+          <li>Axle sees the scheduler as “a salesperson for capacity,” with the data needed to persuade a clinician to take a patient.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/014843.jpg" alt="Edit care team with recommendations"></button><figcaption><span class="ts">1:48:43</span><span>Care-team recommendations: each factor as a pass/fail cell, so the choice explains itself</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014819.jpg" alt="Edit care team"></button><figcaption><span class="ts">1:48:19</span><span>Care team by discipline, with licence types to add</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014831.jpg" alt="Patient episode view"></button><figcaption><span class="ts">1:48:31</span><span>Patient view: episode, visits, fulfillment windows, orders and the episode calendar</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014919.jpg" alt="Clinician recommendations modal"></button><figcaption><span class="ts">1:49:19</span><span>Per-visit clinician recommendation for an OT visit</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S4 -->
+  <article class="stage-sec" id="s4">
+    <div class="copy">
+      <div class="num"><span>04 · Which day</span><span class="chip c-live">Live</span><span class="ts">1:49:36 – 1:50:36</span></div>
+      <h3>Bulk out the episode inside each visit’s window</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Every visit carries a <b>fulfillment window</b>, such as the Medicare week Sunday to Saturday. Date recommendations pick the best day within the window while optimizing the whole episode.</li>
+          <li>The rules shown were spacing between visits of the same order (no two SN visits on one day for a 2w8), front-loading early in the week, keeping a patient’s usual weekday, and grouping patients geographically.</li>
+          <li>Episode-level gaps such as a recert in the last five days are flagged even when no visit exists yet (from their return).</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This is the step our HCHB scheduler workflow does by hand today, and the one the 3-hour data lag hurts most.</li>
+          <li>LUPA thresholds weren’t shown on screen. Evan named LUPA and PDGM management as value levers; ask to see LUPA pacing on the shared scenario.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/015028.jpg" alt="Date recommendations"></button><figcaption><span class="ts">1:50:28</span><span>Date recommendations for a visit: spacing, capacity, territory, weekday history, distance, caseload</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014901.jpg" alt="Patient visits with recommended clinicians"></button><figcaption><span class="ts">1:49:01</span><span>Bulked-out visits with recommended clinicians, ready to apply</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014543.jpg" alt="Date not recommended due to spacing"></button><figcaption><span class="ts">1:45:43</span><span>Friday rejected: a same-order visit already falls that day</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S5 -->
+  <article class="stage-sec" id="s5">
+    <div class="copy">
+      <div class="num"><span>05 · What time</span><span class="chip c-live">Live</span><span class="ts">1:50:36 – 2:00:08</span></div>
+      <h3>Optimize, finalize, and the patient is told</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The route optimizer sequences a day, or many clinicians’ days, around shift blocks, patient constraints and facility hours. Usually the clinician runs it the night before: <i>optimize</i>, then <i>finalize</i>.</li>
+          <li>Finalize sends each patient an SMS with an arrival <b>window</b> rather than a minute. The clinician works in sequence, not clock times.</li>
+          <li>Patients have no app. Texts run through Twilio under a BAA, and replies route to the clinician’s authenticated mobile app. Voice and email are also available.</li>
+          <li>Patient availability starts fully open. Anyone can add constraints, standing (“dialysis Fridays”) or for a single visit.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Their stance is confirm, don’t ask.</b> Asking patients “can I come at 9?” loses the 9am slot, so negotiation moves to the prior visit and replies go to the clinician. It cuts the 30–60 minute evening call round without handing scheduling to a bot. <span class="ts">1:54:34</span></li>
+          <li>Evan’s north star is an agentic AI that captures patient availability and reschedules. Axle has self-scheduling in production but advises against it; if we use it, collect when patients are unavailable, not when they are free.</li>
+          <li>Mobile app not shown live; videos and training guides promised.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“It shouldn’t be a phone call… but it also shouldn’t be an automated text bot where they can’t push back.”<cite>Adam Stansell, Axle · 1:57:15</cite></p>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/015625.jpg" alt="Route optimizer with routes and timeline"></button><figcaption><span class="ts">1:56:25</span><span>Route optimizer: routes by clinician on the map and a timeline of the day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/015058.jpg" alt="Route optimizer visit list"></button><figcaption><span class="ts">1:50:58</span><span>Selecting visits to optimize for a day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/015143.jpg" alt="Optimized routes"></button><figcaption><span class="ts">1:51:43</span><span>Optimized routes; finalizing texts every patient</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S6 -->
+  <article class="stage-sec" id="s6">
+    <div class="copy">
+      <div class="num"><span>06 · Recover</span><span class="chip c-live">Live</span><span class="ts">1:42:58 – 1:47:54</span></div>
+      <h3>A call-out, handled in seconds</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Mark a shift “out sick” and the clinician’s visits open in a reassign flow, one visit at a time. Choose: keep the date and change the clinician, or keep the clinician and change the date. Their return adds a third option: switch the service code (an LPN visit to RN).</li>
+          <li>Every option comes with its reasoning shown: territory, licence cost, capacity, employment type, distance, caseload, spacing.</li>
+          <li>Accept all, submit, and the visits move. The covering clinician gets a push notification by default; for a PRN, the scheduler can call first.</li>
+          <li>If nobody fits, Axle still names the best option and prompts the office to call (from their return).</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This is the only live run of common question 6 in the field so far.</li>
+          <li>They front-load within the week, so a missed Monday can land later in the week. Colin’s concern about brittleness was answered with front-loading and sequence over exact times.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/014440.jpg" alt="Reassign visits with clinician math"></button><figcaption><span class="ts">1:44:40</span><span>Reassign five visits: candidates scored on territory, licence cost, capacity, employment type and distance</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014355.jpg" alt="Shift marked out sick"></button><figcaption><span class="ts">1:43:55</span><span>The trigger: a shift marked “Out sick”</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014601.jpg" alt="Date recommendations for the same clinician"></button><figcaption><span class="ts">1:46:01</span><span>Or keep the clinician: Tuesday and Wednesday preferred for spacing</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014625.jpg" alt="Review changes"></button><figcaption><span class="ts">1:46:25</span><span>Review all changes, then submit</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014713.jpg" alt="Schedule after call-out"></button><figcaption><span class="ts">1:47:13</span><span>The day before reassignment, shown on the schedule</span></figcaption></figure>
+    </div>
+  </article>
+
+  <!-- S7 -->
+  <article class="stage-sec" id="s7">
+    <div class="copy">
+      <div class="num"><span>07 · Capacity &amp; results</span><span class="chip c-live">Live</span><span class="ts">0:56:00 – 1:25:00</span></div>
+      <h3>Capacity by zip, and proof the logic works</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Projected utilization by clinician territory and zip</b>: historical demand, trends and seasonality set against actual capacity (PTO, reduced hours). It serves three audiences: recruiting (hire in the Valley), clinical ops (move a clinician over), marketing (don’t chase referrals where you’re full).</li>
+          <li><b>Checks on the assignment logic:</b> continuity of care, top-of-licence efficiency, employment-type mix, gender and language match, miles from home.</li>
+          <li><b>Clinician stats:</b> mileage, on-time rate, completion, call-out rate, patient ratings, and points utilization for the last and next four weeks against target.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Michael described the intake platform as the place where marketers, intake, insurance and ops come together. What’s missing is capacity insight at accept or decline. Axle wants to feed and take in our marketing forecasts both ways. “A blank canvas conversation.” <span class="ts">1:25:01</span></li>
+          <li>Common question 1 (the referral decision) came closest to an answer here, though a 10am referral wasn’t walked through live.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/012146.jpg" alt="Geographic utilization map"></button><figcaption><span class="ts">1:21:46</span><span>Projected utilization by clinician territory, plus scheduled shift hours by zip for the next 30 days</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010643.jpg" alt="Analytics overview"></button><figcaption><span class="ts">1:06:43</span><span>Checks on the logic: continuity, top of licence, employment type, preferences, miles</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005910.jpg" alt="Points utilization"></button><figcaption><span class="ts">0:59:10</span><span>Points utilization, last four weeks and next four</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005828.jpg" alt="Individual clinician stats"></button><figcaption><span class="ts">0:58:28</span><span>Clinician stats: mileage, quality, outcomes</span></figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="fit">
+  <div class="sec-head"><div class="eyebrow"><span>What they claim</span><span>Their deck and return, with our read</span></div><h2>Impact and positioning</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Claim</th><th>As stated</th><th>Our read</th></tr></thead>
+      <tbody>
+        <tr><td><b>Clinician productivity</b></td><td><span class="chip c-part">+17%</span> Baseline is the 3 months before rollout against 3 consecutive months after full rollout</td><td>The only vendor with a stated baseline method. Still needs a named customer and census.</td></tr>
+        <tr><td><b>Scheduler time per visit</b></td><td><span class="chip c-part">−74%</span> “Schedulers about four times more efficient,” fully realized only under a central model</td><td>Matches our plan to centralize schedulers. Branch-level savings will be smaller.</td></tr>
+        <tr><td><b>Mileage cost</b></td><td><span class="chip c-part">−32%</span> Target for Compassus: 5–10 million of our 45 million miles</td><td>$3–6M a year at $0.60/mile if it lands. Most of it comes from assignment and day grouping, not just routing.</td></tr>
+        <tr><td><b>Total opportunity</b></td><td>“At least $100M in expense that could be saved” at our size, extrapolated from $50M/yr per 1,000 clinicians</td><td>Directional only. Build our own case from the pilot.</td></tr>
+        <tr><td><b>Focus</b></td><td>Only scheduling, communications and workforce management. No scribe, billing or EMR</td><td>Credible, and it lowers the risk of their attention drifting.</td></tr>
+        <tr><td><b>Credentials</b></td><td>Deck shows SOC 2 Type 2, HIPAA, Y Combinator and other named investors</td><td>Size, funding stage and runway were not given on the call.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="gallery" style="margin-top:28px">
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/004728.jpg" alt="Slide: Axle drives meaningful impact"></button><figcaption><span class="ts">0:47:28</span><span>Their impact slide: +17%, −74%, −32%</span></figcaption></figure>
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/004204.jpg" alt="Slide: three key areas"></button><figcaption><span class="ts">0:42:04</span><span>Three product areas: workforce optimization, AI scheduling, communications</span></figcaption></figure>
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/004919.jpg" alt="Slide: the right team"></button><figcaption><span class="ts">0:49:19</span><span>Team, investors and certifications</span></figcaption></figure>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><div class="eyebrow"><span>Vendor Demo Question Guide</span><span>10 common · 8 Axle-specific</span></div><h2>Question by question</h2></div>
+  <div class="tally">
+    <span><span class="chip c-live">Answered</span><b>6</b></span>
+    <span><span class="chip c-part">Partly</span><b>8</b></span>
+    <span><span class="chip c-gap">Not answered</span><b>0</b></span>
+    <span><span class="chip c-na">Not asked</span><b>4</b></span>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Status</th><th>What we heard</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td class="q"><span class="qn">Common 01</span><b>The referral decision</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Zip-level projected utilization and the recommended clinicians for a new patient; built to guide recruiting, ops and marketing. A live 10am referral wasn’t walked through.</td><td class="ts">1:18:10</td></tr>
+        <tr><td class="q"><span class="qn">Common 02</span><b>The episode, not the visit</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Fulfillment windows, the Medicare week, front-loading, same-order spacing, and queues for end of episode, therapy re-eval, and recert against discharge. LUPA wasn’t shown on screen.</td><td class="ts">1:45:02</td></tr>
+        <tr><td class="q"><span class="qn">Common 03</span><b>HCHB freshness, with a number</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>15 min at best and unreliable; up to 30 min in practice. Needs ~10 min for new patients. 3 hours is too long for routine plotting.</td><td class="ts">0:19:11</td></tr>
+        <tr><td class="q"><span class="qn">Common 04</span><b>Advise versus decide</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Designed to decide, then rebuilt to advise. Every customer keeps a human in the loop, and they argue for keeping one. No customer named who moved the line.</td><td class="ts">1:14:22</td></tr>
+        <tr><td class="q"><span class="qn">Common 05</span><b>The clinician says no</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Accept/decline or reassignment requests, set by role. Disputes go through the manager, with the data to hand. No 60-day model learning described.</td><td class="ts">1:07:41</td></tr>
+        <tr><td class="q"><span class="qn">Common 06</span><b>A Tuesday that goes wrong</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Run live: out-sick shift, five visits reassigned with reasoning, push notification. If nobody fits, Axle still names the best option and prompts a call.</td><td class="ts">1:43:00</td></tr>
+        <tr><td class="q"><span class="qn">Common 07</span><b>What you don’t do</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>HCHB integration off; Workday integration not built; dynamic incentives in development (return). Not asked as three items with dates.</td><td class="ts">1:26:33</td></tr>
+        <tr><td class="q"><span class="qn">Common 08</span><b>What breaks at our size</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>HCHB replication doesn’t scale horizontally, so larger databases refresh slower. Largest deployment 11k ADC (return). We’d be about twice that.</td><td class="ts">0:30:00</td></tr>
+        <tr><td class="q"><span class="qn">Common 09</span><b>The one number you’d stake it on</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>+17% / −74% / −32% with a stated 3-month baseline. No named customer on the call.</td><td class="ts">0:46:26</td></tr>
+        <tr><td class="q"><span class="qn">Common 10</span><b>Where you’ll look worse</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Integration was the obvious answer and was discussed openly.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Axle 01</span><b>What lags, your threshold, what must change</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>New-patient data within ~10 min, and predictably. HCHB skips a refresh when it runs slow. Databricks is HCHB’s intent, not a commitment to Axle.</td><td class="ts">0:19:59</td></tr>
+        <tr><td class="q"><span class="qn">Axle 02</span><b>Turn it back on for Compassus, with a date</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Yes for new patients via our intake feed. Routine orders depend on our HCHB cadence. No date given.</td><td class="ts">0:22:15</td></tr>
+        <tr><td class="q"><span class="qn">Axle 03</span><b>“Always bi-directional” versus switched off</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>The contradiction in the return was not raised.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Axle 04</span><b>Which EHRs; the 11k ADC deployment</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Epic customers get reliable 15-minute data. The rest of the EHR mix wasn’t covered.</td><td class="ts">0:31:25</td></tr>
+        <tr><td class="q"><span class="qn">Axle 05</span><b>The real partnership proposal</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Return: referral credits, co-built features permanently discounted, open to strategic terms.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Axle 06</span><b>Incentives: date and interim</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Compassus raised incentives for taking out-of-zip patients. Axle’s dynamic pricing (per the return) is in development with no date.</td><td class="ts">0:38:33</td></tr>
+        <tr><td class="q"><span class="qn">Axle 07</span><b>Who is on the call; who runs our deployment</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>CTO, head of product, head of professional services and sales on the call; Adam led the demo.</td><td class="ts">0:00:03</td></tr>
+        <tr><td class="q"><span class="qn">Axle 08</span><b>Company size, funding, home health focus</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Deck lists investors and certifications; 80% home health (return). Size and funding not given.</td><td class="ts">0:49:19</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="sec-head"><div class="eyebrow"><span>Considerations</span><span>Ranked by how much they would change the decision</span></div><h2>What to weigh</h2></div>
+  <div class="grid3">
+    <div class="risk"><span class="sev h">High</span><h3>Go-live depends on our data</h3><p>Axle won’t launch on a feed it can’t time. The intake feed covers new patients; routine orders need faster HCHB data. The pilot date is really a data-architecture date.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>Write-back into HCHB is unproven here</h3><p>RPA or computer-use write-back exists but has no live HCHB customer. Detection, repair SLA and conflict handling for a customer our size are all untested.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Patient engagement philosophy</h3><p>Confirm-don’t-ask is proven but conservative. Our agentic two-way vision would be layered on top of it, and Axle will push back. Decide which we want before the on-site.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Clinician visibility of the “why”</h3><p>Assignment reasoning goes to schedulers and managers by design. Colin wants clinicians to see it. It can be configured, but it goes against their advice.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Scale</h3><p>At 24k ADC we’d be about twice their largest deployment. Performance of the logic and data volume at our size need proof on the pilot.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Commercials unasked</h3><p>Partnership, size and funding weren’t covered. The return’s “referral credits and discounted features” is thinner than the design-partner investment we’re offering.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Workday and availability</h3><p>No Workday integration yet. Evan wants mandatory availability; Axle wants optional adoption. That must be settled in the pilot design.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Location tracking policy</h3><p>By default Axle tracks only trips to a patient, when the clinician starts one. Whole-shift tracking is available, and choosing it is a privacy and HR decision for us.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>Home health fluency and candor</h3><p>80% home health, our vocabulary unprompted, a live recovery flow, change management learned the hard way (“rip the band-aid off” was a mistake), and they switched their own integration off rather than ship a poor experience.</p></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><div class="eyebrow"><span>Next steps</span><span>Committed in the room, then recommended</span></div><h2>What happens now</h2></div>
+  <div class="next">
+    <div>
+      <h3>Agreed on the call</h3>
+      <ol>
+        <li><span class="who">Axle</span><br>Send mobile app videos, training guides and screenshots of the clinician experience.</li>
+        <li><span class="who">Compassus</span><br>Confirm exact home health clinician count, scheduler split by service line and missed-visit rate.</li>
+        <li><span class="who">Both</span><br>A dedicated “blank canvas” session on capacity forecasting and a two-way link with the intake platform.</li>
+        <li><span class="who">Compassus</span><br>Look at HCHB refresh cadence by object (orders and frequencies faster) inside the data architecture work. Axle offered to help think it through.</li>
+        <li><span class="who">Compassus</span><br>Decide the on-site shortlist for the week of Oct 19.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Recommended for the on-site</h3>
+      <ul>
+        <li>A joint data plan: intake feed scope, target HCHB cadence for orders and frequencies, and a date to turn write-back on.</li>
+        <li>Run the shared scenario end to end, including LUPA pacing and a 10am referral decision against capacity.</li>
+        <li>The RPA write-back story: detection when HCHB changes a screen, repair SLA, conflict handling.</li>
+        <li>Partnership terms that match our design-partner investment; company size, funding and runway.</li>
+        <li>A named reference at 5k+ ADC with the before-and-after on productivity and mileage.</li>
+        <li>Patient engagement: agree the boundary between Axle’s confirm model and our agentic two-way ambition.</li>
+        <li>Clinician-facing assignment rationale, and a location-tracking policy for the pilot.</li>
+        <li>A Workday integration plan and whether the availability model is mandatory or optional.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="sec-head"><div class="eyebrow"><span>In the room</span><span>From intros and meeting tiles</span></div><h2>Who was there</h2></div>
+  <div class="people">
+    <div><h3>Compassus</h3><ul>
+      <li>Evan Kramer<span>Leads Innovation &amp; Operational Excellence</span></li>
+      <li>Michael Thompson<span>VP, Operational Excellence</span></li>
+      <li>Colin Highland<span>Initiative lead · PT, ~25 years in home health</span></li>
+      <li>Paige Huffman<span>Senior Project Manager, Operational Excellence</span></li>
+    </ul></div>
+    <div><h3>Axle Health</h3><ul>
+      <li>Adam Stansell<span>Led the demo and discovery</span></li>
+      <li>Jessica<span>CTO</span></li>
+      <li>Romit<span>Head of Product · joined late, blocked by Teams</span></li>
+      <li>Eshon<span>Head of Professional Services</span></li>
+      <li>David<span>Sales</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<footer>
+  <span>Built from the Teams recording (2:01:00) with a machine transcript and extracted screens, plus Axle’s questionnaire return where noted. Speaker attribution is inferred from context where the transcript has no labels.</span>
+  <span>Prepared for Compassus Operational Excellence · Internal · September 2026</span>
+</footer>
+</div>
+
+<dialog id="lb" aria-label="Screenshot viewer">
+  <div class="lb">
+    <img id="lb-img" alt="">
+    <div class="lb-bar">
+      <button type="button" id="lb-prev" aria-label="Previous screenshot">← Prev</button>
+      <span class="lb-cap" id="lb-cap"></span>
+      <button type="button" id="lb-next" aria-label="Next screenshot">Next →</button>
+      <button type="button" id="lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  const shots=[...document.querySelectorAll('.shot')];
+  const dlg=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
+  let i=0;
+  function show(n){i=(n+shots.length)%shots.length;const s=shots[i],im=s.querySelector('img'),fc=s.parentElement.querySelector('figcaption');img.src=im.src;img.alt=im.alt;cap.textContent=fc?fc.textContent.replace(/\s+/g,' ').trim():''}
+  shots.forEach((s,n)=>s.addEventListener('click',()=>{show(n);if(!dlg.open)dlg.showModal()}));
+  document.getElementById('lb-prev').onclick=()=>show(i-1);
+  document.getElementById('lb-next').onclick=()=>show(i+1);
+  document.getElementById('lb-close').onclick=()=>dlg.close();
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+})();
+</script>
