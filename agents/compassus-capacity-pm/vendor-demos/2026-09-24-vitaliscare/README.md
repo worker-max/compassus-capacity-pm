@@ -5,6 +5,7 @@ Scorecard going in: **67 · Consider · no open stop-checks.**
 
 | File | What it is |
 |---|---|
+| `VitalisCare-Sync-Demo-Readout.pdf` | 19-page landscape PDF of the report for sharing (no author metadata) |
 | `index.html` | Visual report: process flow with screens, question-by-question scoring, considerations, next steps |
 | `transcript.md` | Full machine transcript, timestamped (no speaker labels) |
 | `screens/HHMMSS.jpg` | 52 de-duplicated product and deck screens, named by time into the recording |
