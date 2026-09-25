@@ -94,6 +94,8 @@ renumbered.
 | `reimbursement-research/` | The sourced research corpus behind both: PDGM mechanics and rates, Medicare Advantage, commercial and Medicaid, utilization and margin, cost and labor, authorization operations, value-based and policy | Checking a figure, or its source |
 | `Flow-DCS-Scheduler.pdf` | One A4 landscape page: the DCS / scheduler handoff | Demonstrating the handoff; testing the conventions |
 | `flow-dcs-scheduler.html` | Source for the above. Regenerate the SVG with `_flow-dcs-scheduler.gen.py`, then swap it into the `<svg>` block | Editing the flow |
+| `Flow-Vendor-VitalisCare.pdf` | Vendor overlay V1: VitalisCare Sync placed on our episode as demoed 24 Sep 2026, every step badged for automation (in Sync today · Vitalis roadmap · gap with no date · opportunity). **Not current state** | Vendor evaluation; seeing where automation is live versus promised |
+| `flow-vendor-vitaliscare.html` | Source for the above. Regenerate with `python3 _flow-vendor-vitaliscare.gen.py <out.svg>` then `build.py` | Editing the overlay |
 | `flow-map-redraw-assessment.md` | The full working record of the redraw, §1–26: correction inventory, every conversational decision, the eight answers, and each sheet's build notes | The history; the distilled facts are in `../knowledge/process-facts-2026-08.md` |
 | `variable-backlog.md` | **Running list of variables not yet numbered in the workbook** | Append here as new ones surface; work it down when updating the workbook |
 | `Source-Original-Swimlane-Detail.pdf` | **The original hand-built swimlane map**, before the redraw. Page 2 of a set; page 1 is *Home Health Intake Reset* | Checking what the composite was redrawn *from* |

@@ -1168,3 +1168,22 @@ would be dismissed by anyone who has run a branch, and rightly.
 **On the branch sheet's fourth band.** It ends on "the week looks fine" — every number defensible,
 every loss invisible. That is the sharpest frame in the set for why measurement precedes any
 platform decision, and it is the honest reason the initiative cannot be sized today.
+
+
+## Vendor overlay V1 — VitalisCare Sync (25 Sep 2026)
+
+A new kind of sheet, deliberately outside the current-state set. The house rule is that every sheet
+is current state and proposes nothing; this one shows a vendor's product placed on our episode, so
+its footer says *not current state and not a recommendation* and its eyebrow says VENDOR OVERLAY.
+
+- **One new actor colour, Sync `#A33A6B`**, used only where the vendor system acts by itself
+  (ranking, RPA write-back, optimization suggestions, routing, the Call-Off Center). A person
+  working inside Sync keeps the person's colour, the same rule as HCHB.
+- **Automation is a badge, not a colour**: in Sync today (ink), Vitalis roadmap (dashed), gap with
+  no date (auth orange outline), opportunity (gold). Colour stays reserved for actors.
+- **Band C carries the sheet's one sharp point**: in current state the clinician runs their own
+  week with no scheduler workflow; Sync's day-of-week optimization is scheduler-driven. Buying it
+  re-inserts a scheduler into the steady-state week unless the suggestions go to the clinician.
+- **Unconfirmed placements**, to close with the operator: whether Sync's matching could run for the
+  SOC/eval visit (drawn as an opportunity, not shown in the demo); whether the log-ship interval is
+  3 h everywhere or varies by region.
