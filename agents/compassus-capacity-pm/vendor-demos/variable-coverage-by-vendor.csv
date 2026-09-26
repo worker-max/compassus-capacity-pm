@@ -1,0 +1,80 @@
+ID,Category,Variable,MVP,VitalisCare,Axle,CareStitch
+SH-01,Capacity,Clinician headcount,Yes,S,S,S
+SH-02,Capacity,Discipline,Yes,S,S,S
+SH-03,Capacity,Role (assessing vs assistant),Yes,S,S,S
+SH-04,Capacity,FTE / employment type,Yes,S,S,S
+SH-05,Capacity,Approved time off / availability,Yes,S,S,S
+SH-06,Capacity,Territory / service area,Yes,D,S,S
+SH-07,Capacity,Productivity points per visit type,Yes,D,S,S
+SH-08,Capacity,Productivity target & ceiling,Yes,S,S,S
+SH-09,Capacity,Referral inflow / discharge outflow,Yes,D,S,D
+C-01,Capacity,Headcount by discipline & employment type,Yes,S,S,S
+C-02,Capacity,Branch coverage territory (county),Yes,S,S,S
+C-03,Capacity,Clinician territory assignment (zip),Yes,D,S,S
+C-04,Capacity,Census-tract granularity,Yes,-,-,D
+C-05,Capacity,Committed load / points scheduled,Yes,S,S,S
+C-12,Capacity,On-call / weekend rotation load,Yes,S,-,D
+C-06,Capacity,Remaining capacity by day,Yes,D,S,S
+C-07,Capacity,Week open capacity,Yes,D,S,S
+C-08,Capacity,Assessing capacity by discipline,Yes,-,D,-
+C-09,Capacity,Per-diem / flex capacity,Yes,S,S,S
+C-10,Capacity,Specialty competency supply,Maybe,D,D,S
+C-11,Capacity,Orientation / ramp status,Maybe,S,-,D
+C-13,Capacity,Referral volume,No,D,D,D
+S-01,Scheduling,Plan-of-care orders / ordered frequency,Yes,D,S,D
+S-02,Scheduling,Visit type,Yes,D,S,S
+S-03,Scheduling,Ordered-frequency compliance window,Yes,D,S,D
+S-35,Scheduling,SOC timing window,Yes,-,D,S
+(auth),Scheduling,Insurance authorization,Yes,D,D,-
+(add-on),Scheduling,Add-on orders,Yes,-,-,-
+S-36,Scheduling,Recert / face-to-face window,Yes,S,S,-
+S-04,Scheduling,Preferred working days,Maybe,S,S,S
+S-05,Scheduling,Preferred start time,Maybe,S,S,-
+S-06,Scheduling,Start-time flexibility,Maybe,-,-,-
+S-07,Scheduling,Lunch / documentation pattern,Maybe,-,-,-
+S-08,Scheduling,Mid-day documentation block,Maybe,-,S,S
+S-09,Scheduling,Split-shift / mid-day personal break,Maybe,D,S,S
+S-10,Scheduling,Preferred end time / hard stop,Yes,S,S,-
+S-11,Scheduling,Max consecutive visits / daily volume,Maybe,S,S,S
+S-12,Scheduling,Elasticity / willingness to flex,Maybe,-,D,D
+S-13,Scheduling,Overtime / extra-visit willingness,Maybe,D,D,D
+S-14,Scheduling,Home base (start/end location),Yes,S,S,S
+S-17,Scheduling,Proximity to existing route,Maybe,S,S,S
+S-18,Scheduling,Optimized-route mileage,Yes,S,S,D
+S-19,Scheduling,Intra-day sequencing,Maybe,S,S,S
+(safety),Scheduling,Clinician safety,Maybe,-,-,-
+S-20,Scheduling,Appointment window (time of day),Yes,S,S,D
+S-15,Scheduling,Discipline / role match,Yes,S,S,S
+S-16,Scheduling,Specialty competency match,Yes,-,S,S
+S-33,Scheduling,Acuity to discipline / skill,Yes,-,-,-
+S-21,Scheduling,Clinician restrictions,Yes,S,-,-
+S-22,Scheduling,Continuity of care,Maybe,D,S,S
+S-23,Scheduling,Gender preference,No,-,S,S
+S-24,Scheduling,Language / cultural match,Maybe,S,S,S
+S-25,Scheduling,Time-of-day refusal,Yes,D,D,S
+S-26,Scheduling,Preferred visit window,Maybe,S,D,D
+S-27,Scheduling,Day-of-week constraint,Yes,S,D,-
+S-28,Scheduling,Caregiver-present requirement,Yes,-,D,D
+S-29,Scheduling,Cognitive / dementia constraint,Yes,-,-,-
+S-30,Scheduling,Caregiver schedule / fluctuating availability,Yes,-,D,-
+S-31,Scheduling,Diagnosis-driven timing,Yes,-,-,-
+S-32,Scheduling,Competing medical appointments,Yes,-,D,D
+S-34,Scheduling,Infection-control sequencing,Maybe,-,-,-
+S-37,Scheduling,Supervisory visit dependency,Yes,S,-,-
+S-38,Scheduling,Missed / unworked visit rescheduling,Yes,D,S,S
+S-39,Scheduling,Missed-visit documentation,Yes,-,-,-
+S-40,Scheduling,Front-loading,Maybe,D,S,D
+S-41,Scheduling,Pace vs. schedule,Maybe,D,D,D
+S-42,Scheduling,Day-by-day balancing,Maybe,S,S,D
+CO-01,Engagement,Day-before / same-day visit confirmation,Yes,D,S,D
+CO-02,Engagement,Automated appointment reminders,Yes,D,D,D
+CO-03,Engagement,En-route / on-my-way notification,Maybe,D,-,-
+CO-04,Engagement,New-patient welcome call,Maybe,-,D,D
+CO-05,Engagement,Communication channel & preference management,Maybe,D,D,D
+CO-06,Engagement,Availability confirmation before booking,Yes,D,D,S
+CO-07,Engagement,Reschedule coordination,Maybe,D,D,D
+CO-08,Engagement,Failed-visit / no-show follow-up & rebooking,Yes,D,-,-
+CO-09,Engagement,Call-out coverage coordination,Yes,D,S,S
+CO-10,Engagement,Multi-discipline visit coordination,Maybe,D,S,S
+CO-11,Engagement,Care-team / office coordination updates,Maybe,D,D,S
+CO-12,Engagement,Coordination time load,Maybe,D,D,D
