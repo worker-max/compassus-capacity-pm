@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vendor Demo Comparison</title>
+<style>
+@page{size:11in 8.5in;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:"Liberation Sans",Arial,Helvetica,sans-serif;color:#000;font-size:7.7pt;line-height:1.22}
+.page{width:11in;height:8.5in;padding:.35in .4in .3in}
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1F3864;padding-bottom:4px;margin-bottom:8px}
+.hdr h1{font-size:15pt;font-weight:bold;color:#1F3864}
+.hdr p{font-size:8.5pt}
+.hdr .r{text-align:right;font-size:8pt;color:#444}
+h2{font-size:9.5pt;font-weight:bold;color:#1F3864;margin:7px 0 3px}
+ul{padding-left:14px}
+li{margin-bottom:1px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th,td{border:1px solid #A6A6A6;padding:2px 4px;vertical-align:top;text-align:left}
+th{background:#D9E1F2;font-weight:bold}
+td.c,th.c{text-align:center}
+td.lab{font-weight:bold;background:#F2F2F2}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note{font-size:7.3pt;color:#444;margin-top:6px}
+.s{font-weight:bold}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div>
+    <h1>Capacity &amp; Scheduling Vendor Demos: Comparison</h1>
+    <p>Axle Health (Sep 22), CareStitch (Sep 23), VitalisCare (Sep 24)</p>
+  </div>
+  <div class="r">Compassus Home Health<br>Internal, for discussion</div>
+</div>
+
+<div class="cols">
+<div>
+  <h2>Summary</h2>
+  <ul>
+    <li><b>Axle</b> was the strongest product. It is built for home health and showed recommendations for clinician, day and time. Go-live depends on getting HCHB data to them faster than our current 3-hour refresh.</li>
+    <li><b>CareStitch</b> has the best tools for clinicians and for coordinating coverage, but it does not recommend or automate anything yet, and its HCHB integration is not in production.</li>
+    <li><b>VitalisCare</b> is a hospice product. Its HCHB integration is live, but authorization, episode/LUPA logic, therapy and patient communication would all need to be built.</li>
+  </ul>
+
+  <h2>Variable coverage (79 variables from the Variable Inventory)</h2>
+  <table>
+    <colgroup><col style="width:24%"><col><col><col><col></colgroup>
+    <tr><th></th><th class="c">Capacity (22)</th><th class="c">Scheduling (45)</th><th class="c">Engagement (12)</th><th class="c">Total (79)</th></tr>
+    <tr><td class="lab">Axle</td><td class="c">86% / 73%</td><td class="c">76% / 51%</td><td class="c">83% / 25%</td><td class="c s">80% / 53%</td></tr>
+    <tr><td class="lab">CareStitch</td><td class="c">95% / 73%</td><td class="c">62% / 36%</td><td class="c">83% / 33%</td><td class="c s">75% / 46%</td></tr>
+    <tr><td class="lab">VitalisCare</td><td class="c">91% / 55%</td><td class="c">62% / 38%</td><td class="c">92% / 0%</td><td class="c s">75% / 37%</td></tr>
+  </table>
+  <p class="note">First number: discussed on the call (includes roadmap items). Second number: shown in the software. Of the 49 MVP variables, Axle showed 59%, CareStitch 49%, VitalisCare 41%.</p>
+  <p style="margin-top:4px">Not covered by any vendor (9): add-on orders, acuity to skill level, cognitive/dementia constraints, diagnosis-driven timing, missed-visit documentation (all MVP), plus start-time flexibility, lunch/documentation pattern, clinician safety and infection-control sequencing.</p>
+
+  <h2>Open items for the on-site</h2>
+  <table>
+    <colgroup><col style="width:24%"><col></colgroup>
+    <tr><td class="lab">Axle</td><td>Joint data plan (intake feed for new patients, HCHB refresh target for orders, date to turn on write-back). Run our scenario end to end including LUPA and a referral decision. Partnership terms, company size, 5k+ ADC reference.</td></tr>
+    <tr><td class="lab">CareStitch</td><td>Dated HCHB production plan for read and write. Demo of the automation work they mentioned and a date for recommendations. Date for patient text confirmation. Run a 60-day episode.</td></tr>
+    <tr><td class="lab">VitalisCare</td><td>Written scope, dates and cost for the home health build. Call-Off Center shown live, including when no one takes the visit. Security and uptime (not covered on the call), company size and funding.</td></tr>
+  </table>
+</div>
+
+<div>
+  <h2>Assessment (1 = low, 5 = high)</h2>
+  <table>
+    <colgroup><col style="width:19%"><col><col><col></colgroup>
+    <tr><th></th><th>Axle</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">Product sophistication</td>
+      <td><span class="s">4</span> - Recommends clinician, day and time and shows the factors behind each. Suggests coverage for call-outs. Capacity forecast by zip.</td>
+      <td><span class="s">2</span> - Filters out ineligible clinicians; the scheduler makes the choice. Recommendations and AI are still in research.</td>
+      <td><span class="s">3</span> - Ranks providers and suggests better visit days with a short explanation. Call-off tool not released.</td></tr>
+    <tr><td class="lab">Reduction in scheduler tasks</td>
+      <td><span class="s">4</span> - Work queues, bulk scheduling of the episode, call-out reassignment in seconds. They claim 74% less scheduler time per visit. Depends on faster HCHB data.</td>
+      <td><span class="s">3</span> - Replaces the Teams/email scramble to find coverage and removes territory lookups. Each assignment is still manual.</td>
+      <td><span class="s">2</span> - Matching helps, but visit plotting stays in HCHB, call-off recovery is not built, and the 3-hour lag risks double entry.</td></tr>
+    <tr><td class="lab">Clinician experience</td>
+      <td><span class="s">4</span> - Clinician optimizes and finalizes the next day; patients get a confirmation text instead of a call. Reasoning for assignments goes to managers, not clinicians.</td>
+      <td><span class="s">4</span> - Designed by clinicians: drive time on the calendar, click-to-call with a call log, care-team chat, offline app, 93% adoption. Clinicians still call every patient.</td>
+      <td><span class="s">2</span> - Routes the day and reroutes as it changes, but tracks location all workday and reviews route adherence. Separate app from PointCare; no patient messaging.</td></tr>
+  </table>
+  <p class="note">Scores are our read of the demos, not the formal scorecard.</p>
+
+  <h2>Key differences</h2>
+  <table>
+    <colgroup><col style="width:19%"><col><col><col></colgroup>
+    <tr><th></th><th>Axle</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">HCHB integration</td><td>Built but turned off. Needs data within 10-15 min. Intake feed would cover new patients.</td><td>Read-only beta, not in production. No write-back.</td><td>Live. Reads the log ship, writes by RPA. 3-hour refresh too slow for call-offs.</td></tr>
+    <tr><td class="lab">Home health logic</td><td>Visit windows, Medicare week, front-loading, SOC/eval/recert checks. LUPA not shown.</td><td>None. Relies on HCHB for rules.</td><td>Hospice rules only. Auth, episode, LUPA and therapy to be built.</td></tr>
+    <tr><td class="lab">Patient communication</td><td>Two-way text is live. Sends confirmations rather than asking for times.</td><td>Click-to-call and call log. Text confirmation on roadmap.</td><td>None today.</td></tr>
+    <tr><td class="lab">Customers</td><td>~25 orgs, 80% home health, largest 11k ADC</td><td>79 orgs, 69% home health, largest 5.3k (one branch)</td><td>3 live on Sync, ~6-7k patients, largest 3.5k ADC</td></tr>
+    <tr><td class="lab">Scorecard / next step</td><td>63, Conditional. Recommend moving to on-site with a data plan.</td><td>56, Conditional. Hold; follow-up call on HCHB and automation.</td><td>67, Consider. Hold until home health build is scoped and dated.</td></tr>
+  </table>
+</div>
+</div>
+
+<p class="note" style="margin-top:10px">Coverage method: each Variable Inventory row was marked shown, discussed or not covered for each call. Shared variables are counted under Capacity; Coordination variables under Engagement. Per-variable detail available on request.</p>
+</div>
+</body>
+</html>

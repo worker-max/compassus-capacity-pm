@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hospice to Home Health: VitalisCare Gaps</title>
+<!--FONTS--><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"><!--/FONTS-->
+<style>
+@page{size:11in 8.5in;margin:0}
+:root{--paper:#FBFBF8;--ink:#1B211E;--mut:#5A6560;--rule:#C9CCC5;--band:#EFEFEB;--accent:#792E2E;
+  --build:#B4520F;--build-bg:#FBE9DA;--cust:#8A6D0B;--cust-bg:#F6EFD3;--road:#1B211E;--asis:#3F7A4C;--asis-bg:#E3EFE5;
+  --display:"Newsreader","Iowan Old Style",Palatino,Georgia,serif;--body:"Hanken Grotesk","Avenir Next","Segoe UI",Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--body);color:var(--ink);font-size:8.9px;line-height:1.33}
+.page{width:11in;height:8.5in;padding:.32in .4in .26in;display:grid;grid-template-rows:auto auto 1fr auto auto;gap:7px;overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:4px}
+.eb{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+h1{font-family:var(--display);font-weight:500;font-size:26px;line-height:1;letter-spacing:-.01em}
+h1 em{color:var(--accent)}
+.deck{font-size:10px;color:var(--mut);margin-top:5px;max-width:92ch}
+.tally{display:flex;gap:14px;align-items:end}
+.tally div{display:grid;gap:1px;text-align:right}
+.tally b{font-family:var(--display);font-weight:500;font-size:22px;line-height:1}
+.tally span{font-family:var(--mono);font-size:7.4px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;min-height:0}
+.col{display:grid;grid-template-rows:auto 1fr;gap:5px;min-height:0}
+.colh{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);padding-top:5px}
+.colh h2{font-family:var(--display);font-weight:500;font-size:15.5px}
+.colh small{font-family:var(--mono);font-size:7.6px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase}
+.rows{display:grid;align-content:start}
+.r{padding:3.5px 0 4px;border-bottom:1px solid var(--rule);display:grid;gap:2px}
+.r:last-child{border-bottom:0}
+.rt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rt b{font-weight:700;font-size:9.6px}
+.d{color:var(--mut)}
+.d i{font-style:normal;font-family:var(--mono);font-size:7.6px;letter-spacing:.06em;color:var(--mut)}
+.c{color:var(--ink)}
+.c::before{content:"\2192\00a0";color:var(--accent);font-weight:700}
+.t{font-family:var(--mono);font-size:7px;letter-spacing:.08em;text-transform:uppercase;padding:1.5px 5px;border-radius:2px;white-space:nowrap;font-weight:600}
+.t.b{color:var(--build);background:var(--build-bg)}
+.t.u{color:var(--cust);background:var(--cust-bg)}
+.t.r{color:var(--road);border:1px dashed var(--road);padding:.5px 4px}
+.t.a{color:var(--asis);background:var(--asis-bg)}
+.risk{background:var(--band);padding:6px 12px 7px;display:grid;gap:4px}
+.riskh{display:flex;justify-content:space-between;align-items:baseline}
+.riskh h2{font-family:var(--display);font-weight:500;font-size:15px}
+.riskh h2 em{color:var(--accent)}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px 16px}
+.k{display:grid;gap:1px;align-content:start}
+.k b{font-size:9.8px;font-weight:700}
+.k b span{font-family:var(--mono);font-size:7px;letter-spacing:.08em;margin-right:5px;font-weight:600}
+.k b span.h{color:var(--build)} .k b span.m{color:var(--cust)}
+.k p{color:var(--mut);font-size:8.5px;line-height:1.3}
+.k p u{text-decoration:none;color:var(--ink);font-weight:600}
+.foot{display:flex;justify-content:space-between;gap:20px;font-family:var(--mono);font-size:7.2px;color:var(--mut);letter-spacing:.04em;border-top:1px solid var(--rule);padding-top:4px}
+.legend{display:flex;gap:6px;align-items:center;flex:none;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top"><span class="eb">Compassus · Home Health Capacity &amp; Scheduling · Vendor evaluation</span><span class="eb">VitalisCare Sync · from the 24 Sep 2026 demo</span></div>
+
+  <div class="head">
+    <div>
+      <h1>From hospice to <em>home health</em>: what VitalisCare has to change</h1>
+      <p class="deck">Sync was built for hospice: steady census, caregivers as the contact, visits in facilities. Home health reverses those assumptions. It runs on short payer-gated episodes, therapy-heavy caseloads and patients who schedule their own days. Below is every change the difference forces, sized by how much of it exists today.</p>
+    </div>
+    <div class="tally">
+      <div><b>11</b><span>New builds</span></div>
+      <div><b>5</b><span>Customize</span></div>
+      <div><b>1</b><span>Roadmap</span></div>
+      <div><b>1</b><span>Works as-is</span></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <section class="col">
+      <div class="colh"><h2>Capacity management</h2><small>Can we take the patient?</small></div>
+      <div class="rows">
+        <div class="r"><div class="rt"><b>Demand shape</b><span class="t b">Build</span></div>
+          <p class="d"><i>HOSPICE</i> steady census, long stays. <i>HOME HEALTH</i> 30-day payment periods in 60-day certifications, front-loaded visits, fast turnover.</p>
+          <p class="c">Forecast demand by where each patient sits in the episode, not by census. Their own slide marks Demand “needs building.”</p></div>
+        <div class="r"><div class="rt"><b>The referral decision</b><span class="t b">Build</span></div>
+          <p class="d">Home health accepts or declines at intake. Sync only sees a patient after admission and auth.</p>
+          <p class="c">A live branch capacity roll-up (on their roadmap) fed straight from our intake platform.</p></div>
+        <div class="r"><div class="rt"><b>Disciplines &amp; productivity</b><span class="t u">Customize</span></div>
+          <p class="d"><i>HOSPICE</i> RN, aide, social work, chaplain. <i>HOME HEALTH</i> adds PT, OT, ST and assistants; SOC and OASIS visits weigh more.</p>
+          <p class="c">Visit-type weights beyond HCHB points; therapy productivity and eval-driven frequency.</p></div>
+        <div class="r"><div class="rt"><b>Pending-auth demand</b><span class="t b">Build</span></div>
+          <p class="d">Visits waiting on payer auth sit on no calendar and count toward nothing.</p>
+          <p class="c">Count pending-auth visits as committed demand in every capacity view.</p></div>
+        <div class="r"><div class="rt"><b>Territories</b><span class="t b">Build</span></div>
+          <p class="d">Home health clinicians hold territories for years; hospice caseloads drift with the census.</p>
+          <p class="c">Territory as a matching rule, plus a branch-director map that follows referral patterns.</p></div>
+        <div class="r"><div class="rt"><b>New-clinician ramp</b><span class="t u">Customize</span></div>
+          <p class="d">New hires are kept off SOC and OASIS visits, not just given a lighter load.</p>
+          <p class="c">Ramp by visit type as well as volume. Offered in the demo.</p></div>
+      </div>
+    </section>
+
+    <section class="col">
+      <div class="colh"><h2>Scheduling</h2><small>Right visit, right day, legally</small></div>
+      <div class="rows">
+        <div class="r"><div class="rt"><b>Authorization</b><span class="t b">Build</span></div>
+          <p class="d">Hospice schedules after admission. In home health, auth is a gate at SOC and a per-visit ceiling set by the payer.</p>
+          <p class="c">A ready / not-ready state. Hold unauthorized visits off the calendar. Re-check on add-ons and recerts.</p></div>
+        <div class="r"><div class="rt"><b>Episode economics</b><span class="t b">Build</span></div>
+          <p class="d">LUPA floor per 30-day period, frequency orders (2w3, 1w4), front-loading. None of this exists in hospice scheduling.</p>
+          <p class="c">Pace visits against the plan of care; flag LUPA risk and over-utilization. Front-loading logic can be reused.</p></div>
+        <div class="r"><div class="rt"><b>Compliance clock</b><span class="t b">Build</span></div>
+          <p class="d">SOC within 48 h, OASIS timepoints, the day 56–60 recert window, MD notice within 48 h of a missed visit.</p>
+          <p class="c">Replace hospice F2F, HOPE and RN-supervisory alerts with a home health rule set.</p></div>
+        <div class="r"><div class="rt"><b>Who owns the week</b><span class="t u">Customize</span></div>
+          <p class="d">After the 485, our clinicians plan their own week with no scheduler. Sync optimizes through a scheduler.</p>
+          <p class="c">Route suggestions to the clinician; scheduler by exception only.</p></div>
+        <div class="r"><div class="rt"><b>Same-day recovery</b><span class="t u">Customize</span></div>
+          <p class="d">Home health priorities differ: SOC and OASIS visits first, Medicare week Sun–Sat, frequency within the week.</p>
+          <p class="c">Home health urgency rules in the Call-Off Center, which itself has not shipped (due by year end).</p></div>
+        <div class="r"><div class="rt"><b>Visit plotting &amp; HCHB tasks</b><span class="t r">Roadmap</span></div>
+          <p class="d">Frequencies are plotted in HCHB by the evaluating clinician; scheduler workflow tasks pile up.</p>
+          <p class="c">Plot through write-back and auto-clear HCHB tasks. Promised in “weeks.”</p></div>
+      </div>
+    </section>
+
+    <section class="col">
+      <div class="colh"><h2>Engagement</h2><small>Patient and clinician</small></div>
+      <div class="rows">
+        <div class="r"><div class="rt"><b>Who you talk to</b><span class="t b">Build</span></div>
+          <p class="d"><i>HOSPICE</i> the caregiver, often in a facility. <i>HOME HEALTH</i> the patient, at home, with a day that changes.</p>
+          <p class="c">A patient-facing layer designed for home health. Nothing exists today; it was deprioritized for hospice.</p></div>
+        <div class="r"><div class="rt"><b>Day-before confirmation</b><span class="t b">Build</span></div>
+          <p class="d">30–60 min per clinician per day of calls and texts, often in the evening, across ~10,000 clinicians.</p>
+          <p class="c">HIPAA-compliant two-way text first, voice later. Taking half of it away is the single largest time return.</p></div>
+        <div class="r"><div class="rt"><b>Visit reliability</b><span class="t b">Build</span></div>
+          <p class="d">No-shows and late cancels; the 8–9am first visit is the hardest slot and the biggest capacity lever.</p>
+          <p class="c">On-the-way ETA, patient self-reschedule, and preferences captured before the call.</p></div>
+        <div class="r"><div class="rt"><b>Clinician trust</b><span class="t u">Customize</span></div>
+          <p class="d">Tenured, salaried, territory-based clinicians, versus a GPS-tracked app with route-adherence review.</p>
+          <p class="c">Assignment rationale shown to the clinician; tracking and review options set by policy.</p></div>
+        <div class="r"><div class="rt"><b>Hard-to-fill visits</b><span class="t b">Build</span></div>
+          <p class="d">Open visits need offers and incentives; Sync has no differential offers.</p>
+          <p class="c">Surface open visits with offers. Their own slide marks this “needs building.”</p></div>
+        <div class="r"><div class="rt"><b>Care-team coordination</b><span class="t a">Works as-is</span></div>
+          <p class="d">Multi-discipline coordination with field and office visibility carries over.</p>
+          <p class="c">Tie it to HCHB so notes reach the team without double entry.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="risk">
+    <div class="riskh"><h2>Risks in asking a hospice vendor to <em>learn</em> home health</h2><span class="eb">What to price into the decision</span></div>
+    <div class="rg">
+      <div class="k"><b><span class="h">HIGH</span>Domain fluency</b><p>PDGM, LUPA, OASIS and recert were absent from their return and demo. Their gap list (auth and patient comms) undercounts the work. <u>Write home health acceptance scenarios before any build.</u></p></div>
+      <div class="k"><b><span class="h">HIGH</span>“Decision-tree logic” is not simple</b><p>Payer rules vary, orders change mid-episode, add-ons re-open auth. Treating it as a few rules means brittle logic and slipping dates. <u>Get scope and dates in writing.</u></p></div>
+      <div class="k"><b><span class="h">HIGH</span>We become their product team</b><p>Our SMEs specify it and our branches test it. That is real cost and distraction. <u>Design-partner terms with budgeted Compassus time.</u></p></div>
+      <div class="k"><b><span class="h">HIGH</span>Speed versus compliance safety</b><p>“Weeks, not months” from a team with 3 live organizations. A missed LUPA or MD notice costs revenue and survey findings. <u>QA, change control and liability terms.</u></p></div>
+      <div class="k"><b><span class="m">MED</span>No home health proof</b><p>No reference customer, no measured result, and we would be first and largest by a multiple. <u>We carry the validation; set exit criteria per phase.</u></p></div>
+      <div class="k"><b><span class="m">MED</span>Competing roadmap</b><p>Their paying hospice customers shape priorities, and home health work may queue behind them. <u>Tie commitments to milestones.</u></p></div>
+      <div class="k"><b><span class="m">MED</span>Data freshness</b><p>Home health same-day recovery needs fresher HCHB data than their hospice clients accept. Our 3-hour feed and screen-based write-back are both fragile. <u>Fix the feed on our side.</u></p></div>
+      <div class="k"><b><span class="m">MED</span>IP, durability, adoption</b><p>What we co-design ships to others. Size and funding were not disclosed. GPS tracking lands on salaried clinicians. <u>Lead time, financials and a tracking policy.</u></p></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span class="legend"><span class="t b">Build</span> net-new <span class="t u">Customize</span> extend what exists <span class="t r">Roadmap</span> promised <span class="t a">Works as-is</span></span>
+    <span>Sources: VitalisCare demo 24 Sep 2026, their home health adaptation slides, Compassus current-state process facts · Prepared for Compassus Operational Excellence · Internal</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1168,3 +1168,51 @@ would be dismissed by anyone who has run a branch, and rightly.
 **On the branch sheet's fourth band.** It ends on "the week looks fine" — every number defensible,
 every loss invisible. That is the sharpest frame in the set for why measurement precedes any
 platform decision, and it is the honest reason the initiative cannot be sized today.
+
+
+## Vendor overlay V1 — VitalisCare Sync (25 Sep 2026)
+
+A new kind of sheet, deliberately outside the current-state set. The house rule is that every sheet
+is current state and proposes nothing; this one shows a vendor's product placed on our episode, so
+its footer says *not current state and not a recommendation* and its eyebrow says VENDOR OVERLAY.
+
+- **One new actor colour, Sync `#A33A6B`**, used only where the vendor system acts by itself
+  (ranking, RPA write-back, optimization suggestions, routing, the Call-Off Center). A person
+  working inside Sync keeps the person's colour, the same rule as HCHB.
+- **Automation is a badge, not a colour**: in Sync today (ink), Vitalis roadmap (dashed), gap with
+  no date (auth orange outline), opportunity (gold). Colour stays reserved for actors.
+- **Band C carries the sheet's one sharp point**: in current state the clinician runs their own
+  week with no scheduler workflow; Sync's day-of-week optimization is scheduler-driven. Buying it
+  re-inserts a scheduler into the steady-state week unless the suggestions go to the clinician.
+- **Unconfirmed placements**, to close with the operator: whether Sync's matching could run for the
+  SOC/eval visit (drawn as an opportunity, not shown in the demo); whether the log-ship interval is
+  3 h everywhere or varies by region.
+
+
+## Vendor overlay V2 — Axle Health (25 Sep 2026)
+
+Same grammar as V1 so the two overlays read side by side: the vendor system keeps the `#A33A6B`
+slot, a person working inside it keeps their own colour, and automation is a badge. The badge set
+changes to fit the vendor: in Axle today · in development · paused (built and switched off, the HCHB
+integration) · opportunity.
+
+- **Band A shows the difference from V1**: Axle sees capacity before the referral (utilization by
+  zip) and schedules visits still waiting on auth, flagged as not yet writable. The auth work itself
+  stays the auth team's and carries no badge.
+- **Band C carries the sheet's sharp point**: the day-of-week engine is live; the 3-hour HCHB feed
+  is what blocks it for routine orders. New patients can bypass HCHB through the intake platform.
+- **Band E is the only exception flow in either overlay that was run live** in a demo.
+
+
+## Vendor overlay V3 — CareStitch (25 Sep 2026)
+
+Same grammar as V1 and V2. Badges: in CareStitch today · roadmap · beta (the read-only HCHB
+screen-automation integration) · opportunity.
+
+- **Band B carries the difference**: the system filters and the scheduler chooses. The only
+  vendor-coloured decision block is roadmap (the recommendation engine). The staffing request, the
+  standout workflow, gets its own panel on the right.
+- **Band C**: the episode stays in HCHB. No orders, auth or window enforcement, so most of the band
+  is the scheduler's colour or a beta/roadmap badge.
+- **Band A**: the accept/decline step is split between branch leadership and CareStitch, because the
+  leader reads the capacity grid by eye; there is no branch total.

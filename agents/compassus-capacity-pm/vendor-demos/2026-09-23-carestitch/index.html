@@ -1,0 +1,642 @@
+<title>CareStitch Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FBFBF8; --panel:#F3F3EF; --band:#E9E9E5; --ink:#1B211E; --mut:#5A6560; --rule:#C9CCC5;
+  --accent:#792E2E; --accent-soft:#F4E9E7; --plum:#5B1A34;
+  --ok:#3F7A4C; --ok-soft:#E4EFE5; --part:#9C7C12; --part-soft:#F5EFD8; --gap:#B85A12; --gap-soft:#F8E8DA; --na:#6B7470; --na-soft:#ECEDEA;
+  --shadow:0 1px 2px rgba(27,33,30,.06),0 8px 24px rgba(27,33,30,.06);
+  --display:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"Hanken Grotesk","Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,6vw,72px) 80px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,8vw,92px);line-height:.95;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.01em}
+h3{font-size:22px;line-height:1.2}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lede{font-family:var(--display);font-size:clamp(19px,2.2vw,23px);line-height:1.45;max-width:62ch;color:var(--ink)}
+.mut{color:var(--mut)}
+.ts{font-family:var(--mono);font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+section{margin-top:clamp(56px,9vw,104px)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;padding-top:18px;border-top:1px solid var(--ink)}
+.sec-head .eyebrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* masthead */
+.mast{display:grid;gap:28px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.meta div{background:var(--paper);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.meta b{font-weight:600}
+.meta .big{font-family:var(--display);font-size:30px;line-height:1}
+
+/* the read */
+.read{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.read ol{margin:0;padding:0;list-style:none;display:grid;gap:18px;counter-reset:r}
+.read li{display:grid;grid-template-columns:32px 1fr;gap:10px;counter-increment:r}
+.read li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:5px}
+.read li b{font-weight:600}
+.verdict{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);padding:24px;display:grid;gap:14px;align-content:start}
+.verdict h3{color:var(--accent)}
+@media (max-width:820px){.read{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{display:flex;width:100%;height:56px;border:1px solid var(--rule);background:var(--panel)}
+.tl span{position:relative;height:100%;border-right:1px solid var(--paper);display:block}
+.tl span:last-child{border-right:0}
+.tl-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px;margin-top:16px}
+.tl-legend div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:baseline;font-size:14px}
+.tl-legend i{width:12px;height:12px;display:block;transform:translateY(1px)}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+
+/* flow */
+.flow-wrap{overflow-x:auto;padding-bottom:6px}
+.flow{display:grid;grid-template-columns:repeat(8,minmax(128px,1fr));gap:0;min-width:1040px;position:relative}
+.stage{display:grid;grid-template-rows:auto auto 1fr auto;gap:8px;padding:16px 14px 16px;border-top:4px solid var(--c);background:var(--panel);margin-right:10px;position:relative;text-decoration:none;color:inherit}
+.stage:last-child{margin-right:0}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-10px;top:24px;border:5px solid transparent;border-left:7px solid var(--mut);transform:translateX(2px)}
+.stage:hover{background:var(--band)}
+.stage:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage .n{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.stage .t{font-family:var(--display);font-size:20px;line-height:1.1}
+.stage .d{font-size:13px;color:var(--mut);line-height:1.4}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;justify-self:start;line-height:1.4}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.c-live{color:var(--ok);background:var(--ok-soft)}
+.c-part{color:var(--part);background:var(--part-soft)}
+.c-gap{color:var(--gap);background:var(--gap-soft)}
+.c-na{color:var(--na);background:var(--na-soft)}
+.flow-note{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:13px;color:var(--mut)}
+.flow-note span{display:inline-flex;gap:8px;align-items:center}
+
+/* stage sections */
+.stage-sec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px);margin-top:56px;padding-top:24px;border-top:1px solid var(--rule)}
+.stage-sec:first-of-type{margin-top:0}
+.stage-sec .copy{display:grid;gap:18px;align-content:start}
+.stage-sec .copy h3{font-size:clamp(26px,3vw,32px)}
+.stage-sec .num{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kv{display:grid;gap:12px}
+.kv h4{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kv ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.kv ul li::marker{color:var(--rule)}
+.for-us{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:grid;gap:6px}
+.for-us h4{color:var(--accent)}
+.quote{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.4}
+.quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-top:6px}
+@media (max-width:900px){.stage-sec{grid-template-columns:1fr}}
+
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start}
+.gallery.one{grid-template-columns:1fr}
+.gallery figure{margin:0;display:grid;gap:6px}
+.gallery figure.wide{grid-column:1/-1}
+.shot{display:block;padding:0;border:1px solid var(--rule);background:#fff;cursor:zoom-in;box-shadow:var(--shadow);width:100%;line-height:0}
+.shot img{width:100%;height:auto;display:block}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+figcaption{font-size:13px;color:var(--mut);line-height:1.4;display:grid;grid-template-columns:auto 1fr;gap:8px}
+@media (max-width:560px){.gallery{grid-template-columns:1fr}}
+
+/* integration diagram */
+.pipe{display:grid;gap:14px}
+.lane{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:stretch}
+.lane>b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);padding-top:14px}
+.nodes{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.node{background:var(--panel);border:1px solid var(--rule);padding:10px 12px;font-size:14px;display:grid;gap:2px;min-width:0;flex:1}
+.node small{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.node.hchb{border-color:#795CA7;box-shadow:inset 3px 0 0 #795CA7}
+.node.sync{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.arr{display:flex;align-items:center;padding:0 6px;font-family:var(--mono);font-size:11px;color:var(--mut);text-align:center;flex-direction:column;justify-content:center;min-width:64px}
+.arr::after{content:"\2192";font-size:18px;color:var(--ink);line-height:1}
+.arr.hot{color:var(--gap)}
+.arr.hot::after{color:var(--gap)}
+@media (max-width:760px){.lane{grid-template-columns:1fr}.lane>b{padding-top:0}.nodes{flex-direction:column}.arr{flex-direction:row;gap:8px;padding:6px 0}.arr::after{content:"\2193"}}
+.callout{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--gap-soft);padding:18px 20px;margin-top:22px}
+.callout .big{font-family:var(--display);font-size:48px;line-height:.9;color:var(--gap)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:12px 12px 10px;border-bottom:1px solid var(--rule)}
+td{padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.q{width:28%}
+td.q b{display:block;font-weight:600;margin-bottom:2px}
+td.q .qn{font-family:var(--mono);font-size:11px;color:var(--mut)}
+td.st{width:128px}
+tbody tr:hover{background:var(--panel)}
+.tally{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 18px}
+.tally span{display:inline-flex;gap:8px;align-items:center;font-size:14px}
+.tally b{font-family:var(--display);font-size:24px;font-weight:500}
+.fit th:first-child,.fit td:first-child{width:18%}
+
+/* risks */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.risk{background:var(--paper);padding:20px;display:grid;gap:8px;align-content:start}
+.risk h3{font-size:20px}
+.risk .sev{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sev.h{color:var(--gap)} .sev.m{color:var(--part)} .sev.l{color:var(--ok)}
+.risk p{font-size:15px}
+
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(20px,4vw,48px)}
+.next ol,.next ul{margin:10px 0 0;padding-left:20px;display:grid;gap:10px}
+.who{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.people ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.people li{display:grid;grid-template-columns:1fr;gap:0}
+.people li span{color:var(--mut);font-size:13px}
+
+footer{margin-top:96px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--mut);display:grid;gap:6px}
+code{font-family:var(--mono);font-size:.88em}
+
+dialog{padding:0;border:0;background:transparent;max-width:min(96vw,1700px);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(12,14,13,.88)}
+.lb{display:grid;gap:10px}
+.lb img{width:100%;height:auto;max-height:84vh;object-fit:contain;background:#fff}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E7EAE4;font-size:14px}
+.lb-bar button{font:inherit;font-family:var(--mono);font-size:12px;background:transparent;color:#E7EAE4;border:1px solid rgba(231,234,228,.4);padding:6px 12px;cursor:pointer}
+.lb-bar button:hover{background:rgba(231,234,228,.12)}
+.lb-bar button:focus-visible{outline:2px solid #E7EAE4}
+.lb-cap{flex:1;min-width:0}
+@media (prefers-reduced-motion:no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.012)}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="eyebrow">Compassus · Home Health Capacity &amp; Scheduling · Vendor demo, round two</span>
+    <span class="eyebrow">Recorded 23 Sep 2026 · 1:59:33</span>
+  </div>
+  <h1>Care<em>Stitch</em></h1>
+  <p class="lede">A well-built scheduling workspace from people who have done the job: capacity in points by day on a map, territories drawn to the street, a staffing-request workflow that replaces email and Teams blasts, and care-team chat attached to every patient. It shows schedulers everything and decides nothing. There is no HCHB integration in production and no patient-facing automation.</p>
+  <div class="meta">
+    <div><span class="eyebrow">Scorecard going in</span><span class="big">56</span><span class="mut">Conditional · hold · no open stop-checks</span></div>
+    <div><span class="eyebrow">Live footprint</span><span class="big">79 orgs</span><span class="mut">69% home health, 144 branches. Largest 5.3k, in one branch</span></div>
+    <div><span class="eyebrow">Guide questions</span><span class="big">4 / 18</span><span class="mut">answered in full; 8 partly; 2 not answered; 4 not asked</span></div>
+    <div><span class="eyebrow">Next touchpoint</span><span class="big">Follow-up</span><span class="mut">Virtual call on HCHB integration and automation R&amp;D, before the on-site</span></div>
+  </div>
+</header>
+
+<section id="read">
+  <div class="sec-head"><div class="eyebrow"><span>The read</span><span>What to take from two hours</span></div><h2>Six things that matter</h2></div>
+  <div class="read">
+    <ol>
+      <li><div><b>Built by schedulers, for schedulers.</b> The COO is a home health PT and the operations manager ran centralized HCHB scheduling for 10 years. Priority groups for requests, a call log, and drive-time blocks on the clinician’s calendar are details only field people would build. <span class="ts">0:00:53</span></div></li>
+      <li><div><b>Capacity is visible, not calculated for you.</b> Points by clinician by day, colour-coded, on a map. A branch leader can enter an address and discipline and see who could take a new referral. There is no branch-level total and no forecast. <span class="ts">0:43:13</span></div></li>
+      <li><div><b>The request workflow is the product’s best feature.</b> Priority groups (full-time first, per diem after a delay), reminders, a timestamped read-and-response log, clinician comments, and an optional auto-assign to the first taker. It replaces the Teams-and-email scramble with data. <span class="ts">1:16:23</span></div></li>
+      <li><div><b>It advises. People still do the clicking.</b> Evan named it on the call: a great dashboard, but every action is manual. CareStitch agreed. Automation and agentic AI are “research mode,” and a scheduling recommendation engine must come first. <span class="ts">1:56:16</span></div></li>
+      <li><div><b>HCHB integration is not in production.</b> The questionnaire return describes a read-only beta by screen automation, with no write-back. The demo didn’t cover it, and Evan listed it as the first topic for a follow-up. Home health guardrails (SOC-before-eval, LUPA) “live in the EMR.” <span class="ts">1:44:09</span></div></li>
+      <li><div><b>Patient engagement is roadmap.</b> Clinicians still phone patients, now with click-to-call and an automatic call log. Automated confirmation is a top-five roadmap item; rescheduling and negotiation wait on the recommendation engine. <span class="ts">1:10:06</span></div></li>
+    </ol>
+    <aside class="verdict">
+      <span class="eyebrow">Suggested scorecard movement</span>
+      <h3>Hold at Conditional. A strong workspace, not yet the engine we are buying.</h3>
+      <p>The demo confirmed the return: excellent visibility and coordination for schedulers, built on real home health experience. Integration, automation and patient engagement are all still ahead. At Compassus scale the value case rests on automation, which CareStitch has not started building.</p>
+      <p>Take the follow-up call they offered. Advance only if it shows a dated HCHB production plan (read and write), a working prototype of recommendations, and the automation R&amp;D they offered to show.</p>
+      <p class="mut">The demo showed that the dashboard and request workflow patterns are worth copying, whoever we pick.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="sec-head"><div class="eyebrow"><span>Where the two hours went</span><span>Proportional to clock time</span></div><h2>The shape of the call</h2></div>
+  <div class="tl" role="img" aria-label="Timeline of the call by topic">
+    <span style="flex:158;background:var(--band)" title="Intros 0:00–2:38"></span>
+    <span style="flex:1178;background:#1A1A1A" title="Compassus context, intake platform, discovery 2:38–22:18"></span>
+    <span style="flex:688;background:#1F6F78" title="Agency settings and custom properties 22:18–33:46"></span>
+    <span style="flex:343;background:#795933" title="Territories 33:46–39:29"></span>
+    <span style="flex:1195;background:#C6A01F" title="Schedule mode: capacity, direct assignment 39:29–59:24"></span>
+    <span style="flex:500;background:#2E599D" title="Clinician mobile, call log 59:24–1:07:44"></span>
+    <span style="flex:400;background:#4E8A5B" title="Patient engagement roadmap 1:07:44–1:14:24"></span>
+    <span style="flex:120;background:#DF751D" title="Call-out reassignment 1:14:24–1:16:23"></span>
+    <span style="flex:1250;background:#792E2E" title="Request workflow 1:16:23–1:37:13"></span>
+    <span style="flex:450;background:#795CA7" title="Chat and sub-organizations 1:37:13–1:44:09"></span>
+    <span style="flex:890;background:var(--rule)" title="Guardrails, ROI, automation, close 1:44:09–1:59:33"></span>
+  </div>
+  <div class="tl-axis"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
+  <div class="tl-legend">
+    <div><i style="background:var(--band)"></i><span>Intros, both teams</span><span class="ts">0:00</span></div>
+    <div><i style="background:#1A1A1A"></i><span>Compassus context, discovery</span><span class="ts">0:02:38</span></div>
+    <div><i style="background:#1F6F78"></i><span>Settings, custom properties</span><span class="ts">0:22:18</span></div>
+    <div><i style="background:#795933"></i><span>Territories</span><span class="ts">0:33:46</span></div>
+    <div><i style="background:#C6A01F"></i><span>Capacity, direct assignment</span><span class="ts">0:39:29</span></div>
+    <div><i style="background:#2E599D"></i><span>Clinician mobile, call log</span><span class="ts">0:59:24</span></div>
+    <div><i style="background:#4E8A5B"></i><span>Patient engagement roadmap</span><span class="ts">1:07:44</span></div>
+    <div><i style="background:#DF751D"></i><span>Call-out reassignment</span><span class="ts">1:14:24</span></div>
+    <div><i style="background:#792E2E"></i><span>Staffing request workflow</span><span class="ts">1:16:23</span></div>
+    <div><i style="background:#795CA7"></i><span>Chat, sub-organizations</span><span class="ts">1:37:13</span></div>
+    <div><i style="background:var(--rule)"></i><span>Guardrails, ROI, automation</span><span class="ts">1:44:09</span></div>
+  </div>
+  <p class="mut" style="margin-top:14px;font-size:14px">CareStitch opened with discovery about our intake build, branch variation and priorities, then ran a scenario-based demo of about 80 minutes. The integration discussion never happened and was deferred to a follow-up.</p>
+</section>
+
+<section id="context">
+  <div class="sec-head"><div class="eyebrow"><span>What Compassus told CareStitch</span><span>Keep consistent across vendors</span></div><h2>Our position, as stated in the room</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Item</th><th>As stated</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><b>Scale</b></td><td>About 10,000 nurses across the enterprise; about 340 schedulers</td><td class="ts">0:03:25 · 1:52:21</td></tr>
+        <tr><td><b>Intake platform</b></td><td>Custom build with an engineering firm (Commure, per the Axle call). Outputs a complete, valid referral; written to HCHB by RPA; open to flat files and APIs both ways. Capacity at accept/decline deliberately left out of scope for this project</td><td class="ts">0:08:25 · 0:13:49</td></tr>
+        <tr><td><b>Capacity today</b></td><td>Grids and a SharePoint site updated by hand; spreadsheets and sticky notes vary by branch</td><td class="ts">0:13:05 · 0:16:51</td></tr>
+        <tr><td><b>Scheduling model</b></td><td>Local today; open to centralized or hybrid. Standardization across branches is part of the business case</td><td class="ts">0:14:33 · 0:17:34</td></tr>
+        <tr><td><b>Documentation</b></td><td>Automated; clinicians barely work in PointCare now</td><td class="ts">1:03:32</td></tr>
+        <tr><td><b>Priorities</b></td><td>An industry-specific thought partner (Evan); the clinician experience (Colin); adaptability and co-development (Michael)</td><td class="ts">0:18:54</td></tr>
+        <tr><td><b>Biggest ask</b></td><td>Take the 30–60 min a day of patient calls off 10,000 clinicians, with agentic AI if possible</td><td class="ts">1:07:57</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><div class="eyebrow"><span>Process flow</span><span>As CareStitch runs it · click a stage</span></div><h2>Configure, see capacity, assign or request, coordinate</h2></div>
+  <p class="lede" style="margin-bottom:26px">CareStitch separates the <em>task</em>, the work the EMR requires, from the <em>visit</em>, the appointment that fulfils it. The office assigns tasks, directly or through a request, and the clinician books the visit and phones the patient. HCHB stays the record for documentation and completion.</p>
+  <div class="flow-wrap">
+    <nav class="flow" aria-label="Process stages">
+      <a class="stage" href="#s0" style="--c:#1F6F78"><span class="n">00</span><span class="t">Configure</span><span class="d">Provider and visit types, points, custom properties</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s1" style="--c:#795933"><span class="n">01</span><span class="t">Territories</span><span class="d">ZIPs or drawn polygons, per team or per clinician</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s2" style="--c:#1A1A1A"><span class="n">02</span><span class="t">Capacity</span><span class="d">Points left by clinician by day, on a map</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s3" style="--c:#C6A01F"><span class="n">03</span><span class="t">Assign</span><span class="d">Filter to eligible, pick by distance and points</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s4" style="--c:#792E2E"><span class="n">04</span><span class="t">Request</span><span class="d">Offer to priority groups, collect responses</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s5" style="--c:#2E599D"><span class="n">05</span><span class="t">Book the visit</span><span class="d">Clinician calls, books, drive time shown</span><span class="chip c-part">Human-led</span></a>
+      <a class="stage" href="#s6" style="--c:#DF751D"><span class="n">06</span><span class="t">Recover</span><span class="d">Call-out: reassign or request</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s7" style="--c:#795CA7"><span class="n">07</span><span class="t">Coordinate</span><span class="d">Patient chat rooms, channels, call log</span><span class="chip c-live">Live</span></a>
+    </nav>
+  </div>
+  <div class="flow-note">
+    <span><span class="chip c-live">Live</span> demonstrated in software</span>
+    <span><span class="chip c-part">Human-led</span> supported, but a person does the work</span>
+    <span><span class="chip c-gap">Not built</span> named as roadmap or absent</span>
+  </div>
+
+  <article class="stage-sec" id="s0">
+    <div class="copy">
+      <div class="num"><span>00 · Configure</span><span class="chip c-live">Live</span><span class="ts">0:22:18 – 0:33:46</span></div>
+      <h3>Everything the agency knows, made into filters</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Provider types</b> (RN, LPN, PT, PTA, OT, COTA, MSW, HHA, SLP and others) and <b>visit types</b> with point values, deadline and threshold hours. For example, SOC is 2 points with a 48-hour deadline and ROC is 1.5.</li>
+          <li><b>General visits</b> such as meetings, case conferences and breaks block clinician time, with a Teams link attached if wanted.</li>
+          <li><b>Custom properties</b>, self-service: patient labels shown to the care team (e.g. “hospitalized” appears on every care-team phone at once), or matching properties set on both patient and clinician (PICC line, facility, language) that filter out ineligible clinicians automatically.</li>
+          <li>Facility matching lets an agency keep two nurses per building for continuity and the facility relationship.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Michael asked about labels set automatically from data flowing in. That is live for some EMRs’ patient-flag columns, and their API (in development) could accept labels from our intake platform. <span class="ts">0:28:28</span></li>
+          <li>Colin saw emergency-planning value: find at-risk patients by area in hurricanes or fires. Their clients have done this for wildfires.</li>
+          <li>All of it is configured by agency administrators with no vendor involvement. Governance across 80+ branches is on us.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/002446.jpg" alt="Visit types with points and deadlines"></button><figcaption><span class="ts">0:24:46</span><span>Visit types: points, deadline and threshold hours, auto-fill address, billable</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002410.jpg" alt="Provider types"></button><figcaption><span class="ts">0:24:10</span><span>Provider types, with colour and category</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002743.jpg" alt="Custom properties"></button><figcaption><span class="ts">0:27:43</span><span>Custom properties: patient labels and matching properties</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003216.jpg" alt="Facilities property"></button><figcaption><span class="ts">0:32:16</span><span>“Facilities” used to keep the same nurses in each building</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s1">
+    <div class="copy">
+      <div class="num"><span>01 · Territories</span><span class="chip c-live">Live</span><span class="ts">0:33:46 – 0:39:29</span></div>
+      <h3>Territories drawn to the street, not the ZIP</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Regions are built from ZIP codes or <b>drawn polygons</b>, to split a big ZIP, follow a highway, or carve up a dense city.</li>
+          <li>Regions can overlap; a clinician can belong to several; or a region can be one clinician’s personal territory (useful for choosy per diems).</li>
+          <li>Once set, the system knows a patient’s region from the address and which clinicians serve it. Nobody needs to carry territory knowledge in their head.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Michael raised <b>Napa</b>, where one town, ZIP and county forces Google-mapping every patient. Polygons fix that.</li>
+          <li>Colin asked for census and caseload overlays on territories. They were promised on the map view but not shown as a territory-level analysis.</li>
+          <li>Built-in territory knowledge is what makes a centralized scheduling model workable.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/003625.jpg" alt="Region management map"></button><figcaption><span class="ts">0:36:25</span><span>Region management: overlapping territories across Nashville and Williamson County</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003913.jpg" alt="Regions map"></button><figcaption><span class="ts">0:39:13</span><span>Regions, with the clinicians who serve them</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s2">
+    <div class="copy">
+      <div class="num"><span>02 · Capacity</span><span class="chip c-live">Live</span><span class="ts">0:39:29 – 0:44:44</span></div>
+      <h3>Can we take this referral? Look at the grid</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The schedule calendar shows each clinician by row and the Medicare week Sunday to Saturday, with <b>points still open</b> in bold. Grey marks days off. The map shows clinician homes and this week’s patients.</li>
+          <li>Each clinician has expected points per day. Assigning a visit deducts its points, so “no more mental gymnastics.”</li>
+          <li>To check a referral: enter the address, filter by discipline, employment type and properties (e.g. PICC line), and see who has room on which day.</li>
+          <li>Shapes on the grid mark whether a task has been booked as a visit.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This answers common question 1 at the clinician level. There is <b>no branch total, no forecast and no referral-inflow view</b>. The leader adds it up by eye.</li>
+          <li>Michael wants to query this from the intake tool: “do we have someone who can see this patient?” CareStitch’s API is in development. <span class="ts">0:47:11</span></li>
+          <li>Pending-auth demand can only be shown with a custom property; auth isn’t ingested.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/004331.jpg" alt="Capacity check by address"></button><figcaption><span class="ts">0:43:31</span><span>Referral check: enter an address, filter to full-time and part-time RNs with a PICC competency, see open points by day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002401.jpg" alt="Schedule calendar with map"></button><figcaption><span class="ts">0:24:01</span><span>Schedule mode: clinicians by day with open points, and the map</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004246.jpg" alt="Work schedule settings"></button><figcaption><span class="ts">0:42:46</span><span>A clinician’s work schedule: expected points per day, days off</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004504.jpg" alt="Filters"></button><figcaption><span class="ts">0:45:04</span><span>Filters: provider type, employment, region, language, properties</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004510.jpg" alt="Distance filters"></button><figcaption><span class="ts">0:45:10</span><span>Distance filters and minimum available points</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s3">
+    <div class="copy">
+      <div class="num"><span>03 · Assign</span><span class="chip c-live">Live</span><span class="ts">0:44:44 – 0:49:42</span></div>
+      <h3>Direct assignment with the context in view</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Select the patient and the disciplines needed. The grid shows each eligible clinician’s distance for each day, from this patient to their nearest visit that day or to their home.</li>
+          <li>A yellow asterisk marks a clinician who has seen the patient before, for continuity.</li>
+          <li>The scheduler picks, the tasks go to the clinician, and a push notification reaches their phone.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>No recommendation or ranking.</b> The system filters and displays; the scheduler judges. Their return calls this “advise and orchestrate.”</li>
+          <li>Evan asked whether plan-of-care data from intake could fill in the disciplines and visits automatically. It would take the future API, and today it is clicks. <span class="ts">0:48:06</span></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/004713.jpg" alt="Patient selected with RN and PT candidates"></button><figcaption><span class="ts">0:47:13</span><span>New patient: RN and PT candidates, with distance and open points by day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004925.jpg" alt="Assigning SOC"></button><figcaption><span class="ts">0:49:25</span><span>Assigning the SOC to the nurse who has seen the patient before</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s4">
+    <div class="copy">
+      <div class="num"><span>04 · Request</span><span class="chip c-live">Live</span><span class="ts">1:16:23 – 1:37:13</span></div>
+      <h3>The staffing request: an offer that finds its taker</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Build a request: patient, visit type, deadline (e.g. SOC within 48 h), discipline, gender or language preference, notes (“dialysis, afternoons only”).</li>
+          <li>Eligible clinicians are sorted into <b>priority groups</b> (full-time, part-time, per diem, contractor), each with a configurable delay and reminder. The scheduler can deselect someone (“in documentation jail”) or move them to a later group.</li>
+          <li>Clinicians see the visit, its distance from their home and from each booked visit, and the deadline. They reply available or not available and can add a comment (“only 2pm Friday”).</li>
+          <li>A queue colours each request: red when the deadline is close and nobody has said yes, blue when someone is available. A timestamped log shows who was sent it, who read it and who answered.</li>
+          <li>Assignment can be manual (favour full-time or closest) or automatic to the first clinician available. If nobody takes it, add recipients from other territories.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This replaces the Teams, email and text scramble with <b>data we don’t have today</b>: response speed and accept rates by clinician.</li>
+          <li>Colin: branches cherry-pick visits in Teams that should go together. This structure stops that.</li>
+          <li>Colin saw uses beyond visits: on-call, therapy weekend rotations. Their clients already do this with staffing requests.</li>
+          <li>The first auto-assign version was reworked because agencies wanted control. Pick the default deliberately.</li>
+        </ul></div>
+      </div>
+      <p class="quote">“When I first met Shelley… her phone just kept going off. She was getting requests from schedulers all day long. That was the first workflow we created.”<cite>Peter Yang, CareStitch · 1:19:33</cite></p>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/011907.jpg" alt="Priority groups"></button><figcaption><span class="ts">1:19:07</span><span>User selection: priority groups with send delays and energy bars</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011655.jpg" alt="Request info"></button><figcaption><span class="ts">1:16:55</span><span>Step 1: request type, deadline, clinician preference, notes</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011634.jpg" alt="Request management dashboard"></button><figcaption><span class="ts">1:16:34</span><span>Request Management: red is at risk, blue has a taker</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/012646.jpg" alt="Request log"></button><figcaption><span class="ts">1:26:46</span><span>Request details and a timestamped log of every read and reply</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013110.jpg" alt="Clinician request card on phone"></button><figcaption><span class="ts">1:31:10</span><span>The clinician’s request card: distance, deadline, available or not</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013234.jpg" alt="Request detail map on phone"></button><figcaption><span class="ts">1:32:34</span><span>How the new patient fits the clinician’s booked day</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013504.jpg" alt="Add recipients"></button><figcaption><span class="ts">1:35:04</span><span>Nobody took it: add recipients from other territories</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s5">
+    <div class="copy">
+      <div class="num"><span>05 · Book the visit</span><span class="chip c-part">Human-led</span><span class="ts">0:49:42 – 1:14:24</span></div>
+      <h3>The clinician still calls, but with better tools</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The mobile app home shows today’s appointments and a productivity summary (points to target). Patients are sorted by the next task due.</li>
+          <li>The <b>patient-centred calendar</b> shows the clinician’s other appointments with distance from this patient, a <b>drive-time</b> overlay that greys out travel time, and other disciplines’ visits for this patient in red, so the PT sees the SOC is Thursday.</li>
+          <li>Click-to-call any number on file, with an <b>automatic call log</b> and notes the office can see.</li>
+          <li>The office side has an Optimize Route button for centralized scheduling. Clinicians place visits one at a time around ones already confirmed, anchoring the fixed ones first.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li><b>Automated confirmation is a top-five roadmap item</b>, and text comes before voice. Rescheduling and negotiation need the recommendation engine first. No dates. <span class="ts">1:10:06</span></li>
+          <li>Colin asked about calls showing the branch number, since patients ignore unfamiliar area codes. It goes through RingCentral-type integrations; flagged for follow-up.</li>
+          <li>Evan: documentation is automated, so clinicians are barely in PointCare. That could make CareStitch their single screen.</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/010437.jpg" alt="Patient centred calendar with drive time"></button><figcaption><span class="ts">1:04:37</span><span>Patient-centred calendar: drive time greyed, other disciplines in red</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002316.jpg" alt="Office and mobile side by side"></button><figcaption><span class="ts">0:23:16</span><span>Office portal and clinician app side by side</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005237.jpg" alt="Clinician calendar"></button><figcaption><span class="ts">0:52:37</span><span>Clinician calendar with distance to each booked visit</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005558.jpg" alt="Clinician map view"></button><figcaption><span class="ts">0:55:58</span><span>Map view: booked visits and patients not yet booked</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005840.jpg" alt="New event"></button><figcaption><span class="ts">0:58:40</span><span>Booking the visit, with a reminder note (“call DPOA first”)</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011007.jpg" alt="Call log"></button><figcaption><span class="ts">1:10:07</span><span>Call log, visible to the office and marketing</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s6">
+    <div class="copy">
+      <div class="num"><span>06 · Recover</span><span class="chip c-live">Live</span><span class="ts">1:14:24 – 1:16:23</span></div>
+      <h3>A call-out, reassigned by hand</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Open the clinician who called out and reassign each visit. Eligible clinicians are pre-filtered by discipline and enough points for the visit.</li>
+          <li>Widen the search to PTAs; see each candidate’s distance to the patient and to their booked visits; save.</li>
+          <li>If nobody fits, send it as a request (stage 04). Clinicians can also start a reassignment request from their phone.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>It works and it is quick, but it is manual per visit, with no suggested replacement, no ranking and no bulk accept.</li>
+          <li><b>No home health guardrails.</b> Asked about SOC-before-eval when dates shift: “we don’t currently have those guardrails… the guardrails live in the system of record.” LUPA is roadmap. <span class="ts">1:44:09</span></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/011534.jpg" alt="Reassign visit"></button><figcaption><span class="ts">1:15:34</span><span>Reassign: PTAs added, each with distance to the patient and their day’s visits</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011431.jpg" alt="Reassign view"></button><figcaption><span class="ts">1:14:31</span><span>The clinician who called out, with visits to move</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s7">
+    <div class="copy">
+      <div class="num"><span>07 · Coordinate</span><span class="chip c-live">Live</span><span class="ts">1:37:13 – 1:44:09</span></div>
+      <h3>Every patient gets a care-team room</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>A secure chat room is created for each new patient, and every clinician assigned joins it automatically. The office is included, and newcomers see the full history.</li>
+          <li>Channels: broadcast (office speaks, field reads) and restricted (clinicians post, only the office sees). Plus direct messages and groups.</li>
+          <li>Chat history exports per certification period, for interdisciplinary-communication evidence in audits.</li>
+          <li><b>Sub-organizations:</b> a clinician working for several branches or lines shows one combined availability.</li>
+          <li>Staffing requests double as a ticket queue for pending admissions and other office work.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This is the strongest coordination layer of the three vendors. Compare with Teams, where the scramble happens today.</li>
+          <li>Evan asked for scheduler productivity reporting (who touched what, how long). Not built; “never been asked.” <span class="ts">1:52:21</span></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><button class="shot" type="button"><img loading="lazy" src="screens/013949.jpg" alt="Patient chat"></button><figcaption><span class="ts">1:39:49</span><span>A patient’s care-team chat, with a wound photo</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013916.jpg" alt="Patient thread"></button><figcaption><span class="ts">1:39:16</span><span>Patient thread with care-team messages</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014216.jpg" alt="Channels on mobile"></button><figcaption><span class="ts">1:42:16</span><span>Broadcast channels on the clinician’s phone</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013828.jpg" alt="Staffing request queue"></button><figcaption><span class="ts">1:38:28</span><span>Staffing requests as a queue for pending admissions</span></figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="fit">
+  <div class="sec-head"><div class="eyebrow"><span>What they claim</span><span>Their return and the call, with our read</span></div><h2>Impact and positioning</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Claim</th><th>As stated</th><th>Our read</th></tr></thead>
+      <tbody>
+        <tr><td><b>Scheduler capacity</b></td><td><span class="chip c-part">2× census</span> One customer doubled census without adding a scheduler</td><td>Self-reported, no baseline. Encouraging for our centralization case.</td></tr>
+        <tr><td><b>Mileage</b></td><td><span class="chip c-part">−1.27 mi/visit</span> Over 104k visits, about $92.7k a year; “$1 in, $3 back” from mileage alone</td><td>The only quantified result, from one customer and not validated. Far below Axle’s claimed −32%.</td></tr>
+        <tr><td><b>Adoption</b></td><td>Median 93% monthly clinician activation by month six (return)</td><td>Strong, and measured across the whole roster.</td></tr>
+        <tr><td><b>Uptime</b></td><td>99.999% of requests served, no outage in 12 months; offline-first mobile; 99.9% contractual</td><td>The best continuity answer in the field.</td></tr>
+        <tr><td><b>Data maturity</b></td><td>“Almost none of them really are that data driven”</td><td>Candid. It also means few provable outcomes to point to.</td></tr>
+        <tr><td><b>Partnership</b></td><td>Design partner, joint governance, phased and volume pricing, development credits (return)</td><td>The most structured partnership offer so far. Not discussed on the call.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><div class="eyebrow"><span>Vendor Demo Question Guide</span><span>10 common · 8 CareStitch-specific</span></div><h2>Question by question</h2></div>
+  <div class="tally">
+    <span><span class="chip c-live">Answered</span><b>4</b></span>
+    <span><span class="chip c-part">Partly</span><b>8</b></span>
+    <span><span class="chip c-gap">Not answered</span><b>2</b></span>
+    <span><span class="chip c-na">Not asked</span><b>4</b></span>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Status</th><th>What we heard</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td class="q"><span class="qn">Common 01</span><b>The referral decision</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Shown live: address, discipline and property filters give open points by clinician and day. Clinician level only, with no branch total or forecast.</td><td class="ts">0:43:13</td></tr>
+        <tr><td class="q"><span class="qn">Common 02</span><b>The episode, not the visit</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>A Medicare-week grid and visit deadlines, but no order ingestion, pacing, LUPA or recert logic. “Guardrails live in the system of record.”</td><td class="ts">1:44:09</td></tr>
+        <tr><td class="q"><span class="qn">Common 03</span><b>HCHB freshness, with a number</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Deferred to a follow-up. Their return: read-only beta by screen automation, configurable cadence, not in production.</td><td class="ts">1:55:31</td></tr>
+        <tr><td class="q"><span class="qn">Common 04</span><b>Advise versus decide</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Advise and orchestrate; the scheduler decides. Auto-assign to the first taker was the first version and was rolled back to agency choice. Agentic AI is research.</td><td class="ts">1:29:13</td></tr>
+        <tr><td class="q"><span class="qn">Common 05</span><b>The clinician says no</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Mark not available, with a comment; request a reassignment from the phone. Responses are logged as data. No model learns from it.</td><td class="ts">1:31:11</td></tr>
+        <tr><td class="q"><span class="qn">Common 06</span><b>A Tuesday that goes wrong</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Live: reassign a call-out’s visits by hand; if nobody fits, a request with priority groups; if nobody takes it, widen to other territories.</td><td class="ts">1:14:24</td></tr>
+        <tr><td class="q"><span class="qn">Common 07</span><b>What you don’t do</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Named: patient confirmation, recommendation engine, API, EMR integration (priorities), LUPA and sequence guardrails. No dates.</td><td class="ts">1:10:06</td></tr>
+        <tr><td class="q"><span class="qn">Common 08</span><b>What breaks at our size</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Largest is 5.3k in one branch; 2.2k across six. Nothing said about what broke.</td><td class="ts">1:48:48</td></tr>
+        <tr><td class="q"><span class="qn">Common 09</span><b>The one number you’d stake it on</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Doubled census without a new scheduler; mileage $1 in, $3 back. Anecdotal: “we wish we had more information.”</td><td class="ts">1:45:12</td></tr>
+        <tr><td class="q"><span class="qn">Common 10</span><b>Where you’ll look worse</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Evan’s closing point, that it is all manual, drew the honest answer: automation is the next stage and still in research.</td><td class="ts">1:56:16</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 01</span><b>HCHB dates for read and write</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Not covered. Named as the first follow-up topic.</td><td class="ts">1:55:31</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 02</span><b>The manual-upload path; HCHB customers</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Natalie Bell ran HCHB scheduling for 10 years. Tasks come “from the EMR”; completion syncs back as a check mark. No HCHB customer count given.</td><td class="ts">1:00:41</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 03</span><b>Orders, auth, compliance windows</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>Not ingested; visit deadlines exist, and auth can only be a custom property. No enforcement.</td><td class="ts">1:44:09</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 04</span><b>“Advise and orchestrate”: principle or stage?</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>A stage. Stage one was “make the data available”; next is automation, then a recommendation engine and agentic AI, with the agency keeping approval.</td><td class="ts">1:56:16</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 05</span><b>Three named home health references</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Not requested on the call.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 06</span><b>Will the product pace the episode?</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>LUPA is roadmap; pacing stays with the scheduler for now.</td><td class="ts">1:44:09</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 07</span><b>Show the 69% home health concentration</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Domain depth was evident in the team and workflows. Customer names and EHRs not given.</td><td class="ts">0:21:34</td></tr>
+        <tr><td class="q"><span class="qn">CareStitch 08</span><b>Company size and funding</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Growth by word of mouth and a few conferences a year. Size and funding not given.</td><td class="ts">1:45:53</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="sec-head"><div class="eyebrow"><span>Considerations</span><span>Ranked by how much they would change the decision</span></div><h2>What to weigh</h2></div>
+  <div class="grid3">
+    <div class="risk"><span class="sev h">High</span><h3>Automation is not built</h3><p>At 340 schedulers and 10,000 clinicians the value is in automation. CareStitch has the workspace and is only researching what goes on top of it.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>HCHB integration</h3><p>A read-only beta by screen automation that has never run in production, with no write-back. It was not discussed on the call.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>No home health logic</h3><p>No order, auth or frequency ingestion; no SOC-before-eval, LUPA or window enforcement. The scheduler and the EMR carry it all.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Patient calls stay with clinicians</h3><p>Our biggest single ask is roadmap: confirmation first, negotiation later, no dates. Click-to-call and a call log help, but they don’t remove the work.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Clicks at scale</h3><p>Every assignment and reassignment is manual. What helps one scheduler becomes a cost across 340.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Scale and proof</h3><p>The largest customer has 5.3k patients in one branch; most outcomes are anecdotal. We would be the enterprise proof point.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Configuration sprawl</h3><p>Self-service properties and priority groups are powerful, and across 80+ branches they will drift without central governance. That fits our standardization goal only if we enforce it.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>Uptime and offline mobile</h3><p>No outage in 12 months; clinicians keep the day’s work when offline. The best continuity story of the three.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>Field-built, coordination-first</h3><p>The request workflow, care-team chat, drive-time and call log are the best coordination tooling seen so far. The team knows HCHB and the branch reality.</p></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><div class="eyebrow"><span>Next steps</span><span>Committed in the room, then recommended</span></div><h2>What happens now</h2></div>
+  <div class="next">
+    <div>
+      <h3>Agreed on the call</h3>
+      <ol>
+        <li><span class="who">Both</span><br>A follow-up virtual call before any on-site: HCHB integration requirements and data refresh cadence, and CareStitch’s automation R&amp;D.</li>
+        <li><span class="who">CareStitch</span><br>Look into scheduler productivity reporting (who touched what, how long).</li>
+        <li><span class="who">Compassus</span><br>Colin’s note on the on-site schedule change shared with Shelley; she will pass it to her team.</li>
+        <li><span class="who">Compassus</span><br>Consider calls showing the branch number (RingCentral-type integration) as a separate topic.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Recommended for the follow-up</h3>
+      <ul>
+        <li>HCHB: a dated plan for read and write, and the method (API, HL7 or RPA); what the beta reads; target cadence; HCHB customer count.</li>
+        <li>The automation R&amp;D they offered to show, and a scope and date for the recommendation engine.</li>
+        <li>Patient confirmation by text: scope, date and a design partnership on the agentic version.</li>
+        <li>Run the shared scenario through a 60-day episode: frequency, LUPA, recert, and SOC-before-eval when dates move.</li>
+        <li>An API to query capacity from our intake platform and push patients and labels in.</li>
+        <li>Three named home health references, a 2k+ ADC multi-branch customer, company size and funding.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="sec-head"><div class="eyebrow"><span>In the room</span><span>From intros and meeting tiles</span></div><h2>Who was there</h2></div>
+  <div class="people">
+    <div><h3>Compassus</h3><ul>
+      <li>Evan Kramer<span>Leads Innovation &amp; Operational Excellence</span></li>
+      <li>Michael Thompson<span>VP, Operational Excellence</span></li>
+      <li>Colin Highland<span>Initiative lead · PT, ~25 years in home health</span></li>
+      <li>Paige Huffman<span>Senior Project Manager, Operational Excellence</span></li>
+    </ul></div>
+    <div><h3>CareStitch</h3><ul>
+      <li>Shelley Ackerman, PT, DPT<span>COO · led the demo · 10+ years home health PT</span></li>
+      <li>Peter Yang<span>Operations lead · computer scientist and founder</span></li>
+      <li>Natalie Bell<span>Customer Operations Manager · 20 years home health, ran centralized HCHB scheduling</span></li>
+      <li>Jason<span>CTO</span></li>
+      <li>Michael<span>Staff Engineer</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<footer>
+  <span>Built from the Teams recording (1:59:33) with a machine transcript and extracted screens, plus CareStitch’s questionnaire return where noted. Speaker attribution is inferred from context where the transcript has no labels.</span>
+  <span>Prepared for Compassus Operational Excellence · Internal · September 2026</span>
+</footer>
+</div>
+
+<dialog id="lb" aria-label="Screenshot viewer">
+  <div class="lb">
+    <img id="lb-img" alt="">
+    <div class="lb-bar">
+      <button type="button" id="lb-prev" aria-label="Previous screenshot">← Prev</button>
+      <span class="lb-cap" id="lb-cap"></span>
+      <button type="button" id="lb-next" aria-label="Next screenshot">Next →</button>
+      <button type="button" id="lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  const shots=[...document.querySelectorAll('.shot')];
+  const dlg=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
+  let i=0;
+  function show(n){i=(n+shots.length)%shots.length;const s=shots[i],im=s.querySelector('img'),fc=s.parentElement.querySelector('figcaption');img.src=im.src;img.alt=im.alt;cap.textContent=fc?fc.textContent.replace(/\s+/g,' ').trim():''}
+  shots.forEach((s,n)=>s.addEventListener('click',()=>{show(n);if(!dlg.open)dlg.showModal()}));
+  document.getElementById('lb-prev').onclick=()=>show(i-1);
+  document.getElementById('lb-next').onclick=()=>show(i+1);
+  document.getElementById('lb-close').onclick=()=>dlg.close();
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+})();
+</script>
