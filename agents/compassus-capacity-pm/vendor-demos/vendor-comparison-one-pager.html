@@ -2,170 +2,104 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Three Vendors, One Page</title>
-<!--FONTS--><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"><!--/FONTS-->
+<title>Vendor Demo Comparison</title>
 <style>
 @page{size:11in 8.5in;margin:0}
-:root{--paper:#FBFBF8;--ink:#1B211E;--mut:#5A6560;--rule:#C9CCC5;--band:#EFEFEB;--accent:#792E2E;
-  --axle:#2E599D;--vit:#A33A6B;--cs:#C6A01F;--good:#3F7A4C;--warn:#B4520F;--mid:#8A6D0B;
-  --display:"Newsreader","Iowan Old Style",Palatino,Georgia,serif;--body:"Hanken Grotesk","Avenir Next","Segoe UI",Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--paper);-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{font-family:var(--body);color:var(--ink);font-size:9.2px;line-height:1.34}
-.page{width:11in;height:8.5in;padding:.28in .38in .22in;display:grid;grid-template-rows:auto auto auto 1fr auto auto;gap:7px;overflow:hidden}
-.top{display:flex;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:4px}
-.eb{font-family:var(--mono);font-size:7.6px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut)}
-.head{display:grid;grid-template-columns:1fr 3.4in;gap:22px;align-items:end}
-h1{font-family:var(--display);font-weight:500;font-size:26px;line-height:1;letter-spacing:-.01em}
-h1 em{color:var(--accent)}
-.deck{font-size:10px;color:var(--mut);margin-top:5px;max-width:92ch}
-.verdict{border-left:3px solid var(--accent);padding:2px 0 2px 10px;font-size:9.4px}
-.verdict b{font-weight:700}
-h2{font-family:var(--display);font-weight:500;font-size:14.5px;line-height:1.1}
-.sec{display:grid;gap:5px;align-content:start}
-.sech{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);padding-top:4px}
-.sech small{font-family:var(--mono);font-size:7.2px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase}
-.v{font-weight:700;white-space:nowrap}
-.v i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;transform:translateY(-.5px)}
-.v.a i{background:var(--axle)} .v.c i{background:var(--cs)} .v.t i{background:var(--vit)}
-table{border-collapse:collapse;width:100%}
-th{font-family:var(--mono);font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:3px 5px;border-bottom:1px solid var(--rule)}
-td{padding:3px 5px;border-bottom:1px solid var(--rule);vertical-align:top}
-tr:last-child td{border-bottom:0}
-.num{font-variant-numeric:tabular-nums;white-space:nowrap}
-
-/* coverage */
-.row2{display:grid;grid-template-columns:3.7in 1fr;gap:18px}
-.cov td{vertical-align:middle}
-.bar{position:relative;height:11px;background:#E7E7E2;width:100%;min-width:52px}
-.bar span{position:absolute;left:0;top:0;bottom:0}
-.bar .sp{opacity:.35}
-.bar b{position:absolute;right:3px;top:0;font-size:7.3px;line-height:11px;font-weight:700;font-variant-numeric:tabular-nums}
-.a .sp,.a .sh{background:var(--axle)} .c .sp,.c .sh{background:var(--cs)} .t .sp,.t .sh{background:var(--vit)}
-.cov .tot td{font-weight:700;border-top:1px solid var(--ink)}
-.key{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:7.6px;color:var(--mut);align-items:center}
-.key span{display:inline-flex;gap:4px;align-items:center}
-.key i{display:inline-block;width:14px;height:8px;background:var(--mut)}
-.key i.l{opacity:.35}
-.gap{font-size:8.3px;color:var(--mut);margin-top:2px}
-.gap b{color:var(--ink)}
-
-/* ratings */
-.rt td.lab{width:1.15in}
-.rt td.lab b{display:block;font-size:9.3px}
-.rt td.lab span{font-size:7.6px;color:var(--mut);display:block;line-height:1.25}
-.dots{display:inline-flex;gap:2px;margin-right:6px;vertical-align:-1px}
-.dots i{width:7px;height:7px;border-radius:50%;border:1.2px solid var(--ink);display:block}
-.dots i.f{background:var(--ink)}
-.cell{display:block}
-.cell .dots{display:flex;margin:1px 0 3px}
-.cell p{font-size:8.3px;line-height:1.27;color:var(--ink)}
-.cell small{display:block;color:var(--mut);font-size:7.6px;margin-top:1px}
-.lbl{font-family:var(--mono);font-size:7px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-.lbl.h{color:var(--good)} .lbl.m{color:var(--mid)} .lbl.l{color:var(--warn)}
-
-/* critical strip */
-.crit td{font-size:8.3px}
-.crit td:first-child{font-weight:700;width:1.05in}
-.crit .good{color:var(--good);font-weight:700} .crit .bad{color:var(--warn);font-weight:700} .crit .mid{color:var(--mid);font-weight:700}
-.ask{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;background:var(--band);padding:7px 11px 8px}
-.ask h3{font-family:var(--mono);font-size:7.4px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;display:flex;align-items:center}
-.ask ul{padding-left:13px;display:grid;gap:2px;font-size:8.6px}
-.page>*,.row2>*,.sec{min-width:0}
-.rt,.crit{table-layout:fixed}
-.rt th:first-child,.rt td.lab{width:1.05in}
-.crit th:first-child,.crit td:first-child{width:1.05in}
-.foot{display:flex;justify-content:space-between;gap:18px;font-family:var(--mono);font-size:6.9px;color:var(--mut);letter-spacing:.03em;border-top:1px solid var(--rule);padding-top:4px}
+html,body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:"Liberation Sans",Arial,Helvetica,sans-serif;color:#000;font-size:7.7pt;line-height:1.22}
+.page{width:11in;height:8.5in;padding:.35in .4in .3in}
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1F3864;padding-bottom:4px;margin-bottom:8px}
+.hdr h1{font-size:15pt;font-weight:bold;color:#1F3864}
+.hdr p{font-size:8.5pt}
+.hdr .r{text-align:right;font-size:8pt;color:#444}
+h2{font-size:9.5pt;font-weight:bold;color:#1F3864;margin:7px 0 3px}
+ul{padding-left:14px}
+li{margin-bottom:1px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th,td{border:1px solid #A6A6A6;padding:2px 4px;vertical-align:top;text-align:left}
+th{background:#D9E1F2;font-weight:bold}
+td.c,th.c{text-align:center}
+td.lab{font-weight:bold;background:#F2F2F2}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.note{font-size:7.3pt;color:#444;margin-top:6px}
+.s{font-weight:bold}
 </style>
 </head>
 <body>
 <div class="page">
-  <div class="top"><span class="eb">Compassus · Home Health Capacity &amp; Scheduling · Vendor evaluation, round two</span><span class="eb">Demos of 22, 23 and 24 Sep 2026</span></div>
 
-  <div class="head">
-    <div>
-      <h1>Three vendors, <em>one page</em></h1>
-      <p class="deck">Axle Health, CareStitch and VitalisCare scored on how much of our Variable Inventory each call covered, how far each product goes toward deciding for us, how much scheduler work each could remove, and what changes for the clinician.</p>
-    </div>
-    <div class="verdict"><b>Axle leads on every dimension that moves the business case</b>, but its go-live is gated by our 3-hour HCHB feed. <b>CareStitch</b> has the best clinician and coordination tooling and no automation yet. <b>VitalisCare</b> is a hospice engine that would need home health built on top.</div>
+<div class="hdr">
+  <div>
+    <h1>Capacity &amp; Scheduling Vendor Demos: Comparison</h1>
+    <p>Axle Health (Sep 22), CareStitch (Sep 23), VitalisCare (Sep 24)</p>
   </div>
+  <div class="r">Compassus Home Health<br>Internal, for discussion</div>
+</div>
 
-  <div class="row2">
-    <section class="sec">
-      <div class="sech"><h2>Variable coverage</h2><small>79 variables · spoken to / shown</small></div>
-      <table class="cov">
-        <thead><tr><th></th><th>Capacity · 22</th><th>Scheduling · 45</th><th>Engagement · 12</th><th>All 79</th></tr></thead>
-        <tbody>
-          <tr class="a"><td class="v a"><i></i>Axle</td>
-            <td><div class="bar"><span class="sp" style="width:86%"></span><span class="sh" style="width:73%"></span><b>86 / 73</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:76%"></span><span class="sh" style="width:51%"></span><b>76 / 51</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:83%"></span><span class="sh" style="width:25%"></span><b>83 / 25</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:80%"></span><span class="sh" style="width:53%"></span><b>80 / 53</b></div></td></tr>
-          <tr class="c"><td class="v c"><i></i>CareStitch</td>
-            <td><div class="bar"><span class="sp" style="width:95%"></span><span class="sh" style="width:73%"></span><b>95 / 73</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:62%"></span><span class="sh" style="width:36%"></span><b>62 / 36</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:83%"></span><span class="sh" style="width:33%"></span><b>83 / 33</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:75%"></span><span class="sh" style="width:46%"></span><b>75 / 46</b></div></td></tr>
-          <tr class="t"><td class="v t"><i></i>VitalisCare</td>
-            <td><div class="bar"><span class="sp" style="width:91%"></span><span class="sh" style="width:55%"></span><b>91 / 55</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:62%"></span><span class="sh" style="width:38%"></span><b>62 / 38</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:92%"></span><span class="sh" style="width:0%"></span><b>92 / 0</b></div></td>
-            <td><div class="bar"><span class="sp" style="width:75%"></span><span class="sh" style="width:37%"></span><b>75 / 37</b></div></td></tr>
-        </tbody>
-      </table>
-      <div class="key"><span><i class="l"></i>spoken to (incl. “roadmap”)</span><span><i></i>shown in software</span><span>Day-one must-haves shown: Axle 59% · CareStitch 49% · VitalisCare 41%</span></div>
-      <p class="gap"><b>Nobody covered 9 variables, 5 of them day-one must-haves:</b> add-on orders, acuity to skill, cognitive/dementia constraint, diagnosis-driven timing, missed-visit documentation. Ask all three at the on-site.</p>
-    </section>
+<div class="cols">
+<div>
+  <h2>Summary</h2>
+  <ul>
+    <li><b>Axle</b> was the strongest product. It is built for home health and showed recommendations for clinician, day and time. Go-live depends on getting HCHB data to them faster than our current 3-hour refresh.</li>
+    <li><b>CareStitch</b> has the best tools for clinicians and for coordinating coverage, but it does not recommend or automate anything yet, and its HCHB integration is not in production.</li>
+    <li><b>VitalisCare</b> is a hospice product. Its HCHB integration is live, but authorization, episode/LUPA logic, therapy and patient communication would all need to be built.</li>
+  </ul>
 
-    <section class="sec">
-      <div class="sech"><h2>The three things that decide value</h2><small>Our judgment from the demos · five-point scale</small></div>
-      <table class="rt">
-        <thead><tr><th></th><th><span class="v a"><i></i>Axle</span></th><th><span class="v c"><i></i>CareStitch</span></th><th><span class="v t"><i></i>VitalisCare</span></th></tr></thead>
-        <tbody>
-          <tr><td class="lab"><b>Product sophistication</b><span>How far it goes from showing data to recommending and deciding</span></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><p><span class="lbl h">Recommends all three decisions</span><br>Ranks clinician, day and time with every factor shown; call-out cover suggested; zip-level forecast. Can run autonomously; customers keep a person in the loop.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span><p><span class="lbl l">Filters and displays</span><br>Removes ineligible clinicians, then the scheduler judges. The request workflow orchestrates outreach well. Recommendations and AI are in research.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><p><span class="lbl m">Recommends who and when</span><br>Ranked provider matches and better-day suggestions with an AI rationale; overrides need a reason. Exceptions engine not shipped; no home health logic.</p></div></td></tr>
-          <tr><td class="lab"><b>Scheduler task reduction</b><span>How much of the 340 schedulers’ work it could take away</span></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><p><span class="lbl h">High, if the data flows</span><br>Work queues to zero, bulk-out of the episode in one pass, a call-out in seconds. Claims −74% scheduler time per visit, fully realized centrally. Needs HCHB faster than 3 h.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><p><span class="lbl m">Medium: coverage, not assignment</span><br>Kills the Teams and email coverage scramble and territory lookups. Every assignment is still a click. One customer doubled census with no new scheduler.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span><p><span class="lbl l">Low to medium</span><br>Matching and day suggestions help, but plotting stays in HCHB, call-off recovery isn’t built, and a 3 h lag invites double entry in HCHB.</p></div></td></tr>
-          <tr><td class="lab"><b>Clinician experience</b><span>Perceived improvement for the clinician in the field</span></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><p><span class="lbl h">Less evening phone time</span><br>Optimize and finalize the night before; patients get a confirmation text instead of a call. Blocks with addresses. Opt-in rollout. The “why” goes to managers, not clinicians.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><p><span class="lbl h">Built by clinicians</span><br>Drive-time overlay, click-to-call with log, other disciplines’ visits, care-team chat, offline app, 93% adoption. But clinicians still phone every patient.</p></div></td>
-            <td><div class="cell"><span class="dots"><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span><p><span class="lbl l">Mixed, with a trust risk</span><br>Routed day that reroutes live, but GPS workday tracking and route-adherence review, a second app beside PointCare, and no patient contact.</p></div></td></tr>
-        </tbody>
-      </table>
-    </section>
-  </div>
+  <h2>Variable coverage (79 variables from the Variable Inventory)</h2>
+  <table>
+    <colgroup><col style="width:24%"><col><col><col><col></colgroup>
+    <tr><th></th><th class="c">Capacity (22)</th><th class="c">Scheduling (45)</th><th class="c">Engagement (12)</th><th class="c">Total (79)</th></tr>
+    <tr><td class="lab">Axle</td><td class="c">86% / 73%</td><td class="c">76% / 51%</td><td class="c">83% / 25%</td><td class="c s">80% / 53%</td></tr>
+    <tr><td class="lab">CareStitch</td><td class="c">95% / 73%</td><td class="c">62% / 36%</td><td class="c">83% / 33%</td><td class="c s">75% / 46%</td></tr>
+    <tr><td class="lab">VitalisCare</td><td class="c">91% / 55%</td><td class="c">62% / 38%</td><td class="c">92% / 0%</td><td class="c s">75% / 37%</td></tr>
+  </table>
+  <p class="note">First number: discussed on the call (includes roadmap items). Second number: shown in the software. Of the 49 MVP variables, Axle showed 59%, CareStitch 49%, VitalisCare 41%.</p>
+  <p style="margin-top:4px">Not covered by any vendor (9): add-on orders, acuity to skill level, cognitive/dementia constraints, diagnosis-driven timing, missed-visit documentation (all MVP), plus start-time flexibility, lunch/documentation pattern, clinician safety and infection-control sequencing.</p>
 
-  <section class="sec">
-    <div class="sech"><h2>Other critical comparisons</h2><small>From the calls and questionnaire returns</small></div>
-    <table class="crit">
-      <thead><tr><th></th><th><span class="v a"><i></i>Axle</span></th><th><span class="v c"><i></i>CareStitch</span></th><th><span class="v t"><i></i>VitalisCare</span></th></tr></thead>
-      <tbody>
-        <tr><td>HCHB integration</td><td><span class="mid">Built, switched off.</span> Reads the log ship and writes by RPA; needs data within ~10–15 min. Our intake feed covers new patients.</td><td><span class="bad">Read-only beta</span> by screen automation; never in production; no write-back.</td><td><span class="good">Live.</span> Log ship in (~10 min typical), RPA writes out. Our 3 h feed is too slow for call-offs.</td></tr>
-        <tr><td>Home health logic</td><td><span class="good">Native.</span> Visit windows, Medicare week, front-loading, SOC, eval and recert queues. LUPA not shown.</td><td><span class="bad">None.</span> “Guardrails live in the EMR.” No orders, auth or window enforcement.</td><td><span class="bad">Hospice-first.</span> Auth, episode, LUPA and therapy all still to build.</td></tr>
-        <tr><td>Patient engagement</td><td><span class="good">Live:</span> two-way SMS, no patient app, replies routed to the clinician. Confirms rather than asks.</td><td><span class="mid">Human-led:</span> click-to-call and call log. Text confirmation is on the top-five roadmap.</td><td><span class="bad">Nothing today;</span> deprioritized for hospice. “Within scope.”</td></tr>
-        <tr><td>Footprint</td><td class="num">~25 orgs · 80% home health · largest 11k ADC</td><td class="num">79 orgs · 69% home health · largest 5.3k (one branch)</td><td class="num">3 orgs live on Sync · ~6–7k patients · largest 3.5k ADC</td></tr>
-        <tr><td>Scorecard → suggested</td><td><b>63 Conditional → lift the hold</b>, on-site with a joint data plan</td><td><b>56 Conditional → hold</b>; follow-up on HCHB and automation R&amp;D</td><td><b>67 Consider → hold</b>; advance only on dated home health build terms</td></tr>
-      </tbody>
-    </table>
-  </section>
+  <h2>Open items for the on-site</h2>
+  <table>
+    <colgroup><col style="width:24%"><col></colgroup>
+    <tr><td class="lab">Axle</td><td>Joint data plan (intake feed for new patients, HCHB refresh target for orders, date to turn on write-back). Run our scenario end to end including LUPA and a referral decision. Partnership terms, company size, 5k+ ADC reference.</td></tr>
+    <tr><td class="lab">CareStitch</td><td>Dated HCHB production plan for read and write. Demo of the automation work they mentioned and a date for recommendations. Date for patient text confirmation. Run a 60-day episode.</td></tr>
+    <tr><td class="lab">VitalisCare</td><td>Written scope, dates and cost for the home health build. Call-Off Center shown live, including when no one takes the visit. Security and uptime (not covered on the call), company size and funding.</td></tr>
+  </table>
+</div>
 
-  <section class="sec">
-    <div class="sech"><h2>What each vendor must prove at the on-site</h2><small>The question that decides each one</small></div>
-    <div class="ask">
-      <div><h3 class="v a"><i></i>Axle</h3><ul><li>A joint data plan: intake feed for new patients, a target HCHB cadence for orders, and a date to turn write-back on.</li><li>The shared scenario run end to end, including LUPA pacing and a 10am referral decision.</li><li>Partnership terms, company size and a 5k+ ADC reference.</li></ul></div>
-      <div><h3 class="v c"><i></i>CareStitch</h3><ul><li>A dated HCHB production plan, read and write.</li><li>The automation R&amp;D they offered to show, and when recommendations ship.</li><li>A date for patient text confirmation, and a 60-day episode on the shared scenario.</li></ul></div>
-      <div><h3 class="v t"><i></i>VitalisCare</h3><ul><li>Written scope, dates and funding for the home health build: auth, episode and LUPA, therapy, engagement.</li><li>The Call-Off Center running live, including when nobody takes the visit.</li><li>Security and uptime (skipped on the call), size and funding.</li></ul></div>
-    </div>
-  </section>
+<div>
+  <h2>Assessment (1 = low, 5 = high)</h2>
+  <table>
+    <colgroup><col style="width:19%"><col><col><col></colgroup>
+    <tr><th></th><th>Axle</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">Product sophistication</td>
+      <td><span class="s">4</span> - Recommends clinician, day and time and shows the factors behind each. Suggests coverage for call-outs. Capacity forecast by zip.</td>
+      <td><span class="s">2</span> - Filters out ineligible clinicians; the scheduler makes the choice. Recommendations and AI are still in research.</td>
+      <td><span class="s">3</span> - Ranks providers and suggests better visit days with a short explanation. Call-off tool not released.</td></tr>
+    <tr><td class="lab">Reduction in scheduler tasks</td>
+      <td><span class="s">4</span> - Work queues, bulk scheduling of the episode, call-out reassignment in seconds. They claim 74% less scheduler time per visit. Depends on faster HCHB data.</td>
+      <td><span class="s">3</span> - Replaces the Teams/email scramble to find coverage and removes territory lookups. Each assignment is still manual.</td>
+      <td><span class="s">2</span> - Matching helps, but visit plotting stays in HCHB, call-off recovery is not built, and the 3-hour lag risks double entry.</td></tr>
+    <tr><td class="lab">Clinician experience</td>
+      <td><span class="s">4</span> - Clinician optimizes and finalizes the next day; patients get a confirmation text instead of a call. Reasoning for assignments goes to managers, not clinicians.</td>
+      <td><span class="s">4</span> - Designed by clinicians: drive time on the calendar, click-to-call with a call log, care-team chat, offline app, 93% adoption. Clinicians still call every patient.</td>
+      <td><span class="s">2</span> - Routes the day and reroutes as it changes, but tracks location all workday and reviews route adherence. Separate app from PointCare; no patient messaging.</td></tr>
+  </table>
+  <p class="note">Scores are our read of the demos, not the formal scorecard.</p>
 
-  <div class="foot">
-    <span>Coverage scored per variable (shown / discussed / not covered) against the Variable Inventory, shared spine counted under Capacity and coordination as Engagement. “Spoken to” includes roadmap answers and variables raised only by Compassus. Ratings are judgments from the demos, not formal scores.</span>
-    <span>Prepared for Compassus Operational Excellence · Internal</span>
-  </div>
+  <h2>Key differences</h2>
+  <table>
+    <colgroup><col style="width:19%"><col><col><col></colgroup>
+    <tr><th></th><th>Axle</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">HCHB integration</td><td>Built but turned off. Needs data within 10-15 min. Intake feed would cover new patients.</td><td>Read-only beta, not in production. No write-back.</td><td>Live. Reads the log ship, writes by RPA. 3-hour refresh too slow for call-offs.</td></tr>
+    <tr><td class="lab">Home health logic</td><td>Visit windows, Medicare week, front-loading, SOC/eval/recert checks. LUPA not shown.</td><td>None. Relies on HCHB for rules.</td><td>Hospice rules only. Auth, episode, LUPA and therapy to be built.</td></tr>
+    <tr><td class="lab">Patient communication</td><td>Two-way text is live. Sends confirmations rather than asking for times.</td><td>Click-to-call and call log. Text confirmation on roadmap.</td><td>None today.</td></tr>
+    <tr><td class="lab">Customers</td><td>~25 orgs, 80% home health, largest 11k ADC</td><td>79 orgs, 69% home health, largest 5.3k (one branch)</td><td>3 live on Sync, ~6-7k patients, largest 3.5k ADC</td></tr>
+    <tr><td class="lab">Scorecard / next step</td><td>63, Conditional. Recommend moving to on-site with a data plan.</td><td>56, Conditional. Hold; follow-up call on HCHB and automation.</td><td>67, Consider. Hold until home health build is scoped and dated.</td></tr>
+  </table>
+</div>
+</div>
+
+<p class="note" style="margin-top:10px">Coverage method: each Variable Inventory row was marked shown, discussed or not covered for each call. Shared variables are counted under Capacity; Coordination variables under Engagement. Per-variable detail available on request.</p>
 </div>
 </body>
 </html>
