@@ -8,7 +8,7 @@ Scorecard going in: **84 · Advance · no open stop-checks** (highest in the fie
 | `index.html` | Visual report: process flow with large screens, question-by-question scoring, considerations, next steps |
 | `transcript.md` | Full Teams transcript with speaker labels, timestamped |
 | `screens/HHMMSS.jpg` | 45 product screens at full resolution, named by time into the recording. `-d` files are zoomed detail crops of the panel that matters |
-| `Arya-Demo-Readout.pdf` | Landscape PDF of the report for sharing. Generated only after the HTML is approved |
+| `Arya-Demo-Readout.pdf` | 52-page landscape PDF of the report for sharing: one full-width screen per page, phones three across (no author metadata) |
 
 ## Bottom line
 
