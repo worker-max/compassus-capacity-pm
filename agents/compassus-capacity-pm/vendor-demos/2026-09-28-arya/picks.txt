@@ -1,0 +1,41 @@
+# Frame picks for grab_frames.py (h:mm:ss kind [detail box]). 0:33:39 deliberately excluded.
+0:09:48 slide
+0:12:40 slide
+0:13:20 slide
+0:15:15 slide
+0:17:18 app
+0:23:45 app
+0:25:30 phone
+0:26:21 phone
+0:27:30 app
+0:30:33 app 750,170,1668,760
+0:31:51 app 750,170,1668,760
+0:34:03 app
+0:34:57 app
+0:35:21 app 750,170,1668,760
+0:36:21 slide
+0:36:33 slide
+0:38:10 slide
+0:42:30 phone
+0:43:08 phone
+0:43:24 phone
+0:43:42 phone
+0:43:51 phone
+0:49:12 phone
+0:49:33 phone
+0:50:30 phone
+0:51:12 phone
+0:55:30 phone
+0:56:03 phone
+0:58:12 phone
+1:04:54 app 750,170,1668,760
+1:17:21 app
+1:17:51 app
+1:18:24 app
+1:19:12 app
+1:36:12 app
+1:36:31 app
+1:36:51 app
+1:37:21 app
+1:39:21 app 750,170,1668,760
+1:48:00 app 750,170,1668,1005

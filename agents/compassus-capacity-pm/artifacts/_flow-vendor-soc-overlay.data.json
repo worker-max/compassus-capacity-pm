@@ -1,0 +1,440 @@
+{
+ "pass1": [
+  {
+   "Arya": [
+    "P",
+    [
+     "Agreed to read from our intake",
+     "platform, not HCHB; Arya has its",
+     "own intake agent (not for us)"
+    ]
+   ],
+   "Axle Health": [
+    "P",
+    [
+     "Real-time intake feed offered;",
+     "not wired to our platform yet"
+    ]
+   ],
+   "CareStitch": [
+    "P",
+    [
+     "API in development; labels",
+     "could flow in from intake"
+    ]
+   ],
+   "VitalisCare": [
+    "P",
+    [
+     "Could stream intake data in",
+     "transit; not built"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "S",
+    [
+     "Won’t book past the auth;",
+     "“Put in review” holds the slot.",
+     "RFP: blocked until auth clears"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Pending auth counted in capacity;",
+     "visit flagged. RFP: written to",
+     "HCHB once writable"
+    ]
+   ],
+   "CareStitch": [
+    "R",
+    [
+     "RFP: auth as a custom property;",
+     "held as an open request, office",
+     "assigns once cleared"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "No ready / not-ready state.",
+     "RFP: “actively scoping” it"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "R",
+    [
+     "RFP: SOC-eligible staff with room",
+     "in the window + episode impact.",
+     "Demo: UI deferred, “no good data”"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Capacity by zip shown. RFP: each",
+     "clinician who could take it and",
+     "their forward capacity"
+    ]
+   ],
+   "CareStitch": [
+    "S",
+    [
+     "Address + discipline: open points",
+     "by clinician and day. RFP: no",
+     "branch total, by design"
+    ]
+   ],
+   "VitalisCare": [
+    "R",
+    [
+     "RFP: remaining room by discipline",
+     "and clinician; branch view being",
+     "built. Not shown on the call"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "N",
+    [
+     "—"
+    ]
+   ],
+   "Axle Health": [
+    "N",
+    [
+     "—"
+    ]
+   ],
+   "CareStitch": [
+    "N",
+    [
+     "—"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "—"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "S",
+    [
+     "Texts the patient: discharged",
+     "yet? Reply sets the SOC window;",
+     "preferences captured"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "SOC and eval work queues;",
+     "patient constraints captured"
+    ]
+   ],
+   "CareStitch": [
+    "S",
+    [
+     "Pending admits run as a",
+     "staffing-request queue"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "—"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "S",
+    [
+     "Ranks clinicians with a match %",
+     "and a suggested time; office",
+     "approves, part-timer texts yes"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Recommends the care team per",
+     "discipline, every factor shown"
+    ]
+   ],
+   "CareStitch": [
+    "S",
+    [
+     "Filters eligible; scheduler picks",
+     "by points and distance, or offers",
+     "to priority groups"
+    ]
+   ],
+   "VitalisCare": [
+    "S",
+    [
+     "Ranks the top four per",
+     "discipline; override with reason"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "N",
+    [
+     "Documented in PointCare / HCHB"
+    ]
+   ],
+   "Axle Health": [
+    "N",
+    [
+     "Documented in PointCare / HCHB"
+    ]
+   ],
+   "CareStitch": [
+    "N",
+    [
+     "Documented in PointCare / HCHB"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "Documented in PointCare / HCHB"
+    ]
+   ]
+  }
+ ],
+ "pass2": [
+  {
+   "Arya": [
+    "N",
+    [
+     "Stays in HCHB"
+    ]
+   ],
+   "Axle Health": [
+    "N",
+    [
+     "Stays in HCHB"
+    ]
+   ],
+   "CareStitch": [
+    "N",
+    [
+     "Stays in HCHB; orders not",
+     "ingested"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "Stays in HCHB"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "P",
+    [
+     "Read by Citrix screen automation.",
+     "Call: 15–20 min · RFP: <5 min.",
+     "Shown on a mock HCHB"
+    ]
+   ],
+   "Axle Health": [
+    "P",
+    [
+     "Read and write-back built, off.",
+     "RFP: log ship up to 30 min stale;",
+     "waits on HCHB data move"
+    ]
+   ],
+   "CareStitch": [
+    "P",
+    [
+     "Read-only screen beta or manual",
+     "report upload; never in",
+     "production"
+    ]
+   ],
+   "VitalisCare": [
+    "S",
+    [
+     "Live: reads the log ship, writes",
+     "by RPA. ~3 h on the call,",
+     "10–30 min in the RFP"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "R",
+    [
+     "RFP: tracks the blocker, moves the",
+     "visit to scheduling when auth",
+     "clears; escalates near auth end"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Pending-auth visits kept in the",
+     "plan, flagged as not writable"
+    ]
+   ],
+   "CareStitch": [
+    "R",
+    [
+     "RFP: kept as an open request",
+     "until auth clears; office",
+     "then assigns"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "Auth and readiness not tracked",
+     "states (call and RFP)"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "R",
+    [
+     "Capacity windows (SOC 24 h,",
+     "Medicare week, fixed day); books",
+     "ahead in the auth. Not shown in full"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Bulk-plots the episode in",
+     "fulfillment windows; Medicare",
+     "week, front-loading"
+    ]
+   ],
+   "CareStitch": [
+    "S",
+    [
+     "Scheduler spreads the week by",
+     "eye on the points grid"
+    ]
+   ],
+   "VitalisCare": [
+    "S",
+    [
+     "Suggests a better day. RFP:",
+     "frequency and spacing from",
+     "HCHB orders"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "S",
+    [
+     "Clinician’s route by link; Arya",
+     "or the clinician texts the arrival",
+     "time; patient can reply"
+    ]
+   ],
+   "Axle Health": [
+    "S",
+    [
+     "Clinician finalizes the day;",
+     "patient texted an arrival window"
+    ]
+   ],
+   "CareStitch": [
+    "P",
+    [
+     "Clinician calls (click-to-call,",
+     "call log); text confirmation",
+     "on roadmap"
+    ]
+   ],
+   "VitalisCare": [
+    "N",
+    [
+     "No patient messaging (call);",
+     "RFP: no outreach, no date"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "N",
+    [
+     "LUPA, recert and front-loading",
+     "not in the call or the return"
+    ]
+   ],
+   "Axle Health": [
+    "P",
+    [
+     "Episode checks in work queues.",
+     "RFP: recert window flagged;",
+     "no LUPA in either"
+    ]
+   ],
+   "CareStitch": [
+    "P",
+    [
+     "LUPA on roadmap (call). RFP:",
+     "scheduler controls pacing"
+    ]
+   ],
+   "VitalisCare": [
+    "P",
+    [
+     "Call: front-loading exists.",
+     "RFP: not in production.",
+     "No LUPA or recert"
+    ]
+   ]
+  },
+  {
+   "Arya": [
+    "P",
+    [
+     "Call-out by text: agent moves or",
+     "re-staffs the week. MD notice",
+     "not covered"
+    ]
+   ],
+   "Axle Health": [
+    "P",
+    [
+     "Missed visits queued for",
+     "clinical managers; MD notice",
+     "not shown"
+    ]
+   ],
+   "CareStitch": [
+    "P",
+    [
+     "RFP: reassignment request from",
+     "the app; MD notice not covered"
+    ]
+   ],
+   "VitalisCare": [
+    "P",
+    [
+     "HCHB hard stop today; task",
+     "auto-clearing on roadmap"
+    ]
+   ]
+  }
+ ]
+}

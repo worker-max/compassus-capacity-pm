@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vendor Demo Comparison</title>
+<style>
+@page{size:11in 8.5in;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:"Liberation Sans",Arial,Helvetica,sans-serif;color:#000;font-size:6.9pt;line-height:1.17}
+.page{width:11in;height:8.5in;padding:.3in .36in .2in;overflow:hidden}
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1F3864;padding-bottom:4px;margin-bottom:6px}
+.hdr h1{font-size:14pt;font-weight:bold;color:#1F3864}
+.hdr p{font-size:8pt}
+.hdr .r{text-align:right;font-size:7.6pt;color:#444}
+h2{font-size:8.6pt;font-weight:bold;color:#1F3864;margin:6px 0 3px}
+ul{padding-left:12px}
+li{margin-bottom:1.5px}
+table{border-collapse:collapse;width:100%;table-layout:fixed}
+th,td{border:1px solid #A6A6A6;padding:1.5px 3.5px;vertical-align:top;text-align:left}
+th{background:#D9E1F2;font-weight:bold}
+td.c,th.c{text-align:center}
+td.lab{font-weight:bold;background:#F2F2F2}
+.cols{display:grid;grid-template-columns:36fr 64fr;gap:13px}
+.note{font-size:6.6pt;color:#333;margin-top:3px}
+.s{font-weight:bold}
+.up{color:#1E6B34;font-weight:bold}
+.dn{color:#A3321E;font-weight:bold}
+.q{color:#7A5A00;font-weight:bold}
+.eq{color:#555;font-weight:bold}
+tr.tot td{background:#F2F2F2;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hdr">
+  <div>
+    <h1>Capacity &amp; Scheduling Vendor Demos: Comparison</h1>
+    <p>Arya (Sep 28), Axle Health (Sep 22), CareStitch (Sep 23), VitalisCare (Sep 24). Vendors in alphabetical order. Sources: demo calls and each vendor's RFP return.</p>
+  </div>
+  <div class="r">Compassus Home Health<br>Internal, for discussion</div>
+</div>
+
+<div class="cols">
+<div>
+  <h2>What each product is</h2>
+  <ul>
+    <li><b>Arya</b>: an agent that texts the patient, ranks clinicians with a suggested visit time, and writes back to HCHB after office approval. Clinicians use text and short links, no app. HCHB by Citrix screen automation.</li>
+    <li><b>Axle Health</b>: a home health scheduling product that recommends clinician, day and time with the factors shown and plots the episode in visit windows. HCHB write-back built but switched off pending faster HCHB data.</li>
+    <li><b>CareStitch</b>: a scheduler workspace with capacity by clinician and day, a staffing-request workflow and care-team chat. It filters eligibility; the scheduler decides. HCHB integration is a read-only beta.</li>
+    <li><b>VitalisCare</b>: a scheduling product with a live HCHB integration, used today in hospice. It ranks providers and suggests better visit days. Authorization, episode/LUPA logic, therapy and patient messaging would need to be built.</li>
+  </ul>
+
+  <h2>Variable coverage on the calls (79 variables)</h2>
+  <table>
+    <colgroup><col style="width:25%"><col><col><col><col></colgroup>
+    <tr><th></th><th class="c">Capacity (22)</th><th class="c">Scheduling (45)</th><th class="c">Engagement (12)</th><th class="c">Total (79)</th></tr>
+    <tr><td class="lab">Arya</td><td class="c">91% / 41%</td><td class="c">69% / 36%</td><td class="c">92% / 50%</td><td class="c s">78% / 39%</td></tr>
+    <tr><td class="lab">Axle Health</td><td class="c">86% / 73%</td><td class="c">76% / 51%</td><td class="c">83% / 25%</td><td class="c s">80% / 53%</td></tr>
+    <tr><td class="lab">CareStitch</td><td class="c">95% / 73%</td><td class="c">62% / 36%</td><td class="c">83% / 33%</td><td class="c s">75% / 46%</td></tr>
+    <tr><td class="lab">VitalisCare</td><td class="c">91% / 55%</td><td class="c">62% / 38%</td><td class="c">92% / 0%</td><td class="c s">75% / 37%</td></tr>
+  </table>
+  <p class="note">Discussed on the call (includes roadmap) / shown in the software. MVP variables shown (49): Arya 43%, Axle 59%, CareStitch 49%, VitalisCare 41%. Call time was spent differently: Arya's demo skipped the capacity view its RFP return describes, so its "shown" capacity figure is low.</p>
+  <p style="margin-top:3px">Not covered by any vendor (7): add-on orders, acuity to skill level, cognitive/dementia constraints, missed-visit documentation (all MVP), lunch/documentation pattern, clinician safety, infection-control sequencing.</p>
+
+  <h2>Open items for the on-site</h2>
+  <table>
+    <colgroup><col style="width:21%"><col></colgroup>
+    <tr><td class="lab">Arya</td><td>Sandbox load test of HCHB reads and writes at our volume (15-20 min on the call vs under 5 min in the return). The RFP capacity check shown on real data. Approval kept on per action; a view and sign-off for learned rules. HCHB customer count; whether Aveanna's +11% was home health; LUPA and recert.</td></tr>
+    <tr><td class="lab">Axle Health</td><td>A data plan: intake feed for new patients, HCHB refresh target, a date to turn write-back on. Our scenario end to end with LUPA and a referral decision. Source behind the RFP impact numbers; partnership terms; company size.</td></tr>
+    <tr><td class="lab">CareStitch</td><td>A dated HCHB production plan for read and write. The automation work they mentioned and a date for recommendations. A date for patient text confirmation. A 60-day episode run. References in writing.</td></tr>
+    <tr><td class="lab">VitalisCare</td><td>Written scope, dates and cost for the home health build (auth, episode/LUPA, therapy, patient messaging). The HCHB refresh at Compassus (3 h on the call vs 10-30 min in the return). Call-Off Center shown live. A home health reference.</td></tr>
+  </table>
+</div>
+
+<div>
+  <h2>RFP scorecard, and what the demos add</h2>
+  <table>
+    <colgroup><col style="width:12%"><col><col><col><col></colgroup>
+    <tr><th>Section (weight)</th><th>Arya</th><th>Axle Health</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">HCHB (20)</td>
+      <td>16 Live, small base. <span class="eq">=</span> Citrix RPA confirmed; 15-20 min on the call, under 5 in the return</td>
+      <td>0 None, no path. <span class="up">&#9650; to 2 possible</span>: our intake feed offered as a path; write-back still off</td>
+      <td>2 Roadmap, no date. <span class="eq">=</span> not covered on the call</td>
+      <td>16 Live, small base. <span class="dn">&#9660; possible</span>: 3-h refresh on the call vs 10-30 min in the return; live base is hospice</td></tr>
+    <tr><td class="lab">Capacity (12)</td>
+      <td>11/12. <span class="q">? unverified</span>: referral-level check in the return, not shown</td>
+      <td>11/12. <span class="eq">=</span> capacity by zip shown</td>
+      <td>11/12. <span class="eq">=</span> open points by address shown; no branch total</td>
+      <td>8/12. <span class="eq">=</span> branch roll-up still roadmap</td></tr>
+    <tr><td class="lab">Scheduling (12)</td>
+      <td>12/12. <span class="eq">=</span> matching, route, call-out shown</td>
+      <td>12/12. <span class="eq">=</span> episode plotting and call-out flow shown</td>
+      <td>8/12. <span class="eq">=</span> manual assignment confirmed</td>
+      <td>9/12. <span class="eq">=</span> ranking and better-day flags shown</td></tr>
+    <tr><td class="lab">Engagement (12)</td>
+      <td>10/12. <span class="up">&#9650; +1 possible</span>: patient texts shown live (return said one customer)</td>
+      <td>10/12. <span class="eq">=</span> arrival-window text shown</td>
+      <td>7/12. <span class="eq">=</span> confirmation still roadmap</td>
+      <td>4/12. <span class="eq">=</span> no patient messaging</td></tr>
+    <tr><td class="lab">Sophistication (20)</td>
+      <td>4 Runs it. <span class="eq">=</span> outreach and call-outs ran with no per-event approval; new-case staffing gated for the demo</td>
+      <td>3 Recommends. <span class="eq">=</span> recommendations with factors shown</td>
+      <td>2 Checks it. <span class="eq">=</span> automation still in research</td>
+      <td>3 Recommends. <span class="eq">=</span> scheduler approves ranked options</td></tr>
+    <tr><td class="lab">Clinician fit (12)</td>
+      <td>2 Workable. <span class="up">&#9650; to 3 possible</span>: preferences, text-first, clinician's yes shown</td>
+      <td>3 Good. <span class="eq">=</span> clinician finalizes own day</td>
+      <td>3 Good. <span class="eq">=</span> field-built clinician tools shown</td>
+      <td>2 Workable. <span class="q">? to discuss</span>: all-day location and route-adherence review shown</td></tr>
+    <tr><td class="lab">Partnership (12)</td>
+      <td>3. <span class="eq">=</span></td><td>2. <span class="eq">=</span></td><td>3. <span class="eq">=</span></td><td>3. <span class="eq">=</span></td></tr>
+    <tr class="tot"><td>Total · band</td>
+      <td>84 Advance · 88 if both &#9650; apply</td>
+      <td>63 Conditional-Hold · 65 if &#9650; applies</td>
+      <td>56 Conditional-Hold · no change</td>
+      <td>67 Consider · 63 if &#9660; applies</td></tr>
+  </table>
+  <p class="note">Scores are the formal RFP scorecard (9.11.26). Arrows mark where what we saw on the call differs from the written return, using the scorecard's own rubric: <span class="up">&#9650;</span> the demo supports a higher mark, <span class="dn">&#9660;</span> a lower one, <span class="q">?</span> not verified on the call, <span class="eq">=</span> the demo matched the return. The formal scorecard is unchanged until the team re-scores. Scorecard notes to check: Axle's uptime note (99.5%) differs from its return (99.9% SLA, under 1 h down).</p>
+
+  <h2>Key differences (call and RFP return)</h2>
+  <table>
+    <colgroup><col style="width:12%"><col><col><col><col></colgroup>
+    <tr><th></th><th>Arya</th><th>Axle Health</th><th>CareStitch</th><th>VitalisCare</th></tr>
+    <tr><td class="lab">HCHB integration</td><td>Citrix screen automation, read and write, live since mid-2025 (RFP). Reads 15-20 min on the call; under 5 min in the RFP. No HCHB customer count.</td><td>Built, switched off. RFP: log ship up to 30 min stale; waits on HCHB's data move. Intake feed offered for new patients.</td><td>Read-only screen beta, never in production; no write-back. RFP: FHIR/HL7 preferred, timing depends on HCHB.</td><td>Live: log ship reads, RPA writes. About 3 h at Compassus on the call; 10-30 min in the RFP.</td></tr>
+    <tr><td class="lab">Capacity</td><td>RFP: referral-level check (SOC-eligible staff with room, episode impact), clinician capacity rolled up by branch. Not shown.</td><td>Shown: capacity by zip. RFP: every clinician who could take the referral, with forward capacity.</td><td>Shown: open points by clinician and day for an address. No branch total, by design (RFP).</td><td>Not shown. RFP: room by discipline and clinician; branch view being built.</td></tr>
+    <tr><td class="lab">Home health logic</td><td>Capacity windows (SOC 24 h, Medicare week, fixed day); visits held until auth clears. No LUPA, recert or OASIS in call or RFP.</td><td>Visit windows, Medicare week, front-loading, SOC/eval/recert checks. No LUPA in call or RFP.</td><td>Relies on HCHB. RFP: no orders, auth or windows ingested or enforced.</td><td>Hospice rules today. Auth, episode, LUPA and therapy to be built.</td></tr>
+    <tr><td class="lab">Patient contact</td><td>Two-way text live (discharge check, preferences, arrival time). Voice and Spanish claimed.</td><td>Arrival-window text live. RFP: voice, text, email, with a person in the loop advised.</td><td>Click-to-call with a call log. Text confirmation on roadmap.</td><td>None today, no date (RFP).</td></tr>
+    <tr><td class="lab">Customers (RFP)</td><td>~60 orgs, "even split" HH, hospice, PDN, home care; 3 largest &gt;30k ADC.</td><td>~25 orgs, 80% home health; largest 11k ADC.</td><td>79 orgs, 69% home health; largest 5.4k (one branch).</td><td>6 orgs, 100% hospice in production; largest ~4k ADC.</td></tr>
+  </table>
+</div>
+</div>
+
+<p class="note" style="margin-top:7px">Coverage method: each Variable Inventory row marked shown, discussed or not covered for each call. "RFP" marks a claim from the vendor's questionnaire return that was not seen in a demo. This page compares; it does not rank or recommend.</p>
+</div>
+</body>
+</html>
