@@ -5,7 +5,7 @@ Scorecard going in: **63 · Conditional — hold · no open stop-checks.**
 
 | File | What it is |
 |---|---|
-| `Axle-Health-Demo-Readout.pdf` | 21-page landscape PDF of the report for sharing (no author metadata) |
+| `Axle-Health-Demo-Readout.pdf` | 53-page landscape PDF of the report for sharing: one full-width screen per page (no author metadata) |
 | `index.html` | Visual report: process flow with screens, question-by-question scoring, considerations, next steps |
 | `transcript.md` | Full machine transcript, timestamped (no speaker labels) |
 | `screens/HHMMSS.jpg` | 40 product and deck screens, named by time into the recording |

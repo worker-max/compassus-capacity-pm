@@ -5,7 +5,7 @@ description: Break a recorded Compassus capacity & scheduling vendor demo (Teams
 
 # Vendor demo breakdown
 
-The repeatable pipeline used for Axle Health (22 Sep), CareStitch (23 Sep) and VitalisCare (24 Sep 2026).
+The repeatable pipeline used for Axle Health (22 Sep), CareStitch (23 Sep), VitalisCare (24 Sep) and Arya (28 Sep 2026).
 Following it on the next recording should produce the same package, in the same shape, so the vendors
 compare side by side.
 
@@ -37,7 +37,7 @@ visual document first; adjunct documents (flow map, one-pagers) only when asked.
 | Variable Inventory (79 rows) | `knowledge/source/workbook-2026-08-13/Variable Inventory.csv` |
 | Demo question guide | Drive `Vendor-Demo-Question-Guide.docx` (id `1-cvjVv3FA4BctCCAfgI2blnzo0367SLk`): 10 common + a set per vendor |
 | Vendor questionnaire returns | Drive folder `Vendors` (id `1vJ0KC-ZhISmEWbsw34x2gB3BP7JkljsK`); search `title contains '<Vendor>'` |
-| Scorecard | Drive `VendorScorecard Rubric 9.11.26 Copy.xlsx`; going-in scores so far: VitalisCare 67 Consider, Axle 63 Conditional, CareStitch 56 Conditional |
+| Scorecard | Drive `VendorScorecard Rubric 9.11.26 Copy.xlsx`; going-in scores so far: Arya 84 Advance, VitalisCare 67 Consider, Axle 63 Conditional, CareStitch 56 Conditional |
 
 Work files (video, audio, samples) go in the session scratchpad, never the repo.
 
@@ -60,6 +60,8 @@ bash $S/prepare.sh <drive_file_id> <scratchpad>/<vendor>
 - Read the contact sheets `sheets/sNN.jpg` **a few at a time** (large image batches get dropped).
   Find where the screen share starts; skip participant-grid frames. Pick 40–50 distinct product/deck
   screens across the whole demo (setup, core workflow, exceptions, mobile, analytics, key slides).
+- Preferred: list picks in `<pkg>/picks.txt` and run `python3 $S/grab_frames.py <work> <pkg>/screens`
+  (named crops `app` / `phone` / `slide`, full resolution, optional zoomed detail box). Otherwise:
 - Grab one full-res frame, look at the layout, then:
   `python3 $S/extract_screens.py <work> <pkg>/screens <crop> <idx...>` with `auto` or a measured box
   (Axle needed `0,18,1674,1048` to drop the participant strip). Check a montage of the results; recrop if
@@ -68,6 +70,8 @@ bash $S/prepare.sh <drive_file_id> <scratchpad>/<vendor>
 
 ## Step 3 — transcript and reading
 
+- If the Drive folder has the Teams transcript (.docx), use it instead of Whisper: it has speaker labels.
+  Parse the `Name   m:ss` paragraphs from `word/document.xml` (see the Arya package).
 - `python3 $S/make_transcript.py <work> <pkg>/transcript.md "<Vendor>" "<date, time>" "<h:mm:ss>" "<Drive title>"`
   then add vendor-specific name fixes (e.g. CareStitch, Axle) with a quick `sed`.
 - `python3 $S/reading_chunks.py <work>`, then **read `txA.txt` and `txB.txt` in full**. Every claim in the report
@@ -99,9 +103,11 @@ references. The page is private and carries the owner's account name, so tell th
 
 ## Step 5 — readout PDF (after approval only)
 
-- Print version = same body, lazy-loading removed, "click a stage" removed, plus the print CSS used for the
-  existing readouts (`@page 11in 8.5in`, each stage section `break-before:page`, 3-up galleries, fixed
-  table layout). Build a temp print HTML and render:
+- **Screens must read without zooming** (owner, 29 Sep). Run `python3 $S/inject_large.py <pkg>/index.html`
+  to add `reference/large-screens.css`: every landscape screen at full width (one per printed page), phone
+  screens in a `gallery phones` block three across, fixed table layout, `@page 11in 8.5in`. Expect 50+ pages.
+  Add zoomed `-d` crops of the key panel (recommendation, dialog) with `grab_frames.py` and a detail box.
+- Print version = same body, lazy-loading removed, "click a stage" removed. Build a temp print HTML and render:
   `python3 $S/render_pdf.py <print.html> <pkg>/<Vendor>-Demo-Readout.pdf "<Vendor> Demo — Readout" --embed-fonts .claude/skills/vendor-demo-breakdown/reference/local-fonts.css`
   (headless Chrome can't reach Google Fonts through the proxy, which is why fonts get embedded).
 - Rasterize every page (pypdfium2) into contact sheets and **look**: no near-empty pages, no split
@@ -143,3 +149,8 @@ with `\u` escapes in the replacement text will fail. Render with the `process-fl
 - Every PDF: run `render_pdf.py` (it fails if author/Chrome/WorkforceWave strings leak), then send it with
   `SendUserFile` (attach).
 - In chat: short bottom line, the few findings that matter, what's still open. Don't paste the report.
+
+## Privacy check on screens
+
+Scan every picked frame for data that isn't demo data (other customers' names, caregivers, patients) before
+committing. Drop it from the package, and note it under Considerations if it says something about the vendor.

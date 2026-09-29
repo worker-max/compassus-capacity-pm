@@ -5,7 +5,7 @@ Scorecard going in: **56 · Conditional — hold · no open stop-checks.**
 
 | File | What it is |
 |---|---|
-| `CareStitch-Demo-Readout.pdf` | 19-page landscape PDF of the report for sharing (no author metadata) |
+| `CareStitch-Demo-Readout.pdf` | 52-page landscape PDF of the report for sharing: one full-width screen per page (no author metadata) |
 | `index.html` | Visual report: process flow with screens, question-by-question scoring, considerations, next steps |
 | `transcript.md` | Full machine transcript, timestamped (no speaker labels) |
 | `screens/HHMMSS.jpg` | 50 product screens, named by time into the recording |
