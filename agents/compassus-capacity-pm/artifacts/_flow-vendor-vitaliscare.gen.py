@@ -70,7 +70,7 @@ begin(W, H, aria=(
 masthead("COMPASSUS HOME HEALTH  ·  VENDOR OVERLAY V1",
          "VitalisCare Sync on the Compassus Episode",
          "Where Sync would sit in our flow as demoed on 24 Sep 2026, and where automation is live, "
-         "promised or still open")
+         "promised or still open (demo plus RFP return; “RFP:” marks the return)")
 legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("PCC / Scheduler", C["pcc"]),
         ("Clinician", C["clin"]), ("Patient", C["pat"]), ("Branch Leadership", C["lead"]),
         ("HCHB", C["hchb"]), ("VitalisCare Sync", SYNC)], x=1500, cy=56, per_row=4, gap=30)
@@ -102,10 +102,10 @@ cA, xA = steps_row(AY+60, [
      ["Addresses, disciplines, auths", "Complete before it hits HCHB", "Could stream to Sync in transit"],
      "opp", None),
     (C["lead"], ["Accept or decline", "the referral"],
-     ["No live capacity read today", "Sync roll-up is roadmap", "The front door of capacity"],
+     ["Not shown on the call", "RFP: room by discipline and", "clinician; branch view coming"],
      "opp", None),
     (C["auth"], ["Verify eligibility,", "key pending auth"],
-     ["Payer sets the visit count", "Sync cannot see pending auth", "Needs a ready / not-ready state"],
+     ["Sync cannot see pending auth", "RFP: readiness not a state;", "“actively scoping” it"],
      "build", None),
     (C["pcc"], ["Welcome call, book", "SOC and evals"],
      ["Is the patient actually home?", "SOC within 48 hours", "Sync match could pick the SOC RN"],
@@ -140,7 +140,7 @@ cB, xB = steps_row(BYY+60, [
      ["The reason trains the model", "Audit trail for leadership", "No territory rule yet"],
      None, None),
     (SYNC, ["RPA writes the", "assignment to HCHB"],
-     ["Seconds to minutes", "Pending until confirmed", "Breaks if HCHB screens change"],
+     ["Seconds to minutes", "Reads: ~3 h on the call,", "10–30 min in the RFP"],
      "live", None),
     (C["clin"], ["Clinician told why", "they got the patient"],
      ["Not built — Vitalis liked it", "Matters most out of territory"],
@@ -158,7 +158,7 @@ cC, xC = steps_row(CY+60, [
     (SYNC, ["Writes the move", "back by RPA"],
      ["Same write-back as band B"], "live", None),
     (SYNC, ["Episode and LUPA", "pacing flags"],
-     ["No SOC or recert window", "No LUPA threshold", "Front-loading logic exists"], "build", None),
+     ["No LUPA or recert window", "Call: front-loading exists", "RFP: not in production"], "build", None),
     (C["clin"], ["Sees the week", "in Sync360"],
      ["Sets own working hours", "Still documents in PointCare"], None, None),
 ])

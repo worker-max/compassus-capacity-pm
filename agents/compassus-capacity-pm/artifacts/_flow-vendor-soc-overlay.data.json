@@ -44,21 +44,23 @@
     "S",
     [
      "Pending auth counted in capacity;",
-     "visit scheduled but flagged"
+     "visit flagged. RFP: written to",
+     "HCHB once writable"
     ]
    ],
    "CareStitch": [
-    "N",
+    "R",
     [
-     "Auth not ingested; a custom",
-     "property at best"
+     "RFP: auth as a custom property;",
+     "held as an open request, office",
+     "assigns once cleared"
     ]
    ],
    "VitalisCare": [
     "N",
     [
-     "Cannot see pending auth; no",
-     "ready / not-ready state"
+     "No ready / not-ready state.",
+     "RFP: “actively scoping” it"
     ]
    ]
   },
@@ -74,24 +76,25 @@
    "Axle Health": [
     "S",
     [
-     "Capacity by zip: who could take",
-     "this patient. Not tied to the",
-     "intake decision yet"
+     "Capacity by zip shown. RFP: each",
+     "clinician who could take it and",
+     "their forward capacity"
     ]
    ],
    "CareStitch": [
     "S",
     [
-     "Enter address + discipline: open",
-     "points by clinician and day.",
-     "No branch total or forecast"
+     "Address + discipline: open points",
+     "by clinician and day. RFP: no",
+     "branch total, by design"
     ]
    ],
    "VitalisCare": [
-    "P",
+    "R",
     [
-     "No live capacity read today;",
-     "branch roll-up is roadmap"
+     "RFP: remaining room by discipline",
+     "and clinician; branch view being",
+     "built. Not shown on the call"
     ]
    ]
   },
@@ -250,9 +253,9 @@
    "Axle Health": [
     "P",
     [
-     "Read and write-back built,",
-     "switched off; waits on a faster",
-     "HCHB feed (3-h log ship)"
+     "Read and write-back built, off.",
+     "RFP: log ship up to 30 min stale;",
+     "waits on HCHB data move"
     ]
    ],
    "CareStitch": [
@@ -266,8 +269,9 @@
    "VitalisCare": [
     "S",
     [
-     "Live: reads the log ship",
-     "(~3 h), writes by RPA"
+     "Live: reads the log ship, writes",
+     "by RPA. ~3 h on the call,",
+     "10–30 min in the RFP"
     ]
    ]
   },
@@ -288,16 +292,18 @@
     ]
    ],
    "CareStitch": [
-    "N",
+    "R",
     [
-     "—"
+     "RFP: kept as an open request",
+     "until auth clears; office",
+     "then assigns"
     ]
    ],
    "VitalisCare": [
     "N",
     [
-     "Admitted: auth and readiness",
-     "not tracked states"
+     "Auth and readiness not tracked",
+     "states (call and RFP)"
     ]
    ]
   },
@@ -328,8 +334,9 @@
    "VitalisCare": [
     "S",
     [
-     "Suggests a better day for a",
-     "visit; plotting stays in HCHB"
+     "Suggests a better day. RFP:",
+     "frequency and spacing from",
+     "HCHB orders"
     ]
    ]
   },
@@ -360,8 +367,8 @@
    "VitalisCare": [
     "N",
     [
-     "No patient messaging; clinician",
-     "confirms by phone"
+     "No patient messaging (call);",
+     "RFP: no outreach, no date"
     ]
    ]
   },
@@ -376,22 +383,24 @@
    "Axle Health": [
     "P",
     [
-     "Episode checks in work queues;",
-     "LUPA pacing not shown"
+     "Episode checks in work queues.",
+     "RFP: recert window flagged;",
+     "no LUPA in either"
     ]
    ],
    "CareStitch": [
     "P",
     [
-     "LUPA on roadmap; “guardrails",
-     "live in the EMR”"
+     "LUPA on roadmap (call). RFP:",
+     "scheduler controls pacing"
     ]
    ],
    "VitalisCare": [
     "P",
     [
-     "Front-loading logic exists;",
-     "no LUPA threshold or recert"
+     "Call: front-loading exists.",
+     "RFP: not in production.",
+     "No LUPA or recert"
     ]
    ]
   },
@@ -413,10 +422,10 @@
     ]
    ],
    "CareStitch": [
-    "N",
+    "P",
     [
-     "Reassign by hand; MD notice",
-     "not covered"
+     "RFP: reassignment request from",
+     "the app; MD notice not covered"
     ]
    ],
    "VitalisCare": [

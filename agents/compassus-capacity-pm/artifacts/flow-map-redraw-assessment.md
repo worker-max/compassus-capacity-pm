@@ -1230,3 +1230,14 @@ shown · opportunity.
 - **Band A**: the accept/decline step is split leadership/Arya and badged claimed. The return describes a
   referral-level check (SOC-eligible staff with room, episode impact). The demo deferred the UI.
 - **HCHB latency conflict shown on the sheet**: under 5 min in the return, 15–20 min reads on the call.
+
+## Overlays V1–V3 updated with RFP returns, and V5 — four vendors on the SOC flow (29 Sep 2026)
+
+- **V1–V3 now carry each vendor's RFP return** where the call skipped a topic, prefixed "RFP:" in the
+  sublists (capacity, auth/readiness, HCHB latency, episode logic, patient outreach). The deck line says
+  "demo plus RFP return". Where the call and the return disagree, both are shown (VitalisCare refresh 3 h
+  vs 10–30 min; VitalisCare front-loading exists on the call, "not in production" in the return).
+- **V5** uses the Flow 1 steps the team already reads, two tiers of seven, with four vendor lanes under
+  every step. Vendors run alphabetically. A cell's frame says how we know (solid = shown, dashed = RFP
+  only, amber = partly / roadmap, grey = not covered). A bottom panel states only facts common to or
+  split across the four; the sheet does not rank.

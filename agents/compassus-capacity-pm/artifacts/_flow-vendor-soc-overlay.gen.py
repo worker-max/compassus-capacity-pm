@@ -23,7 +23,7 @@ STATUS = {  # tag text, fill, stroke, dash, text colour
     "N": ("NOT COVERED",     "#EFEFEC", "#EFEFEC", False, MUT),
 }
 
-W, H = 2900, 2000
+W, H = 2900, 1830
 LX = 50                    # vendor label column
 X0 = 300                   # first step column
 CW = (W - 50 - X0) / 7     # column pitch
@@ -134,7 +134,23 @@ for name in VENDORS:
     lbl(tx, TY+44, f"{cnt['S']} shown  ·  {cnt['R']} RFP only  ·  {cnt['P']} partly  ·  {cnt['N']} not covered",
         cls="note")
     tx += (W - 50 - X0) / 4
-print("tally y", TY + 44, "footer rule", H - 72)
+# reading panel: plain facts across vendors, no ranking
+RY = TY + 80
+RH = H - 72 - 30 - RY
+panel(50, RY, W - 100, RH, "READING THE SHEET — WHAT THE FOUR HAVE IN COMMON AND WHERE THEY SPLIT")
+notes = [
+    ("No vendor touches", ["DCS referral review, plan-of-care approval and", "the 485, or SOC documentation. These stay", "with people in HCHB and PointCare."]),
+    ("Accept or decline", ["Axle and CareStitch showed a capacity read.", "Arya and VitalisCare describe one in their", "returns; neither showed it on the call."]),
+    ("The day before", ["Arya and Axle texted the patient live.", "CareStitch has click-to-call, text on roadmap.", "VitalisCare has no patient messaging."]),
+    ("The episode budget", ["No vendor showed LUPA pacing. Recert,", "front-loading and pacing are partial or", "left to the scheduler in all four."]),
+]
+nw = (W - 100 - 60) / 4
+for i, (head, lines) in enumerate(notes):
+    nx = 80 + i * nw
+    lbl(nx, RY + 76, head, cls="colh")
+    for j, ln in enumerate(lines):
+        lbl(nx, RY + 104 + j * 22, ln, cls="note")
+print("tally y", TY + 44, "panel", RY, RY + RH, "footer rule", H - 72)
 
 footer("Vendor overlay · four vendors on Flow 1 · demos 22–28 Sep 2026 and RFP returns · not current state, "
        "not a ranking and not a recommendation", "Overlay V5 · SOC, four vendors")

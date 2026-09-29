@@ -71,7 +71,7 @@ begin(W, H, aria=(
 masthead("COMPASSUS HOME HEALTH  ·  VENDOR OVERLAY V3",
          "CareStitch on the Compassus Episode",
          "Where CareStitch would sit in our flow as demoed on 23 Sep 2026, and where automation is live, "
-         "beta, roadmap or still open")
+         "beta, roadmap or still open (demo plus RFP return; “RFP:” marks the return)")
 legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("PCC / Scheduler", C["pcc"]),
         ("Clinician", C["clin"]), ("Patient", C["pat"]), ("Branch Leadership", C["lead"]),
         ("HCHB", C["hchb"]), ("CareStitch", SYNC)], x=1500, cy=56, per_row=4, gap=30)
@@ -103,10 +103,10 @@ cA, xA = steps_row(AY+60, [
      ["Written to HCHB by RPA", "CareStitch API in development", "Labels could flow in"],
      "opp", None),
     ((C["lead"], SYNC), ["Accept or decline:", "open points by day"],
-     ["Enter address, discipline", "Filter to PICC, language…", "No branch total, no forecast"],
+     ["Shown: address + discipline", "gives open points by day", "RFP: no branch total, by design"],
      "live", None),
     (C["auth"], ["Verify eligibility,", "key pending auth"],
-     ["Not ingested by CareStitch", "Custom property at best", "Pending demand invisible"],
+     ["RFP: auth as a custom property;", "held as an open request,", "office assigns once cleared"],
      None, None),
     (C["pcc"], ["Welcome call, book", "SOC and evals"],
      ["Pending admits as a", "staffing-request queue", "Office notes shared"], None, None),
@@ -136,11 +136,11 @@ cB, xB = steps_row(BYY+60, [
     (C["pcc"], ["Assign directly by", "points and distance"],
      ["No ranking or suggestion", "Colour-coded open points", "Distance to nearest visit"], None, None),
     (SYNC, ["Or offer by request", "to priority groups"],
-     ["Full-time first, then PRN", "Delays and reminders", "Read-and-reply log"], "live", None),
+     ["Full-time first, then PRN", "Read-and-reply log", "RFP: bonus info sent with it"], "live", None),
     (C["pcc"], ["Pick from those", "who said yes"],
      ["Or auto-assign first taker", "Clinician comments shown"], None, None),
     (SYNC, ["Recommends the", "best clinician"],
-     ["Recommendation engine", "comes before any AI", "No date"], "road", None),
+     ["Recommendation engine first", "RFP: agentic AI next version", "No date"], "road", None),
 ])
 
 # ---------------------------------------------------------------- C  which day
@@ -150,11 +150,11 @@ cC, xC = steps_row(CY+60, [
     (C["hchb"], ["Frequency plotted", "via HCHB workflow"],
      ["Scheduler plots it today", "Unchanged by CareStitch"], None, None),
     (SYNC, ["Tasks read from", "HCHB into CareStitch"],
-     ["Read-only screen beta", "Or agency uploads reports", "Never run in production"], "build", None),
+     ["Read-only screen beta", "Never run in production", "RFP: FHIR / HL7 preferred"], "build", None),
     (C["pcc"], ["Spread the week by", "eye on the grid"],
      ["Medicare week Sun–Sat", "Points, map, mileage", "Front-loading is manual"], None, None),
     (SYNC, ["Episode guardrails", "and LUPA pacing"],
-     ["SOC before eval: none", "LUPA: roadmap", "“Lives in the EMR”"], "road", None),
+     ["RFP: no orders, auth or", "windows ingested or enforced", "LUPA: roadmap (call)"], "road", None),
     (SYNC, ["Completion syncs", "back as a check mark"],
      ["Read from HCHB status", "No write-back"], "build", None),
 ])

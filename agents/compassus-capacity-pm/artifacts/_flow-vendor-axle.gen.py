@@ -71,7 +71,7 @@ begin(W, H, aria=(
 masthead("COMPASSUS HOME HEALTH  ·  VENDOR OVERLAY V2",
          "Axle Health on the Compassus Episode",
          "Where Axle would sit in our flow as demoed on 22 Sep 2026, and where automation is live, "
-         "paused or still open")
+         "paused or still open (demo plus RFP return; “RFP:” marks the return)")
 legend([("Intake", C["intake"]), ("Insurance & Auth", C["auth"]), ("PCC / Scheduler", C["pcc"]),
         ("Clinician", C["clin"]), ("Patient", C["pat"]), ("Branch Leadership", C["lead"]),
         ("HCHB", C["hchb"]), ("Axle Health", SYNC)], x=1500, cy=56, per_row=4, gap=30)
@@ -103,10 +103,10 @@ cA, xA = steps_row(AY+60, [
      ["Demographics, disciplines, auths", "Real-time feed to Axle offered", "Axle: \u201cgreat news\u201d"],
      "opp", None),
     (C["lead"], ["Accept or decline", "the referral"],
-     ["Axle: utilization by zip", "Who could take this patient", "Not yet wired to intake"],
+     ["Shown: capacity by zip", "RFP: each clinician who could", "take it, forward capacity"],
      "opp", None),
     (C["auth"], ["Verify eligibility,", "key pending auth"],
-     ["Axle still schedules the visit", "Flagged as not yet writable", "Counted in capacity"],
+     ["Axle still schedules the visit", "Flagged as not yet writable", "RFP: written when writable"],
      None, None),
     (C["pcc"], ["Welcome call, book", "SOC and evals"],
      ["SOC and eval work queues", "Patient constraints captured", "Care team recommended"],
@@ -157,9 +157,9 @@ cC, xC = steps_row(CY+60, [
     (C["pcc"], ["Review and apply", "the dates"],
      ["Or the clinician sets days", "Configurable per role"], None, None),
     (SYNC, ["Writes the schedule", "back by RPA"],
-     ["Built, switched off", "No live HCHB customer"], "build", None),
+     ["Built, switched off", "RFP: waits on HCHB data move;", "log ship up to 30 min stale"], "build", None),
     (SYNC, ["Episode checks", "in work queues"],
-     ["Eval before SOC, re-eval due", "Recert vs discharge", "LUPA pacing not shown"], "live", None),
+     ["Eval before SOC, re-eval due", "RFP: recert window flagged", "LUPA: not in demo or RFP"], "live", None),
 ])
 lbl(IX, CY+CH-16, "Axle is ready for the day-of-week decision our schedulers make by hand today. "
     "At a 3-hour HCHB feed it cannot see new orders in time to make it.", "start", "hi")
@@ -177,7 +177,7 @@ cD, xD = steps_row(DY+60, [
     (SYNC, ["Texts each patient", "an arrival window"],
      ["SMS, no patient app", "A confirmation, not a question", "Twilio under a BAA"], "live", None),
     (C["pat"], ["Patient replies", "if it won\u2019t work"],
-     ["Reply goes to the clinician", "Agentic two-way: not advised", "Self-scheduling exists"],
+     ["Reply goes to the clinician", "RFP: voice, text, email;", "person in loop advised"],
      "opp", None),
     (C["clin"], ["Visits documented", "in PointCare"],
      ["Axle keeps the schedule", "EMR keeps the record"], None, None),
@@ -200,7 +200,7 @@ cE, xE = steps_row(EY+60, [
     (SYNC, ["Push to the", "covering clinician"],
      ["Default notification", "Human call stays optional"], "live", None),
     (SYNC, ["Nobody fits: names", "the best anyway"],
-     ["Prompts the office to call", "Incentives: in development"], "road", None),
+     ["Prompts the office to call", "RFP: waitlist; pricing in dev"], "road", None),
     (SYNC, ["Missed visits queued", "for clinical managers"],
      ["Clinical managers work it", "MD notice: not shown"], "live", None),
 ])
