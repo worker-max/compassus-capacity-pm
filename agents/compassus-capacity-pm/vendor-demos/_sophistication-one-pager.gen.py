@@ -12,7 +12,7 @@ V = [("Arya", "AR", "#2a78d6", "#fff"), ("Axle Health", "AX", "#eb6834", "#fff")
 ROWS = [
  ("Decision-making", "Who makes the call",
   ["Shows data", "Filters who is eligible", "Recommends", "Acts, with approval", "Acts on its own"],
-  {"AR": 4, "AX": 3, "CS": 2, "VC": 3}, 4),
+  {"AR": 5, "AX": 3, "CS": 2, "VC": 3}, 4),
  ("Automation", "Who does the work",
   ["Person does it, better tools", "System prepares, person does", "System does, person approves each", "System does routine; people get exceptions", "End to end, exceptions too"],
   {"AR": 4, "AX": 3, "CS": 2, "VC": 3}, 4),
@@ -31,7 +31,7 @@ ROWS = [
 ]
 EVID = {  # per row, per vendor: short evidence with source (demo / RFP)
  "Decision-making": {
-  "AR": "Scorecard: Runs it. Ranks with a time, writes back; co-pilot approval to start (demo); full-time assignment can skip it.",
+  "AR": "Scorecard: Runs it. Decides and acts with no per-event approval on outreach and call-outs (demo). New-case staffing had an approval gate for the demo; normally the office is told, not asked (1:25).",
   "AX": "Scorecard: Recommends it. Clinician, day and time with every factor (demo). Can run alone; every customer keeps a person (RFP).",
   "CS": "Scorecard: Checks it. Filters and shows; the scheduler decides (demo). Recommendation engine, then agentic AI, on roadmap.",
   "VC": "Scorecard: Recommends it. Top four per discipline, better-day flags; scheduler approves (demo, RFP)."},
@@ -144,17 +144,19 @@ ul{{padding-left:12px}} li{{margin-bottom:2px}}
 </table>
 </div>
 <div>
-<h2>Positions (1-5)</h2>
-<table><colgroup><col style="width:40%"><col><col><col><col></colgroup>
-<tr><th></th>{"".join(f"<th class='c'>{ab}</th>" for _,ab,_,_ in V)}</tr>
-{"".join(pos_rows)}
+<h2>Runs without anyone approving each time</h2>
+<table><colgroup><col style="width:22%"><col></colgroup>
+<tr><td class="lab">Arya</td><td>Patient discharge check and preference texts; clinician onboarding texts; outreach to eligible clinicians, best fit first; a call-out re-formed across the week, office told only if it can't; learning rules from rejections (demo). Visits released when auth clears; capacity windows re-checked continuously (RFP). New-case staffing: office told, not asked, once past co-pilot (call).</td></tr>
+<tr><td class="lab">Axle Health</td><td>Work queues built automatically; patient texts when the clinician locks a time or heads out (demo, RFP). Assignments, dates and coverage: a person approves every time (RFP).</td></tr>
+<tr><td class="lab">CareStitch</td><td>Staffing requests sent to priority groups with delays and reminders; a care-team chat per patient (demo). Optional auto-assign to the first clinician who says yes (demo). Other assignments are manual.</td></tr>
+<tr><td class="lab">VitalisCare</td><td>The clinician's route re-calculated as the day changes (demo). Assignments are written to HCHB only after the scheduler approves (demo, RFP).</td></tr>
 </table>
 <h2>How to read it</h2>
 <ul>
-<li><b>Further right is more capable, not automatically a better fit.</b> For assignment and coverage, Compassus has set an Assist boundary: the system acts with approval. Past it, a product must let us keep approval switched on.</li>
-<li><b>The components pull in different directions.</b> Among these four, the product that automates most shows least on screen, and the two that show most leave more of the approvals to people.</li>
-<li><b>Learning and fit decide how well it serves 80+ branches.</b> Branch-level rules and learning from feedback need someone at Compassus to own and review them.</li>
-<li>Decision-making mirrors the formal scorecard's sophistication mark. The other five rows are our read and are not part of the formal score.</li>
+<li><b>Further right is more capable, not automatically a better fit.</b> Our Assist boundary for assignment and coverage is "acts, with approval"; past it, we need approval kept switched on.</li>
+<li><b>Set-up is not approval.</b> Only a person approving each decision counts.</li>
+<li><b>Learning and branch fit</b> need an owner at Compassus to review rules across 80+ branches.</li>
+<li>Decision-making mirrors the formal scorecard mark; the other rows are our read.</li>
 </ul>
 </div></div>
 <p class="note">Sources: demo calls on 22, 23, 24 and 28 Sep 2026, and the vendors' RFP returns (scorecard workbook 9.11.26). "Demo" means seen on the call; "RFP" means described in the return, not demonstrated. Claims not shown on a call are placed where the vendor says they sit and flagged in the evidence. This page compares; it does not rank or recommend.</p>
