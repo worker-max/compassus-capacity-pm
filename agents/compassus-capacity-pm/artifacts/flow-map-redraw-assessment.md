@@ -1216,3 +1216,17 @@ screen-automation integration) · opportunity.
   is the scheduler's colour or a beta/roadmap badge.
 - **Band A**: the accept/decline step is split between branch leadership and CareStitch, because the
   leader reads the capacity grid by eye; there is no branch total.
+
+## Vendor overlay V4 — Arya (29 Sep 2026)
+
+Same grammar as V1–V3. Badges: in Arya today · Citrix RPA (the HCHB integration) · claimed, not
+shown · opportunity.
+
+- **Two sources, labelled.** The demo skipped most capacity questions, so capacity steps also draw on
+  Arya's RFP return (the "Arya" tab of the scorecard workbook, 4 Sep 2026). Anything taken from the
+  return is prefixed "RFP:" and badged *claimed, not shown* unless the demo showed it.
+- **Band B is the difference from every other overlay**: vendor-coloured decisions (rank with a
+  suggested time) with the office approving and part-timers accepting by text.
+- **Band A**: the accept/decline step is split leadership/Arya and badged claimed. The return describes a
+  referral-level check (SOC-eligible staff with room, episode impact). The demo deferred the UI.
+- **HCHB latency conflict shown on the sheet**: under 5 min in the return, 15–20 min reads on the call.

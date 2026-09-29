@@ -36,7 +36,7 @@ visual document first; adjunct documents (flow map, one-pagers) only when asked.
 | Flow overlay generators | `artifacts/_flow-vendor-axle.gen.py` (template), `_flow-vendor-carestitch.gen.py`, `_flow-vendor-vitaliscare.gen.py`; drawn with the `process-flow-map` skill toolkit |
 | Variable Inventory (79 rows) | `knowledge/source/workbook-2026-08-13/Variable Inventory.csv` |
 | Demo question guide | Drive `Vendor-Demo-Question-Guide.docx` (id `1-cvjVv3FA4BctCCAfgI2blnzo0367SLk`): 10 common + a set per vendor |
-| Vendor questionnaire returns | Drive folder `Vendors` (id `1vJ0KC-ZhISmEWbsw34x2gB3BP7JkljsK`); search `title contains '<Vendor>'` |
+| Vendor questionnaire returns (RFP) | One tab per vendor in Drive `VendorScorecard Rubric 9.11.26 Copy.xlsx` (id `1W0-LrOvvASdK4AVZkbb-U5noYfAo7jgL`); scores on its `Scorecard` tab. **Use the return wherever the call skipped a topic** (owner, 29 Sep), prefixed "RFP:" and badged claimed/not shown unless demonstrated |
 | Scorecard | Drive `VendorScorecard Rubric 9.11.26 Copy.xlsx`; going-in scores so far: Arya 84 Advance, VitalisCare 67 Consider, Axle 63 Conditional, CareStitch 56 Conditional |
 
 Work files (video, audio, samples) go in the session scratchpad, never the repo.
