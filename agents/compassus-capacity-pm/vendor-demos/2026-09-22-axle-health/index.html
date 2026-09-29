@@ -178,6 +178,60 @@ dialog::backdrop{background:rgba(12,14,13,.88)}
 .lb-bar button:focus-visible{outline:2px solid #E7EAE4}
 .lb-cap{flex:1;min-width:0}
 @media (prefers-reduced-motion:no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.012)}}
+/*LARGE-SCREENS*/
+/* LARGE-SCREENS: screenshots at full reading width, on screen and in print.
+   Owner feedback 29 Sep 2026: the 3-up print galleries needed zooming to read.
+   Rule: every landscape screen gets the full content width (one per printed page);
+   phone screens run three across; zoomed detail crops sit beside the full screen they come from.
+   Injected into each vendor index.html between the LARGE-SCREENS markers by inject_large.py. */
+.stage-sec{grid-template-columns:1fr;gap:28px}
+.stage-sec .copy{grid-template-columns:minmax(0,1fr)}
+.stage-sec .kv{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px 40px;align-items:start}
+.stage-sec .kv > .quote{grid-column:1/-1}
+.gallery{grid-template-columns:1fr;gap:34px}
+.gallery figure.wide{grid-column:auto}
+.gallery.phones{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.gallery.phones .shot{width:auto;justify-self:center}
+.gallery.phones .shot img{width:auto;max-width:100%;max-height:760px}
+figcaption{font-size:14.5px;color:var(--ink);gap:10px}
+figcaption .zoom{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-left:6px}
+@media (max-width:760px){.gallery.phones{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.gallery.phones{grid-template-columns:1fr}}
+
+@media print{
+  @page{size:11in 8.5in;margin:.42in .45in}
+  :root{--shadow:none}
+  html,body{background:#fff}
+  body{font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  section{margin-top:26px}
+  h1{font-size:64px} h2{font-size:28px}
+  .sec-head{margin-bottom:16px}
+  #timeline,#context,#flow,#fit,#questions,#risks,#next,#people{break-before:page}
+  .verdict,.risk,.meta,.tl-legend,.flow,figure,tr,.callout{break-inside:avoid}
+  .flow-wrap{overflow:visible}
+  .flow{min-width:0;grid-template-columns:repeat(8,minmax(0,1fr))}
+  .stage .t{font-size:16px}
+  .stage-sec{break-before:page;margin-top:0;padding-top:12px;border-top:0}
+  .stage-sec .copy h3{font-size:24px}
+  .kv ul{font-size:12.5px}
+  .gallery{gap:0}
+  .gallery:not(.phones) figure{break-before:page;break-inside:avoid;padding-top:4px}
+  .gallery:not(.phones) .shot img{width:auto;max-width:100%;max-height:6.85in;margin:0 auto;object-fit:contain}
+  .gallery:not(.phones) .shot{border:1px solid var(--rule);text-align:center}
+  .gallery.phones{break-before:page;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  .gallery.phones figure{break-inside:avoid}
+  .gallery.phones .shot{width:auto;justify-self:center;background:none}
+  .gallery.phones .shot img{width:auto;max-width:100%;max-height:6.3in}
+  figcaption{font-size:12.5px;margin-top:6px}
+  .tbl-wrap{overflow:visible}
+  table{min-width:0;table-layout:fixed;font-size:12px}
+  td,th{padding:8px 8px}
+  .shot{cursor:default}
+  dialog,script{display:none}
+  footer{margin-top:40px}
+}
+/*/LARGE-SCREENS*/
 </style>
 
 <div class="wrap">

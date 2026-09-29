@@ -1,0 +1,727 @@
+<title>Arya Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FBFBF8; --panel:#F3F3EF; --band:#E9E9E5; --ink:#1B211E; --mut:#5A6560; --rule:#C9CCC5;
+  --accent:#792E2E; --accent-soft:#F4E9E7; --plum:#5B1A34;
+  --ok:#3F7A4C; --ok-soft:#E4EFE5; --part:#9C7C12; --part-soft:#F5EFD8; --gap:#B85A12; --gap-soft:#F8E8DA; --na:#6B7470; --na-soft:#ECEDEA;
+  --shadow:0 1px 2px rgba(27,33,30,.06),0 8px 24px rgba(27,33,30,.06);
+  --display:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"Hanken Grotesk","Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#131614; --panel:#1B1F1C; --band:#232825; --ink:#E7EAE4; --mut:#9AA49E; --rule:#343B37;
+  --accent:#D98C84; --accent-soft:#2D1D1C; --plum:#E2A3B6;
+  --ok:#7EC08C; --ok-soft:#1C2A1F; --part:#D8B955; --part-soft:#2A2616; --gap:#EE9A55; --gap-soft:#2E2117; --na:#9AA49E; --na-soft:#222724;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:clamp(28px,6vw,72px) 80px}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,8vw,92px);line-height:.95;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+h2{font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.01em}
+h3{font-size:22px;line-height:1.2}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lede{font-family:var(--display);font-size:clamp(19px,2.2vw,23px);line-height:1.45;max-width:62ch;color:var(--ink)}
+.mut{color:var(--mut)}
+.ts{font-family:var(--mono);font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+section{margin-top:clamp(56px,9vw,104px)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;padding-top:18px;border-top:1px solid var(--ink)}
+.sec-head .eyebrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* masthead */
+.mast{display:grid;gap:28px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.meta div{background:var(--paper);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.meta b{font-weight:600}
+.meta .big{font-family:var(--display);font-size:30px;line-height:1}
+
+/* the read */
+.read{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.read ol{margin:0;padding:0;list-style:none;display:grid;gap:18px;counter-reset:r}
+.read li{display:grid;grid-template-columns:32px 1fr;gap:10px;counter-increment:r}
+.read li::before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:5px}
+.read li b{font-weight:600}
+.verdict{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);padding:24px;display:grid;gap:14px;align-content:start}
+.verdict h3{color:var(--accent)}
+@media (max-width:820px){.read{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{display:flex;width:100%;height:56px;border:1px solid var(--rule);background:var(--panel)}
+.tl span{position:relative;height:100%;border-right:1px solid var(--paper);display:block}
+.tl span:last-child{border-right:0}
+.tl-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px;margin-top:16px}
+.tl-legend div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:baseline;font-size:14px}
+.tl-legend i{width:12px;height:12px;display:block;transform:translateY(1px)}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:6px}
+
+/* flow */
+.flow-wrap{overflow-x:auto;padding-bottom:6px}
+.flow{display:grid;grid-template-columns:repeat(8,minmax(128px,1fr));gap:0;min-width:1040px;position:relative}
+.stage{display:grid;grid-template-rows:auto auto 1fr auto;gap:8px;padding:16px 14px 16px;border-top:4px solid var(--c);background:var(--panel);margin-right:10px;position:relative;text-decoration:none;color:inherit}
+.stage:last-child{margin-right:0}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-10px;top:24px;border:5px solid transparent;border-left:7px solid var(--mut);transform:translateX(2px)}
+.stage:hover{background:var(--band)}
+.stage:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage .n{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.stage .t{font-family:var(--display);font-size:20px;line-height:1.1}
+.stage .d{font-size:13px;color:var(--mut);line-height:1.4}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap;justify-self:start;line-height:1.4}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.c-live{color:var(--ok);background:var(--ok-soft)}
+.c-part{color:var(--part);background:var(--part-soft)}
+.c-gap{color:var(--gap);background:var(--gap-soft)}
+.c-na{color:var(--na);background:var(--na-soft)}
+.flow-note{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:16px;font-size:13px;color:var(--mut)}
+.flow-note span{display:inline-flex;gap:8px;align-items:center}
+
+/* stage sections */
+.stage-sec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,48px);margin-top:56px;padding-top:24px;border-top:1px solid var(--rule)}
+.stage-sec:first-of-type{margin-top:0}
+.stage-sec .copy{display:grid;gap:18px;align-content:start}
+.stage-sec .copy h3{font-size:clamp(26px,3vw,32px)}
+.stage-sec .num{font-family:var(--mono);font-size:12px;color:var(--mut);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kv{display:grid;gap:12px}
+.kv h4{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kv ul{margin:6px 0 0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.kv ul li::marker{color:var(--rule)}
+.for-us{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:grid;gap:6px}
+.for-us h4{color:var(--accent)}
+.quote{font-family:var(--display);font-style:italic;font-size:19px;line-height:1.4}
+.quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-top:6px}
+@media (max-width:900px){.stage-sec{grid-template-columns:1fr}}
+
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start}
+.gallery.one{grid-template-columns:1fr}
+.gallery figure{margin:0;display:grid;gap:6px}
+.gallery figure.wide{grid-column:1/-1}
+.shot{display:block;padding:0;border:1px solid var(--rule);background:#fff;cursor:zoom-in;box-shadow:var(--shadow);width:100%;line-height:0}
+.shot img{width:100%;height:auto;display:block}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+figcaption{font-size:13px;color:var(--mut);line-height:1.4;display:grid;grid-template-columns:auto 1fr;gap:8px}
+@media (max-width:560px){.gallery{grid-template-columns:1fr}}
+
+/* integration diagram */
+.pipe{display:grid;gap:14px}
+.lane{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:stretch}
+.lane>b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);padding-top:14px}
+.nodes{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.node{background:var(--panel);border:1px solid var(--rule);padding:10px 12px;font-size:14px;display:grid;gap:2px;min-width:0;flex:1}
+.node small{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.node.hchb{border-color:#795CA7;box-shadow:inset 3px 0 0 #795CA7}
+.node.sync{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.arr{display:flex;align-items:center;padding:0 6px;font-family:var(--mono);font-size:11px;color:var(--mut);text-align:center;flex-direction:column;justify-content:center;min-width:64px}
+.arr::after{content:"\2192";font-size:18px;color:var(--ink);line-height:1}
+.arr.hot{color:var(--gap)}
+.arr.hot::after{color:var(--gap)}
+@media (max-width:760px){.lane{grid-template-columns:1fr}.lane>b{padding-top:0}.nodes{flex-direction:column}.arr{flex-direction:row;gap:8px;padding:6px 0}.arr::after{content:"\2193"}}
+.callout{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--gap-soft);padding:18px 20px;margin-top:22px}
+.callout .big{font-family:var(--display);font-size:48px;line-height:.9;color:var(--gap)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:760px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:600;text-align:left;padding:12px 12px 10px;border-bottom:1px solid var(--rule)}
+td{padding:14px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+td.q{width:28%}
+td.q b{display:block;font-weight:600;margin-bottom:2px}
+td.q .qn{font-family:var(--mono);font-size:11px;color:var(--mut)}
+td.st{width:128px}
+tbody tr:hover{background:var(--panel)}
+.tally{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 18px}
+.tally span{display:inline-flex;gap:8px;align-items:center;font-size:14px}
+.tally b{font-family:var(--display);font-size:24px;font-weight:500}
+.fit th:first-child,.fit td:first-child{width:18%}
+
+/* risks */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.risk{background:var(--paper);padding:20px;display:grid;gap:8px;align-content:start}
+.risk h3{font-size:20px}
+.risk .sev{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sev.h{color:var(--gap)} .sev.m{color:var(--part)} .sev.l{color:var(--ok)}
+.risk p{font-size:15px}
+
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(20px,4vw,48px)}
+.next ol,.next ul{margin:10px 0 0;padding-left:20px;display:grid;gap:10px}
+.who{font-family:var(--mono);font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.people ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:14.5px}
+.people li{display:grid;grid-template-columns:1fr;gap:0}
+.people li span{color:var(--mut);font-size:13px}
+
+footer{margin-top:96px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--mut);display:grid;gap:6px}
+code{font-family:var(--mono);font-size:.88em}
+
+dialog{padding:0;border:0;background:transparent;max-width:min(96vw,1700px);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(12,14,13,.88)}
+.lb{display:grid;gap:10px}
+.lb img{width:100%;height:auto;max-height:84vh;object-fit:contain;background:#fff}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E7EAE4;font-size:14px}
+.lb-bar button{font:inherit;font-family:var(--mono);font-size:12px;background:transparent;color:#E7EAE4;border:1px solid rgba(231,234,228,.4);padding:6px 12px;cursor:pointer}
+.lb-bar button:hover{background:rgba(231,234,228,.12)}
+.lb-bar button:focus-visible{outline:2px solid #E7EAE4}
+.lb-cap{flex:1;min-width:0}
+@media (prefers-reduced-motion:no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.012)}}
+/*LARGE-SCREENS*/
+/* LARGE-SCREENS: screenshots at full reading width, on screen and in print.
+   Owner feedback 29 Sep 2026: the 3-up print galleries needed zooming to read.
+   Rule: every landscape screen gets the full content width (one per printed page);
+   phone screens run three across; zoomed detail crops sit beside the full screen they come from.
+   Injected into each vendor index.html between the LARGE-SCREENS markers by inject_large.py. */
+.stage-sec{grid-template-columns:1fr;gap:28px}
+.stage-sec .copy{grid-template-columns:minmax(0,1fr)}
+.stage-sec .kv{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px 40px;align-items:start}
+.stage-sec .kv > .quote{grid-column:1/-1}
+.gallery{grid-template-columns:1fr;gap:34px}
+.gallery figure.wide{grid-column:auto}
+.gallery.phones{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.gallery.phones .shot{width:auto;justify-self:center}
+.gallery.phones .shot img{width:auto;max-width:100%;max-height:760px}
+figcaption{font-size:14.5px;color:var(--ink);gap:10px}
+figcaption .zoom{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-left:6px}
+@media (max-width:760px){.gallery.phones{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.gallery.phones{grid-template-columns:1fr}}
+
+@media print{
+  @page{size:11in 8.5in;margin:.42in .45in}
+  :root{--shadow:none}
+  html,body{background:#fff}
+  body{font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  section{margin-top:26px}
+  h1{font-size:64px} h2{font-size:28px}
+  .sec-head{margin-bottom:16px}
+  #timeline,#context,#flow,#fit,#questions,#risks,#next,#people{break-before:page}
+  .verdict,.risk,.meta,.tl-legend,.flow,figure,tr,.callout{break-inside:avoid}
+  .flow-wrap{overflow:visible}
+  .flow{min-width:0;grid-template-columns:repeat(8,minmax(0,1fr))}
+  .stage .t{font-size:16px}
+  .stage-sec{break-before:page;margin-top:0;padding-top:12px;border-top:0}
+  .stage-sec .copy h3{font-size:24px}
+  .kv ul{font-size:12.5px}
+  .gallery{gap:0}
+  .gallery:not(.phones) figure{break-before:page;break-inside:avoid;padding-top:4px}
+  .gallery:not(.phones) .shot img{width:auto;max-width:100%;max-height:6.85in;margin:0 auto;object-fit:contain}
+  .gallery:not(.phones) .shot{border:1px solid var(--rule);text-align:center}
+  .gallery.phones{break-before:page;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  .gallery.phones figure{break-inside:avoid}
+  .gallery.phones .shot{width:auto;justify-self:center;background:none}
+  .gallery.phones .shot img{width:auto;max-width:100%;max-height:6.3in}
+  figcaption{font-size:12.5px;margin-top:6px}
+  .tbl-wrap{overflow:visible}
+  table{min-width:0;table-layout:fixed;font-size:12px}
+  td,th{padding:8px 8px}
+  .shot{cursor:default}
+  dialog,script{display:none}
+  footer{margin-top:40px}
+}
+/*/LARGE-SCREENS*/
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="mast-top">
+    <span class="eyebrow">Compassus · Home Health Capacity &amp; Scheduling · Vendor demo, round two</span>
+    <span class="eyebrow">Recorded 28 Sep 2026 · 2:03:50</span>
+  </div>
+  <h1>Ar<em>ya</em></h1>
+  <p class="lede">An agent rather than a workspace. Arya picks up a referral, texts the patient to confirm discharge, ranks eligible clinicians with a match score and a suggested visit time, and writes the start of care back to HCHB once someone approves it. Clinicians work with it by text and short links, with no app. It is the most automated product in the round. It also needs the hardest look at its integration (Citrix screen automation, 15–20 minute reads) and at how its learned rules are governed. The capacity view we most need was promised but not shown.</p>
+  <div class="meta">
+    <div><span class="eyebrow">Scorecard going in</span><span class="big">84</span><span class="mut">Advance · no open stop-checks · highest in the field</span></div>
+    <div><span class="eyebrow">Live footprint</span><span class="big">~60 orgs</span><span class="mut">Per their return. Bayada, Pennant and Aveanna on the opening slide</span></div>
+    <div><span class="eyebrow">Guide questions</span><span class="big">3 / 17</span><span class="mut">answered in full; 8 partly; 1 not answered; 5 not asked</span></div>
+    <div><span class="eyebrow">Next touchpoint</span><span class="big">Follow-up</span><span class="mut">Another virtual session before on-site selection; on-sites the week of 19 Oct</span></div>
+  </div>
+</header>
+
+<section id="read">
+  <div class="sec-head"><div class="eyebrow"><span>The read</span><span>What to take from two hours</span></div><h2>Six things that matter</h2></div>
+  <div class="read">
+    <ol>
+      <li><div><b>It does the work, then asks.</b> “This is not another software for your office staff to log into… Arya does all the work… and escalates things it cannot schedule.” Agents start in co-pilot mode: the office approves each recommendation. A full-time clinician is then written straight to HCHB, and a part-time clinician gets a text asking them to accept. <span class="ts">0:25:27</span> <span class="ts">0:29:18</span></div></li>
+      <li><div><b>Every recommendation comes with a reason and a time.</b> “Quilla Lindqvist, 100% match, 1.6 mi, 18 pts, full-time,” with a slot of 1:42–2:42 pm chosen to keep her total drive time lowest. The slot sits inside a 24-hour window set from the patient’s own text. Hard <em>guardrails</em> decide who is eligible. Weighted <em>heuristics</em> decide who fits best. <span class="ts">0:29:18</span> <span class="ts">0:36:15</span></div></li>
+      <li><div><b>The clinician’s channel is text, not an app.</b> Preferences (days, times, regions) are captured by short link at onboarding. The next day’s route comes with drive time and a ready-made heads-up to the patient. A call-out is one text (“I can’t work any of these”). Clinicians can also phone in; a voice agent was offered afterwards but not shown. <span class="ts">0:42:18</span> <span class="ts">0:55:17</span></div></li>
+      <li><div><b>Patient outreach is live in the product.</b> It checks discharge and captures preferences by text, and claims Spanish text and voice. On Evan’s 30–60 minutes a day of clinician calls, Kunal said the work “should be close to zero, with the exception coming back to the clinician.” That is a strong claim with no measured result behind it. <span class="ts">1:09:25</span> <span class="ts">1:12:13</span></div></li>
+      <li><div><b>HCHB integration is Citrix screen automation.</b> Reads every 15–20 minutes and writes about every 15 minutes, if single sign-on doesn’t log the bot out every 20–30 minutes. They will load-test on our sandbox. The HCHB API is “supposedly coming in 2027.” Their return claimed latency under five minutes. <span class="ts">1:53:10</span> <span class="ts">1:53:37</span></div></li>
+      <li><div><b>Capacity planning was the gap.</b> Capacity windows are the core concept: 24 hours for SOC, the Medicare week for recurring visits, a fixed day for wound care. Auth-window escalation and “Put in review” holds were shown. The accept-or-decline view was not: “better if we come back on the capacity stuff… we don’t have good data.” <span class="ts">1:45:53</span> <span class="ts">1:47:33</span></div></li>
+    </ol>
+    <aside class="verdict">
+      <span class="eyebrow">Suggested scorecard movement</span>
+      <h3>Hold at Advance. The closest thing to the model we are designing, and the one to test hardest.</h3>
+      <p>Arya was the only vendor to run the whole loop live: referral, patient text, ranked clinicians, clinician confirmation, write-back to HCHB. The questions now are about the rails, not the idea. Can screen-automation refresh hold at our volume? Can each automated action stay behind approval permanently? Who governs the rules the agent learns from free-text feedback across 80+ branches?</p>
+      <p>Take the follow-up session. Before the on-site, ask for three things: sandbox load-test numbers for reads and writes, the capacity view running on real data, and the rules (“the brain”) visualization they say they have just built.</p>
+      <p class="mut">Two parts are worth copying whoever we pick: collecting clinician preferences at onboarding and showing the reason next to every recommendation.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="sec-head"><div class="eyebrow"><span>Where the two hours went</span><span>Proportional to clock time</span></div><h2>The shape of the call</h2></div>
+  <div class="tl" role="img" aria-label="Timeline of the call by topic">
+    <span style="flex:580;background:var(--band)" title="Intros 0:00–9:40"></span>
+    <span style="flex:335;background:#1A1A1A" title="What we heard, goals, agenda 9:40–15:15"></span>
+    <span style="flex:551;background:#5A6560" title="Demo setup, Compassus intake platform 15:15–24:26"></span>
+    <span style="flex:701;background:#1F6F78" title="SOC lifecycle: patient text, recommendation, approval, write-back, rejection 24:26–36:07"></span>
+    <span style="flex:235;background:#795933" title="Guardrails and heuristics 36:07–40:02"></span>
+    <span style="flex:757;background:#2E599D" title="Clinician onboarding, preferences, route 40:02–52:39"></span>
+    <span style="flex:804;background:#4E8A5B" title="Patient messaging, call-out, voice 52:39–1:06:03"></span>
+    <span style="flex:633;background:#C6A01F" title="Clinician time and trust 1:06:03–1:16:36"></span>
+    <span style="flex:283;background:#792E2E" title="Continuity, insights, agent health 1:16:36–1:21:19"></span>
+    <span style="flex:726;background:#DF751D" title="Capacity upstream, roles, batch outreach, horizon 1:21:19–1:33:25"></span>
+    <span style="flex:345;background:#795CA7" title="Incentives and change management 1:33:25–1:39:10"></span>
+    <span style="flex:543;background:#A33A6B" title="Applicants, capacity windows, auth holds 1:39:10–1:48:13"></span>
+    <span style="flex:494;background:#3F7A4C" title="HCHB, sources of truth, integration cadence, close 1:48:13–1:56:27"></span>
+    <span style="flex:443;background:var(--rule)" title="Recording after the call ended 1:56:27–2:03:50"></span>
+  </div>
+  <div class="tl-axis"><span>0:00</span><span>0:30</span><span>1:00</span><span>1:30</span><span>2:00</span></div>
+  <div class="tl-legend">
+    <div><i style="background:var(--band)"></i><span>Intros, both teams</span><span class="ts">0:00</span></div>
+    <div><i style="background:#1A1A1A"></i><span>What we heard, goals, agenda</span><span class="ts">0:09:40</span></div>
+    <div><i style="background:#5A6560"></i><span>Demo setup, our intake platform</span><span class="ts">0:15:15</span></div>
+    <div><i style="background:#1F6F78"></i><span>SOC lifecycle, end to end</span><span class="ts">0:24:26</span></div>
+    <div><i style="background:#795933"></i><span>Guardrails and heuristics</span><span class="ts">0:36:07</span></div>
+    <div><i style="background:#2E599D"></i><span>Clinician onboarding and route</span><span class="ts">0:40:02</span></div>
+    <div><i style="background:#4E8A5B"></i><span>Patient messaging, call-out, voice</span><span class="ts">0:52:39</span></div>
+    <div><i style="background:#C6A01F"></i><span>Clinician time and trust</span><span class="ts">1:06:03</span></div>
+    <div><i style="background:#792E2E"></i><span>Continuity, insights</span><span class="ts">1:16:36</span></div>
+    <div><i style="background:#DF751D"></i><span>Capacity, roles, batch outreach</span><span class="ts">1:21:19</span></div>
+    <div><i style="background:#795CA7"></i><span>Incentives, change management</span><span class="ts">1:33:25</span></div>
+    <div><i style="background:#A33A6B"></i><span>Applicants, windows, auth holds</span><span class="ts">1:39:10</span></div>
+    <div><i style="background:#3F7A4C"></i><span>HCHB and integration cadence</span><span class="ts">1:48:13</span></div>
+  </div>
+  <p class="mut" style="margin-top:14px;font-size:14px">Arya ran a slide-framed demo that followed one start of care from referral to write-back. Our team then steered it with questions about the clinician’s control, the business case and capacity. Integration came up only in the last eight minutes. Change management got the dedicated slot Arya had asked for.</p>
+  <div class="gallery" style="margin-top:28px">
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/000948.jpg" alt="What we heard slide"></button><figcaption><span class="ts">0:09:48</span><span>Arya’s summary of Compassus: one HCHB instance, clinician-driven scheduling, scattered information, changes that need judgment</span></figcaption></figure>
+    <figure><button class="shot" type="button"><img loading="lazy" src="screens/001240.jpg" alt="Goal statement slide"></button><figcaption><span class="ts">0:12:40</span><span>Their goal statement. Evan: “preserving the clinician input… is going to live or die on that” <span class="ts">0:12:46</span></span></figcaption></figure>
+  </div>
+</section>
+
+<section id="context">
+  <div class="sec-head"><div class="eyebrow"><span>What Compassus told Arya</span><span>Keep consistent across vendors</span></div><h2>Our position, as stated in the room</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Item</th><th>As stated</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><b>Intake platform</b></td><td>Built with an engineering partner. Its output is a “full, complete, valid referral,” with every check done except authorization. It was built to integrate with other tools. We would rather Arya plug in here than read from HCHB. Evan: “the more we can disintermediate HomeCare HomeBase, the better”</td><td class="ts">0:19:13 · 0:23:27</td></tr>
+        <tr><td><b>Capacity before accept</b></td><td>Michael: “That’s the problem we want to solve for.” Today it is branch spreadsheets, grids, a SharePoint site and Teams chats, checked by hand on every referral. <b>This differs from the CareStitch call, where we said capacity at accept/decline was out of scope.</b> Align before the on-sites</td><td class="ts">0:22:27 · 1:42:18</td></tr>
+        <tr><td><b>Discharge date</b></td><td>A referral isn’t pushed to HCHB until someone enters a confirmed discharge date</td><td class="ts">0:24:06</td></tr>
+        <tr><td><b>SOC timing</b></td><td>48 hours is the usual target. The goal of this effort is to admit within 24 hours</td><td class="ts">0:28:58</td></tr>
+        <tr><td><b>Scheduling model</b></td><td>Heading toward centralization (Evan). Arya suggested starting with weekends and after-hours</td><td class="ts">0:32:46 · 0:33:07</td></tr>
+        <tr><td><b>Clinician data</b></td><td>Some in HCHB, most in Workday. Territories are not mapped in HCHB; they live on office whiteboards, and tenured clinicians “have a lot more social influence” with schedulers</td><td class="ts">0:42:12 · 0:47:18</td></tr>
+        <tr><td><b>Biggest ask</b></td><td>Our schedulers are admin staff and clinicians do the real scheduling by phone, 30–60 minutes a day at licensed rates. Patients rarely answer calls from clinicians’ cell numbers; a Compassus number would help</td><td class="ts">1:09:25 · 0:53:39</td></tr>
+        <tr><td><b>AI with patients</b></td><td>Evan: “pretty forward leaning,” though clinical operating leaders “may reel us in just a little bit”</td><td class="ts">1:09:05</td></tr>
+        <tr><td><b>Timeline</b></td><td>On-sites the week of 19 October, after more virtual time with vendors</td><td class="ts">1:55:51</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><div class="eyebrow"><span>Process flow</span><span>As Arya runs it · click a stage</span></div><h2>Pick up, confirm, recommend, staff, write back</h2></div>
+  <p class="lede" style="margin-bottom:26px">Arya treats every piece of care as a <em>capacity window</em>: the span inside which a visit must happen. It then searches each eligible clinician’s calendar for the best slot inside that window. The office and the clinician stay in the loop by approval or by text. HCHB stays the system of record, and Arya writes changes back to it.</p>
+  <div class="flow-wrap">
+    <nav class="flow" aria-label="Process stages">
+      <a class="stage" href="#s0" style="--c:#795933"><span class="n">00</span><span class="t">Set up</span><span class="d">Branch entities, guardrails, heuristics</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s1" style="--c:#5A6560"><span class="n">01</span><span class="t">Pick up &amp; confirm</span><span class="d">Referral from intake; patient texted about discharge</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s2" style="--c:#1F6F78"><span class="n">02</span><span class="t">Recommend</span><span class="d">Match %, distance, points, a suggested time</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s3" style="--c:#C6A01F"><span class="n">03</span><span class="t">Staff</span><span class="d">Office approves; part-timers accept by text</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s4" style="--c:#3F7A4C"><span class="n">04</span><span class="t">Write back</span><span class="d">SOC plotted in HCHB</span><span class="chip c-part">Mock HCHB</span></a>
+      <a class="stage" href="#s5" style="--c:#2E599D"><span class="n">05</span><span class="t">Clinician’s day</span><span class="d">Preferences, route, patient heads-up</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s6" style="--c:#DF751D"><span class="n">06</span><span class="t">Recover</span><span class="d">Call-out by text; applicants; auth holds</span><span class="chip c-live">Live</span></a>
+      <a class="stage" href="#s7" style="--c:#792E2E"><span class="n">07</span><span class="t">Learn &amp; govern</span><span class="d">Rejection reasons, insights, rewards</span><span class="chip c-part">Partly</span></a>
+    </nav>
+  </div>
+  <div class="flow-note">
+    <span><span class="chip c-live">Live</span> demonstrated in software</span>
+    <span><span class="chip c-part">Partly</span> shown on a mock or with parts still being built</span>
+    <span><span class="chip c-gap">Not shown</span> the branch capacity view for accepting or declining a referral</span>
+  </div>
+
+  <article class="stage-sec" id="s0">
+    <div class="copy">
+      <div class="num"><span>00 · Set up</span><span class="chip c-live">Live</span><span class="ts">0:15:34 – 0:17:04 · 0:36:15 – 0:40:02</span></div>
+      <h3>Rules per branch, in two layers</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Entities.</b> Each branch is an entity. The agent inherits rules set at the organization level, and each branch can override them for its own shortages, overtime, or rural and urban driving.</li>
+          <li><b>Guardrails</b> are hard requirements: licensure (an RN for a SOC), on-call and PTO calendars, a productivity-point ceiling, maximum travel time (e.g. 90 minutes), minimum time between visits, and hard patient preferences such as gender, smokers or pets.</li>
+          <li><b>Heuristics</b> rank the eligible clinicians: total drive time for the day, preferred days and hours, full-time before PRN, prior experience with the patient (last 30 days), and patient and caregiver preferences.</li>
+          <li>The demo tenant: one mocked HCHB instance, five home health entities, 20 synthetic clinicians (RN and LVN, full- and part-time), and three visit types: SOC, standard recurring and wound care.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>We decide which rules are hard and which are soft. “If you think clinicians should not have a say on which regions they go to, that becomes a hard requirement.” <span class="ts">0:36:15</span></li>
+          <li>Branch-level override fits our branch variation. It also means 80+ rule sets that can drift apart; central ownership of the defaults is our job.</li>
+          <li>Continuity counts among the heaviest heuristics, and Arya says it can be made a hard rule. It will then report how often no clinician qualifies (“agent health”). <span class="ts">1:16:36</span></li>
+        </ul></div>
+        <p class="quote">“Guardrails are hard requirements that the agent must work inside of… heuristics is where the agent decides who is a better fit.”<cite>Kunal Sarda, CEO · 0:36:15</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003621.jpg" alt="Two core building blocks slide"></button><figcaption><span class="ts">0:36:21</span><span>The two building blocks: guardrails (hard rules) and heuristics (the mental model for trade-offs)</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003633.jpg" alt="Guardrails slide"></button><figcaption><span class="ts">0:36:33</span><span>Guardrails: time requirements, max travel, on-call and PTO, licensure, hard patient preferences</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003810.jpg" alt="Heuristics slide"></button><figcaption><span class="ts">0:38:10</span><span>Heuristics: drive time, preferred schedule, full-time vs PRN, prior experience, patient and caregiver preferences</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/001515.jpg" alt="Demo environment slide"></button><figcaption><span class="ts">0:15:15</span><span>The demo tenant: 1 mocked HCHB instance, 5 entities, 20 synthetic clinicians, 3 visit types and their windows</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s1">
+    <div class="copy">
+      <div class="num"><span>01 · Pick up &amp; confirm</span><span class="chip c-live">Live</span><span class="ts">0:17:11 – 0:28:58</span></div>
+      <h3>The referral lands; the patient gets a text</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Arya watches the pre-admission queue for a new referral. The demo used a mocked HCHB intake queue, with Cornelius Ashgrove, received 27 Sep and no SOC yet.</li>
+          <li>Its first step is to confirm the patient is actually going home. It texts the patient (“Just checking to see if you’ve been discharged yet?”). The reply “discharged late tomorrow” sets the SOC window to 8 pm Tuesday through 8 pm Wednesday.</li>
+          <li>The same thread captures patient preferences (“I want to sleep in the afternoon… come in the morning”), which the agent notes for scheduling.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Both sides agreed Arya should take the referral from our intake platform, not from HCHB. Kunal: “We’ll want this to potentially write into HCHB as opposed to read from it.” <span class="ts">0:22:58</span></li>
+          <li>Michael sees the welcome-call script as the place to collect preferences before any clinician calls. Colin: preferences set loosely at SOC “poison” the plan of care for every later discipline. <span class="ts">1:00:55</span> <span class="ts">1:01:35</span></li>
+          <li>Colin: a welcome call made at 1 pm instead of 4 pm “could have accepted two more referrals.” Earlier patient contact is a capacity lever. <span class="ts">1:22:38</span></li>
+        </ul></div>
+        <p class="quote">“This is not another software that’s built for your office staff to log into. This is a software and agent that’s supposed to do the work.”<cite>Kunal Sarda · 0:25:27</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/001718.jpg" alt="Mock HCHB intake queue"></button><figcaption><span class="ts">0:17:18</span><span>The mocked HCHB intake queue that Arya watches for new referrals</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002345.jpg" alt="Referral record without SOC"></button><figcaption><span class="ts">0:23:45</span><span>Cornelius Ashgrove’s referral: eligible, pre-admission, no start of care scheduled yet</span></figcaption></figure>
+    </div>
+    <div class="gallery phones" style="margin-top:28px">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002530.jpg" alt="Patient discharge text"></button><figcaption><span class="ts">0:25:30</span><span>Arya texts the patient to check on discharge</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002621.jpg" alt="Patient reply"></button><figcaption><span class="ts">0:26:21</span><span>“I’m getting discharged late tomorrow.” This sets the SOC window</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005812.jpg" alt="Patient preference captured"></button><figcaption><span class="ts">0:58:12</span><span>A patient preference captured in the same thread: mornings, not afternoons</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s2">
+    <div class="copy">
+      <div class="num"><span>02 · Recommend</span><span class="chip c-live">Live</span><span class="ts">0:26:57 – 0:32:37</span></div>
+      <h3>Who, with a score, and when, with a reason</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The home screen is a worklist (“Good morning! 12 patients need your immediate attention”). Each visit shows its window, the number of recommendations, and a status of <em>Finding coverage</em> or <em>Coverage found</em>.</li>
+          <li>Opening a patient shows eligible clinicians ranked by match: Quilla Lindqvist, 100%, 1.6 mi, 18 points, full-time; Rowan Marbury, 72%, 1.5 mi, 20.5 points, part-time.</li>
+          <li>Each clinician comes with a recommended slot (Wed 30 Sep, 1:42–2:42 pm). Arya picks it by fitting the SOC into her existing day for the least total drive time.</li>
+          <li>Kunal says the panel shows why the clinician is the best fit, e.g. no overtime, continuity, closest to the patient, matches preferences. <span class="ts">1:52:31</span></li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This is common question 1 answered at the clinician level: who could take this patient, and when. It is also the only product in the round that proposes a time, not just a person.</li>
+          <li>Evan’s outlier question is still open. When the best overall answer ruins one clinician’s day, “this is a question… we’re still working through.” <span class="ts">1:31:57</span></li>
+          <li>Arya says scheduling should run up to a month ahead, within the auth window, not the night before. <span class="ts">1:30:47</span> <span class="ts">1:45:15</span></li>
+        </ul></div>
+        <p class="quote">“The time that you saw Arya recommend, it was actually plotting the least amount of distance that someone has to travel.”<cite>Kunal Sarda · 0:36:15</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003033-d.jpg" alt="Recommendation panel, zoomed"></button><figcaption><span class="ts">0:30:33</span><span>Recommended: Quilla Lindqvist, 100% match, 1.6 mi, 18 pts, full-time, with a suggested slot of Wed 30 Sep 1:42–2:42 pm <span class="zoom">Zoomed</span></span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/002730.jpg" alt="Scheduling worklist"></button><figcaption><span class="ts">0:27:30</span><span>The office worklist: every open visit with its window, number of recommendations and coverage status</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003033.jpg" alt="Recommendation panel over worklist"></button><figcaption><span class="ts">0:30:33</span><span>The full screen: the patient panel opens over the worklist</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s3">
+    <div class="copy">
+      <div class="num"><span>03 · Staff</span><span class="chip c-live">Live</span><span class="ts">0:29:18 – 0:33:41 · 1:24:57 – 1:29:24</span></div>
+      <h3>Office approves; the clinician confirms by text</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>In co-pilot mode the office accepts, rejects or puts a recommendation in review. Alerts can go by Teams, text or email.</li>
+          <li>A demo rule: accept a <b>full-time</b> clinician and Arya writes the SOC to HCHB at once. Accept a <b>part-time/PRN</b> clinician and it waits: Arya texts them a link to approve the patient first.</li>
+          <li>Other setups: Arya texts or calls eligible clinicians in batches, best fit first (“not blast everyone and their uncle”). Clinicians apply, and the office sees applicants with their coverage (e.g. “Fenwick Delacorte, 88.5%, 15 pts, part-time”).</li>
+          <li>Later the office moves from <em>approving</em> to being <em>informed</em>. It sees only the critical items: “No clinicians seem to be available. I need you to figure out if anyone can take this case.”</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Michael asked what the scheduler does and whether the clinician keeps control. The answer: nothing lands on a clinician’s schedule without their yes, unless we set full-time assignments to be automatic. <span class="ts">1:27:49</span></li>
+          <li>Colin: Arya would feel like “another teammate on the team.” Thursday-afternoon coverage for three evals could be batched to all PTs automatically. <span class="ts">1:28:15</span> <span class="ts">1:29:24</span></li>
+          <li>The approval step is presented as a phase for building trust. Our Assist boundary needs it available permanently, per action.</li>
+        </ul></div>
+        <p class="quote">“Is the office staff in the loop versus the office staff approving things.”<cite>Kunal Sarda · 1:25:27</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003151-d.jpg" alt="Part-time clinician pending acknowledgement, zoomed"></button><figcaption><span class="ts">0:31:51</span><span>Rowan Marbury, part-time, 72%: accepted by the office and now “awaiting acknowledgement” from the clinician <span class="zoom">Zoomed</span></span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/010454-d.jpg" alt="Applications to review, zoomed"></button><figcaption><span class="ts">1:04:54</span><span>Applications to review: Fenwick Delacorte, 88.5% match, 1.6 mi, 15 pts, part-time, for Fri 2 Oct 3–4 pm <span class="zoom">Zoomed</span></span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s4">
+    <div class="copy">
+      <div class="num"><span>04 · Write back</span><span class="chip c-part">Mock HCHB</span><span class="ts">0:33:41 – 0:34:03 · 1:48:13 – 1:54:53</span></div>
+      <h3>The SOC appears in HCHB, closing the loop</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>Once the clinician is confirmed, Arya plots the SOC in HCHB: date, time, service and clinician (Quilla Lindqvist), with the status Scheduled.</li>
+          <li>In production this runs through Citrix screen automation: reads every 15–20 minutes and writes about every 15 minutes, depending on logins provisioned and data volume.</li>
+          <li>Single sign-on such as Okta can log the bot out every 20–30 minutes, which slows every cycle. Arya will load-test our sandbox against the agreed times.</li>
+          <li>Sources of truth stay where they are: HCHB for visits, frequencies and auth windows; Workday for clinician demographics and status; our intake platform for its data.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Evan asked if anything still has to happen in HCHB. Anand: “Preferably… nobody has to use HomeCare HomeBase for day-to-day tasks,” depending on what we keep there. <span class="ts">1:48:58</span></li>
+          <li>15–20 minutes is well short of the under-five-minute latency in their return, and in the range that made Axle switch its integration off. Ask for measured numbers from the sandbox.</li>
+          <li>Screen automation breaks when HCHB changes a screen. Anand: “each customer… the way some things are set up is slightly different.” Detection and repair SLAs were not discussed.</li>
+        </ul></div>
+        <p class="quote">“I think their marketplace and their API are supposedly coming in 2027… Citrix-based browser automation, the usual trio.”<cite>Kunal Sarda · 1:53:10</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003403.jpg" alt="Mock HCHB with SOC scheduled"></button><figcaption><span class="ts">0:34:03</span><span>Back in the mocked HCHB: the SOC now appears under Patient &amp; visits with the clinician and a Scheduled status</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s5">
+    <div class="copy">
+      <div class="num"><span>05 · Clinician’s day</span><span class="chip c-live">Live</span><span class="ts">0:40:02 – 0:53:39</span></div>
+      <h3>No app: a text thread and short links</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>When Arya sees a new clinician in HCHB, it texts them an introduction and a link to set their preferences. Login is by a code sent by text, with no password.</li>
+          <li>The preferences are the days they like to work, the times of day (early morning to overnight), and the regions they will cover, chosen by town under each branch. Arya re-checks them proactively every couple of weeks.</li>
+          <li>“What’s my schedule tomorrow?” returns a link to the day’s route on a map, with drive time and patient time, an adjustable start time, and Navigate and Share buttons.</li>
+          <li>On save, Arya can tell patients when to expect the clinician. The clinician can also send it from their own phone (“I expect to get to you at around 9:41 AM”).</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Colin: onboarding, alongside the clinical manager, is the right moment to set territory expectations, “instead of having a clinician fill that out.” <span class="ts">0:44:50</span></li>
+          <li>Evan wants patient messages to come from a Compassus number. Arya can use our telephony (e.g. Twilio) if we have one. <span class="ts">0:53:39</span> <span class="ts">0:54:35</span></li>
+          <li>Older clinicians prefer to call and younger ones to text, so Arya offers both. How often and when Arya may contact each clinician is a captured preference. <span class="ts">1:04:51</span></li>
+        </ul></div>
+        <p class="quote">“We have a very strict never-build-an-app policy for clinicians, because no clinician wants to have yet another app that they need to log into.”<cite>Kunal Sarda · 0:42:41</cite></p>
+      </div>
+    </div>
+    <div class="gallery phones">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004230.jpg" alt="Welcome text to clinician"></button><figcaption><span class="ts">0:42:30</span><span>The first text to a new clinician, with a link to set preferences</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004308.jpg" alt="Login by code"></button><figcaption><span class="ts">0:43:08</span><span>No password: a code by text or email</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004324.jpg" alt="Days of the week"></button><figcaption><span class="ts">0:43:24</span><span>Question 1: which days do you usually want to work?</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004342.jpg" alt="Times of day"></button><figcaption><span class="ts">0:43:42</span><span>Question 2: which times of day? The answers come back into the chat</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004351.jpg" alt="Regions"></button><figcaption><span class="ts">0:43:51</span><span>Question 3: which regions? Towns grouped by branch (Anaheim, Irvine)</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004933.jpg" alt="Preferences summary"></button><figcaption><span class="ts">0:49:33</span><span>Saved working preferences: Wed, Tue, Fri; late mornings, early evening, afternoon</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/004912.jpg" alt="Schedule request by text"></button><figcaption><span class="ts">0:49:12</span><span>“What’s my schedule tomorrow?” returns a short link</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005030.jpg" alt="Route map"></button><figcaption><span class="ts">0:50:30</span><span>Tomorrow’s route: 1 patient, 0h 24m driving, 1h patient care, adjustable start</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005112.jpg" alt="Heads-up text to patient"></button><figcaption><span class="ts">0:51:12</span><span>Share: a ready-made heads-up to the patient from the clinician’s own phone</span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s6">
+    <div class="copy">
+      <div class="num"><span>06 · Recover</span><span class="chip c-live">Live</span><span class="ts">0:55:17 – 0:58:48 · 1:39:10 – 1:48:13</span></div>
+      <h3>A call-out is one text; the agent re-forms the week</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li>The clinician texts “I can’t work Wednesday.” Arya lists the three visits and asks which to keep or move. The reply is “I can’t work any of these.”</li>
+          <li>Arya first tries to move the visits within the same clinician’s week, inside each visit’s capacity window. If it can’t, it raises call-outs, re-staffs them, and tells the office.</li>
+          <li>Applicants come with Arya’s own recommendation, e.g. “Tami Stephenson covers 3 of 10 visits with a 0% match”, and with reasons a clinician isn’t eligible (“Not eligible for 1 of 1 visit”).</li>
+          <li>For continuity it can favour the clinician who covers most of the episode: “Antoinette Delice covers 8 of 33 visits with a 47.1% match.” Visits past the authorization window aren’t scheduled; Arya escalates, and <em>Put in review</em> holds the slot while an expected auth comes through.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>This covers most of common question 6. We did not see our full Tuesday: two 7 am call-outs plus a visit at the edge of its window.</li>
+          <li>Colin: expected authorizations must keep a place in the plan so they aren’t forgotten. The “Put in review” hold does that. <span class="ts">1:46:59</span> <span class="ts">1:47:42</span></li>
+          <li>Hard-to-fill visits: Arya has a “negotiation scale” to offer bonuses or extra productivity points. Colin: “car washes go a long way.” <span class="ts">1:33:41</span> <span class="ts">1:34:40</span></li>
+          <li>The applicant data shown was “data out in the wild,” with low match scores throughout. <span class="ts">1:40:47</span></li>
+        </ul></div>
+        <p class="quote">“It’s not going to schedule beyond the auth. It’s going to escalate.”<cite>Kunal Sarda · 1:46:36</cite></p>
+      </div>
+    </div>
+    <div class="gallery phones">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005530.jpg" alt="Call-out by text"></button><figcaption><span class="ts">0:55:30</span><span>“I can’t work Wednesday.” Arya: “You have 3 visits scheduled… would you like me to move them?”</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/005603.jpg" alt="Arya reschedules"></button><figcaption><span class="ts">0:56:03</span><span>“I’ll work on moving your visits to other days… if unable, I’ll let the office know and they will find replacements”</span></figcaption></figure>
+    </div>
+    <div class="gallery" style="margin-top:28px">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013921-d.jpg" alt="Applicants with recommendation, zoomed"></button><figcaption><span class="ts">1:39:21</span><span>Applicants for Finn Price: Arya’s recommendation, 114 eligible clinicians, and the reason Clarissa Bonilla is not eligible <span class="zoom">Zoomed</span></span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/014800-d.jpg" alt="Put in review, zoomed"></button><figcaption><span class="ts">1:48:00</span><span>Continuity-first recommendation (8 of 33 visits), critical visits within 3 days, and the Accept / Put in Review / Reject menu <span class="zoom">Zoomed</span></span></figcaption></figure>
+    </div>
+  </article>
+
+  <article class="stage-sec" id="s7">
+    <div class="copy">
+      <div class="num"><span>07 · Learn &amp; govern</span><span class="chip c-part">Partly</span><span class="ts">0:34:51 – 0:36:07 · 1:16:36 – 1:21:19 · 1:35:08 – 1:38:47</span></div>
+      <h3>Every “no” is data; every rollout needs champions</h3>
+      <div class="kv">
+        <div><h4>What it does</h4><ul>
+          <li><b>Rejection with a reason.</b> The office rejects a recommendation and types why (“Quilla doesn’t go to the city at all,” typos included). Arya decides whether this is a clinician, patient or organization preference and applies it next time.</li>
+          <li><b>Insights.</b> Shifts filled, hours staffed, caregivers engaged, open shifts. Applications by status, actions by staff member, and a rejection breakdown (“Why staff overrode Arya”).</li>
+          <li><b>Agent health.</b> An outreach funnel (21 eligible, 6 contacted, 6 applied, 1 approved) and eligible clinicians per shift. The funnel shows whether the rules are too tight to staff anyone.</li>
+          <li><b>Change management.</b> A branded “Welcome to Arya” training hub with “Ask me anything,” and a Compassus-branded rewards program: gift cards for day-one staffing and weekly challenges.</li>
+        </ul></div>
+        <div class="for-us"><h4>For Compassus</h4><ul>
+          <li>Colin asked how to see and clean up the rules Arya has learned. The answer: “we’re building the visualization… we’ve actually just figured out how to visualize that.” Not shown. <span class="ts">1:51:28</span> <span class="ts">1:51:58</span></li>
+          <li>Evan’s concern: if one clinician can teach the agent a rule, the tenured-clinician “gamesmanship” we see today could be automated.</li>
+          <li>Their playbook (forward-leaning branch leaders, internal case studies, clinician advocates, 90-day rewards) mirrors ours. Evan: “you guys think about it exactly the same way.” <span class="ts">1:35:08</span> <span class="ts">1:38:47</span></li>
+        </ul></div>
+        <p class="quote">“The number one thing that’s going to make clinicians believe they should do this is other clinicians.”<cite>Kunal Sarda · 1:35:54</cite></p>
+      </div>
+    </div>
+    <div class="gallery">
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003521-d.jpg" alt="Rejection reason dialog, zoomed"></button><figcaption><span class="ts">0:35:21</span><span>“Help us improve matching: why are you rejecting this application?” The free-text reason becomes a rule <span class="zoom">Zoomed</span></span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/003457.jpg" alt="Accept, put in review, reject menu"></button><figcaption><span class="ts">0:34:57</span><span>The office’s three options on any recommendation: Accept, Put in Review, Reject</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011721.jpg" alt="Insights headline tiles"></button><figcaption><span class="ts">1:17:21</span><span>Insights: shifts filled, hours staffed, caregivers engaged and open shifts, by entity and period</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011751.jpg" alt="Rejection breakdown"></button><figcaption><span class="ts">1:17:51</span><span>Staff engagement: applications by status, actions by staff member, and “Rejection breakdown: why staff overrode Arya”</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011824.jpg" alt="Caregiver engagement"></button><figcaption><span class="ts">1:18:24</span><span>Caregiver engagement: who has set preferences, new vs returning, and what caregivers told Arya</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/011912.jpg" alt="Agent health funnel"></button><figcaption><span class="ts">1:19:12</span><span>Agent health: the outreach funnel from eligible to contacted, applied and approved</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013612.jpg" alt="Welcome to Arya hub"></button><figcaption><span class="ts">1:36:12</span><span>“Welcome to Arya”: a training hub for the Compassus team, with staff testimonials</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013631.jpg" alt="Ask me anything"></button><figcaption><span class="ts">1:36:31</span><span>“Ask me anything”: search every training topic and question in the hub</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013651.jpg" alt="Rewards program day 1"></button><figcaption><span class="ts">1:36:51</span><span>A Compassus-branded rewards program: day-one rewards for the first visits staffed through Arya</span></figcaption></figure>
+      <figure><button class="shot" type="button"><img loading="lazy" src="screens/013721.jpg" alt="Weekly challenges"></button><figcaption><span class="ts">1:37:21</span><span>Weekly challenges: $30 gift cards for Power User and Feedback Champion</span></figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="fit">
+  <div class="sec-head"><div class="eyebrow"><span>What they claim</span><span>The call and their return, with our read</span></div><h2>Impact and positioning</h2></div>
+  <div class="tbl-wrap">
+    <table class="fit">
+      <thead><tr><th>Claim</th><th>As stated</th><th>Our read</th></tr></thead>
+      <tbody>
+        <tr><td><b>Clinician call time</b></td><td><span class="chip c-part">“Close to zero”</span> The clinician handles exceptions only, in place of 30–60 min a day of patient calls <span class="ts">1:12:13</span></td><td>The biggest claim of the call, and no customer or baseline was given. It is our business case, so it needs a pilot measure.</td></tr>
+        <tr><td><b>HCHB latency</b></td><td><span class="chip c-part">15–20 min reads</span> About 15 min writes, subject to SSO logouts; load-tested on our sandbox <span class="ts">1:53:37</span></td><td>More candid than the return’s “under five minutes.” Get sandbox numbers at our read and write volume before the on-site.</td></tr>
+        <tr><td><b>Engagement</b></td><td>Text and short links give “higher engagement” than an app <span class="ts">0:50:22</span></td><td>Plausible for our clinicians. No rate given; ask for response rates by channel.</td></tr>
+        <tr><td><b>Incentives</b></td><td>Bonuses and extra points for hard-to-fill visits “work” <span class="ts">1:34:17</span></td><td>Anecdotal. The only incentive mechanism shown in the round beyond a manual waitlist.</td></tr>
+        <tr><td><b>Scale</b></td><td>“Organizations with hundreds of locations, hundreds of branches”; Bayada, Pennant and Aveanna logos <span class="ts">0:01:41</span></td><td>Enterprise logos, but no HCHB customer count and no production dates for HCHB.</td></tr>
+        <tr><td><b>Headline result</b></td><td>Aveanna, 11% more authorized hours delivered (return)</td><td>Not discussed. We still don’t know if it came from home health or private duty.</td></tr>
+        <tr><td><b>Breadth</b></td><td>One agent with intake, talent (recruiting), front-desk voice and scheduling skills sharing a “common context layer” <span class="ts">1:02:23</span></td><td>An answer to our upstream data problem, and a broader dependency on one vendor. Our intake platform already covers intake.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><div class="eyebrow"><span>Vendor Demo Question Guide</span><span>10 common · 7 Arya-specific</span></div><h2>Question by question</h2></div>
+  <div class="tally">
+    <span><span class="chip c-live">Answered</span><b>3</b></span>
+    <span><span class="chip c-part">Partly</span><b>8</b></span>
+    <span><span class="chip c-gap">Not answered</span><b>1</b></span>
+    <span><span class="chip c-na">Not asked</span><b>5</b></span>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Status</th><th>What we heard</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td class="q"><span class="qn">Common 01</span><b>The referral decision</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Shown: SOC staffing from pickup to write-back. Not shown: the accept/decline view. Described a pre-admission capacity window of up to a week before discharge; the UI was deferred for lack of good data.</td><td class="ts">1:22:17 · 1:47:33</td></tr>
+        <tr><td class="q"><span class="qn">Common 02</span><b>The episode, not the visit</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Capacity windows (24 h SOC, Medicare week, fixed-day wound); frequencies booked ahead within the auth; escalation before the auth runs out; review holds. LUPA, recert and OASIS never came up.</td><td class="ts">1:30:47 · 1:45:53</td></tr>
+        <tr><td class="q"><span class="qn">Common 03</span><b>HCHB freshness, with a number</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Citrix browser automation: 15–20 min reads, about 15 min writes, SSO logouts a risk, sandbox load test. HCHB API expected 2027. Slower than their return claimed.</td><td class="ts">1:53:10</td></tr>
+        <tr><td class="q"><span class="qn">Common 04</span><b>Advise versus decide</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Co-pilot with office approval to start, then “in the loop” rather than approving. Full-time assignments can auto-write. No customer named who moved the line.</td><td class="ts">1:25:12</td></tr>
+        <tr><td class="q"><span class="qn">Common 05</span><b>The clinician says no</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Shown live: reject with a free-text reason. Arya classifies it (clinician, patient or organization preference) and it becomes a rule or a weighting. Rejections are reported by reason and by staff member.</td><td class="ts">0:34:51 · 1:17:49</td></tr>
+        <tr><td class="q"><span class="qn">Common 06</span><b>A Tuesday that goes wrong</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>A call-out by text, rescheduled within the week first, then re-staffed with the office told. Batched outreach down the ranked list. Our two-call-out, edge-of-window case wasn’t run.</td><td class="ts">0:55:17 · 1:28:39</td></tr>
+        <tr><td class="q"><span class="qn">Common 07</span><b>What you don’t do</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Gaps they named anyway: rules visualization in progress, capacity UI data, outbound voice not set up for the demo, the outlier trade-off.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Common 08</span><b>What breaks at our size</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>“Hundreds of branches” at existing customers; SSO logouts and HCHB setup differences named as integration risks. Nothing on what broke.</td><td class="ts">0:01:41 · 1:53:37</td></tr>
+        <tr><td class="q"><span class="qn">Common 09</span><b>The one number you’d stake it on</b></td><td class="st"><span class="chip c-gap">Not answered</span></td><td>Evan asked how much clinician call time other deployments removed. The answer was “close to zero” with no customer, baseline or period.</td><td class="ts">1:09:25 · 1:12:13</td></tr>
+        <tr><td class="q"><span class="qn">Common 10</span><b>Where you’ll look worse</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Unprompted, Kunal admitted the trade-off between optimizing everyone and upsetting one person is “a question… we’re still working through.”</td><td class="ts">1:31:57</td></tr>
+        <tr><td class="q"><span class="qn">Arya 01</span><b>HCHB customers in production</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Not covered. Anand spoke as the HCHB expert but gave no count or dates.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Arya 02</span><b>When HCHB changes a screen</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Each HCHB setup “is slightly different,” so they check against our sandbox first. No detection or repair SLA discussed.</td><td class="ts">1:53:37</td></tr>
+        <tr><td class="q"><span class="qn">Arya 03</span><b>Approval, permanently</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Approval is a configurable “hard stop.” It was framed as a way to build trust, with the office later informed rather than approving. Not confirmed as permanent per action.</td><td class="ts">1:25:12 · 1:39:10</td></tr>
+        <tr><td class="q"><span class="qn">Arya 04</span><b>No apps: a clinician’s real week</b></td><td class="st"><span class="chip c-live">Answered</span></td><td>Shown: onboarding text, preferences, next-day route, patient heads-up, call-out, voice line. For clinicians who don’t reply, the patient is told the time anyway.</td><td class="ts">0:42:18 · 0:52:14</td></tr>
+        <tr><td class="q"><span class="qn">Arya 05</span><b>Before-the-visit automation: sequence and date</b></td><td class="st"><span class="chip c-part">Partly</span></td><td>Discharge check and patient preferences shown live. Kunal urged us to decide early how far AI goes into the patient experience; providers usually add it last. No date.</td><td class="ts">1:08:24</td></tr>
+        <tr><td class="q"><span class="qn">Arya 06</span><b>Aveanna: home health or private duty?</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Aveanna appeared on the opening slide only.</td><td class="ts">—</td></tr>
+        <tr><td class="q"><span class="qn">Arya 07</span><b>Customer mix, size, funding</b></td><td class="st"><span class="chip c-na">Not asked</span></td><td>Team introduced (CEO, principal AI architect, CTO, VP Product, deployment and success leads); size and funding not given.</td><td class="ts">0:02:01</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="sec-head"><div class="eyebrow"><span>Considerations</span><span>Ranked by how much they would change the decision</span></div><h2>What to weigh</h2></div>
+  <div class="grid3">
+    <div class="risk"><span class="sev h">High</span><h3>Screen-automation integration</h3><p>Citrix RPA at 15–20 minutes, SSO logouts, and HCHB setups that differ between customers. An agent that acts on a 20-minute-old schedule can double-book. It must prove itself on our sandbox at our volume.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>Capacity view not shown</h3><p>Branch-level supply against expected demand, at the moment of accepting a referral, is what we are buying. Arya described it and did not show it.</p></div>
+    <div class="risk"><span class="sev h">High</span><h3>Governing learned rules</h3><p>Free-text feedback becomes rules. The tool to see and edit “the brain” is still being built. Across 80+ branches, who approves a rule a clinician taught the agent?</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Autonomy boundary</h3><p>Full-time assignments can write straight to HCHB, and approval is framed as a phase. Our Assist boundary needs approval as a permanent option, per action.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Proof, not promises</h3><p>No measured result. Outbound voice and batch outreach were described but not shown live, and the applicant data had low match scores.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Patient-facing AI</h3><p>Our clinical operating leaders may limit it. The outbound number, language support and escalation rules all need clinical sign-off.</p></div>
+    <div class="risk"><span class="sev m">Medium</span><h3>Demo data hygiene</h3><p>During the demo, the presenter’s inbox showed what looked like a live escalation from another customer, with a caregiver’s name and a patient’s initial (0:33:39). Ask how demo and customer data are kept apart. That screen is not included here.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>The whole loop, live</h3><p>The only vendor to show referral → patient → clinician → HCHB write-back working together, with a suggested time as well as a person.</p></div>
+    <div class="risk"><span class="sev l">In their favour</span><h3>Built around the clinician</h3><p>Text instead of an app, preferences set at onboarding, the clinician’s yes before anything lands, and a change-management playbook that matches ours.</p></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><div class="eyebrow"><span>Next steps</span><span>Committed in the room, then recommended</span></div><h2>What happens now</h2></div>
+  <div class="next">
+    <div>
+      <h3>Agreed on the call</h3>
+      <ol>
+        <li><span class="who">Both</span><br>Another virtual session before on-site selection; on-sites the week of 19 October. Colin and Paige to coordinate.</li>
+        <li><span class="who">Arya</span><br>Configure a voice agent for the team to try, and send Paige a Spanish-language text and voice demo.</li>
+        <li><span class="who">Arya</span><br>Next time, show outbound calls and texts to clinicians and the batch-outreach setup.</li>
+        <li><span class="who">Arya</span><br>Show the rules (“brain”) visualization, and come back to the capacity UI with better data.</li>
+        <li><span class="who">Arya</span><br>Check with Anand whether patient messages can use Compassus’s own telephony number.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Recommended for the follow-up</h3>
+      <ul>
+        <li>HCHB: customer count, bi-directional in production since when, and sandbox load-test results for reads and writes at our volume.</li>
+        <li>Screen-change detection and a repair SLA. Has the integration broken in production?</li>
+        <li>The capacity view on real data: branch supply against expected SOCs and recurring demand, including held auths.</li>
+        <li>Configure approval permanently per action (assign, reschedule, patient message) and show it.</li>
+        <li>Rules governance: who approves a learned rule, an audit trail, and a branch-versus-enterprise view.</li>
+        <li>Run our shared scenario through a 60-day episode: frequency, LUPA, recert, and two call-outs on one Tuesday.</li>
+        <li>A measured result from a named home health customer (Aveanna: home health or private duty?), plus company size and funding.</li>
+        <li>How demo and customer data are separated.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="people">
+  <div class="sec-head"><div class="eyebrow"><span>In the room</span><span>From intros, the team slide and meeting tiles</span></div><h2>Who was there</h2></div>
+  <div class="people">
+    <div><h3>Compassus</h3><ul>
+      <li>Evan Kramer<span>Leads Innovation &amp; Operational Excellence</span></li>
+      <li>Michael Thompson<span>VP, Operational Excellence · one year at Compassus, 11 in hospitals</span></li>
+      <li>Colin Highland<span>Initiative lead · PT, ~25 years in home health</span></li>
+      <li>Paige Huffman<span>Senior Project Manager, Operational Excellence</span></li>
+    </ul></div>
+    <div><h3>Arya</h3><ul>
+      <li>Kunal Sarda<span>Co-founder and CEO · led the demo</span></li>
+      <li>Anand Chandrasekaran<span>Principal AI Architect · their HCHB expert</span></li>
+      <li>Named, not present<span>Arun Kalaiselvan (co-founder, CTO); Larissa Licha (VP Product); Courtney Cone (enterprise deployments); Josue Barnes, PhD (enterprise success and strategy)</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<footer>
+  <span>Built from the Teams recording (2:03:50; the call ends at 1:56:27) and its speaker-labelled Teams transcript, with screens taken from the recording. Figures from Arya’s questionnaire return are marked as such. Timestamps are into the recording. One screen showing another customer’s data was left out.</span>
+  <span>Prepared for Compassus Operational Excellence · Internal · September 2026</span>
+</footer>
+</div>
+<dialog id="lb" aria-label="Screenshot viewer">
+  <div class="lb">
+    <img id="lb-img" alt="">
+    <div class="lb-bar">
+      <button type="button" id="lb-prev" aria-label="Previous screenshot">← Prev</button>
+      <span class="lb-cap" id="lb-cap"></span>
+      <button type="button" id="lb-next" aria-label="Next screenshot">Next →</button>
+      <button type="button" id="lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  const shots=[...document.querySelectorAll('.shot')];
+  const dlg=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
+  let i=0;
+  function show(n){i=(n+shots.length)%shots.length;const s=shots[i],im=s.querySelector('img'),fc=s.parentElement.querySelector('figcaption');img.src=im.src;img.alt=im.alt;cap.textContent=fc?fc.textContent.replace(/\s+/g,' ').trim():''}
+  shots.forEach((s,n)=>s.addEventListener('click',()=>{show(n);if(!dlg.open)dlg.showModal()}));
+  document.getElementById('lb-prev').onclick=()=>show(i-1);
+  document.getElementById('lb-next').onclick=()=>show(i+1);
+  document.getElementById('lb-close').onclick=()=>dlg.close();
+  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+  dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+})();
+</script>
