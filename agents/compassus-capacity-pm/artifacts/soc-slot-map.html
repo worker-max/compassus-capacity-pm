@@ -1,0 +1,561 @@
+<title>SOC Slot Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Mulish:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a clinical field map. Masthead → lens bar → radial map with a reading panel →
+   the week as a strip → a two-referral yield bench → the full field guide. House palette
+   (green-grey paper, green-black ink, oxblood, orange) extended with three payer inks. */
+:root{
+  --paper:#F2F3EF; --sheet:#FBFBF8; --ink:#1B211E; --ink-2:#4E5A54; --ink-3:#7C8781;
+  --rule:#D8DAD2; --grid:rgba(27,33,30,.045);
+  --ep:#1F6B57;   /* episodic — PDGM / episodic contracts */
+  --pv:#C8621A;   /* per-visit */
+  --mc:#4F55A3;   /* managed care / authorization */
+  --guard:#792E2E;/* guardrails */
+  --gold:#B8921A;
+  --ep-soft:rgba(31,107,87,.12); --pv-soft:rgba(200,98,26,.13); --mc-soft:rgba(79,85,163,.12); --guard-soft:rgba(121,46,46,.1);
+  --display:"Bodoni Moda","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --body:"Avenir Next",Avenir,"Mulish","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(23,30,26,.05),0 18px 40px -26px rgba(23,30,26,.4);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F1311; --sheet:#151A17; --ink:#E7ECE8; --ink-2:#AEB8B2; --ink-3:#7F8A84;
+  --rule:#2A322D; --grid:rgba(231,236,232,.035);
+  --ep:#4FC0A0; --pv:#F0954D; --mc:#9A9FF0; --guard:#E07A72; --gold:#E2BE4E;
+  --ep-soft:rgba(79,192,160,.14); --pv-soft:rgba(240,149,77,.14); --mc-soft:rgba(154,159,240,.14); --guard-soft:rgba(224,122,114,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -26px rgba(0,0,0,.9); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0F1311; --sheet:#151A17; --ink:#E7ECE8; --ink-2:#AEB8B2; --ink-3:#7F8A84;
+  --rule:#2A322D; --grid:rgba(231,236,232,.035);
+  --ep:#4FC0A0; --pv:#F0954D; --mc:#9A9FF0; --guard:#E07A72; --gold:#E2BE4E;
+  --ep-soft:rgba(79,192,160,.14); --pv-soft:rgba(240,149,77,.14); --mc-soft:rgba(154,159,240,.14); --guard-soft:rgba(224,122,114,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -26px rgba(0,0,0,.9); color-scheme:dark }
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:clamp(16px,3vw,40px);padding-block:clamp(20px,4vw,48px) 64px;
+  display:flex;flex-direction:column;gap:clamp(36px,5vw,64px)}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+/* ---------- masthead ---------- */
+.mast{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:end;
+  border-bottom:1.5px solid var(--ink);padding-bottom:28px}
+.mast h1{font-family:var(--display);font-weight:500;font-size:clamp(48px,8.4vw,118px);line-height:.88;letter-spacing:-.025em;margin-top:14px}
+.mast h1 em{font-style:italic;color:var(--ep)}
+.mast .thesis{font-family:var(--display);font-style:italic;font-size:clamp(19px,2vw,25px);line-height:1.3;color:var(--ink)}
+.mast .thesis + p{margin-top:14px;color:var(--ink-2);max-width:56ch}
+.ledger{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.ledger b{font-weight:600;color:var(--ink)}
+
+/* ---------- lens bar ---------- */
+.lens{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center}
+.lens-group{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lens-group > span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-right:6px}
+.chip{appearance:none;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);font:600 13px/1 var(--body);
+  padding:8px 12px 8px 10px;border-radius:999px;cursor:pointer;display:inline-flex;gap:7px;align-items:center;transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--ink-3)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--c,var(--ink))}
+.chip[aria-pressed="true"] i{box-shadow:0 0 0 2px var(--paper)}
+
+/* ---------- map + panel ---------- */
+.atlas{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:clamp(16px,2.4vw,32px);align-items:start}
+.map{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow);overflow-x:auto;position:relative}
+.map svg{display:block;width:100%;min-width:720px;height:auto}
+.map .legend{position:absolute;left:16px;bottom:14px;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:11px;color:var(--ink-2);pointer-events:none}
+.map .legend span{display:inline-flex;gap:6px;align-items:center}
+.map .legend i{width:9px;height:9px;border-radius:50%;background:var(--c);display:inline-block}
+.map .legend i.ring{background:transparent;border:1.5px solid var(--ink-2)}
+
+svg .link{fill:none;stroke:var(--ink);stroke-opacity:.22;stroke-width:1.1;transition:stroke-opacity .2s}
+svg .link.trunk{stroke-width:2;stroke-opacity:.5}
+svg .link.guard{stroke:var(--guard)}
+svg .leaf text{font-family:var(--body);font-size:12.6px;font-weight:600;fill:var(--ink);transition:opacity .2s}
+svg .leaf .dot{stroke-width:1.6;transition:r .15s}
+svg .leaf, svg .branch, svg .core{cursor:pointer;outline:none}
+svg .leaf:hover .dot, svg .leaf:focus-visible .dot, svg .leaf.on .dot{r:6.5}
+svg .leaf.on text, svg .leaf:focus-visible text{fill:var(--gold)}
+svg .branch rect{fill:var(--ink);transition:fill .2s}
+svg .branch.guard rect{fill:var(--guard)}
+svg .branch text{fill:var(--paper);font-family:var(--body);font-weight:800;font-size:12.5px;letter-spacing:.01em}
+svg .branch .num{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.12em;opacity:.7}
+svg .branch.on rect, svg .branch:focus-visible rect{fill:var(--gold)}
+svg .branch.on text, svg .branch:focus-visible text{fill:#1B211E}
+svg .core circle.c1{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+svg .core circle.c2{fill:none;stroke:var(--ink);stroke-opacity:.35;stroke-dasharray:2 5}
+svg .core text{fill:var(--ink);text-anchor:middle}
+svg .core .t1{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em}
+svg .core .t2{font-family:var(--display);font-size:33px;font-style:italic}
+svg .dim{opacity:.13}
+svg .ring-guide{fill:none;stroke:var(--ink);stroke-opacity:.07}
+
+.panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);background:var(--sheet);border:1px solid var(--rule);border-radius:14px;
+  box-shadow:var(--shadow);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel .crumb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.panel h2{font-family:var(--display);font-weight:500;font-size:30px;line-height:1.05;letter-spacing:-.01em}
+.panel p{color:var(--ink-2)}
+.panel ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.panel ol button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline;width:100%;padding:8px 0;border-bottom:1px solid var(--rule);font-weight:600;font-size:14px}
+.panel ol button:hover{color:var(--gold)}
+.panel ol button:focus-visible{outline:2px solid var(--gold)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:4px;background:var(--rule);color:var(--ink)}
+.tag.E{background:var(--ep-soft);color:var(--ep)} .tag.P{background:var(--pv-soft);color:var(--pv)} .tag.M{background:var(--mc-soft);color:var(--mc)}
+.tag.G{background:var(--guard-soft);color:var(--guard)}
+.dots{display:inline-flex;gap:3px;flex:none;transform:translateY(-1px)}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.dots i.ring{background:transparent;border:1.3px solid var(--ink-3)}
+
+/* ---------- section heads ---------- */
+.shead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 40px;align-items:end;border-top:1.5px solid var(--ink);padding-top:16px;margin-bottom:22px}
+.shead h2{font-family:var(--display);font-weight:500;font-size:clamp(32px,4.4vw,52px);line-height:.98;letter-spacing:-.015em}
+.shead p{color:var(--ink-2);max-width:60ch}
+
+/* ---------- week strip ---------- */
+.week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--sheet);box-shadow:var(--shadow)}
+.day{padding:18px 18px 20px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:10px;min-width:0}
+.day:last-child{border-right:0}
+.day .dname{display:flex;justify-content:space-between;align-items:baseline}
+.day .dname b{font-family:var(--display);font-size:34px;font-weight:500;font-style:italic;line-height:1}
+.day .dname span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.day h3{font-size:15px;font-weight:800;line-height:1.25}
+.day ul{margin:0;padding:0 0 0 16px;color:var(--ink-2);font-size:13.5px;display:flex;flex-direction:column;gap:6px}
+.day.release{background:linear-gradient(180deg,var(--pv-soft),transparent 70%)}
+.daily{grid-column:1/-1;border-top:1px solid var(--rule);padding:14px 18px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;background:var(--paper)}
+.daily b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.daily span{font-size:13.5px;color:var(--ink-2)}
+
+/* ---------- yield bench ---------- */
+.bench{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr);gap:clamp(14px,2vw,24px);align-items:stretch}
+.ref{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow);min-width:0}
+.ref header{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.ref header b{font-family:var(--display);font-style:italic;font-size:30px;font-weight:500;line-height:1}
+.ref header span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.field{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:10px;align-items:center}
+.field label{font-size:13.5px;color:var(--ink-2)}
+.field input,.field select{width:100%;font:600 14px/1.2 var(--mono);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:7px;padding:8px 9px;font-variant-numeric:tabular-nums}
+.field select{font-family:var(--body);font-size:13px}
+.field.wide{grid-template-columns:1fr}
+.out{border-top:1px solid var(--rule);padding-top:12px;display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:13.5px;font-variant-numeric:tabular-nums}
+.out dt{color:var(--ink-2)} .out dd{margin:0;font-family:var(--mono);font-weight:600;text-align:right}
+.out .big{font-size:13.5px;color:var(--ink);font-weight:800}
+.out .big + dd{font-size:20px;color:var(--ep)}
+.out .neg{color:var(--guard)!important}
+.warn{font-size:12.5px;color:var(--guard);background:var(--guard-soft);border-radius:7px;padding:8px 10px}
+.verdict{background:var(--ink);color:var(--paper);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.verdict .eyebrow{color:color-mix(in srgb,var(--paper) 60%,transparent)}
+.verdict h3{font-family:var(--display);font-weight:500;font-size:clamp(24px,2.4vw,31px);line-height:1.12}
+.verdict p{font-size:13.5px;color:color-mix(in srgb,var(--paper) 78%,transparent)}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:20px minmax(0,1fr) 74px;gap:10px;align-items:center;font-family:var(--mono);font-size:12px}
+.bar .track{height:12px;background:color-mix(in srgb,var(--paper) 14%,transparent);border-radius:2px;position:relative;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--gold);border-radius:2px;transition:width .35s}
+.bar .fill.neg{background:var(--guard)}
+.bar b{text-align:right;font-weight:600}
+.assume{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:16px;align-items:center}
+.assume .field{grid-template-columns:auto 96px;gap:8px}
+.assume .field label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.fine{font-size:12.5px;color:var(--ink-3);margin-top:12px;max-width:110ch}
+
+/* ---------- field guide ---------- */
+.guide{columns:3 300px;column-gap:clamp(18px,2.4vw,32px)}
+.gsec{break-inside:avoid;margin-bottom:clamp(18px,2.4vw,30px);background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:18px 20px}
+.gsec.guard{border-color:var(--guard);background:linear-gradient(180deg,var(--guard-soft),var(--sheet) 60%)}
+.gsec header{display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:6px}
+.gsec header span{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.12em}
+.gsec h3{font-family:var(--display);font-weight:500;font-size:24px;line-height:1.05}
+.gsec .lede{font-size:13.5px;color:var(--ink-2);margin:6px 0 4px}
+.gsec dl{margin:0}
+.gsec dt{font-weight:800;font-size:14px;margin-top:12px;display:flex;gap:8px;align-items:baseline}
+.gsec dd{margin:3px 0 0;font-size:13.5px;color:var(--ink-2)}
+.gsec dd small{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-left:4px}
+.gsec .dim{opacity:.28}
+
+footer.src{border-top:1.5px solid var(--ink);padding-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 32px;font-size:12.5px;color:var(--ink-2)}
+footer.src b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+
+@media (max-width:1080px){
+  .atlas{grid-template-columns:1fr}
+  .panel{position:static}
+  .bench{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .verdict{grid-column:1/-1}
+}
+@media (max-width:820px){
+  .mast,.shead{grid-template-columns:1fr}
+  .week{grid-template-columns:1fr}
+  .day{border-right:0;border-bottom:1px solid var(--rule)}
+  .bench{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div>
+      <div class="eyebrow">Branch Director field map · Capacity × payer mix</div>
+      <h1>The SOC <em>Slot</em> Map</h1>
+    </div>
+    <div>
+      <p class="thesis">Every start of care spends a skilled clinician’s next four weeks. Spend the slot where the branch earns it back.</p>
+      <p>Nine branches of weekly practice for keeping SOC capacity from filling with payers that cost more to serve than they pay. Use the lenses to see what matters for each payer class and each time horizon. Click any node to read it.</p>
+      <div class="ledger">
+        <span>PDGM base <b>$2,038</b> / 30-day period</span>
+        <span>LUPA floor <b>2–6</b> visits</span>
+        <span>Blended cost <b>≈$193</b> / visit</span>
+        <span>Book <b>47%</b> FFS · <b>53%</b> other</span>
+      </div>
+    </div>
+  </header>
+
+  <section aria-label="Map">
+    <div class="lens" role="toolbar" aria-label="Map lenses">
+      <div class="lens-group" id="payerLens"><span>Payer lens</span></div>
+      <div class="lens-group" id="hzLens"><span>Horizon</span></div>
+    </div>
+    <div class="atlas" style="margin-top:16px">
+      <div class="map" id="map">
+        <div class="legend" aria-hidden="true">
+          <span><i style="--c:var(--ep)"></i>Episodic</span>
+          <span><i style="--c:var(--pv)"></i>Per-visit</span>
+          <span><i style="--c:var(--mc)"></i>Managed care</span>
+          <span><i class="ring"></i>Every payer</span>
+        </div>
+      </div>
+      <aside class="panel" id="panel" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section aria-labelledby="weekH">
+    <div class="shead">
+      <h2 id="weekH">The week, <em>run as a cadence</em></h2>
+      <p>Capacity is perishable. A slot left empty on Thursday earns nothing, so the week needs one fixed moment when protected slots release to the next tier. Wednesday noon is that moment here; set yours to your SOC lead time.</p>
+    </div>
+    <div class="week" id="week"></div>
+  </section>
+
+  <section aria-labelledby="benchH">
+    <div class="shead">
+      <h2 id="benchH">Slot yield bench</h2>
+      <p>Two referrals, one SOC slot. Score them on contribution per <b>skilled visit consumed</b>, because RN and PT visits are the currency the branch runs out of. Rates other than the CMS base are placeholders: enter your contracts.</p>
+    </div>
+    <div class="bench" id="bench"></div>
+    <div class="assume" id="assume"></div>
+    <p class="fine">Model: per-period payers pay the period rate when visits per period meet the LUPA threshold, otherwise each visit at the CMS skilled-nursing per-visit rate ($176.96, CY2026). Per-visit payers pay rate × visits. Cost = skilled visits × skilled cost + assistant visits × assistant cost. The $193 skilled cost is the research file’s blended, fully allocated estimate; the assistant cost is an example. Admin drag from authorization work is not priced in, so managed-care results are optimistic.</p>
+  </section>
+
+  <section aria-labelledby="guideH">
+    <div class="shead">
+      <h2 id="guideH">Field guide</h2>
+      <p>Everything on the map, in reading order. The lenses above filter this too.</p>
+    </div>
+    <div class="guide" id="guide"></div>
+  </section>
+
+  <footer class="src">
+    <div><b>Grounded in</b>knowledge/payer-and-episode-economics.md · sme/perspectives/01-branch-executive-director.md · artifacts/business-case-methodology.md · artifacts/reimbursement-research/ (MedPAC March 2026 Ch. 8; CMS CY2026 HH PPS final rule, CMS-1828-F)</div>
+    <div><b>Unverified</b>Payer rules for UHC and Indiana Medicaid come from conversation, not contracts. MA and Medicaid rates in the bench are placeholders. Validate both before they drive a decision.</div>
+    <div><b>Compliance</b>Acceptance and discharge policy should be reviewed by compliance before it is run. Nothing here overrides clinical judgment on frequency.</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+(function(){
+"use strict";
+/* payer: E episodic · P per-visit · M managed care · [] = every payer.  hz: D daily · W weekly · S strategic */
+const MAP = {
+  name:"SOC slot",
+  lede:"The start-of-care slot is the branch’s scarcest asset. Only an RN or PT can open a case, and each SOC commits weeks of future visits. Payer mix is decided one slot at a time.",
+  children:[
+  {name:"Know the yield", short:["Know the","yield"], lede:"Three payment mechanics, four ceilings. A visit can be authorized and still uneconomic.", children:[
+    {name:"PDGM pays the period", payer:["E"], hz:"S", d:"Traditional Medicare pays one case-mix adjusted amount per 30-day period (CY2026 national base ≈ $2,038). Between the LUPA floor and the outlier threshold, revenue is flat and every extra visit is cost."},
+    {name:"The LUPA cliff", payer:["E"], hz:"D", d:"Fall below the group’s threshold (2–6 visits) and the whole period reprices to per-visit rates. It is a cliff, not a slope, worth roughly $1,400."},
+    {name:"Visits above need earn $0", payer:["E"], hz:"W", d:"Above the floor the period pays what it pays. The target is the clinically right number: above the floor, no higher than the payment supports."},
+    {name:"Per-visit pays the visit", payer:["P"], hz:"S", d:"Revenue follows each completed visit. CMS per-visit rates (SN $176.96, PT $193.42) anchor the market. Many MA contracts pay below them, often one flat rate for any discipline."},
+    {name:"Auth is permission", payer:["M"], hz:"D", d:"Managed care pays only for authorized visits. Pending-auth allowances run 1, 3, 5 or 10 visits and cap how far ahead you can schedule."},
+    {name:"Benefits run out", payer:["M"], hz:"W", d:"Some Medicaid windows start at hospital discharge, not your admit date. Some plans pool therapy (8 visits shared across PT, OT and ST). Commercial plans cap visits per year."},
+    {name:"Know cost per visit", payer:[], hz:"S", d:"A blended, fully allocated cost near $193 per visit is the hurdle. A per-visit rate under it loses money on every visit before drive time is counted."}
+  ]},
+  {name:"Score the referral", short:["Score the","referral"], lede:"Value the stay, not the first visit. Tier every referral at intake so everyone uses the same language.", children:[
+    {name:"Value the whole stay", payer:[], hz:"D", d:"Score expected contribution across the full stay. One SOC can commit 15 to 25 future visits."},
+    {name:"Measure the commitment tail", payer:[], hz:"D", d:"Frequency × duration × discipline. A 3×/week, six-week per-visit case locks about 18 visits that next week’s better referral may need."},
+    {name:"Count skilled visits used", payer:["P","M"], hz:"D", d:"RN and PT visits are the scarce currency. Rank referrals by contribution per skilled visit, not per visit."},
+    {name:"Read case-mix signals", payer:["E"], hz:"D", d:"Admission source, clinical group, functional impairment and comorbidities set the PDGM payment. Institutional, post-surgical and cardiac referrals usually pay more."},
+    {name:"Price the admin drag", payer:["M"], hz:"D", d:"Auth calls, gate tracking, denials and non-billable pending visits are real cost. A slow-auth payer costs more than its rate shows."},
+    {name:"Check drive and density", payer:[], hz:"D", d:"An in-zone referral is cheaper to serve than an outlier zip. Drive time is unpaid time for a per-visit clinician."},
+    {name:"Weigh second-period odds", payer:["E"], hz:"W", d:"Chronic, multi-comorbidity patients often continue into a second 30-day period, which is a second payment."},
+    {name:"Tier it A / B / C", payer:[], hz:"D", d:"Every referral gets a tier at intake. The release clock, the huddle and the scoreboard all run on it."}
+  ]},
+  {name:"Allocate the slots", short:["Allocate","the slots"], lede:"Manage the week’s SOC slots as a portfolio with a target band, protected inventory and a release time.", children:[
+    {name:"Set a weekly mix band", payer:[], hz:"W", d:"Set a target share of SOCs by payer class from your market and cost base, such as a floor on episodic SOCs. Manage to a band, not a point."},
+    {name:"Protect A-tier slots", payer:[], hz:"W", d:"Hold a fixed number of SOC slots each week for A-tier referrals from priority sources."},
+    {name:"Run the release clock", payer:[], hz:"D", d:"An empty slot earns nothing. Release unfilled protected slots to the next tier at a fixed time, such as Wednesday noon for Thursday and Friday SOCs."},
+    {name:"Cap intensive low-yield SOCs", payer:["P","M"], hz:"W", d:"Limit high-frequency, low-rate admissions per RN per week so they can’t quietly fill the next month."},
+    {name:"Hand off to LPN / PTA early", payer:["P","M"], hz:"W", d:"On flat-rate payers, move routine follow-ups to the assistant tier from visit two where clinically appropriate."},
+    {name:"Manufacture SOC slots", payer:[], hz:"S", d:"A SOC-dedicated RN or PT creates predictable slots every day. Without one, SOC capacity is whatever is left over."},
+    {name:"Bank discharges forward", payer:[], hz:"W", d:"Every forecast discharge is next week’s slot. Count them before Monday."}
+  ]},
+  {name:"Run the week", short:["Run the","week"], lede:"One cadence, five checkpoints and a daily huddle. The detail is in the week strip below.", children:[
+    {name:"Mon · Read the board", payer:[], hz:"W", d:"Open slots by discipline and zone, last week’s SOC mix against the band, LUPA-at-risk periods."},
+    {name:"Tue · Triage the queue", payer:["M"], hz:"D", d:"Tier every pending referral with intake and the auth team. Note auth status and pending-auth allowance."},
+    {name:"Wed · Release checkpoint", payer:[], hz:"D", d:"Unfilled protected slots move to B-tier. Confirm Thursday and Friday SOCs."},
+    {name:"Thu · Forecast exits", payer:["E"], hz:"W", d:"Recerts, discharges and period ends for the next 14 days. Build the second-period LUPA watchlist."},
+    {name:"Fri · Set next week", payer:["M"], hz:"W", d:"Weekend SOC coverage, PRN pre-positioning, reauth requests submitted ahead of gates."},
+    {name:"Daily 15-minute huddle", payer:[], hz:"D", d:"LUPA-at-risk periods, expiring auths, missed visits to rebook inside the period, new referrals tiered."}
+  ]},
+  {name:"Guard episodic margin", short:["Guard","episodic"], lede:"Under PDGM the plan of care is where margin is set. Stay above the floor and no higher than need.", children:[
+    {name:"Plan above the floor", payer:["E"], hz:"W", d:"Build each period with a buffer above its LUPA threshold. Planning to the threshold means one miss triggers LUPA."},
+    {name:"Front-load period one", payer:["E"], hz:"W", d:"Concentrate visits early, when risk is highest and OASIS outcomes respond most."},
+    {name:"Show the ceiling at the POC", payer:["E"], hz:"W", d:"Put the period’s economics in front of the clinician when frequency is written. Show it; never let it override need."},
+    {name:"Watch period two", payer:["E"], hz:"W", d:"Each 60-day cert holds two 30-day payment periods, each with its own group and threshold. Late periods carry more LUPA risk."},
+    {name:"Rebook misses in-period", payer:["E"], hz:"D", d:"A Tuesday miss with days left is recoverable. A next-day report is too late."},
+    {name:"Match discipline to task", payer:["E"], hz:"W", d:"The period pays the same whoever visits. An LPN routine visit costs less and frees an RN for a SOC."}
+  ]},
+  {name:"Make per-visit pay", short:["Make per-","visit pay"], lede:"When you take a per-visit or managed-care case, run it to its rules so every visit is billable and cheap to deliver.", children:[
+    {name:"Write the POC to the payer", payer:["M"], hz:"D", d:"Frequency that ignores the allowance guarantees a week-three problem. Example: 5 initial nursing visits, 4 completed before more are granted."},
+    {name:"Request reauth early", payer:["M"], hz:"W", d:"“Only the day before the visit” is not a rule. Submitting early is training, not engineering."},
+    {name:"Track the gates", payer:["M"], hz:"W", d:"Completion gates, documentation gates and shared pools decide whether visit six is billable."},
+    {name:"Start the benefit clock fast", payer:["M"], hz:"D", d:"When the window opens at hospital discharge, a five-day SOC delay burns a sixth of a 30-day benefit."},
+    {name:"Use the assistant tier", payer:["P"], hz:"W", d:"When a payer pays one rate for any discipline, LPN and PTA visits are where the margin is."},
+    {name:"Cluster by geography", payer:["P"], hz:"W", d:"Route per-visit patients into dense runs. Every unpaid drive minute comes out of contribution."},
+    {name:"Escalate non-billable visits", payer:["M"], hz:"D", d:"If a payer won’t pay retroactively against pending auth, a leader decides whether to see the patient, not the scheduler."}
+  ]},
+  {name:"Shape the inflow", short:["Shape the","inflow"], lede:"The best payer-mix lever is upstream: which sources you cultivate and how fast you answer them.", children:[
+    {name:"Map each source’s payer mix", payer:[], hz:"S", d:"Know which hospitals, physicians and SNFs send which payers, and how many convert."},
+    {name:"Treat sources as portfolios", payer:[], hz:"S", d:"Declining a source’s low-pay referrals can cost you its Medicare referrals. Judge the relationship, not the single case."},
+    {name:"Answer A-tier in minutes", payer:["E"], hz:"D", d:"Premium referrals go to whoever says yes first. Speed of yes is a payer-mix lever."},
+    {name:"Aim liaisons at good mix", payer:["E"], hz:"S", d:"Point liaison time at sources rich in episodic and well-paying contracts."},
+    {name:"Guard concentration", payer:[], hz:"S", d:"One dominant source can swing the mix overnight. Track a concentration index and watch the top source’s trend."},
+    {name:"Log every decline", payer:[], hz:"W", d:"Record decline reason by payer and source. A capacity decline of a good payer is self-inflicted."},
+    {name:"Bring outcomes to contracting", payer:["P","M"], hz:"S", d:"Per-visit MA stays carry 12% higher odds of mid-stay inpatient transfer than episodic ones. Better outcomes are leverage for better rates."}
+  ]},
+  {name:"Read the scoreboard", short:["Read the","scoreboard"], lede:"Eight numbers, read every week, sliced by payer class.", children:[
+    {name:"SOC mix vs. band", payer:[], hz:"W", d:"Share of this week’s SOCs by payer class against the target band."},
+    {name:"Contribution per SOC", payer:[], hz:"W", d:"Trailing four weeks, by payer class. The single number that says whether slots are well spent."},
+    {name:"Visits per period by payer", payer:["E"], hz:"W", d:"Too low flags LUPA risk; too high flags margin leak."},
+    {name:"LUPA rate and at-risk periods", payer:["E"], hz:"D", d:"Periods currently one visit or less above threshold, with days remaining."},
+    {name:"Referral-to-SOC hours", payer:[], hz:"D", d:"By payer. Slow starts lose A-tier referrals and burn benefit windows."},
+    {name:"Acceptance by payer and source", payer:[], hz:"W", d:"Where you say yes and no, and to whom."},
+    {name:"Assistant-tier share", payer:["P"], hz:"W", d:"LPN and PTA share of visits on flat-rate payers."},
+    {name:"Pending-auth days, write-offs", payer:["M"], hz:"W", d:"Days visits sit in pending auth and visits written off as non-billable."}
+  ]},
+  {name:"Hold the line", short:["Hold the","line"], guard:true, lede:"Payer mix is managed at the door and through operations, never through care.", children:[
+    {name:"Need sets frequency", payer:[], hz:"D", g:1, d:"Margin is shown, never weighed against clinical need. The clinician originates frequency."},
+    {name:"Decide at intake", payer:[], hz:"D", g:1, d:"Payer and capacity decisions happen before admission. After admission, discharge follows the Conditions of Participation, never economics."},
+    {name:"One policy for everyone", payer:[], hz:"S", g:1, d:"Use written, consistent acceptance criteria. Never screen by diagnosis, disability or demographics to avoid cost. Document every capacity decline."},
+    {name:"No threshold games", payer:["E"], hz:"W", g:1, d:"Visits added only to clear LUPA draw audit scrutiny. Threshold-adjacent billing is an active contractor target."},
+    {name:"48-hour missed-visit notice", payer:["E"], hz:"D", g:1, d:"Physician notification on missed visits is a Medicare requirement and a system hard stop."},
+    {name:"Clear it with compliance", payer:["M"], hz:"S", g:1, d:"Medicaid participation and network contracts can limit declines. Confirm the acceptance policy with compliance before running it."}
+  ]}
+]};
+
+const WEEK = [
+  {d:"Mon", tag:"Read", h:"Read the board", items:["Open SOC slots by discipline and zone for the week","Last week’s SOC mix against the band","Set protected A-tier slots for the week","LUPA-at-risk periods and their days remaining"]},
+  {d:"Tue", tag:"Triage", h:"Triage the queue", items:["Tier every pending referral A / B / C with intake","Auth status and pending-auth allowance per case","Answer A-tier referrals the same hour","Log declines with payer and source"]},
+  {d:"Wed", tag:"Release", h:"Release checkpoint", cls:"release", items:["Noon: unfilled protected slots release to B-tier","Confirm Thursday and Friday SOCs","Assistant-tier handoffs for new per-visit cases","Check the band; adjust Thursday’s yes / no"]},
+  {d:"Thu", tag:"Forecast", h:"Forecast exits", items:["Discharges, recerts and period ends for 14 days","Second-period LUPA watchlist","Banked capacity counted into next week","Benefit windows closing on managed cases"]},
+  {d:"Fri", tag:"Set", h:"Set next week", items:["Weekend SOC coverage and PRN pre-positioning","Reauth requests in ahead of gates","Next week’s protected-slot count","Scoreboard: contribution per SOC, mix vs. band"]}
+];
+
+const PRESETS = {
+  ffs:  {label:"Traditional Medicare (PDGM)", model:"period", rate:2038, vpp:8, periods:2, asst:25},
+  maep: {label:"MA · episodic contract (example)", model:"period", rate:1850, vpp:8, periods:1, asst:25},
+  mapv: {label:"MA · per-visit contract (example)", model:"visit", rate:150, vpp:9, periods:2, asst:20},
+  mcd:  {label:"Managed Medicaid (example)", model:"visit", rate:135, vpp:8, periods:1, asst:20},
+  com:  {label:"Commercial per-visit (example)", model:"visit", rate:175, vpp:6, periods:1, asst:20}
+};
+const LUPA_VISIT = 176.96;
+
+const PAYERS = [{k:"all",n:"All payers"},{k:"E",n:"Episodic",c:"var(--ep)"},{k:"P",n:"Per-visit",c:"var(--pv)"},{k:"M",n:"Managed care",c:"var(--mc)"}];
+const HZ = [{k:"all",n:"All"},{k:"D",n:"Daily"},{k:"W",n:"Weekly"},{k:"S",n:"Strategic"}];
+const HZN = {D:"Daily",W:"Weekly",S:"Strategic"};
+const PN = {E:"Episodic",P:"Per-visit",M:"Managed care"};
+const PC = {E:"var(--ep)",P:"var(--pv)",M:"var(--mc)"};
+
+const state = {payer:"all", hz:"all", sel:null};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const matches = leaf => (state.payer==="all" || leaf.payer.length===0 || leaf.payer.includes(state.payer)) && (state.hz==="all" || leaf.hz===state.hz);
+const dotsHTML = p => '<span class="dots" aria-hidden="true">' + (p.length ? p.map(k=>`<i style="--c:${PC[k]}"></i>`).join("") : '<i class="ring"></i>') + '</span>';
+const tagsHTML = (l) => '<div class="tags">' + (l.payer.length ? l.payer.map(k=>`<span class="tag ${k}">${PN[k]}</span>`).join("") : '<span class="tag">Every payer</span>') + `<span class="tag">${HZN[l.hz]}</span>` + (l.g ? '<span class="tag G">Guardrail</span>' : '') + '</div>';
+
+/* ---------- lenses ---------- */
+function chips(host, list, key){
+  list.forEach(o=>{
+    const b = document.createElement("button");
+    b.className="chip"; b.type="button"; b.id=`lens-${key}-${o.k}`;
+    b.innerHTML = (o.c?`<i style="--c:${o.c}"></i>`:"") + esc(o.n);
+    b.setAttribute("aria-pressed", String(state[key]===o.k));
+    b.addEventListener("click",()=>{ state[key]=o.k; host.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed", String(x===b))); applyLens(); });
+    host.appendChild(b);
+  });
+}
+chips($("#payerLens"), PAYERS, "payer");
+chips($("#hzLens"), HZ, "hz");
+
+/* ---------- radial map ---------- */
+const R = 350, BR = 178;
+const root = d3.hierarchy(MAP);
+d3.cluster().size([2*Math.PI, R]).separation((a,b)=> (a.parent===b.parent?1:1.9))(root);
+root.children.forEach(b=>{ b.y = BR; });
+const svg = d3.select("#map").insert("svg",":first-child")
+  .attr("viewBox",[-600,-560,1200,1120]).attr("role","img").attr("aria-label","Radial mind map of SOC slot strategy");
+svg.append("circle").attr("class","ring-guide").attr("r",R);
+svg.append("circle").attr("class","ring-guide").attr("r",BR);
+const radial = d3.linkRadial().angle(d=>d.x).radius(d=>d.y);
+const links = svg.append("g").selectAll("path").data(root.links()).join("path")
+  .attr("class",d=>"link"+(d.source.depth===0?" trunk":"")+((d.target.data.guard||d.source.data.guard)?" guard":""))
+  .attr("d",radial);
+
+const leaves = svg.append("g").selectAll("g").data(root.leaves()).join("g")
+  .attr("class","leaf").attr("tabindex",0).attr("role","button")
+  .attr("aria-label",d=>d.data.name)
+  .attr("transform",d=>`rotate(${d.x*180/Math.PI-90}) translate(${d.y},0)`);
+leaves.each(function(d){
+  const g = d3.select(this), p = d.data.payer;
+  if(p.length===0){ g.append("circle").attr("class","dot").attr("r",4.6).attr("fill","var(--sheet)").attr("stroke","var(--ink-2)"); }
+  else { p.forEach((k,i)=> g.append("circle").attr("class","dot").attr("r",4.6).attr("cx",-i*10).attr("fill",PC[k]).attr("stroke",PC[k])); }
+  if(d.data.g) g.append("circle").attr("r",8.5).attr("fill","none").attr("stroke","var(--guard)").attr("stroke-width",1).attr("stroke-dasharray","2 2.5");
+});
+leaves.append("text")
+  .attr("dy","0.32em")
+  .attr("x",d=> d.x < Math.PI ? 13 : -13)
+  .attr("text-anchor",d=> d.x < Math.PI ? "start" : "end")
+  .attr("transform",d=> d.x >= Math.PI ? "rotate(180)" : null)
+  .text(d=>d.data.name);
+
+const branches = svg.append("g").selectAll("g").data(root.children).join("g")
+  .attr("class",d=>"branch"+(d.data.guard?" guard":"")).attr("tabindex",0).attr("role","button")
+  .attr("aria-label",d=>d.data.name)
+  .attr("transform",d=>{ const a=d.x-Math.PI/2; return `translate(${Math.cos(a)*d.y},${Math.sin(a)*d.y})`; });
+branches.append("rect").attr("x",-56).attr("y",-27).attr("width",112).attr("height",54).attr("rx",27);
+branches.append("text").attr("class","num").attr("text-anchor","middle").attr("y",-11).text((d,i)=>String(i+1).padStart(2,"0"));
+branches.each(function(d){
+  const t = d3.select(this).append("text").attr("text-anchor","middle").attr("y",3);
+  d.data.short.forEach((s,i)=> t.append("tspan").attr("x",0).attr("dy",i?14:0).text(s));
+});
+
+const core = svg.append("g").attr("class","core").attr("tabindex",0).attr("role","button").attr("aria-label","SOC slot");
+core.append("circle").attr("class","c2").attr("r",86);
+core.append("circle").attr("class","c1").attr("r",70);
+core.append("text").attr("class","t1").attr("y",-16).text("THE");
+core.append("text").attr("class","t2").attr("y",16).text("SOC slot");
+core.append("text").attr("class","t1").attr("y",36).text("SCARCE · PERISHABLE");
+
+function bind(sel, fn){ sel.on("click",(e,d)=>fn(d)).on("keydown",(e,d)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fn(d);} }); }
+bind(leaves, d=>select(d)); bind(branches, d=>select(d)); bind(core, ()=>select(root));
+
+/* ---------- panel ---------- */
+function select(node){
+  state.sel = node;
+  leaves.classed("on", d=>d===node);
+  branches.classed("on", d=>d===node || (node.depth===2 && d===node.parent));
+  const P = $("#panel");
+  if(node.depth===0){
+    P.innerHTML = `<div class="crumb">Centre</div><h2>The SOC slot</h2><p>${esc(MAP.lede)}</p>
+      <p>Three rules hold the map together: score the stay, not the visit; protect slots for the best referrals until a fixed release time; never let payer economics touch clinical frequency.</p>
+      <ol>${root.children.map((b,i)=>`<li><button type="button" data-b="${i}"><span class="eyebrow">${String(i+1).padStart(2,"0")}</span>${esc(b.data.name)}</button></li>`).join("")}</ol>`;
+    P.querySelectorAll("button[data-b]").forEach(b=>b.addEventListener("click",()=>select(root.children[+b.dataset.b])));
+  } else if(node.depth===1){
+    const i = root.children.indexOf(node);
+    P.innerHTML = `<div class="crumb">Branch ${String(i+1).padStart(2,"0")} of 09</div><h2>${esc(node.data.name)}</h2><p>${esc(node.data.lede)}</p>
+      <ol>${node.children.map((l,j)=>`<li><button type="button" data-l="${j}">${dotsHTML(l.data.payer)}${esc(l.data.name)}</button></li>`).join("")}</ol>`;
+    P.querySelectorAll("button[data-l]").forEach(b=>b.addEventListener("click",()=>select(node.children[+b.dataset.l])));
+  } else {
+    const br = node.parent, i = root.children.indexOf(br);
+    P.innerHTML = `<div class="crumb">${String(i+1).padStart(2,"0")} · ${esc(br.data.name)}</div><h2>${esc(node.data.name)}</h2><p>${esc(node.data.d)}</p>${tagsHTML(node.data)}
+      <ol>${br.children.filter(x=>x!==node).slice(0,4).map(x=>`<li><button type="button" data-n="${br.children.indexOf(x)}">${dotsHTML(x.data.payer)}${esc(x.data.name)}</button></li>`).join("")}</ol>`;
+    P.querySelectorAll("button[data-n]").forEach(b=>b.addEventListener("click",()=>select(br.children[+b.dataset.n])));
+  }
+}
+
+function applyLens(){
+  leaves.classed("dim", d=>!matches(d.data));
+  links.classed("dim", d=> d.target.depth===2 && !matches(d.target.data));
+  branches.classed("dim", d=> !d.children.some(l=>matches(l.data)));
+  document.querySelectorAll("#guide dt, #guide dd").forEach(el=>{
+    const l = GUIDE_INDEX[el.dataset.k]; el.classList.toggle("dim", !matches(l));
+  });
+}
+
+/* ---------- week ---------- */
+$("#week").innerHTML = WEEK.map(w=>`<div class="day ${w.cls||""}"><div class="dname"><b>${w.d}</b><span>${w.tag}</span></div><h3>${esc(w.h)}</h3><ul>${w.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>`).join("")
+  + `<div class="daily"><b>Every day · 15 min</b><span>LUPA-at-risk periods</span><span>Auths expiring in 72 hours</span><span>Missed visits to rebook inside the period</span><span>New referrals tiered and answered</span></div>`;
+
+/* ---------- guide ---------- */
+const GUIDE_INDEX = {};
+$("#guide").innerHTML = root.children.map((b,i)=>`<section class="gsec ${b.data.guard?"guard":""}"><header><span>${String(i+1).padStart(2,"0")}</span><h3>${esc(b.data.name)}</h3></header><p class="lede">${esc(b.data.lede)}</p><dl>`
+  + b.children.map((l,j)=>{ const k=`${i}-${j}`; GUIDE_INDEX[k]=l.data; return `<dt data-k="${k}">${dotsHTML(l.data.payer)}${esc(l.data.name)}</dt><dd data-k="${k}">${esc(l.data.d)}<small>${HZN[l.data.hz]}</small></dd>`; }).join("")
+  + `</dl></section>`).join("");
+
+/* ---------- yield bench ---------- */
+const assume = {cs:193, ca:150, lupa:4};
+const refs = [{id:"a", name:"A", preset:"ffs"},{id:"b", name:"B", preset:"mapv"}].map(r=>Object.assign(r, PRESETS[r.preset]));
+function money(n){ const s = Math.abs(Math.round(n)).toLocaleString("en-US"); return (n<0?"−$":"$")+s; }
+function calc(r){
+  const visits = r.vpp * r.periods;
+  const asst = Math.round(visits * r.asst/100), skilled = visits - asst;
+  let revenue, lupa=false;
+  if(r.model==="period"){ lupa = r.vpp < assume.lupa; revenue = r.periods * (lupa ? r.vpp*LUPA_VISIT : r.rate); }
+  else revenue = visits * r.rate;
+  const cost = skilled*assume.cs + asst*assume.ca, contrib = revenue - cost;
+  return {visits, skilled, asst, revenue, cost, contrib, margin: revenue? contrib/revenue : 0, perSkilled: skilled? contrib/skilled : 0, lupa};
+}
+function refHTML(r){
+  return `<div class="ref"><header><b>Referral ${r.name}</b><span>one SOC slot</span></header>
+    <div class="field wide"><select id="p-${r.id}" aria-label="Payer for referral ${r.name}">${Object.entries(PRESETS).map(([k,p])=>`<option value="${k}" ${k===r.preset?"selected":""}>${esc(p.label)}</option>`).join("")}</select></div>
+    <div class="field"><label for="m-${r.id}">Paid</label><select id="m-${r.id}"><option value="period">Per 30-day period</option><option value="visit">Per visit</option></select></div>
+    <div class="field"><label for="r-${r.id}" id="rl-${r.id}">Rate</label><input id="r-${r.id}" type="number" min="0" step="1" inputmode="decimal"></div>
+    <div class="field"><label for="v-${r.id}">Visits per 30 days</label><input id="v-${r.id}" type="number" min="0" step="1" inputmode="numeric"></div>
+    <div class="field"><label for="n-${r.id}">30-day periods</label><input id="n-${r.id}" type="number" min="1" max="6" step="1" inputmode="numeric"></div>
+    <div class="field"><label for="s-${r.id}">LPN / PTA share %</label><input id="s-${r.id}" type="number" min="0" max="100" step="5" inputmode="numeric"></div>
+    <dl class="out" id="o-${r.id}"></dl></div>`;
+}
+$("#bench").innerHTML = refs.map(refHTML).join("") + `<div class="verdict" id="verdict"></div>`;
+$("#assume").innerHTML = `
+  <div class="field"><label for="cs">Skilled visit cost $</label><input id="cs" type="number" min="0" step="1" value="${assume.cs}"></div>
+  <div class="field"><label for="ca">LPN / PTA visit cost $</label><input id="ca" type="number" min="0" step="1" value="${assume.ca}"></div>
+  <div class="field"><label for="lt">LUPA threshold</label><input id="lt" type="number" min="2" max="6" step="1" value="${assume.lupa}"></div>`;
+function fill(r){
+  $(`#m-${r.id}`).value=r.model; $(`#r-${r.id}`).value=r.rate; $(`#v-${r.id}`).value=r.vpp; $(`#n-${r.id}`).value=r.periods; $(`#s-${r.id}`).value=r.asst;
+  $(`#rl-${r.id}`).textContent = r.model==="period" ? "Rate per period $" : "Rate per visit $";
+}
+function num(id, d){ const v = parseFloat($(id).value); return isFinite(v)&&v>=0 ? v : d; }
+function render(){
+  const res = refs.map(r=>({r, c:calc(r)}));
+  res.forEach(({r,c})=>{
+    $(`#o-${r.id}`).innerHTML = `<dt>Revenue</dt><dd>${money(c.revenue)}</dd><dt>Cost (${c.visits} visits)</dt><dd>${money(c.cost)}</dd>
+      <dt>Margin</dt><dd class="${c.margin<0?"neg":""}">${(c.margin*100).toFixed(1)}%</dd><dt>Skilled visits used</dt><dd>${c.skilled}</dd>
+      <dt class="big">Contribution / skilled visit</dt><dd class="${c.perSkilled<0?"neg":""}">${money(c.perSkilled)}</dd>`
+      + (c.lupa ? `<dt style="grid-column:1/-1" class="warn">Below the LUPA threshold: each period pays per visit (≈$${LUPA_VISIT}), not the period rate.</dt>` : "");
+  });
+  const [a,b] = res, max = Math.max(1, ...res.map(x=>Math.abs(x.c.perSkilled)));
+  const win = a.c.perSkilled >= b.c.perSkilled ? a : b, lose = win===a? b : a;
+  const gap = win.c.perSkilled - lose.c.perSkilled;
+  const both = res.every(x=>x.c.contrib<0);
+  $("#verdict").innerHTML = `<div class="eyebrow">Verdict</div>
+    <h3>${both ? "Neither referral covers its cost at these inputs." : `Referral ${win.r.name} returns ${money(gap)} more per skilled visit.`}</h3>
+    <div class="bars">${res.map(x=>`<div class="bar"><span>${x.r.name}</span><span class="track"><span class="fill ${x.c.perSkilled<0?"neg":""}" style="width:${Math.abs(x.c.perSkilled)/max*100}%"></span></span><b>${money(x.c.perSkilled)}</b></div>`).join("")}</div>
+    <p>${lose.c.skilled > win.c.skilled ? `Referral ${lose.r.name} also uses ${lose.c.skilled - win.c.skilled} more skilled visits, capacity that could open another SOC.` : `Referral ${win.r.name} uses ${win.c.skilled} skilled visits over the stay.`} ${lose.c.contrib < 0 ? `Referral ${lose.r.name} loses money at these rates; take it only for clinical, relationship or compliance reasons, and staff it with the assistant tier.` : `Both clear cost. Fill the slot with ${win.r.name} if both are waiting; if only ${lose.r.name} is waiting at release time, a filled slot beats an empty one.`}</p>`;
+}
+refs.forEach(r=>{
+  fill(r);
+  $(`#p-${r.id}`).addEventListener("change", e=>{ Object.assign(r, PRESETS[e.target.value], {preset:e.target.value}); fill(r); render(); });
+  $(`#m-${r.id}`).addEventListener("change", e=>{ r.model=e.target.value; $(`#rl-${r.id}`).textContent = r.model==="period" ? "Rate per period $" : "Rate per visit $"; render(); });
+  [["r","rate"],["v","vpp"],["n","periods"],["s","asst"]].forEach(([p,k])=> $(`#${p}-${r.id}`).addEventListener("input", ()=>{ r[k]=num(`#${p}-${r.id}`, r[k]); if(k==="asst") r[k]=Math.min(100,r[k]); if(k==="periods") r[k]=Math.max(1,Math.round(r[k])); render(); }));
+});
+[["#cs","cs"],["#ca","ca"],["#lt","lupa"]].forEach(([s,k])=> $(s).addEventListener("input", ()=>{ assume[k]=num(s, assume[k]); render(); }));
+
+select(root); applyLens(); render();
+})();
+</script>
