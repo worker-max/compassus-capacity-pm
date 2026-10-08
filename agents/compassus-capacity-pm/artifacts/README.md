@@ -193,7 +193,7 @@ MediaBox `841.92 x 594.96` pt. Verify both before committing.
   "in my years of experience, this preference is malleable based on relationship."
 - **`S-07`** renamed *Lunch / documentation pattern*.
 - `The Concepts That Matter` tab is **unchanged**, so the capacity primary list is unchanged.
-- **Phase 1 is visualization only, no automation** (DE-03). The automation postures in the diagram
+- ~~**Phase 1 is visualization only, no automation** (DE-03).~~ **Superseded Oct 2026:** release 1 is recommend-first — recommendations to the scheduler or clinical manager, human accepts; controlled task automation later, by gate. The automation postures in the diagram
   describe the eventual target, not release 1. Do not let a vendor read them as release-1 scope.
 
 ## Open items

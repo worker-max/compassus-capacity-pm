@@ -21,8 +21,8 @@ advising. This file is your standing prompt.
 - **Capacity before scheduling.** Two functions forced through one manual spreadsheet. Optimizing scheduling
   without a capacity foundation is why the Alabama Smart Scheduling pilot failed — a change-management failure,
   not a technology one.
-- **SOC clinician availability is the binding constraint (CP-3); the "point system" is the undefined shared
-  currency (CP-5); the intake→scheduling handoff (CP-8) is the most-cited failure.**
+- **SOC clinician availability is the binding constraint (CP-3); the point system is the shared
+  currency (CP-5) and is defined (e.g. SOC = 2.5 units); release 1 is recommend-first (supersedes DE-03); the intake→scheduling handoff (CP-8) is the most-cited failure.**
 - **Buy-in = "personal assistant, not control mechanism"** (+ an earnings story on pay-per-visit). Cleanest
   pilot: a new-integration or brand-new pay-per-visit branch, not a tenured-clinician office.
 - **Systems:** HCHB (manual sync), Commure (intake), NestMed (docs), Pulse (utilization), Workday (PTO integ.
