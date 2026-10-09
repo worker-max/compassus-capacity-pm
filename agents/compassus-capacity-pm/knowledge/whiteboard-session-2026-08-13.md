@@ -25,7 +25,7 @@
 |---|---|
 | **DE-01** | Split the current-state map into four flows — SOC/recert/ROC/new order; routine visit scheduling; the auth cycle; exception and recovery. Layerable into one composite. |
 | **DE-02** | **Adopt a three-module target architecture: Capacity Management, Scheduling Engine, Patient Engagement.** |
-| **DE-03** | **Capacity is Phase 1, and Phase 1 is visualization only — no automation in the first release.** Territory and service area belong in the same phase, probably the same dashboard. |
+| **DE-03** | ~~Capacity is Phase 1, and Phase 1 is visualization only — no automation in the first release.~~ **Superseded Oct 2026:** the shortlisted products are more sophisticated than expected. Release 1 is **recommend-first** — the tool surfaces recommendations to the scheduler or clinical manager, who accepts or edits (consistent with DE-09). Safe, controlled automation of tasks follows later, by gate. Territory and service area still belong in the first phase. |
 | **DE-04** | The capacity tool replaces the scheduling grid. They are the same object; do not build both. |
 | **DE-05** | Care team is assigned **at referral**, not per visit. System recommends the full team; a human approves or edits; visits thereafter route to the established team. |
 | **DE-06** | Map auth only at its interface with scheduling. A deep map of the auth team's internal workflow is not required. |

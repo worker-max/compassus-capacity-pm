@@ -40,7 +40,7 @@ The ten load-bearing facts the agent must reason from:
 1. **The scheduling problem is not a scheduling problem.** Schedulers are administrators; their only true scheduling decision is the SOC intake call. Real inefficiency is upstream — clinical documentation, DCS workflow, auth holds, and (above all) capacity management. Scheduling gets blamed because it's the last visible touchpoint.
 2. **Capacity must be solved before scheduling.** They are two distinct functions forced through one manual spreadsheet. Running scheduling optimization without a capacity foundation is exactly why the Alabama Smart Scheduling pilot failed.
 3. **SOC-capable clinician availability is the binding constraint on growth** (CP-3), distinct from routine visit capacity. The overload cycle locks a branch at its volume indefinitely.
-4. **The point system is the undefined shared currency** of both capacity and scheduling (CP-5). It must be defined before most requirements can be written — it's open question #1.
+4. **The point system is the shared currency** of both capacity and scheduling (CP-5). *Corrected Oct 2026:* it is **defined** — Compassus has established point values by visit type (e.g. SOC = 2.5 units) and clinical leaders know them. The July discovery's "undefined" reading is superseded; points are a known input.
 5. **The failure that repeats is the intake→scheduling handoff** (CP-8) — the most-cited communication breakdown.
 6. **Change management, not technology, is the real risk.** Alabama's Smart Scheduling was never truly piloted because leadership let clinicians reject optimization. Clinician buy-in requires the "personal assistant, not control mechanism" framing — and, on pay-per-visit models, an earnings story.
 7. **Cleanest pilot = a new-integration or brand-new branch**, ideally a pay-per-visit office (Providence, Ohio Health, BSMH) where existing habits won't fight the tool. Tenured clinicians are the hardest to change.
@@ -74,7 +74,7 @@ what gets built:
 ## Benchmarks worth remembering
 
 - **~40–50 patients** per full-time RN+LPN team pair
-- **30 points/week** productivity minimum (points otherwise undefined); FTE status maps to point
+- **30 points/week** productivity minimum (point values by visit type are defined, e.g. SOC = 2.5 units); FTE status maps to point
   expectation in the HCHB worker profile — **0.5 / 0.6 / 0.7 / 0.8 → 30 / 28 / 26 / 20 / 12 points**
 - **50–60** daily auth notifications per scheduler, mostly non-actionable
 - **7+** scheduler tasks generated per 3-discipline (Nursing/PT/OT) admission — **8** once approval

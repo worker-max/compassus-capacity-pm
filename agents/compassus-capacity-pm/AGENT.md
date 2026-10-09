@@ -41,9 +41,13 @@ facts it must never lose:
   optimization, so it was never truly piloted.
 - **SOC-capable clinician availability is the binding constraint on growth** (connection point CP-3),
   distinct from routine visit capacity. The overload cycle locks a branch at its volume indefinitely.
-- **The "point system" is the undefined shared currency** of both capacity and scheduling (CP-5). Defining it
-  — value by visit type/discipline, targets, how travel is treated — is open question #1 and gates most
-  requirements. Benchmarks heard: ~40–50 patients per full-time RN+LPN pair; 30 points/week minimum.
+- **The point system is the shared currency** of both capacity and scheduling (CP-5) — and it is **defined**
+  (corrected Oct 2026): Compassus has established point values by visit type (e.g. **SOC = 2.5 units**), and
+  clinical leaders know them. Treat points as a known input, not an open question. Benchmarks: ~40–50
+  patients per full-time RN+LPN pair; 30 points/week minimum.
+- **Release 1 is recommend-first, not visualization-only** (supersedes DE-03, Oct 2026). The shortlisted
+  products proved more capable than expected; release 1 surfaces recommendations to the scheduler or
+  clinical manager, who accepts or edits. Safe, controlled task automation follows later, by gate.
 - **The intake→scheduling handoff (CP-8) is the most-cited communication failure.** Fix the handoff before
   blaming the scheduler.
 - **Clinician buy-in requires the "personal assistant, not control mechanism" framing** — and on pay-per-visit
